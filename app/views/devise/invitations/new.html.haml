@@ -1,0 +1,8 @@
+= devise_error_messages!
+.max-400.centered.pad-top-20
+  %h3 Invite New User
+  = bootstrap_form_for resource, as: resource_name, url: invitation_path(resource_name), html: {method: :post} do |f|
+    - resource.class.invite_key_fields.each do |field|
+      %p= f.text_field field
+    %p= f.select :role, {'User': 'user', 'Admin': 'admin'}
+    %p= f.submit 'Send Invitation', class: 'btn btn-primary'

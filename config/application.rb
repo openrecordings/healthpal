@@ -8,7 +8,11 @@ Bundler.require(*Rails.groups)
 
 module RailsTemplate
   class Application < Rails::Application
+
+    config.time_zone = 'Eastern Time (US & Canada)'
+    
     config.root_email = ENV['ROOT_EMAIL']
     config.root_password = ENV['ROOT_PASSWORD']
+
   end
 end
