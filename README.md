@@ -36,6 +36,6 @@ Installation:
           <<: *default
           database: your_app_name_production
 
-5. Create the database: ```bundle exec rake db:reset```
-6. Migrate the database: ```bundle exec rake db:migrate```  
-7. Rename the application: ```bundle exec rails g rename:into AppName```
+5. Rename the application: ```bundle exec rails g rename:into AppName```
+6. Create the database: ```bundle exec rake db:reset```
+7. Migrate the database: ```bundle exec rake db:migrate```  
