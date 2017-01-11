@@ -6,8 +6,7 @@ Installation:
 
 1. Clone the repo
 2. ```bundle install```
-3. Rename the application: https://github.com/morshedalam/rename
-4. Create config/application.yml:  
+3. Create config/application.yml:  
 
         ROOT_EMAIL: some_email
         ROOT_PASSWORD: some_password
@@ -15,7 +14,7 @@ Installation:
         DATABASE_PASSWORD: your_db_password  
         DATABASE_HOST: your_db_host (localhost for local development)  
 
-5. create config/database.yml:  
+4. create config/database.yml:  
 
         default: &default  
           adapter: postgresql  
@@ -37,5 +36,6 @@ Installation:
           <<: *default
           database: your_app_name_production
 
-6. ```bundle exec rake db:reset```
-7. ```bundle exec rake db:migrate```
+5. Create the database: ```bundle exec rake db:reset```
+6. Migrate the database: ```bundle exec rake db:migrate```  
+7. Rename the application: ```bundle exec rails g rename:into AppName```
