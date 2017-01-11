@@ -26,25 +26,37 @@
           %span.icon-bar
         %a.navbar-brand(href="#") App Name
         .navbar-collapse.collapse.navbar-responsive-collapse
-          %ul.nav.navbar-nav
-            %li= link_to "Link 1", "/path1"
-            %li= link_to "Link 2", "/path2"
-            %li= link_to "Link 3", "/path3"
-          %ul.nav.navbar-nav.navbar-right
-            %li= link_to 'Sign out', destroy_user_session_path, method: :delete
+          - if user_signed_in?
+            - if current_user.privileged?
+              %ul.nav.navbar-nav
+                %li= link_to "Admin Link 1", "/path1"
+                %li= link_to "Admin Link 2", "/path2"
+                %li= link_to "Admin Link 3", "/path3"
+            - else
+              %ul.nav.navbar-nav
+                %li= link_to "User Link 1", "/path1"
+                %li= link_to "User Link 2", "/path2"
+                %li= link_to "User Link 3", "/path3"
+            %ul.nav.navbar-nav.navbar-right
+              %li= link_to "<span class='fa fa-user' style='margin-right: 3px;'></span>#{truncate(current_user.email, length: 30)}".html_safe, edit_user_registration_path, style: 'padding:0px 10px 0px 0px;display:inline;line-height:50px;'
+              %li= link_to 'Sign out', destroy_user_session_path, method: :delete
+          - else
+            %ul.nav.navbar-nav.navbar-right
+              %li= link_to 'Sign in', new_user_session_path
 
     .container
       .row
-        .col-lg-9
+        .col-xs-12
           = bootstrap_flash
           = yield
-        .col-lg-3
-          .well.sidebar-nav
-            %h3 Sidebar
-            %ul.nav.nav-list
-              %li.nav-header Sidebar
-              %li= link_to "Link 1", "/path1"
-              %li= link_to "Link 2", "/path2"
-              %li= link_to "Link 3", "/path3"
+        -# Optional sidebar:
+        -#.col-lg-3
+        -#  .well.sidebar-nav
+        -#    %h3 Sidebar
+        -#    %ul.nav.nav-list
+        -#      %li.nav-header Sidebar
+        -#      %li= link_to "Link 1", "/path1"
+        -#      %li= link_to "Link 2", "/path2"
+        -#      %li= link_to "Link 3", "/path3"
 
 
