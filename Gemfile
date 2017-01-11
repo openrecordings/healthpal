@@ -13,6 +13,7 @@ gem 'jquery-tablesorter'
 gem 'tether-rails'
 gem 'paperclip', '>= 5.0'
 gem 'delayed_job_active_record'
+gem 'rename'
 
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
