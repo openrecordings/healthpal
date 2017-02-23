@@ -22,6 +22,16 @@
   example, a login form.
   */
   @include ic3d_centered_horizontally;
+  @include ic3d_form_standards;
   max-width: 400px;
-  padding-top: 20px;
+}
+
+.ic3d_med_form {
+  /*
+  Use ic3d_med_form when the form would look best constrained horizontally because its elements are so small - BUT,
+  there's too much text in the header for the small form to work.
+  */
+  @include ic3d_centered_horizontally;
+  @include ic3d_form_standards;
+  max-width: 600px;
 }
