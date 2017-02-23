@@ -1,6 +1,6 @@
 = devise_error_messages!
-.max-400.centered.pad-top-20
-  %h2 Set your password for App Name
+.ic3d_small_form
+  %h2= "Set your password for #{app_display_name}"
   = bootstrap_form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => { :method => :put } do |f|
     = f.hidden_field :invitation_token
     - if f.object.class.require_password_on_accepting

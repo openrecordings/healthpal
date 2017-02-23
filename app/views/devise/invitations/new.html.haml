@@ -1,5 +1,5 @@
 = devise_error_messages!
-.max-400.centered.pad-top-20
+.ic3d_small_form
   %h3 Invite New User
   = bootstrap_form_for resource, as: resource_name, url: invitation_path(resource_name), html: {method: :post} do |f|
     - resource.class.invite_key_fields.each do |field|

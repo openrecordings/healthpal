@@ -1,0 +1,8 @@
+//
+// Mixins to be used in other ic3d stylesheet files
+// Mixins should be used for display concepts - things like "centered", or "rounded corners"
+//
+@mixin ic3d_centered_horizontally {
+  margin-left: auto;
+  margin-right: auto;
+}

@@ -1,0 +1,27 @@
+//
+// ic3d Components to be re-used across applications
+// A "component" is a conceptual element that turns up in many web apps, for example, an "error message", or a "small
+// form", or a "side menu"
+//
+@import '_ic3d_mixins';
+
+//
+// Error/Alert styling beyond what bootstrap provides
+.alert {
+  font-weight: bold;
+  ul {
+    font-weight: normal;
+  }
+}
+
+//
+// Data-entry forms of various kinds
+.ic3d_small_form {
+  /*
+  Use ic3d_small_form when the form would look best constrained horizontally because its elements are so small - for
+  example, a login form.
+  */
+  @include ic3d_centered_horizontally;
+  max-width: 400px;
+  padding-top: 20px;
+}
