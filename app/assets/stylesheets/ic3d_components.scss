@@ -15,6 +15,37 @@
 }
 
 //
+// Link-buttons are buttons (usually submit buttons) that look like regular anchor links. Use if you
+// need to create an anchor link that sends a POST instead of a GET.
+//
+// For example:
+//<form method="post" action="some_page" class="ic3d_link_button_form">
+//<input type="hidden" name="extra_submit_param" value="extra_submit_value">
+//<button type="submit" name="submit_param" value="submit_value" class="ic3d_link_button">
+//  "Link" text
+//</button>
+//</form>
+//
+// Use for link-button <form>
+.ic3d_link_button_form {
+  display: inline;
+}
+//
+// Use for the link-button itself
+.ic3d_link_button {
+  @include ic3d_link_color;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1em;
+}
+.ic3d_link_button:focus {
+  outline: none;
+}
+.ic3d_link_button:hover, .ic3d_link_button:active {
+  text-decoration: underline;
+}
+//
 // Data-entry forms of various kinds
 .ic3d_small_form {
   /*

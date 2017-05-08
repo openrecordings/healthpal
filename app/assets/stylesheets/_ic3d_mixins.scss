@@ -8,4 +8,16 @@
 }
 @mixin ic3d_form_standards {
   padding-top: 20px;
+  h2 {
+    font-size: 18px;
+  }
+  h3 {
+    font-size: 15px;
+  }
+}
+@mixin ic3d_wrap_words {
+  white-space: normal;
+}
+@mixin ic3d_link_color {
+  color: #428bca;
 }
