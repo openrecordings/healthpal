@@ -61,6 +61,10 @@ GEM
       railties (>= 4.1.0, < 5.1)
       responders
       warden (~> 1.2.3)
+    devise-otp-rails5 (0.2.4)
+      devise (>= 3.1.0, < 4.3.0)
+      rails (>= 3.2.6, < 5.1)
+      rotp (>= 2.0.0)
     devise_invitable (1.7.0)
       actionmailer (>= 4.0.0)
       devise (>= 4.0.0)
@@ -158,6 +162,7 @@ GEM
       thor (= 0.19.1)
     responders (2.3.0)
       railties (>= 4.2.0, < 5.1)
+    rotp (3.3.0)
     rspec-core (3.5.4)
       rspec-support (~> 3.5.0)
     rspec-expectations (3.5.0)
@@ -231,6 +236,7 @@ DEPENDENCIES
   byebug
   delayed_job_active_record
   devise
+  devise-otp-rails5
   devise_invitable (~> 1.7.0)
   figaro
   font-awesome-rails
@@ -256,4 +262,4 @@ DEPENDENCIES
   web-console (>= 3.3.0)
 
 BUNDLED WITH
-   1.13.6
+   1.14.6

@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'haml'
 gem 'devise'
+gem 'devise-otp-rails5', require: 'devise-otp'
 gem 'devise_invitable', '~> 1.7.0'
 gem 'awesome_print'
 gem 'rspec-rails'
