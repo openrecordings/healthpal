@@ -1,0 +1,17 @@
+.ic3d_small_form
+  - if resource.otp_enabled?
+    %h3.text-center Two-Factor Authentication Enabled. Please sign out and sign in again.
+  - else
+    %h3.text-center Set Up Two-Factor Authentication
+    %p
+      Two-factor authentication adds an additional layer of security to your acccount.
+      Scan the QR code below using your phone to set up two-factor authentication. To do this, you will need one of the following 
+      applications installed on your phone:
+    %p= link_to 'Duo Mobile', 'https://duo.com/product/trusted-users/two-factor-authentication/duo-mobile', target: '_blank'
+    %p= link_to 'Google Authenticator', 'https://support.google.com/accounts/answer/1066447?hl=en', target: '_blank'
+    %p= link_to 'Authy', 'https://www.authy.com/', target: '_blank'
+    = render :partial => 'token_secret'
+    = form_for(resource, :as => resource_name, :url => [resource_name, :otp_token], :html => { :method => :put }) do |f|
+      .field= f.check_box :otp_enabled, checked: true, style: 'display: none;'
+      %p.text-center.pad-top-20= f.submit 'I have successfully scanned this code into my mobile security app', class: 'btn btn-primary'
+    -# = render :partial => 'trusted_devices' if trusted_devices_enabled?
