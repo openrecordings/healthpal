@@ -9,9 +9,12 @@
             %th Email
             %th Role
             %th Last Login
+            %th 2FA enabled
         %tbody
           - User.order('email ASC').all.each do |user|
             %tr
               %td= user.email
               %td= user.role.capitalize
               %td= format_date_time user.last_sign_in_at
+              - link_text = user.otp_mandatory ? 'Yes' : 'No'
+              %td= link_to link_text, toggle_otp_path(user.id)
