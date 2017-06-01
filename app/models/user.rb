@@ -4,6 +4,7 @@ class User < ApplicationRecord
   devise :otp_authenticatable, :invitable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  before_create :set_otp_credentials
 
   def privileged?
     ['admin', 'root'].include?(role)

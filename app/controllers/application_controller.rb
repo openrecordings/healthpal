@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!
+  before_action :check_otp_status, unless: :devise_controller?
   before_action :configure_permitted_parameters, if: :devise_controller?
   protect_from_forgery with: :exception
 
@@ -15,5 +16,12 @@ class ApplicationController < ActionController::Base
 	def configure_permitted_parameters
 		devise_parameter_sanitizer.permit(:invite, keys: [:role])
 	end
+
+  # Prevent application access unless OTP sign up is complete
+  def check_otp_status
+    if current_user.otp_mandatory
+      redirect_to :user_otp_token unless current_user.otp_enabled
+    end
+  end
 
 end
