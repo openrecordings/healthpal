@@ -66,11 +66,14 @@ if (navigator.getUserMedia) {
       var clipLabel = document.createElement('p');
       var audio = document.createElement('audio');
       var deleteButton = document.createElement('button');
+      var uploadButton = document.createElement('button');
      
       clipContainer.classList.add('clip');
       audio.setAttribute('controls', '');
       deleteButton.textContent = 'Delete';
       deleteButton.className = 'delete';
+      uploadButton.textContent = 'Upload';
+      uploadButton.className = 'upload';
 
       if(clipName === null) {
         clipLabel.textContent = 'My unnamed clip';
@@ -80,6 +83,7 @@ if (navigator.getUserMedia) {
 
       clipContainer.appendChild(audio);
       clipContainer.appendChild(clipLabel);
+      clipContainer.appendChild(uploadButton);
       clipContainer.appendChild(deleteButton);
       soundClips.appendChild(clipContainer);
 
@@ -94,6 +98,8 @@ if (navigator.getUserMedia) {
         evtTgt = e.target;
         evtTgt.parentNode.parentNode.removeChild(evtTgt.parentNode);
       }
+
+      uploadButton.onclick = function() {upload(blob)};
 
       clipLabel.onclick = function() {
         var existingName = clipLabel.textContent;
@@ -174,3 +180,18 @@ function visualize(stream) {
   }
 }
 
+function upload(blob) {
+  var fd = new FormData();
+  fd.append('participant_id', '999');
+  fd.append('data', blob);
+  $.ajax({
+    type: 'POST',
+    url: '/upload',
+    data: fd,
+    processData: false,
+    contentType: false
+
+  }).done(function(data) {
+    console.log('upload complete');
+  });
+}

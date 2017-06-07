@@ -101,6 +101,12 @@ button.delete {
   padding: 0.5rem 0.75rem;
 }
 
+button.upload {
+  background: #006400;
+  padding: 0.5rem 0.75rem;
+  margin-left: 10px
+}
+
 /* Checkbox hack to control information box display */
 
 label {
