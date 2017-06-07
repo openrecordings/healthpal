@@ -5,7 +5,7 @@ class HomeController < ApplicationController
   end
 
   def upload
-    render json: 'success' 
+    render json: nil, status: :ok
   end
 
 end

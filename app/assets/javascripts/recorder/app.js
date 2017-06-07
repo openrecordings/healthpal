@@ -12,6 +12,7 @@ var record = document.querySelector('.record');
 var stop = document.querySelector('.stop');
 var soundClips = document.querySelector('.sound-clips');
 var canvas = document.querySelector('.visualizer');
+var vuMeter = document.querySelector('#vu-meter');
 
 // disable stop button while not recording
 
@@ -165,6 +166,9 @@ function visualize(stream) {
       var v = dataArray[i] / 128.0;
       var y = v * HEIGHT/2;
 
+      vuMeter.textContent = dataArray[i] - 128
+
+
       if(i === 0) {
         canvasCtx.moveTo(x, y);
       } else {
@@ -189,9 +193,11 @@ function upload(blob) {
     url: '/upload',
     data: fd,
     processData: false,
-    contentType: false
+    contentType: false,
+    success: successfulUpload
+  })
+}
 
-  }).done(function(data) {
-    console.log('upload complete');
-  });
+function successfulUpload(data) {
+  console.log('Success!')
 }
