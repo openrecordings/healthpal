@@ -8,4 +8,7 @@ Rails.application.routes.draw do
   get 'users',                       to: 'admin#users'
   get 'toggle_otp/:id',              to: 'admin#toggle_otp',                 as: 'toggle_otp'
 
+  # Recording
+  post 'upload',                      to: 'home#upload'
+
 end

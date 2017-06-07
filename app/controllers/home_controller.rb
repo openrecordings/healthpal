@@ -4,4 +4,8 @@ class HomeController < ApplicationController
     redirect_to :admin if current_user.privileged?
   end
 
+  def upload
+    render json: 'success' 
+  end
+
 end
