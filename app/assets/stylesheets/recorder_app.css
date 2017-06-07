@@ -10,7 +10,6 @@ html, body {
 
 body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-size: 0.8rem;
 }
 
 .wrapper {
@@ -20,7 +19,6 @@ body {
 }
 
 h1, h2 {
-  font-size: 2rem;
   text-align: center;
   font-weight: normal;
   padding: 0.5rem 0 0 0;
@@ -44,13 +42,11 @@ canvas {
 }
 
 #buttons button {
-  font-size: 1rem;
   padding: 1rem;
   width: calc(50% - 0.25rem);
 }
 
 button {
-  font-size: 1rem;
   background: #0088cc;
   text-align: center;
   color: white;
@@ -94,24 +90,20 @@ audio {
 
 .clip p {
   display: inline-block;
-  font-size: 1rem;
 }
 
 .clip button {
-  font-size: 1rem;
   float: right;
 }
 
 button.delete {
   background: #f00;
   padding: 0.5rem 0.75rem;
-  font-size: 0.8rem;
 }
 
 /* Checkbox hack to control information box display */
 
 label {
-  font-size: 3rem;
   position: absolute;
   top: 2px;
   right: 3px;
@@ -137,7 +129,6 @@ aside {
 }
 
 aside p {
-  font-size: 1.2rem;
   margin: 0.5rem 0;
 }
 

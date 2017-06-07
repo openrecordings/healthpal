@@ -1,0 +1,15 @@
+%body
+  .wrapper
+    %header
+      %h2 New Recording
+    %section.main-controls
+      %canvas.visualizer
+      #buttons
+        %button.record Record
+        %button.stop Stop
+    %section.sound-clips
+      -#
+        %article.clip
+          %audio{:controls => ""}
+          %p Sample clip name
+          %button.delete Delete
