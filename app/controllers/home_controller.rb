@@ -1,5 +1,7 @@
 class HomeController < ApplicationController
 
+  require 'base64'
+
   def index
     redirect_to :admin if current_user.privileged?
   end
@@ -21,6 +23,11 @@ class HomeController < ApplicationController
     else
       render json: nil, status: :unauthorized
     end
+  end
+
+  def play
+    @recording = Recording.first
+    @audio_base_64 = Base64.encode64(@recording.audio)
   end
 
 end

@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get 'toggle_otp/:id',              to: 'admin#toggle_otp',                 as: 'toggle_otp'
 
   # Recording
-  post 'upload',                      to: 'home#upload'
+  post 'upload',                     to: 'home#upload'
+  get 'play',                        to: 'home#play' 
 
 end
