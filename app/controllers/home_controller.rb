@@ -5,6 +5,7 @@ class HomeController < ApplicationController
   end
 
   def upload
+    blob = params['data'].tempfile.read
     render json: nil, status: :ok
   end
 
