@@ -4,6 +4,8 @@ class User < ApplicationRecord
   devise :otp_authenticatable, :invitable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  has_many :recordings
+
   before_create :set_otp_credentials
 
   def privileged?
