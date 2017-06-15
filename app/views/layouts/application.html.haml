@@ -20,8 +20,8 @@
           %span.icon-bar
           %span.icon-bar
           %span.icon-bar
-        %a.navbar-brand(href="#")
-          =app_display_name
+        %a.navbar-brand(href="/")
+          = image_tag('open_recordings_text.png', width: '120')
         .navbar-collapse.collapse.navbar-responsive-collapse
           - if user_signed_in?
             - if current_user.privileged?
