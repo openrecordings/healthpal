@@ -41,6 +41,8 @@ GEM
     airbrussh (1.2.0)
       sshkit (>= 1.6.1, != 1.7.0)
     arel (7.1.4)
+    attr_encrypted (3.0.3)
+      encryptor (~> 3.0.0)
     awesome_print (1.7.0)
     bcrypt (3.1.11)
     bootstrap_form (2.5.3)
@@ -87,6 +89,7 @@ GEM
       actionmailer (>= 4.0.0)
       devise (>= 4.0.0)
     diff-lcs (1.2.5)
+    encryptor (3.0.0)
     erubis (2.7.0)
     execjs (2.7.0)
     ffi (1.9.14)
@@ -255,6 +258,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  attr_encrypted
   awesome_print
   bootstrap_form
   byebug
