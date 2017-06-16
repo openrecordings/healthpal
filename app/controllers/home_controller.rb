@@ -26,7 +26,8 @@ class HomeController < ApplicationController
   end
 
   def play
-    @recording = Recording.first
+    # TODO: Pass in a recording ID
+    @recording = Recording.last
     @audio_base_64 = Base64.encode64(@recording.audio)
   end
 
