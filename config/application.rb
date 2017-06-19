@@ -16,5 +16,7 @@ module Orals
     config.root_email = ENV['ROOT_EMAIL']
     config.root_password = ENV['ROOT_PASSWORD']
 
+    config.audio_encryption_key = ENV['AUDIO_ENCRYPTION_KEY']
+
   end
 end
