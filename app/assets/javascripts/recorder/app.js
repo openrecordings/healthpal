@@ -140,6 +140,16 @@ function upload(blob) {
   var fd = new FormData();
   fd.append('data', blob);
   $.ajax({
+    xhr: function() {
+      var xhr = new window.XMLHttpRequest();
+      xhr.upload.addEventListener("progress", function(evt) {
+        if (evt.lengthComputable) {
+          var percentComplete = evt.loaded / evt.total;
+          console.log(percentComplete);
+          }
+       }, false);
+       return xhr;
+    },
     type: 'POST',
     url: '/upload',
     data: fd,
