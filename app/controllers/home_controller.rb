@@ -31,4 +31,9 @@ class HomeController < ApplicationController
     @audio_base_64 = Base64.encode64(@recording.audio)
   end
 
+  def send_audio
+    # TODO: Pass in a recording ID
+    send_data(Recording.last.audio)
+  end
+
 end

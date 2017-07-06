@@ -1,2 +1,3 @@
 = @recording.user.email
-%audio{controls: 'controls', src: "data:audio/ogg;base64,#{@audio_base_64}"}
+-# %audio{controls: 'controls', src: "data:audio/ogg;base64,#{@audio_base_64}"}
+%audio{controls: 'controls', src: "#{send_audio_path}"}

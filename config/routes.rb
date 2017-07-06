@@ -11,5 +11,6 @@ Rails.application.routes.draw do
   # Recording
   post 'upload',                     to: 'home#upload'
   get 'play',                        to: 'home#play' 
+  get 'send_audio',                  to: 'home#send_audio'
 
 end
