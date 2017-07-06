@@ -32,8 +32,10 @@ class HomeController < ApplicationController
   end
 
   def send_audio
-    # TODO: Pass in a recording ID
-    send_data(Recording.last.audio)
+    tmp_file = '/tmp/tmp.ogg'
+    File.open(tmp_file, 'wb') { |file| file.write(Recording.last.audio) }
+    send_file(tmp_file)
+    File.delete(tmp_file)
   end
 
 end
