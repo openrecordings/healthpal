@@ -31,9 +31,8 @@
                 %li= link_to "Admin Link 3", "/path3"
             - else
               %ul.nav.navbar-nav
-                %li= link_to 'Play', play_path
-                %li= link_to "User Link 2", "/path2"
-                %li= link_to "User Link 3", "/path3"
+                %li= link_to 'New Recording', record_path
+                %li= link_to 'My Recordings', play_path
             %ul.nav.navbar-nav.navbar-right
               %li= link_to "<span class='fa fa-user' style='margin-right: 3px;'></span>#{truncate(current_user.email, length: 30)}".html_safe, edit_user_registration_path, style: 'padding:0px 10px 0px 0px;display:inline;line-height:50px;'
               %li= link_to 'Sign out', destroy_user_session_path, method: :delete
