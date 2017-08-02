@@ -26,3 +26,5 @@
 
 # Ignore VIM temp files
 *.swp
+
+/recordings_tmp/*
