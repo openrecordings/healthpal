@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   post 'upload',                     to: 'record#upload'
 
   # Playback
-  get 'play',                        to: 'home#play' 
-  get 'send_audio',                  to: 'home#send_audio'
+  get 'play',                        to: 'play#play' 
+  get 'send_audio',                  to: 'play#send_audio'
 
 end
