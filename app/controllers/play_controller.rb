@@ -1,5 +1,9 @@
 class PlayController < ApplicationController
 
+  def index
+    @recordings = current_user.recordings
+  end
+
   def play
     # TODO: Pass in a recording ID
     @recording = Recording.last

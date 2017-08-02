@@ -1,0 +1,3 @@
+.text-center
+  - @recordings.each do |recording|
+    %div= link_to format_date_time(recording.created_at), play_path(recording.id)

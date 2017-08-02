@@ -13,7 +13,8 @@ Rails.application.routes.draw do
   post 'upload',                     to: 'record#upload'
 
   # Playback
-  get 'play',                        to: 'play#play' 
+  get 'my_recordings',               to: 'play#index'
+  get 'play/:id',                    to: 'play#play',                        as: 'play'
   get 'send_audio',                  to: 'play#send_audio'
 
 end
