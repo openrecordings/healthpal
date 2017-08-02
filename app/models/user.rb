@@ -6,7 +6,8 @@ class User < ApplicationRecord
 
   has_many :recordings
 
-  before_create :set_otp_credentials
+  # 2FA is disabled
+  # before_create :set_otp_credentials
 
   def privileged?
     ['admin', 'root'].include?(role)
