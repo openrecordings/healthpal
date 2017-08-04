@@ -53,9 +53,9 @@ if (navigator.getUserMedia) {
       clipContainer.classList.add('clip');
       audio.setAttribute('controls', '');
       deleteButton.textContent = 'Delete';
-      deleteButton.className = 'delete';
+      deleteButton.className = 'delete btn btn-primary';
       uploadButton.textContent = 'Upload';
-      uploadButton.className = 'upload';
+      uploadButton.className = 'upload btn btn-primary';
       if(clipName === null) {
         clipLabel.textContent = 'My unnamed clip';
       } else {
@@ -105,34 +105,25 @@ function visualize(stream) {
   var analyser = audioCtx.createAnalyser();
   analyser.fftSize = 2048;
   var bufferLength = analyser.frequencyBinCount;
-  var dataArray = new Uint8Array(bufferLength);
+  var dataArray = new Float32Array(bufferLength);
   source.connect(analyser);
-  //analyser.connect(audioCtx.destination);
   WIDTH = canvas.width
   HEIGHT = canvas.height;
   draw()
   function draw() {
     requestAnimationFrame(draw);
-    analyser.getByteTimeDomainData(dataArray);
+    analyser.getFloatTimeDomainData(dataArray);
     canvasCtx.fillStyle = 'rgb(200, 200, 200)';
     canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
-    canvasCtx.lineWidth = 2;
-    canvasCtx.strokeStyle = 'rgb(0, 0, 0)';
-    canvasCtx.beginPath();
-    var sliceWidth = WIDTH * 1.0 / bufferLength;
-    var x = 0;
+    var sumAmpSquared = 0.0;
     for(var i = 0; i < bufferLength; i++) {
-      var v = dataArray[i] / 128.0;
-      var y = v * HEIGHT/2;
-      if(i === 0) {
-        canvasCtx.moveTo(x, y);
-      } else {
-        canvasCtx.lineTo(x, y);
-      }
-      x += sliceWidth;
-    }
-    canvasCtx.lineTo(canvas.width, canvas.height/2);
-    canvasCtx.stroke();
+      sumAmpSquared += dataArray[i]**2.0;
+    } 
+    var rms = (sumAmpSquared * 1.0 / i)**0.5;
+    var rmsPixels = rms * HEIGHT * 10; // Arbitrary multiplier because RMS is typically low
+    console.log(rmsPixels);
+    canvasCtx.fillStyle = 'rgb(100, 800, 100)';
+    canvasCtx.fillRect(0, HEIGHT - rmsPixels, WIDTH, HEIGHT);
   }
 }
 
