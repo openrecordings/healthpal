@@ -121,7 +121,6 @@ function visualize(stream) {
     } 
     var rms = (sumAmpSquared * 1.0 / i)**0.5;
     var rmsPixels = rms * HEIGHT * 10; // Arbitrary multiplier because RMS is typically low
-    console.log(rmsPixels);
     canvasCtx.fillStyle = 'rgb(100, 800, 100)';
     canvasCtx.fillRect(0, HEIGHT - rmsPixels, WIDTH, HEIGHT);
   }
