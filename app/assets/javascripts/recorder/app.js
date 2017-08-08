@@ -117,9 +117,9 @@ function visualize(stream) {
     canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
     var sumAmpSquared = 0.0;
     for(var i = 0; i < bufferLength; i++) {
-      sumAmpSquared += dataArray[i]**2.0;
+      sumAmpSquared += Math.pow(dataArray[i], 2.0);
     } 
-    var rms = (sumAmpSquared * 1.0 / i)**0.5;
+    var rms = Math.pow((sumAmpSquared * 1.0 / i), 0.5);
     var rmsPixels = rms * HEIGHT * 10; // Arbitrary multiplier because RMS is typically low
     canvasCtx.fillStyle = 'rgb(100, 800, 100)';
     canvasCtx.fillRect(0, HEIGHT - rmsPixels, WIDTH, HEIGHT);
