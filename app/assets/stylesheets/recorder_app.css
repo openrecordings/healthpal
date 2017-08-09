@@ -50,7 +50,7 @@ canvas {
   overflow: auto;
 }
 
-meter{
+progress{
   width: 200px;
   margin-left: 10px;
 }

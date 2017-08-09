@@ -12,7 +12,8 @@ var record = document.querySelector('.record');
 var stop = document.querySelector('.stop');
 var soundClips = document.querySelector('.sound-clips');
 var canvas = document.querySelector('.visualizer');
-var meter = document.createElement('meter')
+var progress = document.createElement('progress');
+progress.value = 0;
 
 // disable stop button while not recording
 stop.disabled = true;
@@ -67,7 +68,7 @@ if (navigator.getUserMedia) {
       clipContainer.appendChild(clipLabel);
       clipContainer.appendChild(uploadButton);
       clipContainer.appendChild(deleteButton);
-      clipContainer.appendChild(meter);
+      clipContainer.appendChild(progress);
       soundClips.appendChild(clipContainer);
       audio.controls = true;
       var blob = new Blob(chunks, { 'type' : 'audio/ogg; codecs=opus' });
@@ -142,7 +143,7 @@ function upload(blob) {
       xhr.upload.addEventListener("progress", function(evt) {
         if (evt.lengthComputable) {
           var percentComplete = evt.loaded / evt.total;
-          meter.value = percentComplete;
+          progress.value = percentComplete;
           }
        }, false);
        return xhr;
