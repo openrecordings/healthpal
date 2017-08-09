@@ -15,20 +15,31 @@ h1, h2 {
 }
 
 canvas {
-  width: 30px;
-  height: 60px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  width: 200px;
+  height: 300px;
   margin-bottom: 0.5rem;
+  border-radius: 5px;
 }
 
-#buttons {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+.meter-container{
+  width: 100%;
 }
 
-#buttons button {
-  padding: 1rem;
-  width: calc(50% - 0.25rem);
+#buttons{
+  text-align: center;
+  width: 100%;
+}
+
+.record, .stop{
+  display: inline-block;
+  width: 100px;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Make the clips use as much space as possible, and
