@@ -12,6 +12,7 @@ var record = document.querySelector('.record');
 var stop = document.querySelector('.stop');
 var soundClips = document.querySelector('.sound-clips');
 var canvas = document.querySelector('.visualizer');
+var meter = document.createElement('meter')
 
 // disable stop button while not recording
 stop.disabled = true;
@@ -45,7 +46,7 @@ if (navigator.getUserMedia) {
       hideControls();
     }
     mediaRecorder.onstop = function(e) {
-      var clipName = prompt('Enter a name for your sound clip?','My unnamed clip');
+      var clipName = new Date().toLocaleString();
       var clipContainer = document.createElement('article');
       var clipLabel = document.createElement('p');
       var audio = document.createElement('audio');
@@ -66,6 +67,7 @@ if (navigator.getUserMedia) {
       clipContainer.appendChild(clipLabel);
       clipContainer.appendChild(uploadButton);
       clipContainer.appendChild(deleteButton);
+      clipContainer.appendChild(meter);
       soundClips.appendChild(clipContainer);
       audio.controls = true;
       var blob = new Blob(chunks, { 'type' : 'audio/ogg; codecs=opus' });
@@ -140,7 +142,7 @@ function upload(blob) {
       xhr.upload.addEventListener("progress", function(evt) {
         if (evt.lengthComputable) {
           var percentComplete = evt.loaded / evt.total;
-          console.log(percentComplete);
+          meter.value = percentComplete;
           }
        }, false);
        return xhr;

@@ -50,6 +50,11 @@ canvas {
   overflow: auto;
 }
 
+meter{
+  width: 200px;
+  margin-left: 10px;
+}
+
 section, article {
   display: block;
 }
