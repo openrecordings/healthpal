@@ -11,7 +11,7 @@ module Orals
 
     config.time_zone = 'Eastern Time (US & Canada)'
 
-    config.app_display_name = 'App Name'
+    config.app_display_name = ENV['APP_DISPLAY_NAME']
 
     config.root_email = ENV['ROOT_EMAIL']
     config.root_password = ENV['ROOT_PASSWORD']
