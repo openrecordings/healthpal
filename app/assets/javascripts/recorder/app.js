@@ -42,6 +42,7 @@ if (navigator.getUserMedia) {
 
       stop.disabled = true;
       record.disabled = false;
+      hideControls();
     }
     mediaRecorder.onstop = function(e) {
       var clipName = prompt('Enter a name for your sound clip?','My unnamed clip');
@@ -72,8 +73,12 @@ if (navigator.getUserMedia) {
       var audioURL = window.URL.createObjectURL(blob);
       audio.src = audioURL;
       deleteButton.onclick = function(e) {
-        evtTgt = e.target;
-        evtTgt.parentNode.parentNode.removeChild(evtTgt.parentNode);
+        var response = confirm('Are you sure you want to delete this recording?');
+        if(response == true){
+          evtTgt = e.target;
+          evtTgt.parentNode.parentNode.removeChild(evtTgt.parentNode);
+          showControls();
+        }
       }
       uploadButton.onclick = function() {upload(blob)};
       clipLabel.onclick = function() {
@@ -150,5 +155,15 @@ function upload(blob) {
 }
 
 function successfulUpload(data) {
-  console.log('Success!')
+  alert('Audio successfully uploaded.')
+  $('.clip').remove();
+  showControls();
+}
+
+function hideControls() {
+  $('.main-controls').hide();
+}
+
+function showControls() {
+  $('.main-controls').show();
 }
