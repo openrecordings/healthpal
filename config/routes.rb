@@ -8,8 +8,8 @@ Rails.application.routes.draw do
   get 'users',                       to: 'admin#users'
   get 'toggle_otp/:id',              to: 'admin#toggle_otp',                 as: 'toggle_otp'
   get 'new_registration',            to: 'admin#new_registration'
-  get 'set_password',                to: 'admin#set_password'
-  get 'create_registration',         to: 'admin#create_registration'
+  post 'set_password',               to: 'admin#set_password'
+  post 'create_registration',         to: 'admin#create_registration'
   get 'switch_to_new_user',          to: 'admin#switch_to_new_user'
 
   # Recording

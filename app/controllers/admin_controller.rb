@@ -14,10 +14,15 @@ class AdminController < ApplicationController
 
   # Start the workflow for doing an in-clinic user registration
   def new_registration
+    # Creating a new user to hold params, but we're only going to set the email now
+    @user = User.new
   end
 
   # Set password for in-clinic user registration
   def set_password
+    puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+    puts params.require(:user).permit(:email)[:email]
+    puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
   end
 
   # Create new user using in-clinic registration
