@@ -26,9 +26,7 @@
           - if user_signed_in?
             - if current_user.privileged?
               %ul.nav.navbar-nav
-                %li= link_to "Admin Link 1", "/path1"
-                %li= link_to "Admin Link 2", "/path2"
-                %li= link_to "Admin Link 3", "/path3"
+                %li= link_to "User Management", "/"
             - else
               %ul.nav.navbar-nav
                 %li= link_to 'New Recording', record_path
