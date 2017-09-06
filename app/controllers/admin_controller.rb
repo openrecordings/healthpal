@@ -15,22 +15,38 @@ class AdminController < ApplicationController
   # Start the workflow for doing an in-clinic user registration
   def new_registration
     # Creating a new user to hold params, but we're only going to set the email now
-    @user = User.new
+    @user = User.new(email: params[:email])
+    puts '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
+    puts params.inspect
+    puts '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
+    
   end
 
   # Set password for in-clinic user registration
   def set_password
-    puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
-    puts params.require(:user).permit(:email)[:email]
-    puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+    @user = User.new(email: user_params[:email])
   end
 
   # Create new user using in-clinic registration
-  def create_registation
+  def create_registration
+    @user = User.new(
+      email: user_params[:email],
+      password: user_params[:password],
+      role: 'user'
+    )
+    if @user.save
+      sign_in @user
+      redirect_to :root and return
+    else
+      flash.alert = @user.errors.full_messages
+      redirect_to new_registration_path(email: @user.email)
+    end
   end
 
-  # Switch to new user after in-clinic registration
-  def switch_to_new_user
+  private
+
+  def user_params
+    params.require(:user).permit(:email, :password)
   end
 
 end
