@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :check_otp_status, unless: :devise_controller?
   before_action :configure_permitted_parameters, if: :devise_controller?
-
+  before_action :set_cache_buster
 
   # Used in a before_filter in individual controllers for authorization.
   def only_admins
@@ -22,6 +22,12 @@ class ApplicationController < ActionController::Base
     if current_user.otp_mandatory
       redirect_to :user_otp_token unless current_user.otp_enabled
     end
+  end
+
+  def set_cache_buster
+    response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
+    response.headers["Pragma"] = "no-cache"
+    response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
   end
 
 end

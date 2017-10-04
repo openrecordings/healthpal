@@ -1,2 +1,7 @@
-// Place all the behaviors and hooks related to the matching controller here.
-// All this logic will automatically be available in application.js.
+$(document).ready(function(){
+	var audio = document.createElement('audio');
+	audio.setAttribute('src','/send_audio/28');
+	audio.setAttribute('controls','controls');
+	audio.load();
+	document.body.append(audio);
+})
