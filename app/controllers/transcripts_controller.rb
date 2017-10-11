@@ -12,9 +12,6 @@ class TranscriptsController < ApplicationController
     @transcript = Transcript.new(transcript_params)
     # TODO: convert raw to actual tempfile contents
     @transcript.raw_to_ascii 
-    puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
-    puts transcript_params.inspect
-    puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
     render :new
   end
 
