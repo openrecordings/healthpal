@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170619173954) do
+ActiveRecord::Schema.define(version: 20171011174151) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,14 @@ ActiveRecord::Schema.define(version: 20170619173954) do
     t.datetime "updated_at",         null: false
     t.binary   "encrypted_audio"
     t.binary   "encrypted_audio_iv"
+  end
+
+  create_table "transcripts", force: :cascade do |t|
+    t.integer  "recording_id"
+    t.integer  "format"
+    t.text     "raw"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -63,6 +71,15 @@ ActiveRecord::Schema.define(version: 20170619173954) do
     t.index ["otp_challenge_expires"], name: "index_users_on_otp_challenge_expires", using: :btree
     t.index ["otp_session_challenge"], name: "index_users_on_otp_session_challenge", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  end
+
+  create_table "utterances", force: :cascade do |t|
+    t.integer  "transcript_id"
+    t.integer  "index"
+    t.integer  "begins_at"
+    t.text     "text"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
 end
