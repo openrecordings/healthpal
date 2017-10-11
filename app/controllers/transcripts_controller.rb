@@ -8,7 +8,6 @@ class TranscriptsController < ApplicationController
   end
 
   def create
-    file_to_text
     @transcript = Transcript.new(transcript_params)
     # TODO: convert raw to actual tempfile contents
     @transcript.raw_to_ascii 
