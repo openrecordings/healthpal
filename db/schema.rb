@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171011174151) do
+ActiveRecord::Schema.define(version: 20171012201657) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,7 +76,7 @@ ActiveRecord::Schema.define(version: 20171011174151) do
   create_table "utterances", force: :cascade do |t|
     t.integer  "transcript_id"
     t.integer  "index"
-    t.integer  "begins_at"
+    t.float    "begins_at"
     t.text     "text"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
