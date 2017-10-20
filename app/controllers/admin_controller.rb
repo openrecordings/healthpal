@@ -16,10 +16,6 @@ class AdminController < ApplicationController
   def new_registration
     # Creating a new user to hold params, but we're only going to set the email now
     @user = User.new(email: params[:email])
-    puts '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
-    puts params.inspect
-    puts '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
-    
   end
 
   # Set password for in-clinic user registration

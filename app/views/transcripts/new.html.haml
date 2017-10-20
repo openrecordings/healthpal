@@ -1,0 +1,5 @@
+= bootstrap_form_for @transcript do |f|
+  = f.hidden_field :format
+  = f.select :recording_id, Recording.all.collect {|r| ["#{r.user.email} #{format_date_time r.created_at}" , r.id ]}
+  = f.file_field :raw, label: 'Transcipt file (rtf and ascii are supported)'
+  = f.submit 'Create Transcript Now', class: 'btn btn-primary'
