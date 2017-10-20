@@ -1,0 +1,15 @@
+%h3 Recordings
+.row
+  .col-md-12
+    .panel.panel-default.table-responsive
+      %table.table.table-striped.tablesorter#recs
+        %thead
+          %tr
+            %th Created
+            %th Recorded By
+        %tbody
+          - @rc.all.each do |recording|
+            %tr
+              %td= link_to format_date_time(recording.created_at), play_path(recording.id)
+              %td= User.find(recording.user_id).email
+
