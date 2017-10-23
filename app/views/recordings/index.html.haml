@@ -8,8 +8,8 @@
             %th Created
             %th Recorded By
         %tbody
-          - @rc.all.each do |recording|
+          - @recordings.all.each do |recording|
             %tr
               %td= link_to format_date_time(recording.created_at), play_path(recording.id)
-              %td= User.find(recording.user_id).email
+              %td= recording.user.email
 
