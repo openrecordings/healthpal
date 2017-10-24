@@ -1,5 +1,5 @@
 class RecordingsController < ApplicationController
-  def recordings
-    @rc = Recording.order("created_at asc")
+  def index
+    @recordings = Recording.includes(:user)
   end
 end
