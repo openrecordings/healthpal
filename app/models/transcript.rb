@@ -12,9 +12,10 @@ class Transcript < ApplicationRecord
 
   def raw_from_file
     return nil unless (system 'which unrtf') && @file && source && @file.is_a?(ActionDispatch::Http::UploadedFile)
-    if source.acusis?
+    if acusis?
+      self.raw = system "unrtf #{File.open(@file.tempfile).read}"
       puts '-----------------------------------'
-      # puts system "unrtf #{@file}"
+      puts raw
       puts '-----------------------------------'
     else 
       nil

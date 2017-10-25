@@ -12,9 +12,6 @@ class TranscriptsController < ApplicationController
     # As it comes in from the form, raw is an UploadedFile object
     # We only want the ascii text, so convert the file object to ascii
     @transcript.raw_from_file
-    puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
-    puts @transcript.inspect
-    puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
     render :new
   end
 
