@@ -4,14 +4,18 @@ class Transcript < ApplicationRecord
   has_many :utterances
 
   validates_presence_of :recording, :format, :raw
+  
+  attr_accessor :file
 
   # Seems somewhat likely that we will have to support more than transcription format
   enum format: [:acusis]
 
-  def rtf_to_ascii
-    return nil unless system 'which unrtf' && raw && format
+  def raw_from_file
+    return nil unless (system 'which unrtf') && @file && format && @file.is_a?(ActionDispatch::Http::UploadedFile)
     if format.acusis?
-      system "unrtf #{raw}"
+      puts '-----------------------------------'
+      # puts system "unrtf #{@file}"
+      puts '-----------------------------------'
     else 
       nil
     end

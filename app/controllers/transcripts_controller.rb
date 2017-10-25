@@ -4,20 +4,24 @@ class TranscriptsController < ApplicationController
   end
 
   def new
-    @transcript = Transcript.new format: :acusis
+    @transcript = Transcript.new format: Transcript.formats[:acusis]
   end
 
   def create
     @transcript = Transcript.new(transcript_params)
-    # TODO: convert raw to actual tempfile contents
-    @transcript.raw_to_ascii 
+    # As it comes in from the form, raw is an UploadedFile object
+    # We only want the ascii text, so convert the file object to ascii
+    # @transcript.raw_from_file
+    puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+    puts @transcript.inspect
+    puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
     render :new
   end
 
   private
 
   def transcript_params
-    params.require(:transcript).permit(:format, :recording_id, :raw)
+    params.require(:transcript).permit(:format, :recording_id, :file)
   end
 
 end
