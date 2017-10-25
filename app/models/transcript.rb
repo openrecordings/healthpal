@@ -8,11 +8,11 @@ class Transcript < ApplicationRecord
   attr_accessor :file
 
   # Seems somewhat likely that we will have to support more than transcription format
-  enum format: [:acusis]
+  enum source: [:acusis]
 
   def raw_from_file
-    return nil unless (system 'which unrtf') && @file && format && @file.is_a?(ActionDispatch::Http::UploadedFile)
-    if format.acusis?
+    return nil unless (system 'which unrtf') && @file && source && @file.is_a?(ActionDispatch::Http::UploadedFile)
+    if source.acusis?
       puts '-----------------------------------'
       # puts system "unrtf #{@file}"
       puts '-----------------------------------'
