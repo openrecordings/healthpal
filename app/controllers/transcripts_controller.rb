@@ -1,5 +1,7 @@
 class TranscriptsController < ApplicationController
 
+  before_action :only_admins
+
   def index
   end
 
@@ -19,6 +21,13 @@ class TranscriptsController < ApplicationController
       flash.alert =  @transcript.errors.full_messages
       render :new
     end
+  end
+
+  def edit
+    @transcript = Transcript.find params[:id]
+  rescue
+    Flash.now.alert = 'Could not find a transcript with that ID'
+    redirect_to :root
   end
 
   private
