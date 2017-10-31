@@ -11,8 +11,14 @@ class TranscriptsController < ApplicationController
     @transcript = Transcript.new(transcript_params)
     # As it comes in from the form, raw is an UploadedFile object
     # We only want the ascii text, so convert the file object to ascii
-    @transcript.raw_from_file
-    render :new
+    @transcript.process_upload
+    if @transcript.save
+      flash.notice = 'Transcript uploaded successfully'
+      redirect_to :root
+    else
+      flash.alert =  @transcript.errors.full_messages
+      render :new
+    end
   end
 
   private

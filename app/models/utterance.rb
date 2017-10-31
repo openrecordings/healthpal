@@ -10,4 +10,4 @@ class Utterance < ApplicationRecord
   
   # TODO: Encrypt the text attribute
   
-end
+ end
