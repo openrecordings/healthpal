@@ -27,6 +27,7 @@
             - if current_user.privileged?
               %ul.nav.navbar-nav
                 %li= link_to 'User Management', '/'
+                %li= link_to 'Recordings', '/recordings'
                 %li= link_to 'Transcripts', transcripts_path
             - else
               %ul.nav.navbar-nav
