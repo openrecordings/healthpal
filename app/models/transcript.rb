@@ -39,7 +39,7 @@ class Transcript < ApplicationRecord
     return nil unless raw
     rows = raw.split "\n"
     i = 0
-    rows.each_with_index do |row|
+    rows.each do |row|
       if row.match ACUSIS_RAW_TIMESTAMP
         i += 1
         mm_ss = row.slice!(ACUSIS_RAW_TIMESTAMP)
