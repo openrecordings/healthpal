@@ -2,6 +2,7 @@
 @import 'twitter-bootstrap-static/bootstrap';
 @import 'rails_bootstrap_forms';
 @import 'font-awesome';
+@import 'jquery-tablesorter/theme.bootstrap';
 @import 'jquery-tablesorter/theme.default';
 
 // Local
@@ -18,4 +19,15 @@
   url('/assets/glyphicons-halflings-regular.woff') format('woff'),
   url('/assets/glyphicons-halflings-regular.ttf') format('truetype'),
   url('/assets/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+}
+
+.tablesorter-header {
+  display: table-cell !important;
+  vertical-align: middle !important;
+  background-position: left center !important;
+  padding-left: 20px;
+}
+
+.tablesorter-header-inner {
+  padding-left: 25px;
 }

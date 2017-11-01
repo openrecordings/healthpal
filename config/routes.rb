@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   # Admin
   get 'admin',                       to: 'admin#index'	
+  get 'recordings',                  to: 'recordings#index'
   get 'users',                       to: 'admin#users'
   get 'toggle_otp/:id',              to: 'admin#toggle_otp',                 as: 'toggle_otp'
   get 'new_registration',            to: 'admin#new_registration'
