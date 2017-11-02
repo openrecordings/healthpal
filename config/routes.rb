@@ -3,6 +3,9 @@ Rails.application.routes.draw do
   devise_for :users
   root 'home#index'
 
+  resources :recordings do
+    resources :transcripts
+  end
   resources :transcripts
 
   # Admin
@@ -12,7 +15,7 @@ Rails.application.routes.draw do
   get 'toggle_otp/:id',              to: 'admin#toggle_otp',                 as: 'toggle_otp'
   get 'new_registration',            to: 'admin#new_registration'
   post 'set_password',               to: 'admin#set_password'
-  post 'create_registration',         to: 'admin#create_registration'
+  post 'create_registration',        to: 'admin#create_registration'
   get 'switch_to_new_user',          to: 'admin#switch_to_new_user'
 
   # Recording

@@ -7,9 +7,15 @@
           %tr
             %th Created
             %th Recorded By
+            %th Audio
+            %th Transcript
+            %th Tags
         %tbody
           - @recordings.all.each do |recording|
             %tr
               %td= link_to format_date_time(recording.created_at), play_path(recording.id)
               %td= recording.user.email
-
+              %td= link_to 'Download Audio', send_audio_path(recording.id)
+              %td= link_to 'Upload Transcript', new_recording_transcript_path(recording.id)
+              - if recording.transcript
+                %td= link_to 'Tag', edit_transcript_path(recording.transcript.id)

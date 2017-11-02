@@ -14,10 +14,6 @@ class Transcript < ApplicationRecord
   ACUSIS_PERSON_ID = /\APERSON [A-Z]:/
 
   def process_upload
-
-    # TODO: Make this real
-    self.recording = Recording.first
-
     raw_from_file
     build_utterances
   end
@@ -25,9 +21,9 @@ class Transcript < ApplicationRecord
   private
 
   def raw_from_file
-    return nil unless (system 'which unrtf') && @file && source && @file.is_a?(ActionDispatch::Http::UploadedFile)
+    return nil unless (@file.original_filename.ends_with?('.txt')) || ((system 'which unrtf') && @file && source && @file.is_a?(ActionDispatch::Http::UploadedFile))
     if acusis?
-      self.raw = `unrtf #{@file.tempfile.path} --text`
+      self.raw = (@file.original_filename.ends_with?('.txt'))? @file.read : `unrtf #{@file.tempfile.path} --text`
     else 
       nil
     end
