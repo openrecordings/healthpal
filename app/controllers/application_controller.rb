@@ -30,4 +30,9 @@ class ApplicationController < ActionController::Base
     response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
   end
 
+  # Used in a before_filter in individual controllers for authorization.
+  def only_admins
+    redirect_to root_url unless current_user && current_user.privileged?
+  end
+
 end
