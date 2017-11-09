@@ -1,0 +1,2 @@
+class TagType < ApplicationRecord
+end
