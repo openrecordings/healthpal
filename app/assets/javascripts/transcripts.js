@@ -11,10 +11,10 @@ function tag(uid, label, on) {
 
 // Call the tag function when tags are selected or unselected
 $(document).ready(function() {
-  $('.tagger').on('select2:select', function (e) {
+  $(".tagger").on("select2:select", function (e) {
     tag($(this).attr("utterance"), e.params.data.text, true);
   });
-  $('.tagger').on('select2:unselect', function (e) {
+  $(".tagger").on("select2:unselect" , function (e) {
     tag($(this).attr("utterance"), e.params.data.text, false);
   });
 });

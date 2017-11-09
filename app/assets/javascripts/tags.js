@@ -1,3 +1,3 @@
 $(document).ready(function() {
-  $('.tagger').select2();
+  $(".tagger").select2();
 });
