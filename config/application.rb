@@ -17,6 +17,7 @@ module Orals
     config.root_password = ENV['ROOT_PASSWORD']
 
     config.audio_encryption_key = ENV['AUDIO_ENCRYPTION_KEY']
+    config.tag_types = ENV['TAG_TYPES']&.split(',')
 
   end
 end

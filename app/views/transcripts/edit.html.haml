@@ -10,4 +10,7 @@
         %tr
           %td= mm_ss utterance.begins_at
           %td
+            %select#e1.tagger{multiple:"Multiple", utterance: utterance.id}
+              - @tagTypes.each do |tag|
+                %option{selected: (@tags.include?(utterance.id)) && (@tags[utterance.id].map(&:tag_type_id).include?(tag.id))} #{tag.label}
           %td= utterance.text
