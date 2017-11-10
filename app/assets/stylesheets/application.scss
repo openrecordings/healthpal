@@ -33,3 +33,16 @@
 .tablesorter-header-inner {
   padding-left: 25px;
 }
+
+.segment {
+  transition: background-color 0.5s ease;
+}
+.segment:hover {
+  background: #ffe;
+}
+.segment.playing:hover {
+  background: #dfd;
+}
+.playing {
+  background: #dfe;
+}

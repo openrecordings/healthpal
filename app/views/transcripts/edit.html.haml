@@ -1,4 +1,5 @@
 %h3= "Transcript for #{@transcript.recording.user.email}, recorded #{format_date_time @transcript.recording.created_at}"
+%div#recording-container{data: {file: @transcript.recording_id}}
 %table.table.table
   %thead
     %tr
@@ -7,7 +8,7 @@
       %th Text
     %tbody
       - @transcript.utterances.each do |utterance|
-        %tr
+        %tr.segment{data: {time: utterance.begins_at}}
           %td= mm_ss utterance.begins_at
           %td
             %select#e1.tagger{multiple:"Multiple", utterance: utterance.id}

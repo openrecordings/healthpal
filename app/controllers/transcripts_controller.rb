@@ -26,7 +26,7 @@ class TranscriptsController < ApplicationController
   end
 
   def edit
-    @transcript = Transcript.find params[:id]
+    @transcript = Transcript.find_by({recording_id: params[:id]})
     @tagTypes = TagType.all
     @tags = @transcript.tags.select("tag_type_id, utterance_id").group_by(&:utterance_id)
   rescue
