@@ -8,15 +8,16 @@ class UtterancesController < ApplicationController
     ttype = TagType.find_by({label: params[:name]})
     if ttype
       Tag.transaction do # Clear the given tag, and then add it if val is true
-        Tag.where({utterance_id: params[:utterance_id], tag_type_id: ttype.id})&.destroy_all
         if params[:val]
-          tag = Tag.new({utterance_id: params[:utterance_id], tag_type_id: ttype.id})
-          tag.save
+          unless Tag.where({utterance_id: params[:utterance_id], tag_type_id: ttype.id}).first
+            Tag.create!({utterance_id: params[:utterance_id], tag_type_id: ttype.id})
+          end
+        else
+          Tag.where({utterance_id: params[:utterance_id], tag_type_id: ttype.id})&.destroy_all
         end
       end
     end
-    tags = Tag.where({utterance_id: params[:utterance_id]})
-    render json: tags.map(&:tag_type_id)
+    render json: Tag.where({utterance_id: params[:utterance_id]}).pluck(:tag_type_id)
   end
 end
 
