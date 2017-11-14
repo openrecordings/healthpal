@@ -15,6 +15,5 @@
 //= require twitter/bootstrap
 //= require jquery-tablesorter
 //= require devise-otp
-//= require_tree .
 //= require select2
-//= require transcripts
+//= require_tree .
