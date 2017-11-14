@@ -6,8 +6,7 @@ class PlayController < ApplicationController
 
   def play
     @transcript = Transcript.find_by({recording_id: params[:id]})
-    @tagTypes = TagType.all
-    @tags = @transcript.tags.select("tag_type_id, utterance_id").group_by(&:utterance_id)
+    @tags = @transcript.tags.group_by(&:utterance)
     if (@recording = Recording.find_by(id: params[:id]))
       unless @recording.user = current_user || current_user.privileged?
         flash.alert = 'You do not have permission to play that recording'
