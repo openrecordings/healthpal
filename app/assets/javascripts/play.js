@@ -33,17 +33,21 @@ $(document).ready(function(){
   //   - Wrap it it in a conditional that is entered only if we are on a page with a recording-container div
   //   - Get the recording_id from something like data-recording-id on the container div and use it here
 
-  if (audio == null) {
-    audio = document.createElement('audio');
 
-    var player = $("#recording-container");
-    if (player && player.data('file')) {
+  $(".seek").click(function() {
+    var t = $(this).parent().parent().data('time')
+    audio.currentTime = t
+    audio.play()
+  })
+
+  var player = $("#recording-container");
+  if (player && player.data('file')) {
+    if (audio == null) {
+      audio = document.createElement('audio');
+
       audio.setAttribute('src','/send_audio/' + player.data('file'));
       audio.setAttribute('controls','controls');
       audio.load();
-      audio.currentTime = 29; // jumps to 29th secs
-      alert("29");
-
       player.html(audio)
       window.setInterval(watch_player, 200);
     }

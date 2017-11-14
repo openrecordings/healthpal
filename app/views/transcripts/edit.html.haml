@@ -9,7 +9,7 @@
     %tbody
       - @transcript.utterances.each do |utterance|
         %tr.segment{data: {time: utterance.begins_at}}
-          %td= link_to (mm_ss utterance.begins_at), "", onclick: "play_from(" + utterance.begins_at.to_s + ")"
+          %td= link_to (mm_ss utterance.begins_at), 'javascript:;', class: "seek"
           %td
             %select#e1.tagger{multiple:"Multiple", utterance: utterance.id}
               - @tagTypes.each do |tag|
