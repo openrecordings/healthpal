@@ -6,9 +6,6 @@ class Utterance < ApplicationRecord
   belongs_to :transcript
   has_many :tags, autosave: true
 
-  # TODO
-  # has_and_belongs_to_many :tags
-  
   # TODO: Encrypt the text attribute
   
 end

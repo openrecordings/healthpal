@@ -24,19 +24,28 @@ function watch_player() {
   }
 }
 
+function play_from(start) {
+  //audio.currentTime = 11; // jumps to 29th secs
+}
+
 $(document).ready(function(){
   // TODO: The code below works to play back a recording. We need to:
   //   - Wrap it it in a conditional that is entered only if we are on a page with a recording-container div
   //   - Get the recording_id from something like data-recording-id on the container div and use it here
 
-  audio = document.createElement('audio');
+  if (audio == null) {
+    audio = document.createElement('audio');
 
-  var player = $("#recording-container");
-  if (player && player.data('file')) {
-    audio.setAttribute('src','/send_audio/' + player.data('file'));
-    audio.setAttribute('controls','controls');
-    audio.load();
-    player.html(audio)
-    window.setInterval(watch_player, 200);
+    var player = $("#recording-container");
+    if (player && player.data('file')) {
+      audio.setAttribute('src','/send_audio/' + player.data('file'));
+      audio.setAttribute('controls','controls');
+      audio.load();
+      audio.currentTime = 29; // jumps to 29th secs
+      alert("29");
+
+      player.html(audio)
+      window.setInterval(watch_player, 200);
+    }
   }
 })

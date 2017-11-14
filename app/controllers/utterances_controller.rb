@@ -6,17 +6,21 @@ class UtterancesController < ApplicationController
   # Returns json of the utterance's tag_type_id's
   def set_tag
     ttype = TagType.find_by({label: params[:name]})
+    utt_id = params[:utterance_id]
+    if (!Utterance.find_by(id: utt_id))
+      render html: 'This utterance is missing from the database.  Contact an administrator if the problem persists.'
+    end
+    
     if ttype
-      Tag.transaction do # Clear the given tag, and then add it if val is true
-        Tag.where({utterance_id: params[:utterance_id], tag_type_id: ttype.id})&.destroy_all
-        if params[:val]
-          tag = Tag.new({utterance_id: params[:utterance_id], tag_type_id: ttype.id})
-          tag.save
+      if params[:val]
+        unless Tag.where({utterance_id: utt_id, tag_type: ttype}).first
+          Tag.create!({utterance_id: utt_id, tag_type: ttype})
         end
+      else
+        Tag.where({utterance_id: utt_id, tag_type: ttype})&.destroy_all
       end
     end
-    tags = Tag.where({utterance_id: params[:utterance_id]})
-    render json: tags.map(&:tag_type_id)
+    render json: Tag.where({utterance_id: utt_id}).pluck(:tag_type_id)
   end
 end
 
