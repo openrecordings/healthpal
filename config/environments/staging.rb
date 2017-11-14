@@ -1,16 +1,6 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
-
-  # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  #
-  # TODO: TEMPORARILY DISABLING ASSET COMPLIATION BECAUSE COMPLIATION
-  #       MAGICALLY BREAKS OUR JAVASCRIPT
-  #
-  # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  config.assets.debug = true
-
-
   # Send email
   # Development:
     # config.action_mailer.perform_deliveries = true
