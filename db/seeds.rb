@@ -9,3 +9,13 @@ unless User.where(email: Rails.application.config.root_email).first
   user.save!
   user.disable_otp
 end
+
+Rails.application.config.tag_types.each { |tagName|
+  unless TagType.where(label: tagName).first
+    puts 'Adding tag type: ' + tagName
+    tag = TagType.new({
+      label: tagName
+    })
+    tag.save
+  end
+}

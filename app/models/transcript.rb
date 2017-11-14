@@ -2,6 +2,7 @@
 class Transcript < ApplicationRecord
   belongs_to :recording  
   has_many :utterances, autosave: true
+  has_many :tags, through: :utterances
 
   validates_presence_of :recording, :source, :raw
   
@@ -14,21 +15,23 @@ class Transcript < ApplicationRecord
   ACUSIS_PERSON_ID = /\APERSON [A-Z]:/
 
   def process_upload
-
-    # TODO: Make this real
-    self.recording = Recording.first
-
     raw_from_file
     build_utterances
   end
 
   private
 
+  def valid_file?
+    (@file) &&
+      ((@file.original_filename.ends_with?('.txt')) ||
+       ((system 'which unrtf') && source && @file.is_a?(ActionDispatch::Http::UploadedFile)))
+  end
+
   def raw_from_file
-    return nil unless (system 'which unrtf') && @file && source && @file.is_a?(ActionDispatch::Http::UploadedFile)
+    return nil unless valid_file?
     if acusis?
-      self.raw = `unrtf #{@file.tempfile.path} --text`
-    else 
+      self.raw = (@file.original_filename.ends_with?('.txt'))? @file.read : `unrtf #{@file.tempfile.path} --text`
+    else
       nil
     end
   end
