@@ -1,15 +1,15 @@
 -# = format_date_time(@recording.created_at)
 -# %audio{controls: 'controls'}
 
-%h3= "#{@transcript.recording.user.email}, recorded #{format_date_time @transcript.recording.created_at}"
-%div#recording-container{data: {file: @transcript.recording_id}}
+%h3= "#{@recording.user.email}, recorded #{format_date_time @recording.created_at}"
+%div#recording-container{data: {file: @recording.id}}
 %table.table.table
   %thead
     %tr
       %th mm:ss
       %th Tags
     %tbody
-      - @tags.each do |utag|
+      - @recording.tags&.group_by(&:utterance).each do |utag|
         %tr.segment{data: {starttime: utag[0].begins_at, endtime: utag[0].ends_at}}
           %td
             = link_to (mm_ss utag[0].begins_at), 'javascript:;', class: "seek"
