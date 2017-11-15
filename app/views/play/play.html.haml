@@ -10,7 +10,7 @@
       %th Tags
     %tbody
       - @tags.each do |utag|
-        %tr.segment{data: {time: utag[0].begins_at}}
+        %tr.segment{data: {starttime: utag[0].begins_at, endtime: utag[0].ends_at}}
           %td
             = link_to (mm_ss utag[0].begins_at), 'javascript:;', class: "seek"
           %td
