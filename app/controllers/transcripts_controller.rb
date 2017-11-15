@@ -36,7 +36,7 @@ class TranscriptsController < ApplicationController
     @tagTypes = TagType.all
     @tags = @transcript.tags.select("tag_type_id, utterance_id").group_by(&:utterance_id)
   rescue
-    Flash.now.alert = 'Could not find a transcript with that ID'
+    flash.now.alert = 'Could not find a transcript with that ID'
     redirect_to :root
   end
 

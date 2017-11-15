@@ -22,5 +22,22 @@ class UtterancesController < ApplicationController
     end
     render json: Tag.where({utterance_id: utt_id}).pluck(:tag_type_id)
   end
+
+  # Ajax endpoint for in-place editing of utterances
+  def update
+    utterance = Utterance.find_by(id: params[:id])
+    if (utterance && utterance.update(utterance_params))
+      head :no_content
+    else
+      render json: utterance&.errors, status: :unproccessable_entity
+    end
+  end
+
+  private
+  
+  def utterance_params
+    params.require(:utterance).permit(:text)
+  end
+
 end
 
