@@ -1,26 +1,20 @@
 var audio
 var last_position
-var highlighted
 
 function watch_player() {
   var position =  Math.floor(audio.currentTime);
   if (position != last_position) {
     last_position = position;
     console.log(position);
-    var bestp = -1, best;
     $(".segment").each(function() {
-      var p = parseFloat($(this).data("time"));
-      if (p <= position && p > bestp) {
-        bestp = p;
-        best = this;
+      var start = parseFloat($(this).data("starttime"));
+      var end = parseFloat($(this).data("endtime"));
+      if (start <= position && (end == 0 || end > position)) {
+        $(this).addClass("playing");
+      } else {
+        $(this).removeClass("playing");
       }
     });
-    if (best != highlighted) {
-      console.log(position);
-      if (highlighted) $(highlighted).removeClass("playing");
-      $(best).addClass("playing");
-      highlighted = best;
-    }
   }
 }
 
@@ -35,7 +29,7 @@ $(document).ready(function(){
 
 
   $(".seek").click(function() {
-    var t = $(this).parent().parent().data('time')
+    var t = $(this).parent().parent().data('starttime')
     audio.currentTime = t
     audio.play()
   })

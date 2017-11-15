@@ -8,7 +8,7 @@
       %th Text
     %tbody
       - @transcript.utterances.each do |utterance|
-        %tr.segment{data: {time: utterance.begins_at}}
+        %tr.segment{data: {starttime: utterance.begins_at, endtime: utterance.ends_at}}
           %td= link_to (mm_ss utterance.begins_at), 'javascript:;', class: "seek"
           %td
             %select#e1.tagger{multiple:"Multiple", utterance: utterance.id}

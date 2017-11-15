@@ -6,11 +6,17 @@ class TranscriptsController < ApplicationController
   end
 
   def new
-    @recording = Recording.find(params[:recording_id])
+    recording_id = params[:recording_id]
+    @recording = Recording.find(recording_id)
+    if Transcript.find_by({recording: recording_id})
+      flash.alert = 'A transcript already exists for this recording.  If you continue, it will be deleted along with all of its tags.'
+    end
     @transcript = Transcript.new source: :acusis
   end
 
   def create
+    Transcript.find_by({recording_id: params[:recording_id]})&.clean
+
     @transcript = Transcript.new(transcript_params)
     @transcript.recording = Recording.find(params[:recording_id])
     # As it comes in from the form, raw is an UploadedFile object
