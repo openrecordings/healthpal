@@ -14,4 +14,5 @@
             %select#e1.tagger{multiple:"Multiple", utterance: utterance.id}
               - @tagTypes.each do |tag|
                 %option{selected: (@tags.include?(utterance.id)) && (@tags[utterance.id].map(&:tag_type_id).include?(tag.id))} #{tag.label}
-          %td= utterance.text
+          %td
+            = link_to utterance.text, '#', id: 'text', class: 'editable', data: {resource: 'utterance', url: "/utterances/#{utterance.id}", original_title: utterance.text}
