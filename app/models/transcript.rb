@@ -30,11 +30,17 @@ class Transcript < ApplicationRecord
 
   private
 
+  def valid_file?
+    (@file) &&
+      ((@file.original_filename.ends_with?('.txt')) ||
+       ((system 'which unrtf') && source && @file.is_a?(ActionDispatch::Http::UploadedFile)))
+  end
+
   def raw_from_file
-    return nil unless (@file.original_filename.ends_with?('.txt')) || ((system 'which unrtf') && @file && source && @file.is_a?(ActionDispatch::Http::UploadedFile))
+    return nil unless valid_file?
     if acusis?
       self.raw = (@file.original_filename.ends_with?('.txt'))? @file.read : `unrtf #{@file.tempfile.path} --text`
-    else 
+    else
       nil
     end
   end
