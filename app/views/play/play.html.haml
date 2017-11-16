@@ -9,10 +9,10 @@
       %th mm:ss
       %th Tags
     %tbody
-      - @recording.tags&.group_by(&:utterance).each do |utag|
+      - @tags.each do |utag|
         %tr.segment{data: {starttime: utag[0].begins_at, endtime: utag[0].ends_at}}
           %td
-            = link_to (mm_ss utag[0].begins_at), 'javascript:;', class: "seek"
+            = link_to (mm_ss(utag[0].begins_at) + " - " + mm_ss(utag[0].ends_at)), 'javascript:;', class: "seek"
           %td
             - utag[1].each do |tag|
               #{tag.tag_type&.label}

@@ -5,7 +5,6 @@ class PlayController < ApplicationController
   end
 
   def play
-    @recording = Recording.find_by(id: params[:id])
     if (@recording = Recording.find_by(id: params[:id]))
       unless @recording.user = current_user || current_user.privileged?
         flash.alert = 'You do not have permission to play that recording'
@@ -15,6 +14,13 @@ class PlayController < ApplicationController
       flash.alert = 'Could not find that recording'
       redirect_to :root and return
     end
+
+    # Collapse consecutive utterances with identical tags, adjusting start-end times to cover all
+    @tags = @recording.tags.group_by(&:utterance).inject([]) {
+      |x, y| (x.empty? || (x[-1][1].map(&:tag_type).sort != y[1].map(&:tag_type).sort))?
+        x << y :
+        x[0..-2] << [Utterance.new({begins_at: x[-1][0].begins_at, ends_at: y[0].ends_at}), y[1]]
+    }
   end
 
   def send_audio

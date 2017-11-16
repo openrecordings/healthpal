@@ -1,8 +1,14 @@
 var audio
 var last_position
+var reset = true
 
 function watch_player() {
   var position =  Math.floor(audio.currentTime);
+
+  if (reset) { // once clip length is known, go to start of file
+    reset = false;
+    audio.currentTime = 0;
+  }
   if (position != last_position) {
     last_position = position;
     console.log(position);
@@ -18,15 +24,7 @@ function watch_player() {
   }
 }
 
-function play_from(start) {
-  //audio.currentTime = 11; // jumps to 29th secs
-}
-
 $(document).ready(function(){
-  // TODO: The code below works to play back a recording. We need to:
-  //   - Wrap it it in a conditional that is entered only if we are on a page with a recording-container div
-  //   - Get the recording_id from something like data-recording-id on the container div and use it here
-
 
   $(".seek").click(function() {
     var t = $(this).parent().parent().data('starttime')
@@ -43,6 +41,7 @@ $(document).ready(function(){
       audio.setAttribute('controls','controls');
       audio.load();
       player.html(audio)
+      audio.currentTime = 99999 // Jump to the end in order to find clip length
       window.setInterval(watch_player, 200);
     }
   }
