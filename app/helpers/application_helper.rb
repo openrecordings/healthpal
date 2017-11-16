@@ -9,10 +9,14 @@ module ApplicationHelper
     date_time.strftime('%m/%d/%y %I:%M %p') if date_time
   end
 
-  def mm_ss(seconds)
+  def mm_ss(seconds, end_seconds = 0)
     mm = (seconds / 60).floor
     ss = "%02d" % (seconds % 60).to_i
-    "#{mm}:#{ss}"
+    if end_seconds == 0
+      "#{mm}:#{ss}"
+    else
+      "#{mm}:#{ss} - #{mm_ss(end_seconds)}"
+    end
   end
 
 end
