@@ -1,7 +1,7 @@
 # Holds the raw transcript for a recording. 
 class Transcript < ApplicationRecord
   belongs_to :recording  
-  has_many :utterances, -> {order 'index asc'}
+  has_many :utterances, -> {order 'index asc'}, dependent: :destroy
   has_many :tags, through: :utterances
 
   validates_presence_of :recording, :source, :raw
@@ -17,15 +17,6 @@ class Transcript < ApplicationRecord
   def process_upload
     raw_from_file
     build_utterances
-  end
-
-  # destroy this transcript and all related utterances and tags
-  def clean
-    self.utterances.each do |utterance|
-      utterance.tags.destroy_all
-    end
-    self.utterances.destroy_all
-    self.destroy
   end
 
   private

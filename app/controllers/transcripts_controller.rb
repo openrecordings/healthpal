@@ -15,7 +15,7 @@ class TranscriptsController < ApplicationController
   end
 
   def create
-    Transcript.find_by({recording_id: params[:recording_id]})&.clean
+    Transcript.find_by({recording_id: params[:recording_id]})&.destroy
 
     @transcript = Transcript.new(transcript_params)
     @transcript.recording = Recording.find(params[:recording_id])
