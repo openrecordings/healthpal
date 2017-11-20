@@ -47,3 +47,23 @@
 .playing {
   background: #dfe;
 }
+.btn-tag, .btn-tag.disabled {
+  background-color: #bbb;
+  color: #000;
+  border-color: #777;
+}
+.seek {
+  font-size: large;
+}
+
+.tag {
+  background-color: #bbb;
+  color: #000;
+  border-color: #444;
+  display: inline-block;
+  white-space: nowrap;
+  padding: 3px 6px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  border-radius: 4px;
+}

@@ -1,8 +1,16 @@
-var audio
-var last_position
+const update_ms = 200; // Interval between calls to watch_player
+var audio;
+var last_position;
+var reset = true;
 
+// Check the player's current position.  Highlight any currently playing segments.
 function watch_player() {
   var position =  Math.floor(audio.currentTime);
+
+  if (reset) { // once clip length is known, go to start of file
+    reset = false;
+    audio.currentTime = 0;
+  }
   if (position != last_position) {
     last_position = position;
     console.log(position);
@@ -18,32 +26,51 @@ function watch_player() {
   }
 }
 
-function play_from(start) {
-  //audio.currentTime = 11; // jumps to 29th secs
-}
-
 $(document).ready(function(){
-  // TODO: The code below works to play back a recording. We need to:
-  //   - Wrap it it in a conditional that is entered only if we are on a page with a recording-container div
-  //   - Get the recording_id from something like data-recording-id on the container div and use it here
-
-
+  // Play audio from clicked time
   $(".seek").click(function() {
-    var t = $(this).parent().parent().data('starttime')
-    audio.currentTime = t
-    audio.play()
-  })
+    var t = $(this).parent().parent().data('starttime');
+    audio.currentTime = t;
+    audio.play();
+  });
+
+  // Toggle a tag filter
+  $(".tag-toggle").click(function() {
+    var content = false; // If nothing's selected, we'll show all
+    if ($(this).hasClass("btn-success")) { // Turn off a tag
+      $(this).removeClass("btn-success");
+      $(this).addClass("btn-tag");
+    } else {                               // Turn on a tag
+      $(this).addClass("btn-success");
+      $(this).removeClass("btn-tag");
+    }
+    // Hide all rows, then unhide any that contain an activated tag
+    $(".segment").addClass("hide");
+    $(".tag-toggle").each(function() {
+      if ($(this).hasClass("btn-success")) {
+        var tnum = $(this).data("tnum");
+        $(".segment").each(function() {
+          if ($(this).find('td').eq(1).text().includes(tnum)) {
+            $(this).removeClass("hide");
+            content = true;
+          }
+        });
+      };
+    });
+    if (!content) $(".segment").removeClass("hide");
+  });
 
   var player = $("#recording-container");
   if (player && player.data('file')) {
-    if (audio == null) {
+    if (audio == null) { // Initialize the player
       audio = document.createElement('audio');
 
       audio.setAttribute('src','/send_audio/' + player.data('file'));
       audio.setAttribute('controls','controls');
       audio.load();
-      player.html(audio)
-      window.setInterval(watch_player, 200);
+      player.html(audio);
+      audio.currentTime = 99999; // Jump to the end in order to find clip length
+      window.setInterval(watch_player, update_ms);
     }
   }
 })

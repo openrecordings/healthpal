@@ -9,10 +9,19 @@ module ApplicationHelper
     date_time.strftime('%m/%d/%y %I:%M %p') if date_time
   end
 
-  def mm_ss(seconds)
+  # Example: Mon, 09 Nov 2009 00:00:00 +0000 => Nov 09, 2009 - 12:00AM
+  def format_date_time_long(date_time)
+    date_time.strftime('%b %d, %Y - %I:%M%p') if date_time
+  end
+
+  def mm_ss(seconds, end_seconds = 0)
     mm = (seconds / 60).floor
     ss = "%02d" % (seconds % 60).to_i
-    "#{mm}:#{ss}"
+    if end_seconds == 0
+      "#{mm}:#{ss}"
+    else
+      "#{mm}:#{ss} - #{mm_ss(end_seconds)}"
+    end
   end
 
 end
