@@ -7,8 +7,8 @@
           %tr
             %th Created
             %th Recorded By
-            %th Audio
-            %th Transcript
+            %th{class: "{sorter: false}"} Audio
+            %th{class: "{sorter: false}"} Transcript
             %th Tags
         %tbody
           - @recordings.all.each do |recording|

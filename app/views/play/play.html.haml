@@ -3,6 +3,10 @@
 
 %h3= "#{@recording.user.email}, recorded #{format_date_time @recording.created_at}"
 %div#recording-container{data: {file: @recording.id}}
+-# Get an alphabetized list of tags used on this recording
+- (@tags.flat_map{|x| x[1].map {|y| y.tag_type.label}}).sort.uniq.each do |tnum|
+  =link_to tnum, 'javascript:;', class: 'tag-toggle btn-tag btn', data: {tnum: tnum}
+
 %table.table.table
   %thead
     %tr
@@ -15,4 +19,4 @@
             = link_to (mm_ss(utag[0].begins_at, utag[0].ends_at)), 'javascript:;', class: 'seek'
           %td
             - utag[1].each do |tag|
-              #{tag.tag_type&.label}
+              %div.tag #{tag.tag_type&.label}
