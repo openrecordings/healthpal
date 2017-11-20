@@ -1,3 +1,14 @@
-.text-center
-  - @recordings.each do |recording|
-    %div= link_to format_date_time(recording.created_at), play_path(recording.id)
+%h3 My Recordings
+.row
+  .col-md-12
+    .panel.panel-default.table-responsive
+      %table.table.table-striped.tablesorter{:"data-sort-column" => 0, :"data-sort-desc" => 1}
+        %thead
+          %tr
+            %th Created
+            %th{class: "{sorter: false}"} Audio
+        %tbody
+          - @recordings.all.each do |recording|
+            %tr
+              %td= link_to format_date_time_long(recording.created_at), play_path(recording.id)
+              %td= link_to 'Download Audio', send_audio_path(recording.id)

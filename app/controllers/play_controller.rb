@@ -6,7 +6,7 @@ class PlayController < ApplicationController
 
   def play
     if (@recording = Recording.find_by(id: params[:id]))
-      unless @recording.user = current_user || current_user.privileged?
+      unless @recording.user == current_user || current_user.privileged?
         flash.alert = 'You do not have permission to play that recording'
         redirect_to :root and return
       end
@@ -25,7 +25,7 @@ class PlayController < ApplicationController
 
   def send_audio
     if (recording  = Recording.find_by(id: params[:id]))
-      if recording.user = current_user || current_user.privileged?
+      if recording.user == current_user || current_user.privileged?
         tmp_file = "#{Rails.root}/recordings_tmp/#{recording.id}.ogg"
         File.open(tmp_file, 'wb') { |file| file.write(recording.audio) }
         response.header['Accept-Ranges'] = 'bytes'
