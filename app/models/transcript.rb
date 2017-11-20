@@ -1,7 +1,7 @@
 # Holds the raw transcript for a recording. 
 class Transcript < ApplicationRecord
   belongs_to :recording  
-  has_many :utterances, autosave: true
+  has_many :utterances, -> {order 'index asc'}, dependent: :destroy
   has_many :tags, through: :utterances
 
   validates_presence_of :recording, :source, :raw
@@ -19,22 +19,19 @@ class Transcript < ApplicationRecord
     build_utterances
   end
 
-  # destroy this transcript and all related utterances and tags
-  def clean
-    self.utterances.each do |utterance|
-      utterance.tags.destroy_all
-    end
-    self.utterances.destroy_all
-    self.destroy
-  end
-
   private
 
+  def valid_file?
+    (@file) &&
+      ((@file.original_filename.ends_with?('.txt')) ||
+       ((system 'which unrtf') && source && @file.is_a?(ActionDispatch::Http::UploadedFile)))
+  end
+
   def raw_from_file
-    return nil unless (@file.original_filename.ends_with?('.txt')) || ((system 'which unrtf') && @file && source && @file.is_a?(ActionDispatch::Http::UploadedFile))
+    return nil unless valid_file?
     if acusis?
       self.raw = (@file.original_filename.ends_with?('.txt'))? @file.read : `unrtf #{@file.tempfile.path} --text`
-    else 
+    else
       nil
     end
   end
