@@ -29,6 +29,7 @@ class PlayController < ApplicationController
         tmp_file = "#{Rails.root}/recordings_tmp/#{recording.id}.ogg"
         File.open(tmp_file, 'wb') { |file| file.write(recording.audio) }
         response.header['Accept-Ranges'] = 'bytes'
+        response.headers['Content-Length'] = recording.audio.length
         send_file(tmp_file)
       else
         # User does not own recording and is not privileged

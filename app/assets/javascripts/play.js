@@ -13,7 +13,6 @@ function watch_player() {
   }
   if (position != last_position) {
     last_position = position;
-    console.log(position);
     $(".segment").each(function() {
       var start = parseFloat($(this).data("starttime"));
       var end = parseFloat($(this).data("endtime"));
