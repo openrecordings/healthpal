@@ -1,16 +1,11 @@
 const update_ms = 200; // Interval between calls to watch_player
 var audio;
 var last_position;
-var reset = true;
 
 // Check the player's current position.  Highlight any currently playing segments.
 function watch_player() {
   var position =  Math.floor(audio.currentTime);
 
-  if (reset) { // once clip length is known, go to start of file
-    reset = false;
-    audio.currentTime = 0;
-  }
   if (position != last_position) {
     last_position = position;
     $(".segment").each(function() {
@@ -68,7 +63,6 @@ $(document).ready(function(){
       audio.setAttribute('controls','controls');
       audio.load();
       player.html(audio);
-      audio.currentTime = 99999; // Jump to the end in order to find clip length
       window.setInterval(watch_player, update_ms);
     }
   }
