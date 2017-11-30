@@ -9,7 +9,7 @@ navigator.getUserMedia = ( navigator.getUserMedia ||
 // set up basic variables for app
 
 var record = document.querySelector('.record');
-if (record) {
+if ($('.record').length > 0) {
   var stop = document.querySelector('.stop');
   var soundClips = document.querySelector('.sound-clips');
   var canvas = document.querySelector('.visualizer');
@@ -101,12 +101,12 @@ if (record) {
     }
 
     var onError = function(err) {
-      console.log('The following error occured: ' + err);
+      alert('The following error occured: ' + err);
     }
 
     navigator.getUserMedia(constraints, onSuccess, onError);
   } else {
-    console.log('getUserMedia not supported on your browser!');
+    alert('getUserMedia not supported on your browser!');
   }
 }
 function visualize(stream) {

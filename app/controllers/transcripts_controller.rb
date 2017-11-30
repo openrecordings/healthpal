@@ -7,7 +7,12 @@ class TranscriptsController < ApplicationController
 
   def new
     recording_id = params[:recording_id]
-    @recording = Recording.find(recording_id)
+    begin
+      @recording = Recording.find(recording_id)
+    rescue
+      flash.alert = 'Recording not found.'
+      redirect_to recordings_path
+    end
     if Transcript.find_by({recording: recording_id})
       flash.alert = 'A transcript already exists for this recording.  If you continue, it will be deleted along with all of its tags.'
     end
@@ -32,12 +37,12 @@ class TranscriptsController < ApplicationController
   end
 
   def edit
-    @transcript = Transcript.find_by({recording_id: params[:id]})
+    @transcript = Transcript.find params[:id]
     @tagTypes = TagType.all
     @tags = @transcript.tags.select("tag_type_id, utterance_id").group_by(&:utterance_id)
   rescue
-    flash.now.alert = 'Could not find a transcript with that ID'
-    redirect_to :root
+    flash.alert = 'Could not find a transcript with that ID'
+    redirect_to :recordings
   end
 
   private

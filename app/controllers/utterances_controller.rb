@@ -8,14 +8,11 @@ class UtterancesController < ApplicationController
     ttype = TagType.find_by({label: params[:name]})
     utt_id = params[:utterance_id]
     if (!Utterance.find_by(id: utt_id))
-      render html: 'This utterance is missing from the database.  Contact an administrator if the problem persists.'
+      render html: 'This utterance is missing from the database.  Contact an administrator if the problem persists.' and return
     end
-    
     if ttype
       if params[:val]
-        unless Tag.where({utterance_id: utt_id, tag_type: ttype}).first
-          Tag.create!({utterance_id: utt_id, tag_type: ttype})
-        end
+        Tag.find_or_create_by!(utterance_id: utt_id, tag_type: ttype)
       else
         Tag.where({utterance_id: utt_id, tag_type: ttype})&.destroy_all
       end
