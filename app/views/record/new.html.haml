@@ -2,11 +2,22 @@
   .wrapper
     %header
       %h2 New Recording
-    %section.main-controls
+    #section.begin-record.recording.state
       %div.meter-container
-        %canvas.center.visualizer
+        %div#vu
+          %img#vui{src: "/assets/vu.jpg"}
+            %div#vu1
+    %section.recorded.state
+      RECORDED
+    %section.uploaded.state
+      UPLOADED
+    %section.begin-record.state.center
+      Press to begin recording:
       #buttons
         %button.record.btn.btn-primary Record
+    %section.recording.state.center
+      Press to stop recording.
+      #buttons
         %button.stop.btn.btn-primary Stop
     %section.sound-clips
       -#

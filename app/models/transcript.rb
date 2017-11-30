@@ -48,6 +48,8 @@ class Transcript < ApplicationRecord
         i += 1
         mm_ss = row.slice!(ACUSIS_RAW_TIMESTAMP)
         text = row.strip.sub(ACUSIS_PERSON_ID, '').strip
+        puts "row: " + row
+        puts "text: " + text
         begins_at = mm_ss[0..1].to_i * 60 + mm_ss[-2..-1].to_i
         if (utt)
           # end at the start time of the next utterance, or 1 second later if the start times are the same

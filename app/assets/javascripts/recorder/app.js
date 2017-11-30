@@ -1,6 +1,13 @@
 // fork getUserMedia for multiple browser versions, for the future
 // when more browsers support MediaRecorder
 
+State = {
+  BEGIN: 'begin-record',
+  RECORDING: 'recording',
+  RECORDED: 'recorded',
+  UPLOADED: 'uploaded'
+}
+
 navigator.getUserMedia = ( navigator.getUserMedia ||
                        navigator.webkitGetUserMedia ||
                        navigator.mozGetUserMedia ||
@@ -10,18 +17,17 @@ navigator.getUserMedia = ( navigator.getUserMedia ||
 
 var record = document.querySelector('.record');
 if (record) {
+  setState(State.BEGIN);
   var stop = document.querySelector('.stop');
   var soundClips = document.querySelector('.sound-clips');
-  var canvas = document.querySelector('.visualizer');
   var progress = document.createElement('progress');
   progress.value = 0;
 
   // disable stop button while not recording
   stop.disabled = true;
 
-  // visualiser setup - create web audio api context and canvas
+  // visualiser setup - create web audio api context
   var audioCtx = new (window.AudioContext || webkitAudioContext)();
-  var canvasCtx = canvas.getContext("2d");
 
   //main block for doing the audio recording
   if (navigator.getUserMedia) {
@@ -31,6 +37,7 @@ if (record) {
       var mediaRecorder = new MediaRecorder(stream);
       visualize(stream);
       record.onclick = function() {
+        setState(State.RECORDING);
         mediaRecorder.start();
         record.style.background = "red";
 
@@ -45,7 +52,7 @@ if (record) {
 
         stop.disabled = true;
         record.disabled = false;
-        hideControls();
+        setState(State.RECORDED);
       }
       mediaRecorder.onstop = function(e) {
         var clipName = new Date().toLocaleString();
@@ -81,7 +88,7 @@ if (record) {
           if(response == true){
             evtTgt = e.target;
             evtTgt.parentNode.parentNode.removeChild(evtTgt.parentNode);
-            showControls();
+            setState(State.BEGIN);
           }
         }
         uploadButton.onclick = function() {upload(blob)};
@@ -109,6 +116,10 @@ if (record) {
     console.log('getUserMedia not supported on your browser!');
   }
 }
+var mem = new Array();
+var memi = 0;
+var gain = 7;
+
 function visualize(stream) {
   var source = audioCtx.createMediaStreamSource(stream);
   var analyser = audioCtx.createAnalyser();
@@ -116,22 +127,17 @@ function visualize(stream) {
   var bufferLength = analyser.frequencyBinCount;
   var dataArray = new Float32Array(bufferLength);
   source.connect(analyser);
-  WIDTH = canvas.width
-  HEIGHT = canvas.height;
-  draw()
+  HEIGHT = $("#vui").height();
+  draw();
   function draw() {
     requestAnimationFrame(draw);
     analyser.getFloatTimeDomainData(dataArray);
-    canvasCtx.fillStyle = 'rgb(200, 200, 200)';
-    canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
-    var sumAmpSquared = 0.0;
-    for(var i = 0; i < bufferLength; i++) {
-      sumAmpSquared += Math.pow(dataArray[i], 2.0);
-    } 
-    var rms = Math.pow((sumAmpSquared * 1.0 / i), 0.5);
-    var rmsPixels = rms * HEIGHT * 10; // Arbitrary multiplier because RMS is typically low
-    canvasCtx.fillStyle = 'rgb(100, 800, 100)';
-    canvasCtx.fillRect(0, HEIGHT - rmsPixels, WIDTH, HEIGHT);
+    var sumAmpSquared = dataArray.reduce((a, b) => a + Math.pow(b, 2.0), 0.0);
+    var rms = Math.pow((sumAmpSquared * 1.0 / dataArray.length), 0.5);
+    var rmsPixels = rms * HEIGHT;
+    mem[memi++&15] = rmsPixels;
+    var level = HEIGHT - ((mem.reduce((a, b) => a + b, 0)) / mem.length * gain);
+    $("#vu1").css({height: level + 'px'});
   }
 }
 
@@ -161,7 +167,7 @@ function upload(blob) {
 function successfulUpload(data) {
   alert('Audio successfully uploaded.')
   $('.clip').remove();
-  showControls();
+  setState(State.UPLOADED);
 }
 
 function hideControls() {
@@ -170,4 +176,9 @@ function hideControls() {
 
 function showControls() {
   $('.main-controls').show();
+}
+
+function setState(state) {
+  $('.state').hide();
+  $('.' + state).show();
 }

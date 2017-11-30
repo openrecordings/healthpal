@@ -67,3 +67,27 @@
   line-height: 1.42857143;
   border-radius: 4px;
 }
+
+#vu1 {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+  top: 0;
+  width: 3em;
+  background-color: #ccc;
+  z-index: 1;
+}
+
+#vui {
+  width: 3em;
+  height: 15em;
+}
+
+#vu {
+  position: relative;
+  text-align: center;
+}
+
+.center {
+  text-align: center;
+ }
