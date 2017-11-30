@@ -17,9 +17,9 @@ class PlayController < ApplicationController
 
     # Collapse consecutive utterances with identical tags, adjusting start-end times to cover all
     @tags = ((@recording.tags.group_by(&:utterance).inject([]) {
-      |x, y| (x.empty? || (x[-1][1].map(&:tag_type).sort != y[1].map(&:tag_type).sort))?
+      |x, y| (x.empty? || (get_tags(x[-1]) != get_tags(y))) ?
         x << y :
-        x[0..-2] << [Utterance.new({begins_at: x[-1][0].begins_at, ends_at: y[0].ends_at, index: x[-1][0].index}), y[1]]
+        x[0..-2] << combine_utterances(x[-1], y)
     }).sort_by {|x| x[0].index})
   end
 
@@ -40,5 +40,21 @@ class PlayController < ApplicationController
       return nil
     end
   end
+
+  private
+
+  # Get the sorted list of tags for this utterance entry
+  def get_tags(utterance)
+    utterance[1].map(&:tag_type).sort
+  end
+
+  # Reduce two identically tagged utterance entries into a single entry which spans both of them.
+  def combine_utterances(utt1, utt2)
+    [Utterance.new({begins_at: utt1[0].begins_at,
+                    ends_at: utt2[0].ends_at,
+                    index: utt1[0].index}), utt2[1]]
+  end
+
+
 
 end

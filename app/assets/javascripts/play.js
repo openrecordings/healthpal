@@ -23,7 +23,7 @@ function watch_player() {
 $(document).ready(function(){
   // Play audio from clicked time
   $(".seek").click(function() {
-    var t = $(this).parent().parent().data('starttime');
+    var t = $(this).parents('.segment').data('starttime');
     audio.currentTime = t;
     audio.play();
   });
@@ -39,19 +39,17 @@ $(document).ready(function(){
       $(this).removeClass("btn-tag");
     }
     // Hide all rows, then unhide any that contain an activated tag
-    $(".segment").addClass("hide");
-    $(".tag-toggle").each(function() {
-      if ($(this).hasClass("btn-success")) {
-        var tnum = $(this).data("tnum");
-        $(".segment").each(function() {
-          if ($(this).find('td').eq(1).text().includes(tnum)) {
-            $(this).removeClass("hide");
-            content = true;
-          }
-        });
-      };
+    $(".segment").hide();
+    $(".tag-toggle.btn-success").each(function() {
+      var tnum = $(this).data("tnum");
+      $(".segment").each(function() {
+        if ($(this).find('td').eq(1).text().includes(tnum)) {
+          $(this).show();
+          content = true;
+        }
+      });
     });
-    if (!content) $(".segment").removeClass("hide");
+    if (!content) $(".segment").show();
   });
 
   var player = $("#recording-container");

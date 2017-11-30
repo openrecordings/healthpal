@@ -18,4 +18,4 @@
               %td= link_to 'Download Audio', send_audio_path(recording.id)
               %td= link_to 'Upload Transcript', new_recording_transcript_path(recording.id)
               - if recording.transcript
-                %td= link_to 'Tag', edit_transcript_path(recording.id)
+                %td= link_to 'Tag', edit_transcript_path(recording.transcript.id)
