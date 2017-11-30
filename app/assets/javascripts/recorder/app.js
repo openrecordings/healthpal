@@ -37,6 +37,7 @@ if ($('.record').length > 0) {
       var mediaRecorder = new MediaRecorder(stream);
       visualize(stream);
       record.onclick = function() {
+        start_stopwatch();
         setState(State.RECORDING);
         mediaRecorder.start();
         record.style.background = "red";

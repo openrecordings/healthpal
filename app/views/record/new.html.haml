@@ -12,11 +12,17 @@
     %section.uploaded.state
       UPLOADED
     %section.begin-record.state.center
-      Press to begin recording:
+      %p
+        Check your microphone's input level on the display above.
+      %p
+        To begin recording, press:
       #buttons
         %button.record.btn.btn-primary Record
     %section.recording.state.center
-      Press to stop recording.
+      %p
+        <h1><time id="stopwatch">00:00:00</time></h1>
+      %p
+        Recording in progress.
       #buttons
         %button.stop.btn.btn-primary Stop
     %section.sound-clips
