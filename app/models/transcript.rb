@@ -1,7 +1,7 @@
 # Holds the raw transcript for a recording. 
 class Transcript < ApplicationRecord
   belongs_to :recording  
-  has_many :utterances, autosave: true
+  has_many :utterances, -> {order 'index asc'}, dependent: :destroy
   has_many :tags, through: :utterances
 
   validates_presence_of :recording, :source, :raw
@@ -37,8 +37,9 @@ class Transcript < ApplicationRecord
   end
 
   def build_utterances
-    # TODO: This breaks if the recording is longer than 60 minutes!
+    # TODO: This breaks if the recording is longer than 60(100?) minutes!
     # TODO: Assumes Acusis format
+    utt = nil
     return nil unless raw
     rows = raw.split "\n"
     i = 0
@@ -48,13 +49,22 @@ class Transcript < ApplicationRecord
         mm_ss = row.slice!(ACUSIS_RAW_TIMESTAMP)
         text = row.strip.sub(ACUSIS_PERSON_ID, '').strip
         begins_at = mm_ss[0..1].to_i * 60 + mm_ss[-2..-1].to_i
-        self.utterances << Utterance.new(
+        if (utt)
+          # end at the start time of the next utterance, or 1 second later if the start times are the same
+          utt.ends_at = begins_at + ((begins_at == utt.begins_at)? 1 : 0)
+          self.utterances << utt
+        end
+        utt = Utterance.new(
           transcript: self,
           index: i,
           begins_at: begins_at,
-          text: text
+          text: text,
+          ends_at: 0
         )
       end
+    end
+    if (utt)
+      self.utterances << utt
     end
   end
 

@@ -6,6 +6,7 @@
 @import 'jquery-tablesorter/theme.default';
 @import 'select2';
 @import 'select2-bootstrap';
+@import 'bootstrap-editable';
 
 // Local
 @import 'ic3d_components';
@@ -32,4 +33,37 @@
 
 .tablesorter-header-inner {
   padding-left: 25px;
+}
+
+.segment {
+  transition: background-color 0.5s ease;
+}
+.segment:hover {
+  background: #ffe;
+}
+.segment.playing:hover {
+  background: #dfd;
+}
+.playing {
+  background: #dfe;
+}
+.btn-tag, .btn-tag.disabled {
+  background-color: #e4e4e4;
+  color: #000;
+  border-color: #777;
+}
+.seek {
+  font-size: large;
+}
+
+.tag {
+  background-color: #e4e4e4;
+  color: #000;
+  border-color: #444;
+  display: inline-block;
+  white-space: nowrap;
+  padding: 3px 6px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  border-radius: 4px;
 }
