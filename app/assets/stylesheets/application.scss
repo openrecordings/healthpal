@@ -90,4 +90,94 @@
 
 .center {
   text-align: center;
- }
+}
+
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.428571429;
+  border-radius: 15px;
+}
+.btn-circle.btn-lg {
+  width: 50px;
+  height: 50px;
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.33;
+  border-radius: 25px;
+}
+.btn-circle.btn-xl {
+  width: 70px;
+  height: 70px;
+  padding: 10px 16px;
+  font-size: 24px;
+  line-height: 1.33;
+  border-radius: 35px;
+}
+
+#timerbar {
+  background: #fff;
+  border: 1px solid #8ca;
+  border-radius: 5px;
+  height: 12px;
+  width: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  overflow: hidden;
+  cursor: pointer;
+}
+#loc {
+  top: -4px;
+  left: 100px;
+  margin-left: -8px;
+  transition: left 0.2s linear;
+  font-weight: 800%;
+}
+.right {
+  height: 100%;
+  background: blue;
+}
+.wide {
+  width: 100%;
+}
+
+.left {
+  float: left;
+}
+
+.timebar {
+  overflow: auto;
+  width: 100%;
+}
+.player {
+  align-items: center;
+  display: flex;
+  background-color: #f0f0f0;
+  border-radius: 15px;
+  font-size: large;
+}
+
+time {
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+}
+
+.fixed {
+  top: 40px;
+  position: fixed;
+  background: #fff;
+  z-index: 1;
+}
+
+.playtabletop {
+  margin-top: 70px;
+}
+.below {
+  margin-top: 120px;
+}
+.belownav {
+  margin-top: 50px;
+}

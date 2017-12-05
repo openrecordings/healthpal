@@ -13,7 +13,7 @@
     = favicon_link_tag 'apple-touch-icon-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png'
     = favicon_link_tag 'favicon.ico', :rel => 'shortcut icon'
   %body
-    .navbar.navbar-default.navbar-static-top
+    .navbar.navbar-default.navbar-fixed-top
       .container
         %button.navbar-toggle(type="button" data-toggle="collapse" data-target=".navbar-responsive-collapse")
           %span.icon-bar
@@ -38,7 +38,7 @@
             %ul.nav.navbar-nav.navbar-right
               %li= link_to 'Sign in', new_user_session_path
 
-    .container
+    .container.belownav
       .row
         .col-xs-12
           = bootstrap_flash
