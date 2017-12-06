@@ -10,7 +10,7 @@
         %div#recording-container{data: {file: @recording.id}}
         = render partial: "player.html.haml"
         - (@tags.flat_map{|x| x[1].map {|y| y.tag_type.label}}).sort.uniq.each do |tnum|
-          =link_to tnum, 'javascript:;', class: 'tag-toggle btn-tag btn oralfilter' + tnum[0..2], data: {tnum: tnum}
+          =link_to tnum, 'javascript:;', class: 'tag-toggle btn-tag btn', data: {tnum: tnum}
 %table.table.table.playtabletop
   %thead
     %tr
@@ -23,4 +23,4 @@
             = link_to ((mm_ss(utag[0].begins_at, utag[0].ends_at))).html_safe, 'javascript:;', class: 'seek'
           %td
             - utag[1].each do |tag|
-              %div.tag{class: 'oralfilter' + tag.tag_type&.label[0..2]} #{tag.tag_type&.label}
+              %div.tag #{tag.tag_type&.label}
