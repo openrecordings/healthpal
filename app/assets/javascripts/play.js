@@ -144,13 +144,16 @@ $(document).ready(function(){
 
   // Toggle a tag filter
   $('.tag-toggle').click(function() {
+    var tag_type = '.oralfilter' + $(this).html().slice(0, 3);
     var content = false; // If nothing's selected, we'll show all
     if ($(this).hasClass('btn-success')) { // Turn off a tag
+      $(tag_type).removeClass('btn-success');
       $(this).removeClass('btn-success');
       $(this).addClass('btn-tag');
     } else {                               // Turn on a tag
       $(this).addClass('btn-success');
       $(this).removeClass('btn-tag');
+      $(tag_type).addClass('btn-success');
     }
 
     // Hide all rows, then unhide any that contain an activated tag
