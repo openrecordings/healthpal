@@ -131,7 +131,7 @@
 }
 #loc {
   top: -4px;
-  left: 100px;
+  left: 0px;
   margin-left: -8px;
   transition: left 0.2s linear;
   font-weight: 800%;
@@ -180,4 +180,60 @@ time {
 }
 .belownav {
   margin-top: 50px;
+}
+
+.oralfilterDia {
+  background-color: #bfdee9;
+}
+.oralfilterDia.btn-success {
+  background-color: #007da6;
+}
+
+.oralfilterDis {
+  background-color: #d7cfed;
+}
+.oralfilterDis.btn-success {
+  background-color: #763fb9;
+}
+
+.oralfilterEdu {
+  background-color: #ebd4f4;
+}
+.oralfilterEdu.btn-success {
+  background-color: #B053D3;
+}
+
+.oralfilterFol {
+  background-color: #f9ecc2;
+}
+.oralfilterFol.btn-success {
+  background-color: #E8B20D;
+}
+
+.oralfilterSig {
+  background-color: #ebbfd4;
+}
+.oralfilterSig.btn-success {
+  background-color: #AF0052;
+}
+
+.oralfilterTes {
+  background-color: #f9e1c2;
+}
+.oralfilterTes.btn-success {
+  background-color: #e8890d;
+}
+
+.oralfilterTre {
+  background-color: #c5d7e9;
+}
+.oralfilterTre.btn-success {
+  background-color: #185EA6;
+}
+
+.oralfilter8 {
+  background-color: #bfe9e6;
+}
+.oralfilter8.btn-success {
+  background-color: #00A69C;
 }

@@ -1,6 +1,4 @@
 
-var timer = null;
-
 //
 // Object to hold timer information
 var timerState = function (data) {
@@ -71,6 +69,6 @@ var timerState = function (data) {
 }
 
 $(document).ready(function () {
-  timer = new timerState({});
+  //timer = new timerState({});
 });
 
