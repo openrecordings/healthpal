@@ -1,4 +1,4 @@
-const update_ms = 200; // Interval between calls to watch_player
+const UPDATE_MS = 200; // Interval between calls to watch_player
 var player = null;
 
 // Player
@@ -75,7 +75,7 @@ var playerClass = function (data) {
     self.audio.currentTime = 9999; // Jump to end to help figure out duration
     self.duration = 0; // Cause progress bar range to be reset
     if (self.interval) clearTimeout(self.interval);
-    self.interval = window.setInterval(self.watch_player, update_ms);
+    self.interval = window.setInterval(self.watch_player, UPDATE_MS);
   }
 
   self.last_position = 0;
