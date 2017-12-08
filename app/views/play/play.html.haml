@@ -1,7 +1,6 @@
 -# = format_date_time(@recording.created_at)
 -# %audio{controls: 'controls'}
 
--# Get an alphabetized list of tags used on this recording
 %div.container.fixed
   %div.row
     %div.col-sm-12
@@ -9,6 +8,7 @@
         %h3= "#{@recording.user.email}, recorded #{format_date_time @recording.created_at}"
         %div#recording-container{data: {file: @recording.id}}
         = render partial: "player.html.haml"
+        -# An alphabetized list of tags used on this recording
         - (@tags.flat_map{|x| x[1].map {|y| y.tag_type.label}}).sort.uniq.each do |tnum|
           =link_to tnum, 'javascript:;', class: 'tag-toggle btn-tag btn oralfilter' + tnum[0..2], data: {tnum: tnum}
 %table.table.table.playtabletop

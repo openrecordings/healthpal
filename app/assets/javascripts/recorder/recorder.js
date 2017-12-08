@@ -1,11 +1,14 @@
 // fork getUserMedia for multiple browser versions, for the future
 // when more browsers support MediaRecorder
 
+var timer;
+var blob;
+var chunks = [];
+
 State = {
   BEGIN: 'begin-record',
   RECORDING: 'recording',
   RECORDED: 'recorded',
-  UPLOADED: 'uploaded'
 }
 
 navigator.getUserMedia = ( navigator.getUserMedia ||
@@ -13,18 +16,9 @@ navigator.getUserMedia = ( navigator.getUserMedia ||
                        navigator.mozGetUserMedia ||
                        navigator.msGetUserMedia);
 
-// set up basic variables for app
-
-var record = document.querySelector('.record');
 if ($('.record').length > 0) {
   setState(State.BEGIN);
-  var stop = document.querySelector('.stop');
   var soundClips = document.querySelector('.sound-clips');
-  var progress = document.createElement('progress');
-  progress.value = 0;
-
-  // disable stop button while not recording
-  stop.disabled = true;
 
   // visualiser setup - create web audio api context
   var audioCtx = new (window.AudioContext || webkitAudioContext)();
@@ -32,67 +26,42 @@ if ($('.record').length > 0) {
   //main block for doing the audio recording
   if (navigator.getUserMedia) {
     var constraints = { audio: true };
-    var chunks = [];
     var onSuccess = function(stream) {
       var mediaRecorder = new MediaRecorder(stream);
       visualize(stream);
-      record.onclick = function() {
+      $('.record').click(function() {
         timer.start();
         setState(State.RECORDING);
         mediaRecorder.start();
-        record.style.background = "red";
-
-        stop.disabled = false;
-        record.disabled = true;
-      }
-      stop.onclick = function() {
+      });
+      $('.stop').click(function() {
+        timer.stop();
         mediaRecorder.stop();
-        record.style.background = "";
-        record.style.color = "";
         // mediaRecorder.requestData();
-
-        stop.disabled = true;
-        record.disabled = false;
         setState(State.RECORDED);
-      }
+      });
       mediaRecorder.onstop = function(e) {
         var clipName = new Date().toLocaleString();
         var clipContainer = document.createElement('article');
         var clipLabel = document.createElement('p');
         var audio = document.createElement('audio');
-        var deleteButton = document.createElement('button');
-        var uploadButton = document.createElement('button');
         clipContainer.classList.add('clip');
-        audio.setAttribute('controls', '');
-        deleteButton.textContent = 'Delete';
-        deleteButton.className = 'delete btn btn-primary';
-        uploadButton.textContent = 'Upload';
-        uploadButton.className = 'upload btn btn-primary';
+        //audio.setAttribute('controls', '');
         if(clipName === null) {
           clipLabel.textContent = 'My unnamed clip';
         } else {
           clipLabel.textContent = clipName;
         }
         clipContainer.appendChild(audio);
-        clipContainer.appendChild(clipLabel);
-        clipContainer.appendChild(uploadButton);
-        clipContainer.appendChild(deleteButton);
-        clipContainer.appendChild(progress);
+        //clipContainer.appendChild(clipLabel);
+        $('#clipLabel').html(clipLabel);
         soundClips.appendChild(clipContainer);
-        audio.controls = true;
-        var blob = new Blob(chunks, { 'type' : 'audio/ogg; codecs=opus' });
+        //audio.controls = true;
+        blob = new Blob(chunks, { 'type' : 'audio/ogg; codecs=opus' });
         chunks = [];
         var audioURL = window.URL.createObjectURL(blob);
+        player.set_audio(audioURL);
         audio.src = audioURL;
-        deleteButton.onclick = function(e) {
-          var response = confirm('Are you sure you want to delete this recording?');
-          if(response == true){
-            evtTgt = e.target;
-            evtTgt.parentNode.parentNode.removeChild(evtTgt.parentNode);
-            setState(State.BEGIN);
-          }
-        }
-        uploadButton.onclick = function() {upload(blob)};
         clipLabel.onclick = function() {
           var existingName = clipLabel.textContent;
           var newClipName = prompt('Enter a new name for your sound clip?');
@@ -143,6 +112,7 @@ function visualize(stream) {
 }
 
 function upload(blob) {
+  console.log("upload");
   var fd = new FormData();
   fd.append('data', blob);
   $.ajax({
@@ -166,20 +136,21 @@ function upload(blob) {
 }
 
 function successfulUpload(data) {
-  alert('Audio successfully uploaded.')
-  $('.clip').remove();
-  setState(State.UPLOADED);
-}
-
-function hideControls() {
-  $('.main-controls').hide();
-}
-
-function showControls() {
-  $('.main-controls').show();
+  window.location.href = '/recording_saved';
 }
 
 function setState(state) {
   $('.state').hide();
   $('.' + state).show();
 }
+
+$(document).ready(function(){
+  timer = new timerState({id: '#rectimer'});
+  $('#deleteButton').click(function() {
+    var response = confirm('Are you sure you want to delete this recording?');
+    if(response == true){
+      setState(State.BEGIN);
+    }
+  });
+  $('#uploadButton').click(function() {upload(blob)});
+});

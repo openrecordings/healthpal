@@ -12,6 +12,7 @@ var playerClass = function (data) {
   self.player = $(self.data.id);
   if (self.player.length <= 0) return null;
 
+  self.interval = null;
   // Update the UI based on the player's state
   self.watch_player = function () {
     // Get the audio duration once it's been loaded
@@ -34,7 +35,8 @@ var playerClass = function (data) {
       self.paused = !self.paused;
     }
 
-    var position =  Math.floor(self.audio.currentTime);
+    var position = self.audio.currentTime;
+    var seconds =  Math.floor(self.audio.currentTime);
 
     // Jump back to the beginning after file after finishing.
     if (self.paused) {
@@ -46,7 +48,7 @@ var playerClass = function (data) {
     if (position != self.last_position) {
       self.last_position = position;
 
-      if (self.timer) self.timer.set_time(self.audio.currentTime);
+      if (self.timer) self.timer.set_time(position);
 
       var active = false;
       $('.segment').each(function() {
@@ -65,14 +67,15 @@ var playerClass = function (data) {
     }
   }
 
-
   if (self.player.data('file')) {
     self.audio = document.createElement('audio');
     self.audio.setAttribute('src','/send_audio/' + self.player.data('file'));
     self.audio.load();
     self.player.html(self.audio);
     self.audio.currentTime = 9999; // Jump to end to help figure out duration
-    window.setInterval(self.watch_player, update_ms);
+    self.duration = 0; // Cause progress bar range to be reset
+    if (self.interval) clearTimeout(self.interval);
+    self.interval = window.setInterval(self.watch_player, update_ms);
   }
 
   self.last_position = 0;
@@ -81,6 +84,7 @@ var playerClass = function (data) {
   self.last_scroll = 0;
   self.timer = new timerState({});
 
+  // Scroll the utterance list to center the given element
   self.scroll_to = function (el) {
     if (self.paused) return;
     var elOffset = el.offset().top;
@@ -99,6 +103,35 @@ var playerClass = function (data) {
     }
   }
 
+  self.set_audio = function (url) {
+    self.audio = document.createElement('audio');
+    self.audio.setAttribute('src',url);
+    self.audio.load();
+    self.player.html(self.audio);
+    self.audio.currentTime = 9999; // Jump to end to help figure out duration
+    self.duration = 0; // Cause progress bar range to be reset
+    if (self.interval) clearTimeout(self.interval);
+    self.interval = setInterval(self.watch_player, update_ms);
+  }
+
+  // Return file duration
+  self.get_max = function () {
+    return self.timer.get_max();
+  }
+
+  // Highlight a range in the play progress bar
+  self.highlight = function (start = 0, end = 0) {
+    if (start == 0 && end == 0) {
+      $('#timerbar').css('background', '#fff');
+    } else {
+      if (end == 0) end = self.duration;
+      start = 100 * start / self.duration;
+      end = 100 * end / self.duration;
+      var background = 'linear-gradient(to right, #fff ' + start + '%, #bfd ' + start + '%, #bfd ' + end + '%, #fff ' + end + '%)'
+      $('#timerbar').css('background', background);
+    }
+  }
+
   // Play audio from clicked time
   $('.seek').click(function() {
     var t = parseFloat($(this).parents('.segment').data('starttime'));
@@ -108,6 +141,7 @@ var playerClass = function (data) {
     self.highlight(t, endt)
   });
 
+  // Play audio from the clicked location
   $(".timebar").click(function(e) {
     var cloc = (e.pageX - $(this).offset().left);
     if (cloc < 5) cloc = 0; // Make it easier to click the start
@@ -115,26 +149,11 @@ var playerClass = function (data) {
     self.audio.play();
   });
 
+  // Play/Pause button
   $('#playaudio').click(function() {
     if (self.audio.paused) self.audio.play();
     else self.audio.pause();
   });
-
-  self.get_max = function () {
-    return self.timer.get_max();
-  }
-
-  self.highlight = function (start = 0, end = 0) {
-    if (start == 0 && end == 0) {
-      $('#timerbar').css('background', '#fff');
-    } else {
-      if (end == 0) end = self.duration;
-      start = 100 * start / self.duration;
-      end = 100 * end / self.duration;
-      var background = 'linear-gradient(to right, #fff ' + start + '%, #dfe ' + start + '%, #dfe ' + end + '%, #fff ' + end + '%)'
-      $('#timerbar').css('background', background);
-    }
-  }
 
 }
 

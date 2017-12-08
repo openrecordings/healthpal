@@ -47,7 +47,6 @@ var timerState = function (data) {
 
   self.tick = function() {
     self.set_time(Math.floor(((new Date()).getTime() - self.start_time)/1000));
-    self.t = setTimeout(self.tick, 1000);
   }
 
   self.reset = function() {
@@ -58,17 +57,12 @@ var timerState = function (data) {
   self.start = function() {
     self.stop()
     self.reset();
-    self.t = setTimeout(self.tick, 1000);
+    self.t = setInterval(self.tick, 1000);
   }
   
   self.stop = function () {
-    if (self.t) clearTimeout(t);
+    if (self.t) clearTimeout(self.t);
     self.t = null;
   }
   return self;
 }
-
-$(document).ready(function () {
-  //timer = new timerState({});
-});
-
