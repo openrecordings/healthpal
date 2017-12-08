@@ -1,4 +1,4 @@
-const update_ms = 200; // Interval between calls to watch_player
+const UPDATE_MS = 200; // Interval between calls to watch_player
 var player = null;
 
 // Player
@@ -72,7 +72,7 @@ var playerClass = function (data) {
     self.audio.load();
     self.player.html(self.audio);
     self.audio.currentTime = 9999; // Jump to end to help figure out duration
-    window.setInterval(self.watch_player, update_ms);
+    window.setInterval(self.watch_player, UPDATE_MS);
   }
 
   self.last_position = 0;
