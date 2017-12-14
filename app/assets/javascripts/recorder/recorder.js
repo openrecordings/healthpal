@@ -5,11 +5,11 @@ var timer;
 var blob;
 var chunks = [];
 
-State = {
+var State = {
   BEGIN: 'begin-record',
   RECORDING: 'recording',
   RECORDED: 'recorded',
-}
+};
 
 navigator.getUserMedia = ( navigator.getUserMedia ||
                        navigator.webkitGetUserMedia ||
@@ -37,7 +37,6 @@ if ($('.record').length > 0) {
       $('.stop').click(function() {
         timer.stop();
         mediaRecorder.stop();
-        // mediaRecorder.requestData();
         setState(State.RECORDED);
       });
       mediaRecorder.onstop = function(e) {
@@ -46,17 +45,14 @@ if ($('.record').length > 0) {
         var clipLabel = document.createElement('p');
         var audio = document.createElement('audio');
         clipContainer.classList.add('clip');
-        //audio.setAttribute('controls', '');
         if(clipName === null) {
           clipLabel.textContent = 'My unnamed clip';
         } else {
           clipLabel.textContent = clipName;
         }
         clipContainer.appendChild(audio);
-        //clipContainer.appendChild(clipLabel);
         $('#clipLabel').html(clipLabel);
         soundClips.appendChild(clipContainer);
-        //audio.controls = true;
         blob = new Blob(chunks, { 'type' : 'audio/ogg; codecs=opus' });
         chunks = [];
         var audioURL = window.URL.createObjectURL(blob);
@@ -70,23 +66,23 @@ if ($('.record').length > 0) {
           } else {
             clipLabel.textContent = newClipName;
           }
-        }
-      }
+        };
+      };
       mediaRecorder.ondataavailable = function(e) {
         chunks.push(e.data);
-      }
-    }
+      };
+    };
 
     var onError = function(err) {
       alert('The following error occured: ' + err);
-    }
+    };
 
     navigator.getUserMedia(constraints, onSuccess, onError);
   } else {
     alert('getUserMedia not supported on your browser!');
   }
 }
-var mem = new Array();
+var mem = [];
 var memi = 0;
 var gain = 7;
 
@@ -97,22 +93,21 @@ function visualize(stream) {
   var bufferLength = analyser.frequencyBinCount;
   var dataArray = new Float32Array(bufferLength);
   source.connect(analyser);
-  HEIGHT = $("#vui").height();
+  var height = $("#vui").height();
   draw();
   function draw() {
     requestAnimationFrame(draw);
     analyser.getFloatTimeDomainData(dataArray);
     var sumAmpSquared = dataArray.reduce((a, b) => a + Math.pow(b, 2.0), 0.0);
     var rms = Math.pow((sumAmpSquared * 1.0 / dataArray.length), 0.5);
-    var rmsPixels = rms * HEIGHT;
+    var rmsPixels = rms * height;
     mem[memi++&15] = rmsPixels;
-    var level = HEIGHT - ((mem.reduce((a, b) => a + b, 0)) / mem.length * gain);
+    var level = height - ((mem.reduce((a, b) => a + b, 0)) / mem.length * gain);
     $("#vu1").css({height: level + 'px'});
   }
 }
 
 function upload(blob) {
-  console.log("upload");
   var fd = new FormData();
   fd.append('data', blob);
   $.ajax({
@@ -120,8 +115,8 @@ function upload(blob) {
       var xhr = new window.XMLHttpRequest();
       xhr.upload.addEventListener("progress", function(evt) {
         if (evt.lengthComputable) {
-          var percentComplete = evt.loaded / evt.total;
-          progress.value = percentComplete;
+          // var percentComplete = evt.loaded / evt.total;
+          // progress.value = percentComplete;
           }
        }, false);
        return xhr;
@@ -132,7 +127,7 @@ function upload(blob) {
     processData: false,
     contentType: false,
     success: successfulUpload
-  })
+  });
 }
 
 function successfulUpload(data) {
@@ -152,5 +147,5 @@ $(document).ready(function(){
       setState(State.BEGIN);
     }
   });
-  $('#uploadButton').click(function() {upload(blob)});
+  $('#uploadButton').click(function() {upload(blob);});
 });

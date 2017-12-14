@@ -36,9 +36,8 @@ var playerClass = function (data) {
     }
 
     var position = self.audio.currentTime;
-    var seconds =  Math.floor(self.audio.currentTime);
 
-    // Jump back to the beginning after file after finishing.
+    // Jump back to the beginning of file after finishing.
     if (self.paused) {
       if (position > 0 && position+1 >= self.duration) {
         self.audio.currentTime = 0;
@@ -65,7 +64,7 @@ var playerClass = function (data) {
       });
       if (!active) self.highlight(); // if there's not an active highlight, turn off any highlights
     }
-  }
+  };
 
   if (self.player.data('file')) {
     self.audio = document.createElement('audio');
@@ -101,7 +100,7 @@ var playerClass = function (data) {
       self.last_scroll = offset;
       $('html, body').animate({scrollTop:offset}, 700);
     }
-  }
+  };
 
   self.set_audio = function (url) {
     self.audio = document.createElement('audio');
@@ -111,13 +110,13 @@ var playerClass = function (data) {
     self.audio.currentTime = 9999; // Jump to end to help figure out duration
     self.duration = 0; // Cause progress bar range to be reset
     if (self.interval) clearTimeout(self.interval);
-    self.interval = setInterval(self.watch_player, update_ms);
-  }
+    self.interval = setInterval(self.watch_player, UPDATE_MS);
+  };
 
   // Return file duration
   self.get_max = function () {
     return self.timer.get_max();
-  }
+  };
 
   // Highlight a range in the play progress bar
   self.highlight = function (start = 0, end = 0) {
@@ -127,10 +126,10 @@ var playerClass = function (data) {
       if (end == 0) end = self.duration;
       start = 100 * start / self.duration;
       end = 100 * end / self.duration;
-      var background = 'linear-gradient(to right, #fff ' + start + '%, #bfd ' + start + '%, #bfd ' + end + '%, #fff ' + end + '%)'
+      var background = 'linear-gradient(to right, #fff ' + start + '%, #bfd ' + start + '%, #bfd ' + end + '%, #fff ' + end + '%)';
       $('#timerbar').css('background', background);
     }
-  }
+  };
 
   // Play audio from clicked time
   $('.seek').click(function() {
@@ -138,7 +137,7 @@ var playerClass = function (data) {
     var endt = parseFloat($(this).parents('.segment').data('endtime')) + 1;
     self.audio.currentTime = t;
     self.audio.play();
-    self.highlight(t, endt)
+    self.highlight(t, endt);
   });
 
   // Play audio from the clicked location
@@ -155,7 +154,7 @@ var playerClass = function (data) {
     else self.audio.pause();
   });
 
-}
+};
 
 $(document).ready(function(){
 
@@ -189,4 +188,4 @@ $(document).ready(function(){
     if (!content) $('.segment').show(); // If no tags are selected, show all
   });
 
-})
+});
