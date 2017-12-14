@@ -1,13 +1,17 @@
 -# = format_date_time(@recording.created_at)
 -# %audio{controls: 'controls'}
 
-%h3= "#{@recording.user.email}, recorded #{format_date_time @recording.created_at}"
-%div#recording-container{data: {file: @recording.id}}
--# Get an alphabetized list of tags used on this recording
-- (@tags.flat_map{|x| x[1].map {|y| y.tag_type.label}}).sort.uniq.each do |tnum|
-  =link_to tnum, 'javascript:;', class: 'tag-toggle btn-tag btn', data: {tnum: tnum}
-
-%table.table.table
+%div.container.fixed
+  %div.row
+    %div.col-sm-12
+      %div
+        %h3= "#{@recording.user.email}, recorded #{format_date_time @recording.created_at}"
+        %div#recording-container{data: {file: @recording.id}}
+        = render partial: "player.html.haml"
+        -# An alphabetized list of tags used on this recording
+        - (@tags.flat_map{|x| x[1].map {|y| y.tag_type.label}}).sort.uniq.each do |tnum|
+          =link_to tnum, 'javascript:;', class: 'tag-toggle btn-tag btn', data: {tnum: tnum}
+%table.table.table.playtabletop
   %thead
     %tr
       %th mm:ss
@@ -16,7 +20,7 @@
       - @tags.each do |utag|
         %tr.segment{data: {starttime: utag[0].begins_at, endtime: utag[0].ends_at}}
           %td
-            = link_to (mm_ss(utag[0].begins_at, utag[0].ends_at)), 'javascript:;', class: 'seek'
+            = link_to ((mm_ss(utag[0].begins_at, utag[0].ends_at))).html_safe, 'javascript:;', class: 'seek'
           %td
             - utag[1].each do |tag|
               %div.tag #{tag.tag_type&.label}

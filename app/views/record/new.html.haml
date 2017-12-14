@@ -2,11 +2,35 @@
   .wrapper
     %header
       %h2 New Recording
-    %section.main-controls
+    #section.begin-record.recording.state
       %div.meter-container
-        %canvas.center.visualizer
+        %div#vu
+          %img#vui{src: "/assets/vu.jpg"}
+            %div#vu1
+    %section.recorded.state
+      %div#recording-container{data: {}}
+      = render partial: "/play/player.html.haml"
+      %h3#clipLabel
+        clip
+      #buttons
+        %button#deleteButton.btn Delete
+        %button#uploadButton.btn Save
+    %section.begin-record.state.center
+      %p
+        Check your microphone's input level on the display above.
+      %p
+        To begin recording, press:
       #buttons
         %button.record.btn.btn-primary Record
+        %button.btn.disabled Stop
+    %section.recording.state.center
+      %p
+        %time#rectimer
+          00:00:00
+      %p
+        Recording in progress.
+      #buttons
+        %button.record.btn.disabled Record
         %button.stop.btn.btn-primary Stop
     %section.sound-clips
       -#
