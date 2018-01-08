@@ -9,6 +9,3 @@ set :deploy_to, '/home/rails/orals'
 set :branch, 'master'
 set :branch, ENV['BRANCH'] if ENV['BRANCH']
 set :assets_roles, [:web, :app]
-
-# Disable asset precompilation
-Rake::Task['assets:precompile'].clear
