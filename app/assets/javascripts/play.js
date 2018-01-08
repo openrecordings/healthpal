@@ -62,7 +62,7 @@ var playerClass = function (data) {
           $(this).removeClass('playing');
         }
       });
-      if (!active) self.highlight(); // if there's not an active highlight, turn off any highlights
+      if (!active) self.highlight(0, 0); // if there's not an active highlight, turn off any highlights
     }
   };
 
@@ -119,7 +119,7 @@ var playerClass = function (data) {
   };
 
   // Highlight a range in the play progress bar
-  self.highlight = function (start = 0, end = 0) {
+  self.highlight = function (start, end) {
     if (start == 0 && end == 0) {
       $('#timerbar').css('background', '#fff');
     } else {
