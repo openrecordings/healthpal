@@ -98,11 +98,15 @@ function visualize(stream) {
   function draw() {
     requestAnimationFrame(draw);
     analyser.getFloatTimeDomainData(dataArray);
-    var sumAmpSquared = dataArray.reduce((a, b) => a + Math.pow(b, 2.0), 0.0);
+    var sumAmpSquared = dataArray.reduce(function (a, b) {
+      return a + Math.pow(b, 2.0);
+    }, 0.0);
     var rms = Math.pow((sumAmpSquared * 1.0 / dataArray.length), 0.5);
     var rmsPixels = rms * height;
     mem[memi++&15] = rmsPixels;
-    var level = height - ((mem.reduce((a, b) => a + b, 0)) / mem.length * gain);
+    var level = height - mem.reduce(function (a, b) {
+      return a + b;
+    }, 0) / mem.length * gain;
     $("#vu1").css({height: level + 'px'});
   }
 }
