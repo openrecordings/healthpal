@@ -50,6 +50,7 @@ var playerClass = function (data) {
       if (self.timer) self.timer.set_time(position);
 
       var active = false;
+      var scrolled = false;
       $('.segment').each(function() {
         var start = parseFloat($(this).data('starttime'));
         var end = parseFloat($(this).data('endtime'));
@@ -57,7 +58,10 @@ var playerClass = function (data) {
           self.highlight(start, end);
           active = true;
           $(this).addClass('playing');
-          self.scroll_to($(this));
+          if(!scrolled){
+            self.scroll_to($(this));
+            scrolled = true;
+          }
         } else {
           $(this).removeClass('playing');
         }
