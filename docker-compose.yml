@@ -1,0 +1,11 @@
+app:
+    image: orals-test-01
+    ports: ["3001:3000"]
+    links: [dbserver]
+    environment:
+      RAILS_ENV: development
+    volumes:
+      [./usr/src/app]
+
+dbserver:
+    image: postgres
