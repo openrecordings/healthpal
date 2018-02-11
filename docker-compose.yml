@@ -1,17 +1,19 @@
 version: '3'
+
 services:
   db:
-    image: orals_db
+    image: postgres
   web:
     build: .
     command: ./start.sh
     volumes:
       - .:/code
+      - gems:/gems
     ports:
       - "3000:3000"
     depends_on:
       - db
+
+volumes:
   gems:
-    image: ruby:2.4-stretch
-    volumes:
-      - /gems
+    driver: local
