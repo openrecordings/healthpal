@@ -4,10 +4,14 @@ services:
     image: orals_db
   web:
     build: .
-    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    command: ./start.sh
     volumes:
       - .:/code
     ports:
       - "3000:3000"
     depends_on:
       - db
+  gems:
+    image: ruby:2.4-stretch
+    volumes:
+      - /gems
