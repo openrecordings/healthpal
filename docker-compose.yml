@@ -1,11 +1,13 @@
-app:
-    image: willhaslett/orals-test-01
-    ports: ["3001:3000"]
-    links: [dbserver]
-    environment:
-      RAILS_ENV: development
+version: '3'
+services:
+  db:
+    image: orals_db
+  web:
+    build: .
+    command: bundle exec rails s -p 3000 -b '0.0.0.0'
     volumes:
-      [./usr/src/app]
-
-dbserver:
-    image: postgres
+      - .:/code
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
