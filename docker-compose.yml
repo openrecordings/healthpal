@@ -1,5 +1,5 @@
 app:
-    image: orals-test-01
+    image: willhaslett/orals-test-01
     ports: ["3001:3000"]
     links: [dbserver]
     environment:
