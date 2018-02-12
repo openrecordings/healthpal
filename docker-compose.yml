@@ -4,7 +4,7 @@ services:
   db:
     image: postgres
   web:
-    image: bmdssoftware/orals_web
+    image: bmdssoftware/orals
     command: bash -c "rm /code/tmp/pids/server.pid && ./start.sh "
     volumes:
       - .:/code
