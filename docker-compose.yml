@@ -4,7 +4,7 @@ services:
   db:
     image: postgres
   web:
-    build: .
+    image: bmdssoftware/orals_web
     command: ./start.sh
     volumes:
       - .:/code
