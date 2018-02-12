@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  db:
+    image: postgres
+  web:
+    image: bmdssoftware/orals_web
+    command: ./start.sh
+    volumes:
+      - .:/code
+      - gems:/gems
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+
+volumes:
+  gems:
+    driver: local
