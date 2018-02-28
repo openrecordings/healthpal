@@ -31,6 +31,7 @@ class TranscriptsController < ApplicationController
       flash.notice = 'Transcript uploaded successfully'
       redirect_to recordings_path
     else
+      @recording = @transcript.recording
       flash.alert =  @transcript.errors.full_messages
       render :new
     end
