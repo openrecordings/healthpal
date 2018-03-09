@@ -1,6 +1,11 @@
 FROM ruby:2.4-stretch
-RUN mkdir /code
+RUN apt-get update -qq && apt-get install -y \
+  build-essential \
+  libpq-dev \
+  nodejs \
+  libssl1.0-dev \
+  unrtf
+RUN mkdir -p /code
 WORKDIR /code
-RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs libssl1.0-dev unrtf
 COPY . /code
 ENV BUNDLE_PATH /gems

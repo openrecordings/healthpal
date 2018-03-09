@@ -4,10 +4,10 @@ services:
   db:
     image: postgres
   web:
-    image: bmdssoftware/orals:latest
+    build: .
     command: bash -c "rm -f /code/tmp/pids/server.pid && ./start.sh "
     volumes:
-      - .:/code
+      - ./code
       - gems:/gems
     ports:
       - "3000:3000"
