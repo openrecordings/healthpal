@@ -7,5 +7,5 @@ RUN apt-get update -qq && apt-get install -y \
   unrtf
 RUN mkdir -p /code
 WORKDIR /code
-COPY . /code
+COPY Gemfile /code
 ENV BUNDLE_PATH /gems
