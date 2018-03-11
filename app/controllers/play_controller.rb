@@ -10,18 +10,6 @@ class PlayController < ApplicationController
 
     @recordings = @user.recordings
 
-    # FAKE DURATION DATA FOR USER TESTING
-    @fake_props = {
-      # Chris Hill
-      5 => ['Dr. Adams', '6:57'],
-      7 => ['Dr. Adams', '12:34'],
-      8 => ['Dr. Adams', '17:03'],
-      # Linda Hill,
-      6 => ['Dr. Adams', '10:49'],
-      9 => ['Dr. Adams', '20:03'],
-      10 => ['Dr. Jones', '16:38'],
-      11 => ['Dr. Adams', '25:07']
-    }
   end
 
   def play

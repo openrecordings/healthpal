@@ -17,6 +17,6 @@
           - @recordings.all.order(created_at: :desc).each do |recording|
             %tr.recording-select{data: {href: play_path(recording.id)}}
               %td.bigger= link_to format_date(recording.created_at), play_path(recording.id)
-              %td.bigger= @fake_props[recording.id]&[0]
-              %td.bigger= @fake_props[recording.id]&[1]
+              %td.bigger= recording.provider
+              %td.bigger= recording.duration ? mm_ss(recording.duration) : nil
 
