@@ -24,6 +24,7 @@ Rails.application.routes.draw do
 
   # Recording
   get 'record',                      to: 'record#new' 
+  get 'recording_upload',            to: 'record#recording_upload',               as: 'recording_upload'
   post 'upload',                     to: 'record#upload'
   get 'recording_saved',             to: 'record#saved'
 

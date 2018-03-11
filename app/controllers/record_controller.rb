@@ -3,6 +3,10 @@ class RecordController < ApplicationController
   def new
   end
 
+  # View for manually uploading an existing file
+  def recording_upload
+  end
+
   # AJAX endpoint for uploading recordings
   def upload
     blob = params['data'].tempfile.read
