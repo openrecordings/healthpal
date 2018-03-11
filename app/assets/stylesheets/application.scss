@@ -35,9 +35,14 @@
   padding-left: 25px;
 }
 
+.lighter {
+  color: #bbb !important;
+}
+
 .segment, .recording-select {
   transition: background-color 0.2s ease;
 }
+
 .segment:hover, .recording-select:hover {
   background: #ffe !important;
   cursor: pointer;

@@ -204,7 +204,9 @@ $(document).ready(function(){
 
   // Table row click listeners for recording index page
   $('.recording-select').click(function() {
-      window.location = $(this).data('href');
+      if(!$(this).find('.editable')) {
+        window.location = $(this).data('href');
+      }
   });
 
 });

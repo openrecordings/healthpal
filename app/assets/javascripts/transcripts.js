@@ -18,8 +18,8 @@ $(document).ready(function() {
     tag($(this).attr("utterance"), e.params.data.text, false);
   });
 
-  // Register editable text fields
-  $('.editable').editable({
+  // Register editable utterance text
+  $('.edit_utterance').editable({
       type: 'text',
       name: 'text',
       mode: 'inline',
