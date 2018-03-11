@@ -44,7 +44,7 @@ class RecordController < ApplicationController
 
   def saved
     flash.alert = 'Recording saved.'
-    redirect_to my_recordings_path
+    redirect_to my_recordings_path(current_user.id)
   end
 
   private

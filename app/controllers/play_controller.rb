@@ -1,15 +1,46 @@
 class PlayController < ApplicationController
 
   def index
-    @recordings = current_user.recordings
+
+    # TODO Handle bad data
+    @user = User.find params[:id]
+
+    # TODO Resrtict this to authorized viewers when the data model is done
+    @visible_users = User.where role: :user
+
+    @recordings = @user.recordings
+
+    # FAKE DURATION DATA FOR USER TESTING
+    @fake_props = {
+      # Chris Hill
+      5 => ['Dr. Adams', '6:57'],
+      7 => ['Dr. Adams', '12:34'],
+      8 => ['Dr. Adams', '17:03'],
+      # Linda Hill,
+      6 => ['Dr. Adams', '10:49'],
+      9 => ['Dr. Adams', '20:03'],
+      10 => ['Dr. Jones', '16:38'],
+      11 => ['Dr. Adams', '25:07']
+    }
   end
 
   def play
     if (@recording = Recording.find_by(id: params[:id]))
-      unless @recording.user == current_user || current_user.privileged?
-        flash.alert = 'You do not have permission to play that recording'
-        redirect_to :root and return
+
+      ##################################################################################
+      # TODO Re-enable this critical security feature when caregiver data model is done.
+      #      (wrapping conditional goes away)
+      ##################################################################################
+      if false
+
+        unless @recording.user == current_user || current_user.privileged?
+          flash.alert = 'You do not have permission to play that recording'
+          redirect_to :root and return
+        end
+
       end
+      ##################################################################################
+
     else
       flash.alert = 'Could not find that recording'
       redirect_to :root and return
@@ -25,16 +56,21 @@ class PlayController < ApplicationController
 
   def send_audio
     if (recording  = Recording.find_by(id: params[:id]))
-      if recording.user == current_user || current_user.privileged?
+      ##################################################################################
+      # TODO Re-enable the commented-out condictional authorizing playback when the 
+      #      caregiver data model is done.
+      ##################################################################################
+      #if recording.user == current_user || current_user.privileged?
         tmp_file = "#{Rails.root}/recordings_tmp/#{recording.id}.ogg"
         File.open(tmp_file, 'wb') { |file| file.write(recording.audio) }
         response.header['Accept-Ranges'] = 'bytes'
-        response.headers['Content-Length'] = recording.audio.length
+        response.headers['Content-Length'] = File.size tmp_file
         send_file(tmp_file)
-      else
-        # User does not own recording and is not privileged
-        return nil
-      end
+      # else
+      #   # User does not own recording and is not privileged
+      #   return nil
+      # end
+      ##################################################################################
     else
       # Could not find recording with given id
       return nil

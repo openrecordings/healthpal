@@ -1,14 +1,22 @@
-%h3 My Recordings
-.row
+%h4
+  %p Recordings for
+  %p= select_tag :id, options_for_select(@visible_users.map {|u| [u.email, u.id]}, @user.id),
+    id: 'recordings-user-select',
+    class: 'form-control max-width-400'
+
+.row.pad-top-40
   .col-md-12
     .panel.panel-default.table-responsive
-      %table.table.table-striped.tablesorter{:"data-sort-column" => 0, :"data-sort-desc" => 1}
+      %table.table.table-striped
         %thead
           %tr
-            %th Created
-            %th{class: "{sorter: false}"} Audio
+            %th.bigger Created
+            %th.bigger Provider
+            %th.bigger Duration
         %tbody
-          - @recordings.all.each do |recording|
-            %tr
-              %td= link_to format_date_time_sort(recording.created_at), play_path(recording.id)
-              %td= link_to 'Download Audio', send_audio_path(recording.id)
+          - @recordings.all.order(created_at: :desc).each do |recording|
+            %tr.recording-select{data: {href: play_path(recording.id)}}
+              %td.bigger= link_to format_date(recording.created_at), play_path(recording.id)
+              %td.bigger= @fake_props[recording.id]&[0]
+              %td.bigger= @fake_props[recording.id]&[1]
+

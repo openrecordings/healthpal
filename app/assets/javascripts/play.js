@@ -75,12 +75,8 @@ var playerClass = function (data) {
     self.audio.setAttribute('src','/send_audio/' + self.player.data('file'));
     self.audio.load();
     self.player.html(self.audio);
-    self.audio.oncanplay = function() {self.audio.play();}
-
-    // Not clear yet whether or not this helps
-    // self.audio.currentTime = 9999; // Jump to end to help figure out duration
-    // self.duration = 0; // Cause progress bar range to be reset
-
+    self.audio.currentTime = 9999; // Jump to end to help figure out duration
+    self.duration = 0; // Cause progress bar range to be reset
     if (self.interval) clearTimeout(self.interval);
     self.interval = window.setInterval(self.watch_player, UPDATE_MS);
   }
@@ -115,11 +111,8 @@ var playerClass = function (data) {
     self.audio.setAttribute('src',url);
     self.audio.load();
     self.player.html(self.audio);
-
-    // Not clear yet whether or not this helps
-    //self.audio.currentTime = 9999; // Jump to end to help figure out duration
-    //self.duration = 0; // Cause progress bar range to be reset
-
+    self.audio.currentTime = 9999; // Jump to end to help figure out duration
+    self.duration = 0; // Cause progress bar range to be reset
     if (self.interval) clearTimeout(self.interval);
     self.interval = setInterval(self.watch_player, UPDATE_MS);
   };
@@ -143,13 +136,13 @@ var playerClass = function (data) {
   };
 
   // Play audio from clicked time
-  $('.seek').click(function() {
-    var t = parseFloat($(this).parents('.segment').data('starttime'));
-    var endt = parseFloat($(this).parents('.segment').data('endtime')) + 1;
+  self.seek = function (segment) {
+    var t = segment.data('starttime');
+    var endt = segment.data('endtime') + 1;
     self.audio.currentTime = t;
     self.audio.play();
     self.highlight(t, endt);
-  });
+  };
 
   // Play audio from the clicked location
   $(".timebar").click(function(e) {
@@ -199,4 +192,20 @@ $(document).ready(function(){
     if (!content) $('.segment').show(); // If no tags are selected, show all
   });
 
+  // Register listener for selecting a different user's recordings
+  $('#recordings-user-select').change(function(){
+      window.location.replace('/my_recordings/' + $(this).val());
+  })
+
+  // Table row click listeners for segments
+  $('.segment').click(function() {
+      player.seek($(this));
+  });
+
+  // Table row click listeners for recording index page
+  $('.recording-select').click(function() {
+      window.location = $(this).data('href');
+  });
+
 });
+

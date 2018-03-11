@@ -20,7 +20,7 @@
       - @tags.each do |utag|
         %tr.segment{data: {starttime: utag[0].begins_at, endtime: utag[0].ends_at}}
           %td
-            = link_to ((mm_ss(utag[0].begins_at, utag[0].ends_at))).html_safe, 'javascript:;', class: 'seek'
+            = mm_ss(utag[0].begins_at, utag[0].ends_at)
           %td
             - utag[1].each do |tag|
               %div.tag #{tag.tag_type&.label}

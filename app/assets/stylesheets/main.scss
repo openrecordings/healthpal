@@ -5,6 +5,10 @@
   padding-top: 20px;
 }
 
+.pad-top-40{
+  padding-top: 40px;
+}
+
 .qrcode-container{
   width: 256px;
   margin-left: auto;
@@ -21,4 +25,12 @@
 
 .editable-input{
   min-width: 500px !important;
+}
+
+.max-width-400{
+  max-width: 400px;
+}
+
+.bigger{
+  font-size: 1.3em;
 }

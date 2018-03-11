@@ -35,11 +35,12 @@
   padding-left: 25px;
 }
 
-.segment {
-  transition: background-color 0.5s ease;
+.segment, .recording-select {
+  transition: background-color 0.2s ease;
 }
-.segment:hover {
-  background: #ffe;
+.segment:hover, .recording-select:hover {
+  background: #ffe !important;
+  cursor: pointer;
 }
 .segment.playing:hover {
   background: #dfd;
