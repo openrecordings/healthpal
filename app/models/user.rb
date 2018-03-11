@@ -6,6 +6,8 @@ class User < ApplicationRecord
 
   has_many :recordings
 
+  scope :regular, ->() { where role: 'user' }
+
   # 2FA is disabled
   # before_create :set_otp_credentials
 

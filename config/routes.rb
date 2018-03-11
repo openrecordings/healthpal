@@ -24,8 +24,8 @@ Rails.application.routes.draw do
 
   # Recording
   get 'record',                      to: 'record#new' 
-  get 'recording_upload',            to: 'record#recording_upload',               as: 'recording_upload'
-  post 'upload',                     to: 'record#upload'
+  get 'file_upload',                 to: 'record#file_upload',               as: 'file_upload'
+  post 'upload',                     to: 'record#upload',                    as: 'upload'
   get 'recording_saved',             to: 'record#saved'
 
   # Playback
