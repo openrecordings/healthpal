@@ -15,10 +15,10 @@
             %th.bigger Provider
         %tbody
           - @recordings.all.order(created_at: :desc).each do |recording|
-            %tr.recording-select{data: {href: play_path(recording.id)}}
-              %td.bigger= link_to format_date(recording.created_at), play_path(recording.id)
-              %td.bigger= recording.duration ? mm_ss(recording.duration) : nil
+            %tr.trecording-select
+              %td.bigger.recording-select{data: {href: play_path(recording.id)}}= link_to format_date(recording.created_at), play_path(recording.id)
+              %td.bigger.recording-select{data: {href: play_path(recording.id)}}= recording.duration ? mm_ss(recording.duration) : nil
               - if recording.provider
-                %td.bigger= recording.provider
+                %td.bigger.recording-select{data: {href: play_path(recording.id)}}= recording.provider
               - else
                 %td.bigger.lighter= link_to '<click to add a provider name>', '#', id: 'provider', class: 'edit_provider', data: {resource: 'recording', url: "/recordings/#{recording.id}", original_title: ''}

@@ -43,6 +43,11 @@
   transition: background-color 0.2s ease;
 }
 
+.trecording-select:hover {
+  background: #ffe !important;
+  transition: background-color 0.2s ease;
+}
+
 .segment:hover, .recording-select:hover {
   background: #ffe !important;
   cursor: pointer;
