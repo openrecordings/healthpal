@@ -5,8 +5,9 @@ class PlayController < ApplicationController
     # TODO Handle bad data
     @user = User.find params[:id]
 
-    # TODO Resrtict this to authorized viewers when the data model is done
-    @visible_users = User.where role: :user
+    # TODO Restrict this to authorized viewers when the data model is done
+    # TODO Ultimately, we might want to restrict admin users again
+    @visible_users = User.all.order(:email) # User.where role: :user
 
     @recordings = @user.recordings
 
