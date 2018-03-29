@@ -4,6 +4,11 @@ class Recording < ApplicationRecord
   has_one :transcript, dependent: :destroy
   has_many :tags, through: :transcript
 
+  #
+  # Fields not otherwise mentioned:
+  #   patient_identifier (string) - arbitrary, optional patient identifier. Can be used if the User
+  #                                 is recording audio for several other people.
+
   attr_encrypted :audio, key: Rails.application.config.audio_encryption_key, encode: false, encode_iv: false
 
   after_validation :set_duration
