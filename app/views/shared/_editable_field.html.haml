@@ -1,0 +1,14 @@
+-#
+-# Expects:
+-#  obj:            Model instance in which this field exists
+-#  field (string): String identifying the correct model attribute/column
+-#
+- resource_name = obj.class.name.demodulize.downcase
+- current_value = obj.send(field.to_sym)
+- if current_value
+  %td.bigger= current_value
+- else
+  %td.bigger.lighter
+    = link_to "<click to add a #{field.humanize(capitalize: false)}>", '#',
+              id: field, class: "edit_#{field}",
+              data: {resource: resource_name, url: polymorphic_path(obj)}

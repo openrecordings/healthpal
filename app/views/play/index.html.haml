@@ -13,12 +13,11 @@
             %th.bigger Created
             %th.bigger Duration
             %th.bigger Provider
+            %th.bigger Patient Identifier
         %tbody
           - @recordings.all.order(created_at: :desc).each do |recording|
             %tr.recording-select{data: {href: play_path(recording.id)}}
               %td.bigger= link_to format_date(recording.created_at), play_path(recording.id)
               %td.bigger= recording.duration ? mm_ss(recording.duration) : nil
-              - if recording.provider
-                %td.bigger= recording.provider
-              - else
-                %td.bigger.lighter= link_to '<click to add a provider name>', '#', id: 'provider', class: 'edit_provider', data: {resource: 'recording', url: "/recordings/#{recording.id}", original_title: ''}
+              = render "shared/editable_field", obj: recording, field: 'provider'
+              = render "shared/editable_field", obj: recording, field: 'patient_identifier'
