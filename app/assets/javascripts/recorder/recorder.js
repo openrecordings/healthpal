@@ -4,6 +4,8 @@
 var timer;
 var blob;
 var chunks = [];
+var body = $('body');
+var blinker;
 
 var State = {
   BEGIN: 'begin-record',
@@ -30,11 +32,14 @@ if ($('.record').length > 0) {
       var mediaRecorder = new MediaRecorder(stream);
       visualize(stream);
       $('.record').click(function() {
+        blinker = setInterval(function(){ blink(body) }, 1000);
         timer.start();
         setState(State.RECORDING);
         mediaRecorder.start();
       });
       $('.stop').click(function() {
+        clearInterval(blinker);
+        body.removeClass('red-bg');
         timer.stop();
         mediaRecorder.stop();
         setState(State.RECORDED);
@@ -141,6 +146,10 @@ function successfulUpload(data) {
 function setState(state) {
   $('.state').hide();
   $('.' + state).show();
+}
+
+function blink(element) {
+    element.toggleClass('red-bg');
 }
 
 $(document).ready(function(){
