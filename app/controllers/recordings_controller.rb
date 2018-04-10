@@ -19,7 +19,7 @@ class RecordingsController < ApplicationController
   private
   
   def recording_params
-    params.require(:recording).permit(:provider)
+    params.require(:recording).permit(:provider, :patient_identifier)
   end
 
 end
