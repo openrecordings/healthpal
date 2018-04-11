@@ -16,8 +16,8 @@
             %th.bigger Patient Identifier
         %tbody
           - @recordings.all.order(created_at: :desc).each do |recording|
-            %tr.recording-select{data: {href: play_path(recording.id)}}
-              %td.bigger= link_to format_date(recording.created_at), play_path(recording.id)
-              %td.bigger= recording.duration ? mm_ss(recording.duration) : nil
+            %tr.trecording-select
+              %td.bigger.recording-select{data: {href: play_path(recording.id)}}= link_to format_date(recording.created_at), play_path(recording.id)
+              %td.bigger.recording-select{data: {href: play_path(recording.id)}}= recording.duration ? mm_ss(recording.duration) : nil
               = render "shared/editable_field", obj: recording, field: 'provider'
               = render "shared/editable_field", obj: recording, field: 'patient_identifier'

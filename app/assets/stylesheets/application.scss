@@ -43,8 +43,16 @@
   transition: background-color 0.2s ease;
 }
 
-.segment:hover, .recording-select:hover {
+.tablesorter-default tbody > tr:hover > td {
+  background: #ffe;
+}
+
+.trecording-select:hover {
   background: #ffe !important;
+}
+
+.segment:hover, .recording-select:hover {
+  background: #ffe;
   cursor: pointer;
 }
 .segment.playing:hover {

@@ -194,19 +194,17 @@ $(document).ready(function(){
 
   // Register listener for selecting a different user's recordings
   $('#recordings-user-select').change(function(){
-      window.location.replace('/my_recordings/' + $(this).val());
-  })
+    window.location.replace('/my_recordings/' + $(this).val());
+  });
 
   // Table row click listeners for segments
   $('.segment').click(function() {
-      player.seek($(this));
+    player.seek($(this));
   });
 
   // Table row click listeners for recording index page
   $('.recording-select').click(function() {
-      if(!$(this).find('.editable')) {
-        window.location = $(this).data('href');
-      }
+    window.location = $(this).data('href');
   });
 
 });
