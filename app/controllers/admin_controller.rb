@@ -6,6 +6,12 @@ class AdminController < ApplicationController
   def users
   end
 
+  def toggle_active
+    user = User.find(params[:id])
+    user.toggle_active
+    redirect_to :admin
+  end
+
   def toggle_otp
     user = User.find(params[:id])
     user.toggle_otp

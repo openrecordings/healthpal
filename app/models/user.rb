@@ -44,6 +44,11 @@ class User < ApplicationRecord
     save!
   end
 
+  # Disables or enables active state  based on current state
+  def toggle_active
+    self.update! active: !self.active
+  end
+
   # Disables or enables 2FA based on current state
   def toggle_otp
     if otp_mandatory
