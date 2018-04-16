@@ -11,6 +11,11 @@ class User < ApplicationRecord
   # 2FA is disabled
   # before_create :set_otp_credentials
 
+  # http://www.rubydoc.info/github/plataformatec/devise/Devise/Models/Authenticatable
+  def active_for_authentication?
+    super && active
+  end
+
   def privileged?
     ['admin', 'root'].include?(role)
   end
