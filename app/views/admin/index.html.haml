@@ -18,7 +18,10 @@
               %td= user.email
               %td= user.role.capitalize
               %td= format_date_time user.last_sign_in_at
-              - link_text = user.active ? 'Yes' : 'No'
-              %td= link_to link_text, toggle_active_path(user.id)
+              - if current_user == user
+                %td
+              - else
+                - link_text = user.active ? 'Yes' : 'No'
+                %td= link_to link_text, toggle_active_path(user.id)
               - link_text = user.otp_mandatory ? 'Yes' : 'No'
               %td= link_to link_text, toggle_otp_path(user.id)
