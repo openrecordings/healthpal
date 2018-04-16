@@ -1,8 +1,9 @@
-%h4
-  %p Recordings for
-  %p= select_tag :id, options_for_select(@visible_users.map {|u| [u.email, u.id]}, @user.id),
-    id: 'recordings-user-select',
-    class: 'form-control max-width-400'
+- if current_user.privileged?
+  %h4
+    %p Recordings for
+    %p= select_tag :id, options_for_select(@visible_users.map {|u| [u.email, u.id]}, @user.id),
+      id: 'recordings-user-select',
+      class: 'form-control max-width-400'
 
 .row.pad-top-40
   .col-md-12
