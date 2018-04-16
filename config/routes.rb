@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   get 'admin',                       to: 'admin#index'	
   get 'recordings',                  to: 'recordings#index'
   get 'users',                       to: 'admin#users'
+  get 'toggle_active/:id',           to: 'admin#toggle_active',              as: 'toggle_active'
   get 'toggle_otp/:id',              to: 'admin#toggle_otp',                 as: 'toggle_otp'
   get 'new_registration',            to: 'admin#new_registration'
   post 'set_password',               to: 'admin#set_password'

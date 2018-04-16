@@ -11,6 +11,11 @@ class User < ApplicationRecord
   # 2FA is disabled
   # before_create :set_otp_credentials
 
+  # http://www.rubydoc.info/github/plataformatec/devise/Devise/Models/Authenticatable
+  def active_for_authentication?
+    super && active
+  end
+
   def privileged?
     ['admin', 'root'].include?(role)
   end
@@ -39,6 +44,13 @@ class User < ApplicationRecord
     save!
   end
 
+  # Disables or enables active state  based on current state
+  # TODO: Implement record locking. If two admins hit this method for the same user at the
+  # "same time", unexpected stuff could happen.
+  def toggle_active
+    self.update! active: !self.active
+  end
+
   # Disables or enables 2FA based on current state
   def toggle_otp
     if otp_mandatory
@@ -46,6 +58,12 @@ class User < ApplicationRecord
     else
       enable_otp
     end
+  end
+
+  # Disables user login when appropriate. Called by Warden hook in config/initializers/devise.rb
+  def disable_after_first_session!
+    return if privileged?
+    self.update! active: false if sign_in_count == 1
   end
 
   private
