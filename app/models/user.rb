@@ -45,6 +45,8 @@ class User < ApplicationRecord
   end
 
   # Disables or enables active state  based on current state
+  # TODO: Implement record locking. If two admins hit this method for the same user at the
+  # "same time", unexpected stuff could happen.
   def toggle_active
     self.update! active: !self.active
   end
