@@ -4,8 +4,12 @@
 var timer;
 var blob;
 var chunks = [];
-var body = $('body');
-var blinker;
+var recorderHeader = $('#recorder-header');
+var initHeader = 'Press Record to Start'
+var onHeader = 'Now Recording';
+var offHeader = 'Recording Not Yet Saved';
+
+var recorderWrapper = $('#recorder-wrapper');
 
 var State = {
   BEGIN: 'begin-record',
@@ -20,7 +24,6 @@ navigator.getUserMedia = ( navigator.getUserMedia ||
 
 if ($('.record').length > 0) {
   setState(State.BEGIN);
-  var soundClips = document.querySelector('.sound-clips');
 
   // visualiser setup - create web audio api context
   var audioCtx = new (window.AudioContext || webkitAudioContext)();
@@ -32,14 +35,15 @@ if ($('.record').length > 0) {
       var mediaRecorder = new MediaRecorder(stream);
       visualize(stream);
       $('.record').click(function() {
-        blinker = setInterval(function(){ blink(body) }, 1000);
+        recorderHeader.text(onHeader);
+        recorderWrapper.addClass('pulse-border');
         timer.start();
         setState(State.RECORDING);
         mediaRecorder.start();
       });
       $('.stop').click(function() {
-        clearInterval(blinker);
-        body.removeClass('red-bg');
+        recorderHeader.text(offHeader);
+        recorderWrapper.removeClass('pulse-border');
         timer.stop();
         mediaRecorder.stop();
         setState(State.RECORDED);
@@ -57,7 +61,6 @@ if ($('.record').length > 0) {
         }
         clipContainer.appendChild(audio);
         $('#clipLabel').html(clipLabel);
-        soundClips.appendChild(clipContainer);
         blob = new Blob(chunks, { 'type' : 'audio/ogg; codecs=opus' });
         chunks = [];
         var audioURL = window.URL.createObjectURL(blob);
@@ -148,15 +151,13 @@ function setState(state) {
   $('.' + state).show();
 }
 
-function blink(element) {
-    element.toggleClass('red-bg');
-}
-
 $(document).ready(function(){
+  recorderHeader.text(initHeader);
   timer = new timerState({id: '#rectimer'});
   $('#deleteButton').click(function() {
     var response = confirm('Are you sure you want to delete this recording?');
     if(response == true){
+      recorderHeader.text(initHeader);
       setState(State.BEGIN);
     }
   });

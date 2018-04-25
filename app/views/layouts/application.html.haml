@@ -26,9 +26,10 @@
             %ul.nav.navbar-nav
               - if current_user.privileged?
                 %li= link_to 'User Management', admin_path
-                %li= link_to 'Recordings', '/recordings'
+                %li= link_to 'All Recordings', '/recordings'
+              - link_text = current_user.privileged? ? 'Recordings by User' : 'My Recordings'
+              %li= link_to link_text, my_recordings_path(current_user.id)
               %li= link_to 'New Recording', record_path
-              %li= link_to 'My Recordings', my_recordings_path(current_user.id)
             %ul.nav.navbar-nav.navbar-right
               %li= link_to "<span class='fa fa-user' style='margin-right: 3px;'></span>#{truncate(current_user.email, length: 30)}".html_safe, edit_user_registration_path, style: 'padding:0px 10px 0px 0px;display:inline;line-height:50px;'
               %li= link_to 'Sign out', destroy_user_session_path, method: :delete
