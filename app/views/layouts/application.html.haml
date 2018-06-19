@@ -28,7 +28,7 @@
               - if current_user.privileged?
                 %li= link_to 'User Management', admin_path
                 %li= link_to 'All Recordings', '/recordings'
-              - link_text = current_user.privileged? ? 'Recordings by User' : 'My Recordings'
+              - link_text = current_user.privileged? ? 'Recordings by User' : 'Recordings'
               %li= link_to link_text, my_recordings_path(current_user.id)
               %li= link_to 'New Recording', record_path
             %ul.nav.navbar-nav.navbar-right
