@@ -38,3 +38,4 @@ Installation:
 
 5. Create the database: ```bundle exec rake db:reset```
 6. Migrate the database: ```bundle exec rake db:migrate```  
+
