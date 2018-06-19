@@ -158,6 +158,14 @@ var playerClass = function (data) {
     else self.audio.pause();
   });
 
+  $('#stepforward').click(function() {
+    self.audio.currentTime += 10;
+  });
+
+  $('#stepbackward').click(function() {
+    self.audio.currentTime -= 10;
+  });
+
 };
 
 $(document).ready(function(){
