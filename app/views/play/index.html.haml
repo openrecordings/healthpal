@@ -22,4 +22,3 @@
                       %td.bigger.recording-select{data: {href: play_path(recording.id)}}= link_to format_date(recording.created_at), play_path(recording.id)
                       = render "shared/editable_field", obj: recording, field: 'provider'
                       %td.bigger.recording-select{data: {href: play_path(recording.id)}}= recording.duration ? mm_ss(recording.duration) : nil
-

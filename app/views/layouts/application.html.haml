@@ -20,7 +20,8 @@
           %span.icon-bar
           %span.icon-bar
         %a.navbar-brand(href="/")
-          = image_tag('open_recordings_text.png', width: '200')
+          %span#logo-health Health
+          %span#logo-pal> PAL
         .navbar-collapse.collapse.navbar-responsive-collapse
           - if user_signed_in?
             %ul.nav.navbar-nav
@@ -29,8 +30,9 @@
                 %li= link_to 'User Management', admin_path
               %li= link_to 'New Recording', record_path
               %li= link_to 'Recordings', my_recordings_path
+
             %ul.nav.navbar-nav.navbar-right
-              %li= link_to "<span class='fa fa-user' style='margin-right: 3px;'></span>#{truncate(current_user.email, length: 30)}".html_safe, edit_user_registration_path, style: 'padding:0px 10px 0px 0px;display:inline;line-height:50px;'
+              %li= link_to "Settings <span class='fa fa-cog' style='margin-right: 3px;'></span>".html_safe, edit_user_registration_path, style: 'padding:0px 10px 0px 0px;display:inline;line-height:50px;'
               %li= link_to 'Sign out', destroy_user_session_path, method: :delete
           - else
             %ul.nav.navbar-nav.navbar-right
