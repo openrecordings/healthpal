@@ -1,16 +1,16 @@
 class PlayController < ApplicationController
-
   def index
-
-    # TODO Handle bad data
-    @user = User.find params[:id]
-
-    # TODO Restrict this to authorized viewers when the data model is done
-    # TODO Ultimately, we might want to restrict admin users again
-    @visible_users = User.all.order(:email) # User.where role: :user
-
-    @recordings = @user.recordings
-
+    # TODO: Handle bad data
+    # TODO: Restrict this to authorized viewers when the data model is done
+    # TODO: Ultimately, we might want to restrict admin users again
+    if current_user.privileged? || true
+      @visible_users = User.all.order(:email)
+      @recordings = Recording.all.group_by { |i| i.user.email }
+      @users = User.joins(:recordings).uniq.order(:email)
+    else
+      @visible_users = [current_user]
+      @recordings = current_user.recordings.group_by { |i| i.user.email }
+    end
   end
 
   def play
