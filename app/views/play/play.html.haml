@@ -1,11 +1,11 @@
--# = format_date_time(@recording.created_at)
--# %audio{controls: 'controls'}
-
 %div.container.fixed
   %div.row
     %div.col-sm-12
       %div
-        %h3= "#{@recording.user.email}, recorded #{format_date_time @recording.created_at}"
+        - title = format_date @recording.created_at
+        - title += " Visit with #{@recording.provider}" if @recording.provider
+        %h3= title
+        %h4= @recording.user.email
         %div#recording-container{data: {file: @recording.id}}
         = render partial: "player.html.haml"
         -# An alphabetized list of tags used on this recording
