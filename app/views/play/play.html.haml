@@ -10,7 +10,7 @@
         = render partial: "player.html.haml"
         -# An alphabetized list of tags used on this recording
         - (@tags.flat_map{|x| x[1].map {|y| y.tag_type.label}}).sort.uniq.each do |tnum|
-          =link_to tnum, 'javascript:;', class: 'tag-toggle btn-tag btn', data: {tnum: tnum}
+          =link_to tnum, 'javascript:;', class: 'oralfilter-' + tnum[0..2].downcase + ' tag-toggle btn-tag btn', data: {tnum: tnum}
 %table.table.table.playtabletop
   %thead
     %tr
