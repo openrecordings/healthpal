@@ -6,6 +6,7 @@ class PlayController < ApplicationController
     if current_user.privileged? || true
       @visible_users = User.all.order(:email)
       @recordings = Recording.all.group_by { |i| i.user.email }
+      @users = User.joins(:recordings).uniq.order(:email)
     else
       @visible_users = [current_user]
       @recordings = current_user.recordings.group_by { |i| i.user.email }

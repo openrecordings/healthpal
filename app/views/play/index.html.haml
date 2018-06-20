@@ -1,13 +1,12 @@
-%link{rel: "stylesheet", href: "http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"}
 .row.pad-top-40
   .col-md-12
     #tabs
       %ul
-        - @recordings.each_with_index do |(k, v), i|
+        - @users.each_with_index do |u, i|
           %li
             %a{href: "#tabs-#{i}"}
-              = k
-      - @recordings.each_with_index do |(k, v), i|
+              = u.email
+      - @users.each_with_index do |u, i|
         %div{id: "tabs-#{i}"}
           %p
             .panel.panel-default.table-responsive
@@ -18,7 +17,7 @@
                     %th.bigger Provider
                     %th.bigger Duration
                 %tbody
-                  - v.each do |recording|
+                  - u.recordings.order('created_at desc').each do |recording|
                     %tr.trecording-select
                       %td.bigger.recording-select{data: {href: play_path(recording.id)}}= link_to format_date(recording.created_at), play_path(recording.id)
                       = render "shared/editable_field", obj: recording, field: 'provider'
