@@ -16,7 +16,17 @@
 }
 
 .navbar-brand{
-  padding-top: 8px;
+  // Was simply padding-top: 8px; when image was used
+  font-size: 2.0em;
+  padding-top: 15px;
+}
+
+#logo-health{
+  color: rgba(74, 164, 156, 1.0)
+}
+
+#logo-pal{
+  color: rgba(187, 189, 191, 1.0)
 }
 
 .editable{
