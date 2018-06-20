@@ -1,24 +1,26 @@
-- if current_user.privileged?
-  %h4
-    %p Recordings for
-    %p= select_tag :id, options_for_select(@visible_users.map {|u| [u.email, u.id]}, @user.id),
-      id: 'recordings-user-select',
-      class: 'form-control max-width-400'
-
+%link{rel: "stylesheet", href: "http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"}
 .row.pad-top-40
   .col-md-12
-    .panel.panel-default.table-responsive
-      %table.table.table-striped
-        %thead
-          %tr
-            %th.bigger Created
-            %th.bigger Duration
-            %th.bigger Provider
-            %th.bigger Patient Identifier
-        %tbody
-          - @recordings.all.order(created_at: :desc).each do |recording|
-            %tr.trecording-select
-              %td.bigger.recording-select{data: {href: play_path(recording.id)}}= link_to format_date(recording.created_at), play_path(recording.id)
-              %td.bigger.recording-select{data: {href: play_path(recording.id)}}= recording.duration ? mm_ss(recording.duration) : nil
-              = render "shared/editable_field", obj: recording, field: 'provider'
-              = render "shared/editable_field", obj: recording, field: 'patient_identifier'
+    #tabs
+      %ul
+        - @recordings.each_with_index do |(k, v), i|
+          %li
+            %a{href: "#tabs-#{i}"}
+              = k
+      - @recordings.each_with_index do |(k, v), i|
+        %div{id: "tabs-#{i}"}
+          %p
+            .panel.panel-default.table-responsive
+              %table.table.table-striped
+                %thead
+                  %tr
+                    %th.bigger Visit Date
+                    %th.bigger Provider
+                    %th.bigger Duration
+                %tbody
+                  - v.each do |recording|
+                    %tr.trecording-select
+                      %td.bigger.recording-select{data: {href: play_path(recording.id)}}= link_to format_date(recording.created_at), play_path(recording.id)
+                      = render "shared/editable_field", obj: recording, field: 'provider'
+                      %td.bigger.recording-select{data: {href: play_path(recording.id)}}= recording.duration ? mm_ss(recording.duration) : nil
+
