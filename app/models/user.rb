@@ -61,10 +61,11 @@ class User < ApplicationRecord
   end
 
   # Disables user login when appropriate. Called by Warden hook in config/initializers/devise.rb
-  def disable_after_first_session!
-    return if privileged?
-    self.update! active: false if sign_in_count == 1
-  end
+  # TODO: Delete or create separate role for this
+  # def disable_after_first_session!
+  #   return if privileged?
+  #   self.update! active: false if sign_in_count == 1
+  # end
 
   private
 
