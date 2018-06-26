@@ -144,6 +144,13 @@ var playerClass = function (data) {
     self.highlight(t, endt);
   };
 
+  // Clear all selected filters
+  $("#clear-filters").click(function(e) {
+    $('.filter').each(function (x) {
+      if ($(this).hasClass('btn-success')) $(this).click();
+    });
+  });
+
   // Play audio from the clicked location
   $(".timebar").click(function(e) {
     var cloc = (e.pageX - $(this).offset().left);
