@@ -10,7 +10,9 @@
         = render partial: "player.html.haml"
         -# An alphabetized list of tags used on this recording
         - (@tags.flat_map{|x| x[1].map {|y| y.tag_type.label}}).sort.uniq.each do |tnum|
-          =link_to tnum, 'javascript:;', class: 'oralfilter-' + tnum[0..2].downcase + ' tag-toggle btn-tag btn', data: {tnum: tnum}
+          =link_to tnum, 'javascript:;', class: 'filter oralfilter-' + tnum[0..2].downcase + ' tag-toggle btn-tag btn', data: {tnum: tnum}
+        %button#clear-filters Clear Filters
+
 %table.table.table.playtabletop
   %thead
     %tr
@@ -23,4 +25,4 @@
             = mm_ss(utag[0].begins_at, utag[0].ends_at)
           %td
             - utag[1].each do |tag|
-              %div.tag #{tag.tag_type&.label}
+              %div.tag{class: 'oralfilter-' + tag.tag_type&.label[0..2].downcase} #{tag.tag_type&.label}
