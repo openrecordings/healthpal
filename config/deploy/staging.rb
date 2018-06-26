@@ -1,2 +1,2 @@
 set :stage, :staging
-server 'wtrbres2.dartmouth.edu', user: 'rails', roles: %w(app db)
+server 'orals-dev-srv.dartmouth.edu', user: 'rails', roles: %w(app db)
