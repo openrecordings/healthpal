@@ -10,14 +10,15 @@
         = render partial: "player.html.haml"
         -# An alphabetized list of tags used on this recording
 
-        - (@tags.flat_map{|x| x[1].map {|y| y.tag_type.label}}).sort.uniq.each do |tnum|
+        - (@tags.flat_map{|x| x[1].map {|y| y.tag_type.label}}).sort.uniq.each do |tag_label|
 
-          %label.btn.btn-default{for: tnum}
-            = tnum
-            %input{id: tnum, type: 'checkbox', class: 'badgebox'}
+          -#%label{for: tag_label, class: "oralfilter-#{tag_label[0..2].downcase} tag-toggle btn-tag btn", data: {tnum: tag_label}}
+            = tag_label
+            %input{id: tag_label, type: 'checkbox', class: 'badgebox'}
               %span.badge &check;
 
-          -# =link_to tnum, 'javascript:;', class: 'oralfilter-' + tnum[0..2].downcase + ' tag-toggle btn-tag btn', data: {tnum: tnum}
+          - filter_html = "#{tag_label}<input class='badgebox' id='Diagnosis' type='checkbox'><span class='badge'>&check;</span></input>".html_safe
+          =link_to filter_html, 'javascript:;', class: 'oralfilter-' + tag_label[0..2].downcase + ' tag-toggle btn-tag btn', data: {tnum: tag_label}
 
         %button#clear-filters Clear Filters
 

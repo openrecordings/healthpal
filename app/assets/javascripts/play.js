@@ -182,6 +182,12 @@ $(document).ready(function(){
   // Toggle a tag filter
   $('.tag-toggle').click(function() {
     var tag_type = '.oralfilter' + $(this).html().slice(0, 3);
+
+    console.log('here');
+
+    console.log(this);
+    console.log('tag_type: ' + tag_type);
+
     var content = false; // If nothing's selected, we'll show all
     if ($(this).hasClass('btn-success')) { // Turn off a tag
       $(tag_type).removeClass('btn-success');
@@ -197,6 +203,9 @@ $(document).ready(function(){
     $('.segment').hide();
     $('.tag-toggle.btn-success').each(function() {
       var tnum = $(this).data('tnum');
+
+      console.log('tnum: ' + tnum);
+
       $('.segment').each(function() {
         if ($(this).find('td').eq(1).text().includes(tnum)) {
           $(this).show();
