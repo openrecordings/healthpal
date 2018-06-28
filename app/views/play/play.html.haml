@@ -9,14 +9,7 @@
         %div#recording-container{data: {file: @recording.id}}
         = render partial: "player.html.haml"
         -# An alphabetized list of tags used on this recording
-
         - (@tags.flat_map{|x| x[1].map {|y| y.tag_type.label}}).sort.uniq.each do |tag_label|
-
-          -#%label{for: tag_label, class: "oralfilter-#{tag_label[0..2].downcase} tag-toggle btn-tag btn", data: {tnum: tag_label}}
-            = tag_label
-            %input{id: tag_label, type: 'checkbox', class: 'badgebox'}
-              %span.badge &check;
-
           - filter_html = "#{tag_label}<input class='badgebox' id='Diagnosis' type='checkbox'><span class='badge'>&check;</span></input>".html_safe
           =link_to filter_html, 'javascript:;', class: 'filter oralfilter-' + tag_label[0..2].downcase + ' tag-toggle btn-tag btn', data: {tnum: tag_label}
 
