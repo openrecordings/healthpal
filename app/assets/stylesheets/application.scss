@@ -24,6 +24,34 @@
     url(asset_path('glyphicons-halflings-regular.svg#glyphicons_halflingsregular')) format('svg');
 }
 
+body {
+  font-size: 18px;
+  padding-top: 50px;
+}
+
+/* fix padding under menu after resize */
+@media screen and (max-width: 767px) {
+  body { padding-top: 50px; }
+}
+@media screen and (min-width:768px) and (max-width: 989px) {
+  body { padding-top: 140px; }
+}
+@media screen and (min-width: 990px) and (max-width: 1199px) {
+  body { padding-top: 100px; }
+}
+@media screen and (min-width: 1200px) {
+  body { padding-top: 50px; }
+}
+
+.navbar {
+  font-size: 16px;
+}
+
+.btn, .table, .segment .tag, .form-control {
+  font-size: 120%;
+  height: inherit;
+}
+
 .tablesorter-header {
   display: table-cell !important;
   vertical-align: middle !important;
@@ -191,9 +219,6 @@ time {
 }
 .below {
   margin-top: 120px;
-}
-.belownav {
-  margin-top: 50px;
 }
 
 .btn-success {

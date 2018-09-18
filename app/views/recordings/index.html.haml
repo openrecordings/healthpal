@@ -14,8 +14,8 @@
         %tbody
           - @recordings.all.each do |recording|
             %tr.trecording-select
-              %td.bigger.recording-select{data: {href: play_path(recording.id)}}= link_to format_date_time_sort(recording.created_at), play_path(recording.id)
-              %td.bigger.recording-select{data: {href: play_path(recording.id)}}= recording.user.email
+              %td.recording-select{data: {href: play_path(recording.id)}}= link_to format_date_time_sort(recording.created_at), play_path(recording.id)
+              %td.recording-select{data: {href: play_path(recording.id)}}= recording.user.email
               %td= link_to 'Download Audio', send_audio_path(recording.id)
               %td= link_to 'Upload Transcript', new_recording_transcript_path(recording.id)
               - if recording.transcript
