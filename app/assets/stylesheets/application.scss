@@ -9,12 +9,14 @@
 @import 'bootstrap-editable';
 
 // Local
+@import 'jquery-ui';
 @import 'ic3d_components';
 @import 'main';
 @import 'admin';
 @import 'play';
 @import 'recorder_app';
 @import 'recorder_install_button.css';
+@import 'css_checkbox_badge';
 
 @font-face {
   font-family: 'Glyphicons Halflings';
@@ -216,7 +218,7 @@ time {
 }
 
 .playtabletop {
-  margin-top: 150px;
+  margin-top: 230px;
 }
 .below {
   margin-top: 120px;
@@ -227,58 +229,58 @@ time {
   margin: -1px;
 }
 
-.oralfilterDia {
+.oralfilter-dia {
   background-color: #bfdee9;
 }
-.oralfilterDia.btn-success {
+.oralfilter-dia.btn-success {
   background-color: #007da6;
 }
 
-.oralfilterDis {
+.oralfilter-dis {
   background-color: #d7cfed;
 }
-.oralfilterDis.btn-success {
+.oralfilter-dis.btn-success {
   background-color: #763fb9;
 }
 
-.oralfilterEdu {
+.oralfilter-edu {
   background-color: #ebd4f4;
 }
-.oralfilterEdu.btn-success {
+.oralfilter-edu.btn-success {
   background-color: #B053D3;
 }
 
-.oralfilterFol {
+.oralfilter-fol {
   background-color: #f9ecc2;
 }
-.oralfilterFol.btn-success {
+.oralfilter-fol.btn-success {
   background-color: #E8B20D;
 }
 
-.oralfilterSig {
+.oralfilter-sig {
   background-color: #ebbfd4;
 }
-.oralfilterSig.btn-success {
+.oralfilter-sig.btn-success {
   background-color: #AF0052;
 }
 
-.oralfilterTes {
+.oralfilter-tes {
   background-color: #f9e1c2;
 }
-.oralfilterTes.btn-success {
+.oralfilter-tes.btn-success {
   background-color: #e8890d;
 }
 
-.oralfilterTrx {
+.oralfilter-trx {
   background-color: #c5d7e9;
 }
-.oralfilterTrx.btn-success {
+.oralfilter-trx.btn-success {
   background-color: #185EA6;
 }
 
-.oralfilterTre {
+.oralfilter-tre {
   background-color: #bfe9e6;
 }
-.oralfilterTre.btn-success {
+.oralfilter-tre.btn-success {
   background-color: #00A69C;
 }

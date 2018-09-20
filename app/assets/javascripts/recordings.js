@@ -1,5 +1,6 @@
 // Call the tag function when tags are selected or unselected
 $(document).ready(function() {
+    $("#tabs").tabs();
     //
     // Register editable recording columns
     ['provider', 'patient_identifier'].forEach(function(c){

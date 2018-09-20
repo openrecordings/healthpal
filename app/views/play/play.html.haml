@@ -1,20 +1,24 @@
--# = format_date_time(@recording.created_at)
--# %audio{controls: 'controls'}
-
 %div.container.fixed
   %div.row
     %div.col-sm-12
       %div
-        %h3= "#{@recording.user.email}, recorded #{format_date_time @recording.created_at}"
+        - title = format_date @recording.created_at
+        - title += " Visit with #{@recording.provider}" if @recording.provider
+        %h3= title
+        %h4= @recording.user.email
         %div#recording-container{data: {file: @recording.id}}
         = render partial: "player.html.haml"
         -# An alphabetized list of tags used on this recording
-        - (@tags.flat_map{|x| x[1].map {|y| y.tag_type.label}}).sort.uniq.each do |tnum|
-          =link_to tnum, 'javascript:;', class: 'tag-toggle btn-tag btn', data: {tnum: tnum}
+        - (@tags.flat_map{|x| x[1].map {|y| y.tag_type.label}}).sort.uniq.each do |tag_label|
+          - filter_html = "#{tag_label}<input class='badgebox' id='Diagnosis' type='checkbox'><span class='badge'>&check;</span></input>".html_safe
+          =link_to filter_html, 'javascript:;', class: 'filter oralfilter-' + tag_label[0..2].downcase + ' tag-toggle btn-tag btn', data: {tnum: tag_label}
+
+        %button#clear-filters Clear Filters
+
 %table.table.table.playtabletop
   %thead
     %tr
-      %th mm:ss
+      %th Start - Finish
       %th Tags
     %tbody
       - @tags.each do |utag|
@@ -23,4 +27,4 @@
             = mm_ss(utag[0].begins_at, utag[0].ends_at)
           %td
             - utag[1].each do |tag|
-              %div.tag #{tag.tag_type&.label}
+              %div.tag{class: 'oralfilter-' + tag.tag_type&.label[0..2].downcase} #{tag.tag_type&.label}

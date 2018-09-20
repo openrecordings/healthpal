@@ -8,7 +8,6 @@ Bundler.require(*Rails.groups)
 
 module Orals
   class Application < Rails::Application
-
     config.time_zone = 'Eastern Time (US & Canada)'
 
     config.app_display_name = ENV['APP_DISPLAY_NAME']

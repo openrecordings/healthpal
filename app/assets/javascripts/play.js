@@ -146,6 +146,13 @@ var playerClass = function (data) {
     self.highlight(t, endt);
   };
 
+  // Clear all selected filters
+  $("#clear-filters").click(function(e) {
+    $('.filter').each(function (x) {
+      if ($(this).hasClass('filter-on')) $(this).click();
+    });
+  });
+
   // Play audio from the clicked location
   $(".timebar").click(function(e) {
     var cloc = (e.pageX - $(this).offset().left);
@@ -160,6 +167,14 @@ var playerClass = function (data) {
     else self.audio.pause();
   });
 
+  $('#stepforward').click(function() {
+    self.audio.currentTime += 10;
+  });
+
+  $('#stepbackward').click(function() {
+    self.audio.currentTime -= 10;
+  });
+
 };
 
 $(document).ready(function(){
@@ -168,21 +183,23 @@ $(document).ready(function(){
 
   // Toggle a tag filter
   $('.tag-toggle').click(function() {
+	var checkBox = $(this).find('.badgebox');
+	checkBox.prop('checked', !checkBox.prop('checked'));
     var tag_type = '.oralfilter' + $(this).html().slice(0, 3);
     var content = false; // If nothing's selected, we'll show all
-    if ($(this).hasClass('btn-success')) { // Turn off a tag
-      $(tag_type).removeClass('btn-success');
-      $(this).removeClass('btn-success');
+    if ($(this).hasClass('filter-on')) { // Turn off a tag
+      $(tag_type).removeClass('filter-on');
+      $(this).removeClass('filter-on');
       $(this).addClass('btn-tag');
     } else {                               // Turn on a tag
-      $(this).addClass('btn-success');
+      $(this).addClass('filter-on');
       $(this).removeClass('btn-tag');
-      $(tag_type).addClass('btn-success');
+      $(tag_type).addClass('filter-on');
     }
 
     // Hide all rows, then unhide any that contain an activated tag
     $('.segment').hide();
-    $('.tag-toggle.btn-success').each(function() {
+    $('.tag-toggle.filter-on').each(function() {
       var tnum = $(this).data('tnum');
       $('.segment').each(function() {
         if ($(this).find('td').eq(1).text().includes(tnum)) {
