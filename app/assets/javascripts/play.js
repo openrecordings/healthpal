@@ -26,13 +26,13 @@ var playerClass = function (data) {
     // Update the play/pause button if needed
     if (self.audio.paused != self.paused) {
       if (self.paused) {
+        $('#play-pause-icon').removeClass('glyphicon-play');
+        $('#play-pause-icon').addClass('glyphicon-pause');
         $('#play-pause-text').text('Pause');
-        $('#playaudio span').removeClass('glyphicon-play');
-        $('#playaudio span').addClass('glyphicon-pause');
       } else {
+        $('#play-pause-icon').addClass('glyphicon-play');
+        $('#play-pause-icon').removeClass('glyphicon-pause');
         $('#play-pause-text').text('Play');
-        $('#playaudio span').addClass('glyphicon-play');
-        $('#playaudio span').removeClass('glyphicon-pause');
       }
       self.paused = !self.paused;
     }
