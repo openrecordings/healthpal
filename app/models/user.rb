@@ -67,6 +67,10 @@ class User < ApplicationRecord
   #   self.update! active: false if sign_in_count == 1
   end
 
+  def full_name
+    "#{first_name} #{last_name}"
+  end
+
   private
 
   def set_otp_credentials

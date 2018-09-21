@@ -3,14 +3,14 @@
     .col-sm-12
       - title = format_date @recording.created_at
       - title += " Visit with #{@recording.provider}" if @recording.provider
-      %h3= title
-      %h4= @recording.user.email
+      %h3= @recording.user.full_name
+      %h4= title
       #recording-container{data: {file: @recording.id}}
       = render partial: "player.html.haml"
       %a#filter-help-link{'data-toggle' => 'collapse', 'data-target' => '#filter-description'}
         What are these buttons for?
       #filter-description.collapse
-        Click on a button for to only see the stuff that the button is about if you know what I mean.
+        Clicking these buttons will break the internet.
       #tag-filters
         - (@tags.flat_map{|x| x[1].map {|y| y.tag_type.label}}).sort.uniq.each do |tag_label|
           - filter_html = "#{tag_label}<input class='badgebox' id='Diagnosis' type='checkbox'><span class='badge'>&check;</span></input>".html_safe
