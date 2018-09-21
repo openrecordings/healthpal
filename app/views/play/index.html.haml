@@ -6,7 +6,7 @@
         - @users.each_with_index do |u, i|
           %li
             %a{href: "#tabs-#{i}"}
-              = u.email
+              = u.full_name
       - @users.each_with_index do |u, i|
         %div{id: "tabs-#{i}"}
           %p
