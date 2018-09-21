@@ -1,8 +1,5 @@
 %p
   %div.row.player
-    %button#playaudio.btn.btn-primary
-      #play-pause-text Play
-      %span#play-pause-icon.glyphicon.glyphicon-play
     %time#timer
       00:00
     %div.timebar
@@ -12,6 +9,7 @@
       00:00
   %div.center
     %button#stepbackward.btn= image_tag 'rewind10.svg', size: 30
-    %button#playaudio.btn.btn-circle.btn-lg
-      %span.glyphicon.glyphicon-play
+    %button#playaudio.btn.btn-primary
+      #play-pause-text Play
+      %span#play-pause-icon.glyphicon.glyphicon-play
     %button#stepforward.btn= image_tag 'forward10.svg', size: 30
