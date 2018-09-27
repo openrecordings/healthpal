@@ -18,14 +18,21 @@
 }
 
 #filter-help-link {
+  margin-left: 10px;
+  margin-right: 50px;
   cursor: pointer;
 }
 
 #clear-filters {
   cursor: pointer;
-  margin-left: 10px;
 }
 
 #media-controls {
   margin-top: 15px;
+  margin-left: 450px;
+  height: 65px;
+}
+
+#playaudio {
+  width: 80px;
 }

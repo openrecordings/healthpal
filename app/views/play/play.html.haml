@@ -7,22 +7,34 @@
       %h4= title
       #recording-container{data: {file: @recording.id}}
       = render partial: "player.html.haml"
-      %a#filter-help-link{'data-toggle' => 'collapse', 'data-target' => '#filter-description'}
-        What are these buttons for?
-      #filter-description.collapse
-        Clicking these buttons will break the internet.
       #tag-filters
         - (@tags.flat_map{|x| x[1].map {|y| y.tag_type.label}}).sort.uniq.each do |tag_label|
           - filter_html = "#{tag_label}<input class='badgebox' id='Diagnosis' type='checkbox'><span class='badge'>&check;</span></input>".html_safe
           =link_to filter_html, 'javascript:;', class: 'filter oralfilter-' + tag_label[0..2].downcase + ' tag-toggle btn-tag btn', data: {tnum: tag_label}
         %br
+        %a#filter-help-link{'data-toggle' => 'modal', 'data-target' => '#filter-description'} What are these buttons for?
+        #filter-description.modal.fade{'tabindex' => '-1', 'role' => 'dialog', 'aria-labelledby' => 'filter-description-label', 'aria-hidden' => 'true'}
+          .modal-dialog.modal-dialog-centered{'role' => 'document'}
+            .modal-content
+              .modal-header
+                %h5#filter-description-label How to filter the stuff
+                %button.close{'data-dismiss' => 'modal', 'aria-label' => 'Close'}
+              .modal-body
+                Clicking those buttons will break the internet.
+              .modal-footer
+                %button.btn.btn-secondary{'data-dismiss' => 'modal'} Close
         %a#clear-filters Clear Filters
 %table.table.table.playtabletop
   %thead
     %tr
-      %th Start Time
+      %th Start time
       %th Tags
+      %th Links to more information
     %tbody
+
+      -# TODO tmp counter to put mockup text in table
+      - row = 1
+
       - @tags.each do |utag|
         %tr.segment{data: {starttime: utag[0].begins_at, endtime: utag[0].ends_at}}
           %td
@@ -30,3 +42,12 @@
           %td
             - utag[1].each do |tag|
               %div.tag{class: 'oralfilter-' + tag.tag_type&.label[0..2].downcase} #{tag.tag_type&.label}
+          %td
+            -# TODO tmp content for mockup
+            - if row == 4
+              = link_to 'Ibuprofen', 'https://medlineplus.gov/druginfo/meds/a682159.html', target: '_blank'
+            - if row == 7
+              = link_to 'Ibuprofen, ', 'https://medlineplus.gov/druginfo/meds/a682159.html', target: '_blank'
+               
+              = link_to 'Nausea', 'https://medlineplus.gov/nauseaandvomiting.html', target: '_blank'
+        - row += 1
