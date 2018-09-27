@@ -36,3 +36,16 @@
 #playaudio {
   width: 80px;
 }
+
+#stepbackward {
+  border-right: 2px solid white;
+  border-radius: 10px 0 0 10px;
+}
+
+#playaudio {
+  border-right: 2px solid white;
+}
+
+#stepforward {
+  border-radius: 0 10px 10px 0;
+}
