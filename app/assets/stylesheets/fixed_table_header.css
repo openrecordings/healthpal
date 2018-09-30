@@ -16,7 +16,7 @@ thead {
 
 tbody {
   display: block; /* to enable vertical scrolling */
-  max-height: 200px; /* e.g. */
+  max-height: 500px; /* e.g. */
   overflow-y: scroll; /* keeps the scrollbar even if it doesn't need it; display purpose */
 }
 
