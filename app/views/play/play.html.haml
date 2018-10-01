@@ -13,17 +13,40 @@
           =link_to filter_html, 'javascript:;', class: 'filter oralfilter-' + tag_label[0..2].downcase + ' tag-toggle btn-tag btn', data: {tnum: tag_label}
         %a#clear-filters Clear Filters
         %br
-        %a#filter-help-link{'data-toggle' => 'modal', 'data-target' => '#filter-description'} What are these buttons for?
-        #filter-description.modal.fade{'tabindex' => '-1', 'role' => 'dialog', 'aria-labelledby' => 'filter-description-label', 'aria-hidden' => 'true'}
-          .modal-dialog.modal-dialog-centered{'role' => 'document'}
-            .modal-content
-              .modal-header
-                %h5#filter-description-label How to filter the stuff
-                %button.close{'data-dismiss' => 'modal', 'aria-label' => 'Close'}
-              .modal-body
-                Clicking those buttons will break the internet.
-              .modal-footer
-                %button.btn.btn-secondary{'data-dismiss' => 'modal'} Close
+        %a#filter-help-link What are these buttons for?
+        #filter-help
+          #filter-help-text
+            %p.help-text
+              %h3 The colored buttons allow you control which aspects of your visit that you want to focus on. The buttons are:
+            %p.help-text
+              %ul#help-list
+                %li.help-text
+                  %b Symptoms signs problems:
+                  A symptom or sign of your health is discussed
+                %li.help-text
+                  %b Diagnosis:
+                  A possible diagnosis is discussed  
+                %li.help-text
+                  %b Medication:
+                  A medication is discussed
+                %li.help-text
+                  %b Test &amp; Imaging:
+                  A test or imaging result is discussed
+                %li.help-text
+                  %b Recommendation:
+                  The doctor recommends or confirms an approach to your healthcare
+                %li.help-text
+                  %b Follow-up:
+                  A follow-up plan or future visit is discussed  
+                %li.help-text
+                  %b Education:
+                  The doctor explains something about your health e.g. what a medicine does,
+                %li.help-text
+                  %b Treatment options:
+                  Different treatment options, including doing nothing are discussed  
+            %p.help-text#close-filter-help
+              %button.btn.btn-primary Close
+
 %table.table.table.playtabletop
   %thead
     %tr

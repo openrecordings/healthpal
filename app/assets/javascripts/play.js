@@ -181,6 +181,14 @@ $(document).ready(function(){
 
   player = new playerClass();
 
+  $('#filter-help-link').click(function() {
+      $('#filter-help').css('display', 'block');
+  })
+
+  $('#close-filter-help').click(function() {
+      $('#filter-help').css('display', 'none');
+  })
+
   // Toggle a tag filter
   $('.tag-toggle').click(function() {
 	var checkBox = $(this).find('.badgebox');
