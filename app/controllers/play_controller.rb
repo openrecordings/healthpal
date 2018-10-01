@@ -131,12 +131,12 @@ class PlayController < ApplicationController
     '2:29',
     'Gabapentin',
     'https://medlineplus.gov/druginfo/meds/a694007.html',
-    4257
+    4262
     ],[
     '2:40',
     'Gabapentin',
     'https://medlineplus.gov/druginfo/meds/a694007.html',
-    4257
+    4265
     ],[
     '3:00',
     'foot pain',
@@ -156,7 +156,7 @@ class PlayController < ApplicationController
     '3:44',
     'arthritis',
     'https://medlineplus.gov/arthritis.html',
-    4270
+    4282
     ],[
     '4:03',
     'ganglion cyst',
