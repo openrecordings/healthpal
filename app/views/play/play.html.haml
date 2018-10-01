@@ -11,6 +11,7 @@
         - (@tags.flat_map{|x| x[1].map {|y| y.tag_type.label}}).sort.uniq.each do |tag_label|
           - filter_html = "#{tag_label}<input class='badgebox' id='Diagnosis' type='checkbox'><span class='badge'>&check;</span></input>".html_safe
           =link_to filter_html, 'javascript:;', class: 'filter oralfilter-' + tag_label[0..2].downcase + ' tag-toggle btn-tag btn', data: {tnum: tag_label}
+        %a#clear-filters Clear Filters
         %br
         %a#filter-help-link{'data-toggle' => 'modal', 'data-target' => '#filter-description'} What are these buttons for?
         #filter-description.modal.fade{'tabindex' => '-1', 'role' => 'dialog', 'aria-labelledby' => 'filter-description-label', 'aria-hidden' => 'true'}
@@ -23,7 +24,6 @@
                 Clicking those buttons will break the internet.
               .modal-footer
                 %button.btn.btn-secondary{'data-dismiss' => 'modal'} Close
-        %a#clear-filters Clear Filters
 %table.table.table.playtabletop
   %thead
     %tr
