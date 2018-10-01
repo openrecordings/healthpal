@@ -86,7 +86,7 @@ class PlayController < ApplicationController
   def links
     [[
     '0:09',
-    'Norco',
+    'Norco ',
     'https://medlineplus.gov/druginfo/meds/a601006.html',
     4222
     ],[
@@ -103,7 +103,7 @@ class PlayController < ApplicationController
     '0:27',
     'high blood pressure',
     'https://medlineplus.gov/highbloodpressure.html',
-    4222
+    4229
     ],[
     '1:41',
     'Gabapentin',
@@ -115,25 +115,63 @@ class PlayController < ApplicationController
     'https://medlineplus.gov/shingles.html',
     4252
     ],[
+    '1:54',
+    'Gabapentin',
+    'https://medlineplus.gov/druginfo/meds/a694007.html',
+    ],[
+    '1:41',
+    'Gabapentin',
+    'https://medlineplus.gov/druginfo/meds/a694007.html',
+    ],[
+    '2:04',
+    'Gabapentin',
+    'https://medlineplus.gov/druginfo/meds/a694007.html',
+    4257
+    ],[
+    '2:29',
+    'Gabapentin',
+    'https://medlineplus.gov/druginfo/meds/a694007.html',
+    4257
+    ],[
+    '2:40',
+    'Gabapentin',
+    'https://medlineplus.gov/druginfo/meds/a694007.html',
+    4257
+    ],[
     '3:00',
     'foot pain',
     'https://medlineplus.gov/ency/article/003183.htm',
-    4267
+    4270
     ],[
     '3:22',
     'bunion',
     'https://medlineplus.gov/ency/article/001231.htm',
-    4267
+    4270
     ],[
     '3:26',
     'arthritis',
     'https://medlineplus.gov/arthritis.html',
-    4267
+    4270
+    ],[
+    '3:44',
+    'arthritis',
+    'https://medlineplus.gov/arthritis.html',
+    4270
     ],[
     '4:03',
     'ganglion cyst',
     'https://www.assh.org/handcare/hand-arm-conditions/ganglion-cyst',
     4290
+    ],[
+    '5:20',
+    'ganglion cyst',
+    'https://www.assh.org/handcare/hand-arm-conditions/ganglion-cyst',
+    4317
+    ],[
+    '5:59',
+    'ganglion cyst',
+    'https://www.assh.org/handcare/hand-arm-conditions/ganglion-cyst',
+    4330
     ],[
     '6:57',
     'blood count test',
@@ -145,10 +183,15 @@ class PlayController < ApplicationController
     'http://www.asahq.org/whensecondscount/pain-management/',
     4360
     ],[
+    '7:30',
+    'pain management',
+    'http://www.asahq.org/whensecondscount/pain-management/',
+    4364
+    ],[
     '10:11',
     'blood pressure measurement',
     'https://medlineplus.gov/ency/article/007490.htm',
-    4402
+    4410
     ]]
   end
 
