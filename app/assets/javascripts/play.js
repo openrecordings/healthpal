@@ -216,6 +216,12 @@ $(document).ready(function(){
     window.location.replace('/my_recordings/' + $(this).val());
   });
 
+  // Don't seek when clicking on a link
+  $('.do-not-seek').click(function(event) {
+    event.stopPropagation();
+    player.audio.pause();
+  });
+
   // Table row click listeners for segments
   $('.segment').click(function() {
     player.seek($(this));

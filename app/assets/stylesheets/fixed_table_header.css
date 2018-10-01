@@ -6,7 +6,6 @@ table {
 
 table, td {
   border-collapse: collapse;
-  border: 1px solid #000;
 }
 
 thead {
@@ -32,7 +31,6 @@ tr {
 }
 
 td {
-  text-align: center;
   border-bottom: none;
   border-left: none;
 }
