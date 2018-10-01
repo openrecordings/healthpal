@@ -39,15 +39,17 @@
         %tr.segment{data: {starttime: utag[0].begins_at, endtime: utag[0].ends_at}}
           %td
             = mm_ss(utag[0].begins_at)
+            ,
+            = mm_ss(utag[0].ends_at)
+            ,
+            = utag[0].id
           %td
             - utag[1].each do |tag|
               %div.tag{class: 'oralfilter-' + tag.tag_type&.label[0..2].downcase} #{tag.tag_type&.label}
           %td
-            -# TODO tmp content for mockup
-            - if row == 4
-              = link_to 'Ibuprofen', 'https://medlineplus.gov/druginfo/meds/a682159.html', target: '_blank'
-            - if row == 7
-              = link_to 'Ibuprofen, ', 'https://medlineplus.gov/druginfo/meds/a682159.html', target: '_blank'
-               
-              = link_to 'Nausea', 'https://medlineplus.gov/nauseaandvomiting.html', target: '_blank'
+            -# TODO: Make this real and remove mock content
+            - links = @links.select{|l| l[3] == utag[0].id}
+            - links.each do |l|
+              = link_to l[1] + (l == links.last ? '' : ','), l[2], target: '_blank'
+              
         - row += 1

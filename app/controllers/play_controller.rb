@@ -12,6 +12,10 @@ class PlayController < ApplicationController
   end
 
   def play
+
+    # TODO: Remove this temporary hard-coded stuff
+    @links = links
+
     if (@recording = Recording.find_by(id: params[:id]))
 
       ##################################################################################
@@ -75,8 +79,80 @@ class PlayController < ApplicationController
   def combine_utterances(utt1, utt2)
     [Utterance.new({begins_at: utt1[0].begins_at,
                     ends_at: utt2[0].ends_at,
-                    index: utt1[0].index}), utt2[1]]
+                    index: utt1[0].index,
+                    id: utt1[0].id}), utt2[1]]
   end
+  
+  def links
+    [[
+    '0:09',
+    'Norco',
+    'https://medlineplus.gov/druginfo/meds/a601006.html',
+    4222
+    ],[
+    '0:14',
+    'Gabapentin',
+    'https://medlineplus.gov/druginfo/meds/a694007.html',
+    4222
+    ],[
+    '0:17',
+    'Tramadol',
+    'https://medlineplus.gov/druginfo/meds/a695011.html',
+    4222
+    ],[
+    '0:27',
+    'high blood pressure',
+    'https://medlineplus.gov/highbloodpressure.html',
+    4222
+    ],[
+    '1:41',
+    'Gabapentin',
+    'https://medlineplus.gov/druginfo/meds/a694007.html',
+    4252
+    ],[
+    '1:41',
+    'shingles',
+    'https://medlineplus.gov/shingles.html',
+    4252
+    ],[
+    '3:00',
+    'foot pain',
+    'https://medlineplus.gov/ency/article/003183.htm',
+    4267
+    ],[
+    '3:22',
+    'bunion',
+    'https://medlineplus.gov/ency/article/001231.htm',
+    4267
+    ],[
+    '3:26',
+    'arthritis',
+    'https://medlineplus.gov/arthritis.html',
+    4267
+    ],[
+    '4:03',
+    'ganglion cyst',
+    'https://www.assh.org/handcare/hand-arm-conditions/ganglion-cyst',
+    4290
+    ],[
+    '6:57',
+    'blood count test',
+    'https://medlineplus.gov/bloodcounttests.html',
+    4346
+    ],[
+    '7:14',
+    'pain management',
+    'http://www.asahq.org/whensecondscount/pain-management/',
+    4360
+    ],[
+    '10:11',
+    'blood pressure measurement',
+    'https://medlineplus.gov/ency/article/007490.htm',
+    4402
+    ]]
+  end
+
+  
 
 
 
