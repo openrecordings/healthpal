@@ -1,10 +1,11 @@
 .container.fixed
   .row
     .col-sm-12
-      - title = format_date @recording.created_at
-      - title += " Visit with #{@recording.provider}" if @recording.provider
-      %h3= @recording.user.full_name
-      %h4= title
+      #recording-header
+        - title = format_date @recording.created_at
+        - title += " Visit with #{@recording.provider}" if @recording.provider
+        %h3= @recording.user.full_name
+        %h4= title
       #recording-container{data: {file: @recording.id}}
       = render partial: "player.html.haml"
       - unless Rails.application.config.research_mode

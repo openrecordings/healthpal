@@ -13,7 +13,7 @@
     = favicon_link_tag 'apple-touch-icon-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png'
     = favicon_link_tag 'favicon.ico', :rel => 'shortcut icon'
   %body
-    .navbar.navbar-default.navbar-fixed-top
+    .navbar.navbar-default.navbar-fixed-top{class: current_user&.privileged? ? 'admin-background' : nil}
       .container
         %button.navbar-toggle(type="button" data-toggle="collapse" data-target=".navbar-responsive-collapse")
           %span.icon-bar
@@ -22,6 +22,8 @@
         %a.navbar-brand(href="/")
           %span#logo-health Health
           %span#logo-pal> PAL
+          - if current_user&.privileged?
+            %span#logo-health> -ADMIN
         .navbar-collapse.collapse.navbar-responsive-collapse
           - if user_signed_in?
             %ul.nav.navbar-nav
