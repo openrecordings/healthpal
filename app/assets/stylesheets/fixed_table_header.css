@@ -1,36 +1,42 @@
-* {box-sizing: border-box} /* for th's width; display purpose */
+@mixin fixed_table_header {
+  * {box-sizing: border-box} /* for th's width; display purpose */
 
-table {
-  width: 100%;
+  table {
+    width: 100%;
+  }
+
+  table, td {
+    border-collapse: collapse;
+  }
+
+  thead {
+    display: table; /* to take the same width as tr */
+    width: calc(100% - 17px); /* - 17px because of the scrollbar width */
+  }
+
+  tbody {
+    display: block; /* to enable vertical scrolling */
+    max-height: 500px; /* e.g. */
+    overflow-y: scroll; /* keeps the scrollbar even if it doesn't need it; display purpose */
+  }
+
+  th, td {
+    width: 33.33%; /* to enable "word-break: break-all" */
+    padding: 5px;
+    word-break: break-all; /* 4. */
+  }
+
+  tr {
+    display: table; /* display purpose; th's border */
+    width: 100%;
+  }
+
+  td {
+    border-bottom: none;
+    border-left: none;
+  }
 }
 
-table, td {
-  border-collapse: collapse;
-}
-
-thead {
-  display: table; /* to take the same width as tr */
-  width: calc(100% - 17px); /* - 17px because of the scrollbar width */
-}
-
-tbody {
-  display: block; /* to enable vertical scrolling */
-  max-height: 500px; /* e.g. */
-  overflow-y: scroll; /* keeps the scrollbar even if it doesn't need it; display purpose */
-}
-
-th, td {
-  width: 33.33%; /* to enable "word-break: break-all" */
-  padding: 5px;
-  word-break: break-all; /* 4. */
-}
-
-tr {
-  display: table; /* display purpose; th's border */
-  width: 100%;
-}
-
-td {
-  border-bottom: none;
-  border-left: none;
+.playtabletop {
+  @include fixed_table_header;
 }
