@@ -1,7 +1,8 @@
 class HomeController < ApplicationController
 
   def index
-    redirect_to :recordings if current_user.privileged?
+    # TODO: Temporarily starting on recordings page until we have a real landing page
+    redirect_to :my_recordings
   end
 
 end

@@ -19,17 +19,17 @@ class PlayController < ApplicationController
     if (@recording = Recording.find_by(id: params[:id]))
 
       ##################################################################################
-      # TODO Re-enable this critical security feature when caregiver data model is done.
-      #      (wrapping conditional goes away)
+      # NOTE: Use this wrapping conditional only for experimental deployments. It exposes
+      #       all recordings to all users
       ##################################################################################
-      if false
+      # if false
 
         unless @recording.user == current_user || current_user.privileged?
           flash.alert = 'You do not have permission to play that recording'
           redirect_to :root and return
         end
 
-      end
+      # end
       ##################################################################################
 
     else

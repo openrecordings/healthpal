@@ -1,25 +1,41 @@
 %h3 Recordings
-.row
-  .col-md-12
-    #tabs
-      %ul
+- if Rails.application.config.research_mode
+  %p
+    .panel.panel-default.table-responsive
+      %table.table.table-striped
+        %thead
+          %tr
+            %th.bigger Visit Date
+            %th.bigger Provider
+            %th.bigger Duration
+        %tbody
+          - current_user.recordings.order('created_at desc').each do |recording|
+            %tr.trecording-select
+              %td.bigger.recording-select{data: {href: play_path(recording.id)}}= link_to format_date(recording.created_at), play_path(recording.id)
+              = render "shared/editable_field", obj: recording, field: 'provider'
+              %td.bigger.recording-select{data: {href: play_path(recording.id)}}= recording.duration ? mm_ss(recording.duration) : nil
+- else
+  .row
+    .col-md-12
+      #tabs
+        %ul
+          - @users.each_with_index do |u, i|
+            %li
+              %a{href: "#tabs-#{i}"}
+                = u.full_name
         - @users.each_with_index do |u, i|
-          %li
-            %a{href: "#tabs-#{i}"}
-              = u.full_name
-      - @users.each_with_index do |u, i|
-        %div{id: "tabs-#{i}"}
-          %p
-            .panel.panel-default.table-responsive
-              %table.table.table-striped
-                %thead
-                  %tr
-                    %th.bigger Visit Date
-                    %th.bigger Provider
-                    %th.bigger Duration
-                %tbody
-                  - u.recordings.order('created_at desc').each do |recording|
-                    %tr.trecording-select
-                      %td.bigger.recording-select{data: {href: play_path(recording.id)}}= link_to format_date(recording.created_at), play_path(recording.id)
-                      = render "shared/editable_field", obj: recording, field: 'provider'
-                      %td.bigger.recording-select{data: {href: play_path(recording.id)}}= recording.duration ? mm_ss(recording.duration) : nil
+          %div{id: "tabs-#{i}"}
+            %p
+              .panel.panel-default.table-responsive
+                %table.table.table-striped
+                  %thead
+                    %tr
+                      %th.bigger Visit Date
+                      %th.bigger Provider
+                      %th.bigger Duration
+                  %tbody
+                    - u.recordings.order('created_at desc').each do |recording|
+                      %tr.trecording-select
+                        %td.bigger.recording-select{data: {href: play_path(recording.id)}}= link_to format_date(recording.created_at), play_path(recording.id)
+                        = render "shared/editable_field", obj: recording, field: 'provider'
+                        %td.bigger.recording-select{data: {href: play_path(recording.id)}}= recording.duration ? mm_ss(recording.duration) : nil

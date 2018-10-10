@@ -7,68 +7,70 @@
       %h4= title
       #recording-container{data: {file: @recording.id}}
       = render partial: "player.html.haml"
-      #tag-filters
-        - (@tags.flat_map{|x| x[1].map {|y| y.tag_type.label}}).sort.uniq.each do |tag_label|
-          - filter_html = "#{tag_label}<input class='badgebox' id='Diagnosis' type='checkbox'><span class='badge'>&check;</span></input>".html_safe
-          =link_to filter_html, 'javascript:;', class: 'filter oralfilter-' + tag_label[0..2].downcase + ' tag-toggle btn-tag btn', data: {tnum: tag_label}
-        %a#clear-filters Clear Filters
-        %br
-        %a#filter-help-link What are these buttons for?
-        #filter-help
-          #filter-help-text
-            %p.help-text
-              %h3 The colored buttons allow you control which aspects of your visit that you want to focus on. The buttons are:
-            %p.help-text
-              %ul#help-list
-                %li.help-text
-                  %b Symptoms signs problems:
-                  A symptom or sign of your health is discussed
-                %li.help-text
-                  %b Diagnosis:
-                  A possible diagnosis is discussed  
-                %li.help-text
-                  %b Medication:
-                  A medication is discussed
-                %li.help-text
-                  %b Test &amp; Imaging:
-                  A test or imaging result is discussed
-                %li.help-text
-                  %b Recommendation:
-                  The doctor recommends or confirms an approach to your healthcare
-                %li.help-text
-                  %b Follow-up:
-                  A follow-up plan or future visit is discussed  
-                %li.help-text
-                  %b Education:
-                  The doctor explains something about your health e.g. what a medicine does,
-                %li.help-text
-                  %b Treatment options:
-                  Different treatment options, including doing nothing are discussed  
-            %p.help-text#close-filter-help
-              %button.btn.btn-primary Close
+      - unless Rails.application.config.research_mode
+        #tag-filters
+          - (@tags.flat_map{|x| x[1].map {|y| y.tag_type.label}}).sort.uniq.each do |tag_label|
+            - filter_html = "#{tag_label}<input class='badgebox' id='Diagnosis' type='checkbox'><span class='badge'>&check;</span></input>".html_safe
+            =link_to filter_html, 'javascript:;', class: 'filter oralfilter-' + tag_label[0..2].downcase + ' tag-toggle btn-tag btn', data: {tnum: tag_label}
+          %a#clear-filters Clear Filters
+          %br
+          %a#filter-help-link What are these buttons for?
+          #filter-help
+            #filter-help-text
+              %p.help-text
+                %h3 The colored buttons allow you control which aspects of your visit that you want to focus on. The buttons are:
+              %p.help-text
+                %ul#help-list
+                  %li.help-text
+                    %b Symptoms signs problems:
+                    A symptom or sign of your health is discussed
+                  %li.help-text
+                    %b Diagnosis:
+                    A possible diagnosis is discussed  
+                  %li.help-text
+                    %b Medication:
+                    A medication is discussed
+                  %li.help-text
+                    %b Test &amp; Imaging:
+                    A test or imaging result is discussed
+                  %li.help-text
+                    %b Recommendation:
+                    The doctor recommends or confirms an approach to your healthcare
+                  %li.help-text
+                    %b Follow-up:
+                    A follow-up plan or future visit is discussed  
+                  %li.help-text
+                    %b Education:
+                    The doctor explains something about your health e.g. what a medicine does,
+                  %li.help-text
+                    %b Treatment options:
+                    Different treatment options, including doing nothing are discussed  
+              %p.help-text#close-filter-help
+                %button.btn.btn-primary Close
 
-%table.table.table.playtabletop
-  %thead
-    %tr
-      %th Start time
-      %th Tags
-      %th Links to more information
-    %tbody
+- unless Rails.application.config.research_mode
+  %table.table.table.playtabletop
+    %thead
+      %tr
+        %th Start time
+        %th Tags
+        %th Links to more information
+      %tbody
 
-      -# TODO tmp counter to put mockup text in table
-      - row = 1
+        -# TODO tmp counter to put mockup text in table
+        - row = 1
 
-      - @tags.each do |utag|
-        %tr.segment{data: {starttime: utag[0].begins_at, endtime: utag[0].ends_at}}
-          %td
-            = mm_ss(utag[0].begins_at)
-          %td
-            - utag[1].each do |tag|
-              %div.tag{class: 'oralfilter-' + tag.tag_type&.label[0..2].downcase} #{tag.tag_type&.label}
-          %td.do-not-seek
-            -# TODO: Make this real and remove mock content
-            - links = @links.select{|l| l[3] == utag[0].id}
-            - links.each do |l|
-              = link_to l[1] + (l == links.last ? '' : ','), l[2], target: '_blank'
-              
-        - row += 1
+        - @tags.each do |utag|
+          %tr.segment{data: {starttime: utag[0].begins_at, endtime: utag[0].ends_at}}
+            %td
+              = mm_ss(utag[0].begins_at)
+            %td
+              - utag[1].each do |tag|
+                %div.tag{class: 'oralfilter-' + tag.tag_type&.label[0..2].downcase} #{tag.tag_type&.label}
+            %td.do-not-seek
+              -# TODO: Make this real and remove mock content
+              - links = @links.select{|l| l[3] == utag[0].id}
+              - links.each do |l|
+                = link_to l[1] + (l == links.last ? '' : ','), l[2], target: '_blank'
+                
+          - row += 1
