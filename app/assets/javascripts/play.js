@@ -19,7 +19,7 @@ var playerClass = function (data) {
     if (self.duration == 0) {
       if (isFinite(self.audio.duration)) {
         self.duration = self.audio.duration;
-        self.timer.set_max(self.duration);
+        // self.timer.set_max(self.duration);
       }
     }
 
@@ -77,8 +77,8 @@ var playerClass = function (data) {
     self.audio.setAttribute('src','/send_audio/' + self.player.data('file'));
     self.audio.load();
     self.player.html(self.audio);
-    self.audio.currentTime = 9999; // Jump to end to help figure out duration
-    self.duration = 0; // Cause progress bar range to be reset
+    // self.audio.currentTime = 9999; // Jump to end to help figure out duration
+    // self.duration = 0; // Cause progress bar range to be reset
     if (self.interval) clearTimeout(self.interval);
     self.interval = window.setInterval(self.watch_player, UPDATE_MS);
   }
@@ -113,8 +113,8 @@ var playerClass = function (data) {
     self.audio.setAttribute('src',url);
     self.audio.load();
     self.player.html(self.audio);
-    self.audio.currentTime = 9999; // Jump to end to help figure out duration
-    self.duration = 0; // Cause progress bar range to be reset
+    // self.audio.currentTime = 9999; // Jump to end to help figure out duration
+    // self.duration = 0; // Cause progress bar range to be reset
     if (self.interval) clearTimeout(self.interval);
     self.interval = setInterval(self.watch_player, UPDATE_MS);
   };
