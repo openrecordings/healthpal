@@ -39,6 +39,7 @@ var timerState = function (data) {
   self.set_max = function(t) {
     self.max = t;
     self.end.set_time(t);
+    self.set_time(0);
   };
 
   self.get_max = function() {

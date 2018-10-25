@@ -12,17 +12,12 @@ class Recording < ApplicationRecord
 
   attr_encrypted :audio, key: Rails.application.config.audio_encryption_key, encode: false, encode_iv: false
 
-  after_save :set_duration
+  before_create :set_duration
 
   TMP_PATH = "#{Rails.root}/recordings_tmp"
 
   def path
     "#{TMP_PATH}/#{self.id}.ogg"
-  end
-
-  # Creates tmp file for recording and returns file size in bytes
-  def make_tmp_file!
-    File.open(path, 'wb') { |file| file.write(self.audio) } unless File.exists? path
   end
 
   def tmp_file_size
@@ -32,8 +27,8 @@ class Recording < ApplicationRecord
   private
 
   def set_duration
-    make_tmp_file!
-    self.update! duration: (tmp_file_size / 10332) unless duration
+    File.open(path, 'wb') { |file| file.write(self.audio) } unless File.exists? path
+    self.duration = 4000
   end
 
 end

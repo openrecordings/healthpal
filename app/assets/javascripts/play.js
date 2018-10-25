@@ -19,7 +19,7 @@ var playerClass = function (data) {
     if (self.duration == 0) {
       if (isFinite(self.audio.duration)) {
         self.duration = self.audio.duration;
-        // self.timer.set_max(self.duration);
+        self.timer.set_max(self.duration);
       }
     }
 
