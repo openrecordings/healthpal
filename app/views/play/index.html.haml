@@ -9,14 +9,17 @@
           %tr
             %th.bigger Visit Date
             %th.bigger Provider
-            %th.bigger Duration
+
+            -# TODO Renable duration when it's fixed
+              %th.bigger Duration
+
         %tbody
           - current_user.recordings.order('created_at desc').each do |recording|
             %tr.trecording-select
               %td.bigger.recording-select{data: {href: play_path(recording.id)}}= link_to format_date(recording.created_at), play_path(recording.id)
               = render "shared/editable_field", obj: recording, field: 'provider'
-              %td.bigger.recording-select{data: {href: play_path(recording.id)}}= recording.duration ? mm_ss(recording.duration) : nil
-              -# %td.bigger.recording-select{data: {href: play_path(recording.id)}}= recording.duration ? mm_ss(recording.duration) : nil
+              -# TODO Renable duration when it's fixed
+                %td.bigger.recording-select{data: {href: play_path(recording.id)}}= recording.duration ? mm_ss(recording.duration) : nil
 - else
   .row
     .col-md-12
@@ -35,10 +38,15 @@
                     %tr
                       %th.bigger Visit Date
                       %th.bigger Provider
-                      %th.bigger Duration
+
+                      -# TODO Renable duration when it's fixed
+                        %th.bigger Duration
+
                   %tbody
                     - u.recordings.order('created_at desc').each do |recording|
                       %tr.trecording-select
                         %td.bigger.recording-select{data: {href: play_path(recording.id)}}= link_to format_date(recording.created_at), play_path(recording.id)
                         = render "shared/editable_field", obj: recording, field: 'provider'
-                        %td.bigger.recording-select{data: {href: play_path(recording.id)}}= 'foo'
+
+                        -# TODO Renable duration when it's fixed
+                          %td.bigger.recording-select{data: {href: play_path(recording.id)}}= 'foo'

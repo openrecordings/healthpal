@@ -33,12 +33,16 @@ class Recording < ApplicationRecord
 
   def set_duration
     File.open(ogg_file, 'wb') { |file| file.write(self.audio) } unless File.exists? ogg_file
-    `ffmpeg -i #{ogg_file} -ar 100 -y #{wav_file}`
-    duration_row = `ffmpeg -i #{wav_file} 2>&1 | grep Duration`
-    wav_duration = duration_row.match(DURATION_RGX).to_s
-    minutes = (wav_duration[6] + wav_duration[7]).to_i
-    seconds = (wav_duration[9] + wav_duration[1]).to_i
-    self.duration = minutes * 60 + seconds
+
+    # TODO: This is upposed to get the correct duration (s) from a wav file, but the numbers are off
+    # `ffmpeg -i #{ogg_file} -ar 100 -y #{wav_file}`
+    # duration_row = `ffmpeg -i #{wav_file} 2>&1 | grep Duration`
+    # wav_duration = duration_row.match(DURATION_RGX).to_s
+    # minutes = (wav_duration[6] + wav_duration[7]).to_i
+    # seconds = (wav_duration[9] + wav_duration[1]).to_i
+    # self.duration = minutes * 60 + seconds
+    
+    self.duration = 60
   end
 
 end
