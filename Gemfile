@@ -23,6 +23,7 @@ gem 'capistrano-rbenv'
 gem 'attr_encrypted'
 gem 'bootstrap-editable-rails'
 gem 'coffee-rails', '~> 4.2'
+gem "nokogiri", ">= 1.8.2"
 
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
