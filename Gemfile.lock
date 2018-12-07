@@ -101,7 +101,7 @@ GEM
     encryptor (3.0.0)
     erubis (2.7.0)
     execjs (2.7.0)
-    ffi (1.9.14)
+    ffi (1.9.25)
     figaro (1.1.1)
       thor (~> 0.14)
     font-awesome-rails (4.7.0.1)
@@ -294,6 +294,7 @@ DEPENDENCIES
   devise
   devise-otp-rails5
   devise_invitable (~> 1.7.0)
+  ffi (>= 1.9.24)
   figaro
   font-awesome-rails
   haml
