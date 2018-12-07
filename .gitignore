@@ -31,5 +31,3 @@
 *.swp
 
 /recordings_tmp/*
-
-Gemfile.lock
