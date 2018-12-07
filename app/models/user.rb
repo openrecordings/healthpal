@@ -1,7 +1,10 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :otp_authenticatable, :invitable, :database_authenticatable, :registerable,
+  # NOTE: :otp_authenticatable was removed because it prevented a Rails update:
+  #        devise-otp-rails5 was resolved to 0.2.4, which depends on rails (>= 3.2.6, < 5.1)
+  #        If you need two-factor working again, you've got work to do.
+  devise :invitable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :timeoutable
 
   has_many :recordings

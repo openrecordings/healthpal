@@ -2,7 +2,10 @@ source 'https://rubygems.org'
 
 gem 'haml'
 gem 'devise'
-gem 'devise-otp-rails5', require: 'devise-otp'
+
+# This gem prevented a needed Rails update. See note in user model
+# gem 'devise-otp-rails5', require: 'devise-otp'
+
 gem 'devise_invitable', '~> 1.7.0'
 gem 'awesome_print'
 gem 'rspec-rails'
@@ -28,15 +31,15 @@ gem 'loofah', '>= 2.2.3'
 gem 'rails-html-sanitizer', '>= 1.0.4'
 gem 'sprockets', '>= 3.7.2'
 gem 'ffi', '>= 1.9.24'
+gem 'rack', '>= 2.0.6'
 
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
   "https://github.com/#{repo_name}.git"
 end
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.0.1'
+gem 'rails', '~> 5.2.2'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.18'
 # Use Puma as the app server

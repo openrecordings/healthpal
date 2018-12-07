@@ -334,7 +334,7 @@ Devise.setup do |config|
   # OTP is mandatory, users are going to be asked to
   # enroll OTP the next time they sign in, before they can successfully complete the session establishment.
   # This is the global value, can also be set on each user.
-  config.otp_mandatory = false
+  # config.otp_mandatory = false
 
   # Drift: a window which provides allowance for drift between a user's token device clock
   # (and therefore their OTP tokens) and the authentication server's clock.
