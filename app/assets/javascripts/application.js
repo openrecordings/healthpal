@@ -17,6 +17,9 @@
 //= require bootstrap-editable
 //= require bootstrap-editable-rails
 //= require jquery-tablesorter
-//= require devise-otp
+
+// devise-otp is disabled due to gem incompatibility
+// require devise-otp
+
 //= require select2
 //= require_tree .

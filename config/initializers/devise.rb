@@ -330,6 +330,7 @@ Devise.setup do |config|
 
   # ==> Devise OTP Extension
   # Configure OTP extension for devise
+  # NOTE: OTP is disabled to do a gem incompatibility
 
   # OTP is mandatory, users are going to be asked to
   # enroll OTP the next time they sign in, before they can successfully complete the session establishment.
@@ -339,11 +340,11 @@ Devise.setup do |config|
   # Drift: a window which provides allowance for drift between a user's token device clock
   # (and therefore their OTP tokens) and the authentication server's clock.
   # Expressed in minutes centered at the current time. (Note: it's a number, *NOT* 3.minutes )
-  #config.otp_drift_window = 3
+  # config.otp_drift_window = 3
 
   # Users that have logged in longer than this time ago, are going to be asked their password
   # (and an OTP challenge, if enabled) before they can see or change their otp informations.
-  config.otp_credentials_refresh = nil
+  # config.otp_credentials_refresh = nil
 
   # Users are given a list of one-time recovery tokens, for emergency access
   # set to false to disable giving recovery tokens.

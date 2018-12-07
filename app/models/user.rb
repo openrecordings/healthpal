@@ -27,40 +27,41 @@ class User < ApplicationRecord
     role == root
   end
 
-  # Resets otp so that a new device is registered upon next login
-  def deprovision_otp
-    set_otp_credentials
-    self.otp_enabled = false
-    self.otp_enabled_on = nil
-    save!
-  end
+  # devise-otp is disabled
+        # Resets otp so that a new device is registered upon next login
+        # def deprovision_otp
+        #   set_otp_credentials
+        #   self.otp_enabled = false
+        #   self.otp_enabled_on = nil
+        #   save!
+        # end
 
-  # Disables otp
-  def disable_otp
-    deprovision_otp
-    self.update(otp_mandatory: false)
-  end
+        # # Disables otp
+        # def disable_otp
+        #   deprovision_otp
+        #   self.update(otp_mandatory: false)
+        # end
 
-  # Enables otp
-  def enable_otp
-    set_otp_credentials
-    save!
-  end
+        # # Enables otp
+        # def enable_otp
+        #   set_otp_credentials
+        #   save!
+        # end
+
+        # # Disables or enables 2FA based on current state
+        # def toggle_otp
+        #   if otp_mandatory
+        #     disable_otp
+        #   else
+        #     enable_otp
+        #   end
+        # end
 
   # Disables or enables active state  based on current state
   # TODO: Implement record locking. If two admins hit this method for the same user at the
   # "same time", unexpected stuff could happen.
   def toggle_active
     self.update! active: !self.active
-  end
-
-  # Disables or enables 2FA based on current state
-  def toggle_otp
-    if otp_mandatory
-      disable_otp
-    else
-      enable_otp
-    end
   end
 
   # Disables user login when appropriate. Called by Warden hook in config/initializers/devise.rb
