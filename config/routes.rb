@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   devise_for :users
   root 'home#index'
 
@@ -34,5 +33,6 @@ Rails.application.routes.draw do
   get 'send_audio/:id',              to: 'play#send_audio',                  as: 'send_audio'
 
   # Sharing
-  get 'sharing',                     to: 'share#index'
+  resources :shares, controller: :share
+  get 'no_shares',                   to: 'share#no_shares',                   as: 'no_shares'
 end

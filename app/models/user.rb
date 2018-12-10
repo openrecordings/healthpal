@@ -28,6 +28,10 @@ class User < ApplicationRecord
     role == root
   end
 
+  def has_active_shares?
+    shares.active.any?
+  end
+
   # devise-otp is disabled
         # Resets otp so that a new device is registered upon next login
         # def deprovision_otp
