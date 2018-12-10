@@ -10,98 +10,107 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180921020429) do
+ActiveRecord::Schema.define(version: 2018_12_10_175400) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "recordings", force: :cascade do |t|
-    t.integer  "user_id"
-    t.string   "filetype"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
-    t.binary   "encrypted_audio"
-    t.binary   "encrypted_audio_iv"
-    t.string   "provider"
-    t.integer  "duration"
-    t.string   "patient_identifier"
+    t.integer "user_id"
+    t.string "filetype"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.binary "encrypted_audio"
+    t.binary "encrypted_audio_iv"
+    t.string "provider"
+    t.integer "duration"
+    t.string "patient_identifier"
+  end
+
+  create_table "shares", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "shared_with_user_id"
+    t.datetime "revoked_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_shares_on_user_id"
   end
 
   create_table "tag_types", force: :cascade do |t|
-    t.text     "label"
+    t.text "label"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "tags", force: :cascade do |t|
-    t.integer  "utterance_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.integer  "tag_type_id"
-    t.index ["tag_type_id"], name: "index_tags_on_tag_type_id", using: :btree
-    t.index ["utterance_id"], name: "index_tags_on_utterance_id", using: :btree
+    t.integer "utterance_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "tag_type_id"
+    t.index ["tag_type_id"], name: "index_tags_on_tag_type_id"
+    t.index ["utterance_id"], name: "index_tags_on_utterance_id"
   end
 
   create_table "transcripts", force: :cascade do |t|
-    t.integer  "recording_id"
-    t.integer  "source"
-    t.text     "raw"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.integer "recording_id"
+    t.integer "source"
+    t.text "raw"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  default: "",    null: false
-    t.string   "encrypted_password",     default: "",    null: false
-    t.string   "reset_password_token"
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,     null: false
+    t.integer "sign_in_count", default: 0, null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.inet     "current_sign_in_ip"
-    t.inet     "last_sign_in_ip"
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
-    t.string   "invitation_token"
+    t.inet "current_sign_in_ip"
+    t.inet "last_sign_in_ip"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "invitation_token"
     t.datetime "invitation_created_at"
     t.datetime "invitation_sent_at"
     t.datetime "invitation_accepted_at"
-    t.integer  "invitation_limit"
-    t.string   "invited_by_type"
-    t.integer  "invited_by_id"
-    t.integer  "invitations_count",      default: 0
-    t.string   "role"
-    t.string   "otp_auth_secret"
-    t.string   "otp_recovery_secret"
-    t.boolean  "otp_enabled",            default: false, null: false
-    t.boolean  "otp_mandatory",          default: false, null: false
+    t.integer "invitation_limit"
+    t.string "invited_by_type"
+    t.integer "invited_by_id"
+    t.integer "invitations_count", default: 0
+    t.string "role"
+    t.string "otp_auth_secret"
+    t.string "otp_recovery_secret"
+    t.boolean "otp_enabled", default: false, null: false
+    t.boolean "otp_mandatory", default: false, null: false
     t.datetime "otp_enabled_on"
-    t.integer  "otp_failed_attempts",    default: 0,     null: false
-    t.integer  "otp_recovery_counter",   default: 0,     null: false
-    t.string   "otp_persistence_seed"
-    t.string   "otp_session_challenge"
+    t.integer "otp_failed_attempts", default: 0, null: false
+    t.integer "otp_recovery_counter", default: 0, null: false
+    t.string "otp_persistence_seed"
+    t.string "otp_session_challenge"
     t.datetime "otp_challenge_expires"
-    t.boolean  "active",                 default: true,  null: false
-    t.string   "first_name"
-    t.string   "last_name"
-    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
-    t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true, using: :btree
-    t.index ["invitations_count"], name: "index_users_on_invitations_count", using: :btree
-    t.index ["invited_by_id"], name: "index_users_on_invited_by_id", using: :btree
-    t.index ["otp_challenge_expires"], name: "index_users_on_otp_challenge_expires", using: :btree
-    t.index ["otp_session_challenge"], name: "index_users_on_otp_session_challenge", unique: true, using: :btree
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+    t.boolean "active", default: true, null: false
+    t.string "first_name"
+    t.string "last_name"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
+    t.index ["invitations_count"], name: "index_users_on_invitations_count"
+    t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
+    t.index ["otp_challenge_expires"], name: "index_users_on_otp_challenge_expires"
+    t.index ["otp_session_challenge"], name: "index_users_on_otp_session_challenge", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   create_table "utterances", force: :cascade do |t|
-    t.integer  "transcript_id"
-    t.integer  "index"
-    t.float    "begins_at"
-    t.text     "text"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-    t.float    "ends_at"
+    t.integer "transcript_id"
+    t.integer "index"
+    t.float "begins_at"
+    t.text "text"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.float "ends_at"
   end
 
   add_foreign_key "tags", "tag_types"

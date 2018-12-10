@@ -3,3 +3,6 @@
 .center.pad-top-40
   = link_to 'Yes', root_path, class: 'btn btn-primary'
   = link_to 'No. Get me out of here!', root_path, class: 'btn btn-primary'
+
+.center.pad-top-40
+  = debug current_user.shares.active

@@ -8,6 +8,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable, :timeoutable
 
   has_many :recordings
+  has_many :shares
 
   scope :regular, ->() { where role: 'user' }
 
