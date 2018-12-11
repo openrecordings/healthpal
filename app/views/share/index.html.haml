@@ -1,8 +1,8 @@
 .center.pad-top-40
   %h2 Share recordings with others
 .center.pad-top-40
-  = link_to 'Add a person to share with', 'javascript:;', class: 'btn btn-primary' 
-.row.pad-top-40
+  = link_to 'Add a person to share with', 'javascript:;', class: 'btn btn-primary', id: 'open-share-form' 
+.row
   .col-xs-4
   .col-xs-4
     .panel.panel-default#new-share-form
@@ -14,9 +14,17 @@
           .center= f.submit 'Share with this person', class: 'center btn btn-primary', id: 'new-share-submit'
   .col-xs-4
 - if @shares.any?
-  %p
-    .panel.panel-default.table-responsive
-      %table.table.table-striped
-        %tbody
+  .center
+    %h3 You are sharing your recordings with these people
+  .panel.panel-default.table-responsive.margin-top-40
+    %table.table.table-striped
+      %thead
+        %th Name
+        %th Email address
+      %tbody
+        - @shares.each do |s|
           %tr
-            %td.bigger shared table
+            %td= s.shared_with.full_name
+            %td
+              =s.shared_with.email
+              %span.table-button= link_to 'Stop sharing with this person', 'javascript:;', class: 'btn btn-primary', id: 'opn-share-form' 

@@ -7,5 +7,10 @@ class Share < ApplicationRecord
   validates_presence_of :shared_with_user_id
 
   scope :active, ->() {where revoked_at: nil}
+
+  # Returns the shared-with User
+  def shared_with
+    User.find_by(id: shared_with_user_id)
+  end
   
 end

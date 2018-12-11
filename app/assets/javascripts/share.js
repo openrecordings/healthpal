@@ -13,6 +13,7 @@ function validateEmail(email1, email2) {
 }
 
 $(document).ready(function(){
+
   $('#new-share-submit').click(function(e) {
       e.preventDefault();
       var emailFields = $(this).closest('form').find('input[type=email]');
@@ -31,4 +32,10 @@ $(document).ready(function(){
         alert(validationResult[1]);
       }
   })
+
+  $('#open-share-form').click(function() {
+    $(this).remove();
+    $('#new-share-form').slideDown();
+  })
+
 });

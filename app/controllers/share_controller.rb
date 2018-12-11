@@ -16,7 +16,7 @@ class ShareController < ApplicationController
     if user
       new_share = Share.new(user: current_user, shared_with_user_id: user.id)
       # Prevent duplicates
-      if current_user.shares.active.any? {|s| s.email.downcase == params['email'].downcase}
+      if current_user.shares.active.any? {|s| s.shared_with.email.downcase == params['email'].downcase}
         render json: {
           error: "It looks like you are already sharing your recordings with #{params['email']}",
           status: 422
