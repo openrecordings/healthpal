@@ -11,7 +11,7 @@
         = bootstrap_form_tag url: shares_path do |f|
           .field= f.email_field :email, label: 'Email address'
           .field= f.email_field :email, label: 'Re-enter email address'
-          .center= f.submit 'Share with this person', class: 'center btn btn-primary'
+          .center= f.submit 'Share with this person', class: 'center btn btn-primary', id: 'new-share-submit'
   .col-xs-4
 - if @shares.any?
   %p
