@@ -2,11 +2,9 @@
 // Returns a two-element array:
 //   [0] true or false (true == both are valid)
 //   [1] error message if any
-function validateEmails(emailFields) {
+function validateEmail(email1, email2) {
   // TODO: Regex email validation
   // For now, just make sure that the two emails are the same
-  email1 = emailFields.get(0).value;
-  email2 = emailFields.get(1).value;
   if(email1 == email2){
     return [true, ''];
   } else {
@@ -18,11 +16,15 @@ $(document).ready(function(){
   $('#new-share-submit').click(function(e) {
       e.preventDefault();
       var emailFields = $(this).closest('form').find('input[type=email]');
-      var validationResult = validateEmails(emailFields);
+      var email1 = emailFields.get(0).value;
+      var email2 = emailFields.get(1).value;
+      var validationResult = validateEmail(email1, email2);
       if(validationResult[0]){
         console.log('Posting to create');
-        $.post('/shares', {ass: 'hole'}, function(json) {
+        $.post('/shares', {email: email1}, function(json) {
           console.log(json);
+        }).fail(function(error) {
+          console.log(error.responseJSON.error);
         })
       } else {
         emailFields.val('');

@@ -4,6 +4,8 @@ class Share < ApplicationRecord
   # for the same user.
   belongs_to  :user
 
+  validates_presence_of :shared_with_user_id
+
   scope :active, ->() {where revoked_at: nil}
   
 end
