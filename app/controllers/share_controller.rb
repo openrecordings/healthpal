@@ -10,4 +10,9 @@ class ShareController < ApplicationController
   def no_shares
   end
 
+  # AJAX-only endpoint for creating a new Share record
+  def create
+    render json: {param: params['foo']}
+  end
+
 end

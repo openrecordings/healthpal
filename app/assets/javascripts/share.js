@@ -12,7 +12,6 @@ function validateEmails(emailFields) {
   } else {
     return [false, 'Emails do no match!'];
   }
-
 }
 
 $(document).ready(function(){
@@ -21,9 +20,13 @@ $(document).ready(function(){
       var emailFields = $(this).closest('form').find('input[type=email]');
       var validationResult = validateEmails(emailFields);
       if(validationResult[0]){
-        console.log('yep');
+        console.log('Posting to create');
+        $.post('/shares', {ass: 'hole'}, function(json) {
+          console.log(json);
+        })
       } else {
-        console.log(validationResult[1]);
+        emailFields.val('');
+        alert(validationResult[1]);
       }
   })
 });
