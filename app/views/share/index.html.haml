@@ -1,5 +1,22 @@
 .center.pad-top-40
-  %h2 Here we are
-
+  %h2 Share recordings with others
 .center.pad-top-40
-  = debug current_user.shares.active
+  = link_to 'Add a person to share with', 'javascript:;', class: 'btn btn-primary' 
+.row.pad-top-40
+  .col-xs-4
+  .col-xs-4
+    .panel.panel-default#new-share-form
+      %p.bigger Enter an email address for the person you want to share with
+      %p
+        = bootstrap_form_tag url: shares_path do |f|
+          .field= f.email_field :email, label: 'Email address'
+          .field= f.email_field :email, label: 'Re-enter email address'
+          .center= f.submit 'Share with this person', class: 'center btn btn-primary'
+  .col-xs-4
+- if @shares.any?
+  %p
+    .panel.panel-default.table-responsive
+      %table.table.table-striped
+        %tbody
+          %tr
+            %td.bigger shared table

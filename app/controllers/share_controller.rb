@@ -1,7 +1,8 @@
 class ShareController < ApplicationController
 
   def index
-    redirect_to :no_shares unless current_user.has_active_shares? || params[:confirmed]
+    @shares = current_user.shares.active
+    redirect_to :no_shares unless @shares.any? || params[:confirmed]
   end
 
   # If the user has no active shares, hit this view to double-check that the user knows
