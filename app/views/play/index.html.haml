@@ -3,6 +3,7 @@
 %h3 Recordings
 - if Rails.application.config.research_mode
   %p
+    bar
     .panel.panel-default.table-responsive
       %table.table.table-striped
         %thead
@@ -24,13 +25,9 @@
   .row
     .col-md-12
       #tabs
-        %ul
-          - @users.each_with_index do |u, i|
-            %li
-              %a{href: "#tabs-#{i}"}
-                = u.full_name
         - @users.each_with_index do |u, i|
-          %div{id: "tabs-#{i}"}
+          .tabs{id: "tabs-#{i}"}
+            = u.full_name
             %p
               .panel.panel-default.table-responsive
                 %table.table.table-striped

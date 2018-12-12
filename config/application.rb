@@ -15,7 +15,7 @@ module Orals
     config.root_email = ENV['ROOT_EMAIL']
     config.root_password = ENV['ROOT_PASSWORD']
 
-    config.research_mode = ENV['RESEARCH_MODE'] || false
+    config.research_mode = ENV['RESEARCH_MODE'] == 'true'
     
     config.audio_encryption_key = ENV['AUDIO_ENCRYPTION_KEY']
 

@@ -1,7 +1,7 @@
-// Call the tag function when tags are selected or unselected
+// Set up tabs on pages with a #tabs element
 $(document).ready(function() {
-    $("#tabs").tabs();
-    //
+    $(".tabs").tabs();
+    console.log('here');
     // Register editable recording columns
     ['provider', 'patient_identifier'].forEach(function(c){
         var field = $('.edit_' + c);
@@ -17,4 +17,3 @@ $(document).ready(function() {
         }
     });
 });
-

@@ -1,13 +1,12 @@
 class PlayController < ApplicationController
   def index
     # TODO: Handle bad data
-    # TODO: Restrict this to authorized viewers when the data model is done
     # TODO: Ultimately, we might want to restrict admin users again
     if current_user.privileged?
       @users = User.joins(:recordings).order(:email).uniq
     else
-      # TODO: Get only users sharing data with current_user
-      @users = User.joins(:recordings).order(:email).uniq
+      # All users who are currently sharing with current_user
+      @users = Share.shared_with_user(current_user).map {|s| s.user}
     end
   end
 
