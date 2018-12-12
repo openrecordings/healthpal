@@ -43,7 +43,7 @@ $(document).ready(function(){
     $('#new-share-form').slideDown();
   })
 
-  // When the user clicks theh stop-sharing button for a user
+  // When the user clicks the stop-sharing button for a user
   // This is a Rails REST route for "deleting" a Share
   $('.revoke-share').click(function(){
     $.ajax({
