@@ -14,9 +14,8 @@
           .center= f.submit 'Share with this person', class: 'center btn btn-primary', id: 'new-share-submit'
   .col-xs-4
 - if @shares.any?
-  .center
-    %h3 You are sharing your recordings with these people
   .panel.panel-default.table-responsive.margin-top-40
+    .center#sharing-table-header You are sharing your recordings with these people
     %table.table.table-striped
       %thead
         %th Name
@@ -27,4 +26,4 @@
             %td= s.shared_with.full_name
             %td
               =s.shared_with.email
-              %span.table-button= link_to 'Stop sharing with this person', 'javascript:;', class: 'btn btn-primary', id: 'opn-share-form' 
+              %span.table-button= link_to 'Stop sharing with this person', 'javascript:;', class: 'btn btn-primary revoke-share', data: {'share-id': s.id}

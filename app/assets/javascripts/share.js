@@ -14,6 +14,8 @@ function validateEmail(email1, email2) {
 
 $(document).ready(function(){
 
+  // AJAX post to create new share
+  // Posts to a Rails REST route for creating a Share
   $('#new-share-submit').click(function(e) {
       e.preventDefault();
       var emailFields = $(this).closest('form').find('input[type=email]');
@@ -23,9 +25,11 @@ $(document).ready(function(){
       if(validationResult[0]){
         console.log('Posting to create');
         $.post('/shares', {email: email1}, function(json) {
-          console.log(json);
+          // Success: refresh the page so that the content reflects the new Share
+          location.reload();
         }).fail(function(error) {
-          console.log(error.responseJSON.error);
+          // TODO: Error message to screen
+          console.log('Error creating share')
         })
       } else {
         emailFields.val('');
@@ -33,9 +37,27 @@ $(document).ready(function(){
       }
   })
 
+  // When the user clicks the add-new-share button
   $('#open-share-form').click(function() {
     $(this).remove();
     $('#new-share-form').slideDown();
+  })
+
+  // When the user clicks theh stop-sharing button for a user
+  // This is a Rails REST route for "deleting" a Share
+  $('.revoke-share').click(function(){
+    $.ajax({
+      url: '/shares/' + $(this).data('share-id'),
+      type: 'DELETE',
+      success: function(json) {
+        // Refresh the page so that the content reflects the revokation
+        location.reload();
+      },
+      error: function(json) {
+        // TODO: Error message to screen
+        console.log('Error revoking share')
+      },
+    })
   })
 
 });

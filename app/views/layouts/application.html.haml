@@ -34,8 +34,8 @@
               %li= link_to 'Recordings', my_recordings_path
               %li= link_to 'Sharing', shares_path
             %ul.nav.navbar-nav.navbar-right
-              %li= link_to "Settings <span class='fa fa-cog' style='margin-right: 3px;'></span>".html_safe, edit_user_registration_path, style: 'padding:0px 10px 0px 0px;display:inline;line-height:50px;'
-              %li= link_to 'Sign out', destroy_user_session_path, method: :delete
+              %li= link_to "Account <span class='fa fa-cog' style='margin-right: 3px;'></span>".html_safe, edit_user_registration_path, style: 'padding:0px 10px 0px 0px;display:inline;line-height:50px;'
+              %li= link_to "Sign out #{current_user.full_name}", destroy_user_session_path, method: :delete
           - else
             %ul.nav.navbar-nav.navbar-right
               %li= link_to 'Sign in', new_user_session_path

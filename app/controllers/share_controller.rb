@@ -24,6 +24,7 @@ class ShareController < ApplicationController
         return
       end
       if new_share.save 
+        flash.notice = "You are now sharing your recordings with #{params['email']}"
         render json: {}
       else
         render json: {error: new_share.errors.full_messages, status: 422}
@@ -33,6 +34,19 @@ class ShareController < ApplicationController
       render json: {error: "Could not find an account with the email address #{params['email']}"},
         status: 404
     end
+  end
+
+  def destroy
+    share = Share.find_by id: params['id']
+    # Handle bad incoming IDs
+    unless share
+      render json: {error: "Could not find that sharing record. Contact and administrator."},
+        status: 404
+      return
+    end
+    share.update revoked_at: Time.now
+    flash.notice = "You are no longer sharing your recordings with #{share.shared_with.email}"
+    render json: {}
   end
 
 end
