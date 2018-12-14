@@ -24,10 +24,12 @@
 - else
   .row
     .col-md-12
-      #tabs
+      %ul.nav.nav-pills
         - @users.each_with_index do |u, i|
-          .tabs{id: "tabs-#{i}"}
-            = u.full_name
+          %li.nav-item
+            %a.nav-link{href: "#tabs-#{i}", "data-toggle" => 'pill'}= u.full_name
+        - @users.each_with_index do |u, i|
+          %div{id: "tabs-#{i}"}
             %p
               .panel.panel-default.table-responsive
                 %table.table.table-striped
@@ -38,7 +40,6 @@
 
                       -# TODO Renable duration when it's fixed
                         %th.bigger Duration
-
                   %tbody
                     - u.recordings.order('created_at desc').each do |recording|
                       %tr.trecording-select
