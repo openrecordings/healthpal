@@ -2,5 +2,7 @@
   .col-md-4.col-md-offset-4
     = bootstrap_form_for(@user, url: set_password_path) do |f|
       = f.email_field :email, label: 'Email for New User'
+      = f.text_field :first_name
+      = f.text_field :last_name
       = f.submit 'Next', class: 'btn btn-primary'
       = link_to 'Cancel', root_path, class: 'btn btn-primary'

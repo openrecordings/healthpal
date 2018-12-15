@@ -26,13 +26,15 @@ class AdminController < ApplicationController
 
   # Set password for in-clinic user registration
   def set_password
-    @user = User.new(email: user_params[:email])
+    @user = User.new(user_params)
   end
 
   # Create new user using in-clinic registration
   def create_registration
     @user = User.new(
       email: user_params[:email],
+      first_name: user_params[:first_name],
+      last_name: user_params[:last_name],
       password: user_params[:password],
       role: 'user'
     )
@@ -48,7 +50,7 @@ class AdminController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:email, :password)
+    params.require(:user).permit(:email, :first_name, :last_name, :password)
   end
 
 end

@@ -12,6 +12,9 @@ class User < ApplicationRecord
 
   scope :regular, ->() { where role: 'user' }
 
+  validates_presence_of :first_name
+  validates_presence_of :last_name
+
   # 2FA is disabled
   # before_create :set_otp_credentials
 
