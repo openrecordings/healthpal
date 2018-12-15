@@ -10,7 +10,8 @@ gem 'devise_invitable', '~> 1.7.0'
 gem 'awesome_print'
 gem 'rspec-rails'
 gem 'figaro'
-gem 'twitter-bootstrap-rails'
+gem 'bootstrap-sass', '~> 3.4.0'
+gem 'sassc-rails', '>= 2.0.0'
 gem 'bootstrap_form'
 gem 'font-awesome-rails'
 gem 'jquery-tablesorter'
@@ -32,6 +33,7 @@ gem 'rails-html-sanitizer', '>= 1.0.4'
 gem 'sprockets', '>= 3.7.2'
 gem 'ffi', '>= 1.9.24'
 gem 'rack', '>= 2.0.6'
+gem 'mini_racer'
 
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
@@ -48,8 +50,6 @@ gem 'puma', '~> 3.0'
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
-# See https://github.com/rails/execjs#readme for more supported runtimes
-gem 'therubyracer', platforms: :ruby
  
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

@@ -13,7 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
-//= require twitter/bootstrap
 //= require bootstrap-editable
 //= require bootstrap-editable-rails
 //= require jquery-tablesorter

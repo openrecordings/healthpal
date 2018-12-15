@@ -24,7 +24,7 @@ class ShareController < ApplicationController
         return
       end
       if new_share.save 
-        flash.notice = "You are now sharing your recordings with #{params['email']}"
+        flash.notice = "You are now sharing all of your recordings with #{params['email']}"
         render json: {}
       else
         render json: {error: new_share.errors.full_messages, status: 422}
