@@ -33,7 +33,7 @@
                   =u.full_name
           .tab-content
             - @users.each_with_index do |u, i|
-              %div.tab-pane{id: "tabs-#{i}"}
+              %div.tab-pane{id: "tabs-#{i}", class: i == 0 ? 'active' : ''}
                 %p
                   .panel.panel-default.table-responsive
                     %table.table.table-striped
