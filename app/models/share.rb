@@ -6,7 +6,9 @@ class Share < ApplicationRecord
 
   validates_presence_of :shared_with_user_id
 
+  # All active shares
   scope :active, ->() {where revoked_at: nil}
+  # All shares where the passed-in user is the receiver
   scope :shared_with_user, ->(u) {active.where(shared_with_user_id: u.id)}
 
   # Returns the shared-with User

@@ -6,7 +6,8 @@ class PlayController < ApplicationController
       @users = User.joins(:recordings).order(:email).uniq
     else
       # All users who are currently sharing with current_user
-      @users = Share.shared_with_user(current_user).map {|s| s.user} << current_user
+      @users = [current_user] + Share.shared_with_user(current_user).map {|s| s.user}.
+        sort_by {|s| s.last_name}
     end
   end
 

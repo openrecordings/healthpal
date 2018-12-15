@@ -23,28 +23,32 @@
                 %td.bigger.recording-select{data: {href: play_path(recording.id)}}= recording.duration ? mm_ss(recording.duration) : nil
 - else
   .row
-    .col-md-12
-      %ul.nav.nav-pills
-        - @users.each_with_index do |u, i|
-          %li.nav-item
-            %a.nav-link{href: "#tabs-#{i}", "data-toggle" => 'pill'}= u.full_name
-        - @users.each_with_index do |u, i|
-          %div{id: "tabs-#{i}"}
-            %p
-              .panel.panel-default.table-responsive
-                %table.table.table-striped
-                  %thead
-                    %tr
-                      %th.bigger Visit Date
-                      %th.bigger Provider
+    .col-xs-12
+      .container--tabs
+        %section.row
+          %ul.nav.nav-tabs
+            - @users.each_with_index do |u, i|
+              %li{class: i == 0 ? 'active' : ''}
+                %a{href: "#tabs-#{i}"}
+                  =u.full_name
+          .tab-content
+            - @users.each_with_index do |u, i|
+              %div.tab-pane{id: "tabs-#{i}"}
+                %p
+                  .panel.panel-default.table-responsive
+                    %table.table.table-striped
+                      %thead
+                        %tr
+                          %th.bigger Visit Date
+                          %th.bigger Provider
 
-                      -# TODO Re-enable duration when it's fixed
-                        %th.bigger Duration
-                  %tbody
-                    - u.recordings.order('created_at desc').each do |recording|
-                      %tr.trecording-select
-                        %td.bigger.recording-select{data: {href: play_path(recording.id)}}= link_to format_date(recording.created_at), play_path(recording.id)
-                        = render "shared/editable_field", obj: recording, field: 'provider'
+                          -# TODO Re-enable duration when it's fixed
+                            %th.bigger Duration
+                      %tbody
+                        - u.recordings.order('created_at desc').each do |recording|
+                          %tr.trecording-select
+                            %td.bigger.recording-select{data: {href: play_path(recording.id)}}= link_to format_date(recording.created_at), play_path(recording.id)
+                            = render "shared/editable_field", obj: recording, field: 'provider'
 
-                        -# TODO Renable duration when it's fixed
-                          %td.bigger.recording-select{data: {href: play_path(recording.id)}}= 'foo'
+                            -# TODO Renable duration when it's fixed
+                              %td.bigger.recording-select{data: {href: play_path(recording.id)}}= 'foo'
