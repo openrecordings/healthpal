@@ -17,13 +17,4 @@ $(document).ready(function() {
   $(".tagger").on("select2:unselect" , function (e) {
     tag($(this).attr("utterance"), e.params.data.text, false);
   });
-
-  // Register editable utterance text
-  $('.edit_utterance').editable({
-      type: 'text',
-      name: 'text',
-      mode: 'inline',
-      inputclass: 'editable-input'
-  });
-
 });

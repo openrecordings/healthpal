@@ -13,8 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
-//= require bootstrap-editable
-//= require bootstrap-editable-rails
 //= require jquery-tablesorter
 
 // devise-otp is disabled due to gem incompatibility
