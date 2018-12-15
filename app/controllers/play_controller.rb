@@ -12,26 +12,13 @@ class PlayController < ApplicationController
   end
 
   def play
-
-    # TODO: Remove this temporary hard-coded stuff
+    # TODO: Get hard-coded links out of the code
     @links = links
-
     if (@recording = Recording.find_by(id: params[:id]))
-
-      ##################################################################################
-      # NOTE: Use this wrapping conditional only for experimental deployments. It exposes
-      #       all recordings to all users
-      ##################################################################################
-      # if false
-
-        unless @recording.user == current_user || current_user.privileged?
-          flash.alert = 'You do not have permission to play that recording'
-          redirect_to :root and return
-        end
-
-      # end
-      ##################################################################################
-
+      unless current_user.can_access(@recording)
+        flash.alert = 'You do not have permission to play that recording'
+        redirect_to :root and return
+      end
     else
       flash.alert = 'Could not find that recording'
       redirect_to :root and return

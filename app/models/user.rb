@@ -31,6 +31,14 @@ class User < ApplicationRecord
     role == root
   end
 
+  def can_access(recording)
+    privileged? || accessible_users.include?(recording.user)
+  end
+
+  def accessible_users
+    [self] + Share.shared_with_user(self).map {|s| s.user}
+  end
+
   # devise-otp is disabled
         # Resets otp so that a new device is registered upon next login
         # def deprovision_otp
