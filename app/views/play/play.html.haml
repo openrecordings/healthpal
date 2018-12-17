@@ -47,11 +47,13 @@
   #player-sidebar
     - unless Rails.application.config.research_mode
       #tag-filters
+        #filter-title Filters
         - (@tags.flat_map{|x| x[1].map {|y| y.tag_type.label}}).sort.uniq.each do |tag_label|
-          - filter_html = "<input class='badgebox' id='Diagnosis' type='checkbox'><span class='badge'>&check;</span></input>#{tag_label}".html_safe
+          - filter_html = "<input class='badgebox' id='Diagnosis' type='checkbox'><span class='badge'>&check;</span></input>&nbsp;&nbsp;&nbsp;#{tag_label}".html_safe
           =link_to filter_html, 'javascript:;', class: 'filter wide-filter oralfilter-' + tag_label[0..2].downcase + ' tag-toggle btn-tag btn', data: {tnum: tag_label}
-        %a#clear-filters Clear Filters
-        %br
-        %a#filter-help-link What are these buttons for?
+        %p
+          %a#clear-filters Clear Filters
+        %p
+          %a#filter-help-link What are these buttons for?
         #filter-help
           = render partial: 'filter_help'

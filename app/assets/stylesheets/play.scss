@@ -1,3 +1,8 @@
+#filter-title{
+  padding-left: 10px;
+  font-size: 22px;
+}
+
 #play-view {
   display: grid;
   width: 100%;
@@ -9,24 +14,21 @@
 }
 
 #recording-header {
-  background-color: #ded;
 	grid-area: head;
 }
 
 #player-controls {
-  background-color: #dde;
 	grid-area: player;
 }
 
 #player-tag-table {
-  background-color: #edd;
 	height: 450px;
 	overflow: auto;
 	grid-area: table;
 }
 
 #player-sidebar{
-  background-color: #ddd;
+  padding: 25px;
 	grid-area: filters;
 }
 
