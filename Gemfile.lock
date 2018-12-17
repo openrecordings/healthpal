@@ -52,9 +52,6 @@ GEM
     awesome_print (1.8.0)
     bcrypt (3.1.12)
     bindex (0.5.0)
-    bootstrap-editable-rails (0.0.9)
-      railties (>= 3.1)
-      sass-rails
     bootstrap-sass (3.4.0)
       autoprefixer-rails (>= 5.2.1)
       sassc (>= 2.0.0)
@@ -291,7 +288,6 @@ PLATFORMS
 DEPENDENCIES
   attr_encrypted
   awesome_print
-  bootstrap-editable-rails
   bootstrap-sass (~> 3.4.0)
   bootstrap_form
   byebug
@@ -337,4 +333,4 @@ DEPENDENCIES
   web-console (>= 3.3.0)
 
 BUNDLED WITH
-   1.17.1
+   1.17.2
