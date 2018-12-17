@@ -1,6 +1,7 @@
 #play-view {
   display: grid;
   width: 100%;
+	height: 90vh;
   grid-template-areas: "head head"
                        "player filters"
                        "table filters";
@@ -19,7 +20,7 @@
 
 #player-tag-table {
   background-color: #edd;
-	height: 300px;
+	height: 450px;
 	overflow: auto;
 	grid-area: table;
 }
@@ -83,9 +84,4 @@
 
 .playtabletop {
   padding-bottom: 50px;
-}
-
-#recording-header {
-  padding-top: 15px;
-  padding-bottom: 15px;
 }

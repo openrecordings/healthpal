@@ -179,6 +179,8 @@ var playerClass = function (data) {
 
 $(document).ready(function(){
 
+  $('#tag-table').stickyTableHeaders({zIndex: 2, scrollableArea: $('#player-tag-table')});
+
   player = new playerClass();
 
   $('#filter-help-link').click(function() {
