@@ -9,6 +9,6 @@
   %td.bigger= current_value
 - else
   %td.bigger.lighter
-    = link_to "<click to add a #{field.humanize(capitalize: false)}>", '#',
+    = link_to "click to add a #{field.humanize(capitalize: false)}", '#',
               id: field, class: "edit_#{field}",
               data: {resource: resource_name, url: polymorphic_path(obj)}
