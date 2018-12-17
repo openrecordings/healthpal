@@ -1,3 +1,34 @@
+#play-view {
+  display: grid;
+  width: 100%;
+  grid-template-areas: "head head"
+                       "player filters"
+                       "table filters";
+  grid-template-columns: 3fr 1fr;
+}
+
+#recording-header {
+  background-color: #ded;
+	grid-area: head;
+}
+
+#player-controls {
+  background-color: #dde;
+	grid-area: player;
+}
+
+#player-tag-table {
+  background-color: #edd;
+	height: 300px;
+	overflow: auto;
+	grid-area: table;
+}
+
+#player-sidebar{
+  background-color: #ddd;
+	grid-area: filters;
+}
+
 #play-pause-text {
   color: white;
 }

@@ -1,4 +1,7 @@
 class PlayController < ApplicationController
+
+  layout 'player', only: :play  
+
   def index
     # TODO: Handle bad data
     # TODO: Ultimately, we might want to restrict admin users again
