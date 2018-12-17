@@ -195,7 +195,7 @@ $(document).ready(function(){
   $('.tag-toggle').click(function() {
 	var checkBox = $(this).find('.badgebox');
 	checkBox.prop('checked', !checkBox.prop('checked'));
-    var tag_type = '.oralfilter' + $(this).html().slice(0, 3);
+    var tag_type = '.oralfilter' + $(this).html().slice(-2, -1);
     var content = false; // If nothing's selected, we'll show all
     if ($(this).hasClass('filter-on')) { // Turn off a tag
       $(tag_type).removeClass('filter-on');
