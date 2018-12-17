@@ -22,16 +22,6 @@
           #play-pause-text Play
           %span#play-pause-icon.glyphicon.glyphicon-play
         %button#stepforward.btn.btn-primary= image_tag 'forward10_white.svg', size: 30
-    - unless Rails.application.config.research_mode
-      #tag-filters
-        - (@tags.flat_map{|x| x[1].map {|y| y.tag_type.label}}).sort.uniq.each do |tag_label|
-          - filter_html = "#{tag_label}<input class='badgebox' id='Diagnosis' type='checkbox'><span class='badge'>&check;</span></input>".html_safe
-          =link_to filter_html, 'javascript:;', class: 'filter oralfilter-' + tag_label[0..2].downcase + ' tag-toggle btn-tag btn', data: {tnum: tag_label}
-        %a#clear-filters Clear Filters
-        %br
-        %a#filter-help-link What are these buttons for?
-        #filter-help
-          = render partial: 'filter_help'
 
   #player-tag-table
     %table.table#tag-table
@@ -55,8 +45,13 @@
                   = link_to l[1] + (l == links.last ? '' : ','), l[2], target: '_blank'
 
   #player-sidebar
-    %ul.nav.nav-list
-      %li.nav-header Filters
-      %li= link_to "Link 1", "/path1"
-      %li= link_to "Link 2", "/path2"
-      %li= link_to "Link 3", "/path3"
+    - unless Rails.application.config.research_mode
+      #tag-filters
+        - (@tags.flat_map{|x| x[1].map {|y| y.tag_type.label}}).sort.uniq.each do |tag_label|
+          - filter_html = "#{tag_label}<input class='badgebox' id='Diagnosis' type='checkbox'><span class='badge'>&check;</span></input>".html_safe
+          =link_to filter_html, 'javascript:;', class: 'filter oralfilter-' + tag_label[0..2].downcase + ' tag-toggle btn-tag btn', data: {tnum: tag_label}
+        %a#clear-filters Clear Filters
+        %br
+        %a#filter-help-link What are these buttons for?
+        #filter-help
+          = render partial: 'filter_help'
