@@ -1,0 +1,2 @@
+class UserNotesController < ApplicationController
+end
