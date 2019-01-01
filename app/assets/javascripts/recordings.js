@@ -1,6 +1,8 @@
-// Register editable recording columns
+// TODO: Used across controllers, should be kept elsewhere
+
+// Register editable fields
 $(document).ready(function() {
-    ['provider', 'patient_identifier'].forEach(function(c){
+    ['text', 'provider', 'patient_identifier'].forEach(function(c){
         var field = $('.edit_' + c);
         if(field.length > 0) {
             field.editable({

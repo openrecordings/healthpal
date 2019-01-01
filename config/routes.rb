@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     get 'set_tag/:name',             to: 'utterances#set_tag', :val => true
     get 'unset_tag/:name',           to: 'utterances#set_tag', :val => false
   end
+  resources :user_notes
 
   # Admin
   get 'admin',                       to: 'admin#index'
