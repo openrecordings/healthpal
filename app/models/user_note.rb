@@ -1,0 +1,2 @@
+class UserNote < ApplicationRecord
+end
