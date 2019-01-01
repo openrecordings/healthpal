@@ -20,6 +20,7 @@
 @import 'fixed_table_header';
 @import 'share';
 @import 'tabs';
+@import 'user_notes';
 @import 'jqueryui-editable';
 
 @font-face {
@@ -53,11 +54,18 @@ body {
 
 .navbar {
   font-size: 16px;
+
 }
 
 .btn, .table, .segment .tag, .form-control {
   font-size: 120%;
   height: inherit;
+}
+
+.green-badge {
+  background-color: #AB852B;
+  font-size: 24px;
+  padding: 5px;
 }
 
 .tablesorter-header {

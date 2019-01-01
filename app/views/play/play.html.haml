@@ -4,6 +4,9 @@
     - title += " Visit with #{@recording.provider}" if @recording.provider
     %h3= @recording.user.full_name
     %h4= title
+    #new-note-badge.green-badge
+      %span.glyphicon.glyphicon-plus
+      Add a note for this visit
 
   #player-controls
     #recording-container{'data-file' => @recording.id}
