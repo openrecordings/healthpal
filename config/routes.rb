@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   end
   resources :user_notes do
     collection do
-      put 'create'
+      put 'update'
     end
   end
 
