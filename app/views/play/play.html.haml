@@ -8,7 +8,7 @@
       %span.glyphicon.glyphicon-plus
       Add a note for this visit
     #note-container
-      = render "shared/editable_field", obj: UserNote.new(user_id: current_user.id), field: 'text'
+      = best_in_place UserNote.new(recording_id: @recording.id), :text, as: :textarea
 
   #player-controls
     #recording-container{'data-file' => @recording.id}

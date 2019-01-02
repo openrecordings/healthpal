@@ -51,6 +51,9 @@ GEM
       execjs
     awesome_print (1.8.0)
     bcrypt (3.1.12)
+    best_in_place (3.0.3)
+      actionpack (>= 3.2)
+      railties (>= 3.2)
     bindex (0.5.0)
     bootstrap-sass (3.4.0)
       autoprefixer-rails (>= 5.2.1)
@@ -288,6 +291,7 @@ PLATFORMS
 DEPENDENCIES
   attr_encrypted
   awesome_print
+  best_in_place (~> 3.0.1)
   bootstrap-sass (~> 3.4.0)
   bootstrap_form
   byebug

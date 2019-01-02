@@ -33,6 +33,7 @@ gem 'sprockets', '>= 3.7.2'
 gem 'ffi', '>= 1.9.24'
 gem 'rack', '>= 2.0.6'
 gem 'mini_racer'
+gem 'best_in_place', '~> 3.0.1'
 
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
