@@ -2,6 +2,7 @@ class Recording < ApplicationRecord
 
   belongs_to :user
   has_one :transcript, dependent: :destroy
+  has_one :user_note
   has_many :tags, through: :transcript
 
   #
@@ -13,6 +14,7 @@ class Recording < ApplicationRecord
   attr_encrypted :audio, key: Rails.application.config.audio_encryption_key, encode: false, encode_iv: false
 
   before_create :set_duration
+  before_create :create_note
 
   TMP_PATH = "#{Rails.root}/recordings_tmp"
   DURATION_RGX = /\d\d:\d\d:\d\d.\d\d/
@@ -43,6 +45,13 @@ class Recording < ApplicationRecord
     # self.duration = minutes * 60 + seconds
     
     self.duration = 60
+  end
+
+  def create_note
+    # This silliness is due to the way the best_in_place gem works. It needs a persisted record
+    # to work with and I want to use it for "creation" as well as updating, so for now, all
+    # recordings start with blank UserNotes
+    self.user_note = UserNote.new
   end
 
 end

@@ -8,7 +8,7 @@
       %span.glyphicon.glyphicon-plus
       Add a note for this visit
     #note-container
-      = best_in_place UserNote.new(recording_id: @recording.id), :text, as: :textarea
+      = best_in_place @user_note, :text, as: :textarea, ok_button: 'Save', cancel_button: 'Cancel'
 
   #player-controls
     #recording-container{'data-file' => @recording.id}
