@@ -13,4 +13,33 @@
 }
 
 #note-container {
+  display: none;
+}
+
+textarea {
+  display: block;
+  min-width: 400px !important;
+  min-height:100px !important;
+}
+
+.best_in_place {
+  display: inline-block;
+  min-width: 400px !important;
+  min-height:100px !important;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.small-button {
+  margin-top: 5px;
+  margin-right: 5px;
+  font-size: 14px !important;
+}
+
+#note-header {
+  display: none;
+  font-weight: bold;
+  margin-top: 15px !important;
+  color: #AB852B;
 }
