@@ -20,12 +20,11 @@
 .byebug_history
 
 # Ignore database configuration
+/config/application.yml
+/config/secrets.yml
 /config/database.yml
 
 .gemrc
-
-# Ignore application configuration
-/config/application.yml
 
 # Ignore VIM temp files
 *.swp
