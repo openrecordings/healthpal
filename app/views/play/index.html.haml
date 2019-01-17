@@ -48,7 +48,23 @@
                         - u.recordings.order('created_at desc').each do |recording|
                           %tr.trecording-select
                             %td.bigger.recording-select{data: {href: play_path(recording.id)}}= link_to format_date(recording.created_at), play_path(recording.id)
-                            = render "shared/editable_field", obj: recording, field: 'provider'
+                            -# = render "shared/editable_field", obj: recording, field: 'provider'
+                            %td
+                              - unless recording&.provider
+                                #new-provider-badge
+                                  %span.glyphicon.glyphicon-plus
+                                  Add a provider name for this visit
+                              - if recording&.provider
+                                #provider-container
+                                  = best_in_place(recording,
+                                    :provider,
+                                    as: :textarea,
+                                    place_holder: nil,
+                                    ok_button: 'Save',
+                                    ok_button_class: 'btn btn-primary small-button',
+                                    cancel_button: 'Cancel',
+                                    cancel_button_class: 'btn btn-info small-button',
+                                    )
 
                             -# TODO Renable duration when it's fixed
                               %td.bigger.recording-select{data: {href: play_path(recording.id)}}= 'foo'

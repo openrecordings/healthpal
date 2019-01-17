@@ -36,7 +36,7 @@ class Recording < ApplicationRecord
   def set_duration
     File.open(ogg_file, 'wb') { |file| file.write(self.audio) } unless File.exists? ogg_file
 
-    # TODO: This is upposed to get the correct duration (s) from a wav file, but the numbers are off
+    # TODO: This is supposed to get the correct duration (s) from a wav file, but the numbers are off
     # `ffmpeg -i #{ogg_file} -ar 100 -y #{wav_file}`
     # duration_row = `ffmpeg -i #{wav_file} 2>&1 | grep Duration`
     # wav_duration = duration_row.match(DURATION_RGX).to_s
@@ -52,6 +52,7 @@ class Recording < ApplicationRecord
     # to work with and I want to use it for "creation" as well as updating, so for now, all
     # recordings start with blank UserNotes
     self.user_note = UserNote.new
+    self.provider = ''
   end
 
 end

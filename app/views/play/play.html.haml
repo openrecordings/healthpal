@@ -5,7 +5,7 @@
     %h3= @recording.user.full_name
     %h4= title
     - unless @recording.user_note&.text&.first.present?
-      #new-note-badge.green-badge
+      #new-note-badge
         %span.glyphicon.glyphicon-plus
         Add a note for this visit
     #note-header Notes for this visit.

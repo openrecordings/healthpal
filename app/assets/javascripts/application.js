@@ -16,9 +16,5 @@
 //= require jquery-ui
 //= require best_in_place.jquery-ui
 //= require jquery-tablesorter
-
-// devise-otp is disabled due to gem incompatibility
-// require devise-otp
-
 //= require select2
 //= require_tree .
