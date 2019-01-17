@@ -1,6 +1,4 @@
-// TODO: DRY this up
-
-#new-note-badge {
+.editable-badge {
   display: inline-block;
   color: white;
   background-color: #AB852B;
@@ -14,58 +12,23 @@
   }
 }
 
-#new-provider-badge {
-  display: inline-block;
-  color: white;
-  background-color: #AB852B;
-  font-size: 18px;
-  padding: 10px;
-  margin-top: 5px;
-  border-radius: 5px;
-  &:hover {
-    background-color: #7F621D;
-    cursor: pointer;
-  }
-}
-
-#note-container {
+.editable-header {
   display: none;
+  font-weight: bold;
+  margin-top: 15px !important;
+  color: #AB852B;
 }
 
-#provider-container {
+.editable-container .best_in_place {
+  display: inline-block;
+  min-width: 400px !important;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.editable-container {
   display: none;
-}
-
-textarea {
-  display: block;
-  min-width: 400px !important;
-  min-height:100px !important;
-}
-
-#provider-container .best_in_place {
-  display: inline-block;
-  min-width: 400px !important;
-  padding: 15px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-#note-container .best_in_place {
-  display: inline-block;
-  min-width: 400px !important;
-  min-height:100px !important;
-  padding: 15px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-#provider-container .best_in_place {
-  display: inline-block;
-  min-width: 400px !important;
-  min-height:50px !important;
-  padding: 15px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
 }
 
 .small-button {
@@ -74,9 +37,8 @@ textarea {
   font-size: 14px !important;
 }
 
-#note-header {
-  display: none;
-  font-weight: bold;
-  margin-top: 15px !important;
-  color: #AB852B;
+textarea {
+  display: block;
+  min-width: 400px !important;
+  min-height:100px !important;
 }

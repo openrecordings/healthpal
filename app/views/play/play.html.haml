@@ -5,11 +5,11 @@
     %h3= @recording.user.full_name
     %h4= title
     - unless @recording.user_note&.text&.first.present?
-      #new-note-badge
+      .editable-badge
         %span.glyphicon.glyphicon-plus
         Add a note for this visit
-    #note-header Notes for this visit.
-    #note-container
+    .editable-header Notes for this visit.
+    .editable-container
       = best_in_place(@user_note,
         :text,
         as: :textarea,

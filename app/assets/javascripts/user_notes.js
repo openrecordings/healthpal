@@ -1,33 +1,16 @@
 $(document).ready(function(){
-
-  // TODO: DRY this up
-
-  $('#new-note-badge').click(function() {
+  $('.editable-badge').click(function() {
+    console.log('here');
     $(this).hide();
-    $('#note-container').show();
-    $('#note-header').show();
+    $('.editable-container').show();
+    $('.editable-header').show();
     $('.best_in_place').click();
   })
 
   // This is brittle. Relies on view logic show/hiding the new note button to decide on initial
-  // visability of note
-  if(!$('#new-note-badge').length) {
-    $('#note-container').show();
-    $('#note-header').show();
+  // visability of the field
+  if(!$('.editable-badge').length) {
+    $('.editable-container').show();
+    $('.editable-header').show();
   }
-
-  $('#new-provider-badge').click(function() {
-    $(this).hide();
-    $('#provider-container').show();
-    $('#provider-header').show();
-    $('.best_in_place').click();
-  })
-
-  // This is brittle. Relies on view logic show/hiding the new note button to decide on initial
-  // visability of note
-  if(!$('#new-provider-badge').length) {
-    $('#provider-container').show();
-    $('#provider-header').show();
-  }
-
 });

@@ -1,27 +1,5 @@
--# TODO DRY it up
-
-%h3 Recordings
-- if Rails.application.config.research_mode
-  %p
-    bar
-    .panel.panel-default.table-responsive
-      %table.table.table-striped
-        %thead
-          %tr
-            %th.bigger Visit Date
-            %th.bigger Provider
-
-            -# TODO Re-enable duration when it's fixed
-              %th.bigger Duration
-
-        %tbody
-          - current_user.recordings.order('created_at desc').each do |recording|
-            %tr.trecording-select
-              %td.bigger.recording-select{data: {href: play_path(recording.id)}}= link_to format_date(recording.created_at), play_path(recording.id)
-              = render "shared/editable_field", obj: recording, field: 'provider'
-              -# TODO Renable duration when it's fixed
-                %td.bigger.recording-select{data: {href: play_path(recording.id)}}= recording.duration ? mm_ss(recording.duration) : nil
-- else
+%h3
+  Recordings
   .row
     .col-xs-12
       .container--tabs
