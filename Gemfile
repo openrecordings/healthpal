@@ -1,12 +1,7 @@
-
 source 'https://rubygems.org'
 
 gem 'haml'
 gem 'devise'
-
-# This gem prevented a needed Rails update. See note in user model
-# gem 'devise-otp-rails5', require: 'devise-otp'
-
 gem 'devise_invitable', '~> 1.7.0'
 gem 'awesome_print'
 gem 'rspec-rails'
@@ -35,6 +30,7 @@ gem 'ffi', '>= 1.9.24'
 gem 'rack', '>= 2.0.6'
 gem 'mini_racer'
 gem 'best_in_place', '~> 3.0.1'
+gem 'npm-pipeline-rails'
 
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
