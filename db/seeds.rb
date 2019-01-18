@@ -14,7 +14,6 @@ unless User.where(email: Rails.application.config.root_email).first
     role: 'root'
   })
   user.save!
-  user.disable_otp
 end
 
 # Create tag types
