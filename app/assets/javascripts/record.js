@@ -1,34 +1,12 @@
-$(document).ready(function() {
-  
-  // Check for getUserMedia browser support
-	function hasGetUserMedia() {
-		return !!(navigator.mediaDevices &&
-			navigator.mediaDevices.getUserMedia);
-	}
-	if (hasGetUserMedia()) {
-	  console.log('getUserMedia found');	
-	} else {
-    //TODO: Alert the user
-	  console.log('getUserMedia not found');	
-	}
-
-});
-
 // From https://www.html5rocks.com/en/tutorials/getusermedia/intro/
 const videoElement = document.querySelector('video');
 const audioSelect = document.querySelector('select#audioSource');
 const videoSelect = document.querySelector('select#videoSource');
 
-navigator.mediaDevices.enumerateDevices()
-  .then(gotDevices).then(getStream).catch(handleError);
-
 audioSelect.onchange = getStream;
 videoSelect.onchange = getStream;
 
 function gotDevices(deviceInfos) {
-
-	console.log(deviceInfos);
-
   for (let i = 0; i !== deviceInfos.length; ++i) {
     const deviceInfo = deviceInfos[i];
     const option = document.createElement('option');
@@ -47,31 +25,53 @@ function gotDevices(deviceInfos) {
   }
 }
 
-function getStream() {
-  if (window.stream) {
-    window.stream.getTracks().forEach(function(track) {
-      track.stop();
-    });
-  }
-
-  const constraints = {
-    audio: {
-      deviceId: {exact: audioSelect.value}
-    },
-    video: {
-      deviceId: {exact: videoSelect.value}
-    }
-  };
-
-  navigator.mediaDevices.getUserMedia(constraints).
-    then(gotStream).catch(handleError);
-}
-
-function gotStream(stream) {
-  window.stream = stream; // make stream available to console
-  videoElement.srcObject = stream;
-}
-
 function handleError(error) {
   console.error('Error: ', error);
 }
+  
+// Check for getUserMedia browser support
+function hasGetUserMedia() {
+	return !!(navigator.mediaDevices &&
+		navigator.mediaDevices.getUserMedia);
+}
+if (!hasGetUserMedia()) {
+	//TODO: Alert the user
+	console.log('getUserMedia not found');	
+}
+
+function gotStream(stream) {
+	console.log('got');
+	window.stream = stream; // make stream available to console
+	videoElement.srcObject = stream;
+}
+
+function stopStream() {
+	console.log('stop');
+	if (window.stream) {
+		window.stream.getTracks().forEach(function(track) {
+			track.stop();
+		});
+	}
+}
+
+function getStream() {
+	console.log('get');
+	const constraints = {
+		audio: {
+			deviceId: {exact: audioSelect.value}
+		},
+		video: {
+			deviceId: {exact: videoSelect.value}
+		}
+	};
+
+	navigator.mediaDevices.getUserMedia(constraints).
+		then(gotStream).then(stopStream).catch(handleError);
+}
+
+$(document).ready(function() {
+
+	navigator.mediaDevices.enumerateDevices()
+		.then(gotDevices).then(getStream).catch(handleError);
+
+});
