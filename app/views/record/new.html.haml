@@ -1,4 +1,10 @@
 -# = video_tag 'test.mp4', size: '640x480', controls: true
 %select#audioSource
 %select#videoSource
+%div
+	%input{type: 'checkbox', id: 'toggle-audio-input', name: 'toggle-audio-input'}
+	%label{for: 'toggle-audio-input'} Record audio
+%div
+	%input{type: 'checkbox', id: 'toggle-video-input', name: 'toggle-video-input'}
+	%label{for: 'toggle-video-input'} Record video
 %video{autoplay: true}
