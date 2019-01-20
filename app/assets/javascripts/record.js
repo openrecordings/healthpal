@@ -1,8 +1,11 @@
-// From https://www.html5rocks.com/en/tutorials/getusermedia/intro/
 const videoElement = document.querySelector('video');
 const audioSelect = document.querySelector('select#audioSource');
 const videoSelect = document.querySelector('select#videoSource');
+var streamRecorder;
+var recordStream;
 
+// Stream management. Started with https://www.html5rocks.com/en/tutorials/getusermedia/intro/ 
+//////////////////////////////////////////////////////////////////////////////////////////////////
 audioSelect.onchange = getStream;
 videoSelect.onchange = getStream;
 
@@ -34,15 +37,13 @@ function hasGetUserMedia() {
 	return !!(navigator.mediaDevices &&
 		navigator.mediaDevices.getUserMedia);
 }
-if (!hasGetUserMedia()) {
-	//TODO: Alert the user
-	console.log('getUserMedia not found');	
-}
 
 function gotStream(stream) {
 	console.log('got');
-	window.stream = stream; // make stream available to console
+  // Make stream available to console
+	window.stream = stream;
 	videoElement.srcObject = stream;
+	recordStream = stream
 }
 
 function stopStream() {
@@ -64,20 +65,64 @@ function getStream() {
 			deviceId: {exact: videoSelect.value}
 		}
 	};
-
 	navigator.mediaDevices.getUserMedia(constraints).
 		then(gotStream).catch(handleError);
 }
 
+// Recording. Started with https://stackoverflow.com/a/16784618
+//////////////////////////////////////////////////////////////////////////////////////////////////
+function onVideoFail(e) {
+  console.log('webcam fail!', e);
+};
+
+function startRecording() {
+	var mediaRecorder = new MediaRecorder(recordStream);
+	mediaRecorder.mimeType = 'video/webm';
+	mediaRecorder.ondataavailable = function (blob) {
+			var blobURL = URL.createObjectURL(blob);
+			postMediaToServer(blobURL);
+	};
+	mediaRecorder.start(3000)
+  setTimeout(stopRecording, 10000);
+}
+
+function stopRecording() {
+  streamRecorder.getRecordedData(postMediaToServer);
+}
+
+function postMediaToServer(blob) {
+  var data = {};
+  data.video = videoblob;
+  data.metadata = 'test metadata';
+  data.action = "upload_video";
+  jQuery.post('/upload', data, onUploadSuccess);
+}
+
+function onUploadSuccess() {
+  console.log('video uploaded');
+}
+
+// onload
+//////////////////////////////////////////////////////////////////////////////////////////////////
 $(document).ready(function() {
-  navigator.mediaDevices.enumerateDevices().then(gotDevices).catch(handleError);
+  if (hasGetUserMedia()) {
+    navigator.mediaDevices.enumerateDevices().then(gotDevices).catch(handleError);
 
-  $('#record-start-button').click(function(){
-    getStream();
-  })
+    $('#media-start-button').click(function(){
+      getStream();
+    })
 
-  $('#record-stop-button').click(function(){
-    stopStream();
-  })
+    $('#record-start-button').click(function(){
+      startRecording();
+    })
+
+    $('#record-stop-button').click(function(){
+      stopStream();
+      stopRecording();
+    })
+  } else {
+    //TODO: Alert the user
+    console.log('getUserMedia not found');	
+  }
 
 });
