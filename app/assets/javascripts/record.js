@@ -34,39 +34,38 @@ function handleError(error) {
   
 // Check for getUserMedia browser support
 function hasGetUserMedia() {
-	return !!(navigator.mediaDevices &&
-		navigator.mediaDevices.getUserMedia);
+  return !!(navigator.mediaDevices &&
+    navigator.mediaDevices.getUserMedia);
 }
 
 function gotStream(stream) {
-	console.log('got');
+  console.log('got');
   // Make stream available to console
-	window.stream = stream;
-	videoElement.srcObject = stream;
-	recordStream = stream
+  window.stream = stream;
+  recordStream = stream;
 }
 
 function stopStream() {
-	console.log('stop');
-	if (window.stream) {
-		window.stream.getTracks().forEach(function(track) {
-			track.stop();
-		});
-	}
+  console.log('stop');
+  if (window.stream) {
+    window.stream.getTracks().forEach(function(track) {
+      track.stop();
+    });
+  }
 }
 
 function getStream() {
-	console.log('get');
-	const constraints = {
-		audio: {
-			deviceId: {exact: audioSelect.value}
-		},
-		video: {
-			deviceId: {exact: videoSelect.value}
-		}
-	};
-	navigator.mediaDevices.getUserMedia(constraints).
-		then(gotStream).catch(handleError);
+  console.log('get');
+  const constraints = {
+    audio: {
+      deviceId: {exact: audioSelect.value}
+    },
+    video: {
+      deviceId: {exact: videoSelect.value}
+    }
+  };
+  navigator.mediaDevices.getUserMedia(constraints).
+    then(gotStream).catch(handleError);
 }
 
 // Recording. Started with https://stackoverflow.com/a/16784618
@@ -76,23 +75,23 @@ function onVideoFail(e) {
 };
 
 function startRecording() {
-	var mediaRecorder = new MediaRecorder(recordStream);
-	mediaRecorder.mimeType = 'video/webm';
-	mediaRecorder.ondataavailable = function (blob) {
-			var blobURL = URL.createObjectURL(blob);
-			postMediaToServer(blobURL);
-	};
-	mediaRecorder.start(3000)
+  var mediaRecorder = new MediaRecorder(recordStream);
+  mediaRecorder.mimeType = 'video/webm';
+  mediaRecorder.ondataavailable = function(blob) {
+    videoElement.srcObject = recordStream;
+    postMediaToServer(videoElement.srcObject);
+  };
+  mediaRecorder.start(3000)
   setTimeout(stopRecording, 10000);
 }
 
 function stopRecording() {
-  streamRecorder.getRecordedData(postMediaToServer);
+  // TODO
 }
 
-function postMediaToServer(blob) {
+function postMediaToServer(mediaBlob) {
   var data = {};
-  data.video = videoblob;
+  data.video = mediaBlob;
   data.metadata = 'test metadata';
   data.action = "upload_video";
   jQuery.post('/upload', data, onUploadSuccess);
@@ -122,7 +121,7 @@ $(document).ready(function() {
     })
   } else {
     //TODO: Alert the user
-    console.log('getUserMedia not found');	
+    console.log('getUserMedia not found');  
   }
 
 });
