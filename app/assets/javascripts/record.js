@@ -66,12 +66,18 @@ function getStream() {
 	};
 
 	navigator.mediaDevices.getUserMedia(constraints).
-		then(gotStream).then(stopStream).catch(handleError);
+		then(gotStream).catch(handleError);
 }
 
 $(document).ready(function() {
+  navigator.mediaDevices.enumerateDevices().then(gotDevices).catch(handleError);
 
-	navigator.mediaDevices.enumerateDevices()
-		.then(gotDevices).then(getStream).catch(handleError);
+  $('#record-start-button').click(function(){
+    getStream();
+  })
+
+  $('#record-stop-button').click(function(){
+    stopStream();
+  })
 
 });
