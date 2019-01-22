@@ -247,41 +247,6 @@ if(videoElement && audioSelect &&  videoSelect) {
     var HEIGHT=50;
     var rafID = null;
 
-    window.onload = function() {
-      let video = document.getElementById('record-video');
-      video.addEventListener('canplaythrough', function() {
-
-        // grab our canvas
-        canvasContext = document.getElementById( "meter" ).getContext("2d");
-        
-        // monkeypatch Web Audio
-        window.AudioContext = window.AudioContext || window.webkitAudioContext;
-        
-        // grab an audio context
-        audioContext = new AudioContext();
-
-        // Attempt to get audio input
-        try {
-            // ask for an audio input
-            navigator.mediaDevices.getUserMedia(
-            {
-                "audio": {
-                    "mandatory": {
-                        "googEchoCancellation": "false",
-                        "googAutoGainControl": "false",
-                        "googNoiseSuppression": "false",
-                        "googHighpassFilter": "false"
-                    },
-                    "optional": []
-                },
-            }, onMicrophoneGranted, onMicrophoneDenied);
-        } catch (e) {
-            alert('getUserMedia threw exception :' + e);
-        }
-
-      }, false);
-    }
-
     function onMicrophoneDenied() {
         alert('Stream generation failed.');
     }
@@ -361,6 +326,34 @@ if(videoElement && audioSelect &&  videoSelect) {
     //       videoTrackOn = true;
     //   }
     // })
+    
+    // Audio meter display onload starts here
+    ////////////////////////////////////////////////////////////////////////////////////////////
+    let video = document.getElementById('record-video');
+      // grab our canvas
+      canvasContext = document.getElementById('record-audio-meter').getContext("2d");
+      // monkeypatch Web Audio
+      window.AudioContext = window.AudioContext || window.webkitAudioContext;
+      // grab an audio context
+      audioContext = new AudioContext();
+      // Attempt to get audio input
+      try {
+          // ask for an audio input
+          navigator.mediaDevices.getUserMedia(
+          {
+              "audio": {
+                  "mandatory": {
+                      "googEchoCancellation": "false",
+                      "googAutoGainControl": "false",
+                      "googNoiseSuppression": "false",
+                      "googHighpassFilter": "false"
+                  },
+                  "optional": []
+              },
+          }, onMicrophoneGranted, onMicrophoneDenied);
+      } catch (e) {
+          alert('getUserMedia threw exception :' + e);
+      }
 
   });
 }
