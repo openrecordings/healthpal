@@ -100,11 +100,11 @@ if(videoElement && audioSelect &&  videoSelect) {
   }
 
   function postMediaToServer(mediaBlob) {
-    var data = {};
-    data.video = mediaBlob;
-    data.metadata = 'test metadata';
-    data.action = "upload_video";
-    jQuery.post('/upload', data, onUploadSuccess);
+    // var data = {};
+    // data.video = mediaBlob;
+    // data.metadata = 'test metadata';
+    // data.action = "upload_video";
+    // jQuery.post('/upload', data, onUploadSuccess);
   }
 
   function onUploadSuccess() {
@@ -287,73 +287,66 @@ if(videoElement && audioSelect &&  videoSelect) {
   //////////////////////////////////////////////////////////////////////////////////////////////////
   $(document).ready(function() {
     if (hasGetUserMedia()) {
-      navigator.mediaDevices.enumerateDevices().then(gotDevices).catch(handleError);
+      $('#media-start-button').click(function(){ startStream(); })
 
-      $('#media-start-button').click(function(){
-        getStream();
-      })
-
-      $('#record-start-button').click(function(){
-        startRecording();
-      })
+      $('#record-start-button').click(function(){ startRecording(); })
 
       $('#record-stop-button').click(function(){
         stopStream();
         stopRecording();
       })
+      
+      // TODO: handle turning tracks on/off
+      // Initialize to recording nothing
+      // let audioTrackOn = false;
+      // let videoTrackOn = false;
+      //
+      // Listen for a/v selection and set stream to record audio and/or video
+      // $("[name='requested-media']").click(function(){
+      //   let requestedMedia = $(this).data('requested-media');
+      //   switch(requestedMedia){
+      //     case 'audio':
+      //       audioTrackOn = true;
+      //       break;
+      //     case 'video':
+      //       videoTrackOn = true;
+      //       break;
+      //     case 'audio-video':
+      //       audioTrackOn = true;
+      //       videoTrackOn = true;
+      //   }
+      // })
+      
+      // Audio meter display onload starts here
+      ////////////////////////////////////////////////////////////////////////////////////////////
+      let video = document.getElementById('record-video');
+        // grab our canvas
+        canvasContext = document.getElementById('record-audio-meter').getContext("2d");
+        // monkeypatch Web Audio
+        window.AudioContext = window.AudioContext || window.webkitAudioContext;
+        // grab an audio context
+        audioContext = new AudioContext();
+        // Attempt to get audio input
+        try {
+            // ask for an audio input
+            navigator.mediaDevices.getUserMedia(
+            {
+                "audio": {
+                    "mandatory": {
+                        "googEchoCancellation": "false",
+                        "googAutoGainControl": "false",
+                        "googNoiseSuppression": "false",
+                        "googHighpassFilter": "false"
+                    },
+                    "optional": []
+                },
+            }, onMicrophoneGranted, onMicrophoneDenied);
+        } catch (e) {
+            alert('getUserMedia threw exception :' + e);
+        }
     } else {
       //TODO: Alert the user
       console.log('getUserMedia not found');  
     }
-      
-    // TODO: handle turning tracks on/off
-    // Initialize to recording nothing
-    // let audioTrackOn = false;
-    // let videoTrackOn = false;
-    //
-    // Listen for a/v selection and set stream to record audio and/or video
-    // $("[name='requested-media']").click(function(){
-    //   let requestedMedia = $(this).data('requested-media');
-    //   switch(requestedMedia){
-    //     case 'audio':
-    //       audioTrackOn = true;
-    //       break;
-    //     case 'video':
-    //       videoTrackOn = true;
-    //       break;
-    //     case 'audio-video':
-    //       audioTrackOn = true;
-    //       videoTrackOn = true;
-    //   }
-    // })
-    
-    // Audio meter display onload starts here
-    ////////////////////////////////////////////////////////////////////////////////////////////
-    let video = document.getElementById('record-video');
-      // grab our canvas
-      canvasContext = document.getElementById('record-audio-meter').getContext("2d");
-      // monkeypatch Web Audio
-      window.AudioContext = window.AudioContext || window.webkitAudioContext;
-      // grab an audio context
-      audioContext = new AudioContext();
-      // Attempt to get audio input
-      try {
-          // ask for an audio input
-          navigator.mediaDevices.getUserMedia(
-          {
-              "audio": {
-                  "mandatory": {
-                      "googEchoCancellation": "false",
-                      "googAutoGainControl": "false",
-                      "googNoiseSuppression": "false",
-                      "googHighpassFilter": "false"
-                  },
-                  "optional": []
-              },
-          }, onMicrophoneGranted, onMicrophoneDenied);
-      } catch (e) {
-          alert('getUserMedia threw exception :' + e);
-      }
-
   });
 }
