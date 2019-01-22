@@ -12,21 +12,18 @@ class RecordController < ApplicationController
   # HTML endpoint for uploading recording files
   # AJAX endpoint for uploading new recordings
   def upload
-    puts '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
-    puts 'Record#upload'
-    puts '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
     def create_recording!(blob, user)
       @recording = Recording.create!(user: user, filetype: 'ogg', audio: blob)
     end
     respond_to do |format|
 
       format.js do
-        blob = params['data'].tempfile.read
-        if create_recording!(blob, current_user)
-          render json: nil, status: :ok
-        else
-          render json: @ecording.errors.to_json, status: :unproccessable_entity
-        end
+        # blob = params['data'].tempfile.read
+        # if create_recording!(blob, current_user)
+        #   render json: nil, status: :ok
+        # else
+        #   render json: @ecording.errors.to_json, status: :unproccessable_entity
+        # end
       end
 
       format.html do
