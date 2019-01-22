@@ -12,6 +12,9 @@ class RecordController < ApplicationController
   # HTML endpoint for uploading recording files
   # AJAX endpoint for uploading new recordings
   def upload
+    puts '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
+    puts 'Record#upload'
+    puts '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
     def create_recording!(blob, user)
       @recording = Recording.create!(user: user, filetype: 'ogg', audio: blob)
     end

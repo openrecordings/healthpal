@@ -11,7 +11,6 @@ if(videoElement && audioSelect &&  videoSelect) {
   //////////////////////////////////////////////////////////////////////////////////////////////////
   audioSelect.onchange = getStream;
   videoSelect.onchange = getStream;
-  $('#media-start-button').click(getStream);
 
   function gotDevices(deviceInfos) {
     for (let i = 0; i !== deviceInfos.length; ++i) {
@@ -46,6 +45,7 @@ if(videoElement && audioSelect &&  videoSelect) {
     console.log('got');
     // Make stream available to console
     window.stream = stream;
+	  videoElement.srcObject = stream;
     recordStream = stream;
   }
 
@@ -85,14 +85,14 @@ if(videoElement && audioSelect &&  videoSelect) {
 
   function startRecording() {
     console.log('startRecording');
-    var mediaRecorder = new MediaRecorder(recordStream);
-    mediaRecorder.mimeType = 'video/webm';
-    mediaRecorder.ondataavailable = function(blob) {
-      videoElement.srcObject = recordStream;
-      postMediaToServer(videoElement.srcObject);
-    };
-    mediaRecorder.start(3000)
-    setTimeout(stopRecording, 10000);
+    // var mediaRecorder = new MediaRecorder(recordStream);
+    // mediaRecorder.mimeType = 'video/webm';
+    // mediaRecorder.ondataavailable = function(blob) {
+    //   videoElement.srcObject = recordStream;
+    //   postMediaToServer(videoElement.srcObject);
+    // };
+    // mediaRecorder.start(3000)
+    // setTimeout(stopRecording, 10000);
   }
 
   function stopRecording() {
@@ -341,11 +341,11 @@ if(videoElement && audioSelect &&  videoSelect) {
       console.log('getUserMedia not found');  
     }
       
-    // Initialize to recording nothing
-    let audioTrackOn = false;
-    let videoTrackOn = false;
-
     // TODO: handle turning tracks on/off
+    // Initialize to recording nothing
+    // let audioTrackOn = false;
+    // let videoTrackOn = false;
+    //
     // Listen for a/v selection and set stream to record audio and/or video
     // $("[name='requested-media']").click(function(){
     //   let requestedMedia = $(this).data('requested-media');
