@@ -11,6 +11,7 @@ if(videoElement && audioSelect &&  videoSelect) {
   //////////////////////////////////////////////////////////////////////////////////////////////////
   audioSelect.onchange = getStream;
   videoSelect.onchange = getStream;
+  $('#media-start-button').click(getStream);
 
   function gotDevices(deviceInfos) {
     for (let i = 0; i !== deviceInfos.length; ++i) {
@@ -63,9 +64,9 @@ if(videoElement && audioSelect &&  videoSelect) {
       audio: {
         deviceId: {exact: audioSelect.value}
       },
-      video: {
-        deviceId: {exact: videoSelect.value}
-      }
+      // video: {
+      //   deviceId: {exact: videoSelect.value}
+      // }
     };
     navigator.mediaDevices.getUserMedia(constraints).
       then(gotStream).catch(handleError);
