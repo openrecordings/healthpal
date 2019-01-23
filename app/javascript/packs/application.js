@@ -8,4 +8,3 @@
 // layout file, like app/views/layouts/application.html.erb
 
 import adapter from 'webrtc-adapter';
-console.log('Hello World from Webpacker')

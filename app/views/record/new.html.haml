@@ -5,6 +5,7 @@
   
   #choose-av
     %p What would you like to record?
+    -# TODO: Fix labels
     %div
       %input{type: 'radio', "data-requested-media" => "audio", name: 'requested-media'}
       %label{for: 'toggle-audio-input'} Audio
@@ -15,9 +16,6 @@
       %input{type: 'radio', "data-requested-media" => "audio-video", name: 'requested-media'}
       %label{for: 'toggle-video-input'} Both audio and video
 
-  #recording-controls
-    %button#media-start-button.btn.btn-danger Turn on camera/microphone
-
   #record-start-stop
     %button#record-start-button.btn.btn-danger Start recording now
     %button#record-stop-button.btn.btn-danger Stop recording now
@@ -25,25 +23,3 @@
 %canvas#record-audio-meter{width: '500', height: '50'}
 
 %video#record-video{autoplay: true}
-
--# = video_tag 'test.mp4', size: '640x480', controls: true
--# %select#audioSource
--# %select#videoSource
--# 
--# #media-select
--#   %p
--#     %input{type: 'checkbox', id: 'toggle-audio-input', name: 'toggle-audio-input'}
--#     %label{for: 'toggle-audio-input'} Record audio
--#   %p
--#     %input{type: 'checkbox', id: 'toggle-video-input', name: 'toggle-video-input'}
--#     %label{for: 'toggle-video-input'} Record video
--# 
--# #recording-controls
--#   %button#media-start-button.btn.btn-danger Turn on camera/microphone
--#   %button#record-start-button.btn.btn-danger Start recording now
--#   %button#record-stop-button.btn.btn-danger Stop recording now
--# 
--# %video{autoplay: true}
--# 
--# %canvas#record-audio-meter{width: '500', height: '50'}
--# 
