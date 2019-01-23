@@ -22,10 +22,8 @@ class Recording < ApplicationRecord
   end
 
   def create_note
-    # This silliness is due to the way the best_in_place gem works. It needs a persisted record
-    # to work with and we want to use it for "creation" as well as updating, so for now, all
-    # recordings start with blank UserNotes
-    self.user_note = UserNote.new
+    # Blank (existing) fields are required for best_in_place
+    self.note = ''
     self.provider = ''
   end
 
