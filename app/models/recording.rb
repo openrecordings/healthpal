@@ -21,6 +21,7 @@ class Recording < ApplicationRecord
 
   def encrypt
     # TODO: Use gpg and the Open3 Ruby module
+    # Put the local GPG user ID in application.yml?
   end
 
   def set_duration
