@@ -22,6 +22,7 @@ class RecordController < ApplicationController
       end
 
       format.html do
+        # TODO Restrict to supported mime types
         # Initialize new Recording record
         file = recording_params[:file]
         recording = Recording.new(

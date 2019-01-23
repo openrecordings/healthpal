@@ -7,7 +7,7 @@ class Transcript < ApplicationRecord
   validates_presence_of :recording, :source, :raw
 
   # Add all supported transcription services here
-  # TODO: Add old Acusis code back in after getting gcloud going
+  # TODO: Add old Acusis code back in after getting gcloud going?
   enum source: [:acusis, :google]
 
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_23_195120) do
+ActiveRecord::Schema.define(version: 2019_01_23_205840) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,9 +54,9 @@ ActiveRecord::Schema.define(version: 2019_01_23_195120) do
   create_table "transcripts", force: :cascade do |t|
     t.integer "recording_id"
     t.integer "source"
-    t.text "raw"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.json "json"
   end
 
   create_table "user_notes", force: :cascade do |t|
