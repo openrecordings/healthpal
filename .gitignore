@@ -32,7 +32,7 @@ server
 # Ignore VIM temp files
 *.swp
 
-/recordings_tmp/*
+/encrypted_audio/*
 /public/packs
 /public/packs-test
 /node_modules

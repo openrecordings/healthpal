@@ -12,9 +12,6 @@ class RecordController < ApplicationController
   # HTML endpoint for uploading recording files
   # AJAX endpoint for uploading new recordings
   def upload
-    def create_recording!(blob, user)
-      @recording = Recording.create!(user: user, filetype: 'ogg', audio: blob)
-    end
     respond_to do |format|
 
       format.js do
@@ -27,15 +24,27 @@ class RecordController < ApplicationController
       end
 
       format.html do
-        blob = file_upload_params[:file].tempfile.read
-        if create_recording!(blob, User.find(file_upload_params[:user]))
-          flash.notice = "Recording successfully uploaded for #{@recording.user.email}"
+        # @recording = Recording.create!(user: user, filetype: 'flac', audio_file:)
+			  recording = Recording.new(
+          user: recording_params[:user],
+          file_name: recording_params[:file].original_filename
+        )	
+        if recording.create!
+          flash.notice = "Recording successfully uploaded for #{recording.user.email}"
           redirect_to :recordings
         else
-          flash.alert = @recording.errors.full_messages
+          flash.alert = recording.errors.full_messages
           render :file_upload
         end
       end
+
+     
+# def upload
+#   uploaded_io = params[:person][:picture]
+#   File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
+#     file.write(uploaded_io.read)
+#   end
+# end 
 
     end
   end

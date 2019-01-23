@@ -4,6 +4,6 @@
     %h3= 'Upload audio recording'
     = bootstrap_form_for @recording, url: upload_path do |f|
       %p= f.select :user, @users, label: 'Upload recording for', include_blank: true
-      %p= f.file_field :file, label: 'Currently only .ogg files are supported'
+      %p= f.file_field :file, label: 'Currently only .flac files are supported'
       %p= f.submit 'Upload Now', class: 'btn btn-primary'
   .col-xs-4
