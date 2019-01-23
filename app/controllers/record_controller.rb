@@ -15,21 +15,30 @@ class RecordController < ApplicationController
     respond_to do |format|
 
       format.js do
-        # blob = params['data'].tempfile.read
-        # if create_recording!(blob, current_user)
-        #   render json: nil, status: :ok
-        # else
-        #   render json: @ecording.errors.to_json, status: :unproccessable_entity
-        # end
+        # TODO
+        #
+        # flash.alert = 'Recording saved.'
+        # redirect_to my_recordings_path(current_user.id)
       end
 
       format.html do
-        # @recording = Recording.create!(user: user, filetype: 'flac', audio_file:)
-			  recording = Recording.new(
-          user: recording_params[:user],
-          file_name: recording_params[:file].original_filename
-        )	
-        if recording.create!
+        # Initialize new Recording record
+        file = recording_params[:file]
+        recording = Recording.new(
+          user: User.find_by(id: recording_params[:user]),
+          file_name: file.original_filename
+        )  
+
+        # Write file to disk. TODO: encrypt!
+        begin
+          File.open(Rails.root.join('encrypted_audio', file), 'wb') do |disk_file|
+            disk_file.write(file.read)
+          end
+        rescue StandardError => error
+          recording.errors.add(:base, "An error occured during uploading: #{error}")
+        end
+
+        if recording.save!
           flash.notice = "Recording successfully uploaded for #{recording.user.email}"
           redirect_to :recordings
         else
@@ -37,26 +46,12 @@ class RecordController < ApplicationController
           render :file_upload
         end
       end
-
-     
-# def upload
-#   uploaded_io = params[:person][:picture]
-#   File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
-#     file.write(uploaded_io.read)
-#   end
-# end 
-
     end
-  end
-
-  def saved
-    flash.alert = 'Recording saved.'
-    redirect_to my_recordings_path(current_user.id)
   end
 
   private
 
-  def file_upload_params
+  def recording_params
     params.require(:recording).permit(:file, :user)
   end
 end
