@@ -4,10 +4,10 @@ class Transcript < ApplicationRecord
   has_many :utterances, -> {order 'index asc'}, dependent: :destroy
   has_many :tags, through: :utterances
 
-  validates_presence_of :recording, :source, :raw
+  validates_presence_of :recording, :source, :json
 
   # Add all supported transcription services here
   # TODO: Add old Acusis code back in after getting gcloud going?
-  enum source: [:acusis, :google]
+  enum source: [:google]
 
 end

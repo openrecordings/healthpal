@@ -37,9 +37,6 @@ class RecordController < ApplicationController
             disk_file.write(file.read)
           end
         rescue File => error
-          puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
-          puts puts error
-          puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
           recording.errors.add(:base, "An error occured during uploading: #{error}")
         end
 
