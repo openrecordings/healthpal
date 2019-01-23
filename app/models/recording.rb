@@ -11,11 +11,17 @@ class Recording < ApplicationRecord
   #                                 is recording audio for several other people.
   #   provider (string)           - arbitrary, optional provider name.
 
-  attr_encrypted :audio, key: Rails.application.config.audio_encryption_key, encode: false, encode_iv: false
+  # TODO: Encrypt other stuff?
+  # attr_encrypted :audio, key: Rails.application.config.audio_encryption_key, encode: false, encode_iv: false
 
+  before_create :encrypt
   before_create :set_duration
 
   private
+
+  def encrypt
+    # TODO: Use gpg and the Open3 Ruby module
+  end
 
   def set_duration
   end
