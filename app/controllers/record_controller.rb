@@ -26,15 +26,19 @@ class RecordController < ApplicationController
         file = recording_params[:file]
         recording = Recording.new(
           user: User.find_by(id: recording_params[:user]),
-          file_name: file.original_filename
+          file_name: file.original_filename,
+          file_hash: Digest::SHA1.hexdigest(file.read)
         )  
 
         # Write file to disk. TODO: encrypt!
         begin
-          File.open(Rails.root.join('encrypted_audio', file), 'wb') do |disk_file|
+          File.open(Rails.root.join('encrypted_audio', recording.file_hash), 'wb') do |disk_file|
             disk_file.write(file.read)
           end
-        rescue StandardError => error
+        rescue File => error
+          puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+          puts puts error
+          puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
           recording.errors.add(:base, "An error occured during uploading: #{error}")
         end
 
