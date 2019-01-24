@@ -16,7 +16,26 @@ class Recording < ApplicationRecord
 
   before_create :encrypt
   before_create :set_duration
-  after_create :transcribe
+
+  def transcribe
+    # NOTE: Currently only supports Google STT
+    transcript = Transcript.new(recording: self, source: :google)
+    stt_cmd = TTY::Command.new
+    stt_file = 'gs://health-pal-bucket/ge10.flac' 
+    stt_string = "gcloud ml speech recognize-long-running #{stt_file} --language-code='en-US' --async --include-word-time-offsets --encoding='flac'"
+    # Start the STT job
+    stt_cmd_stdout, stt_cmd_stderr = stt_cmd.run(stt_string)
+    Rails.logger.debug(stt_cmd_stderr) and return if stt_cmd_stderr
+    stt_job_name = JSON.parse(stt_cmd_stdout).name
+    poll_cmd = TTY::Command.new
+    poll_String = "gcloud ml speech operations wait #{stt_job_name}"
+    # Poll the STT job and get transcript JSON (stdout)
+    poll_cmd_stdout, pol_cmd_stderr = stt_cmd.run(poll_string)
+    Rails.logger.debug(poll_cmd_stderr) and return if poll_cmd_stderr
+    transcript.json = JSON.parse(poll_cmd_stdout)
+    transcript.save
+    Rails.logger.debug('TRANSCRIPT SAVED') and return if stt_cmd_stderr
+  end
 
   private
 
@@ -26,6 +45,7 @@ class Recording < ApplicationRecord
   end
 
   def set_duration
+    # TODO
   end
 
   def create_blank_fields
@@ -33,41 +53,5 @@ class Recording < ApplicationRecord
     self.note = ''
     self.provider = ''
   end
-
-  def transcribe
-    # TODO: This needs to be split into a model method and a controller method, for error-handling
-    #       Run as a private controller method after recording creation
-    # Initialize Transcript record
-    transcript = Transcript.new(
-      recording: self,
-      source: :google
-    )
-    # Send gcloud STT command
-    puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
-    stt_cmd = 'gcloud'
-    stt_options = "ml speech recognize-long-running --language-code='en-US' --async --include-word-time-offsets --encoding='flac'"
-    stt_file = 'gs://health-pal-bucket/ge10.flac' 
-    stt_stdout, stt_status = Open3.capture2(stt_cmd, stt_file, stt_options)
-    if stt_status.success?
-      # Poll job and get JSON results
-      job_name = JSON.parse(stt_stdout).name
-
-      puts "job_name: #{job_name}"
-
-      poll_cmd = 'gcloud ml speech operations wait'
-      poll_stdout, poll_status = Open3.capture2(poll_cmd, job_name)
-      if poll_status.success?
-        transcript.json = JSON.parse(poll_stdout)
-        transcript.save!
-      else
-        transcript.errors.add(:base, 'An error occured during transcription')
-      end
-    else
-      transcript.errors.add(:base, 'An error occured initiating transcription')
-      return
-    end
-    puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
-  end
-    
 
 end
