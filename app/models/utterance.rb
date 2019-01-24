@@ -6,6 +6,6 @@ class Utterance < ApplicationRecord
   belongs_to :transcript
   has_many :tags, dependent: :destroy
 
-  # TODO: Encrypt the text attribute
+  # TODO: Make this a table-less model!
   
 end

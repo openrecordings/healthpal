@@ -18,10 +18,13 @@ class Recording < ApplicationRecord
   before_create :set_duration
 
   def transcribe
-    transcript = Transcript.new(recording: self, source: :google)
-    transcript.json = [].to_json
-    transcript.save
     starttime = Time.now
+
+    # Find or create transcript
+    transcript = self.transcript || Transcript.create(recording: self,
+                                                      source: :google,
+                                                      json: [].to_json )
+    # Create and submit STT job
     stt_job = Google::Cloud::Speech.new
     stt_config = {encoding: :FLAC,
       sample_rate_hertz: 16000,
@@ -34,21 +37,13 @@ class Recording < ApplicationRecord
     puts "Operation started"
     operation.wait_until_done!
     raise operation.results.message if operation.error?
-    transcription_results = operation.response.results
-    puts transcription_results.to_json
-    # transcription_results.each do |stt_result|
-    #   Utterance.create(
-    #     transcript: transcript,
-    #     text: stt_result.alternatives.first.transcript,
-    #     begins_at: stt_result.alternatives.first.words.first.word_info.start_time,
-    #     ends_at: stt_result.alternatives.last.words.first.word_info.end_time,
-    #   )
-    #   # puts 
-    #   # puts stt_result.alternatives.first.words.each do |word_info|
-    #   end
-    # end
+
+    # Add result JSON to transcript
+    transcript.update(json: operation.response.results)
+
+    puts '--------------------------------------------------------------'
     puts "Transcription time (minutes): #{(Time.now - starttime)/60}"
-    #  self.transcription = Transcription.create(source: :google, json: transcription_results)
+    puts '--------------------------------------------------------------'
   end
 
   private
