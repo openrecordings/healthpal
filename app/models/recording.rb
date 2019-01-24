@@ -18,7 +18,9 @@ class Recording < ApplicationRecord
   before_create :set_duration
 
   def transcribe
-    puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+    transcript = Transcript.new(recording: self, source: :google)
+    transcript.json = [].to_json
+    transcript.save
     starttime = Time.now
     stt_job = Google::Cloud::Speech.new
     stt_config = {encoding: :FLAC,
@@ -33,13 +35,20 @@ class Recording < ApplicationRecord
     operation.wait_until_done!
     raise operation.results.message if operation.error?
     transcription_results = operation.response.results
-    transcription_results.each do |stt_result|
-      puts stt_result.alternatives.first.transcript
-      puts '-----------------'
-    end
+    puts transcription_results.to_json
+    # transcription_results.each do |stt_result|
+    #   Utterance.create(
+    #     transcript: transcript,
+    #     text: stt_result.alternatives.first.transcript,
+    #     begins_at: stt_result.alternatives.first.words.first.word_info.start_time,
+    #     ends_at: stt_result.alternatives.last.words.first.word_info.end_time,
+    #   )
+    #   # puts 
+    #   # puts stt_result.alternatives.first.words.each do |word_info|
+    #   end
+    # end
     puts "Transcription time (minutes): #{(Time.now - starttime)/60}"
     #  self.transcription = Transcription.create(source: :google, json: transcription_results)
-    puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
   end
 
   private
