@@ -17,7 +17,10 @@ module Orals
 
     config.research_mode = ENV['RESEARCH_MODE'] == 'true'
 
+		# Google Cloud Platform Config
     config.local_audio_file_path = Rails.root.join('encrypted_audio')
+		config.bucket_name = ENV['GCP_BUCKET_NAME']
+		
 
   end
 end

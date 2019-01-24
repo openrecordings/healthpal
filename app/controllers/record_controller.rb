@@ -33,7 +33,7 @@ class RecordController < ApplicationController
 
         # Write file to disk. TODO: encrypt!
         begin
-          File.open(recording.local_file_name_with_path), 'wb') do |disk_file|
+          File.open(recording.local_file_name_with_path, 'wb') do |disk_file|
             disk_file.write(file.read)
           end
         rescue File => error

@@ -19,17 +19,18 @@ class Recording < ApplicationRecord
 
   # Upload audio file to GCP
   # Will return nil unless self is persisted
-  # TODO: Async, Error-handling
+  # TODO: Async, Error-handling, Upload tempfile and deprecate local file
   def upload
     return nil unless self.persisted?
-    Google::Cloud::Storage.new.storage.bucket.file = local_file_name_with_path
+		storage_job = Google::Cloud::Storage.new
+		bucket_name = Rails.configuration.gcp_storage_bucket
+		self.update(uri: storage_job.signed_url(bucket_name, local_file_name_with_path))
+		puts 'AUDIO FILE UPLOADED'
   end
 
   # Get GCP speech transcription JSON and store in self
   # TODO: Async, Error-handling
   def transcribe
-    starttime = Time.now
-
     # Find or create transcript
     transcript = self.transcript || Transcript.create(recording: self,
                                                       source: :google,
@@ -43,7 +44,7 @@ class Recording < ApplicationRecord
       enable_word_time_offsets: true
       # async: true
      }
-    audio  = {uri: 'gs://health-pal-bucket/ge10_short.flac'}
+    audio  = {uri: self.uri}
     operation = stt_job.long_running_recognize(stt_config, audio)
     puts "Operation started"
     operation.wait_until_done!
@@ -51,10 +52,7 @@ class Recording < ApplicationRecord
 
     # Add result JSON to transcript
     transcript.update(json: operation.response.results)
-
-    puts '--------------------------------------------------------------'
-    puts "Transcription time (minutes): #{(Time.now - starttime)/60}"
-    puts '--------------------------------------------------------------'
+		puts 'AUDIO FILE TRANSCRIBED'
   end
 
   # Returns self's audio file path/name.
