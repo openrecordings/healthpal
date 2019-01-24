@@ -32,6 +32,7 @@ gem 'mini_racer'
 gem 'best_in_place', '~> 3.0.1'
 gem 'webpacker', '~> 3.5'
 gem 'tty-command'
+gem 'async'
 
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
