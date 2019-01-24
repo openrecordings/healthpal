@@ -33,7 +33,7 @@ class RecordController < ApplicationController
 
         # Write file to disk. TODO: encrypt!
         begin
-          File.open(Rails.root.join('encrypted_audio', recording.file_hash), 'wb') do |disk_file|
+          File.open(recording.local_file_name_with_path), 'wb') do |disk_file|
             disk_file.write(file.read)
           end
         rescue File => error
@@ -41,6 +41,7 @@ class RecordController < ApplicationController
         end
 
         if recording.save!
+          recording.upload
           recording.transcribe
           flash.notice = "Recording successfully uploaded for #{recording.user.email}"
           redirect_to :recordings

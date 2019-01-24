@@ -17,6 +17,16 @@ class Recording < ApplicationRecord
   before_create :encrypt
   before_create :set_duration
 
+  # Upload audio file to GCP
+  # Will return nil unless self is persisted
+  # TODO: Async, Error-handling
+  def upload
+    return nil unless self.persisted?
+    Google::Cloud::Storage.new.storage.bucket.file = local_file_name_with_path
+  end
+
+  # Get GCP speech transcription JSON and store in self
+  # TODO: Async, Error-handling
   def transcribe
     starttime = Time.now
 
@@ -24,6 +34,7 @@ class Recording < ApplicationRecord
     transcript = self.transcript || Transcript.create(recording: self,
                                                       source: :google,
                                                       json: [].to_json )
+
     # Create and submit STT job
     stt_job = Google::Cloud::Speech.new
     stt_config = {encoding: :FLAC,
@@ -44,6 +55,13 @@ class Recording < ApplicationRecord
     puts '--------------------------------------------------------------'
     puts "Transcription time (minutes): #{(Time.now - starttime)/60}"
     puts '--------------------------------------------------------------'
+  end
+
+  # Returns self's audio file path/name.
+  # NOTE: Will return nil if called when self.file_hash doesn't yet exist
+  def local_file_name_with_path
+    return nil unless self.file_hash
+    Rails.configuration.local_audio_file_path.join(self.file_hash)
   end
 
   private

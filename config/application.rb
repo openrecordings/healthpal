@@ -16,8 +16,8 @@ module Orals
     config.root_password = ENV['ROOT_PASSWORD']
 
     config.research_mode = ENV['RESEARCH_MODE'] == 'true'
-    
-    config.audio_encryption_key = ENV['AUDIO_ENCRYPTION_KEY']
+
+    config.local_audio_file_path = Rails.root.join('encrypted_audio')
 
   end
 end
