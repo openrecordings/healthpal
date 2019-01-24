@@ -104,6 +104,7 @@ GEM
       devise (>= 4.0.0)
     diff-lcs (1.3)
     encryptor (3.0.0)
+    equatable (0.5.0)
     erubi (1.7.1)
     execjs (2.7.0)
     ffi (1.9.25)
@@ -166,6 +167,9 @@ GEM
       mime-types
       mimemagic (~> 0.3.0)
       terrapin (~> 0.6.0)
+    pastel (0.7.2)
+      equatable (~> 0.5.0)
+      tty-color (~> 0.4.0)
     pg (0.21.0)
     puma (3.12.0)
     rack (2.0.6)
@@ -272,6 +276,9 @@ GEM
     thor (0.20.3)
     thread_safe (0.3.6)
     tilt (2.0.9)
+    tty-color (0.4.3)
+    tty-command (0.8.2)
+      pastel (~> 0.7.0)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
     uglifier (4.1.20)
@@ -338,6 +345,7 @@ DEPENDENCIES
   spring-watcher-listen (~> 2.0.0)
   sprockets (>= 3.7.2)
   tether-rails
+  tty-command
   tzinfo-data
   uglifier (>= 1.3.0)
   web-console (>= 3.3.0)

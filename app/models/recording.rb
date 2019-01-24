@@ -43,30 +43,30 @@ class Recording < ApplicationRecord
       source: :google
     )
     # Send gcloud STT command
-    stt_cmd = 'gcloud ml speech recognize-long-running'
-    stt_options = "--language-code='en-US' --async --include-word-time-offsets --encoding='flac'"
+    puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+    stt_cmd = 'gcloud'
+    stt_options = "ml speech recognize-long-running --language-code='en-US' --async --include-word-time-offsets --encoding='flac'"
     stt_file = 'gs://health-pal-bucket/ge10.flac' 
-    stt_stdout, stt_status = Open3.capture2(stt_cmd, stt_options, stt_file)
+    stt_stdout, stt_status = Open3.capture2(stt_cmd, stt_file, stt_options)
     if stt_status.success?
       # Poll job and get JSON results
       job_name = JSON.parse(stt_stdout).name
+
+      puts "job_name: #{job_name}"
+
       poll_cmd = 'gcloud ml speech operations wait'
       poll_stdout, poll_status = Open3.capture2(poll_cmd, job_name)
       if poll_status.success?
         transcript.json = JSON.parse(poll_stdout)
         transcript.save!
       else
-        transcript.errors.add(:base, 'An error occured during transcription') unless status.success?
+        transcript.errors.add(:base, 'An error occured during transcription')
       end
     else
-      transcript.errors.add(:base, 'An error occured initiating transcription') unless status.success?
+      transcript.errors.add(:base, 'An error occured initiating transcription')
       return
     end
-
-
-  # gcloud ml speech recognize-long-running gs://health-pal-bucket/ge10.flac --language-code='en-US' --async --include-word-time-offsets --encoding='flac'
-  # gcloud ml speech operations wait 3744978394225983228
-    
+    puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
   end
     
 
