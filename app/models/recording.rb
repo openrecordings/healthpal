@@ -18,22 +18,28 @@ class Recording < ApplicationRecord
   before_create :set_duration
 
   def transcribe
-		puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
-		speech = Google::Cloud::Speech.new
-		config     = { encoding:          :FLAC,
-									 sample_rate_hertz: 16000,
-									 language_code:     "en-US"   }
-		audio  = { uri: 'gs://health-pal-bucket/ge10.flac' }
-		operation = speech.long_running_recognize config, audio
-		puts "Operation started"
-		operation.wait_until_done!
-		raise operation.results.message if operation.error?
-		results = operation.response.results
-		alternatives = results.first.alternatives
-		alternatives.each do |alternative|
-      puts "Transcription: #{alternative.transcript}"
+    puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+    starttime = Time.now
+    stt_job = Google::Cloud::Speech.new
+    stt_config = {encoding: :FLAC,
+      sample_rate_hertz: 16000,
+      language_code: 'en-US',
+      enable_word_time_offsets: true
+      # async: true
+     }
+    audio  = {uri: 'gs://health-pal-bucket/ge10_short.flac'}
+    operation = stt_job.long_running_recognize(stt_config, audio)
+    puts "Operation started"
+    operation.wait_until_done!
+    raise operation.results.message if operation.error?
+    transcription_results = operation.response.results
+    transcription_results.each do |stt_result|
+      puts stt_result.alternatives.first.transcript
+      puts '-----------------'
     end
-		puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+    puts "Transcription time (minutes): #{(Time.now - starttime)/60}"
+    #  self.transcription = Transcription.create(source: :google, json: transcription_results)
+    puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
   end
 
   private
