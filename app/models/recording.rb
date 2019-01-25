@@ -26,18 +26,13 @@ class Recording < ApplicationRecord
   def upload
     puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
     puts 'upload'
-    puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
     return nil unless self.persisted?
     storage_job = Google::Cloud::Storage.new(project: Rails.configuration.gcp_project_name)
     bucket = storage_job.bucket(Rails.configuration.gcp_bucket_name)
-    file = bucket.file(local_file_name_with_path)
-    result = bucket.create_file(local_file_name_with_path)
-    puts '---------------------------------------------'
-    puts result
-    puts '---------------------------------------------'
-    return
+    bucket.create_file(self.local_file_name_with_path.to_s, self.file_name)
     self.update(uri: storage_job.signed_url(bucket_name, local_file_name_with_path))
     puts 'AUDIO FILE UPLOADED'
+    puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
   end
 
   # Get GCP speech transcription JSON and store in self
@@ -45,7 +40,6 @@ class Recording < ApplicationRecord
   def transcribe
     puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
     puts 'transcribe'
-    puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
     # Find or create transcript
     transcript = self.transcript || Transcript.create(recording: self,
                                                       source: :google,
@@ -59,9 +53,6 @@ class Recording < ApplicationRecord
       enable_word_time_offsets: true
      }
     audio  = {uri: self.uri}
-    puts '---------------------------------------------'
-    puts audio
-    puts '---------------------------------------------'
     operation = stt_job.long_running_recognize(stt_config, audio)
     puts "Operation started"
     operation.wait_until_done!
@@ -70,12 +61,13 @@ class Recording < ApplicationRecord
     # Add result JSON to transcript
     transcript.update(json: operation.response.results)
     puts 'AUDIO FILE TRANSCRIBED'
+    puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
   end
 
-  # Returns self's audio file path/name.
-  # NOTE: Will return nil if called when self.file_hash doesn't yet exist
+  # Returns self's audio file path/name as a Pathname object.
+  # Will return nil if called when self.file_name doesn't yet exist
   def local_file_name_with_path
-    return nil unless self.file_hash
+    return nil unless self.file_name
     Rails.configuration.local_audio_file_path.join(self.file_name)
   end
 
