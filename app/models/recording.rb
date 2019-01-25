@@ -30,7 +30,7 @@ class Recording < ApplicationRecord
     storage_job = Google::Cloud::Storage.new(project: Rails.configuration.gcp_project_name)
     bucket = storage_job.bucket(Rails.configuration.gcp_bucket_name)
     bucket.create_file(self.local_file_name_with_path.to_s, self.file_name)
-    self.update(uri: storage_job.signed_url(bucket_name, local_file_name_with_path))
+    self.update(uri: bucket.file(self.file_name).api_url)
     puts 'AUDIO FILE UPLOADED'
     puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
   end
