@@ -76,7 +76,7 @@ class Recording < ApplicationRecord
   # NOTE: Will return nil if called when self.file_hash doesn't yet exist
   def local_file_name_with_path
     return nil unless self.file_hash
-    "#{Rails.configuration.local_audio_file_path}.join(self.file_hash)}.flac".to_s
+    Rails.configuration.local_audio_file_path.join(self.file_name)
   end
 
   private
