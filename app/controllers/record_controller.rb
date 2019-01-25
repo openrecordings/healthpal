@@ -43,8 +43,8 @@ class RecordController < ApplicationController
         end
 
         if recording.save!
-          # recording.upload
-          # recording.transcribe
+          recording.upload
+          recording.transcribe
           flash.notice = "Recording successfully uploaded for #{recording.user.email}"
           redirect_to :recordings
         else

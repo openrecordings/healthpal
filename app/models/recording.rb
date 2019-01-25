@@ -4,9 +4,12 @@ require "google/cloud/speech"
 class Recording < ApplicationRecord
 
   belongs_to :user
-  has_one :transcript, dependent: :destroy
+  has_many :tags
   has_one :user_note
-  has_many :tags, through: :transcript
+
+  # Add all supported transcription services here
+  # TODO: Add old Acusis code back in after getting gcloud going?
+  enum source: [:google]
 
   #
   # Fields not otherwise mentioned:
@@ -22,7 +25,9 @@ class Recording < ApplicationRecord
 
   # Upload audio file to GCP
   # Will return nil unless self is persisted
-  # TODO: Async, Error-handling, Upload tempfile and deprecate local file
+  # TODO:
+	#  Async
+  #  Error-handling
   def upload
     return nil unless self.persisted?
     storage_job = Google::Cloud::Storage.new(project: Rails.configuration.gcp_project_name)
@@ -33,11 +38,15 @@ class Recording < ApplicationRecord
   end
 
   # Get GCP speech transcription JSON and store in self
-  # TODO: Async, Error-handling
+  # TODO:
+	#  Async
+  #  Error-handling
+  #  Delete local and GCP file if they already exist (warn user?)
+  #  Upload tempfile and deprecate local file
   def transcribe
+		return nil unless self.persisted? && self.uri
     # Find or create transcript
-    transcript = self.transcript || Transcript.create(recording: self, source: :google,
-      json: [].to_json)
+    self.json = [].to_json
     # Create and submit STT job
     stt_job = Google::Cloud::Speech.new
     stt_config = {encoding: :FLAC,
@@ -51,9 +60,8 @@ class Recording < ApplicationRecord
     operation = stt_job.long_running_recognize(stt_config, audio)
     operation.wait_until_done!
     raise operation.results.message if operation.error?
-
     # Add result JSON to transcript
-    transcript.update(json: operation.response.results)
+    self.update(json: operation.response.results)
   end
 
   # Returns self's audio file path/name as a Pathname object.

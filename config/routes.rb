@@ -1,16 +1,17 @@
 Rails.application.routes.draw do
+
   devise_for :users
+
   root 'home#index'
 
-  resources :recordings do
-    resources :transcripts
-  end
-  resources :transcripts
+  resources :recordings
+
   resources :utterances do
     get 'set_tag/:name',             to: 'utterances#set_tag', :val => true
     get 'unset_tag/:name',           to: 'utterances#set_tag', :val => false
   end
-  resources :user_notes do
+
+  resources :user_fields_recording do
     collection do
       put 'update'
     end
