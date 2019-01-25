@@ -35,30 +35,25 @@ class Recording < ApplicationRecord
   # Get GCP speech transcription JSON and store in self
   # TODO: Async, Error-handling
   def transcribe
-    puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
-    puts 'transcribe'
     # Find or create transcript
-    transcript = self.transcript || Transcript.create(recording: self,
-                                                      source: :google,
-                                                      json: [].to_json )
-
+    transcript = self.transcript || Transcript.create(recording: self, source: :google,
+      json: [].to_json)
     # Create and submit STT job
     stt_job = Google::Cloud::Speech.new
     stt_config = {encoding: :FLAC,
       sample_rate_hertz: 16000,
       language_code: 'en-US',
-      enable_word_time_offsets: true
-     }
+      enable_word_time_offsets: true,
+      enable_automatic_punctuation: true,
+      max_alternatives: 1
+    }
     audio  = {uri: self.uri}
     operation = stt_job.long_running_recognize(stt_config, audio)
-    puts "Operation started"
     operation.wait_until_done!
     raise operation.results.message if operation.error?
 
     # Add result JSON to transcript
     transcript.update(json: operation.response.results)
-    puts 'AUDIO FILE TRANSCRIBED'
-    puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
   end
 
   # Returns self's audio file path/name as a Pathname object.
