@@ -24,6 +24,9 @@ class Recording < ApplicationRecord
   # Will return nil unless self is persisted
   # TODO: Async, Error-handling, Upload tempfile and deprecate local file
   def upload
+    puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+    puts 'upload'
+    puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
     return nil unless self.persisted?
     storage_job = Google::Cloud::Storage.new(project: Rails.configuration.gcp_project_name)
     bucket = storage_job.bucket(Rails.configuration.gcp_bucket_name)
@@ -40,6 +43,9 @@ class Recording < ApplicationRecord
   # Get GCP speech transcription JSON and store in self
   # TODO: Async, Error-handling
   def transcribe
+    puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+    puts 'transcribe'
+    puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
     # Find or create transcript
     transcript = self.transcript || Transcript.create(recording: self,
                                                       source: :google,
@@ -70,7 +76,7 @@ class Recording < ApplicationRecord
   # NOTE: Will return nil if called when self.file_hash doesn't yet exist
   def local_file_name_with_path
     return nil unless self.file_hash
-    Rails.configuration.local_audio_file_path.join(self.file_hash)
+    "#{Rails.configuration.local_audio_file_path}.join(self.file_hash)}.flac".to_s
   end
 
   private

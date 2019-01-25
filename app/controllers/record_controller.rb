@@ -27,13 +27,13 @@ class RecordController < ApplicationController
         file = recording_params[:file]
         recording = Recording.new(
           user: User.find_by(id: recording_params[:user]),
-          file_name: file.original_filename,
-          file_hash: Digest::SHA1.hexdigest(file.read)
+          original_file_name: file.original_filename,
+          file_name: "#{Digest::SHA1.hexdigest(file.read)}.flac"
         )  
 
         # Write file to disk. TODO: encrypt!
         begin
-          File.open(recording.local_file_name_with_path, 'wb') do |disk_file|
+          File.open(recording.file_name, 'wb') do |disk_file|
             disk_file.write(file.read)
           end
         rescue File => error
@@ -41,8 +41,8 @@ class RecordController < ApplicationController
         end
 
         if recording.save!
-          recording.upload
-          recording.transcribe
+          # recording.upload
+          # recording.transcribe
           flash.notice = "Recording successfully uploaded for #{recording.user.email}"
           redirect_to :recordings
         else
