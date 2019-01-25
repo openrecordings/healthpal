@@ -4,21 +4,6 @@
     - title += " Visit with #{@recording.provider}" if @recording.provider
     %h3= @recording.user.full_name
     %h4= title
-    - unless @recording.user_note&.text&.first.present?
-      .editable-badge
-        %span.glyphicon.glyphicon-plus
-        Add a note for this visit
-    .editable-header Notes for this visit.
-    .editable-container
-      = best_in_place(@user_note,
-        :text,
-        as: :textarea,
-        place_holder: nil,
-        ok_button: 'Save',
-        ok_button_class: 'btn btn-primary small-button',
-        cancel_button: 'Cancel',
-        cancel_button_class: 'btn btn-info small-button',
-        )
 
   #player-controls
 

@@ -22,8 +22,6 @@ class PlayController < ApplicationController
         flash.alert = 'You do not have permission to play that recording'
         redirect_to :root and return
       end
-      # Candidate object for a new UserNote
-      @user_note = @recording.user_note || UserNote.new(recording: @recording)
     else
       flash.alert = 'Could not find that recording'
       redirect_to :root and return
