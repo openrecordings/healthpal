@@ -64,9 +64,9 @@ if(videoElement && audioSelect &&  videoSelect) {
       audio: {
         deviceId: {exact: audioSelect.value}
       },
-      // video: {
-      //   deviceId: {exact: videoSelect.value}
-      // }
+      video: {
+        deviceId: {exact: videoSelect.value}
+      }
     };
     navigator.mediaDevices.getUserMedia(constraints).
       then(gotStream).catch(handleError);

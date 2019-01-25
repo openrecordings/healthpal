@@ -1,5 +1,6 @@
 class RecordController < ApplicationController
 
+  # Stub reminder that the view exists
   def new
   end
 
