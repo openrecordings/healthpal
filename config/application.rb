@@ -22,7 +22,7 @@ module Orals
 
 		# Google Cloud Platform Config
     config.gcp_app_credentials = ENV['GOOGLE_APPLICATION_CREDENTIALS']
-    config.gcp_project_id =  ENV['GCP_PROJECT_ID']
+    config.gcp_project_name =  ENV['GCP_PROJECT_NAME']
 		config.gcp_bucket_name = ENV['GCP_BUCKET_NAME']
 		
 

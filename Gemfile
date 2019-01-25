@@ -31,8 +31,7 @@ gem 'rack', '>= 2.0.6'
 gem 'mini_racer'
 gem 'best_in_place', '~> 3.0.1'
 gem 'webpacker', '~> 3.5'
-gem 'google-cloud-speech'
-gem 'google-cloud-storage'
+gem 'google-cloud'
 
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")

@@ -1,3 +1,6 @@
+require "google/cloud/storage"
+require "google/cloud/speech"
+
 class Recording < ApplicationRecord
 
   belongs_to :user
@@ -22,11 +25,14 @@ class Recording < ApplicationRecord
   # TODO: Async, Error-handling, Upload tempfile and deprecate local file
   def upload
     return nil unless self.persisted?
-    storage_job = Google::Cloud::Storage.new(
-      project_id: Rails.configuration.gcp_project_id,
-      credentials: Rails.configuration.gcp_app_credentials
-    )
-    bucket_name = Rails.configuration.gcp_bucket_name
+    storage_job = Google::Cloud::Storage.new(project: Rails.configuration.gcp_project_name)
+    bucket = storage_job.bucket(Rails.configuration.gcp_bucket_name)
+    file = bucket.file(local_file_name_with_path)
+    result = bucket.create_file(local_file_name_with_path)
+    puts '---------------------------------------------'
+    puts result
+    puts '---------------------------------------------'
+    return
     self.update(uri: storage_job.signed_url(bucket_name, local_file_name_with_path))
     puts 'AUDIO FILE UPLOADED'
   end
@@ -45,9 +51,11 @@ class Recording < ApplicationRecord
       sample_rate_hertz: 16000,
       language_code: 'en-US',
       enable_word_time_offsets: true
-      # async: true
      }
     audio  = {uri: self.uri}
+    puts '---------------------------------------------'
+    puts audio
+    puts '---------------------------------------------'
     operation = stt_job.long_running_recognize(stt_config, audio)
     puts "Operation started"
     operation.wait_until_done!
