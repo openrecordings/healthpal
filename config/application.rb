@@ -17,9 +17,13 @@ module Orals
 
     config.research_mode = ENV['RESEARCH_MODE'] == 'true'
 
-		# Google Cloud Platform Config
+    # TODO; This should be out of repo
     config.local_audio_file_path = Rails.root.join('encrypted_audio')
-		config.bucket_name = ENV['GCP_BUCKET_NAME']
+
+		# Google Cloud Platform Config
+    config.gcp_app_credentials = ENV['GOOGLE_APPLICATION_CREDENTIALS']
+    config.gcp_project_id =  ENV['GCP_PROJECT_ID']
+		config.gcp_bucket_name = ENV['GCP_BUCKET_NAME']
 		
 
   end
