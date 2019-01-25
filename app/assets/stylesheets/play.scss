@@ -1,90 +1,38 @@
-#filter-title{
-  padding-left: 10px;
-  font-size: 22px;
-}
-
+// Page container
+////////////////////////////////////////
 #play-view {
+  background-color: #ccc;
   display: grid;
   width: 100%;
-	height: 90vh;
-  padding: 30px;
+	height: 92vh;
   grid-template-areas: "head head"
-                       "player filters"
-                       "table filters";
+                       "table filters"
+                       "player filters";
   grid-template-columns: 3fr 1fr;
 }
 
+// Grid containers
+////////////////////////////////////////
+
 #recording-header {
+  background-color: #ddd;
 	grid-area: head;
 }
 
 #player-controls {
+  background-color: #edf;
 	grid-area: player;
 }
 
 #player-tag-table {
-	height: 450px;
-	overflow: auto;
+  background-color: #fef;
 	grid-area: table;
 }
 
 #player-sidebar{
-  padding: 25px;
+  background-color: #efe;
 	grid-area: filters;
 }
 
-#play-pause-text {
-  color: white;
-}
-
-.tag-toggle {
-  margin: 10px;
-}
-
-#filter-description {
-  margin: 5px 0;
-  color: #333;
-  font-size: 18px;
-}
-
-#tag-filters {
-  margin: 20px;
-  margin-top: 0px;
-}
-
-#filter-help-link {
-  margin-left: 10px;
-  margin-right: 50px;
-  cursor: pointer;
-}
-
-#clear-filters {
-  cursor: pointer;
-}
-
-#media-controls {
-  margin-top: 15px;
-  margin-left: 450px;
-  height: 65px;
-}
-
-#playaudio {
-  width: 80px;
-}
-
-#stepbackward {
-  border-right: 2px solid white;
-  border-radius: 10px 0 0 10px;
-}
-
-#playaudio {
-  border-right: 2px solid white;
-}
-
-#stepforward {
-  border-radius: 0 10px 10px 0;
-}
-
-.playtabletop {
-  padding-bottom: 50px;
-}
+// Styles
+////////////////////////////////////////
