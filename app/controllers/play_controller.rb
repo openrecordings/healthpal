@@ -4,7 +4,7 @@ class PlayController < ApplicationController
 
   def index
     # TODO: Handle bad data
-    # TODO: Ultimately, we might want to restrict admin users again
+    # TODO: Restrict admin users again?
     if current_user.privileged?
       @users = User.joins(:recordings).order(:email).uniq
     else
@@ -26,13 +26,6 @@ class PlayController < ApplicationController
       flash.alert = 'Could not find that recording'
       redirect_to :root and return
     end
-
-    # Collapse consecutive utterances with identical tags, adjusting start-end times to cover all
-    @tags = ((@recording.tags.group_by(&:utterance).inject([]) {
-      |x, y| (x.empty? || (get_tags(x[-1]) != get_tags(y))) ?
-        x << y :
-        x[0..-2] << combine_utterances(x[-1], y)
-    }).sort_by {|x| x[0].index})
   end
 
   def send_audio
@@ -59,19 +52,6 @@ class PlayController < ApplicationController
   end
 
   private
-
-  # Get the sorted list of tags for this utterance entry
-  def get_tags(utterance)
-    utterance[1].map(&:tag_type).sort
-  end
-
-  # Reduce two identically tagged utterance entries into a single entry which spans both of them.
-  def combine_utterances(utt1, utt2)
-    [Utterance.new({begins_at: utt1[0].begins_at,
-                    ends_at: utt2[0].ends_at,
-                    index: utt1[0].index,
-                    id: utt1[0].id}), utt2[1]]
-  end
   
   def links
     [[
