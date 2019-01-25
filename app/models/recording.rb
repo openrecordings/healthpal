@@ -24,15 +24,12 @@ class Recording < ApplicationRecord
   # Will return nil unless self is persisted
   # TODO: Async, Error-handling, Upload tempfile and deprecate local file
   def upload
-    puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
-    puts 'upload'
     return nil unless self.persisted?
     storage_job = Google::Cloud::Storage.new(project: Rails.configuration.gcp_project_name)
-    bucket = storage_job.bucket(Rails.configuration.gcp_bucket_name)
+    bucket_name = Rails.configuration.gcp_bucket_name
+    bucket = storage_job.bucket(bucket_name)
     bucket.create_file(self.local_file_name_with_path.to_s, self.file_name)
-    self.update(uri: bucket.file(self.file_name).api_url)
-    puts 'AUDIO FILE UPLOADED'
-    puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+    self.update(uri: "gs://#{bucket_name}/#{self.file_name}")
   end
 
   # Get GCP speech transcription JSON and store in self
