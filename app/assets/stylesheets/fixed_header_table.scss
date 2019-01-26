@@ -17,7 +17,7 @@ td.fixed-header, th.fixed-header {
 thead.fixed-header th.fixed-header {
   position: sticky;
   top: 0;
-  background: #000;
+  background: #555;
   color: #FFF;
 }
 
@@ -29,7 +29,7 @@ thead.fixed-header th.fixed-header:first-child {
 tbody.fixed-header th.fixed-header {
   position: sticky;
   left: 0;
-  background: #FFF;
+  color: #555;
   border-right: 1px solid #CCC;
 }
 
