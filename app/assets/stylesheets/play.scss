@@ -9,12 +9,11 @@
                        'table filters'
                        'player filters';
   grid-template-columns: 3fr 1fr;
-  grid-template-rows: 100px auto 100px;
+  grid-template-rows: 100px 1fr 100px;
 }
 
 // Grid containers
 ////////////////////////////////////////
-
 #recording-header {
   background-color: #ddd;
 	grid-area: head;
@@ -28,6 +27,7 @@
 #player-tag-table {
   background-color: #fef;
 	grid-area: table;
+  overflow: scroll;
 }
 
 #player-sidebar{
