@@ -20,8 +20,8 @@
 }
 
 #player-controls {
-  background-color: #edf;
 	grid-area: player;
+  height: $player-height;
 }
 
 #player-tag-table {

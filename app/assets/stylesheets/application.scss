@@ -1,5 +1,4 @@
 // Libraries
-// @import 'twitter-bootstrap-static/bootstrap';
 @import 'bootstrap';
 @import 'rails_bootstrap_forms';
 @import 'font-awesome';
@@ -7,21 +6,19 @@
 @import 'jquery-tablesorter/theme.default';
 @import 'select2';
 @import 'select2-bootstrap';
+@import 'recorder_install_button.css';
+@import 'jquery-ui';
+@import 'jqueryui-editable';
 
 // Local
-@import 'jquery-ui';
-@import 'ic3d_components';
-@import 'main';
-@import 'admin';
+@import 'sass_variables';
+// @import 'dri_main';
 @import 'play';
-@import 'recorder_app';
-@import 'recorder_install_button.css';
-@import 'css_checkbox_badge';
-@import 'fixed_table_header';
+@import 'player_controls';
 @import 'share';
 @import 'tabs';
-@import 'jqueryui-editable';
 @import 'fixed_header_table';
+@import 'css_checkbox_badge';
 
 @font-face {
   font-family: 'Glyphicons Halflings';
