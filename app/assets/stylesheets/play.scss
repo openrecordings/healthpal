@@ -22,13 +22,22 @@
 #player-controls {
   background-color: #555;
 	grid-area: player;
-  #playhead-container{
+  #timeline{
     top: 50%;
     height: 20px;
     border-radius: 10px;
     margin: 25px 20px 0px 20px;
     background-color: inherit;
     box-shadow: inset 0 0 8px #000;
+    #playhead{
+      position: absolute;
+      background-color: #ddd;
+      margin-top: -2px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      box-shadow: 0 0 4px #000;
+    }
   }
 }
 
