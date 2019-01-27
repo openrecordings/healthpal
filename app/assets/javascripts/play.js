@@ -5,7 +5,7 @@ $(document).ready(function() {
   // Apply Jquery draggable to playhead
   playhead.draggable({
     axis: 'x',
-    containment: 'parent'
+    containment:'parent'
   });
 
   // Move playhead to click position in timeline
