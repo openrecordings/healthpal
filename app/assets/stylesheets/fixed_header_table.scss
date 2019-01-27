@@ -22,7 +22,7 @@ td.fixed-header, th.fixed-header {
 thead.fixed-header th.fixed-header {
   position: sticky;
   top: 0;
-  background: #555;
+  background: $background-dark;
   color: #aaa;
 }
 
@@ -34,7 +34,7 @@ thead.fixed-header th.fixed-header:first-child {
 tbody.fixed-header th.fixed-header {
   position: sticky;
   left: 0;
-  color: #555;
+  color: $background-dark;
   border-right: 1px solid #CCC;
 }
 
@@ -45,3 +45,6 @@ th.fixed-header.zero-width{
 #header-row {
   height: 40px;
 }
+
+tr:nth-child(even) {background: $table-row-dark}
+tr:nth-child(odd) {background: $table-row-light}
