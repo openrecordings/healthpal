@@ -13,23 +13,20 @@
       #buttons
         #buttons-container
           #empty
-          #rewind-button
-            .glyphicon.glyphicon-fast-backward.small-centered-glyph
-            %span
-              To Start
-          %span#play-pause-button
-            .glyphicon.glyphicon-play.big-centered-glyph
-            %span
-              Play
-          #fast-forward-button
-            .glyphicon.glyphicon-fast-forward.small-centered-glyph
-            %span
-              To End
+          #rewind-button.player-button
+            .glyphicon.glyphicon-fast-backward.centered-glyph
+            Rewind
+          #play-pause-button.player-button
+            .glyphicon.glyphicon-play.centered-glyph
+            Play
+          #fast-forward-button.player-button
+            .glyphicon.glyphicon-fast-forward.centered-glyph
+            Forward
           #empty2
-          #mute-button
-            .glyphicon.glyphicon-volume-up.small-centered-glyph
-            %span
-              Mute
+          #mute-button.player-button
+            -# Use volume-off when muted
+            .glyphicon.glyphicon-volume-up.centered-glyph
+            Mute
 
   #table.fixed-header
     %table.fixed-header

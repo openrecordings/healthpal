@@ -68,22 +68,12 @@
         grid-template-areas: 'empty rewind-button play-pause-button fast-forward-button empty2 mute-button';
         grid-template-columns: 4fr 1fr 1fr 1fr 3fr 1fr;
         text-align: center;
-        font-size: 16px;
+        font-size: 14px;
         color: #ddd;
         span{
           padding-top: 4px;
         }
-        .big-centered-glyph{
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          width: 58px;
-          height: 58px;
-          margin-top: -2px; 
-          margin-left: 2px; 
-          font-size: 30px;
-        }
-        .small-centered-glyph{
+        .centered-glyph{
           display: flex;
           justify-content: center;
           align-items: center;
@@ -92,47 +82,35 @@
           margin-top: -1px; 
           font-size: 24px;
         }
-        #empty #empty2{
+        #empty{
           grid-area: empty;
+        }
+        #empty2{
+          grid-area: empty2;
         }
         #rewind-button {
           grid-area: rewind-button;
-          align-self: center;
-          justify-self: right;
-          width: 50px;
-          height: 50px;
-          background-color: #666;
-          border-radius: 25px;
         }
         #play-pause-button {
-          display: relative;
           grid-area: play-pause-button;
-          align-self: center;
-          justify-self: center;
-          width: 58px; 
-          height: 58px;
-          background-color: #666;
-          border-radius: 29px;
         }
         #fast-forward-button {
           grid-area: fast-forward-button;
-          justify-self: left;
-          width: 50px; 
-          height: 50px;
-          background-color: #666;
-          border-radius: 25px;
         }
         #mute-button {
           grid-area: mute-button;
-          align-self: center;
-          justify-self: right;
           margin-right: 15%;
-          width: 50px; 
-          height: 50px;
-          background-color: #666;
-          border-radius: 25px;
         }
       }
     }
   }
+}
+
+.player-button{
+  align-self: center;
+  justify-self: left;
+  width: 50px; 
+  height: 50px;
+  background-color: #666;
+  border-radius: 25px;
 }
