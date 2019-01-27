@@ -1,17 +1,19 @@
-function getXPosition {
-}
-
 $(document).ready(function() {
   let playhead = $('#playhead');
   let timeline = $('#timeline');
 
-  playhead.draggable({axis: 'x'});
+  // Apply Jquery draggable to playhead
+  playhead.draggable({
+    axis: 'x',
+    containment: 'parent'
+  });
 
-  timeline.click(function(){
-    playhead.
-  })
+  // Move playhead to click position in timeline
+  timeline.click(function(event){
+    let timelineWidth = $(this).width();
+    let pxFromLeft = event.pageX - this.offsetLeft;
+    let proportionOfWidth = pxFromLeft / timelineWidth
+    playhead.css( {left: event.pageX} );
+  });
 
 });
-
-
-
