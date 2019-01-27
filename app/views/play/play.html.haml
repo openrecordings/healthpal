@@ -14,18 +14,19 @@
         #buttons-container
           #empty
           #rewind-button.player-button
-            .glyphicon.glyphicon-fast-backward.centered-glyph
+            .centered-glyph= image_tag('glyphicons-basic-172-skip-to-start.svg')
             Rewind
           #play-pause-button.player-button
-            .glyphicon.glyphicon-play.centered-glyph
+            -# Use glyphicons-basic-174-pause.svg when playing
+            .centered-glyph= image_tag('glyphicons-basic-175-play.svg')
             Play
           #fast-forward-button.player-button
-            .glyphicon.glyphicon-fast-forward.centered-glyph
+            .centered-glyph= image_tag('glyphicons-basic-178-skip-to-end.svg')
             Forward
           #empty2
           #mute-button.player-button
-            -# Use volume-off when muted
-            .glyphicon.glyphicon-volume-up.centered-glyph
+            -# Use glyphicons-basic-184-volume-off.svg when playing
+            .centered-glyph= image_tag('glyphicons-basic-186-volume-up.svg')
             Mute
 
   #table.fixed-header
