@@ -1,3 +1,7 @@
+.fixed-header{
+  font-weight: normal;
+}
+
 div.fixed-header {
 	width: 100%;
   position: relative;
@@ -18,7 +22,7 @@ thead.fixed-header th.fixed-header {
   position: sticky;
   top: 0;
   background: #555;
-  color: #ddd;
+  color: #aaa;
 }
 
 thead.fixed-header th.fixed-header:first-child {
