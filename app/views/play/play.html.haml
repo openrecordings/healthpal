@@ -1,8 +1,11 @@
 #play-view
 
-  #player-controls
-    #timeline
-      #playhead
+  #player
+    #player-controls
+      #timeline
+        #playhead
+      #buttons
+        %span#play-pause-button
 
   #recording-header
     - title = format_date @recording.created_at
@@ -15,8 +18,8 @@
       %thead.fixed-header
         %tr.fixed-header
           %th.fixed-header.zero-width
-          %th.fixed-header Start time
           %th.fixed-header Topics discussed
+          %th.fixed-header Start time
           %th.fixed-header Links to external information
       %tbody.fixed-header
         - 45.times do
