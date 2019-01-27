@@ -1,14 +1,14 @@
-
 body {
   margin: 1em;
   font-size: 16px;
   padding-top: 50px;
   color: #181c20;
+  background-color: $well-background;
 }
 
 .navbar {
   font-size: 16px;
-  background-color: #166aaf; 
+  background-color: $background-dark; 
   color: #fff;
 }
 
