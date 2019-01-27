@@ -61,17 +61,17 @@
       height: 60px;
       #buttons-container{
         display: grid;
-        grid-template-areas: 'rewind-button play-pause-button fast-forward-button mute-button';
-        grid-template-columns: 1fr 1fr 1fr 1fr;
-        grid-template-rows: 1fr;
+        grid-template-areas: 'empty rewind-button play-pause-button fast-forward-button empty2 mute-button';
+        grid-template-columns: 4fr 1fr 1fr 1fr 3fr 1fr;
+        #empty #empty2{
+          grid-area: empty;
+        }
         #rewind-button {
-          grid-area: rewind-button;
           justify-self: center;
 
-          width: 100%; 
+          width: 50px;
           height: 60px;
           background-color: #fcc;
-          // width: 50px;
           // height: 50px;
           // background-color: #888;
           // border-radius: 25px;
@@ -80,10 +80,9 @@
           grid-area: play-pause-button;
           justify-self: center;
 
-          width: 100%; 
+          width: 50px; 
           height: 60px;
           background-color: #cfc;
-          // width: 50px;
           // height: 50px;
           // background-color: #888;
           // border-radius: 25px;
@@ -92,10 +91,9 @@
           grid-area: fast-forward-button;
           justify-self: center;
 
-          width: 100%; 
+          width: 50px; 
           height: 60px;
           background-color: #ccf;
-          // width: 50px;
           // height: 50px;
           // background-color: #888;
           // border-radius: 25px;
@@ -104,10 +102,9 @@
           grid-area: mute-button;
           justify-self: center;
 
-          width: 100%; 
+          width: 50px; 
           height: 60px;
           background-color: #cff;
-          // width: 50px;
           // height: 50px;
           // background-color: #888;
           // border-radius: 25px;
