@@ -1,20 +1,23 @@
 #play-view
 
+  #head
+    - title = format_date @recording.created_at
+    - title += " Visit with #{@recording.provider}" if @recording.provider
+    %h3= @recording.user.full_name
+    %h4= title
+
   #player
     #controls-container
       #timeline
         #playhead
       #buttons
         #buttons-container
+          #rewind-button
           #play-pause-button
+          #fast-forward-button
+          #mute-button
 
-  #recording-header
-    - title = format_date @recording.created_at
-    - title += " Visit with #{@recording.provider}" if @recording.provider
-    %h3= @recording.user.full_name
-    %h4= title
-
-  #player-tag-table.fixed-header
+  #table.fixed-header
     %table.fixed-header
       %thead.fixed-header
         %tr.fixed-header
@@ -30,6 +33,6 @@
             %td.fixed-header sdflks
             %td.fixed-header sdflksjdfl
 
-  #player-sidebar
+  #sidebar
 
 
