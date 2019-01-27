@@ -1,11 +1,12 @@
 #play-view
 
   #player
-    #player-controls
+    #controls-container
       #timeline
         #playhead
       #buttons
-        %span#play-pause-button
+        #buttons-container
+          #play-pause-button
 
   #recording-header
     - title = format_date @recording.created_at

@@ -1,5 +1,3 @@
-// Page container
-////////////////////////////////////////
 #play-view {
   background-color: #daa;
   display: grid;
@@ -12,8 +10,6 @@
   grid-template-rows: 120px 120px 1fr;
 }
 
-// Grid containers
-////////////////////////////////////////
 #recording-header {
   background-color: #ddd;
 	grid-area: head;  
@@ -24,7 +20,7 @@
   background-color: #555;
   margin-bottom: 4px;
   box-shadow: 0 4px 2px 0 #333;
-  #player-controls{
+  #controls-container{
     display: grid;
     grid-template-areas: 'timeline'
                          'buttons'; 
@@ -49,26 +45,21 @@
     }
     #buttons{
       grid-area: buttons;
-      #play-pause-button {
-        width: 50px;
-        height: 50px;
-        background-color: #888;
-        border-radius: 25px;
+      width: 100%;
+      height: 60px;
+      #buttons-container{
+        display: grid;
+        grid-template-areas: 'rewind play-pause fast-forward mute';
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        #play-pause-button {
+          grid-area: play-pause;
+          text-align: center;
+          width: 50px;
+          height: 50px;
+          background-color: #888;
+          border-radius: 25px;
+        }
       }
     }
   }
 }
-
-#player-tag-table {
-  background-color: #fef;
-	grid-area: table;
-  overflow: scroll;
-}
-
-#player-sidebar{
-  background-color: #efe;
-	grid-area: filters;
-}
-
-// Styles
-////////////////////////////////////////
