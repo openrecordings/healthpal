@@ -1,3 +1,5 @@
+// TODO: DRY up this file
+
 #play-view {
   background-color: #daa;
   display: grid;
@@ -7,7 +9,7 @@
                        'player sidebar'
                        'table sidebar';
   grid-template-columns: 3fr 1fr;
-  grid-template-rows: 120px 120px 1fr;
+  grid-template-rows: 120px 140px 1fr;
 }
 
 #recording-header {
@@ -33,7 +35,6 @@
   margin-bottom: 4px;
   box-shadow: 0 4px 2px 0 #333;
   #controls-container{
-    // background-color: yellow;
     display: grid;
     grid-template-areas: 'timeline'
                          'buttons'; 
@@ -62,7 +63,6 @@
       #buttons-container{
         display: grid;
         margin-top: -5px;
-        // background-color: #fcc;
         height: 60px;
         grid-template-areas: 'empty rewind-button play-pause-button fast-forward-button empty2 mute-button';
         grid-template-columns: 4fr 1fr 1fr 1fr 3fr 1fr;
@@ -79,9 +79,13 @@
           border-radius: 25px;
         }
         #play-pause-button {
+          display: relative;
           grid-area: play-pause-button;
           align-self: center;
           justify-self: center;
+          text-align: center;
+          font-size: 18px;
+          color: #ddd;
           width: 58px; 
           height: 58px;
           background-color: #888;
@@ -89,7 +93,6 @@
         }
         #fast-forward-button {
           grid-area: fast-forward-button;
-          align-self: center;
           justify-self: left;
           width: 50px; 
           height: 50px;
@@ -106,10 +109,14 @@
           background-color: #888;
           border-radius: 25px;
         }
+        span{
+          padding-top: 5px;
+        }
       }
     }
   }
 }
+
 
 .big-centered-glyph{
   display: flex;
@@ -128,5 +135,6 @@
   align-items: center;
   width: 50px;
   height: 50px;
+	margin-top: -1px; 
   font-size: 24px;
 }
