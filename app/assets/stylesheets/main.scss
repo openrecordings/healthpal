@@ -1,36 +1,19 @@
 
-@font-face {
-  font-family: 'Glyphicons Halflings';
-  src: url(asset_path('glyphicons-halflings-regular.eot'));
-  src: url(asset_path('glyphicons-halflings-regular.eot?#iefix')) format('embedded-opentype'),
-    url(asset_path('glyphicons-halflings-regular.woff')) format('woff'),
-    url(asset_path('glyphicons-halflings-regular.ttf')) format('truetype'),
-    url(asset_path('glyphicons-halflings-regular.svg#glyphicons_halflingsregular')) format('svg');
-}
-
 body {
   margin: 1em;
   font-size: 16px;
   padding-top: 50px;
-}
-
-/* fix padding under menu after resize */
-@media screen and (max-width: 767px) {
-  body { padding-top: 50px; }
-}
-@media screen and (min-width:768px) and (max-width: 989px) {
-  body { padding-top: 140px; }
-}
-@media screen and (min-width: 990px) and (max-width: 1199px) {
-  body { padding-top: 100px; }
-}
-@media screen and (min-width: 1200px) {
-  body { padding-top: 50px; }
+  color: #181c20;
 }
 
 .navbar {
   font-size: 16px;
+  background-color: #166aaf; 
+  color: #fff;
+}
 
+.navbar-nav > li > a{
+  color: #fff !important;
 }
 
 .btn, .table, .segment .tag, .form-control {

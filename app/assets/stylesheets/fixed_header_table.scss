@@ -11,6 +11,7 @@ table.fixed-header {
 	width: 100%;
   position: relative;
   border-collapse: collapse;
+  border: none;
   overflow: scroll;
 }
 
@@ -39,4 +40,8 @@ tbody.fixed-header th.fixed-header {
 
 th.fixed-header.zero-width{
   display: none;
+}
+
+#header-row {
+  height: 40px;
 }

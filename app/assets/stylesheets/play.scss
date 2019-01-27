@@ -1,7 +1,6 @@
-// TODO: DRY up this file
-
+// Top level grid layout
+///////////////////////////////////////////////////
 #play-view {
-  background-color: #daa;
   display: grid;
   width: 100%;
   height: 92vh;
@@ -9,31 +8,32 @@
                        'player sidebar'
                        'table sidebar';
   grid-template-columns: 3fr 1fr;
-  grid-template-rows: 120px 140px 1fr;
+  grid-template-rows: 120px 150px 1fr;
 }
 
-#recording-header {
-  background-color: #ddd;
+#head {
+  // background-color: yellow;
   grid-area: head;  
+  text-indent: 5px;
 }
 
 #table {
-  background-color: #dfd;
+  // background-color: green;
   grid-area: table;  
   overflow: scroll;
+  text-indent: 5px;
 }
 
-
 #sidebar {
-  background-color: #ddf;
+  // background-color: red;
   grid-area: sidebar;  
 }
 
+// Media controls
+///////////////////////////////////////////////////
 #player {
   grid-area: player;
   background-color: #555;
-  margin-bottom: 4px;
-  box-shadow: 0 4px 2px 0 #333;
   #controls-container{
     display: grid;
     grid-template-areas: 'timeline'
