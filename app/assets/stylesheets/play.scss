@@ -2,7 +2,7 @@
   background-color: #daa;
   display: grid;
   width: 100%;
-	height: 92vh;
+  height: 92vh;
   grid-template-areas: 'head head'
                        'player sidebar'
                        'table sidebar';
@@ -12,37 +12,38 @@
 
 #recording-header {
   background-color: #ddd;
-	grid-area: head;  
+  grid-area: head;  
 }
 
 #table {
   background-color: #dfd;
-	grid-area: table;  
+  grid-area: table;  
   overflow: scroll;
 }
 
 
 #sidebar {
   background-color: #ddf;
-	grid-area: sidebar;  
+  grid-area: sidebar;  
 }
 
 #player {
-	grid-area: player;
+  grid-area: player;
   background-color: #555;
   margin-bottom: 4px;
   box-shadow: 0 4px 2px 0 #333;
   #controls-container{
+    // background-color: yellow;
     display: grid;
     grid-template-areas: 'timeline'
                          'buttons'; 
-    grid-template-rows: 60px 60px;
+    grid-template-rows: 50px 70px;
     #timeline{
       grid-area: timeline;
-      top: 50%;
+      align-self: center;
       height: 20px;
+      margin: 0 20px 0 20px;
       border-radius: 10px;
-      margin: 25px 20px 0px 20px;
       background-color: inherit;
       box-shadow: inset 0 0 8px #000;
       #playhead{
@@ -58,58 +59,74 @@
     #buttons{
       grid-area: buttons;
       width: 100%;
-      height: 60px;
       #buttons-container{
         display: grid;
+        margin-top: -5px;
+        // background-color: #fcc;
+        height: 60px;
         grid-template-areas: 'empty rewind-button play-pause-button fast-forward-button empty2 mute-button';
         grid-template-columns: 4fr 1fr 1fr 1fr 3fr 1fr;
         #empty #empty2{
           grid-area: empty;
         }
         #rewind-button {
-          justify-self: center;
-
+          grid-area: rewind-button;
+          align-self: center;
+          justify-self: right;
           width: 50px;
-          height: 60px;
-          background-color: #fcc;
-          // height: 50px;
-          // background-color: #888;
-          // border-radius: 25px;
+          height: 50px;
+          background-color: #888;
+          border-radius: 25px;
         }
         #play-pause-button {
           grid-area: play-pause-button;
+          align-self: center;
           justify-self: center;
-
-          width: 50px; 
-          height: 60px;
-          background-color: #cfc;
-          // height: 50px;
-          // background-color: #888;
-          // border-radius: 25px;
+          width: 58px; 
+          height: 58px;
+          background-color: #888;
+          border-radius: 29px;
         }
         #fast-forward-button {
           grid-area: fast-forward-button;
-          justify-self: center;
-
+          align-self: center;
+          justify-self: left;
           width: 50px; 
-          height: 60px;
-          background-color: #ccf;
-          // height: 50px;
-          // background-color: #888;
-          // border-radius: 25px;
+          height: 50px;
+          background-color: #888;
+          border-radius: 25px;
         }
         #mute-button {
           grid-area: mute-button;
-          justify-self: center;
-
+          align-self: center;
+          justify-self: right;
+          margin-right: 15%;
           width: 50px; 
-          height: 60px;
-          background-color: #cff;
-          // height: 50px;
-          // background-color: #888;
-          // border-radius: 25px;
+          height: 50px;
+          background-color: #888;
+          border-radius: 25px;
         }
       }
     }
   }
+}
+
+.big-centered-glyph{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 58px;
+  height: 58px;
+	margin-top: -2px; 
+	margin-left: 2px; 
+  font-size: 30px;
+}
+
+.small-centered-glyph{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  font-size: 24px;
 }
