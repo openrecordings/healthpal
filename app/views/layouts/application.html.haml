@@ -12,30 +12,30 @@
     %div{class: current_user&.privileged? ? 'admin-background' : nil}
       %div{class: current_user&.privileged? ? 'admin-background' : nil}
     .container
-      %button.navbar-toggle(type="button" data-toggle="collapse" data-target=".navbar-responsive-collapse")
-        %span.icon-bar
-        %span.icon-bar
-        %span.icon-bar
-      %a.navbar-brand(href="/")
+      %a{href: '/'}
         %span#logo-health Health
         %span#logo-pal> PAL
         - if current_user&.privileged?
           %span#logo-health>
       .navbar-collapse.collapse.navbar-responsive-collapse
         - if user_signed_in?
-          %ul.nav.navbar-nav
+          %ul.menu
             - if current_user.privileged?
-              %li= link_to 'Manage Recordings', root_path
-              %li= link_to 'User Management', admin_path
-            %li= link_to 'New Recording', record_path
-            %li= link_to 'Recordings', my_recordings_path
-            %li= link_to 'Sharing', shares_path
-          %ul.nav.navbar-nav.navbar-right
-            %li= link_to "Account <span class='fa fa-cog' style='margin-right: 3px;'></span>".html_safe, edit_user_registration_path, style: 'padding:0px 10px 0px 0px;display:inline;line-height:50px;'
-            %li= link_to "Sign out #{current_user.full_name}", destroy_user_session_path, method: :delete
+              %div
+                %li= link_to 'Manage Recordings', root_path
+                %li= link_to 'User Management', admin_path
+            %div
+              %li= link_to 'New Recording', record_path
+              %li= link_to 'Recordings', my_recordings_path
+              %li= link_to 'Sharing', shares_path
+          %ul.menu
+            %div
+              %li= link_to "Account <span class='fa fa-cog' style='margin-right: 3px;'></span>".html_safe, edit_user_registration_path, style: 'padding:0px 10px 0px 0px;display:inline;line-height:50px;'
+              %li= link_to "Sign out #{current_user.full_name}", destroy_user_session_path, method: :delete
         - else
-          %ul.nav.navbar-nav.navbar-right
-            %li= link_to 'Sign in', new_user_session_path
+          %ul.menu
+            %div
+              %li= link_to 'Sign in', new_user_session_path
 
     .container
       .row

@@ -2,7 +2,7 @@
 // All this logic will automatically be available in application.js.
 
 $(document).ready(function() {
-  $(".tablesorter").each(function(index, value) {
-    $(this).tablesorter({sortList: [[$(this).data("sort-column"), $(this).data("sort-desc")]]});
-  });
+
+    $('.menu').menu();
+
 });
