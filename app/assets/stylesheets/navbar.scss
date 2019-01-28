@@ -1,7 +1,7 @@
 #nav-container {
   display: grid;
   width: 100%;
-  height: 60px;
+  height: 100px;
   grid-template-areas: 'logo menu-left menu-right';
   grid-template-columns: 1fr 1fr 1fr;
 }
@@ -10,18 +10,21 @@
   background-color: yellow;
   display: grid;
   grid-area: logo;
+  height: 100px;
   #logo-spans{
     display: inline-block;
     min-width: 380px;
     font-size: 44px;
     #open-recordings-logo{
-      display: inline;
+      display: inline-block;
     }
     #logo-health{
-      color: rgba(74, 164, 156, 1.0)
+      color: rgba(74, 164, 156, 1.0);
+      display: inline-block;
     }
     #logo-pal{
-      color: rgba(187, 189, 191, 1.0)
+      color: rgba(187, 189, 191, 1.0);
+      display: inline-block;
     }
   }
 }
