@@ -1,6 +1,7 @@
 %div{class: current_user&.privileged? ? 'admin-background' : nil}
   #nav-container
     #logo-container
+      %span#open-recordings-logo= image_tag('open_recordings', width: '150px')
       %span#logo-health Health
       %span#logo-pal> PAL
     - if user_signed_in?

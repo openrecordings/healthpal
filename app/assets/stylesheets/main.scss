@@ -4,3 +4,22 @@ body {
   font-size: 16px;
   background-color: $well-background;
 }
+
+#page-container{
+  display: grid;
+  width: 100vw;
+  height: 100vh;
+  grid-template-areas: 'navbar'
+                       'content';
+  grid-template-rows: 100px 100vh;
+  #grid-navbar{
+    display: grid;
+    grid-area: navbar
+  }
+
+  #grid-content{
+    display: grid;
+    grid-area: content;
+  }
+}
+
