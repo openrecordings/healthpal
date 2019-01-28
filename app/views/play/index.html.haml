@@ -17,16 +17,16 @@
                     %table.table.table-striped
                       %thead
                         %tr
-                          %th.bigger Visit Date
-                          %th.bigger Provider
+                          %th Visit Date
+                          %th Provider
 
                           -# TODO Re-enable duration when it's fixed
-                            %th.bigger Duration
+                            %th Duration
 
                       %tbody
                         - u.recordings.order('created_at desc').each do |recording|
                           %tr.trecording-select
-                            %td.bigger.recording-select{data: {href: play_path(recording.id)}}= link_to format_date(recording.created_at), play_path(recording.id)
+                            %td.recording-select{data: {href: play_path(recording.id)}}= link_to format_date(recording.created_at), play_path(recording.id)
                             %td
                               - unless recording.provider&.first.present?
                                 .editable-badge
@@ -45,4 +45,4 @@
                                   )
 
                             -# TODO Renable duration when it's fixed
-                              %td.bigger.recording-select{data: {href: play_path(recording.id)}}= 'foo'
+                              %td.recording-select{data: {href: play_path(recording.id)}}= 'foo'

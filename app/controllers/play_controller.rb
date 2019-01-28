@@ -1,7 +1,5 @@
 class PlayController < ApplicationController
 
-  layout 'player', only: :play  
-
   # Data structure for ephemeral utterance objects
   Utterance = Struct.new(:utterance_hash) do
     def start_time_sec

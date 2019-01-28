@@ -9,53 +9,10 @@
     = stylesheet_link_tag "application", :media => "all"
     = favicon_link_tag 'favicon.ico', :rel => 'shortcut icon'
   %body
-    %div{class: current_user&.privileged? ? 'admin-background' : nil}
-      %div{class: current_user&.privileged? ? 'admin-background' : nil}
-    .container
-      %a{href: '/'}
-        %span#logo-health Health
-        %span#logo-pal> PAL
-        - if current_user&.privileged?
-          %span#logo-health>
-      .navbar-collapse.collapse.navbar-responsive-collapse
-        - if user_signed_in?
-          %ul.menu
-            - if current_user.privileged?
-              %div
-                %li= link_to 'Manage Recordings', root_path
-                %li= link_to 'User Management', admin_path
-            %div
-              %li= link_to 'New Recording', record_path
-              %li= link_to 'Recordings', my_recordings_path
-              %li= link_to 'Sharing', shares_path
-          %ul.menu
-            %div
-              %li= link_to "Account <span class='fa fa-cog' style='margin-right: 3px;'></span>".html_safe, edit_user_registration_path, style: 'padding:0px 10px 0px 0px;display:inline;line-height:50px;'
-              %li= link_to "Sign out #{current_user.full_name}", destroy_user_session_path, method: :delete
-        - else
-          %ul.menu
-            %div
-              %li= link_to 'Sign in', new_user_session_path
-
-    .container
-      .row
-        .col-xs-12.pad-top-20
-          = bootstrap_flash
-          = yield
-        -# Optional sidebar:
-        -#.col-lg-3
-        -#  .well.sidebar-nav
-        -#    %h3 Sidebar
-        -#    %ul.nav.nav-list
-        -#      %li.nav-header Sidebar
-        -#      %li= link_to "Link 1", "/path1"
-        -#      %li= link_to "Link 2", "/path2"
-        -#      %li= link_to "Link 3", "/path3"
-
+    = bootstrap_flash
+    = render 'navbar'
+    = yield
     = javascript_include_tag "application"
     = javascript_pack_tag "application"
-    / Le HTML5 shim, for IE6-8 support of HTML elements
-    /[if lt IE 9]
-      = javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js"
 
 
