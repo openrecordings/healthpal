@@ -1,9 +1,9 @@
 #nav-container{class: current_user&.privileged? ? 'admin-background' : nil}
   #logo-container
     #logo-spans
-      #or-logo= image_tag('open_recordings', width: '120px', id: 'open-recordings-logo')
-      #logo-health Health
-      #logo-pal> PAL
+      %span#or-logo= image_tag('open_recordings', width: '120px', id: 'open-recordings-logo')
+      %span#logo-health Health
+      %span#logo-pal> PAL
   - if user_signed_in?
     #menu-container
       #menu-left-container

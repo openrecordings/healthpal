@@ -2,19 +2,17 @@
   display: grid;
   width: 100%;
   height: $navbar-height;
-  grid-template-areas: 'logo menu';
-  grid-template-columns: 1fr 1fr;
+  grid-template-areas: 'logo'
+                       'menu';
+  grid-template-rows: #{$navbar-height} 100%;
 
   #logo-container{
     display: grid;
-    max-width: 400px;
     grid-area: logo;
     height: $navbar-height;
     background-color: $background-dark;
     #logo-spans{
-      display: flex;
-      align-items: baseline;
-      min-width: 380px;
+      padding: 12px;
       height: $navbar-height;
       font-size: 48px;
       #or-logo{
@@ -37,13 +35,9 @@
     display: grid;
     grid-area: menu;
       #menu-left-container{
-        display: flex;
-        align-items: baseline;
         background-color: $background-dark;
       }
       #menu-right-container{
-        display: flex;
-        align-items: baseline;
         background-color: $background-dark;
       }
 
