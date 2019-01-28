@@ -22,32 +22,27 @@
   #menu-container{
     display: grid;
     grid-area: menu;
-    height: $menubar-height;
     background-color: $background-light;
+    height: $menubar-height;
     #menu-spans{
-      height: $navbar-height;
+      height: $menubar-height;
       font-size: 20px;
       #menu-left-container{
       }
       #menu-right-container{
       }
+      ul.nav{
+        list-style-type: none;
+      }
+      li.nav{
+        display: inline;
+        border-right: 2px solid rgb(117, 161, 221);
+        a{
+          color: #fff;
+          text-decoration: none;
+        }
+      }
     }
   }
 
-}
-
-ul.nav{
-  display: inline;
-  list-style-type: none;
-}
-
-li.nav{
-  padding-top: 10px;
-  display: inline;
-  height: $menubar-height;
-  border-right: 2px solid rgb(117, 161, 221);
-  a{
-    color: #fff;
-    text-decoration: none;
-  }
 }
