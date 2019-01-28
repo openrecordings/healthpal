@@ -17,7 +17,7 @@ body {
   #grid-navbar{
     display: grid;
     grid-area: navbar;
-    height: $navbar-height;
+    height: #{$navbar-height + $menubar-height};
     overflow: hidden;
   }
 

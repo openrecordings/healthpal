@@ -1,7 +1,6 @@
 #nav-container {
   display: grid;
   width: 100%;
-  height: $navbar-height;
   grid-template-areas: 'logo'
                        'menu';
   grid-template-rows: #{$navbar-height $menubar-height};
@@ -13,7 +12,7 @@
     background-color: $background-dark;
     #logo-spans{
       padding: 12px;
-      height: $navbar-height;
+      max-height: $navbar-height;
       font-size: 48px;
       #or-logo{
         margin: auto;
@@ -34,20 +33,26 @@
   #menu-container{
     display: grid;
     grid-area: menu;
-    background-color: $background-dark;
+    color: red;
+    background-color: $background-light;
     #menu-left-container{
+      display: inline;
+      color: yellow;
     }
     #menu-right-container{
+      display: inline;
+      color: red;
     }
-
     ul.nav {
       list-style-type: none;
+    color: red;
     }
 
     li.nav {
       a{
-        color: #fff;
+    color: red;
       }
     }
   }
+
 }
