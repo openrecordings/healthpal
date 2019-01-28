@@ -4,7 +4,7 @@
   height: $navbar-height;
   grid-template-areas: 'logo'
                        'menu';
-  grid-template-rows: #{$navbar-height} 100%;
+  grid-template-rows: #{$navbar-height $menubar-height};
 
   #logo-container{
     display: grid;
@@ -34,21 +34,20 @@
   #menu-container{
     display: grid;
     grid-area: menu;
-      #menu-left-container{
-        background-color: $background-dark;
-      }
-      #menu-right-container{
-        background-color: $background-dark;
-      }
+    background-color: $background-dark;
+    #menu-left-container{
+    }
+    #menu-right-container{
+    }
 
-      ul.nav {
-        list-style-type: none;
-      }
+    ul.nav {
+      list-style-type: none;
+    }
 
-      li.nav {
-        a{
-          color: #fff;
-        }
+    li.nav {
+      a{
+        color: #fff;
       }
+    }
   }
 }

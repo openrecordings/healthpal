@@ -10,12 +10,21 @@ body {
   width: 100vw;
   height: 100vh;
   grid-template-areas: 'navbar'
+                       'menubar' 
                        'content';
-  grid-template-rows: #{$navbar-height} 100%;
+  grid-template-rows: #{$navbar-height $menubar-height} 100%;
+
   #grid-navbar{
     display: grid;
     grid-area: navbar;
     height: $navbar-height;
+    overflow: hidden;
+  }
+
+  #grid-menubar{
+    display: grid;
+    grid-area: menubar;
+    height: $menubar-height;
     overflow: hidden;
   }
 
