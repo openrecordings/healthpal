@@ -33,26 +33,31 @@
   #menu-container{
     display: grid;
     grid-area: menu;
-    color: red;
+    height: $menubar-height;
     background-color: $background-light;
-    #menu-left-container{
-      display: inline;
-      color: yellow;
-    }
-    #menu-right-container{
-      display: inline;
-      color: red;
-    }
-    ul.nav {
-      list-style-type: none;
-    color: red;
-    }
-
-    li.nav {
-      a{
-    color: red;
+    #logo-spans{
+      padding: 12px;
+      max-height: $navbar-height;
+      font-size: 48px;
+      #menu-left-container{
+        max-width: 400px;
+        background-color: yellow;
+      }
+      #menu-right-container{
+        float: right;
+        max-width: 400px;
+        background-color: red;
       }
     }
   }
+}
 
+ul.nav{
+  display: inline;
+  list-style-type: none;
+}
+
+li.nav{
+  display: inline;
+  a{ color: #fff; }
 }

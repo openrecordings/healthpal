@@ -6,15 +6,16 @@
       %span#logo-pal> PAL
   - if user_signed_in?
     #menu-container
-      #menu-left-container
-        %ul.nav
-          - if current_user.privileged?
-            %li.nav= link_to 'Manage Recordings', root_path
-            %li.nav= link_to 'User Management', admin_path
-          %li.nav= link_to 'New Recording', record_path
-          %li.nav= link_to 'Recordings', my_recordings_path
-          %li.nav= link_to 'Sharing', shares_path
-      #menu-right-container
-        %ul.nav
-          %li.nav= link_to "Account <span class='fa fa-cog' style='margin-right: 3px;'></span>".html_safe, edit_user_registration_path
-          %li.nav= link_to "Sign out #{current_user.full_name}", destroy_user_session_path, method: :delete
+      #menu-spans
+        %span#menu-left-container
+          %ul.nav
+            - if current_user.privileged?
+              %li.nav= link_to 'Manage Recordings', root_path
+              %li.nav= link_to 'User Management', admin_path
+            %li.nav= link_to 'New Recording', record_path
+            %li.nav= link_to 'Recordings', my_recordings_path
+            %li.nav= link_to 'Sharing', shares_path
+        %span#menu-right-container
+          %ul.nav
+            %li.nav= link_to "Account <span class='fa fa-cog' style='margin-right: 3px;'></span>".html_safe, edit_user_registration_path
+            %li.nav= link_to "Sign out #{current_user.full_name}", destroy_user_session_path, method: :delete
