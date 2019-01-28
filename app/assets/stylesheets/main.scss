@@ -11,11 +11,11 @@ body {
   height: 100vh;
   grid-template-areas: 'navbar'
                        'content';
-  grid-template-rows: 100px 100%;
+  grid-template-rows: #{$navbar-height} 100%;
   #grid-navbar{
     display: grid;
     grid-area: navbar;
-    height: 100px;
+    height: $navbar-height;
     overflow: hidden;
   }
 

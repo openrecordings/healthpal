@@ -1,30 +1,31 @@
 #nav-container {
   display: grid;
   width: 100%;
-  height: 100px;
+  height: $navbar-height;
   grid-template-areas: 'logo menu-left menu-right';
   grid-template-columns: 1fr 1fr 1fr;
 }
 
 #logo-container{
-  background-color: yellow;
+  background-color: $background-dark;
   display: grid;
   grid-area: logo;
-  height: 100px;
+  height: $navbar-height;
   #logo-spans{
-    display: inline-block;
+    display: inline;
     min-width: 380px;
+    height: $navbar-height;
     font-size: 44px;
     #open-recordings-logo{
-      display: inline-block;
+      display: inline;
     }
     #logo-health{
+      display: inline;
       color: rgba(74, 164, 156, 1.0);
-      display: inline-block;
     }
     #logo-pal{
+      display: inline;
       color: rgba(187, 189, 191, 1.0);
-      display: inline-block;
     }
   }
 }
