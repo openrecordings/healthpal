@@ -1,0 +1,31 @@
+#nav-container {
+  display: grid;
+  width: 100%;
+  height: 60px;
+  grid-template-areas: 'logo menu-left menu-right';
+  grid-template-columns: 10% 45% 45%;
+}
+
+#logo-container{
+  background-color: yellow;
+  display: grid;
+  grid-area: logo;
+}
+
+#menu-left-container{
+  background-color: red;
+  display: grid;
+  grid-area: menu-left;
+}
+
+#menu-right-container{
+  background-color: blue;
+  display: grid;
+  grid-area: menu-right;
+}
+
+ul.nav {
+}
+
+li.nav {
+}
