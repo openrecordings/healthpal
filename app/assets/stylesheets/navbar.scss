@@ -14,19 +14,8 @@
       padding: 12px;
       max-height: $navbar-height;
       font-size: 48px;
-      #or-logo{
-        margin: auto;
-        #open-recordings-logo{
-        }
-      }
-      #logo-health{
-        margin: auto;
-        color: rgba(74, 164, 156, 1.0);
-      }
-      #logo-pal{
-        margin: auto;
-        color: rgba(187, 189, 191, 1.0);
-      }
+      #logo-health{ color: rgba(74, 164, 156, 1.0); }
+      #logo-pal{ color: rgba(187, 189, 191, 1.0); }
     }
   }
 
@@ -35,21 +24,16 @@
     grid-area: menu;
     height: $menubar-height;
     background-color: $background-light;
-    #logo-spans{
-      padding: 12px;
-      max-height: $navbar-height;
-      font-size: 48px;
+    #menu-spans{
+      height: $navbar-height;
+      font-size: 20px;
       #menu-left-container{
-        max-width: 400px;
-        background-color: yellow;
       }
       #menu-right-container{
-        float: right;
-        max-width: 400px;
-        background-color: red;
       }
     }
   }
+
 }
 
 ul.nav{
@@ -58,6 +42,12 @@ ul.nav{
 }
 
 li.nav{
+  padding-top: 10px;
   display: inline;
-  a{ color: #fff; }
+  height: $menubar-height;
+  border-right: 2px solid rgb(117, 161, 221);
+  a{
+    color: #fff;
+    text-decoration: none;
+  }
 }
