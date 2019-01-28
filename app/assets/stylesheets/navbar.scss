@@ -10,6 +10,20 @@
   background-color: yellow;
   display: grid;
   grid-area: logo;
+  #logo-spans{
+    display: inline-block;
+    min-width: 380px;
+    font-size: 44px;
+    #open-recordings-logo{
+      display: inline;
+    }
+    #logo-health{
+      color: rgba(74, 164, 156, 1.0)
+    }
+    #logo-pal{
+      color: rgba(187, 189, 191, 1.0)
+    }
+  }
 }
 
 #menu-left-container{
