@@ -34,10 +34,14 @@ class PlayController < ApplicationController
         @utterances = []
         @recording.json.each {|utterance_hash| @utterances << Utterance.new(utterance_hash)}
         # Send audio data
-        audio_data = File.read(recording.local_file_name_with_path)
+        audio_data = File.read(@recording.local_file_name_with_path)
         response.header['Accept-Ranges'] = 'bytes'
-        response.headers['Content-Length'] = File.size tmp_file
-        send_data(audio_data, filename: 'audio_data')
+        # Needed?
+        # response.headers['Content-Length'] = File.size tmp_file
+        send_data(audio_data,
+          filename: 'audio_data',
+          type: :flac,
+          disposition: 'inline')
     else
       flash.alert = 'An error ocurred while retriving the audio data. Please contact support.'
       redirect_to :root and return
