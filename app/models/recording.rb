@@ -37,6 +37,16 @@ class Recording < ApplicationRecord
     self.update(uri: "gs://#{bucket_name}/#{self.file_name}")
   end
 
+  # Download audio file from GCP  
+  # TODO Error-handling
+  def download
+    # return nil unless self.persisted?
+    # storage_job = Google::Cloud::Storage.new(project: Rails.configuration.gcp_project_name)
+    # bucket_name = Rails.configuration.gcp_bucket_name
+    # bucket = storage_job.bucket(bucket_name)
+    # bucket.create_file(self.local_file_name_with_path, self.file_name)
+  end
+
   # Get GCP speech transcription JSON and store in self
   # TODO:
 	#  Async

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_25_223211) do
+ActiveRecord::Schema.define(version: 2019_01_29_162723) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 2019_01_25_223211) do
     t.string "original_file_name"
     t.string "source"
     t.json "json"
+    t.string "url"
   end
 
   create_table "shares", force: :cascade do |t|

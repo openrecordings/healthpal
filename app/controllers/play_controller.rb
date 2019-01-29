@@ -29,19 +29,10 @@ class PlayController < ApplicationController
   def play
     @recording = Recording.find_by(id: params[:id])
     if (@recording && current_user.can_access(@recording))
-        # TODO trap errors
-        # Create utterances for this recording
-        @utterances = []
-        @recording.json.each {|utterance_hash| @utterances << Utterance.new(utterance_hash)}
-        # Send audio data
-        audio_data = File.read(@recording.local_file_name_with_path)
-        response.header['Accept-Ranges'] = 'bytes'
-        # Needed?
-        # response.headers['Content-Length'] = File.size tmp_file
-        send_data(audio_data,
-          filename: 'audio_data',
-          type: :flac,
-          disposition: 'inline')
+      # TODO trap errors
+      # Create utterances for this recording
+      @utterances = []
+      @recording.json.each {|utterance_hash| @utterances << Utterance.new(utterance_hash)}
     else
       flash.alert = 'An error ocurred while retriving the audio data. Please contact support.'
       redirect_to :root and return
