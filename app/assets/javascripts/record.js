@@ -1,11 +1,10 @@
-const videoElement = document.querySelector('video');
-const audioSelect = document.querySelector('select#audioSource');
-const videoSelect = document.querySelector('select#videoSource');
-var streamRecorder;
-var recordStream;
-
 // Wrap entire file in conditional, verifying that we are on the recording page
-if(videoElement && audioSelect &&  videoSelect) {
+if(document.querySelector('#record-start-button')) {
+  const videoElement = document.querySelector('video');
+  const audioSelect = document.querySelector('select#audioSource');
+  const videoSelect = document.querySelector('select#videoSource');
+  var streamRecorder;
+  var recordStream;
 
   // Stream management. Started with https://www.html5rocks.com/en/tutorials/getusermedia/intro/ 
   //////////////////////////////////////////////////////////////////////////////////////////////////
