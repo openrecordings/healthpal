@@ -29,8 +29,6 @@ class PlayController < ApplicationController
   def play
     @recording = Recording.find_by(id: params[:id])
     if (@recording && current_user.can_access(@recording))
-      # TODO trap errors
-      # Create utterances for this recording
       @utterances = []
       @recording.json.each {|utterance_hash| @utterances << Utterance.new(utterance_hash)}
     else

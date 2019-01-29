@@ -34,7 +34,7 @@ class Recording < ApplicationRecord
     bucket_name = Rails.configuration.gcp_bucket_name
     bucket = storage_job.bucket(bucket_name)
     file = bucket.create_file(self.local_file_name_with_path, self.file_name)
-    self.update(uri: "gs://#{bucket_name}/#{self.file_name}", url:file.public)
+    self.update(uri: "gs://#{bucket_name}/#{self.file_name}", url:file.public_url)
   end
 
   # Download audio file from GCP  

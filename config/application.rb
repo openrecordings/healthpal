@@ -17,14 +17,12 @@ module Orals
 
     config.research_mode = ENV['RESEARCH_MODE'] == 'true'
 
-    # TODO; This should be out of repo
+    # TODO; Should not need this one. Remove use(s) and delete
     config.local_audio_file_path = Rails.root.join('encrypted_audio')
 
 		# Google Cloud Platform Config
     config.gcp_app_credentials = ENV['GOOGLE_APPLICATION_CREDENTIALS']
     config.gcp_project_name =  ENV['GCP_PROJECT_NAME']
 		config.gcp_bucket_name = ENV['GCP_BUCKET_NAME']
-		
-
   end
 end

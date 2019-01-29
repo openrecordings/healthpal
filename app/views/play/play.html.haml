@@ -1,6 +1,6 @@
 #play-view
 
-  %audio{controls: true, src: @audio_data, type: 'audio/flac'}
+  %audio{controls: true, src: asset_path(@recording.file_name), type: 'audio/flac'}
 
   #head
     - title = format_date @recording.created_at
