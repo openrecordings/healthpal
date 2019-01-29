@@ -28,40 +28,33 @@ class PlayController < ApplicationController
 
   def play
     @recording = Recording.find_by(id: params[:id])
-    if @recording
-      if current_user.can_access(@recording)
+    if (@recording && current_user.can_access(@recording))
+        # TODO trap errors
+        # Create utterances for this recording
         @utterances = []
         @recording.json.each {|utterance_hash| @utterances << Utterance.new(utterance_hash)}
-      else
-        flash.alert = 'You do not have permission to play that recording'
-        redirect_to :root and return
-      end
+        # Send audio data
+        audio_data = File.read(recording.local_file_name_with_path)
+        response.header['Accept-Ranges'] = 'bytes'
+        response.headers['Content-Length'] = File.size tmp_file
+        send_data(audio_data, filename: 'audio_data')
     else
-      flash.alert = 'Could not find that recording'
+      flash.alert = 'An error ocurred while retriving the audio data. Please contact support.'
       redirect_to :root and return
     end
   end
 
   def send_audio
-    if (recording  = Recording.find_by(id: params[:id]))
-      ##################################################################################
-      # TODO Re-enable the commented-out condictional authorizing playback when the 
-      #      caregiver data model is done.
-      ##################################################################################
-      #if recording.user == current_user || current_user.privileged?
-        tmp_file = "#{Rails.root}/recordings_tmp/#{recording.id}.ogg"
-        File.open(tmp_file, 'wb') { |file| file.write(recording.audio) }
-        response.header['Accept-Ranges'] = 'bytes'
-        response.headers['Content-Length'] = File.size tmp_file
-        send_file(tmp_file)
-      # else
-      #   # User does not own recording and is not privileged
-      #   return nil
-      # end
-      ##################################################################################
+    recording  = Recording.find_by(id: params[:id])
+    if(recording && current_user.can_access(recording))
+      # Recording exists and user has access
+      audio_data = File.read(recording.local_file_name_with_path)
+      response.header['Accept-Ranges'] = 'bytes'
+      response.headers['Content-Length'] = File.size tmp_file
+      send_data(audio_data, filename: 'audio_data')
     else
-      # Could not find recording with given id
-      return nil
+      flash.alert = 'An error ocurred while retriving the audio data'
+      redirect_to :root and return
     end
   end
 

@@ -1,5 +1,7 @@
 #play-view
 
+  %audio{controls: true, src: @audio_data, type: 'audio/flac'}
+
   #head
     - title = format_date @recording.created_at
     - title += " Visit with #{@recording.provider}" if @recording.provider

@@ -33,7 +33,7 @@ class Recording < ApplicationRecord
     storage_job = Google::Cloud::Storage.new(project: Rails.configuration.gcp_project_name)
     bucket_name = Rails.configuration.gcp_bucket_name
     bucket = storage_job.bucket(bucket_name)
-    bucket.create_file(self.local_file_name_with_path.to_s, self.file_name)
+    bucket.create_file(self.local_file_name_with_path, self.file_name)
     self.update(uri: "gs://#{bucket_name}/#{self.file_name}")
   end
 
@@ -64,11 +64,11 @@ class Recording < ApplicationRecord
     self.update(json: operation.response.results)
   end
 
-  # Returns self's audio file path/name as a Pathname object.
+  # Returns self's audio file path/name as a String.
   # Will return nil if called when self.file_name doesn't yet exist
   def local_file_name_with_path
     return nil unless self.file_name
-    Rails.configuration.local_audio_file_path.join(self.file_name)
+    Rails.configuration.local_audio_file_path.join(self.file_name).to_s
   end
 
   private
@@ -88,6 +88,7 @@ class Recording < ApplicationRecord
     self.provider = ''
   end
 
+  # TODO Use this
   def gcp_logger
     @@gcp_logger ||= Logger.new("#{Rails.root}/log/gcp.log")
   end
