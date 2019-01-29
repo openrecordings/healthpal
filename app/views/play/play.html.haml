@@ -8,6 +8,7 @@
     %h4= title
 
   #player
+    %audio{controls: true, src: asset_path(@recording.file_name), type: 'audio/flac'}
     #controls-container
       #timeline
         #progress-bar
