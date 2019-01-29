@@ -1,6 +1,5 @@
 #play-view
 
-  %audio{controls: true, src: asset_path(@recording.file_name), type: 'audio/flac'}
 
   #head
     - title = format_date @recording.created_at
@@ -53,12 +52,13 @@
           %th.fixed-header Start time
           %th.fixed-header Links to external information
       %tbody.fixed-header
-        - 45.times do
+        - @utterances.each do |utterance|
           %tr.fixed-header
             %th.fixed-header.zero-width
-            %td.fixed-header sdflksjdflskjdflkjsdflkjsdflkjsdflkjsdflkjsdflkjsdlfkj
-            %td.fixed-header sdflks
-            %td.fixed-header sdflksjdfl
+            %td.fixed-header= utterance['text']
+            %td.fixed-header= utterance['start_time']
+            -# TODO links
+            %td.fixed-header 
 
   #sidebar
 

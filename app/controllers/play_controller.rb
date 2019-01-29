@@ -2,15 +2,6 @@ class PlayController < ApplicationController
 
   # Data structure for ephemeral utterance objects
   Utterance = Struct.new(:utterance_hash) do
-    def start_time_sec
-      first_word = utterance_hash['words'].first
-      first_word['start_time']['seconds'] + first_word['start_time']['nano'].to_f / 10**8 
-    end
-
-    def end_time_sec
-      last_word = utterance_hash['words'].last
-      last_word['start_time']['seconds'] + last_word['end_time']['nano'].to_f / 10**8 
-    end
   end
 
   # json.first['alternatives'].first['words'].first['start_time']['seconds']
@@ -30,7 +21,19 @@ class PlayController < ApplicationController
     @recording = Recording.find_by(id: params[:id])
     if (@recording && current_user.can_access(@recording))
       @utterances = []
-      @recording.json.each {|utterance_hash| @utterances << Utterance.new(utterance_hash)}
+      @recording.json.each do |utterance_hash|
+        # puts '---------------------------------------------------------------'
+        # puts "#{utterance_hash.class} #{utterance_hash}"
+        # puts '---------------------------------------------------------------'
+        @utterances << {
+         start_time: start_time(utterance_hash),
+         end_time: end_time(utterance_hash),
+         text: text(utterance_hash)
+        }
+        puts '---------------------------------------------------------------'
+        puts @utterances
+        puts '---------------------------------------------------------------'
+      end
     else
       flash.alert = 'An error ocurred while retriving the audio data. Please contact support.'
       redirect_to :root and return
@@ -52,5 +55,21 @@ class PlayController < ApplicationController
   end
 
   private
+
+  def start_time(utterance_hash)
+    first_word = utterance_hash['alternatives'][0]['words'].first
+    start_time = first_word['start_time']
+    start_time['seconds'].to_f + start_time['nanos'] / 10**8
+  end
+
+  def end_time(utterance_hash)
+    last_word = utterance_hash['alternatives'][0]['words'].last
+    end_time = last_word['end_time']
+    end_time['seconds'].to_f + end_time['nanos'] / 10**8
+  end
+
+  def text(utterance_hash)
+    utterance_hash['alternatives'][0]['transcript']
+  end
 
 end
