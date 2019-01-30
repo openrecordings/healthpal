@@ -10,10 +10,24 @@ if(document.querySelector('#play-pause-button')) {
     });
   }
 
+  function handleControlEvents(){
+    var audioElement = document.getElementById('audio-element');
+		$('#play-pause-button').click(function(){
+			if (audioElement.paused) {
+				 audioElement.play();
+			}   
+			else {
+				 audioElement.pause();
+			}
+			$('#play-glyph, #pause-glyph, #play-label, #pause-label').toggleClass('hidden');
+		})
+  }
+
   // onload
   /////////////////////////////////////////////////////////////////////////////////////////////////
   $(document).ready(function() {
     loadAudio();
+    handleControlEvents();
 
     // Apply Jquery draggable to playhead
     $('#playhead').draggable({
