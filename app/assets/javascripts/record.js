@@ -63,9 +63,9 @@ if(document.querySelector('#record-start-button')) {
       audio: {
         deviceId: {exact: audioSelect.value}
       },
-      // video: {
-      //   deviceId: {exact: videoSelect.value}
-      // }
+      video: {
+        deviceId: {exact: videoSelect.value}
+      }
     };
     navigator.mediaDevices.getUserMedia(constraints).
       then(gotStream).catch(handleError);

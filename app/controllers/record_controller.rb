@@ -39,7 +39,7 @@ class RecordController < ApplicationController
         #   Encrypt
         begin
           audio_file_path = "#{Rails.root}/app/assets/audios"
-          File.open("#{audio_file_path}/#{recording.file_name}", 'wb') do |disk_file|
+          File.open(recording.local_file_name_with_path, 'wb') do |disk_file|
             disk_file.write(blob)
           end
         rescue File => error

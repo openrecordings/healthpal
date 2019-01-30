@@ -8,7 +8,6 @@
     %h4= title
 
   #player
-    %audio{controls: true, src: asset_path(@recording.file_name), type: 'audio/flac'}
     #controls-container
       #timeline
         #progress-bar
@@ -53,14 +52,18 @@
           %th.fixed-header Start time
           %th.fixed-header Links to external information
       %tbody.fixed-header
-        - @utterances.each do |utterance|
+        -# - @utterances.each do |utterance|
+        -#   %tr.fixed-header
+        -#     %th.fixed-header.zero-width
+        -#     %td.fixed-header= utterance['text']
+        -#     %td.fixed-header= utterance['start_time']
+        -#     -# TODO links
+        - 50.times do
           %tr.fixed-header
             %th.fixed-header.zero-width
-            %td.fixed-header= utterance['text']
-            %td.fixed-header= utterance['start_time']
-            -# TODO links
-            %td.fixed-header 
+            %td.fixed-header sdflksjdflskjdflkjsdflkjsdflkjsdflkjsdflkjsdflkjsdlfkj
+            %td.fixed-header sdflks
+            %td.fixed-header sdflksjdfl
 
   #sidebar
-
-
+    %audio{controls: true, src: asset_path(@recording.file_name), type: 'audio/flac'}
