@@ -40,14 +40,13 @@ class PlayController < ApplicationController
     end
   end
 
+  # AJAX endpoint for sending audio after loading play.html.haml
   def send_audio
     recording  = Recording.find_by(id: params[:id])
     if(recording && current_user.can_access(recording))
       # Recording exists and user has access
-      audio_data = File.read(recording.local_file_name_with_path)
-      response.header['Accept-Ranges'] = 'bytes'
-      response.headers['Content-Length'] = File.size tmp_file
-      send_data(audio_data, filename: 'audio_data')
+      audio_data = Base64.encode64(File.open(recording.local_file_name_with_path, 'rb').read)
+      send_data(audio_data)
     else
       flash.alert = 'An error ocurred while retriving the audio data'
       redirect_to :root and return

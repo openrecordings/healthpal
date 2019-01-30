@@ -36,7 +36,7 @@ Rails.application.routes.draw do
   # Playback
   get 'my_recordings',               to: 'play#index',                       as: 'my_recordings'
   get 'play/:id',                    to: 'play#play',                        as: 'play'
-  get 'send_audio/:id',              to: 'play#send_audio',                  as: 'send_audio'
+  get 'play/send_audio/:id',              to: 'play#send_audio',                  as: 'send_audio'
 
   # Sharing
   resources :shares, controller: :share

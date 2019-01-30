@@ -8,7 +8,7 @@
     .panel.panel-default#new-share-form
       %p.bigger Enter an email address for the person you want to share with
       %p
-        = bootstrap_form_tag url: shares_path do |f|
+        = form_tag url: shares_path do |f|
           .field= f.email_field :email, label: 'Email address'
           .field= f.email_field :email, label: 'Re-enter email address'
           .center= f.submit 'Share with this person', class: 'center btn btn-primary', id: 'new-share-submit'
