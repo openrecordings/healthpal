@@ -37,9 +37,8 @@
   #controls-container{
     display: grid;
     grid-template-areas: 'timeline'
-                         'buttons'
-                         'labels'; 
-    grid-template-rows: 58px 70px;
+                         'buttons';
+    grid-template-rows: 58px 90px;
     #timeline{
       grid-area: timeline;
       align-self: center;
@@ -65,70 +64,65 @@
         box-shadow: 0 0 4px #000;
       }
     }
-    #buttons{
+    #buttons-container{
       grid-area: buttons;
       width: 100%;
-      #buttons-container{
-        display: grid;
-        margin-top: -5px;
-        height: 60px;
-        grid-template-areas: 'empty rewind-button play-pause-button fast-forward-button empty2 mute-button';
-        grid-template-columns: 4fr 1fr 1fr 1fr 3fr 1fr;
-        text-align: center;
-        font-size: 14px;
-        color: #ddd;
-        span{
-          padding-top: 4px;
+      display: grid;
+      justify-content: center;
+      height: 90px;
+      grid-template-areas: 'empty rewind-button rewind-ten-button play-pause-button forward-ten-button fast-forward-button mute-button';
+      grid-template-columns: '400px 1fr 1fr 1fr 1fr 1fr 1fr 1fr 400px';
+      text-align: center;
+      font-size: 14px;
+      color: #ddd;
+      .centered-glyph{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 50px;
+        height: 50px;
+        margin-top: -1px; 
+        margin-bottom: 2px;
+        font-size: 24px;
+        fill: #fff;
+      }
+      #empty { grid-area: empty; visibility: hidden;}
+      #rewind-button { grid-area: rewind-button; }
+      #rewind-ten-button { grid-area: rewind-ten-button; }
+      #play-pause-button { grid-area: play-pause-button; }
+      #forward-ten-button { grid-area: forward-ten-button; }
+      #fast-forward-button { grid-area: fast-forward-button; }
+      #mute-button { grid-area: mute-button; margin-right: 15%; }
+      .player-button{
+        display: inline;
+        align-self: center;
+        justify-self: left;
+        width: 50px; 
+        height: 50px;
+        padding-left: 15px;
+        padding-right: 15px;
+        margin-left: 15px;
+        margin-right: 15px;
+        overflow-x: visible;
+        background-color: $background-light;
+        border-radius: 25px;
+        .svg{
+          width: inherit;
+          height: inherit;
+          height: 30px;
+          width: 30px;
         }
-        .centered-glyph{
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          width: 50px;
-          height: 50px;
-          margin-top: -1px; 
-          margin-bottom: 2px;
-          font-size: 24px;
+        .sv-_path{
           fill: #fff;
         }
-        #empty{
-          grid-area: empty;
-        }
-        #empty2{
-          grid-area: empty2;
-        }
-        #rewind-button {
-          grid-area: rewind-button;
-        }
-        #play-pause-button {
-          grid-area: play-pause-button;
-        }
-        #fast-forward-button {
-          grid-area: fast-forward-button;
-        }
-        #mute-button {
-          grid-area: mute-button;
-          margin-right: 15%;
+        .button-label{
+          padding-top: 5px;
+          height: 12px;
+          overflow-x: visible;
+          overflow-y: hidden;
         }
       }
     }
   }
 }
 
-.player-button{
-  align-self: center;
-  justify-self: left;
-  width: 50px; 
-  height: 50px;
-  background-color: $background-light;
-  border-radius: 25px;
-  .svg{
-    width: inherit;
-    height: inherit;
-    height: 30px;
-    width: 30px;
-  }
-  .sv-_path{
-    fill: #fff;
-  }
-}
