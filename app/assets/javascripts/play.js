@@ -2,6 +2,7 @@
 if(document.querySelector('#play-pause-button')) {
 
   // AJAX load audio data as Base64
+  /////////////////////////////////////////////////////////////////////////////////////////////////
   function loadAudio(){
 		let getURL = 'send_audio/' + $('#audio-element').data('recording-id') 
     $.get(getURL, function(data) {
@@ -10,7 +11,16 @@ if(document.querySelector('#play-pause-button')) {
     });
   }
 
-  function handleControlEvents(){
+  // Playback control buttons
+  /////////////////////////////////////////////////////////////////////////////////////////////////
+  function registerPlaybackControlHandlers(){
+    registerPlayPauseButton();
+    registerRewindButton();
+    registerFastForwardButton();
+    registerMuteButton();
+  }
+
+  function registerPlayPauseButton(){
     var audioElement = document.getElementById('audio-element');
 		$('#play-pause-button').click(function(){
 			if (audioElement.paused) {
@@ -21,13 +31,22 @@ if(document.querySelector('#play-pause-button')) {
 			}
 			$('#play-glyph, #pause-glyph, #play-label, #pause-label').toggleClass('hidden');
 		})
+
+    function registerRewindButton(){
+    }
+
+    function registerFastForwardButton(){
+    }
+
+    function registerMuteButton(){
+    }
   }
 
   // onload
   /////////////////////////////////////////////////////////////////////////////////////////////////
   $(document).ready(function() {
     loadAudio();
-    handleControlEvents();
+    registerPlaybackControlHandlers();
 
     // Apply Jquery draggable to playhead
     $('#playhead').draggable({
