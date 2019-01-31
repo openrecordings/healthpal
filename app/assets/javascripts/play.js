@@ -1,5 +1,6 @@
 // TODO Put something less brittle in the conditional (?)
 if(document.querySelector('#play-pause-button')) {
+  let audioElement = document.getElementById('audio-element');
 
   // AJAX load audio data as Base64
   /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -16,12 +17,10 @@ if(document.querySelector('#play-pause-button')) {
   function registerPlaybackControlHandlers(){
     registerPlayPauseButton();
     registerRewindButton();
-    registerFastForwardButton();
     registerMuteButton();
   }
 
   function registerPlayPauseButton(){
-    var audioElement = document.getElementById('audio-element');
 		$('#play-pause-button').click(function(){
 			if (audioElement.paused) {
 				 audioElement.play();
@@ -31,15 +30,15 @@ if(document.querySelector('#play-pause-button')) {
 			}
 			$('#play-glyph, #pause-glyph, #play-label, #pause-label').toggleClass('hidden');
 		})
+  }
 
-    function registerRewindButton(){
-    }
+  function registerBackButton(){
+  }
 
-    function registerFastForwardButton(){
-    }
+  function registerMuteButton(){
+  }
 
-    function registerMuteButton(){
-    }
+  function skipToTimelineClick(){
   }
 
   // onload
