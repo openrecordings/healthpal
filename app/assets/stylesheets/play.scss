@@ -70,7 +70,7 @@
       display: grid;
       justify-content: center;
       align-content: flex-start;
-      grid-template-areas: 'rewind-button rewind-ten-button play-pause-button forward-ten-button mute-button';
+      grid-template-areas: 'rewind-button back-button play-pause-button forward-button mute-button';
       grid-template-columns: '400px 1fr 1fr 1fr 1fr 1fr 1fr 400px';
       text-align: center;
       font-size: 14px;
@@ -87,9 +87,9 @@
         fill: #fff;
       }
       #rewind-button { grid-area: rewind-button; }
-      #rewind-ten-button { grid-area: rewind-ten-button; }
+      #back-button { grid-area: back-button; }
       #play-pause-button { grid-area: play-pause-button; }
-      #forward-ten-button { grid-area: forward-ten-button; }
+      #forward-ten-button { grid-area: forward-button; }
       #mute-button { grid-area: mute-button; margin-right: 15%; }
       .player-button{
         display: inline;

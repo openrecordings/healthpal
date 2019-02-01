@@ -1,54 +1,64 @@
-// TODO Put something less brittle in the conditional (?)
 if(document.querySelector('#play-pause-button')) {
-  let audioElement = null;
-
-  // AJAX load audio data as Base64
+  // AJAX load audio data as Base64 TODO stream!
   /////////////////////////////////////////////////////////////////////////////////////////////////
   function loadAudio(){
-		let getURL = 'send_audio/' + $('#audio-element').data('recording-id') 
+    let audioElement = document.getElementById('audio-element');
+    let getURL = 'send_audio/' + $(audioElement).data('recording-id') 
     $.get(getURL, function(data) {
       let src = 'data:audio/flac;base64,' + data
-      $('#audio-element').attr('src', src);
+      $(audioElement).attr('src', src);
     });
   }
 
-  // Playback control buttons
+  // Update playhead position
   /////////////////////////////////////////////////////////////////////////////////////////////////
-  function registerPlaybackControlHandlers(){
-    registerPlayPauseButton();
-    registerRewindButton();
-    registerMuteButton();
-  }
+  // function startPolling(){
+  //   pollingTimer = setInterval(poll, 50);
+  // }
 
-  function registerPlayPauseButton(){
-		$('#play-pause-button').click(function(){
-			if (audioElement.paused) {
-				 audioElement.play();
-			}   
-			else {
-				 audioElement.pause();
-			}
-			$('#play-glyph, #pause-glyph, #play-label, #pause-label').toggleClass('hidden');
-		})
-  }
+  // function stopPolling(){
+  //   clearInterval(pollingTimer);
+  // }
 
-  function registerBackButton(){
-  }
+  // function pollCurrentTime(){
 
-  function registerMuteButton(){
-  }
+  // }
 
-  function skipToTimelineClick(){
-  }
-
-  // onload
+  // Playback controls
   /////////////////////////////////////////////////////////////////////////////////////////////////
-  $(document).ready(function() {
-    audioElement = document.getElementById('audio-element');
-    loadAudio();
-    registerPlaybackControlHandlers();
+  function registerListeners() {
+    $('#back-button').click(function(){
+      let audioElement = document.getElementById('audio-element');
+      console.log($(audioElement).prop('currentTime'));
+      console.log($(audioElement).prop('duration'));
+    })
 
-    // Apply Jquery draggable to playhead
+    // Play-pause button 
+    $('#play-pause-button').click(function(){
+      let audioElement = document.getElementById('audio-element');
+      if (audioElement.paused) {
+         audioElement.play();
+      }   
+      else {
+         audioElement.pause();
+      }
+      $('#play-glyph, #pause-glyph, #play-label, #pause-label').toggleClass('hidden');
+    })
+
+    // Progress bar click
+    $('#timeline').click(function(event){
+      console.log('here');
+      let audioElement = document.getElementById('audio-element');
+      let currentTime = $(audioElement).prop('currentTime');
+      let duration = $(audioElement).prop('duration');
+      let pxPerSec = $('#timeline').width() / duration;
+      let newTime = pxPerSec * (currentTime / duration);
+      $('#playhead').css({left: event.pageX});
+      $('#progress-bar').css({width: event.pageX});
+      $(audioElement).prop('currentTime', newTime);
+    })
+
+    // Register progress bar with Jquery.draggable 
     $('#playhead').draggable({
       axis: 'x',
       containment:'parent',
@@ -56,15 +66,13 @@ if(document.querySelector('#play-pause-button')) {
         $('#progress-bar').css({width: event.pageX - 10});
       },
     });
+  }
 
-    // Move playhead to click position in timeline
-    $('#timeline').click(function(event){
-      let timelineWidth = $(this).width();
-      let pxFromLeft = event.pageX - this.offsetLeft;
-      let proportionOfWidth = pxFromLeft / timelineWidth
-      $('#playhead').css({left: event.pageX});
-      $('#progress-bar').css({width: event.pageX});
-    });
+  // Onload
+  /////////////////////////////////////////////////////////////////////////////////////////////////
+  $(document).ready(function() {
+    loadAudio();
+    registerListeners();
   });
 
 }
