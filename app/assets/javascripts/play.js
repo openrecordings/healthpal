@@ -35,8 +35,13 @@ if(document.querySelector('#play-pause-button')) {
     let duration = $(audioElement).prop('duration');
     let secPerPx = duration / $('#timeline').width();
     let newTime = secPerPx * clickX;
+    let progressBar = $('#progress-bar');
+    let progressBarPosition = progressBar.position(); 
     $('#playhead').css({left: clickX});
-    $('#progress-bar').css({width: clickX});
+    // TODO Fix this conditional
+    if(progressBarPosition.left + progressBar.width() <= clickX){
+      progressBar.css({width: clickX});
+    }
     $(audioElement).prop('currentTime', newTime);
   }
 
@@ -48,9 +53,9 @@ if(document.querySelector('#play-pause-button')) {
   // Playhead drag
   $('#playhead').draggable({
     axis: 'x',
-    containment:'parent',
+    containment: '#timeline',
     drag: function(event, ui){
-      $('#progress-bar').css({width: event.pageX - 10});
+      skipToTime(event);
     },
     stop: function(event, ui){
       skipToTime(event);
