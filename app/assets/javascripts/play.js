@@ -1,6 +1,6 @@
 // TODO Put something less brittle in the conditional (?)
 if(document.querySelector('#play-pause-button')) {
-  let audioElement = document.getElementById('audio-element');
+  let audioElement = null;
 
   // AJAX load audio data as Base64
   /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -44,6 +44,7 @@ if(document.querySelector('#play-pause-button')) {
   // onload
   /////////////////////////////////////////////////////////////////////////////////////////////////
   $(document).ready(function() {
+    audioElement = document.getElementById('audio-element');
     loadAudio();
     registerPlaybackControlHandlers();
 

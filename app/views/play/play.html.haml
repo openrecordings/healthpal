@@ -1,3 +1,8 @@
+-# Build audio element without src, which is loaded by AJAX
+%audio#audio-element{controls: false,
+type: 'audio/flac',
+'data-recording-id': @recording.id}
+
 #play-view
 
 
@@ -64,7 +69,3 @@
               %td.fixed-header.max-width= utterance[:text][0..100] + '...'
 
   #sidebar
-    -# Build audio element without src, which is loaded by AJAX
-    %audio#audio-element{controls: true,
-    type: 'audio/flac',
-    'data-recording-id': @recording.id}
