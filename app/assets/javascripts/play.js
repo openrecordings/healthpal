@@ -47,14 +47,18 @@ if(document.querySelector('#play-pause-button')) {
 
     // Progress bar click
     $('#timeline').click(function(event){
-      console.log('here');
       let audioElement = document.getElementById('audio-element');
+      let clickX = event.pageX;
       let currentTime = $(audioElement).prop('currentTime');
       let duration = $(audioElement).prop('duration');
-      let pxPerSec = $('#timeline').width() / duration;
-      let newTime = pxPerSec * (currentTime / duration);
-      $('#playhead').css({left: event.pageX});
-      $('#progress-bar').css({width: event.pageX});
+      let secPerPx = duration / $('#timeline').width();
+      let newTime = secPerPx * clickX;
+      console.log(`currentTime: ${currentTime}`)
+      console.log(`duration: ${duration}`)
+      console.log(`secPerPx: ${secPerPx}`)
+      console.log(`newTime: ${newTime}`)
+      $('#playhead').css({left: clickX});
+      $('#progress-bar').css({width: clickX});
       $(audioElement).prop('currentTime', newTime);
     })
 
