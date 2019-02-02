@@ -8,26 +8,30 @@ if(document.querySelector('#play-pause-button')) {
       let src = 'data:audio/flac;base64,' + data
       $(audioElement).attr('src', src);
     });
-    // Playhead follows audio element during playback
-    audioElement.ontimeupdate = function(event){skipToTime(audioElement.currentTime) }
   }
 
   // Expects newTime to be a float
-  function skipToTime(newTime){
+  function skipToTime(newTime, updatePlayer = true){
     let audioElement = document.getElementById('audio-element');
-    let eventX = event.pageX;
     let timeline = $('#timeline');
-    let timelinePosition = timeline.position();
     let playhead = $('#playhead');
-    let currentTime = $(audioElement).prop('currentTime');
+    let progressBar = $('#progress-bar');
     let duration = $(audioElement).prop('duration');
     let PxPerSec = $('#timeline').width() / duration;
-    let progressBar = $('#progress-bar');
-    let newPx = PxPerSec * newTime 
-    playhead.css({left: newPx});
-    progressBar.css({width: newPx - 10});
+    if(newTime < 0){newTime = 0 };
+    if(newTime > duration){newTime = duration};
+    if(updatePlayer){
+      // Update is driven by current play time
+      let newPx = PxPerSec * newTime 
+      playhead.css({left: newPx});
+      progressBar.css({width: newPx - 10});
+    } else {
+      // Update is driven by UI event
+      $(audioElement).prop('currentTime', newTime);
+    }
   }
 
+  // When the playhead is driving the player
   function skipToEventPosition(event){
     let audioElement = document.getElementById('audio-element');
     let eventX = event.pageX;
@@ -54,16 +58,22 @@ if(document.querySelector('#play-pause-button')) {
   // Playhead drag
   $('#playhead').draggable({
     axis: 'x',
-    containment: '#timeline',
+    eontainment: '#timeline',
     drag: function(event, ui){
       skipToEventPosition(event);
     }
   });
 
+  // Back button click
   $('#back-button').click(function(){
     let audioElement = document.getElementById('audio-element');
-    console.log($(audioElement).prop('currentTime'));
-    console.log($(audioElement).prop('duration'));
+    skipToTime(audioElement.currentTime - 10);
+  })
+
+  // Forward button click
+  $('#forward-button').click(function(){
+    let audioElement = document.getElementById('audio-element');
+    skipToTime(audioElement.currentTime + 10);
   })
 
   // Play-pause button 
