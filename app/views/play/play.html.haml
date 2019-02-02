@@ -1,7 +1,4 @@
--# Build audio element without src, which is loaded by AJAX
-%audio#audio-element{controls: false,
-type: 'audio/flac',
-'data-recording-id': @recording.id}
+%audio#audio-element{controls: true, src: "#{root_url}#{@recording.tmp_file_name}", type: 'audio/flac' }
 
 #play-view
 

@@ -6,6 +6,9 @@
 
 /config/ssl/*
 
+# Temporary home for temporarily temporary files
+/audios/*
+
 # Ignore bundler config.
 /.bundle
 

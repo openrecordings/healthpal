@@ -76,6 +76,12 @@ class Recording < ApplicationRecord
     Rails.configuration.local_audio_file_path.join(self.file_name).to_s
   end
 
+  # TODO Remove. This is part of the tmp file approach to streaming
+  def tmp_file_name
+    return nil unless self.file_name
+    "tmp_#{self.file_name}"
+  end
+
   private
 
   def encrypt

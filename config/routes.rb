@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  # TODO Clean this file up. Make it resourceful.
+
   devise_for :users
 
   root 'home#index'
@@ -36,7 +38,7 @@ Rails.application.routes.draw do
   # Playback
   get 'my_recordings',               to: 'play#index',                       as: 'my_recordings'
   get 'play/:id',                    to: 'play#play',                        as: 'play'
-  get 'play/send_audio/:id',              to: 'play#send_audio',                  as: 'send_audio'
+  post 'play/rm_tmp_file',           to: 'play#rm_tmp_file'
 
   # Sharing
   resources :shares, controller: :share

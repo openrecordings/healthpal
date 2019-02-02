@@ -17,22 +17,25 @@ class PlayController < ApplicationController
     end
   end
 
+  # TODO: This approach to streaming audio is not secure. Even though we create and delete a tmp
+  #       file right away, that tmp file is public, potentially for a number of seconds, or longer
+  #
+  #       DO NOT USE PHI with this app until securely streaming audio with the NGINX secure_link
+  #       module.
+  ################################################################################################
+  ################################################################################################
   def play
     @recording = Recording.find_by(id: params[:id])
-    if (@recording && current_user.can_access(@recording))
+    if(@recording && current_user.can_access(@recording))
+      tmp_file_path = "#{Rails.root}/app/assets/audios/"
+      FileUtils.cp(@recording.local_file_name_with_path, "#{tmp_file_path}/tmp_#{@recording.file_name}")
       @utterances = []
       @recording.json.each do |utterance_hash|
-        # puts '---------------------------------------------------------------'
-        # puts "#{utterance_hash.class} #{utterance_hash}"
-        # puts '---------------------------------------------------------------'
         @utterances << {
          start_time: start_time(utterance_hash),
          end_time: end_time(utterance_hash),
          text: text(utterance_hash)
         }
-        puts '---------------------------------------------------------------'
-        puts @utterances
-        puts '---------------------------------------------------------------'
       end
     else
       flash.alert = 'An error ocurred while retriving the audio data. Please contact support.'
@@ -40,18 +43,18 @@ class PlayController < ApplicationController
     end
   end
 
-  # AJAX endpoint for sending audio after loading play.html.haml
-  def send_audio
-    recording  = Recording.find_by(id: params[:id])
-    if(recording && current_user.can_access(recording))
-      # Recording exists and user has access
-      audio_data = Base64.encode64(File.open(recording.local_file_name_with_path, 'rb').read)
-      send_data(audio_data)
-    else
-      flash.alert = 'An error ocurred while retriving the audio data'
-      redirect_to :root and return
-    end
+  # AJAX POST to rm tmp file as soon as it is loaded
+  def rm_tmp_file
+    # recording = Recording.find_by(id: params[:id])
+    # if(recording)
+    #   FileUtils.rm(recording.tmp_file_name_with_path)
+    # else
+    #   flash.alert = 'An error ocurred while retriving the audio data. Please contact support.'
+    #   redirect_to :root and return
+    # end
   end
+  ################################################################################################
+  ################################################################################################
 
   private
 

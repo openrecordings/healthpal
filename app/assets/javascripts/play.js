@@ -3,18 +3,17 @@ if(document.querySelector('#play-pause-button')) {
 
   function loadAudio(){
     let audioElement = document.getElementById('audio-element');
-    let getURL = 'send_audio/' + $(audioElement).data('recording-id') 
-    $.get(getURL, function(data) {
-      let src = 'data:audio/flac;base64,' + data
-      $(audioElement).attr('src', src);
-    });
     audioElement.loop = true;
     audioElement.volume = playVolume;
   }
 
-  function registerPlayerListener(){
+  function registerPlayerListeners(){
     let audioElement = document.getElementById('audio-element');
     audioElement.ontimeupdate = function(){skipToTime(audioElement.currentTime, false)};
+    audioElement.oncanplaythrough = function(){
+      // TODO Remove. Temporary hack to immediately delete tmp file on server
+      $.post('rm_tmp_file', {id: $(audioElement).data('recording-id')});
+    }
   }
 
   function skipToTime(newTime, updatePlayer = true){
@@ -114,6 +113,6 @@ if(document.querySelector('#play-pause-button')) {
   /////////////////////////////////////////////////////////////////////////////////////////////////
   $(document).ready(function() {
     loadAudio();
-    registerPlayerListener();
+    registerPlayerListeners();
   });
 }
