@@ -28,19 +28,22 @@ if(document.querySelector('#play-pause-button')) {
     $('#play-glyph, #pause-glyph, #play-label, #pause-label').toggleClass('hidden');
   })
 
+  // Handles both timeline clicks and playhead drags.
   function skipToTime(event){
     let audioElement = document.getElementById('audio-element');
-    let clickX = event.pageX;
+    let eventX = event.pageX;
+    let timeline = $('#timeline');
+    let timelinePosition = timeline.position();
+    let playhead = $('#playhead');
     let currentTime = $(audioElement).prop('currentTime');
     let duration = $(audioElement).prop('duration');
     let secPerPx = duration / $('#timeline').width();
-    let newTime = secPerPx * clickX;
+    let newTime = secPerPx * eventX;
     let progressBar = $('#progress-bar');
     let progressBarPosition = progressBar.position(); 
-    $('#playhead').css({left: clickX});
-    // TODO Fix this conditional
-    if(progressBarPosition.left + progressBar.width() <= clickX){
-      progressBar.css({width: clickX});
+    playhead.css({left: eventX});
+    if(timelinePosition.left + timeline.width() >= eventX){
+      progressBar.css({width: timelinePosition.left + eventX - 10});
     }
     $(audioElement).prop('currentTime', newTime);
   }
@@ -55,9 +58,6 @@ if(document.querySelector('#play-pause-button')) {
     axis: 'x',
     containment: '#timeline',
     drag: function(event, ui){
-      skipToTime(event);
-    },
-    stop: function(event, ui){
       skipToTime(event);
     }
   });
