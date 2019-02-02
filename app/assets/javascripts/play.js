@@ -1,6 +1,6 @@
 if(document.querySelector('#play-pause-button')) {
-  // AJAX load audio data as Base64 TODO stream!
-  /////////////////////////////////////////////////////////////////////////////////////////////////
+  const playVolume = 1.0;
+
   function loadAudio(){
     let audioElement = document.getElementById('audio-element');
     let getURL = 'send_audio/' + $(audioElement).data('recording-id') 
@@ -9,15 +9,14 @@ if(document.querySelector('#play-pause-button')) {
       $(audioElement).attr('src', src);
     });
     audioElement.loop = true;
+    audioElement.volume = playVolume;
   }
 
-  // Audio element ontimeupdate events move the playhead
   function registerPlayerListener(){
     let audioElement = document.getElementById('audio-element');
     audioElement.ontimeupdate = function(){skipToTime(audioElement.currentTime, false)};
   }
 
-  // Expects newTime to be a float
   function skipToTime(newTime, updatePlayer = true){
     let audioElement = document.getElementById('audio-element');
     let timeline = $('#timeline');
@@ -39,7 +38,6 @@ if(document.querySelector('#play-pause-button')) {
     }
   }
 
-  // When the playhead is driving the player
   function skipToEventPosition(event){
     let audioElement = document.getElementById('audio-element');
     let eventX = event.pageX;
@@ -58,12 +56,12 @@ if(document.querySelector('#play-pause-button')) {
     $(audioElement).prop('currentTime', newTime);
   }
 
-  // Progress bar click
+  // Timeline clicks and drags
+  /////////////////////////////////////////////////////////////////////////////////////////////////
   $('#timeline').click(function(event){
     skipToEventPosition(event);
   })
 
-  // Playhead drag
   $('#playhead').draggable({
     axis: 'x',
     eontainment: '#timeline',
@@ -72,19 +70,18 @@ if(document.querySelector('#play-pause-button')) {
     }
   });
 
-  // Back button click
+  // Playback control button clicks
+  /////////////////////////////////////////////////////////////////////////////////////////////////
+  $('#rewind-button').click(function(){
+    let audioElement = document.getElementById('audio-element');
+    skipToTime(0);
+  })
+
   $('#back-button').click(function(){
     let audioElement = document.getElementById('audio-element');
     skipToTime(audioElement.currentTime - 10);
   })
 
-  // Forward button click
-  $('#forward-button').click(function(){
-    let audioElement = document.getElementById('audio-element');
-    skipToTime(audioElement.currentTime + 10);
-  })
-
-  // Play-pause button 
   $('#play-pause-button').click(function(){
     let audioElement = document.getElementById('audio-element');
     if (audioElement.paused) {
@@ -94,6 +91,23 @@ if(document.querySelector('#play-pause-button')) {
        audioElement.pause();
     }
     $('#play-glyph, #pause-glyph, #play-label, #pause-label').toggleClass('hidden');
+  })
+
+  $('#forward-button').click(function(){
+    let audioElement = document.getElementById('audio-element');
+    skipToTime(audioElement.currentTime + 10);
+  })
+
+  $('#mute-button').click(function(){
+    let audioElement = document.getElementById('audio-element');
+    console.log(audioElement.volume);
+    if (audioElement.volume > 0) {
+       audioElement.volume = 0;
+    }   
+    else {
+       audioElement.volume = playVolume;
+    }
+    $('#mute-glyph, #unmute-glyph, #mute-label, #unmute-label').toggleClass('hidden');
   })
 
   // Onload
