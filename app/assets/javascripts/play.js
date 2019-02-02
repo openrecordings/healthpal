@@ -8,6 +8,7 @@ if(document.querySelector('#play-pause-button')) {
       let src = 'data:audio/flac;base64,' + data
       $(audioElement).attr('src', src);
     });
+    audioElement.loop = true;
   }
 
   // Audio element ontimeupdate events move the playhead
