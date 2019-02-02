@@ -1,4 +1,8 @@
-%audio#audio-element{controls: true, src: "#{root_url}#{@recording.tmp_file_name}", type: 'audio/flac' }
+= audio_tag(@recording.tmp_file_name,
+  id: 'audio-element',
+  type: 'audio/flac',
+  'data-recording-id': @recording.id,
+  controls: true)
 
 #play-view
 

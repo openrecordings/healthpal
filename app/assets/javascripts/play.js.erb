@@ -5,15 +5,15 @@ if(document.querySelector('#play-pause-button')) {
     let audioElement = document.getElementById('audio-element');
     audioElement.loop = true;
     audioElement.volume = playVolume;
+    // TODO Remove. Temporary hack to delete tmp file on server
+    setTimeout(function(){
+			$.get('rm_tmp_file/' + $(audioElement).data('recording-id'));
+    }, 60000)
   }
 
   function registerPlayerListeners(){
     let audioElement = document.getElementById('audio-element');
     audioElement.ontimeupdate = function(){skipToTime(audioElement.currentTime, false)};
-    audioElement.oncanplaythrough = function(){
-      // TODO Remove. Temporary hack to immediately delete tmp file on server
-      $.post('rm_tmp_file', {id: $(audioElement).data('recording-id')});
-    }
   }
 
   function skipToTime(newTime, updatePlayer = true){

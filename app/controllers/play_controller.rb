@@ -28,7 +28,7 @@ class PlayController < ApplicationController
     @recording = Recording.find_by(id: params[:id])
     if(@recording && current_user.can_access(@recording))
       tmp_file_path = "#{Rails.root}/app/assets/audios/"
-      FileUtils.cp(@recording.local_file_name_with_path, "#{tmp_file_path}/tmp_#{@recording.file_name}")
+      FileUtils.cp(@recording.local_file_name_with_path, "#{tmp_file_path}/#{@recording.tmp_file_name}")
       @utterances = []
       @recording.json.each do |utterance_hash|
         @utterances << {
@@ -43,15 +43,16 @@ class PlayController < ApplicationController
     end
   end
 
-  # AJAX POST to rm tmp file as soon as it is loaded
+  # AJAX GET to rm tmp file as soon as it is loaded
   def rm_tmp_file
-    # recording = Recording.find_by(id: params[:id])
-    # if(recording)
-    #   FileUtils.rm(recording.tmp_file_name_with_path)
-    # else
-    #   flash.alert = 'An error ocurred while retriving the audio data. Please contact support.'
-    #   redirect_to :root and return
-    # end
+		begin  
+      recording = Recording.find_by(id: params[:id])
+      tmp_file_path = "#{Rails.root}/app/assets/audios/"
+      FileUtils.rm("#{tmp_file_path}/#{recording.tmp_file_name}")
+      render json: 'success' and return
+		rescue StandardError => error
+      render json: { errors: error.message}, :status => 422
+		end  
   end
   ################################################################################################
   ################################################################################################

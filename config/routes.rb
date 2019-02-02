@@ -38,7 +38,7 @@ Rails.application.routes.draw do
   # Playback
   get 'my_recordings',               to: 'play#index',                       as: 'my_recordings'
   get 'play/:id',                    to: 'play#play',                        as: 'play'
-  post 'play/rm_tmp_file',           to: 'play#rm_tmp_file'
+  get 'play/rm_tmp_file/:id',        to: 'play#rm_tmp_file'
 
   # Sharing
   resources :shares, controller: :share
