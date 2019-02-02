@@ -10,6 +10,12 @@ if(document.querySelector('#play-pause-button')) {
     });
   }
 
+  // Audio element ontimeupdate events move the playhead
+  function registerPlayerListener(){
+    let audioElement = document.getElementById('audio-element');
+    audioElement.ontimeupdate = function(){skipToTime(audioElement.currentTime, false)};
+  }
+
   // Expects newTime to be a float
   function skipToTime(newTime, updatePlayer = true){
     let audioElement = document.getElementById('audio-element');
@@ -17,17 +23,18 @@ if(document.querySelector('#play-pause-button')) {
     let playhead = $('#playhead');
     let progressBar = $('#progress-bar');
     let duration = $(audioElement).prop('duration');
-    let PxPerSec = $('#timeline').width() / duration;
     if(newTime < 0){newTime = 0 };
     if(newTime > duration){newTime = duration};
     if(updatePlayer){
-      // Update is driven by current play time
+      // Update is driven by UI event - move player time
+      $(audioElement).prop('currentTime', newTime);
+    } else {
+      // Update is driven by current play time - move playhead
+      let timelineWidth = $('#timeline').width()
+      let PxPerSec = timelineWidth / duration;
       let newPx = PxPerSec * newTime 
       playhead.css({left: newPx});
       progressBar.css({width: newPx - 10});
-    } else {
-      // Update is driven by UI event
-      $(audioElement).prop('currentTime', newTime);
     }
   }
 
@@ -92,5 +99,6 @@ if(document.querySelector('#play-pause-button')) {
   /////////////////////////////////////////////////////////////////////////////////////////////////
   $(document).ready(function() {
     loadAudio();
+    registerPlayerListener();
   });
 }
