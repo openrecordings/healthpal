@@ -33,7 +33,7 @@ class PlayController < ApplicationController
       @recording.json.each do |utterance_hash|
         @utterances << {
          start_time: start_time(utterance_hash),
-         end_time: end_time(utterance_hash),
+         # end_time: end_time(utterance_hash),
          text: text(utterance_hash)
         }
       end
@@ -65,11 +65,11 @@ class PlayController < ApplicationController
     start_time['seconds'].to_f + start_time['nanos'] / 10**8
   end
 
-  def end_time(utterance_hash)
-    last_word = utterance_hash['alternatives'][0]['words'].last
-    end_time = last_word['end_time']
-    end_time['seconds'].to_f + end_time['nanos'] / 10**8
-  end
+  # def end_time(utterance_hash)
+  #   last_word = utterance_hash['alternatives'][0]['words'].last
+  #   end_time = last_word['end_time']
+  #   end_time['seconds'].to_f + end_time['nanos'] / 10**8
+  # end
 
   def text(utterance_hash)
     utterance_hash['alternatives'][0]['transcript']
