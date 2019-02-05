@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     resources :transcripts
   end
   resources :transcripts
-  resources :utterances
+  resources :tags
 
   resources :utterances do
     get 'set_tag/:name',             to: 'utterances#set_tag', :val => true

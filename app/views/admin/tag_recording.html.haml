@@ -23,7 +23,7 @@
 
       %td 
         = form_for :tag do |f|
-          = r.hidden_field :utterance_id, u.id
+          = f.hidden_field :utterance_id, {value: u.id}
           = f.label :tag_type_id
           = f.number_field :tag_type_id
           = f.submit
