@@ -1,10 +1,10 @@
 desc 'Load tags and links for usability recordings'
 task load_usability_data: :environment do
-  [Recording.find(8), Recording.find(9)].each do |r|
-    if r.id == 8 
+  [Recording.find(1), Recording.find(2)].each do |r|
+    if r.id == 1 
       utts = utterances.delete_if {|u| u[0].round(-3) >= 4000}
     end
-    if r.id == 9
+    if r.id == 2
       utts = utterances.delete_if {|u| u[0].round(-3) < 4000}
     end
     utts.sort_by {|u| u[0]}
