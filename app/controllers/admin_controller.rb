@@ -1,9 +1,15 @@
 class AdminController < ApplicationController
 
+  before_action :verify_privileged
+
   def index
   end
 
   def users
+  end
+
+  def manage_recordings
+    @recordings = Recording.all
   end
 
   def toggle_active
@@ -51,6 +57,13 @@ class AdminController < ApplicationController
 
   def user_params
     params.require(:user).permit(:email, :first_name, :last_name, :password)
+  end
+
+  def verify_privileged
+    unless current_user.privileged?
+      flash[:error] = 'You are not authorized to view that page'
+      reset_session
+    end
   end
 
 end

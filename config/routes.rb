@@ -21,6 +21,8 @@ Rails.application.routes.draw do
 
   # Admin
   get 'admin',                       to: 'admin#index'
+  get 'manage_recordings',           to: 'admin#manage_recordings'
+  get 'tag_recording/:id',           to: 'admin#tag_recording',              as: 'tag_recording'
   get 'users',                       to: 'admin#users'
   get 'toggle_active/:id',           to: 'admin#toggle_active',              as: 'toggle_active'
   get 'toggle_otp/:id',              to: 'admin#toggle_otp',                 as: 'toggle_otp'
