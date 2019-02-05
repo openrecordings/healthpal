@@ -1,5 +1,7 @@
 class AdminController < ApplicationController
 
+  #TODO Handle bad params
+  
   before_action :verify_privileged
 
   def index
@@ -10,6 +12,10 @@ class AdminController < ApplicationController
 
   def manage_recordings
     @recordings = Recording.all
+  end
+
+  def tag_recording
+    @recording = Recording.find(params[:id])
   end
 
   def toggle_active
