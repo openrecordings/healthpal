@@ -68,12 +68,11 @@
           %th.fixed-header Topics discussed
           %th.fixed-header Links to external information
       %tbody.fixed-header
-        -50.times do
-          - @utterances.each do |utterance|
-            %tr.fixed-header
-              %th.fixed-header.zero-width
-              %td.fixed-header= mm_ss(utterance[:start_time])
-              %td.fixed-header todo
-              %td.fixed-header.max-width= utterance[:text][0..100] + '...'
+        - @recording.utterances.each do |utterance|
+          %tr.fixed-header{'data-text': utterance.text}
+            %th.fixed-header.zero-width
+            %td.fixed-header= mm_ss(utterance.begins_at)
+            %td.fixed-header todo
+            %td.fixed-header todo
 
   #sidebar

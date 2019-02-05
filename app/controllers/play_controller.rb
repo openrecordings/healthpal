@@ -29,14 +29,14 @@ class PlayController < ApplicationController
     if(@recording && current_user.can_access(@recording))
       tmp_file_path = "#{Rails.root}/app/assets/audios/"
       FileUtils.cp(@recording.local_file_name_with_path, "#{tmp_file_path}/#{@recording.tmp_file_name}")
-      @utterances = []
-      @recording.json.each do |utterance_hash|
-        @utterances << {
-         start_time: start_time(utterance_hash),
-         # end_time: end_time(utterance_hash),
-         text: text(utterance_hash)
-        }
-      end
+      # @utterances = []
+      # @recording.json.each do |utterance_hash|
+      #   @utterances << {
+      #    start_time: start_time(utterance_hash),
+      #    # end_time: end_time(utterance_hash),
+      #    text: text(utterance_hash)
+      #   }
+      # end
     else
       flash.alert = 'An error ocurred while retriving the audio data. Please contact support.'
       redirect_to :root and return
