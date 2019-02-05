@@ -14,6 +14,9 @@ class AdminController < ApplicationController
     @recordings = Recording.all
   end
 
+  def create_tag
+  end
+
   def tag_recording
     @recording = Recording.find(params[:id])
   end
@@ -63,6 +66,10 @@ class AdminController < ApplicationController
 
   def user_params
     params.require(:user).permit(:email, :first_name, :last_name, :password)
+  end
+
+  def tag_params
+    pararms.require(:tag).permit(:utterance_id, :tag_type_id)
   end
 
   def verify_privileged
