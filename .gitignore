@@ -6,6 +6,8 @@
 
 /config/ssl/*
 
+/recordings_tmp/*
+
 # Temporary home for temporarily temporary files
 /app/assets/audios/*
 
