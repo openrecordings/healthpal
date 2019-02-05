@@ -7,7 +7,7 @@
 /config/ssl/*
 
 # Temporary home for temporarily temporary files
-/audios/*
+/app/assets/audios/*
 
 # Ignore bundler config.
 /.bundle
