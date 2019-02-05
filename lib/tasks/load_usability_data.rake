@@ -59,12 +59,12 @@ def tags_for(u)
 end
 
 def links_for(u)
-  links = []
+  ulinks = []
   utterance_id = u[0]
   links.each do |l|
     links << {name: l[1], url: l[2]} if l[3] == utterance_id 
   end
-  tag_type_ids
+  ulinks
 end
 
 def utterances
