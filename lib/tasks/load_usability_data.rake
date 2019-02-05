@@ -36,7 +36,10 @@ def json(utts)
             },
             {
               tag_type_ids: tags_for(u)
-            }
+            },
+            {
+              links: links_for(u)
+            },
           ]
         }
       ],
@@ -51,6 +54,15 @@ def tags_for(u)
   utterance_id = u[0]
   tags.each do |t|
     tag_type_ids << t[1] if t[0] == utterance_id 
+  end
+  tag_type_ids
+end
+
+def links_for(u)
+  links = []
+  utterance_id = u[0]
+  links.each do |l|
+    links << {name: l[1], url: l[2]} if l[3] == utterance_id 
   end
   tag_type_ids
 end
