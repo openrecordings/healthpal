@@ -1,12 +1,12 @@
 ID TagType<br>
-0) Diagnosis<br>
-1) Discussion of medications<br>
-2) Education<br>
-3) Follow-ups<br>
-4) Recommendation<br>
-5) Signs, Symptoms and Problems<br>
-6) Test and Imaging Results<br>
-7) Treatment Options<br>
+1) Diagnosis<br>
+2) Discussion of medications<br>
+3) Education<br>
+4) Follow-ups<br>
+5) Recommendation<br>
+6) Signs, Symptoms and Problems<br>
+7) Test and Imaging Results<br>
+8) Treatment Options<br>
 
 %table
   %th
@@ -20,10 +20,9 @@ ID TagType<br>
       %td= u.text
       %td
         - u.tags.each do |t|
-          %div="#{t.id} #{t.label}"
-
+          %div= t.tag_type.label
       %td 
-        = form_for :tag do |f|
+        = form_for Tag.new do |f|
           = f.hidden_field :utterance_id, {value: u.id}
           = f.label :tag_type_id
           = f.number_field :tag_type_id
