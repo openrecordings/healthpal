@@ -1,0 +1,22 @@
+%div.container.fixed
+  %div.row
+    %div.col-sm-12
+      %h3= "Transcript for #{@transcript.recording.user.email}, recorded #{format_date_time @transcript.recording.created_at}"
+      %div#recording-container{data: {file: @transcript.recording_id}}
+      = render partial: "/play/player.html.haml"
+%table.table.table.below
+  %thead
+    %tr
+      %th mm:ss
+      %th Tags
+      %th Text
+    %tbody
+      - @transcript.utterances.each do |utterance|
+        %tr.segment{data: {starttime: utterance.begins_at, endtime: utterance.ends_at}}
+          %td= link_to (mm_ss utterance.begins_at), 'javascript:;', class: "seek"
+          %td
+            %select#e1.tagger{multiple:"Multiple", utterance: utterance.id}
+              - @tagTypes.each do |tag|
+                %option{selected: (@tags.include?(utterance.id)) && (@tags[utterance.id].map(&:tag_type_id).include?(tag.id))} #{tag.label}
+          %td
+            = link_to utterance.text, '#', id: 'text', class: 'edit_utterance', data: {resource: 'utterance', url: "/utterances/#{utterance.id}", original_title: utterance.text}
