@@ -3,7 +3,7 @@
 #  begins_at: the starting poing of the utterance in the recording, in seconds 
 #  text:      the ascii content of the utterance
 class Utterance < ApplicationRecord
-  belongs_to :transcript
+  belongs_to :recording
   has_many :tags, dependent: :destroy
 
   # TODO: Encrypt the text attribute

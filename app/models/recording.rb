@@ -4,7 +4,7 @@ require "google/cloud/speech"
 class Recording < ApplicationRecord
 
   belongs_to :user
-  has_many :tags
+  has_many :utterances
   has_one :user_note
 
   # Add all supported transcription services here
