@@ -1,6 +1,14 @@
-#table
+%table
   %th
-    %td text
-    %td tags
-    %td links
+    %tr
+      %td text
+      %td tags
+      %td links
   - @recording.utterances.each do |u|
+    %tr
+      %td= u.text
+      %td 
+        = form_for :tag do |f|
+          = f.label :tag_type_id
+          = f.number_field :tag_type_id
+          = f.submit
