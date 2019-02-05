@@ -23,6 +23,9 @@ class Recording < ApplicationRecord
   before_create :encrypt
   before_create :set_duration
 
+  def upload
+  end
+
   # Upload audio file to GCP
   # Will return nil unless self is persisted
   # TODO:
