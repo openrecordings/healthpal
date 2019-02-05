@@ -1,12 +1,26 @@
+1) Diagnosis<br>
+2) Discussion of medications<br>
+3) Education<br>
+4) Follow-ups<br>
+5) Recommendation<br>
+6) Signs, Symptoms and Problems<br>
+7) Test and Imaging Results<br>
+8) Treatment Options<br>
+
 %table
   %th
     %tr
       %td text
       %td tags
+      %td new tag
       %td links
   - @recording.utterances.each do |u|
     %tr
       %td= u.text
+      %td
+        - u.tags.each do |t|
+          %div="#{t.id} #{t.label}"
+
       %td 
         = form_for :tag do |f|
           = f.label :tag_type_id
