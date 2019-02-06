@@ -69,7 +69,7 @@
       %thead.fixed-header
         %tr#header-row.fixed-header
           %th.fixed-header.zero-width
-          %th.fixed-header Start time
+          %th.fixed-header Start time - End time
           %th.fixed-header Topics discussed
           %th.fixed-header Links to external information
       %tbody.fixed-header
@@ -77,7 +77,7 @@
           - if utterance.tags.any?
             %tr.fixed-header.tag-row{'data-text': utterance.text, 'data-start-time': utterance.begins_at, 'data-end-time': utterance.ends_at }
               %th.fixed-header.zero-width
-              %td.fixed-header.tag-cell.click-to-seek{'data-start-time': utterance.begins_at}= mm_ss(utterance.begins_at)
+              %td.fixed-header.tag-cell.click-to-seek{'data-start-time': utterance.begins_at}= "#{mm_ss(utterance.begins_at)} - #{mm_ss(utterance.ends_at)}"
               %td.fixed-header.tag-cell.click-to-seek{'data-start-time': utterance.begins_at}
                 - utterance.tags.each do |tag|
                   .tag= tag.tag_type.label
