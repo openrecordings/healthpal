@@ -84,5 +84,12 @@
               %td.fixed-header.tag-cell
                 - utterance.links.each do |link|
                   .tag= link_to(link.label, link.url)
+          - else
+            %tr.fixed-header.tag-row.hidden
+              %th.fixed-header.zero-width
+              %td.fixed-header.tag-cell.hidden{'data-start-time': utterance.begins_at}
+              %td.fixed-header.tag-cell.hidden{'data-start-time': utterance.begins_at}
+              %td.fixed-header.tag-cell.hidden{'data-start-time': utterance.begins_at}
+
 
   #sidebar

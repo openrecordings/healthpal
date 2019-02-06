@@ -12,17 +12,16 @@ if(document.querySelector('#play-pause-button')) {
     setTimeout(function(){
       $.get('rm_tmp_file/' + $(audioElement).data('recording-id'));
     }, 60000);
-
   }
 
   function playerListener(){
     let audioElement = document.getElementById('audio-element');
     audioElement.ontimeupdate = function(){
       let currentTime = audioElement.currentTime;
+      $('#current-time').text(toMmSs(currentTime));
       skipToTime(currentTime, false);
       updateTableHighlighting(currentTime);
       scrollTable();
-      $('#current-time').text(toMmSs(currentTime));
     };
   }
 
