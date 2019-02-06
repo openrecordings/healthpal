@@ -18,8 +18,7 @@ if(document.querySelector('#play-pause-button')) {
     let tagTypeId = $(filterButton).data('tag-type-id');
     $('.tag-row').each(function (){
       let rowTagTypeIds = $(this).data('tag-type-ids');
-      console.log(rowTagTypeIds);
-      if(!rowTagTypeIds.includes(tagTypeId)){
+      if($.inArray(tagTypeId, rowTagTypeIds) < 0){
         $(this).hide();
       }
     })
