@@ -14,19 +14,24 @@ if(document.querySelector('#play-pause-button')) {
   function registerPlayerListener(){
     let audioElement = document.getElementById('audio-element');
     audioElement.ontimeupdate = function(){
-      skipToTime(audioElement.currentTime, false);
-      updateTableHighlighting(audioElement.currentTime);
+      let currentTime = audioElement.currentTime;
+      skipToTime(currentTime, false);
+      updateTableHighlighting(currentTime);
+      updateTimeDisplay(currentTime);
     };
   }
 
+  function updateTimeDisplay(currentTime){
+    let mm = Math.floor(currentTime / 60);
+    let ss = parseInt(currentTime - mm * 60);
+    $('#current-time').text(`${mm.toString().padStart(2,'0')}:${ss.toString().padStart(2,'0')}`);
+  }
+
   function updateTableHighlighting(currentTime){
-    console.log('-------------');
-    console.log(currentTime);
     $('.tag-cell').removeClass('highlighted-cell');
     let highlightRow = $('.tag-row').filter(function(){
       return $(this).data('start-time') <= currentTime && $(this).data('end-time') >= currentTime
     })
-    console.log(highlightRow.find('td'));
     highlightRow.find('td').addClass('highlighted-cell');
   }
 
