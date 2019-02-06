@@ -10,7 +10,8 @@ task tags_and_links: :environment do
     if r.id == 2
       utts = utterances.delete_if {|u| u[0].round(-3) < 4000}
     end
-    loadtags(r, utts)
+    # loadtags(r, utts)
+    loadlinks(r, utts)
   end
 end
 
