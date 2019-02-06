@@ -16,9 +16,9 @@ task tags_and_links: :environment do
 end
 
 def loadtags(r, utts)
-  # The min id for Utterance records in r
+  # the min id for utterance records in r
   min_u_id = r.utterances.select(:id).min_by {|u| u.id}.id
-  # The min id in the utterances array for utts
+  # the min id in the utterances array for utts
   umin_id = utts.min_by {|u| u[0]}[0]
   utts.each_with_index do |ut, i|
     utags = tags.find_all {|t| t[0] == umin_id + i}
@@ -27,9 +27,29 @@ def loadtags(r, utts)
       utt = Utterance.find(min_u_id + i)
       utags.each do |t|
         puts t
-        Tag.create!(
+        tag.create!(
+          utterance: utterance.find(min_u_id + i),
+          tag_type: tagtype.find(t[1])
+        )
+      end
+    end
+  end
+end
+
+def loadlinks(r, utts)
+  # the min id for utterance records in r
+  min_u_id = r.utterances.select(:id).min_by {|u| u.id}.id
+  # the min id in the utterances array for utts
+  umin_id = utts.min_by {|u| u[0]}[0]
+  utts.each_with_index do |ut, i|
+    ulinks = links.find_all {|l| l[3] == umin_id + i}
+    if ulinks
+      utt = Utterance.find(min_u_id + i)
+      ulinks.each do |l|
+        Link.create!(
           utterance: Utterance.find(min_u_id + i),
-          tag_type: TagType.find(t[1])
+          label: l[1],
+          url: l[2]
         )
       end
     end
