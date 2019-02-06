@@ -5,6 +5,7 @@
 class Utterance < ApplicationRecord
   belongs_to :recording
   has_many :tags, dependent: :destroy
+  has_many :links
 
   # TODO: Encrypt the text attribute
   

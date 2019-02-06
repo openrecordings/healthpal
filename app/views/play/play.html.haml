@@ -81,6 +81,8 @@
               %td.fixed-header.tag-cell.click-to-seek{'data-start-time': utterance.begins_at}
                 - utterance.tags.each do |tag|
                   .tag= tag.tag_type.label
-              %td.fixed-header.tag-cell todo
+              %td.fixed-header.tag-cell
+                - utterance.links.each do |link|
+                  .tag= link_to(link.label, link.url)
 
   #sidebar
