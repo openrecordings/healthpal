@@ -59,7 +59,7 @@
           %span#unmute-label.hidden
             %span.button-label Unmute
 
-  #table.fixed-header
+  #tag-table.fixed-header
     %table.fixed-header
       %thead.fixed-header
         %tr#header-row.fixed-header
@@ -71,8 +71,10 @@
         - @recording.utterances.each do |utterance|
           %tr.fixed-header{'data-text': utterance.text}
             %th.fixed-header.zero-width
-            %td.fixed-header= mm_ss(utterance.begins_at)
-            %td.fixed-header todo
+            %td.fixed-header.click-to-seek{'data-start-time': utterance.begins_at}= mm_ss(utterance.begins_at)
+            %td.fixed-header.click-to-seek{'data-start-time': utterance.begins_at}
+              - utterance.tags.each do |tag|
+                .tag= tag.tag_type.label
             %td.fixed-header todo
 
   #sidebar

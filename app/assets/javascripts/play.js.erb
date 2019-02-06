@@ -108,6 +108,12 @@ if(document.querySelector('#play-pause-button')) {
     }
     $('#mute-glyph, #unmute-glyph, #mute-label, #unmute-label').toggleClass('hidden');
   })
+  
+  // Tag Table
+  /////////////////////////////////////////////////////////////////////////////////////////////////
+  $('.click-to-seek').click(function(){
+    skipToTime($(this).data('start-time'))
+  })
 
   // Onload
   /////////////////////////////////////////////////////////////////////////////////////////////////
