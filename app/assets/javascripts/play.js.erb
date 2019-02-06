@@ -14,6 +14,16 @@ if(document.querySelector('#play-pause-button')) {
     }, 60000);
   }
 
+  function handleFilterClick(filterButton){
+    let tagTypeId = $(filterButton).data('tag-type-id');
+    $('.tag-row').each(function (){
+      rowTagTypeIds = $(this).data('tag-type-ids');
+      if(!rowTagTypeIds.includes(tagTypeId)){
+        $(this).hide();
+      }
+    })
+  }
+
   function playerListener(){
     let audioElement = document.getElementById('audio-element');
     audioElement.ontimeupdate = function(){
@@ -26,8 +36,9 @@ if(document.querySelector('#play-pause-button')) {
   }
 
   function scrollTable() {
-    if(!autoScrollDisabled){
-      document.querySelector('.highlighted-cell').scrollIntoView({
+    let highlightedCells = document.querySelector('.highlighted-cell')
+    if(highlightedCells && !autoScrollDisabled){
+        highlightedCells.scrollIntoView({
         behavior: 'smooth',
         block: 'center'
       });
@@ -154,6 +165,12 @@ if(document.querySelector('#play-pause-button')) {
 
   $('#tag-table').mouseout(function(){
     autoScrollDisabled = false;
+  })
+
+  // Sidebar
+  /////////////////////////////////////////////////////////////////////////////////////////////////
+  $('.filter-button').click(function(){
+    handleFilterClick(this);
   })
 
   // Onload

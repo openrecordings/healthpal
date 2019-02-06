@@ -86,10 +86,16 @@
                 - utterance.links.each do |link|
                   .tag= link_to(link.label, link.url)
           - else
-            %tr.fixed-header.tag-row.hidden
+            %tr.fixed-header.hidden
               %th.fixed-header.zero-width
               %td.fixed-header.tag-cell.hidden{'data-start-time': utterance.begins_at}
               %td.fixed-header.tag-cell.hidden{'data-start-time': utterance.begins_at}
               %td.fixed-header.tag-cell.hidden{'data-start-time': utterance.begins_at}
 
   #sidebar
+    .filter-header
+      %div Select topics
+      %div Show all
+    - TagType.all.each do |tag_type|
+      .filter-button{'data-tag-type-id': tag_type.id}
+        = tag_type.label
