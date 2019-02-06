@@ -11,9 +11,23 @@ if(document.querySelector('#play-pause-button')) {
     }, 60000)
   }
 
-  function registerPlayerListeners(){
+  function registerPlayerListener(){
     let audioElement = document.getElementById('audio-element');
-    audioElement.ontimeupdate = function(){skipToTime(audioElement.currentTime, false)};
+    audioElement.ontimeupdate = function(){
+      skipToTime(audioElement.currentTime, false);
+      updateTableHighlighting(audioElement.currentTime);
+    };
+  }
+
+  function updateTableHighlighting(currentTime){
+    console.log('-------------');
+    console.log(currentTime);
+    $('.tag-cell').removeClass('highlighted-cell');
+    let highlightRow = $('.tag-row').filter(function(){
+      return $(this).data('start-time') <= currentTime && $(this).data('end-time') >= currentTime
+    })
+    console.log(highlightRow.find('td'));
+    highlightRow.find('td').addClass('highlighted-cell');
   }
 
   function skipToTime(newTime, updatePlayer = true){
@@ -26,7 +40,7 @@ if(document.querySelector('#play-pause-button')) {
     if(newTime > duration){newTime = duration};
     if(updatePlayer){
       // Update is driven by UI event - move player time
-      $(audioElement).prop('currentTime', newTime);
+      audioElement.currentTime = newTime;
     } else {
       // Update is driven by current play time - move playhead
       let timelineWidth = $('#timeline').width()
@@ -119,6 +133,6 @@ if(document.querySelector('#play-pause-button')) {
   /////////////////////////////////////////////////////////////////////////////////////////////////
   $(document).ready(function() {
     loadAudio();
-    registerPlayerListeners();
+    registerPlayerListener();
   });
 }

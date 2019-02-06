@@ -69,12 +69,12 @@
           %th.fixed-header Links to external information
       %tbody.fixed-header
         - @recording.utterances.each do |utterance|
-          %tr.fixed-header{'data-text': utterance.text}
+          %tr.fixed-header.tag-row{'data-text': utterance.text, 'data-start-time': utterance.begins_at, 'data-end-time': utterance.ends_at }
             %th.fixed-header.zero-width
-            %td.fixed-header.auto-highlight.click-to-seek{'data-start-time': utterance.begins_at}= mm_ss(utterance.begins_at)
-            %td.fixed-header.auto-highlight.click-to-seek{'data-start-time': utterance.begins_at}
+            %td.fixed-header.tag-cell.click-to-seek{'data-start-time': utterance.begins_at}= mm_ss(utterance.begins_at)
+            %td.fixed-header.tag-cell.click-to-seek{'data-start-time': utterance.begins_at}
               - utterance.tags.each do |tag|
                 .tag= tag.tag_type.label
-            %td.fixed-header.auto-highlight todo
+            %td.fixed-header.tag-cell todo
 
   #sidebar
