@@ -75,7 +75,8 @@
       %tbody.fixed-header
         - @recording.utterances.each do |utterance|
           - if utterance.tags.any?
-            %tr.fixed-header.tag-row{'data-text': utterance.text, 'data-start-time': utterance.begins_at, 'data-end-time': utterance.ends_at }
+            - tag_type_ids = utterance.tags.map{|t| t.id }
+            %tr.fixed-header.tag-row{'data-tag-type-ids': tag_type_ids, 'data-text': utterance.text, 'data-start-time': utterance.begins_at, 'data-end-time': utterance.ends_at }
               %th.fixed-header.zero-width
               %td.fixed-header.tag-cell.click-to-seek{'data-start-time': utterance.begins_at}= "#{mm_ss(utterance.begins_at)} - #{mm_ss(utterance.ends_at)}"
               %td.fixed-header.tag-cell.click-to-seek{'data-start-time': utterance.begins_at}
@@ -90,6 +91,5 @@
               %td.fixed-header.tag-cell.hidden{'data-start-time': utterance.begins_at}
               %td.fixed-header.tag-cell.hidden{'data-start-time': utterance.begins_at}
               %td.fixed-header.tag-cell.hidden{'data-start-time': utterance.begins_at}
-
 
   #sidebar
