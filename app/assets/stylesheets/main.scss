@@ -12,7 +12,7 @@ body {
   grid-template-areas: 'navbar'
                        'menubar' 
                        'content';
-  grid-template-rows: #{$navbar-height $menubar-height} 100%;
+  grid-template-rows: #{$navbar-height $menubar-height} 400px;
 
   #grid-navbar{
     display: grid;
@@ -31,6 +31,8 @@ body {
   #grid-content{
     display: grid;
     grid-area: content;
+    padding: 20px;
+    margin-bottom: 20px;
   }
 }
 

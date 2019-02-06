@@ -6,22 +6,30 @@ if(document.querySelector('#play-pause-button')) {
     audioElement.loop = true;
     audioElement.volume = playVolume;
     $('#duration').text(toMmSs(audioElement.duration));
-
+    skipToTime(0)
     // TODO Remove. Temporary hack to delete tmp file on server
     setTimeout(function(){
-			$.get('rm_tmp_file/' + $(audioElement).data('recording-id'));
+      $.get('rm_tmp_file/' + $(audioElement).data('recording-id'));
     }, 60000);
 
   }
 
-  function registerPlayerListener(){
+  function playerListener(){
     let audioElement = document.getElementById('audio-element');
     audioElement.ontimeupdate = function(){
       let currentTime = audioElement.currentTime;
       skipToTime(currentTime, false);
       updateTableHighlighting(currentTime);
+      scrollTable();
       $('#current-time').text(toMmSs(currentTime));
     };
+  }
+
+  function scrollTable() {
+		document.querySelector('.highlighted-cell').scrollIntoView({
+		  behavior: 'smooth',
+      block: 'center'
+		});
   }
 
   function toMmSs(seconds){
@@ -55,7 +63,7 @@ if(document.querySelector('#play-pause-button')) {
       let PxPerSec = timelineWidth / duration;
       let newPx = PxPerSec * newTime 
       playhead.css({left: newPx});
-      progressBar.css({width: newPx - 10});
+      progressBar.css({width: newPx + 10});
     }
   }
 
@@ -140,6 +148,6 @@ if(document.querySelector('#play-pause-button')) {
   /////////////////////////////////////////////////////////////////////////////////////////////////
   $(document).ready(function() {
     loadAudio();
-    registerPlayerListener();
+    playerListener();
   });
 }

@@ -3,24 +3,24 @@
 #play-view {
   display: grid;
   width: 100%;
-  height: 92vh;
+  height: 720px;
   grid-template-areas: 'head head'
                        'player sidebar'
                        'table sidebar';
   grid-template-columns: 3fr 1fr;
-  grid-template-rows: 120px 150px 1fr;
+  // TODO: Fix the table height bug
+  grid-template-rows: 120px 150px 450px;
 }
 
 #head {
-  // background-color: yellow;
   grid-area: head;  
   text-indent: 5px;
 }
 
 #tag-table {
-  // background-color: green;
   grid-area: table;  
   overflow: scroll;
+  position: relative;
   text-indent: 5px;
   .highlighted-cell{
     background-color: $table-row-highlight;
@@ -58,7 +58,6 @@
         background-color: $background-light;
       }
       #playhead{
-        position: absolute;
         background-color: #ddd;
         margin-top: -2px;
         width: 24px;
