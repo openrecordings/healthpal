@@ -1,5 +1,6 @@
 if(document.querySelector('#play-pause-button')) {
   const playVolume = 1.0;
+  let autoScrollDisabled = false;
 
   function loadAudio(){
     let audioElement = document.getElementById('audio-element');
@@ -26,10 +27,12 @@ if(document.querySelector('#play-pause-button')) {
   }
 
   function scrollTable() {
-		document.querySelector('.highlighted-cell').scrollIntoView({
-		  behavior: 'smooth',
-      block: 'center'
-		});
+    if(!autoScrollDisabled){
+      document.querySelector('.highlighted-cell').scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+      });
+    }
   }
 
   function toMmSs(seconds){
@@ -43,7 +46,9 @@ if(document.querySelector('#play-pause-button')) {
     let highlightRow = $('.tag-row').filter(function(){
       return $(this).data('start-time') <= currentTime && $(this).data('end-time') >= currentTime
     })
-    highlightRow.find('td').addClass('highlighted-cell');
+    if(!autoScrollDisabled){
+      highlightRow.find('td').addClass('highlighted-cell');
+    }
   }
 
   function skipToTime(newTime, updatePlayer = true){
@@ -142,6 +147,14 @@ if(document.querySelector('#play-pause-button')) {
   /////////////////////////////////////////////////////////////////////////////////////////////////
   $('.click-to-seek').click(function(){
     skipToTime($(this).data('start-time'))
+  })
+
+  $('#tag-table').mouseover(function(){
+    autoScrollDisabled = true;
+  })
+
+  $('#tag-table').mouseout(function(){
+    autoScrollDisabled = false;
   })
 
   // Onload

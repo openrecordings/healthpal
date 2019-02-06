@@ -20,10 +20,11 @@
 #tag-table {
   grid-area: table;  
   overflow: scroll;
+  border-collapse: collapse;
   position: relative;
   text-indent: 5px;
   .highlighted-cell{
-    background-color: $table-row-highlight;
+    background-color: $light-highlight;
   };
 }
 
