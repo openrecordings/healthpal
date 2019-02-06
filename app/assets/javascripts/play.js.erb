@@ -5,10 +5,13 @@ if(document.querySelector('#play-pause-button')) {
     let audioElement = document.getElementById('audio-element');
     audioElement.loop = true;
     audioElement.volume = playVolume;
+    $('#duration').text(toMmSs(audioElement.duration));
+
     // TODO Remove. Temporary hack to delete tmp file on server
     setTimeout(function(){
 			$.get('rm_tmp_file/' + $(audioElement).data('recording-id'));
-    }, 60000)
+    }, 60000);
+
   }
 
   function registerPlayerListener(){
@@ -17,14 +20,14 @@ if(document.querySelector('#play-pause-button')) {
       let currentTime = audioElement.currentTime;
       skipToTime(currentTime, false);
       updateTableHighlighting(currentTime);
-      updateTimeDisplay(currentTime);
+      $('#current-time').text(toMmSs(currentTime));
     };
   }
 
-  function updateTimeDisplay(currentTime){
-    let mm = Math.floor(currentTime / 60);
-    let ss = parseInt(currentTime - mm * 60);
-    $('#current-time').text(`${mm.toString().padStart(2,'0')}:${ss.toString().padStart(2,'0')}`);
+  function toMmSs(seconds){
+    let mm = Math.floor(seconds / 60);
+    let ss = parseInt(seconds - mm * 60);
+    return `${mm.toString().padStart(2,'0')}:${ss.toString().padStart(2,'0')}`
   }
 
   function updateTableHighlighting(currentTime){
@@ -118,7 +121,6 @@ if(document.querySelector('#play-pause-button')) {
 
   $('#mute-button').click(function(){
     let audioElement = document.getElementById('audio-element');
-    console.log(audioElement.volume);
     if (audioElement.volume > 0) {
        audioElement.volume = 0;
     }   
