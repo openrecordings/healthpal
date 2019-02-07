@@ -19,7 +19,7 @@ if(document.querySelector('#play-pause-button')) {
     $('.tag-row').each(function (){
       let rowTagTypeIds = $(this).data('tag-type-ids');
       if($.inArray(tagTypeId, rowTagTypeIds) < 0){
-        $(this).hide();
+        $(this).children().hide();
       }
     })
   }

@@ -93,9 +93,11 @@
               %td.fixed-header.tag-cell.hidden{'data-start-time': utterance.begins_at}
 
   #sidebar
-    .filter-header
-      %div Select topics
-      %div Show all
-    - TagType.all.each do |tag_type|
-      .filter-button{'data-tag-type-id': tag_type.id}
-        = tag_type.label
+    #header-container
+      .filter-header
+        %div Select topics
+        %div Show all
+    #filter-container
+      - TagType.all.each do |tag_type|
+        .filter-button{'data-tag-type-id': tag_type.id}
+          = tag_type.label
