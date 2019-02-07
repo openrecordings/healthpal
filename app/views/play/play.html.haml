@@ -99,5 +99,5 @@
         %div Show all
     #filter-container
       - TagType.all.each do |tag_type|
-        .filter-button{'data-tag-type-id': tag_type.id}
+        .filter-button{'data-tag-type-id': tag_type.id, class: "filter-color-#{tag_type.id}"}
           = tag_type.label
