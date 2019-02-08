@@ -48,9 +48,6 @@ th.fixed-header.zero-width{
   height: 40px;
 }
 
-tr:nth-child(even) {background: $table-row-dark}
-tr:nth-child(odd) {background: $table-row-light}
-
 tr:hover{
   cursor: pointer;
   background-color: $dark-highlight;

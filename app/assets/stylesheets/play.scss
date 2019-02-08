@@ -26,6 +26,12 @@
   .highlighted-cell{
     background-color: $light-highlight;
   };
+  .even-row{
+    background-color: $table-row-dark
+  }
+  .odd-row{
+    background-color: $table-row-light
+  }
 }
 
 #sidebar {

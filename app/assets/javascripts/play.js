@@ -2,6 +2,15 @@ if(document.querySelector('#play-pause-button')) {
   const playVolume = 1.0;
   let autoScrollDisabled = false;
 
+  function showPage(){
+    $('#play-view').removeClass('invisible');
+  }
+
+  function stripeTable(){
+    $('.tag-row:visible:odd').addClass('odd-row');
+    $('.tag-row:visible:even').addClass('even-row');
+  }
+
   function loadAudio(){
     let audioElement = document.getElementById('audio-element');
     audioElement.loop = true;
@@ -176,7 +185,9 @@ if(document.querySelector('#play-pause-button')) {
   // Onload
   /////////////////////////////////////////////////////////////////////////////////////////////////
   $(document).ready(function() {
+    stripeTable();
     loadAudio();
     playerListener();
+    showPage();
   });
 }
