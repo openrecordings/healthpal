@@ -81,39 +81,42 @@
 #sidebar {
   background-color: $well-background;
   grid-area: sidebar;  
-  #filter-container {
+  #filter-container{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-items: center;
-    width: 300px;
-    height: 50px;
-    margin-left: 10px;
-    margin-bottom: 10px;
-    padding-left: 10px;
-    border-radius: 3px;
-  }
-  .filter-check{
-    display: flex;
-    justify-content: left;
-    align-content: center;
-    width: 50px;
-    height: 50px;
-    font-size: 24px;
-    fill: #fff;
-  }
-  .filter-button{
-    display: flex;
-    align-content: right;
-    justify-content: center;
-    width: 300px;
-    height: 50px;
-    margin-left: 10px;
-    margin-bottom: 10px;
-    padding-left: 10px;
-    border-radius: 3px;
-    &:hover{
-      cursor: pointer;
+    #filter-button {
+      display: flex;
+      flex-direction: row;
+      justify-items: left;
+      align-items: center;
+      width: 300px;
+      height: 50px;
+      margin-left: 10px;
+      margin-bottom: 10px;
+      padding-left: 10px;
+      border-radius: 3px;
+      .filter-check{
+        display: flex;
+        justify-content: center;
+        align-content: left;
+        height: 20px;
+        width: 40px;
+        border-radius: 10px;
+        background-color: $background-light;
+        font-size: 18px;
+        fill: #fff;
+      }
+      .filter-label{
+        display: flex;
+        justify-content: center;
+        align-content: left;
+        padding-left: 10px;
+        &:hover{
+          cursor: pointer;
+        }
+      }
     }
   }
 }
