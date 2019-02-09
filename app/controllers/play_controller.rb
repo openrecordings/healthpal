@@ -49,35 +49,25 @@ class PlayController < ApplicationController
   private
 
   def prepare_utterances(recording)
-    return nil unless recording.utterances.any?
-    tagged_utterances = []
-    last_utterance = false
-    recording.utterances.each do |utterance|
-      if utterance.tags.any?
-        # TODO: Put a time cutoff on this between one utterance ending and the next beginning
-        if last_utterance && (last_utterance&.tag_types & utterance.tag_types).any?
-          multi_utterance = build_multi_utterance(last_utterance, utterance) 
-          tagged_utterances << multi_utterance
-          last_utterance = multi_utterance
-        else
-          utterance.tmp_tag_types = utterance.tags.map {|t| t.tag_type}
-          tagged_utterances << utterance
-          last_utterance = utterance
+    tagged_utterances = recording.utterances.select{|u| u.tags.any? }
+    return [] unless tagged_utterances.any?
+    return_utterances = []
+    multi_utterance = nil
+    tagged_utterances.each do |utterance|
+      utterance.tmp_tag_types = utterance.tag_types
+      if multi_utterance.nil?
+        multi_utterance = utterance
+      else
+        if utterance.tmp_tag_types == multi_utterance.tmp_tag_types
+          multi_utterance.text += " #{utterance.text}"
+          multi_utterance.ends_at = utterance.ends_at
+        else 
+          return_utterances << multi_utterance
+          multi_utterance = nil
         end
       end
     end
-    tagged_utterances
-  end
-
-  def build_multi_utterance(first_utterance, second_utterance)
-    multi_utterance = Utterance.new(
-      recording: first_utterance.recording,
-      text: "#{first_utterance.text} #{second_utterance.text}",
-      begins_at: first_utterance.begins_at,
-      ends_at: second_utterance.ends_at,
-      tmp_tag_types: (first_utterance.tag_types + second_utterance.tag_types).uniq!
-    )
-    
+    return_utterances
   end
 
 end
