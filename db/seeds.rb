@@ -1,5 +1,5 @@
 tag_types = ['Diagnosis', 'Discussion of medications', 'Education',
-             'Follow-ups', 'Recommendation',
+             'Follow-ups', 'Recommendations',
              'Signs, Symptoms and Problems',
              'Test and Imaging Results', 'Treatment Options']
 

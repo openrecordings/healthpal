@@ -2,53 +2,53 @@
   font-weight: normal;
   color: #333;
   text-align: left;
-}
 
-div.fixed-header {
-	width: 100%;
-  position: relative;
-}
+  div {
+    width: 100%;
+    position: relative;
+  }
 
-table.fixed-header {
-	width: 100%;
-  position: relative;
-  border-collapse: collapse;
-  border: none;
-  overflow: scroll;
-}
+  table {
+    width: 100%;
+    position: relative;
+    border-collapse: collapse;
+    border: none;
+    overflow: scroll;
+  }
 
-td.fixed-header, th.fixed-header {
-  padding: 15px;
-}
+  td, th {
+    padding: 15px;
+  }
 
-thead.fixed-header th.fixed-header {
-  position: sticky;
-  top: 0;
-  background: $background-dark;
-  color: #fff;
-}
+  thead th {
+    position: sticky;
+    top: 0;
+    background: $background-dark;
+    color: #fff;
+  }
 
-thead.fixed-header th.fixed-header:first-child {
-  left: 0;
-  z-index: 1;
-}
+  thead th:first-child {
+    left: 0;
+    z-index: 1;
+  }
 
-tbody.fixed-header th.fixed-header {
-  position: sticky;
-  left: 0;
-  color: $background-dark;
-  border-right: 1px solid #CCC;
-}
+  tbody th {
+    position: sticky;
+    left: 0;
+    color: $background-dark;
+    border-right: 1px solid #CCC;
+  }
 
-th.fixed-header.zero-width{
-  display: none;
-}
+  th.zero-width{
+    display: none;
+  }
 
-#header-row {
-  height: 40px;
-}
+  #header-row {
+    height: 40px;
+  }
 
-tr:hover{
-  cursor: pointer;
-  background-color: $dark-highlight;
+  td:hover{
+    cursor: pointer;
+    background-color: $dark-highlight;
+  }
 }

@@ -32,6 +32,18 @@
   .odd-row{
     background-color: $table-row-light
   }
+  .link{
+    padding: 8px;
+    border-radius: 3px;
+    font-size: 18px;
+    color: $color-link-text;
+    background-color: $background-light;
+    &:hover{
+      cursor: pointer;
+      color: #fff;
+      background-color: $background-very-light;
+    }
+  }
 }
 
 #sidebar {
@@ -47,22 +59,18 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background-color: $filter-color-1;
     width: 300px;
     height: 50px;
     margin-left: 10px;
     margin-bottom: 10px;
     padding-left: 10px;
     border-radius: 3px;
+    &:hover{
+      cursor: pointer;
+      color: #fff;
+      background-color: $background-very-light;
+    }
   }
-  .filter-color-1{background-color: $filter-color-1}
-  .filter-color-2{background-color: $filter-color-2}
-  .filter-color-3{background-color: $filter-color-3}
-  .filter-color-4{background-color: $filter-color-4}
-  .filter-color-5{background-color: $filter-color-5}
-  .filter-color-6{background-color: $filter-color-6}
-  .filter-color-7{background-color: $filter-color-7}
-  .filter-color-8{background-color: $filter-color-8}
 }
 
 // Media controls
@@ -176,3 +184,11 @@
   }
 }
 
+.filter-1{background-color: $filter-color-1;}
+.filter-2{background-color: $filter-color-2;}
+.filter-3{background-color: $filter-color-3;}
+.filter-4{background-color: $filter-color-4;}
+.filter-5{background-color: $filter-color-5;}
+.filter-6{background-color: $filter-color-6;}
+.filter-7{background-color: $filter-color-7;}
+.filter-8{background-color: $filter-color-8;}
