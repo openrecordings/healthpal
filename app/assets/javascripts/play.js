@@ -2,6 +2,10 @@ if(document.querySelector('#play-pause-button')) {
   const playVolume = 1.0;
   let autoScrollDisabled = false;
 
+  function log(msg){
+    console.log(msg);
+  }
+
   function showPage(){
     $('#play-view').removeClass('invisible');
   }
@@ -16,7 +20,7 @@ if(document.querySelector('#play-pause-button')) {
     audioElement.loop = true;
     audioElement.volume = playVolume;
     $('#duration').text(toMmSs(audioElement.duration));
-    skipToTime(0)
+    skipToTime(0);
     // TODO Remove. Temporary hack to delete tmp file on server
     setTimeout(function(){
       $.get('rm_tmp_file/' + $(audioElement).data('recording-id'));
@@ -28,7 +32,9 @@ if(document.querySelector('#play-pause-button')) {
     $('.tag-row').each(function (){
       let rowTagTypeIds = $(this).data('tag-type-ids');
       if($.inArray(tagTypeId, rowTagTypeIds) < 0){
-        $(this).children().hide();
+        $(this).toggleClass('filtered');
+        $(this).hide();
+        console.log(rowTagTypeIds);
       }
     })
   }

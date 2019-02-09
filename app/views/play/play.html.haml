@@ -74,7 +74,7 @@
       %tbody
         - @recording.utterances.each do |utterance|
           - if utterance.tags.any?
-            - tag_type_ids = utterance.tags.map{|t| t.id }
+            - tag_type_ids = utterance.tags.map{|t| t.tag_type.id }
             %tr.tag-row{'data-tag-type-ids': tag_type_ids, 'data-text': utterance.text, 'data-start-time': utterance.begins_at, 'data-end-time': utterance.ends_at }
               %th.zero-width
               %td.tag-cell.click-to-seek{'data-start-time': utterance.begins_at}= "#{mm_ss(utterance.begins_at)} - #{mm_ss(utterance.ends_at)}"
