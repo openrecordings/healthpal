@@ -63,29 +63,29 @@
           %span#unmute-label.hidden
             %span.button-label Unmute
 
-  #tag-table.fixed-header
-    %table.fixed-header
-      %thead.fixed-header
-        %tr#header-row.fixed-header
-          %th.fixed-header.zero-width
-          %th.fixed-header Start time - End time
-          %th.fixed-header Topics discussed
-          %th.fixed-header Links to external information
-      %tbody.fixed-header
+  #tag-table
+    %table
+      %thead
+        %tr#header-row
+          %th.zero-width
+          %th Start time - End time
+          %th Topics discussed
+          %th Links to external information
+      %tbody
         - @recording.utterances.each do |utterance|
           - if utterance.tags.any?
             - tag_type_ids = utterance.tags.map{|t| t.id }
-            %tr.fixed-header.tag-row{'data-tag-type-ids': tag_type_ids, 'data-text': utterance.text, 'data-start-time': utterance.begins_at, 'data-end-time': utterance.ends_at }
-              %th.fixed-header.zero-width
-              %td.fixed-header.tag-cell.click-to-seek{'data-start-time': utterance.begins_at}= "#{mm_ss(utterance.begins_at)} - #{mm_ss(utterance.ends_at)}"
-              %td.fixed-header.tag-cell.click-to-seek{'data-start-time': utterance.begins_at}
+            %tr.tag-row{'data-tag-type-ids': tag_type_ids, 'data-text': utterance.text, 'data-start-time': utterance.begins_at, 'data-end-time': utterance.ends_at }
+              %th.zero-width
+              %td.tag-cell.click-to-seek{'data-start-time': utterance.begins_at}= "#{mm_ss(utterance.begins_at)} - #{mm_ss(utterance.ends_at)}"
+              %td.tag-cell.click-to-seek{'data-start-time': utterance.begins_at}
                 - utterance.tags.each do |tag|
                   .tag{class: "filter-#{tag.tag_type.id}"}= tag.tag_type.label
-              %td.fixed-header.tag-cell
+              %td.tag-cell
                 - utterance.links.each do |link|
                   %span.link{href: link.url}= link.label
           - else
-            %tr.fixed-header.hidden
+            %tr.hidden
               %th.zero-width
               %td.tag-cell.hidden{'data-start-time': utterance.begins_at}
               %td.tag-cell.hidden{'data-start-time': utterance.begins_at}
