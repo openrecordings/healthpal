@@ -61,6 +61,7 @@ class PlayController < ApplicationController
         if utterance.tmp_tag_types == multi_utterance.tmp_tag_types
           multi_utterance.text += " #{utterance.text}"
           multi_utterance.ends_at = utterance.ends_at
+          multi_utterance.links += utterance.links
         else 
           return_utterances << multi_utterance
           multi_utterance = nil
