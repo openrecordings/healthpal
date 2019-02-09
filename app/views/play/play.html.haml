@@ -10,7 +10,6 @@
     - title = format_date @recording.created_at
     - title += " Visit with #{@recording.provider}" if @recording.provider
     %h3= @recording.user.full_name
-    %h4= title
 
   #player
     #controls-container

@@ -9,7 +9,7 @@
                        'table sidebar';
   grid-template-columns: 3fr 1fr;
   // TODO: Fix the table height bug
-  grid-template-rows: 120px 150px 450px;
+  grid-template-rows: 60px 150px 1fr;;
 }
 
 #head {

@@ -27,14 +27,28 @@ if(document.querySelector('#play-pause-button')) {
     }, 60000);
   }
 
+  $.arrayIntersect = function(a, b)
+  {
+    return $.grep(a, function(i)
+    {
+      return $.inArray(i, b) > -1;
+    });
+  };
+
   function handleFilterClick(filterButton){
-    let tagTypeId = $(filterButton).data('tag-type-id');
+    $(filterButton).toggleClass('filter-on');
+    let tagTypeIdsFiltered = [];
+    $('.filter-button').each(function(){
+      if($(this).hasClass('filter-on')){
+        tagTypeIdsFiltered.push($(this).data('tag-type-id') )
+      }
+    })
     $('.tag-row').each(function (){
       let rowTagTypeIds = $(this).data('tag-type-ids');
-      if($.inArray(tagTypeId, rowTagTypeIds) < 0){
-        $(this).toggleClass('filtered');
+      if(!$.arrayIntersect(rowTagTypeIds, tagTypeIdsFiltered).length){
         $(this).hide();
-        console.log(rowTagTypeIds);
+      } else {
+        $(this).show();
       }
     })
   }
