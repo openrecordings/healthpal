@@ -1,9 +1,5 @@
 class PlayController < ApplicationController
 
-  # Data structure for ephemeral utterance objects
-  Utterance = Struct.new(:utterance_hash) do
-  end
-
   # json.first['alternatives'].first['words'].first['start_time']['seconds']
   def index
     # TODO: Handle bad data
@@ -27,16 +23,9 @@ class PlayController < ApplicationController
   def play
     @recording = Recording.find_by(id: params[:id])
     if(@recording && current_user.can_access(@recording))
+      @utterances = prepare_utterances(@recording)
       tmp_file_path = "#{Rails.root}/app/assets/audios/"
       FileUtils.cp(@recording.local_file_name_with_path, "#{tmp_file_path}/#{@recording.tmp_file_name}")
-      # @utterances = []
-      # @recording.json.each do |utterance_hash|
-      #   @utterances << {
-      #    start_time: start_time(utterance_hash),
-      #    # end_time: end_time(utterance_hash),
-      #    text: text(utterance_hash)
-      #   }
-      # end
     else
       flash.alert = 'An error ocurred while retriving the audio data. Please contact support.'
       redirect_to :root and return
@@ -51,7 +40,7 @@ class PlayController < ApplicationController
       FileUtils.rm("#{tmp_file_path}/#{recording.tmp_file_name}")
       render json: 'success' and return
 		rescue StandardError => error
-      render json: { errors: error.message}, :status => 422
+      render json: {errors: error.message}, :status => 422
 		end  
   end
   ################################################################################################
@@ -59,20 +48,36 @@ class PlayController < ApplicationController
 
   private
 
-  def start_time(utterance_hash)
-    first_word = utterance_hash['alternatives'][0]['words'].first
-    start_time = first_word['start_time']
-    start_time['seconds'].to_f + start_time['nanos'] / 10**8
+  def prepare_utterances(recording)
+    return nil unless recording.utterances.any?
+    tagged_utterances = []
+    last_utterance = false
+    recording.utterances.each do |utterance|
+      if utterance.tags.any?
+        # TODO: Put a time cutoff on this between one utterance ending and the next beginning
+        if last_utterance && (last_utterance&.tag_types & utterance.tag_types).any?
+          multi_utterance = build_multi_utterance(last_utterance, utterance) 
+          tagged_utterances << multi_utterance
+          last_utterance = multi_utterance
+        else
+          utterance.tmp_tag_types = utterance.tags.map {|t| t.tag_type}
+          tagged_utterances << utterance
+          last_utterance = utterance
+        end
+      end
+    end
+    tagged_utterances
   end
 
-  def end_time(utterance_hash)
-    last_word = utterance_hash['alternatives'][0]['words'].last
-    end_time = last_word['end_time']
-    end_time['seconds'].to_f + end_time['nanos'] / 10**8
-  end
-
-  def text(utterance_hash)
-    utterance_hash['alternatives'][0]['transcript']
+  def build_multi_utterance(first_utterance, second_utterance)
+    multi_utterance = Utterance.new(
+      recording: first_utterance.recording,
+      text: "#{first_utterance.text} #{second_utterance.text}",
+      begins_at: first_utterance.begins_at,
+      ends_at: second_utterance.ends_at,
+      tmp_tag_types: (first_utterance.tag_types + second_utterance.tag_types).uniq!
+    )
+    
   end
 
 end

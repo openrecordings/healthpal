@@ -7,6 +7,18 @@ class Utterance < ApplicationRecord
   has_many :tags, dependent: :destroy
   has_many :links
 
+  validates_presence_of :recording
+
+  attr_accessor :tmp_tag_types
+
   # TODO: Encrypt the text attribute
+  
+  def tag_types
+    tag_types = []
+    self.tags.each do |tag|
+      tag_types << tag.tag_type
+    end
+    tag_types
+  end
   
 end
