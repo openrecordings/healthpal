@@ -138,8 +138,22 @@ if(document.querySelector('#play-pause-button')) {
       highlightRow.find('td').addClass('highlighted-cell');
     }
   }
+  
+  // Tag Table listeners
+  /////////////////////////////////////////////////////////////////////////////////////////////////
+  $('.click-to-seek').click(function(){
+    skipToTime($(this).data('start-time'))
+  })
 
-  // Timeline clicks and drags
+  $('#tag-table').mouseover(function(){
+    autoScrollDisabled = true;
+  })
+
+  $('#tag-table').mouseout(function(){
+    autoScrollDisabled = false;
+  })
+
+  // Playback control button listeners
   /////////////////////////////////////////////////////////////////////////////////////////////////
   $('#timeline').click(function(event){
     skipToEventPosition(event);
@@ -153,8 +167,6 @@ if(document.querySelector('#play-pause-button')) {
     }
   });
 
-  // Playback control button clicks
-  /////////////////////////////////////////////////////////////////////////////////////////////////
   $('#rewind-button').click(function(){
     let audioElement = document.getElementById('audio-element');
     skipToTime(0);
@@ -190,20 +202,6 @@ if(document.querySelector('#play-pause-button')) {
        audioElement.volume = playVolume;
     }
     $('#mute-glyph, #unmute-glyph, #mute-label, #unmute-label').toggleClass('hidden');
-  })
-  
-  // Tag Table listeners
-  /////////////////////////////////////////////////////////////////////////////////////////////////
-  $('.click-to-seek').click(function(){
-    skipToTime($(this).data('start-time'))
-  })
-
-  $('#tag-table').mouseover(function(){
-    autoScrollDisabled = true;
-  })
-
-  $('#tag-table').mouseout(function(){
-    autoScrollDisabled = false;
   })
 
   // Sidebar listeneers

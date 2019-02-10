@@ -67,7 +67,7 @@
       %thead
         %tr#header-row
           %th.zero-width
-          %th Start time - End time
+          %th Start - End
           %th Topics discussed
           %th Links to external information
       %tbody
@@ -83,7 +83,7 @@
               %td.tag-cell.click-to-seek{'data-start-time': utterance.begins_at}
                 - utterance.tmp_tag_types.each do |tag_type|
                   .tag{class: "filter-#{tag_type.id}"}= tag_type.label
-              %td.tag-cell
+              %td.tag-cell.click-to-seek{'data-start-time': utterance.begins_at}
                 - utterance.links.each do |link|
                   %span.link{href: link.url}= link.label
           - else

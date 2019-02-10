@@ -52,6 +52,12 @@
   .odd-row{
     background-color: $table-row-light
   }
+  .tag-row{
+    &:hover{
+      background: $light-highlight;
+      cursor: pointer;
+    }
+  }
   .tag{
     display: flex;
     flex-direction: column;
@@ -60,14 +66,9 @@
     height: 50px;
     padding-left: 10px;
     border-radius: 3px;
-    &:hover{
-      cursor: pointer;
-    }
-    .active{
-      box-shadow: inset 0px 0px 28px 0px rgba(0,0,0,0.75);
-    }
   }
   .link{
+    z-index: 10;
     padding: 8px;
     border-radius: 3px;
     font-size: 18px;
