@@ -37,6 +37,7 @@ if(document.querySelector('#play-pause-button')) {
 
   function handleFilterClick(filterButton){
     $(filterButton).toggleClass('filter-on');
+    $(filterButton).find('#check-glyph').toggleClass('hidden');
     let tagTypeIdsFiltered = [];
     $('.filter-button').each(function(){
       if($(this).hasClass('filter-on')){
