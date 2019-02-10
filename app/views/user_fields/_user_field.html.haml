@@ -1,4 +1,4 @@
-- if user_field.persisted?
-  foo
-- else
-  bar
+- unless user_field.text
+  .user_field_label= label
+  .user_field_content.hidden foo
+  -# = user_field.text

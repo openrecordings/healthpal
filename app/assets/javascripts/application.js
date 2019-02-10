@@ -18,3 +18,7 @@
 //= require jquery-tablesorter
 //= require select2
 //= require_tree .
+
+function log(msg){
+  console.log(msg);
+}

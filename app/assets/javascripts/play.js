@@ -2,10 +2,6 @@ if(document.querySelector('#play-pause-button')) {
   const playVolume = 1.0;
   let autoScrollDisabled = false;
 
-  function log(msg){
-    console.log(msg);
-  }
-
   function showPage(){
     $('#play-view').removeClass('invisible');
   }
@@ -129,7 +125,6 @@ if(document.querySelector('#play-pause-button')) {
   }
 
   function updateTableHighlighting(currentTime){
-    log('here');
     $('.tag-cell').removeClass('highlighted-cell');
     let highlightRow = $('.tag-row').filter(function(){
       return $(this).data('start-time') <= currentTime && $(this).data('end-time') >= currentTime

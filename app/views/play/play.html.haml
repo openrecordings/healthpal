@@ -9,8 +9,8 @@
   #head
     #header-container
       #title= @title
-      #provider= render 'user_fields/user_field', user_field: @provider 
-      #note= render 'user_fields/user_field', user_field: @recording_note
+      #provider= render 'user_fields/user_field', user_field: @provider, label: 'Click to add provider for this visit' 
+      #note= render 'user_fields/user_field', user_field: @recording_note, label: 'Click to add notes for this visit'
 
   #player
     #controls-container
