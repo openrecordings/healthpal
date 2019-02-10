@@ -207,6 +207,9 @@ if(document.querySelector('#play-pause-button')) {
     handleFilterClick(this);
   })
 
+  $('#show-all-topics').click(function(){
+  })
+
   // Onload
   /////////////////////////////////////////////////////////////////////////////////////////////////
   $(document).ready(function() {

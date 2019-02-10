@@ -90,6 +90,19 @@
     flex-direction: column;
     align-items: center;
     justify-items: center;
+    #filter-header{
+      display: flex;
+      flex-direction: column;
+      align-items: left;
+      width: 300px;
+      #select-topics{
+        display: flex;
+        width: 300px;
+        margin-bottom: 10px;
+        font-size: 30px;
+        color: rgb(74, 164, 156);
+      }
+    }
     .filter-button {
       display: flex;
       flex-direction: row;
@@ -97,7 +110,6 @@
       align-items: center;
       width: 300px;
       height: 50px;
-      margin-left: 10px;
       margin-bottom: 10px;
       padding-left: 10px;
       border-radius: 3px;
@@ -121,6 +133,22 @@
         align-content: left;
         padding-left: 10px;
       }
+    }
+  }
+  #show-all-topics{
+    display: flex;
+    justify-content: center;
+    width: 300px;
+    padding-left: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-radius: 3px;
+    border-radius: 3px;
+    font-size: 18px;
+    color: #fff;
+    background-color: $background-light;
+    &:hover{
+      cursor: pointer;
     }
   }
 }
