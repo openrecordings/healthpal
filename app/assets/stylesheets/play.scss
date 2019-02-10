@@ -5,11 +5,11 @@
   width: 100%;
   height: 720px;
   grid-template-areas: 'head head'
-                       'player sidebar'
-                       'table sidebar';
+                       'table sidebar'
+                       'player sidebar';
   grid-template-columns: 3fr 1fr;
   // TODO: Fix the table height bug
-  grid-template-rows: 60px 150px 1fr;;
+  grid-template-rows: 60px 1fr 150px;
 }
 
 #head {
@@ -38,6 +38,10 @@
       color: #ddd;
       text-align: left;
       padding-left: 15px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+    #header-row{
     }
   }
   .highlighted-cell{
@@ -126,8 +130,8 @@
 #player {
   grid-area: player;
   background-color: $background-dark;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
   #controls-container{
     display: grid;
     grid-template-areas: 'timeline'
