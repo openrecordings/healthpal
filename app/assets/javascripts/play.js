@@ -37,21 +37,25 @@ if(document.querySelector('#play-pause-button')) {
 
   function handleFilterClick(filterButton){
     $(filterButton).toggleClass('filter-on');
-    $(filterButton).find('#check-glyph').toggleClass('hidden');
-    let tagTypeIdsFiltered = [];
+    $(filterButton).find('.check-glyph').toggleClass('hidden');
+    let tagTypeIdsShown = [];
     $('.filter-button').each(function(){
       if($(this).hasClass('filter-on')){
-        tagTypeIdsFiltered.push($(this).data('tag-type-id') )
+        tagTypeIdsShown.push($(this).data('tag-type-id') )
       }
     })
-    $('.tag-row').each(function (){
-      let rowTagTypeIds = $(this).data('tag-type-ids');
-      if(!$.arrayIntersect(rowTagTypeIds, tagTypeIdsFiltered).length){
-        $(this).hide();
-      } else {
-        $(this).show();
-      }
-    })
+    if(tagTypeIdsShown.length){
+      $('.tag-row').each(function (){
+        let rowTagTypeIds = $(this).data('tag-type-ids');
+        if($.arrayIntersect(rowTagTypeIds, tagTypeIdsShown).length){
+          $(this).show();
+        } else {
+          $(this).hide();
+        }
+      })
+    } else {
+      $('.tag-row').show();
+    }
   }
 
   function playerListener(){
