@@ -15,6 +15,8 @@ if(document.querySelector('#play-pause-button')) {
     $('.tag-row:visible:even').addClass('even-row');
   }
 
+  // Playback control
+  /////////////////////////////////////////////////////////////////////////////////////////////////
   function loadAudio(){
     let audioElement = document.getElementById('audio-element');
     audioElement.loop = true;
@@ -35,29 +37,6 @@ if(document.querySelector('#play-pause-button')) {
     });
   };
 
-  function handleFilterClick(filterButton){
-    $(filterButton).toggleClass('filter-on');
-    $(filterButton).find('.check-glyph').toggleClass('hidden');
-    let tagTypeIdsShown = [];
-    $('.filter-button').each(function(){
-      if($(this).hasClass('filter-on')){
-        tagTypeIdsShown.push($(this).data('tag-type-id') )
-      }
-    })
-    if(tagTypeIdsShown.length){
-      $('.tag-row').each(function (){
-        let rowTagTypeIds = $(this).data('tag-type-ids');
-        if($.arrayIntersect(rowTagTypeIds, tagTypeIdsShown).length){
-          $(this).show();
-        } else {
-          $(this).hide();
-        }
-      })
-    } else {
-      $('.tag-row').show();
-    }
-  }
-
   function playerListener(){
     let audioElement = document.getElementById('audio-element');
     audioElement.ontimeupdate = function(){
@@ -67,32 +46,6 @@ if(document.querySelector('#play-pause-button')) {
       updateTableHighlighting(currentTime);
       scrollTable();
     };
-  }
-
-  function scrollTable() {
-    let highlightedCells = document.querySelector('.highlighted-cell')
-    if(highlightedCells && !autoScrollDisabled){
-        highlightedCells.scrollIntoView({
-        behavior: 'smooth',
-        block: 'center'
-      });
-    }
-  }
-
-  function toMmSs(seconds){
-    let mm = Math.floor(seconds / 60);
-    let ss = parseInt(seconds - mm * 60);
-    return `${mm.toString().padStart(2,'0')}:${ss.toString().padStart(2,'0')}`
-  }
-
-  function updateTableHighlighting(currentTime){
-    $('.tag-cell').removeClass('highlighted-cell');
-    let highlightRow = $('.tag-row').filter(function(){
-      return $(this).data('start-time') <= currentTime && $(this).data('end-time') >= currentTime
-    })
-    if(!autoScrollDisabled){
-      highlightRow.find('td').addClass('highlighted-cell');
-    }
   }
 
   function skipToTime(newTime, updatePlayer = true){
@@ -132,6 +85,58 @@ if(document.querySelector('#play-pause-button')) {
       progressBar.css({width: timelinePosition.left + eventX - 10});
     }
     $(audioElement).prop('currentTime', newTime);
+  }
+
+  // Row filtering, time disaplay, row highlighting
+  /////////////////////////////////////////////////////////////////////////////////////////////////
+  function handleFilterClick(filterButton){
+    $(filterButton).toggleClass('filter-on');
+    $(filterButton).find('.check-glyph').toggleClass('hidden');
+    let tagTypeIdsShown = [];
+    $('.filter-button').each(function(){
+      if($(this).hasClass('filter-on')){
+        tagTypeIdsShown.push($(this).data('tag-type-id') )
+      }
+    })
+    if(tagTypeIdsShown.length){
+      $('.tag-row').each(function (){
+        let rowTagTypeIds = $(this).data('tag-type-ids');
+        if($.arrayIntersect(rowTagTypeIds, tagTypeIdsShown).length){
+          $(this).show();
+        } else {
+          $(this).hide();
+        }
+      })
+    } else {
+      $('.tag-row').show();
+    }
+  }
+
+  function toMmSs(seconds){
+    let mm = Math.floor(seconds / 60);
+    let ss = parseInt(seconds - mm * 60);
+    return `${mm.toString().padStart(2,'0')}:${ss.toString().padStart(2,'0')}`
+  }
+
+  function scrollTable() {
+    let highlightedCells = document.querySelector('.highlighted-cell')
+    if(highlightedCells && !autoScrollDisabled){
+        highlightedCells.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+      });
+    }
+  }
+
+  function updateTableHighlighting(currentTime){
+    log('here');
+    $('.tag-cell').removeClass('highlighted-cell');
+    let highlightRow = $('.tag-row').filter(function(){
+      return $(this).data('start-time') <= currentTime && $(this).data('end-time') >= currentTime
+    })
+    if(!autoScrollDisabled){
+      highlightRow.find('td').addClass('highlighted-cell');
+    }
   }
 
   // Timeline clicks and drags
@@ -187,7 +192,7 @@ if(document.querySelector('#play-pause-button')) {
     $('#mute-glyph, #unmute-glyph, #mute-label, #unmute-label').toggleClass('hidden');
   })
   
-  // Tag Table
+  // Tag Table listeners
   /////////////////////////////////////////////////////////////////////////////////////////////////
   $('.click-to-seek').click(function(){
     skipToTime($(this).data('start-time'))
@@ -201,7 +206,7 @@ if(document.querySelector('#play-pause-button')) {
     autoScrollDisabled = false;
   })
 
-  // Sidebar
+  // Sidebar listeneers
   /////////////////////////////////////////////////////////////////////////////////////////////////
   $('.filter-button').click(function(){
     handleFilterClick(this);
