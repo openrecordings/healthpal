@@ -22,6 +22,7 @@ class PlayController < ApplicationController
   ################################################################################################
   def play
     @recording = Recording.find_by(id: params[:id])
+    @title = "Recorded by #{@recording.user.full_name} on #{@recording.created_at.strftime('%A, %B %-d, %Y')}"
     if(@recording && current_user.can_access(@recording))
       @utterances = prepare_utterances(@recording)
       tmp_file_path = "#{Rails.root}/app/assets/audios/"

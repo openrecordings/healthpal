@@ -7,9 +7,10 @@
 #play-view.invisible
 
   #head
-    - title = format_date @recording.created_at
-    - title += " Visit with #{@recording.provider}" if @recording.provider
-    %h3= @recording.user.full_name
+    #header-container
+      #title= @title
+      #provider provider
+      #notes notes
 
   #player
     #controls-container

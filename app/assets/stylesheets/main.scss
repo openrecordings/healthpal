@@ -1,8 +1,10 @@
 body {
   visibility: invisible;
   margin: 0;
+  padding: 0;
   font-family: 'Lato', sans-serif;
   font-size: 20px;
+  color: #333;
   background-color: $well-background;
 }
 
@@ -13,7 +15,7 @@ body {
   grid-template-areas: 'navbar'
                        'menubar' 
                        'content';
-  grid-template-rows: #{$navbar-height $menubar-height} 400px;
+  grid-template-rows: #{$navbar-height $menubar-height} 1fr;
 
   #grid-navbar{
     display: grid;
@@ -32,7 +34,7 @@ body {
   #grid-content{
     display: grid;
     grid-area: content;
-    padding: 20px;
+    padding: 0 20px 0 20px;
   }
 }
 
