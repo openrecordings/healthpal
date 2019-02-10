@@ -9,8 +9,8 @@
   #head
     #header-container
       #title= @title
-      #provider provider
-      #notes notes
+      #provider= render 'user_fields/user_field', user_field: @provider 
+      #note= render 'user_fields/user_field', user_field: @recording_note
 
   #player
     #controls-container
