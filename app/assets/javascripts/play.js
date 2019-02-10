@@ -208,6 +208,9 @@ if(document.querySelector('#play-pause-button')) {
   })
 
   $('#show-all-topics').click(function(){
+    $('.tag-row').show();
+    $('.check-glyph').addClass('hidden');
+
   })
 
   // Onload

@@ -22,7 +22,8 @@
   overflow: scroll;
   border-collapse: collapse;
   position: relative;
-  text-indent: 5px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
   table {
     width: 100%;
     position: relative;
@@ -40,8 +41,6 @@
       padding-left: 15px;
       padding-top: 10px;
       padding-bottom: 10px;
-    }
-    #header-row{
     }
   }
   .highlighted-cell{
