@@ -52,3 +52,21 @@ body {
 .zero-width{
   width: 0;
 }
+
+.svg{
+  width: inherit;
+  height: inherit;
+  height: 30px;
+  width: 30px;
+}
+
+.small-svg{
+  width: inherit;
+  height: inherit;
+  height: 20px;
+  width: 20px;
+}
+
+.sv-_path{
+  fill: #fff;
+}
