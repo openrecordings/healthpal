@@ -85,8 +85,6 @@
   }
 }
 
-
-
 // Tag table
 //////////////////////////////////////////////////////////////////////////////////////////////////
 #tag-table {
@@ -143,6 +141,7 @@
     border-radius: 3px;
     font-size: 18px;
     color: $color-link-text;
+    text-decoration: none;
     background-color: $background-light;
     &:hover{
       cursor: pointer;

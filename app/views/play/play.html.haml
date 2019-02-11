@@ -98,9 +98,9 @@
               %td.tag-cell.click-to-seek{'data-start-time': utterance.begins_at}
                 - utterance.tmp_tag_types.each do |tag_type|
                   .tag{class: "filter-#{tag_type.id}"}= tag_type.label
-              %td.tag-cell{'data-start-time': utterance.begins_at}
+              %td{'data-start-time': utterance.begins_at}
                 - utterance.links.each do |link|
-                  %span.link{href: link.url}= link.label
+                  %a.link{href: link.url}= link.label
           - else
             %tr.hidden
               %th.zero-width
