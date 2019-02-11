@@ -18,9 +18,17 @@ $(document).click(function(event){
 
 $('.save').click(function(event){
   hideSaveCancel();
-})
+  let userField = $(event.target).parent().parent().find('.user-field-content:first');
+  let recordingId = $(userField).data('recording-id');
+  let type = $(userField).data('type');
+  log(userField);
+  log(recordingId);
+  log(type);
+	 // $.post('/user_fields', {id: }
+   // });
+});
 
 // TODO: Put original text back
 $('.cancel').click(function(event){
   hideSaveCancel();
-})
+});

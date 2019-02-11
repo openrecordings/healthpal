@@ -25,7 +25,7 @@ class PlayController < ApplicationController
     @title = "#{@recording.user.full_name}, #{@recording.created_at.strftime('%m/%-d/%-y')}"
     @provider = UserField.find_by(user: current_user, type: :provider) || UserField.new(user: current_user, type: :provider, text_area: false)
     @provider.text = 'Dr. Foo'
-    @recording_note = UserField.find_by(user: current_user, type: :recording_note) || UserField.new(user: current_user, type: :recording_note , text_area: false)
+    @note = UserField.find_by(user: current_user, type: :note) || UserField.new(user: current_user, type: :note , text_area: false)
     if(@recording && current_user.can_access(@recording))
       @utterances = prepare_utterances(@recording)
       tmp_file_path = "#{Rails.root}/app/assets/audios/"
