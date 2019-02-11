@@ -3,7 +3,6 @@ class UserFieldsController < ApplicationController
   def new
   end
 
-  #  AJAX endpoint for creating OR updating a UserField
   def create
   end
 

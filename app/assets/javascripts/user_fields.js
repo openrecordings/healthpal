@@ -21,11 +21,11 @@ $('.save').click(function(event){
   let userField = $(event.target).parent().parent().find('.user-field-content:first');
   let recordingId = $(userField).data('recording-id');
   let type = $(userField).data('type');
-  log(userField);
-  log(recordingId);
-  log(type);
-	 // $.post('/user_fields', {id: }
-   // });
+
+	$.post('user_field', {recording_id: recordingId, type: type}, function(data){
+    log(data);
+  })
+
 });
 
 // TODO: Put original text back

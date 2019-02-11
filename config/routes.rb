@@ -11,17 +11,10 @@ Rails.application.routes.draw do
   end
   resources :transcripts
   resources :tags
-  resources :user_fields
 
   resources :utterances do
     get 'set_tag/:name',             to: 'utterances#set_tag', :val => true
     get 'unset_tag/:name',           to: 'utterances#set_tag', :val => false
-  end
-
-  resources :user_fields_recording do
-    collection do
-      put 'update'
-    end
   end
 
   # Admin
@@ -46,8 +39,10 @@ Rails.application.routes.draw do
   get 'my_recordings',               to: 'play#index',                       as: 'my_recordings'
   get 'play/:id',                    to: 'play#play',                        as: 'play'
   get 'play/rm_tmp_file/:id',        to: 'play#rm_tmp_file'
+  post 'play/user_field',                 to: 'play#user_field'
 
   # Sharing
   resources :shares, controller: :share
-  get 'no_shares',                   to: 'share#no_shares',                   as: 'no_shares'
+  get 'no_shares',                   to: 'share#no_shares',                  as: 'no_shares'
+
 end
