@@ -1,5 +1,5 @@
 %h3= "Upload transcript for #{@recording.user.email}, recorded #{format_date_time @recording.created_at}"
-= bootstrap_form_for @transcript, url: recording_transcripts_path do |f|
+= form_for @transcript, url: recording_transcripts_path do |f|
   = f.hidden_field :source
   = f.file_field :file, label: 'Currently only .rtf and .txt files from Acusis are supported'
   = f.submit 'Create Transcript Now', class: 'btn btn-primary'

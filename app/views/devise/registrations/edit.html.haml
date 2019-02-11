@@ -1,7 +1,7 @@
 = devise_error_messages!
 .ic3d_small_form
   %h3 Edit Login Information
-  = bootstrap_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+  = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
     .field
       = f.password_field :current_password, autofocus: true, autocomplete: "off", size: 30, placeholder: 'Current password (required)'
     .field

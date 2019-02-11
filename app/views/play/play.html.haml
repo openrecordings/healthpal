@@ -5,7 +5,6 @@
     'data-recording-id': @recording.id,
     controls: false)
 
-
   #head
     #header-container
       #title= @title
@@ -14,8 +13,7 @@
           Provider
           .save.hidden Save
           .cancel.hidden Cancel
-        %textarea#provider-content.user-field-content{'data-field': 'provider','data-recording-id': @recording.id}
-          = @provider.text
+        %input#provider-content.user-field-content{'data-field': 'provider','data-recording-id': @recording.id, value: @provider.text}
       #note
         #note-label.user-field-label
           Notes
@@ -24,12 +22,7 @@
         %textarea#note-content.user-field-content.text-area{'data-field': 'note', 'data-recording-id': @recording.id}
           = @recording_note.text
       #search
-        #search-label.user-field-label
-          Search visit transcript
-          .save.hidden Save
-          .cancel.hidden Cancel
-        %textarea#search-content.user-field-content.text-area{'data-field': 'note', 'data-recording-id': @recording.id}
-          = @recording_note.text
+        %input#search-input.user-field-content
 
   #player
     #controls-container
@@ -103,7 +96,7 @@
               %td.tag-cell.click-to-seek{'data-start-time': utterance.begins_at}
                 - utterance.tmp_tag_types.each do |tag_type|
                   .tag{class: "filter-#{tag_type.id}"}= tag_type.label
-              %td.tag-cell.click-to-seek{'data-start-time': utterance.begins_at}
+              %td.tag-cell{'data-start-time': utterance.begins_at}
                 - utterance.links.each do |link|
                   %span.link{href: link.url}= link.label
           - else

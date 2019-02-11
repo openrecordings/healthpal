@@ -2,7 +2,7 @@ function hideSaveCancel(){
   $('.save, .cancel').hide();
 }
 
-$('textarea').click(function(event){
+$('.user-field-content').click(function(event){
   let contentField = event.target;
   let saveLink = $(contentField).parent().find('.save');
   let cancelLink = $(contentField).parent().find('.cancel');
@@ -24,4 +24,3 @@ $('.save').click(function(event){
 $('.cancel').click(function(event){
   hideSaveCancel();
 })
-
