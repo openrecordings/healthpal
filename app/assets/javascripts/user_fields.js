@@ -1,2 +1,4 @@
-$('.user-field-label').click(function(event){
+$('textarea').click(function(event){
+  let contentField = event.target;
+  let saveLink = $(contentField).parent().find('.save');
 })

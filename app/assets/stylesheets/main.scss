@@ -1,5 +1,10 @@
+html{
+  max-height: 100vh;
+}
+
 body {
   visibility: invisible;
+  max-height: 100vh;
   margin: 0;
   padding: 0;
   font-family: 'Lato', sans-serif;
@@ -10,8 +15,6 @@ body {
 
 #page-container{
   display: grid;
-  width: 100vw;
-  height: 100vh;
   grid-template-areas: 'navbar'
                        'menubar' 
                        'content';

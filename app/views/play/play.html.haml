@@ -10,21 +10,19 @@
     #header-container
       #title= @title
       #provider
-        - if @provider.text
-        - else
-          #provider-label.user-field-label
-            Provider
-            #provider-save.hidden Save
-            #provider-cancel.hidden Cancel
-          %textarea#provider.user-field-content{'data-recording-id': @recording.id}
+        #provider-label.user-field-label
+          Provider
+          .save.hidden Save
+          .cancel.hidden Cancel
+        %textarea#provider.user-field-content{'data-field': 'provider','data-recording-id': @recording.id}
+          = @provider.text
       #note
-        - if @recording_note.text
-        - else
-          #note-label.user-field-label
-            Notes
-            #note-save.hidden Save
-            #note-cancel.hidden Cancel
-          %textarea.user-field-content.text-area{'data-recording-id': @recording.id}
+        #note-label.user-field-label
+          Notes
+          .save.hidden Save
+          .cancel.hidden Cancel
+        %textarea.user-field-content.text-area{'data-field': 'note', 'data-recording-id': @recording.id}
+          = @recording_note.text
 
   #player
     #controls-container
