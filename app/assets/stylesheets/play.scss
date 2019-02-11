@@ -3,10 +3,10 @@
 #play-view {
   display: grid;
   grid-template-areas: 'head head'
-                       'table sidebar'
-                       'player sidebar';
+                       'player sidebar'
+                       'table sidebar';
   grid-template-columns: 3fr 1fr;
-  grid-template-rows: 130px 500px 150px;
+  grid-template-rows: 130px 150px 500px;
 }
 
 // Info, provider, notes, search
@@ -91,8 +91,8 @@
   grid-area: table;  
   overflow: scroll;
   border-collapse: collapse;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
   table {
     width: 100%;
     border-collapse: collapse;
@@ -138,11 +138,9 @@
   .link{
     z-index: 10;
     padding: 8px;
-    border-radius: 3px;
     font-size: 18px;
-    color: $color-link-text;
-    text-decoration: none;
-    background-color: $background-light;
+    color: $background-dark;
+    text-decoration: underline;
     &:hover{
       cursor: pointer;
       color: #fff;
@@ -156,8 +154,8 @@
 #player {
   grid-area: player;
   background-color: $background-dark;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
   #controls-container{
     display: grid;
     grid-template-areas: 'timeline'

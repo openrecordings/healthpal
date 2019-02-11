@@ -12,6 +12,17 @@ if(document.querySelector('#play-pause-button')) {
     $('.tag-row:visible:even').addClass('even-row');
   }
 
+  function togglePlayPause(){
+    let audioElement = document.getElementById('audio-element');
+    if (audioElement.paused) {
+       audioElement.play();
+    }   
+    else {
+       audioElement.pause();
+    }
+    $('#play-glyph, #pause-glyph, #play-label, #pause-label').toggleClass('hidden');
+  }
+
   // Playback control
   /////////////////////////////////////////////////////////////////////////////////////////////////
   function loadAudio(){
@@ -138,7 +149,12 @@ if(document.querySelector('#play-pause-button')) {
   // Tag Table listeners
   /////////////////////////////////////////////////////////////////////////////////////////////////
   $('.click-to-seek').click(function(){
+    let audioElement = document.getElementById('audio-element');
     skipToTime($(this).data('start-time'))
+    if(audioElement.paused){
+      $('#play-glyph, #pause-glyph, #play-label, #pause-label').toggleClass('hidden');
+    }
+    audioElement.play();
   })
 
   $('#tag-table').mouseover(function(){
@@ -174,14 +190,7 @@ if(document.querySelector('#play-pause-button')) {
   })
 
   $('#play-pause-button').click(function(){
-    let audioElement = document.getElementById('audio-element');
-    if (audioElement.paused) {
-       audioElement.play();
-    }   
-    else {
-       audioElement.pause();
-    }
-    $('#play-glyph, #pause-glyph, #play-label, #pause-label').toggleClass('hidden');
+    togglePlayPause();
   })
 
   $('#forward-button').click(function(){
