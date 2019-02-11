@@ -13,12 +13,12 @@
         - if @provider.text
         - else
           #provider-label.user-field-label Provider
-          %input#provider.user-field-content{'data-recording-id': @recording.id}
+          %textarea#provider.user-field-content{'data-recording-id': @recording.id}
       #note
         - if @recording_note.text
         - else
           #note-label.user-field-label Notes
-          %input.user-field-content.text-area{'data-recording-id': @recording.id}
+          %textarea.user-field-content.text-area{'data-recording-id': @recording.id}
 
   #player
     #controls-container
