@@ -3,6 +3,7 @@ if(document.querySelector('#play-pause-button')) {
   let autoScrollDisabled = false;
 
   function showPage(){
+    let audioElement = document.getElementById('audio-element');
     $('#play-view').removeClass('invisible');
   }
 
@@ -214,9 +215,12 @@ if(document.querySelector('#play-pause-button')) {
   // Onload
   /////////////////////////////////////////////////////////////////////////////////////////////////
   $(document).ready(function() {
-    stripeTable();
     loadAudio();
+    stripeTable();
     playerListener();
-    showPage();
+    let audioElement = document.getElementById('audio-element');
+    audioElement.oncanplaythrough = function(){
+      showPage();
+    }
   });
 }
