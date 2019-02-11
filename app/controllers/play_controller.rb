@@ -24,7 +24,6 @@ class PlayController < ApplicationController
     @recording = Recording.find_by(id: params[:id])
     @title = "#{@recording.user.full_name}, #{@recording.created_at.strftime('%m/%-d/%-y')}"
     @provider = UserField.find_by(user: current_user, type: :provider) || UserField.new(user: current_user, type: :provider, text_area: false)
-    @provider.text = 'Dr. Foo'
     @note = UserField.find_by(user: current_user, type: :note) || UserField.new(user: current_user, type: :note , text_area: false)
     if(@recording && current_user.can_access(@recording))
       @utterances = prepare_utterances(@recording)
