@@ -9,7 +9,7 @@
                        'player sidebar';
   grid-template-columns: 3fr 1fr;
   // TODO: Fix the table height bug
-  grid-template-rows: 80px 1fr 150px;
+  grid-template-rows: 100px 1fr 150px;
 }
 
 #head {
@@ -18,24 +18,45 @@
     // background-color: #ddd;
     display: flex;
     flex-direction: row;
-    align-items: center;
-    justify-items: left;
-    height: 80px;
+    height: 100px;
+    padding-top: 13px;
     #title{
-      // background-color: #ffd;
       display: flex;
+      align-items: flex-start;
+      margin-bottom: 13px;
     }
     #provider{
-      // background-color: #ffd;
       display: flex;
-      padding-left: 30px;
-    }
+      align-items: flex-start;
+      justify-content: end;
+      padding-left: 60px;
+      margin-bottom: 13px;
+      }
     #note{
-      // background-color: #ffd;
       display: flex;
+      align-items: flex-start;
       padding-left: 30px;
+      margin-bottom: 13px;
     }
   }
+}
+
+.user-field-label{
+}
+
+.user-field-content{
+  background-color: #fff;
+  height: 70px;
+  width: 200px;
+  margin-left: 8px;
+  border-radius: 3px;
+  border: 1px solid $background-light;
+  font-size: 18px;
+  padding-left: 5px
+}
+
+.text-area{
+  width: 400px;
 }
 
 #player {

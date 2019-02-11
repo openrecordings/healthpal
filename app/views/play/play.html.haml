@@ -9,8 +9,16 @@
   #head
     #header-container
       #title= @title
-      #provider= render 'user_fields/user_field', user_field: @provider, label: 'Click to add provider for this visit' 
-      #note= render 'user_fields/user_field', user_field: @recording_note, label: 'Click to add notes for this visit'
+      #provider
+        - if @provider.text
+        - else
+          #provider-label.user-field-label Provider
+          %input#provider.user-field-content{'data-recording-id': @recording.id}
+      #note
+        - if @recording_note.text
+        - else
+          #note-label.user-field-label Notes
+          %input.user-field-content.text-area{'data-recording-id': @recording.id}
 
   #player
     #controls-container

@@ -1,4 +1,6 @@
-- unless user_field.text
-  .user_field_label= label
-  .user_field_content.hidden foo
-  -# = user_field.text
+.user-field-container
+- if user_field.text
+- else
+  .user-field-label= label
+  .user-field-content-container
+    .user-field-content{height: height, width: width, 'data-recording-id': recording.id}
