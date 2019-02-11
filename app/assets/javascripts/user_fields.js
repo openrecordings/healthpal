@@ -27,7 +27,6 @@ $('.save').click(function(event){
   })
 });
 
-// TODO: Put original text back
 $('.cancel').click(function(event){
   hideSaveCancel();
 });
