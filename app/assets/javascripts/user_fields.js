@@ -18,14 +18,13 @@ $(document).click(function(event){
 
 $('.save').click(function(event){
   hideSaveCancel();
-  let userField = $(event.target).parent().parent().find('.user-field-content:first');
+  let userField = $(event.target).closest('.user-field-container').find('.user-field-content:first');
   let recordingId = $(userField).data('recording-id');
   let type = $(userField).data('type');
-
-	$.post('user_field', {recording_id: recordingId, type: type}, function(data){
+  let text = $(userField).val();
+	$.post('user_field', {type: type, text: text}, function(data){
     log(data);
   })
-
 });
 
 // TODO: Put original text back

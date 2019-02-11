@@ -8,13 +8,13 @@
   #head
     #header-container
       #title= @title
-      #provider
+      #provider.user-field-container
         #provider-label.user-field-label
           Provider
           .save.hidden Save
           .cancel.hidden Cancel
         %input#provider-content.user-field-content{'data-recording-id': @recording.id, 'data-type': @provider.type, value: @provider.text}
-      #note
+      #note.user-field-container
         #note-label.user-field-label
           Notes
           .save.hidden Save

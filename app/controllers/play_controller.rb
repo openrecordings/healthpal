@@ -50,8 +50,18 @@ class PlayController < ApplicationController
   ################################################################################################
   ################################################################################################
   
+  # TODO Handle bad params
   def user_field
-    render json: {params: params}
+    type = params['type']
+    text = params['text']
+    existing_field = UserField.find_by(user: current_user, type: type)
+    field = existing_field || UserField.new(user: current_user, type: type)
+    field.text = text
+    if field.save
+      render json: {result: 'success'}
+    else
+      render json: {result: 'nope'}
+    end
   end
 
   private
