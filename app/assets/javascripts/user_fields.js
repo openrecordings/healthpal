@@ -1,3 +1,7 @@
+function hideSaveCancel(){
+  $('.save, .cancel').hide();
+}
+
 $('textarea').click(function(event){
   let contentField = event.target;
   let saveLink = $(contentField).parent().find('.save');
@@ -8,6 +12,16 @@ $('textarea').click(function(event){
 
 $(document).click(function(event){
   if(!$(event.target).closest('.user-field-content').length){
-    $('.save, .cancel').hide();
+    hideSaveCancel();
   }
 });
+
+$('.save').click(function(event){
+  hideSaveCancel();
+})
+
+// TODO: Put original text back
+$('.cancel').click(function(event){
+  hideSaveCancel();
+})
+

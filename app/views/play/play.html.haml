@@ -14,14 +14,21 @@
           Provider
           .save.hidden Save
           .cancel.hidden Cancel
-        %textarea#provider.user-field-content{'data-field': 'provider','data-recording-id': @recording.id}
+        %textarea#provider-content.user-field-content{'data-field': 'provider','data-recording-id': @recording.id}
           = @provider.text
       #note
         #note-label.user-field-label
           Notes
           .save.hidden Save
           .cancel.hidden Cancel
-        %textarea.user-field-content.text-area{'data-field': 'note', 'data-recording-id': @recording.id}
+        %textarea#note-content.user-field-content.text-area{'data-field': 'note', 'data-recording-id': @recording.id}
+          = @recording_note.text
+      #search
+        #search-label.user-field-label
+          Search visit transcript
+          .save.hidden Save
+          .cancel.hidden Cancel
+        %textarea#search-content.user-field-content.text-area{'data-field': 'note', 'data-recording-id': @recording.id}
           = @recording_note.text
 
   #player
