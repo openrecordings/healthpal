@@ -112,7 +112,7 @@
     #filter-container
       #filter-header
         #select-topics
-          Select Topics
+          Filter by Topic
       - TagType.all.each do |tag_type|
         .filter-button{'data-tag-type-id': tag_type.id, class: "filter-#{tag_type.id}" }
           .filter-check
