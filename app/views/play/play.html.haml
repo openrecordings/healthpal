@@ -12,12 +12,18 @@
       #provider
         - if @provider.text
         - else
-          #provider-label.user-field-label Provider
+          #provider-label.user-field-label
+            Provider
+            #provider-save.hidden Save
+            #provider-cancel.hidden Cancel
           %textarea#provider.user-field-content{'data-recording-id': @recording.id}
       #note
         - if @recording_note.text
         - else
-          #note-label.user-field-label Notes
+          #note-label.user-field-label
+            Notes
+            #note-save.hidden Save
+            #note-cancel.hidden Cancel
           %textarea.user-field-content.text-area{'data-recording-id': @recording.id}
 
   #player
