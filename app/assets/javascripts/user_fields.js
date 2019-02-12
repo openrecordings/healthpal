@@ -40,7 +40,7 @@ $('.cancel').click(function(event){
 $('#search-input').keypress(function(event){
   let inputElement = event.target;
   let query = $(inputElement).val() + String.fromCharCode(event.which);
-  log(query);
+  handleQuery(query);
 })
 
 // Delete/backspace key
@@ -48,6 +48,11 @@ $('#search-input').keyup(function(event){
   if(event.which == 8){
     let inputElement = event.target;
     let query = $(inputElement).val()
-    log(query);
+    handleQuery(query);
   }
 })
+
+function handleQuery(query){
+  $('tag-row').each(function(){
+  });
+}
