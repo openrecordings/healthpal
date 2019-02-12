@@ -1,3 +1,5 @@
+// User fields
+///////////////////////////////////////////////////////////////////////////////////////////////////
 function hideSaveCancel(){
   $('.save, .cancel').hide();
 }
@@ -30,3 +32,22 @@ $('.save').click(function(event){
 $('.cancel').click(function(event){
   hideSaveCancel();
 });
+
+// Search
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Alpha-numeric keys
+$('#search-input').keypress(function(event){
+  let inputElement = event.target;
+  let query = $(inputElement).val() + String.fromCharCode(event.which);
+  log(query);
+})
+
+// Delete/backspace key
+$('#search-input').keyup(function(event){
+  if(event.which == 8){
+    let inputElement = event.target;
+    let query = $(inputElement).val()
+    log(query);
+  }
+})
