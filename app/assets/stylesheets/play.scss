@@ -9,6 +9,21 @@
   grid-template-rows: 130px 150px 500px;
 }
 
+// Used in more than one section
+//////////////////////////////////////////////////////////////////////////////////////////////////
+.user-field-content{
+  background-color: #fff;
+  margin-left: 5px;
+  padding: 5px;
+  border-radius: 3px;
+  border: 1px solid $background-light;
+  font-family: 'Lato', sans-serif;
+  font-size: 18px;
+  color: #333;
+  font-size: 16px;
+  word-wrap: break-word;
+}
+
 // Info, provider, notes, 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 #head {
@@ -47,13 +62,6 @@
         height: 55px;
         width: 300px;
       }
-    }
-    #{
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      flex-wrap: wrap;
-      padding: 20px 0 20px 10px;
     }
     .user-field-label{
       padding-top: 8px;
@@ -262,7 +270,18 @@
       align-items: left;
       width: 300px;
     }
-    #search{
+    #search-container{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-items: left;
+      flex-wrap: wrap;
+      padding-left: 10px;
+      height: 90px;
+      width: 300px;
+      #search-input{
+        width: 200px;
+      }
     }
     .filter-button {
       display: flex;
