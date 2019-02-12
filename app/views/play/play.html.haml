@@ -1,10 +1,3 @@
--# Unselected radio button
--# %svg#glyphicons-basic{:viewbox => "0 0 32 32", :xmlns => "http://www.w3.org/2000/svg"}
--#  %path#circle-empty{:d => "M16,5A11,11,0,1,0,27,16,11.01245,11.01245,0,0,0,16,5Zm0,19a8,8,0,1,1,8-8A8.00917,8.00917,0,0,1,16,24Z"}
-
--# Selected radio button
--# %svg#glyphicons-basic{:viewbox => "0 0 32 32", :xmlns => "http://www.w3.org/2000/svg"}
--#  %path#circle-selected{:d => "M16,5A11,11,0,1,0,27,16,11.01245,11.01245,0,0,0,16,5Zm0,19a8,8,0,1,1,8-8A8.00917,8.00917,0,0,1,16,24Zm5-8a5,5,0,1,1-5-5A5,5,0,0,1,21,16Z"}
 
 #play-view.invisible
   = audio_tag(@recording.tmp_file_name,
@@ -115,14 +108,21 @@
               %td.tag-cell.hidden{'data-start-time': utterance.begins_at}
               %td.tag-cell.hidden{'data-start-time': utterance.begins_at}
 
+    -# Unselected radio button
+    -# %svg#glyphicons-basic{:viewbox => "0 0 32 32", :xmlns => "http://www.w3.org/2000/svg"}
+    -#  %path#circle-empty{:d => "M16,5A11,11,0,1,0,27,16,11.01245,11.01245,0,0,0,16,5Zm0,19a8,8,0,1,1,8-8A8.00917,8.00917,0,0,1,16,24Z"}
+
   #sidebar
     #filter-container
       #filter-header
         Filter
       #search-container
-        %span by Text
+        %span.medium_svg
+          -# = show_svg('glyphicons-basic-299-circle-selected.svg')
+          by Text
         %input#search-input.user-field-content
-        %div by Topics
+        %div
+          by Topics
       #filters
         - TagType.all.each do |tag_type|
           .filter-button{'data-tag-type-id': tag_type.id, class: "filter-#{tag_type.id}" }

@@ -34,4 +34,10 @@ module ApplicationHelper
     end
   end
 
+	def show_svg(file)
+		File.open("app/assets/images/#{file}", "rb") do |f|
+			raw f.read
+		end
+	end
+
 end
