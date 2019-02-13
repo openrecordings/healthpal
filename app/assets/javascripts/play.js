@@ -127,7 +127,7 @@ if(document.querySelector('#play-pause-button')) {
   }
 
   function scrollTable() {
-    let highlightedCells = document.querySelector('.highlighted-cell')
+    let highlightedCells = document.querySelector('.highlighted-row')
     if(highlightedCells && !autoScrollDisabled){
         highlightedCells.scrollIntoView({
         behavior: 'smooth',
@@ -137,11 +137,11 @@ if(document.querySelector('#play-pause-button')) {
   }
 
   function updateTableHighlighting(currentTime){
-    $('.tag-cell').removeClass('highlighted-cell');
+    $('.tag-row').children().removeClass('highlighted-row');
     let highlightRow = $('.tag-row').filter(function(){
       return $(this).data('start-time') <= currentTime && $(this).data('end-time') >= currentTime
     })
-    highlightRow.find('td').addClass('highlighted-cell');
+    highlightRow.children().addClass('highlighted-row');
   }
   
   // Tag Table listeners
