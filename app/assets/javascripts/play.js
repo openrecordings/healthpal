@@ -118,6 +118,11 @@ if(document.querySelector('#play-pause-button')) {
     } else {
       $('.tag-row').show();
     }
+    if($('.tag-row').not(':hidden').length){
+      $('#empty-result-message').show();
+    } else {
+      $('#empty-result-message').hide();
+    }
   }
 
   function toMmSs(seconds){

@@ -104,6 +104,13 @@
   border-collapse: collapse;
   border-bottom-left-radius: 3px;
   border-bottom-right-radius: 3px;
+  #empty-result-message{
+    background-color: green;
+    margin: 0 auto;
+    padding-top: 300px;
+    height: 50px;
+    width: 800px;
+  } 
   table {
     width: 100%;
     border-collapse: collapse;
@@ -299,7 +306,7 @@
       width: 300px;
       #search-input{
         display: flex;
-        width: 190px;
+        width: 215px;
       }
     }
     #filter-by-topics{
