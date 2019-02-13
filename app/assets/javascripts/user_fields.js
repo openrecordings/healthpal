@@ -34,6 +34,17 @@ $('.cancel').click(function(event){
 // Search
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
+function handleQuery(query){
+  $('.tag-row').each(function(){
+    let rowText = $(this).data('text');
+    if(!rowText.includes(query)){
+      $(this).hide();
+    } else {
+      $(this).show
+    }
+  });
+}
+
 // Alpha-numeric keys
 $('#search-input').keypress(function(event){
   let inputElement = event.target;
@@ -49,16 +60,3 @@ $('#search-input').keyup(function(event){
     handleQuery(query);
   }
 })
-
-function handleQuery(query){
-  $('tag-row').each(function(){
-    let rowText = $(this).data('text');
-    if(!rowText.includes(query)){
-      lot('query not found');
-      $(this).hide();
-    } else {
-      lot('query found');
-      $(this).show
-    }
-  });
-}
