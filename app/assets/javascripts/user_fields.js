@@ -24,9 +24,7 @@ $('.save').click(function(event){
   let recordingId = $(userField).data('recording-id');
   let type = $(userField).data('type');
   let text = $(userField).val();
-	$.post('user_field', {type: type, text: text}, function(data){
-    log(data);
-  })
+	$.post('user_field', {type: type, text: text})
 });
 
 $('.cancel').click(function(event){
@@ -54,5 +52,13 @@ $('#search-input').keyup(function(event){
 
 function handleQuery(query){
   $('tag-row').each(function(){
+    let rowText = $(this).data('text');
+    if(!rowText.includes(query)){
+      lot('query not found');
+      $(this).hide();
+    } else {
+      lot('query found');
+      $(this).show
+    }
   });
 }
