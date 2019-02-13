@@ -104,13 +104,6 @@
   border-collapse: collapse;
   border-bottom-left-radius: 3px;
   border-bottom-right-radius: 3px;
-  #empty-result-message{
-    background-color: green;
-    margin: 0 auto;
-    padding-top: 300px;
-    height: 50px;
-    width: 800px;
-  } 
   table {
     width: 100%;
     border-collapse: collapse;
@@ -127,6 +120,13 @@
       padding-left: 15px;
       padding-top: 10px;
       padding-bottom: 10px;
+    }
+    tr#empty-result-message{
+      td{
+        padding-top: 50px;
+        font-size: 24px;
+        color: $background-dark;
+      }
     }
   }
   .highlighted-row{
@@ -306,7 +306,7 @@
       width: 300px;
       #search-input{
         display: flex;
-        width: 215px;
+        width: 190px;
       }
     }
     #filter-by-topics{
@@ -327,7 +327,7 @@
       justify-items: left;
       align-items: center;
       width: 300px;
-      height: 40px;
+      height: 50px;
       margin-bottom: 10px;
       padding-left: 10px;
       border-radius: 3px;

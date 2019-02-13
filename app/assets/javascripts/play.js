@@ -119,9 +119,9 @@ if(document.querySelector('#play-pause-button')) {
       $('.tag-row').show();
     }
     if($('.tag-row').not(':hidden').length){
-      $('#empty-result-message').show();
-    } else {
       $('#empty-result-message').hide();
+    } else {
+      $('#empty-result-message').show();
     }
   }
 
