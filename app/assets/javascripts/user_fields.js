@@ -33,14 +33,14 @@ $('.cancel').click(function(event){
 
 // Search
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-
 function handleQuery(query){
   $('.tag-row').each(function(){
     let rowText = $(this).data('text');
-    if(!rowText.includes(query)){
+    log(query);
+    if(!(rowText.includes(query))){
       $(this).hide();
     } else {
-      $(this).show
+      $(this).show();
     }
   });
 }
