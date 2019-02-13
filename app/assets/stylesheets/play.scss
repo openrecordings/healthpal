@@ -24,6 +24,13 @@
   word-wrap: break-word;
 }
 
+.no-input{
+  margin-left: 0;
+  border: none;
+  background: none;
+  font-size: 18px;
+}
+
 // Info, provider, notes, 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 #head {
@@ -95,8 +102,8 @@
   grid-area: table;  
   overflow: scroll;
   border-collapse: collapse;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
   table {
     width: 100%;
     border-collapse: collapse;
@@ -157,8 +164,8 @@
 #player {
   grid-area: player;
   background-color: $background-dark;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
   #controls-container{
     display: grid;
     grid-template-areas: 'timeline'
@@ -254,21 +261,31 @@
   }
 }
 
-// Filters
+// Sidebar
 //////////////////////////////////////////////////////////////////////////////////////////////////
 #sidebar {
-  background-color: $well-background;
+  // background-color: $well-background;
   grid-area: sidebar;  
   #filter-container{
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-items: center;
+    width: 340px;
+    padding-bottom: 10px;
+    margin: 0 auto;
+    border: 1px solid $background-very-light;
+    border-radius: 3px;
     #filter-header{
       display: flex;
       flex-direction: column;
-      align-items: left;
-      width: 300px;
+      align-self: left;
+      width: 322px;
+      padding: 10px;
+      margin-top: -1px;
+      background-color: $background-dark;
+      font-size: 24px;
+      color: #fff;
+      border-radius: 3px;
     }
     #search-container{
       display: flex;
@@ -276,16 +293,26 @@
       align-items: center;
       justify-items: left;
       flex-wrap: wrap;
+      padding-top: 5px;
       padding-left: 10px;
-      height: 90px;
+      height: 70px;
       width: 300px;
       #search-input{
-        width: 200px;
+        display: flex;
+        width: 190px;
       }
-      .medium-svg{
-        height: 25px;
-        width: 25px;
-      }
+    }
+    #filter-by-topics{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-items: left;
+      flex-wrap: wrap;
+      padding-left: 10px;
+      width: 300px;
+      #topics-button-label{
+        display: flex;
+      } 
     }
     .filter-button {
       display: flex;
@@ -322,10 +349,10 @@
   #show-all-topics{
     display: flex;
     justify-content: center;
-    width: 300px;
+    width: 200px;
+    height: 30px;
     padding-left: 10px;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding-top: 14px;
     border-radius: 3px;
     border-radius: 3px;
     font-size: 18px;
