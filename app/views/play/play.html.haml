@@ -127,7 +127,7 @@
           by Topics
 
       #filters
-        - TagType.all.each do |tag_type|
+        - TagType.all.order(:label).each do |tag_type|
           .filter-button{'data-tag-type-id': tag_type.id, class: "filter-#{tag_type.id}" }
             .filter-check
               %svg.check-glyph.svg.hidden{:viewbox => "0 0 32 32", :xmlns => "http://www.w3.org/2000/svg"}
