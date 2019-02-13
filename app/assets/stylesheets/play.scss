@@ -123,7 +123,7 @@
     }
   }
   .highlighted-cell{
-    background-color: $light-highlight;
+    border: 2px solid $light-highlight;
   };
   .even-row{
     background-color: $table-row-dark

@@ -141,9 +141,7 @@ if(document.querySelector('#play-pause-button')) {
     let highlightRow = $('.tag-row').filter(function(){
       return $(this).data('start-time') <= currentTime && $(this).data('end-time') >= currentTime
     })
-    if(!autoScrollDisabled){
-      highlightRow.find('td').addClass('highlighted-cell');
-    }
+    highlightRow.find('td').addClass('highlighted-cell');
   }
   
   // Tag Table listeners
