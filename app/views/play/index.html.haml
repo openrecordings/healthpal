@@ -18,31 +18,8 @@
                       %thead
                         %tr
                           %th Visit Date
-                          %th Provider
-
-                          -# TODO Re-enable duration when it's fixed
-                            %th Duration
 
                       %tbody
                         - u.recordings.order('created_at desc').each do |recording|
                           %tr.trecording-select
                             %td.recording-select{data: {href: play_path(recording.id)}}= link_to format_date(recording.created_at), play_path(recording.id)
-                            %td
-                              - unless recording.provider&.first.present?
-                                .editable-badge
-                                  %span.glyphicon.glyphicon-plus
-                                  Add a provider for this visit
-                              .editable-header Provider for this visit.
-                              .editable-container
-                                = best_in_place(recording,
-                                  :provider,
-                                  as: :textarea,
-                                  place_holder: nil,
-                                  ok_button: 'Save',
-                                  ok_button_class: 'btn btn-primary small-button',
-                                  cancel_button: 'Cancel',
-                                  cancel_button_class: 'btn btn-info small-button',
-                                  )
-
-                            -# TODO Renable duration when it's fixed
-                              %td.recording-select{data: {href: play_path(recording.id)}}= 'foo'
