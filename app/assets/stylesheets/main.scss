@@ -18,7 +18,7 @@ body {
   grid-template-areas: 'navbar'
                        'menubar' 
                        'content';
-  grid-template-rows: #{$navbar-height $menubar-height} 1fr;
+  grid-template-rows: #{$navbar-height $menubar-height} calc(100vh - #{$navbar-height + $menubar-height});
 
   #grid-navbar{
     display: grid;
@@ -68,3 +68,4 @@ body {
     fill: $background-light;
   }
 }
+
