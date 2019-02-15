@@ -49,6 +49,12 @@ body {
   visibility: invisible;
 }
 
+.full-center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .svg{
   height: 30px;
   width: 30px;

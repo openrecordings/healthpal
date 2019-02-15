@@ -1,8 +1,10 @@
 #login-container
   = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
     .form-field-container
+      .form-label Email
       = f.email_field :email, autofocus: true, class: 'form-input'
-    .form-field-containter
-      = f.password_field :password, autocomplete: "off", class: 'form-input'
     .form-field-container
-      = f.submit "Log in", class: 'btn btn-primary'
+      .form-label Password
+      = f.password_field :password, autocomplete: "off", class: 'form-input'
+    .form-field-container.full-center
+      = f.submit "Log in", class: 'submit-button'
