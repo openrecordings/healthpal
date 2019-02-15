@@ -1,3 +1,3 @@
-$('.tabs'){
-  active: 1
-}
+$('#recording-tabs').tabs({
+  active: 0
+});
