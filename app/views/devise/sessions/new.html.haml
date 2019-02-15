@@ -1,10 +1,8 @@
 #login-container
-  %h2 Log in
   = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-    .field
-      = f.email_field :email, autofocus: true
-    .field
-      = f.password_field :password, autocomplete: "off"
-    .actions
+    .form-field-container
+      = f.email_field :email, autofocus: true, class: 'form-input'
+    .form-field-containter
+      = f.password_field :password, autocomplete: "off", class: 'form-input'
+    .form-field-container
       = f.submit "Log in", class: 'btn btn-primary'
-  = render "devise/shared/links"

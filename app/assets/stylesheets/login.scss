@@ -4,3 +4,16 @@
   align-items: center;
   height: 300px;
 }
+
+.form-field-container{
+  margin-bottom: 15px;
+}
+
+.form-input{
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 3px;
+  border: 1px solid $background-light;
+  color: #333;
+  font-size: 18px;
+}
