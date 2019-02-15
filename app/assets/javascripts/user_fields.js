@@ -37,7 +37,7 @@ if(document.querySelector('.user-field-content')){
   ///////////////////////////////////////////////////////////////////////////////////////////////////
   function handleQuery(query){
     $('.tag-row').each(function(){
-      let rowText = $(this).data('text');
+      let rowText = $(this).data('text').toLowerCase();
       if(!(rowText.includes(query))){
         $(this).hide();
       } else {
@@ -49,7 +49,7 @@ if(document.querySelector('.user-field-content')){
   // Alpha-numeric keys
   $('#search-input').keypress(function(event){
     let inputElement = event.target;
-    let query = $(inputElement).val() + String.fromCharCode(event.which);
+    let query = $(inputElement).val().toLowerCase(); + String.fromCharCode(event.which).toLowerCase();;
     handleQuery(query);
   })
 

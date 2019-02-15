@@ -66,23 +66,26 @@ class PlayController < ApplicationController
   private
 
   def prepare_utterances(recording)
-    tagged_utterances = recording.utterances.select{|u| u.tags.any? }
-    return [] unless tagged_utterances.any?
     return_utterances = []
     multi_utterance = nil
-    tagged_utterances.each do |utterance|
-      utterance.tmp_tag_types = utterance.tag_types
-      if multi_utterance.nil?
-        multi_utterance = utterance
-      else
-        if utterance.tmp_tag_types == multi_utterance.tmp_tag_types
-          multi_utterance.text += " #{utterance.text}"
-          multi_utterance.ends_at = utterance.ends_at
-          multi_utterance.links += utterance.links
-        else 
-          return_utterances << multi_utterance
-          multi_utterance = nil
+    recording.utterances.order(:index).each do |utterance|
+      if utterance.tags.any?
+        utterance.tmp_tag_types = utterance.tag_types
+        if multi_utterance.nil?
+          multi_utterance = utterance
+        else
+          if utterance.tmp_tag_types == multi_utterance.tmp_tag_types
+            multi_utterance.text += " #{utterance.text}"
+            multi_utterance.ends_at = utterance.ends_at
+            multi_utterance.links += utterance.links
+          else 
+            return_utterances << multi_utterance
+            multi_utterance = utterance
+
+          end
         end
+      else
+        # return_utterances << utterance
       end
     end
     return_utterances
