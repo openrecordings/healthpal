@@ -10,13 +10,6 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery
-//= require best_in_place
-//= require jquery_ujs
-//= require jquery-ui
-//= require best_in_place.jquery-ui
-//= require jquery-tablesorter
-//= require select2
 //= require_tree .
 
 function log(msg){

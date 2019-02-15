@@ -8,7 +8,6 @@ gem 'rspec-rails'
 gem 'figaro'
 gem 'sassc-rails', '>= 2.0.0'
 gem 'font-awesome-rails'
-gem 'jquery-tablesorter'
 gem 'tether-rails'
 gem 'paperclip', '>= 5.2.0'
 gem 'delayed_job_active_record'
@@ -27,8 +26,7 @@ gem 'sprockets', '>= 3.7.2'
 gem 'ffi', '>= 1.9.24'
 gem 'rack', '>= 2.0.6'
 gem 'mini_racer'
-gem 'best_in_place', '~> 3.0.1'
-gem 'webpacker', '~> 3.5'
+ 
 gem 'google-cloud'
 gem 'inline_svg'
 
@@ -47,20 +45,6 @@ gem 'puma', '~> 3.0'
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
- 
-# Use jquery as the JavaScript library
-gem 'jquery-rails'
-gem 'jquery-ui-rails'
-gem 'select2-rails', '~> 4.0', '>= 4.0.3'
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.5'
-# Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 3.0'
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
-
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

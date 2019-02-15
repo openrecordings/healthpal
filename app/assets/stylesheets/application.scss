@@ -1,6 +1,8 @@
 // Libraries
 @import 'font-awesome';
-@import 'jquery-ui';
+@import 'jquery-ui.min';
+@import 'jquery-ui.structure.min';
+@import 'jquery-ui.theme.min';
 
 // Local
 @import 'sass_variables';
@@ -8,7 +10,6 @@
 @import 'navbar';
 @import 'play';
 @import 'share';
-@import 'tabs';
 @import 'css_checkbox_badge';
 @import 'forms';
 
