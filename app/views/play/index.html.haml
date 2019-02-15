@@ -1,25 +1,21 @@
-%h3
-  Recordings
-  .row
-    .col-xs-12
-      .container--tabs
-        %section.row
-          %ul.nav.nav-tabs
-            - @users.each_with_index do |u, i|
-              %li{class: i == 0 ? 'active' : ''}
-                %a{href: "#tabs-#{i}"}
-                  =u.full_name
-          .tab-content
-            - @users.each_with_index do |u, i|
-              %div.tab-pane{id: "tabs-#{i}", class: i == 0 ? 'active' : ''}
-                %p
-                  .panel.panel-default.table-responsive
-                    %table.table.table-striped
-                      %thead
-                        %tr
-                          %th Visit Date
-
-                      %tbody
-                        - u.recordings.order('created_at desc').each do |recording|
-                          %tr.trecording-select
-                            %td.recording-select{data: {href: play_path(recording.id)}}= link_to format_date(recording.created_at), play_path(recording.id)
+%h3 Recordings
+.container--tabs
+  %section.row
+    %ul.nav.nav-tabs
+      - @users.each_with_index do |u, i|
+        %li{class: i == 0 ? 'active' : ''}
+          %a{href: "#tabs-#{i}"}
+            =u.full_name
+    .tab-content
+      - @users.each_with_index do |u, i|
+        %div.tab-pane{id: "tabs-#{i}", class: i == 0 ? 'active' : ''}
+          %p
+            .panel.panel-default.table-responsive
+              %table.table.table-striped
+                %thead
+                  %tr
+                    %th Visit Date
+                %tbody
+                  - u.recordings.order('created_at desc').each do |recording|
+                    %tr.trecording-select
+                      %td.recording-select{data: {href: play_path(recording.id)}}= link_to format_date(recording.created_at), play_path(recording.id)
