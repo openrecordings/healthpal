@@ -1,19 +1,22 @@
 #index-view
-  #tab-row
-    #tab-container
+  #tab-container
+    #tabs
       - @users.each do |user|
-        - if user == @users.first
-          %span.tab.selected{'data-user-id': user.id}
-            = user.full_name
-        -else
-          %span.tab{'data-user-id': user.id}
-            = user.full_name
-  #content-row
-    #content-container
-      - @users.each do |user|
-        - if user == @users.first
-          .content{'data-user-id': user.id}
-            = user.email
-        - else user == @users.first
-          .content.hidden{'data-user-id': user.id}
-            = user.email
+        %span.tab{'data-user-id': user.id, class: ('selected' if user == @users.first)}
+          = user.full_name
+  #content-container
+    - @users.each do |user|
+      .content{'data-user-id': user.id, class: ('hidden' unless user == @users.first)}
+        %table
+          %thead
+            %tr#header-row
+              %th Recording date
+              %th Provider
+              %th Notes
+          %tbody
+            - user.recordings.each do |recording|
+              %tr
+                %td= recording.created_at
+                %td provider
+                %td notes
+
