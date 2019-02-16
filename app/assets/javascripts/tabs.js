@@ -1,3 +1,2 @@
-$('#recording-tabs').tabs({
-  active: 0
-});
+if(document.querySelector('#index-view')) {
+}

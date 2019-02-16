@@ -1,8 +1,11 @@
-#recording-tabs
-  %ul
-    - @users.each do |user|
-      %li
-        %a{href: "tab-#{user.id}"}= user.full_name
-  - @users.each do |user|
-    %div{id: "tab-#{user.id}"}
-      = user.email
+#index-view
+  #tab-row
+    #tab-container
+      - @users.each do |user|
+        %span.tab{'data-user-id': user.id}
+          = user.full_name
+  #content-row
+    #content-container
+      - @users.each do |user|
+        .content{'data-user-id': user.id}
+          = user.email

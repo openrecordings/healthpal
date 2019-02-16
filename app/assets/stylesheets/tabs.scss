@@ -1,0 +1,23 @@
+// Top level grid layout
+//////////////////////////////////////////////////////////////////////////////////////////////////
+#index-view {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 50px;
+  #tab-row{
+    background-color: green;
+    height: 50px;
+    width: 100%;
+    #tab-container{
+      display: flex;
+    }
+  }
+  #content-row{
+    background-color: yellow;
+    height: 100%; 
+    width: 100%;
+  }
+}
+
