@@ -2,7 +2,7 @@
   #tab-row
     #tab-container
       - @users.each do |user|
-        %span.tab{'data-user-id': user.id}
+        %span.tab.selected{'data-user-id': user.id}
           = user.full_name
   #content-row
     #content-container
