@@ -10,13 +10,13 @@
         %table
           %thead
             %tr#header-row
-              %th Recording date
+              %th Recorded at
               %th Provider
               %th Notes
           %tbody
             - user.recordings.each do |recording|
               %tr
-                %td= recording.created_at
+                %td= format_date_time_long(recording.created_at)
                 %td provider
                 %td notes
 

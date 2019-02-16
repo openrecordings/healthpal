@@ -21,7 +21,7 @@ module ApplicationHelper
 
   # Example: Mon, 09 Nov 2009 00:00:00 +0000 => Nov 09, 2009 - 12:00AM
   def format_date_time_long(date_time)
-    date_time.strftime('%b %d, %Y - %I:%M%p') if date_time
+    date_time.strftime("%I:%M %p on %A, %B #{date_time.day.ordinalize}, %Y") if date_time
   end
 
   def mm_ss(seconds, end_seconds = 0)

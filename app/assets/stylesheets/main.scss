@@ -59,6 +59,18 @@ body {
   align-items: center;
 }
 
+.highlighted-row{
+  background-color: $light-highlight;
+};
+
+.even-row{
+  background-color: $table-row-dark
+}
+
+.odd-row{
+  background-color: $table-row-light
+}
+
 .svg{
   height: 30px;
   width: 30px;
