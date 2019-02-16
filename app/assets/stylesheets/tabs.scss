@@ -22,16 +22,22 @@ $tab-height: 50px;
         margin-right: 8px;
         padding-left: 8px;
         padding-right: 8px;
-        background-color: #fff;
+        background-color: $background-light;;
+        color: #ddd;
         border-top: 1px solid $background-light;
         border-right: 1px solid $background-light;
         border-left: 1px solid $background-light;
         border-top-left-radius: 3px;
         border-top-right-radius: 3px;
+        &:hover{
+          cursor: pointer;
+        }
       }
       .selected{
         z-index: 1;
         padding-bottom: 1px;
+        background-color: #fff;
+        color: #333;
       }
     }
   }
