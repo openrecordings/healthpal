@@ -40,6 +40,7 @@ Rails.application.routes.draw do
   get 'play/:id',                    to: 'play#play',                        as: 'play'
   get 'play/rm_tmp_file/:id',        to: 'play#rm_tmp_file'
   post 'play/user_field',            to: 'play#user_field'
+  post 'user_field',            to: 'play#user_field'
 
   # Sharing
   resources :shares, controller: :share

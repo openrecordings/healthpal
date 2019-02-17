@@ -23,8 +23,8 @@ class PlayController < ApplicationController
   def play
     @recording = Recording.find_by(id: params[:id])
     @title = "#{@recording.user.full_name}, #{@recording.created_at.strftime('%-m/%-d/%-y')}"
-    @provider = UserField.find_by(user: current_user, type: :provider) || UserField.new(user: current_user, type: :provider, text_area: false)
-    @note = UserField.find_by(user: current_user, type: :note) || UserField.new(user: current_user, type: :note , text_area: false)
+    @provider = UserField.find_by(recording: @recording, type: :provider) || UserField.new(recording: @recording, type: :provider, text_area: false)
+    @note = UserField.find_by(recording: @recording, type: :note) || UserField.new(recording: @recording, type: :note , text_area: false)
     if(@recording && current_user.can_access(@recording))
       @utterances = prepare_utterances(@recording)
       tmp_file_path = "#{Rails.root}/app/assets/audios/"
@@ -49,12 +49,14 @@ class PlayController < ApplicationController
   ################################################################################################
   ################################################################################################
   
+  # AJAX endpoint for in-place editing of UserFields
   # TODO Handle bad params
   def user_field
+    recording = Recording.find_by(id: params[:id])
     type = params['type']
     text = params['text']
-    existing_field = UserField.find_by(user: current_user, type: type)
-    field = existing_field || UserField.new(user: current_user, type: type)
+    existing_field = UserField.find_by(recording: recording, type: type)
+    field = existing_field || UserField.new(recording: recording, type: type)
     field.text = text
     if field.save
       render json: {result: 'success'}

@@ -26,7 +26,7 @@ if(document.querySelector('.user-field-content')){
     let recordingId = $(userField).data('recording-id');
     let type = $(userField).data('type');
     let text = $(userField).val();
-    $.post('user_field', {type: type, text: text})
+    $.post('user_field', {id: recordingId, type: type, text: text})
   });
 
   $('.cancel').click(function(event){

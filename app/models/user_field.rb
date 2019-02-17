@@ -6,7 +6,7 @@ class UserField < ApplicationRecord
 
   self.inheritance_column = nil
 
-  validates_presence_of :user, :type
-  validates_uniqueness_of :user, scope: :type
+  validates_presence_of :recording, :type
+  validates_uniqueness_of :recording, scope: :type
 
 end

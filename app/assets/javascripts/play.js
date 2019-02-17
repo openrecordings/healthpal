@@ -95,7 +95,7 @@ if(document.querySelector('#play-pause-button')) {
     $(audioElement).prop('currentTime', newTime);
   }
 
-  // Row filtering, time disaplay, row highlighting
+  // Row filtering, time display, row highlighting
   /////////////////////////////////////////////////////////////////////////////////////////////////
   function handleFilterClick(filterButton){
     $(filterButton).toggleClass('filter-on');

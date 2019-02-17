@@ -23,12 +23,15 @@
                       Provider
                       .save.hidden Save
                       .cancel.hidden Cancel
-                    %input#provider-content.user-field-content{'data-recording-id': recording.id, 'data-type': provider.type, value: @provider.text}
+                    - provider = UserField.find_by(recording: recording, type: :provider)
+                    %input#provider-content.user-field-content{'data-recording-id': recording.id, 'data-type': 'provider', value: provider&.text}
+                      = provider&.text
                 %td
                   #note.user-field-container
                     .user-field-label
                       Notes
                       .save.hidden Save
                       .cancel.hidden Cancel
-                    %textarea#note-content.user-field-content.text-area{'data-recording-id': recording.id, 'data-type': @note.type}
-                      = recording&.note&.text
+                    - note = UserField.find_by(recording: recording, type: :provider)
+                    %textarea#note-content.user-field-content.text-area{'data-recording-id': recording.id, 'data-type': 'note'}
+                      = note&.text
