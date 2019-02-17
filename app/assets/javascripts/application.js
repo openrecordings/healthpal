@@ -1,4 +1,6 @@
-//= require jquery-ui.min
+//= require jquery
+//= require rails-ujs
+//= require jquery-ui
 //= require_tree .
 
 function log(msg){

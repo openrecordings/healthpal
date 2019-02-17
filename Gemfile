@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+gem 'jquery-rails'
+gem 'jquery-ui-rails'
 gem 'haml'
 gem 'devise'
 gem 'devise_invitable', '~> 1.7.0'
@@ -35,6 +37,10 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+# Reduces boot times through caching; required in config/boot.rb
+gem 'bootsnap', '>= 1.1.0', require: false
+# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
+gem 'jbuilder', '~> 2.5'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.2'
 # Use postgresql as the database for Active Record

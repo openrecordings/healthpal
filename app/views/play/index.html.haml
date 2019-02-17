@@ -18,20 +18,16 @@
               %tr
                 %td= format_date_time_long(recording.created_at)
                 %td
-                  #provider.user-field-container
-                    .user-field-label
-                      Provider
+                  .provider.user-field-container
+                    .user-field-links
                       .save.hidden Save
                       .cancel.hidden Cancel
                     - provider = UserField.find_by(recording: recording, type: :provider)
-                    %input#provider-content.user-field-content{'data-recording-id': recording.id, 'data-type': 'provider', value: provider&.text}
-                      = provider&.text
+                    %input.provider-content.user-field-content{'data-recording-id': recording.id, 'data-type': 'provider', value: provider&.text}
                 %td
-                  #note.user-field-container
-                    .user-field-label
-                      Notes
+                  .note.user-field-container
+                    .user-field-links
                       .save.hidden Save
                       .cancel.hidden Cancel
                     - note = UserField.find_by(recording: recording, type: :provider)
-                    %textarea#note-content.user-field-content.text-area{'data-recording-id': recording.id, 'data-type': 'note'}
-                      = note&.text
+                    %textarea.note-content.user-field-content.text-area{'data-recording-id': recording.id, 'data-type': 'note', value: note&.text}
