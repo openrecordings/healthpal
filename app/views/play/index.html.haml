@@ -29,5 +29,6 @@
                     .user-field-links
                       .save.hidden Save
                       .cancel.hidden Cancel
-                    - note = UserField.find_by(recording: recording, type: :provider)
-                    %textarea.note-content.user-field-content.text-area{'data-recording-id': recording.id, 'data-type': 'note', value: note&.text}
+                    - note = UserField.find_by(recording: recording, type: :note)
+                    %textarea.note-content.user-field-content{'data-recording-id': recording.id, 'data-type': 'note', value: note&.text}
+                      = note&.text
