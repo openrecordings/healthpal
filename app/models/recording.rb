@@ -5,7 +5,7 @@ class Recording < ApplicationRecord
 
   belongs_to :user
   has_many :utterances
-  has_one :user_note
+  has_many :user_fields
 
   # Add all supported transcription services here
   # TODO: Add old Acusis code back in after getting gcloud going?

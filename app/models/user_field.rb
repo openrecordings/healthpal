@@ -1,6 +1,6 @@
 class UserField < ApplicationRecord
 
-  belongs_to :user
+  belongs_to :recording
 
   enum type: [:provider, :note]
 

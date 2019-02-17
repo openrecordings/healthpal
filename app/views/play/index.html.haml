@@ -17,6 +17,18 @@
             - user.recordings.each do |recording|
               %tr
                 %td= format_date_time_long(recording.created_at)
-                %td provider
-                %td notes
-
+                %td
+                  #provider.user-field-container
+                    .user-field-label
+                      Provider
+                      .save.hidden Save
+                      .cancel.hidden Cancel
+                    %input#provider-content.user-field-content{'data-recording-id': recording.id, 'data-type': provider.type, value: @provider.text}
+                %td
+                  #note.user-field-container
+                    .user-field-label
+                      Notes
+                      .save.hidden Save
+                      .cancel.hidden Cancel
+                    %textarea#note-content.user-field-content.text-area{'data-recording-id': recording.id, 'data-type': @note.type}
+                      = recording&.note&.text
