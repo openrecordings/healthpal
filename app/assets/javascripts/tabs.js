@@ -1,7 +1,7 @@
 if(document.querySelector('#index-view')) {
   function stripeTable(){
-    $('tr:visible:odd').addClass('odd-row');
-    $('tr:visible:even').addClass('even-row');
+    $('tr:odd').addClass('odd-row');
+    $('tr:even').addClass('even-row');
   }
 
   $('.tab').click(function(){
