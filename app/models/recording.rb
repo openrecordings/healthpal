@@ -74,15 +74,14 @@ class Recording < ApplicationRecord
 
   # Returns self's audio file path/name as a String
   # Will return nil if called when self.file_name doesn't yet exist
+  # TODO Change all references to media_path
   def local_file_name_with_path
     return nil unless self.file_name
     Rails.configuration.local_audio_file_path.join(self.file_name).to_s
   end
 
-  # TODO Remove. This is part of the tmp file approach to streaming
-  def tmp_file_name
-    return nil unless self.file_name
-    "tmp_#{self.file_name}"
+  def media_path
+    Rails.root.join('protected_media').join(self.file_name).to_s
   end
 
   private

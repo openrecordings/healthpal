@@ -39,8 +39,12 @@ Rails.application.routes.draw do
   get 'my_recordings',               to: 'play#index',                       as: 'my_recordings'
   get 'play/:id',                    to: 'play#play',                        as: 'play'
   get 'play/rm_tmp_file/:id',        to: 'play#rm_tmp_file'
+
+  # TODO One of these needs to go
   post 'play/user_field',            to: 'play#user_field'
   post 'user_field',                 to: 'play#user_field'
+
+  get 'send_media/:id',              to: 'play#send_media',                  as: 'send_media'
 
   # Sharing
   resources :shares, controller: :share

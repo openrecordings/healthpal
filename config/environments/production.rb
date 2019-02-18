@@ -1,9 +1,6 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
-  # Code is not reloaded between requests.
-  config.cache_classes = true
-
   # Eager load code on boot. This eager loads most of Rails and
   # your application in memory, allowing both threaded web servers
   # and those relying on copy on write to perform better.
@@ -13,9 +10,10 @@ Rails.application.configure do
   # Full error reports are disabled and caching is turned on.
   
   #################################################################################################
-  # TODO Re-enable for production
-  # config.consider_all_requests_local       = false
-  # config.action_controller.perform_caching = true
+  # TODO Re-enable for production (toggle all)
+  config.cache_classes = false
+  config.consider_all_requests_local = true 
+  config.action_controller.perform_caching = false
   #################################################################################################
 
   # Ensures that a master key has been made available in either ENV["RAILS_MASTER_KEY"]
@@ -28,7 +26,7 @@ Rails.application.configure do
 
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = Uglifier.new(harmony: true)
-  # config.assets.css_compressor = :sass
+  config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
   

@@ -27,14 +27,9 @@ if(document.querySelector('#play-pause-button')) {
   /////////////////////////////////////////////////////////////////////////////////////////////////
   function loadAudio(){
     let audioElement = document.getElementById('audio-element');
-    audioElement.loop = true;
     audioElement.volume = playVolume;
     $('#duration').text(toMmSs(audioElement.duration));
     skipToTime(0);
-    // TODO Remove. Temporary hack to delete tmp file on server
-    setTimeout(function(){
-      $.get('rm_tmp_file/' + $(audioElement).data('recording-id'));
-    }, 60000);
   }
 
   $.arrayIntersect = function(a, b)

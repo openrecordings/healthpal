@@ -13,22 +13,13 @@ class PlayController < ApplicationController
     end
   end
 
-  # TODO: This approach to streaming audio is not secure. Even though we create and delete a tmp
-  #       file right away, that tmp file is public, potentially for a number of seconds, or longer
-  #
-  #       DO NOT USE PHI with this app until securely streaming audio with the NGINX secure_link
-  #       module.
-  ################################################################################################
-  ################################################################################################
   def play
     @recording = Recording.find_by(id: params[:id])
-    @title = "#{@recording.user.full_name}, #{@recording.created_at.strftime('%-m/%-d/%-y')}"
-    @provider = UserField.find_by(recording: @recording, type: :provider) || UserField.new(recording: @recording, type: :provider, text_area: false)
-    @note = UserField.find_by(recording: @recording, type: :note) || UserField.new(recording: @recording, type: :note , text_area: false)
     if(@recording && current_user.can_access(@recording))
+      @title = "#{@recording.user.full_name}, #{@recording.created_at.strftime('%-m/%-d/%-y')}"
+      @provider = UserField.find_by(recording: @recording, type: :provider) || UserField.new(recording: @recording, type: :provider, text_area: false)
+      @note = UserField.find_by(recording: @recording, type: :note) || UserField.new(recording: @recording, type: :note , text_area: false)
       @utterances = prepare_utterances(@recording)
-      tmp_file_path = "#{Rails.root}/app/assets/audios"
-      FileUtils.cp(@recording.local_file_name_with_path, "#{tmp_file_path}/#{@recording.tmp_file_name}")
     else
       flash.alert = 'An error ocurred while retriving the audio data. Please contact support.'
       redirect_to :root and return
@@ -37,17 +28,22 @@ class PlayController < ApplicationController
 
   # AJAX GET to rm tmp file as soon as it is loaded
   def rm_tmp_file
-		begin  
+    begin  
       recording = Recording.find_by(id: params[:id])
       tmp_file_path = "#{Rails.root}/app/assets/audios/"
       FileUtils.rm("#{tmp_file_path}/#{recording.tmp_file_name}")
       render json: 'success' and return
-		rescue StandardError => error
+    rescue StandardError => error
       render json: {errors: error.message}, :status => 422
-		end  
+    end  
   end
-  ################################################################################################
-  ################################################################################################
+
+  # TODO Handle bad params
+  def send_media
+    recording = Recording.find(params[:id]) 
+    response.set_header('X-Accel-Redirect', recording.media_path)
+    send_file(recording)
+  end
   
   # AJAX endpoint for in-place editing of UserFields
   # TODO Handle bad params
