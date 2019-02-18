@@ -27,7 +27,7 @@ class PlayController < ApplicationController
     @note = UserField.find_by(recording: @recording, type: :note) || UserField.new(recording: @recording, type: :note , text_area: false)
     if(@recording && current_user.can_access(@recording))
       @utterances = prepare_utterances(@recording)
-      tmp_file_path = "#{Rails.root}/app/assets/audios/"
+      tmp_file_path = "#{Rails.root}/app/assets/audios"
       FileUtils.cp(@recording.local_file_name_with_path, "#{tmp_file_path}/#{@recording.tmp_file_name}")
     else
       flash.alert = 'An error ocurred while retriving the audio data. Please contact support.'
