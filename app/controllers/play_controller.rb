@@ -26,18 +26,6 @@ class PlayController < ApplicationController
     end
   end
 
-  # AJAX GET to rm tmp file as soon as it is loaded
-  def rm_tmp_file
-    begin  
-      recording = Recording.find_by(id: params[:id])
-      tmp_file_path = "#{Rails.root}/app/assets/audios/"
-      FileUtils.rm("#{tmp_file_path}/#{recording.tmp_file_name}")
-      render json: 'success' and return
-    rescue StandardError => error
-      render json: {errors: error.message}, :status => 422
-    end  
-  end
-
   # TODO Handle bad params
   def send_media
     send_file(Recording.find(params[:id]).media_path)
