@@ -1,14 +1,14 @@
 #play-view.invisible
-  -# = audio_tag(send_media_path(@recording.id),
-  -#   id: 'audio-element',
-  -#   type: 'audio/flac',
-  -#   'data-recording-id': @recording.id,
-  -#   controls: false)
-  = audio_tag(audio_path(@recording.file_name),
+  = audio_tag(send_media_path(@recording.id),
     id: 'audio-element',
     type: 'audio/flac',
     'data-recording-id': @recording.id,
     controls: false)
+  -#= audio_tag(audio_path(@recording.file_name),
+  -#  id: 'audio-element',
+  -#  type: 'audio/flac',
+  -#  'data-recording-id': @recording.id,
+  -#  controls: false)
 
   #head
     #header-container

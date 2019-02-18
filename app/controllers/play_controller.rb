@@ -40,9 +40,7 @@ class PlayController < ApplicationController
 
   # TODO Handle bad params
   def send_media
-    recording = Recording.find(params[:id]) 
-    response.set_header('X-Accel-Redirect', recording.media_path)
-    send_file(recording)
+    send_file(Recording.find(params[:id]).media_path)
   end
   
   # AJAX endpoint for in-place editing of UserFields
