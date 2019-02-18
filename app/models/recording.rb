@@ -36,7 +36,7 @@ class Recording < ApplicationRecord
     # storage_job = Google::Cloud::Storage.new(project: Rails.configuration.gcp_project_name)
     # bucket_name = Rails.configuration.gcp_bucket_name
     # bucket = storage_job.bucket(bucket_name)
-    # audio_file_path = self.local_file_name_with_path
+    # audio_file_path = self.media_path
     # file = bucket.create_file(audio_file_path, self.file_name)
     # self.update(uri: "gs://#{bucket_name}/#{self.file_name}", url:file.public_url)
   #end
@@ -72,15 +72,8 @@ class Recording < ApplicationRecord
     # self.update(json: operation.response.results)
   # end
 
-  # Returns self's audio file path/name as a String
-  # Will return nil if called when self.file_name doesn't yet exist
-  # TODO Change all references to media_path
-  def local_file_name_with_path
-    return nil unless self.file_name
-    Rails.configuration.local_audio_file_path.join(self.file_name).to_s
-  end
-
   def media_path
+    return nil unless self.file_name
     Rails.root.join('protected_media').join(self.file_name).to_s
   end
 
