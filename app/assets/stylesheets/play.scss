@@ -5,7 +5,9 @@
   grid-template-areas: 'head'
                        'table'
                        'player';
-  grid-template-rows: 130px 500px 150px;
+  grid-template-rows: 100px 1fr 160px;
+  max-height: 100%;
+  padding-bottom: 20px;
 }
 
 video{
@@ -92,7 +94,7 @@ video{
 //////////////////////////////////////////////////////////////////////////////////////////////////
 #tag-table {
   grid-area: table;  
-  overflow: scroll;
+  overflow: hidden;
   border-collapse: collapse;
   border-bottom-left-radius: 3px;
   border-bottom-right-radius: 3px;
