@@ -14,7 +14,7 @@
               %th Provider
               %th Notes
           %tbody
-            - user.recordings.each do |recording|
+            - user.recordings.order(:created_at).each do |recording|
               %tr
                 %td= link_to(format_date_time_long(recording.created_at), play_path(recording))
                 %td
