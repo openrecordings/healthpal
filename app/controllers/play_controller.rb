@@ -28,8 +28,7 @@ class PlayController < ApplicationController
 
   # TODO Handle bad params
   def send_media
-    # send_file(Recording.find(params[:id]).media_path)
-    send_file(Recording.last.media_path)
+    send_file(Recording.find(params[:id]).media_path)
   end
   
   # AJAX endpoint for in-place editing of UserFields
