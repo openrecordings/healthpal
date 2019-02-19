@@ -2,7 +2,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 400px;
+  height: 450px;
+}
+
+.form-title{
+  width: 250px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 24px;
 }
 
 .form-field-container{
