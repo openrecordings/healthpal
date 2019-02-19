@@ -1,7 +1,7 @@
 module ApplicationHelper
 
   def app_display_name
-    Rails.application.config.app_display_name ? Rails.application.config.app_display_name : 'Open Recordings'
+    Rails.application.configuration.app_display_name ? Rails.application.configuration.app_display_name : 'Open Recordings'
   end
 
   # Example: Mon, 09 Nov 2009 00:00:00 +0000 => 11/09/09 12:00 AM
