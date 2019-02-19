@@ -85,15 +85,13 @@
         %div
         %div
 
-    #video-container.hidden
-      = video_tag(send_media_path(@recording.id),
-        poster: 'loading.png',
-        id: 'audio-element',
-        type: 'video/mp4',
-        'data-recording-id': @recording.id,
-        controls: false,
-        class: ('hidden' unless @recording.is_video),
-        height: ('100%' if @recording.is_video))
+    = video_tag(send_media_path(@recording.id),
+      id: 'audio-element',
+      type: 'video/mp4',
+      'data-recording-id': @recording.id,
+      controls: false,
+      class: ('hidden'),
+      height: ('100%' if @recording.is_video))
 
     - unless @recording.is_video
       %table

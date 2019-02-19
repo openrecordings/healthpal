@@ -229,7 +229,7 @@ if(document.querySelector('#play-pause-button')) {
     audioElement.oncanplay = function(){
       showPage();
       $('#css-loader').hide();
-      $('#video-container').show();
+      $('video').show();
     }
   });
 }
