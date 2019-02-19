@@ -11,17 +11,7 @@ class Recording < ApplicationRecord
   # TODO: Add old Acusis code back in after getting gcloud going?
   enum source: [:google]
 
-  #
-  # Fields not otherwise mentioned:
-  #   patient_identifier (string) - arbitrary, optional patient identifier. Can be used if the User
-  #                                 is recording audio for several other people.
-  #   provider (string)           - arbitrary, optional provider name.
-
-  # TODO: Encrypt other stuff?
-  # attr_encrypted :audio, key: Rails.application.config.audio_encryption_key, encode: false, encode_iv: false
-
-  before_create :encrypt
-  before_create :set_duration
+  # TODO: Validation
 
   def upload
   end

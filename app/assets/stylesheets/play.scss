@@ -2,11 +2,15 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////
 #play-view {
   display: grid;
-  grid-template-areas: 'head head'
-                       'player sidebar'
-                       'table sidebar';
-  grid-template-columns: 3fr 1fr;
-  grid-template-rows: 130px 150px 500px;
+  grid-template-areas: 'head'
+                       'table'
+                       'player';
+  grid-template-rows: 130px 500px 150px;
+}
+
+video{
+  display: block;
+  margin: 0 auto;
 }
 
 // Used in more than one section
