@@ -3,7 +3,7 @@ if(document.querySelector('#play-pause-button')) {
   let autoScrollDisabled = false;
 
   function showPage(){
-    let audioElement = document.getElementById('audio-element');
+    let videoElement = document.getElementById('video-element');
     $('#play-view').removeClass('invisible');
   }
 
@@ -13,12 +13,12 @@ if(document.querySelector('#play-pause-button')) {
   }
 
   function togglePlayPause(){
-    let audioElement = document.getElementById('audio-element');
-    if (audioElement.paused) {
-       audioElement.play();
+    let videoElement = document.getElementById('video-element');
+    if (videoElement.paused) {
+       videoElement.play();
     }   
     else {
-       audioElement.pause();
+       videoElement.pause();
     }
     $('#play-glyph, #pause-glyph, #play-label, #pause-label').toggleClass('hidden');
   }
@@ -26,9 +26,9 @@ if(document.querySelector('#play-pause-button')) {
   // Playback control
   /////////////////////////////////////////////////////////////////////////////////////////////////
   function loadAudio(){
-    let audioElement = document.getElementById('audio-element');
-    audioElement.volume = playVolume;
-    $('#duration').text(toMmSs(audioElement.duration));
+    let videoElement = document.getElementById('video-element');
+    videoElement.volume = playVolume;
+    $('#duration').text(toMmSs(videoElement.duration));
     skipToTime(0);
   }
 
@@ -41,9 +41,9 @@ if(document.querySelector('#play-pause-button')) {
   };
 
   function playerListener(){
-    let audioElement = document.getElementById('audio-element');
-    audioElement.ontimeupdate = function(){
-      let currentTime = audioElement.currentTime;
+    let videoElement = document.getElementById('video-element');
+    videoElement.ontimeupdate = function(){
+      let currentTime = videoElement.currentTime;
       $('#current-time').text(toMmSs(currentTime));
       skipToTime(currentTime, false);
       updateTableHighlighting(currentTime);
@@ -52,16 +52,16 @@ if(document.querySelector('#play-pause-button')) {
   }
 
   function skipToTime(newTime, updatePlayer = true){
-    let audioElement = document.getElementById('audio-element');
+    let videoElement = document.getElementById('video-element');
     let timeline = $('#timeline');
     let playhead = $('#playhead');
     let progressBar = $('#progress-bar');
-    let duration = $(audioElement).prop('duration');
+    let duration = $(videoElement).prop('duration');
     if(newTime < 0){newTime = 0 };
     if(newTime > duration){newTime = duration};
     if(updatePlayer){
       // Update is driven by UI event - move player time
-      audioElement.currentTime = newTime;
+      videoElement.currentTime = newTime;
     } else {
       // Update is driven by current play time - move playhead
       let timelineWidth = $('#timeline').width()
@@ -73,13 +73,13 @@ if(document.querySelector('#play-pause-button')) {
   }
 
   function skipToEventPosition(event){
-    let audioElement = document.getElementById('audio-element');
+    let videoElement = document.getElementById('video-element');
     let eventX = event.pageX;
     let timeline = $('#timeline');
     let timelinePosition = timeline.position();
     let playhead = $('#playhead');
-    let currentTime = $(audioElement).prop('currentTime');
-    let duration = $(audioElement).prop('duration');
+    let currentTime = $(videoElement).prop('currentTime');
+    let duration = $(videoElement).prop('duration');
     let secPerPx = duration / $('#timeline').width();
     let newTime = secPerPx * eventX;
     let progressBar = $('#progress-bar');
@@ -87,7 +87,7 @@ if(document.querySelector('#play-pause-button')) {
     if(timelinePosition.left + timeline.width() >= eventX){
       progressBar.css({width: timelinePosition.left + eventX - 10});
     }
-    $(audioElement).prop('currentTime', newTime);
+    $(videoElement).prop('currentTime', newTime);
   }
 
   // Row filtering, time display, row highlighting
@@ -147,12 +147,12 @@ if(document.querySelector('#play-pause-button')) {
   // Tag Table listeners
   /////////////////////////////////////////////////////////////////////////////////////////////////
   $('.click-to-seek').click(function(){
-    let audioElement = document.getElementById('audio-element');
+    let videoElement = document.getElementById('video-element');
     skipToTime($(this).data('start-time'))
-    if(audioElement.paused){
+    if(videoElement.paused){
       $('#play-glyph, #pause-glyph, #play-label, #pause-label').toggleClass('hidden');
     }
-    audioElement.play();
+    videoElement.play();
   })
 
   $('#tag-table').mouseover(function(){
@@ -178,13 +178,13 @@ if(document.querySelector('#play-pause-button')) {
   });
 
   $('#rewind-button').click(function(){
-    let audioElement = document.getElementById('audio-element');
+    let videoElement = document.getElementById('video-element');
     skipToTime(0);
   })
 
   $('#back-button').click(function(){
-    let audioElement = document.getElementById('audio-element');
-    skipToTime(audioElement.currentTime - 10);
+    let videoElement = document.getElementById('video-element');
+    skipToTime(videoElement.currentTime - 10);
   })
 
   $('#play-pause-button').click(function(){
@@ -192,17 +192,17 @@ if(document.querySelector('#play-pause-button')) {
   })
 
   $('#forward-button').click(function(){
-    let audioElement = document.getElementById('audio-element');
-    skipToTime(audioElement.currentTime + 10);
+    let videoElement = document.getElementById('video-element');
+    skipToTime(videoElement.currentTime + 10);
   })
 
   $('#mute-button').click(function(){
-    let audioElement = document.getElementById('audio-element');
-    if (audioElement.volume > 0) {
-       audioElement.volume = 0;
+    let videoElement = document.getElementById('video-element');
+    if (videoElement.volume > 0) {
+       videoElement.volume = 0;
     }   
     else {
-       audioElement.volume = playVolume;
+       videoElement.volume = playVolume;
     }
     $('#mute-glyph, #unmute-glyph, #mute-label, #unmute-label').toggleClass('hidden');
   })
@@ -225,8 +225,8 @@ if(document.querySelector('#play-pause-button')) {
     loadAudio();
     stripeTable();
     playerListener();
-    let audioElement = document.getElementById('audio-element');
-    audioElement.oncanplay = function(){
+    let videoElement = document.getElementById('video-element');
+    videoElement.oncanplay = function(){
       showPage();
       $('#css-loader').hide();
       $('video').show();
