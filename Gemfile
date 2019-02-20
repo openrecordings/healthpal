@@ -28,7 +28,6 @@ gem 'sprockets', '>= 3.7.2'
 gem 'ffi', '>= 1.9.24'
 gem 'rack', '>= 2.0.6'
 gem 'mini_racer'
- 
 gem 'google-cloud'
 gem 'inline_svg'
 

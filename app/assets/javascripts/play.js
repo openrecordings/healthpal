@@ -226,8 +226,10 @@ if(document.querySelector('#play-pause-button')) {
     stripeTable();
     playerListener();
     let audioElement = document.getElementById('audio-element');
-    audioElement.oncanplaythrough = function(){
+    audioElement.oncanplay = function(){
       showPage();
+      $('#css-loader').hide();
+      $('video').show();
     }
   });
 }
