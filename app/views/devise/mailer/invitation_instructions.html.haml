@@ -1,6 +1,33 @@
-%p= t("devise.mailer.invitation_instructions.hello", email: @resource.email)
-%p= "This is an invitation to #{Rails.configuration.app_display_name}"
-%p= link_to t("devise.mailer.invitation_instructions.accept"), accept_invitation_url(@resource, :invitation_token => @token)
-- if @resource.invitation_due_at
-  %p= t("devise.mailer.invitation_instructions.accept_until", due_date: l(@resource.invitation_due_at, format: :'devise.mailer.invitation_instructions.accept_until_format'))
-%p= t("devise.mailer.invitation_instructions.ignore").html_safe
+%p
+  Hello. This email is an invitation to create a HealthPal account. When you click on the link
+  below, you will be taken to the HealthPal website. There you will create a password, then
+  you will automatically be logged in to HealthPal. Your password must be at least eight characters
+  long. You can use any web browser to create your account. To use the application, log in using a
+  fully-updated version of the Edge browser or Firefox browser, as described below.
+
+%p
+  = link_to 'Click here to create your HealthPal account',
+    accept_invitation_url(@resource, :invitation_token => @token)
+
+%p
+	To use this experimental version of HealthPal, follow these steps: 1) Use the application on a
+	laptop computer, not on a tablet or a phone. 2) Use either the Edge browser (Windows 10) or the
+	Firefox browser.
+
+%p
+	If your computer has Windows 10, then you should be all set. Just use the browser that came with
+	Windows. In all other cases, follow the instructions below to use the Firefox web browser.
+
+%p
+	If you do not already have Firefox installed, follow these steps, for both Windows and Mac
+  laptops: 1) On your laptop, go to https://www.mozilla.org/en-US/firefox/ and click “Download now”
+  . If asked, choose to “Save” the installer file. Otherwise, the installer file should be downloaded
+  automatically. 2) Open (double-click) on the installer file and follow the instructions that
+  appear. Firefox will then be installed on your computer	
+
+%p
+  If you do already have Firefox installed, follow these steps to make sure that Firefox is fully
+  updated: 1) Go to https://support.mozilla.org/en-US/kb/update-firefox-latest-version and follow
+  the instructions there to update Firefox. 2) Important: Repeat step 1 as needed until no further
+  updates are available. In some cases, one update is all that is required, but for older versions,
+  more than one update may be required.
