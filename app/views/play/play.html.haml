@@ -69,22 +69,6 @@
             %span.button-label Unmute
 
   #tag-table
-
-    #css-loader
-      .lds-spinner
-        %div
-        %div
-        %div
-        %div
-        %div
-        %div
-        %div
-        %div
-        %div
-        %div
-        %div
-        %div
-
     = video_tag(send_media_path(@recording.id),
       id: 'video-element',
       'data-recording-id': @recording.id,
