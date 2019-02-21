@@ -4,7 +4,12 @@ if(document.querySelector('#play-pause-button')) {
 
   function showPage(){
     let videoElement = document.getElementById('video-element');
-    $('#play-view').removeClass('invisible');
+    if($(videoElement).data('is-video')){
+      $('#video-play-view').removeClass('invisible');
+      $(videoElement).show();
+    } else {
+      $('#audio-play-view').removeClass('invisible');
+    }
   }
 
   function stripeTable(){
@@ -225,10 +230,10 @@ if(document.querySelector('#play-pause-button')) {
     loadAudio();
     stripeTable();
     playerListener();
+
     let videoElement = document.getElementById('video-element');
     videoElement.oncanplay = function(){
       showPage();
-      $('#css-loader').hide();
       $('video').show();
     }
   });

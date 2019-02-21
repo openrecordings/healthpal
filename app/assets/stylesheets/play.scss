@@ -1,18 +1,25 @@
 // Top level grid layout
 //////////////////////////////////////////////////////////////////////////////////////////////////
-#play-view {
+#video-play-view {
   display: grid;
   grid-template-areas: 'head'
-                       'table'
+                       'video'
                        'player';
   grid-template-rows: 100px 1fr 160px;
   max-height: 100%;
+  max-width: 100%;
   padding-bottom: 20px;
 }
 
-video{
-  display: block;
-  margin: 0 auto;
+#audio-play-view {
+  display: grid;
+  grid-template-areas: 'head head'
+                       'player sidebar'
+                       'table sidebar';
+  grid-template-rows: 100px 160px 1fr;
+  grid-template-columns: 3fr 1fr;
+  max-height: 100%;
+  padding-bottom: 20px;
 }
 
 // Used in more than one section
@@ -90,15 +97,26 @@ video{
   }
 }
 
+// Video
+//////////////////////////////////////////////////////////////////////////////////////////////////
+video{
+  display: block;
+  margin: 0 auto;
+  max-height: 100%;
+  max-width: 100%;
+}
+
 // Tag table
 //////////////////////////////////////////////////////////////////////////////////////////////////
 #tag-table {
   grid-area: table;  
-  overflow: hidden;
+  max-height: 100%;
+  overflow: scroll;
   border-collapse: collapse;
   border-bottom-left-radius: 3px;
   border-bottom-right-radius: 3px;
   table {
+    max-height: 100%;
     width: 100%;
     border-collapse: collapse;
     border: none;
