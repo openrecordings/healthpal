@@ -234,7 +234,6 @@ if(document.querySelector('#play-pause-button')) {
     let videoElement = document.getElementById('video-element');
     videoElement.oncanplay = function(){
       showPage();
-      $('video').show();
     }
   });
 }
