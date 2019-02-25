@@ -66,9 +66,11 @@ if(document.querySelector('#play-pause-button')) {
     if(newTime > duration){newTime = duration};
     if(updatePlayer){
       // Update is driven by UI event - move player time
-      videoElement.currentTime = newTime;
+      log(`skipping to UI time: ${newTime.toString()}`);
+      videoElement.currentTime = newTime.toString();
     } else {
       // Update is driven by current play time - move playhead
+      log(`skipping to play time: ${newTime.toString()}`);
       let timelineWidth = $('#timeline').width()
       let PxPerSec = timelineWidth / duration;
       let newPx = PxPerSec * newTime 
@@ -92,7 +94,8 @@ if(document.querySelector('#play-pause-button')) {
     if(timelinePosition.left + timeline.width() >= eventX){
       progressBar.css({width: timelinePosition.left + eventX - 10});
     }
-    $(videoElement).prop('currentTime', newTime);
+    log(`skipping to event time: ${newTime.toString()}`);
+    $(videoElement).prop('currentTime', newTime.toString());
   }
 
   // Row filtering, time display, row highlighting
