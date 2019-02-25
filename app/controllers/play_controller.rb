@@ -28,6 +28,7 @@ class PlayController < ApplicationController
 
   # TODO Handle bad params
   def send_media
+    response.set_header('Accept-Ranges', 'bytes')
     send_file(Recording.find(params[:id]).media_path)
   end
   
