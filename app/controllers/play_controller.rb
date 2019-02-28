@@ -28,8 +28,12 @@ class PlayController < ApplicationController
 
   # TODO Handle bad params
   def send_media
-    response.set_header('Accept-Ranges', 'bytes')
-    send_file(Recording.find(params[:id]).media_path)
+    file_path = Recording.find(params[:id]).media_path 
+    response.set_header('Cache-Control', 'public, must-revalidate, max-age=0')
+    response.set_header('Content-Length', File.size(file_path))
+    response.set_header('Pragma', 'no-cache')
+    response.set_header('Content-Transfer-Encoding', 'binary')
+    send_file(file_path, disposition: 'inline')
   end
   
   # AJAX endpoint for in-place editing of UserFields
