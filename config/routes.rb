@@ -50,6 +50,6 @@ Rails.application.routes.draw do
   resources :shares, controller: :share
   get 'no_shares',                   to: 'share#no_shares',                  as: 'no_shares'
 
-  post 'twilio/voice',               to: 'twilio#voice'
+  get 'twilio/sms',                  to: 'twilio#sms'
 
 end

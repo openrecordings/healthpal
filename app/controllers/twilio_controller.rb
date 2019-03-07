@@ -1,16 +1,26 @@
+require 'twilio-ruby'
+
 class TwilioController < ApplicationController
 
-  include Webhookable
+  skip_before_action :authenticate_user! 
 
-  after_filter :set_header
-  skip_before_action :verify_authenticity_token
-
-  def voice
-    response = Twilio::TwiML::Response.new do |r|
-      r.Say 'Hey there. Congrats on integrating Twilio into your Rails 4 app.', :voice => 'alice'
-         r.Play 'http://linode.rabasa.com/cantina.mp3'
+  def sms
+    account_sid = 'ACfc5370662265436c172033646b756567'
+    auth_token = '3496fa720b6266df2cad6a64ad7d0941'
+    client = Twilio::REST::Client.new(account_sid, auth_token)
+    from = '+18023920565'
+    to = '+16033594675'
+    begin
+      client.api.account.messages.create(
+        from: from,
+        to: to,
+        body: "Hey friend!"
+      )
+    rescue => e
+      puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+      puts e
+      puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
     end
-    render_twiml response
   end
 
 end

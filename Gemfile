@@ -30,7 +30,7 @@ gem 'rack', '>= 2.0.6'
 gem 'mini_racer'
 gem 'google-cloud'
 gem 'inline_svg'
-gem 'twilio-ruby'
+gem 'twilio-ruby', '~> 5.21.1'
 
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
