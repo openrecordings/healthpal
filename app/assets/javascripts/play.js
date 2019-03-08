@@ -33,7 +33,6 @@ if(document.querySelector('#play-pause-button')) {
   function loadAudio(){
     let videoElement = document.getElementById('video-element');
     let recordingId = $(videoElement).data('recording-id');
-    videoElement.src = `/send_media/${recordingId}`
     videoElement.volume = playVolume;
     $('#duration').text(toMmSs(videoElement.duration));
     skipToTime(0);
@@ -98,7 +97,6 @@ if(document.querySelector('#play-pause-button')) {
     }
     log(`skipping to event time: ${newTime.toString()}`);
     videoElement.currentTime = newTime.toString();
-    // $(videoElement).prop('currentTime', newTime.toString());
   }
 
   // Row filtering, time display, row highlighting
