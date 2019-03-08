@@ -41,6 +41,10 @@ body {
   }
 }
 
+.padding-top-20{
+  margin-top: 20px;
+}
+
 .title{
   font-size: 20px;
 }
@@ -89,9 +93,5 @@ body {
   &:hover{
     fill: $background-light;
   }
-}
-
-.blue-link{
-  color: $background-dark;
 }
 
