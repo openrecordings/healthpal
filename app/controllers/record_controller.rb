@@ -35,7 +35,6 @@ class RecordController < ApplicationController
 
         # Write file to disk.
         # TODO:
-        #   NO PHI UNTIL ASSETS ARE OUT OF PUBLIC DIRECTORY
         #   Encrypt
         begin
           audio_file_path = "#{Rails.root}/app/assets/audios"
