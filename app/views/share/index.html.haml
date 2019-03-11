@@ -1,29 +1,33 @@
-.center.pad-top-40
-  %h2 Share all recordings with others
-.center.pad-top-40
-  = link_to 'Add a person to share with', 'javascript:;', class: 'btn btn-primary', id: 'open-share-form' 
-.row
-  .col-xs-4
-  .col-xs-4
-    .panel.panel-default#new-share-form
-      %p.bigger Enter an email address for the person you want to share with
-      %p
-        = form_tag url: shares_path do |f|
-          .field= f.email_field :email, label: 'Email address'
-          .field= f.email_field :email, label: 'Re-enter email address'
-          .center= f.submit 'Share with this person', class: 'center btn btn-primary', id: 'new-share-submit'
-  .col-xs-4
-- if @shares.any?
-  .panel.panel-default.table-responsive.margin-top-40
-    .center#sharing-table-header You are sharing your recordings with these people
-    %table.table.table-striped
-      %thead
-        %th Name
-        %th Email address
-      %tbody
-        - @shares.each do |s|
-          %tr
-            %td= s.shared_with.full_name
-            %td
-              =s.shared_with.email
-              %span.table-button= link_to 'Stop sharing with this person', 'javascript:;', class: 'btn btn-primary revoke-share', data: {'share-id': s.id}
+.centered-form-container
+  %div
+    .form-title
+      Share Recordings
+    = submit_tag 'Add a person to share with', class: 'button', id: 'open-share-form'
+  #new-share-form.hidden
+    .form-title
+      Enter an email address for the person you want to share with
+    = form_tag url: shares_path do
+      .form-field-container
+        .form-label
+          Email address
+        = email_field :email, nil, class: 'form-input'
+      .form-field-container
+        .form-label
+          Re-enter email address
+        = email_field :email, nil, class: 'form-input'
+      = submit_tag 'Share with this person', class: 'button', id: 'new-share-submit'
+
+-# - if @shares.any?
+-#   .panel.panel-default.table-responsive.margin-top-40
+-#     .center#sharing-table-header You are sharing your recordings with these people
+-#     %table.table.table-striped
+-#       %thead
+-#         %th Name
+-#         %th Email address
+-#       %tbody
+-#         - @shares.each do |s|
+-#           %tr
+-#             %td= s.shared_with.full_name
+-#             %td
+-#               =s.shared_with.email
+-#               %span.table-button= link_to 'Stop sharing with this person', 'javascript:;', class: 'btn btn-primary revoke-share', data: {'share-id': s.id}

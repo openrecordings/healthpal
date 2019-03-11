@@ -8,9 +8,8 @@
 .centered-form-container{
   display: flex;
   flex-direction: column;
-  justify-content: flext-start;
   align-items: center;
-  margin-top: 100px;
+  margin-top: 50px;
 }
 
 .form-title{
@@ -46,6 +45,7 @@
   margin-top: 20px;
   padding: 10px;
   background-color: $background-light;
+  text-align: center;
   font-size: 18px;
   color: #fff;
   border: none;
@@ -57,5 +57,7 @@
 }
 
 .text-link{
+  display: inline-block;
+  margin-top: 10px;
   color: $background-dark;
 }

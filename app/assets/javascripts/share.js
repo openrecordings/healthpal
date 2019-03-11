@@ -39,8 +39,8 @@ $(document).ready(function(){
 
   // When the user clicks the add-new-share button
   $('#open-share-form').click(function() {
-    $(this).remove();
-    $('#new-share-form').slideDown();
+    $(this).parent().remove();
+    $('#new-share-form').show();
   })
 
   // When the user clicks the stop-sharing button for a user
