@@ -1,14 +1,13 @@
 -# Conditional ID to handle different grid layouts between audio and video
 .invisible{id: @recording.is_video ? 'video-play-view' : 'audio-play-view'}
 
-  -# = video_tag(send_media_path(@recording.id),
-  -#   id: 'video-element',
-  -#   'data-recording-id': @recording.id,
-  -#   'data-is-video': @recording.is_video,
-  -#   class: 'hidden',
-  -#   controls: false)
-
-  %video{id: 'video-element', 'data-recording-id': @recording.id, class: 'hidden'}
+  #video-container
+    = video_tag(send_media_path(@recording.id),
+      id: 'video-element',
+      'data-recording-id': @recording.id,
+      'data-is-video': @recording.is_video,
+      class: 'hidden',
+      controls: false)
 
   #head
     #header-container

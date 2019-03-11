@@ -8,3 +8,5 @@
       = f.password_field :password, autocomplete: "off", class: 'form-input'
     .form-field-container.full-center
       = f.submit "Log in", class: 'submit-button'
+    .form-field-container
+      = link_to 'I forgot my password', new_user_password_path, class: 'blue-link'

@@ -5,9 +5,16 @@
   height: 450px;
 }
 
+#forgot-password-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: flext-start;
+  align-items: center;
+  margin-top: 100px;
+}
+
 .form-title{
-  width: 250px;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
   text-align: center;
   font-size: 24px;
 }
@@ -18,7 +25,7 @@
 
 .form-input{
   background-color: #fff;
-  width: 250px;
+  width: 300px;
   padding: 10px;
   margin: 0;
   border-radius: 3px;
@@ -31,6 +38,21 @@
   margin-bottom: 3px;
   font-size: 18px;
   color: #333;
+}
+
+.button{
+  height: 50px;
+  width: 322px;
+  padding: 10px;
+  background-color: $background-light;
+  font-size: 18px;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  &:hover{
+    cursor: pointer;
+    background-color: $background-very-light;
+  }
 }
 
 .submit-button{
@@ -48,4 +70,8 @@
     cursor: pointer;
     background-color: $background-very-light;
   }
+}
+
+.text-link{
+  color: $background-dark;
 }

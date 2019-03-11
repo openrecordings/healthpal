@@ -30,6 +30,7 @@ class PlayController < ApplicationController
   def send_media
     file_path = Recording.find(params[:id]).media_path 
     response.set_header('Cache-Control', 'public, must-revalidate, max-age=0')
+    response.set_header('Accept-Ranges', 'bytes')
     response.set_header('Content-Length', File.size(file_path))
     response.set_header('Pragma', 'no-cache')
     response.set_header('Content-Transfer-Encoding', 'binary')
