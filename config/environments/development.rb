@@ -6,14 +6,10 @@ Rails.application.configure do
   # since you don't have to restart the web server when you make code changes.
   config.cache_classes = false
 
-  # send email in development. Configured for Mailcatcher
+  # send email in development. Configured for Letter Opener
   config.action_mailer.perform_deliveries = true
+  config.action_mailer.delivery_method = :letter_opener
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-    address: 'localhost',
-    port: 1025
-  }
 
   # Do not eager load code on boot.
   config.eager_load = false

@@ -5,7 +5,7 @@
   height: 450px;
 }
 
-#forgot-password-container{
+.centered-form-container{
   display: flex;
   flex-direction: column;
   justify-content: flext-start;
@@ -43,25 +43,9 @@
 .button{
   height: 50px;
   width: 322px;
+  margin-top: 20px;
   padding: 10px;
   background-color: $background-light;
-  font-size: 18px;
-  color: #fff;
-  border: none;
-  border-radius: 3px;
-  &:hover{
-    cursor: pointer;
-    background-color: $background-very-light;
-  }
-}
-
-.submit-button{
-  height: 50px;
-  width: 100%;
-  margin-top: 10px;
-  padding: 10px;
-  background-color: $background-light;
-  text-decoration: none;
   font-size: 18px;
   color: #fff;
   border: none;
