@@ -12,7 +12,7 @@ class ShareController < ApplicationController
 
   # AJAX-only endpoint for creating a new Share record
   def create
-    user = User.find_by email: params['email']
+    user = User.find_by(email: params['email'])
     if user
       new_share = Share.new(user: current_user, shared_with_user_id: user.id)
       # Prevent duplicates
@@ -26,12 +26,20 @@ class ShareController < ApplicationController
       if new_share.save 
         flash.notice = "You are now sharing all of your recordings with #{params['email']}"
         render json: {}
+        return
       else
         render json: {error: new_share.errors.full_messages, status: 422}
         return
       end
     else
-      create_user_and_invite(params['email'])
+      if create_user_invite_and_share!(params['first_name'], params['last_name'], params['email'])
+        flash.notice = "You are now sharing all of your recordings with #{params['email']}"
+        render json: {}
+        return
+      else
+        render json: {error: 'An error occured when creating the new user', status: 422}
+        return
+      end
     end
   end
 
@@ -50,12 +58,19 @@ class ShareController < ApplicationController
 
   private
 
-  def create_user_and_invite(email)
-    # https://github.com/plataformatec/devise/wiki/How-to-manage-users-with-a-standard-Rails-controller
-		# sql = "insert into users (name,email, created_at,updated_at) values( 
-		# 			#{ActiveRecord::Base.connection.quote(user_params[:name])}, 
-		# 			#{ActiveRecord::Base.connection.quote(user_params[:email])},now(), now())"
-		# ActiveRecord::Base.connection.execute(sql)
+  def create_user_invite_and_share!(first_name, last_name, email)
+    if user = User.create(
+      first_name: first_name,
+      last_name: last_name,
+      password: SecureRandom.hex,
+      email: email,
+      active: true,
+      role: 'user')
+      user.invite!
+      Share.create(user: current_user, shared_with_user_id: user.id)
+      return true
+    end
+    false
   end
 
 end

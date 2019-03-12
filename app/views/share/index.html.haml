@@ -5,7 +5,7 @@
 #new-share-form.hidden
   .centered-form-container
     .form-title
-      Enter an email address for the person you want to share with
+      Enter a name and email address for the person you want to share with
       %p
         All fields are required
     = form_tag url: shares_path do
@@ -24,7 +24,7 @@
       .form-field-container
         .form-label
           Re-enter email address
-        = email_field :email, nil, class: 'form-input margin-bottom-10'
+        = email_field :email2, nil, class: 'form-input margin-bottom-10'
       = submit_tag 'Share with this person', class: 'button', id: 'new-share-submit'
 
 -# - if @shares.any?

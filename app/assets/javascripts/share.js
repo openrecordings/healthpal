@@ -5,7 +5,11 @@
 function validateShareForm(firstName, lastName, email1, email2) {
   let regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   let invalidReason = null;
-  if(!(email1 == email2 && regex.test(String(email1).toLowerCase()))){
+  log(email1);
+  log(email2);
+  log(email1 != email2); 
+  log(!regex.test(String(email1).toLowerCase()));
+  if((email1 != email2) || !regex.test(String(email1).toLowerCase())){
     invalidReason = 'Emails invalid or do not match';
   }
   if(!(firstName.length && lastName.length)){
@@ -13,6 +17,8 @@ function validateShareForm(firstName, lastName, email1, email2) {
   }
   if(invalidReason){
     return [false, invalidReason];
+  } else {
+    return [true]
   }
 }
 
@@ -22,13 +28,10 @@ $(document).ready(function(){
   // Posts to a Rails REST route for creating a Share
   $('#new-share-submit').click(function(e) {
       e.preventDefault();
-			// TODO: This method of getting input values is brittle. Improve.
-      var emailFields = $(this).closest('form').find('input[type=email]');
-      var email1 = emailFields.get(0).value;
-      var email2 = emailFields.get(1).value;
-      var nameFields = $(this).closest('form').find('input[type=text]');
-      var firstName = nameFields.get(0).value;
-      var lastName = nameFields.get(1).value;
+      var firstName = $('#first_name_').val(); 
+      var lastName = $('#last_name_').val();
+      var email1 = $('#email_').val();
+      var email2 = $('#email2_').val();
       var validationResult = validateShareForm(firstName, lastName, email1, email2);
       if(validationResult[0]){
         console.log('Posting to create');
@@ -40,7 +43,6 @@ $(document).ready(function(){
           console.log('Error creating share')
         })
       } else {
-        emailFields.val('');
         alert(validationResult[1]);
       }
   })
