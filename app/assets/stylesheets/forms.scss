@@ -33,12 +33,15 @@
 }
 
 .button{
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 50px;
   width: 322px;
   margin-top: 20px;
-  padding: 10px;
   background-color: $background-light;
   text-align: center;
+  text-decoration: none;
   font-size: 18px;
   color: #fff;
   border: none;

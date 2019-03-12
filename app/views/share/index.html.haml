@@ -1,9 +1,9 @@
 .centered-form-container
-  %div
-    .form-title
-      Share Recordings
-    = submit_tag 'Add a person to share with', class: 'button', id: 'open-share-form'
-  #new-share-form.hidden
+  .form-title
+    Share Recordings
+  = submit_tag 'Add a person to share with', class: 'button', id: 'open-share-form'
+#new-share-form.hidden
+  .centered-form-container
     .form-title
       Enter an email address for the person you want to share with
     = form_tag url: shares_path do
