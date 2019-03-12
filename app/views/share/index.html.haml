@@ -6,7 +6,17 @@
   .centered-form-container
     .form-title
       Enter an email address for the person you want to share with
+      %p
+        All fields are required
     = form_tag url: shares_path do
+      .form-field-container
+        .form-label
+          First name
+        = text_field :first_name, nil, class: 'form-input'
+      .form-field-container
+        .form-label
+          Last name
+        = text_field :last_name, nil, class: 'form-input'
       .form-field-container
         .form-label
           Email address
@@ -14,7 +24,7 @@
       .form-field-container
         .form-label
           Re-enter email address
-        = email_field :email, nil, class: 'form-input'
+        = email_field :email, nil, class: 'form-input margin-bottom-10'
       = submit_tag 'Share with this person', class: 'button', id: 'new-share-submit'
 
 -# - if @shares.any?

@@ -18,7 +18,7 @@ class ShareController < ApplicationController
       # Prevent duplicates
       if current_user.shares.active.any? {|s| s.shared_with.email.downcase == params['email'].downcase}
         render json: {
-          error: "It looks like you are already sharing your recordings with #{params['email']}",
+          error: "You are already sharing your recordings with #{params['email']}",
           status: 422
         }
         return
@@ -31,8 +31,7 @@ class ShareController < ApplicationController
         return
       end
     else
-      render json: {error: "Could not find an account with the email address #{params['email']}"},
-        status: 404
+      create_user_and_invite(params['email'])
     end
   end
 
@@ -47,6 +46,16 @@ class ShareController < ApplicationController
     share.update revoked_at: Time.now
     flash.notice = "You are no longer sharing your recordings with #{share.shared_with.email}"
     render json: {}
+  end
+
+  private
+
+  def create_user_and_invite(email)
+    # https://github.com/plataformatec/devise/wiki/How-to-manage-users-with-a-standard-Rails-controller
+		# sql = "insert into users (name,email, created_at,updated_at) values( 
+		# 			#{ActiveRecord::Base.connection.quote(user_params[:name])}, 
+		# 			#{ActiveRecord::Base.connection.quote(user_params[:email])},now(), now())"
+		# ActiveRecord::Base.connection.execute(sql)
   end
 
 end
