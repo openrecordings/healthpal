@@ -1,4 +1,4 @@
-#login-container
+.centered-form-container
   = devise_error_messages!
   = form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => { :method => :put } do |f|
     = f.hidden_field :invitation_token
@@ -11,4 +11,4 @@
         .form-label Password confirmation
         = f.password_field :password_confirmation, class: 'form-input'
       .form-field-container.full-center
-        = f.submit 'Submit', class: 'submit-button'
+        = f.submit 'Submit', class: 'button'
