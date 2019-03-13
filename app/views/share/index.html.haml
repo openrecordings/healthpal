@@ -28,10 +28,11 @@
         = submit_tag 'Share with this person', class: 'button', id: 'new-share-submit'
 
   - if @shares.any?
+    -# TODO: Figure out overflow problem and remove %br
+    %br
+    %br
+    .text-center You are sharing your recordings with these people
     .table-container
-      %br
-      %br
-      .text-center You are sharing your recordings with these people
       %table.margin-top-20
         %thead
           %tr.header-row
@@ -43,4 +44,4 @@
             %tr.table-row
               %td= s.shared_with.full_name
               %td= s.shared_with.email
-              %td= link_to 'stop sharing with this person', 'javascript:;', class: 'text-link', data: {'share-id': s.id}
+              %td= link_to 'stop sharing with this person', 'javascript:;', class: 'text-link revoke-share', data: {'share-id': s.id}

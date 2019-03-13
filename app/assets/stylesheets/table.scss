@@ -5,8 +5,10 @@
       text-align: left;
     }
     th{
-      padding-left: 10px;
+      padding: 10px;
       font-weight: normal;
+      background-color: $background-dark;
+      color: #fff;
     }
     tr.table-row:nth-child(even){
       background-color: $table-row-dark

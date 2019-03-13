@@ -14,5 +14,7 @@
       #grid-navbar
         = render 'navbar'
       #grid-content
+        - flash.each do |key, value|
+          = content_tag :div, value, class: "flash #{key}"
         = yield
     = javascript_include_tag 'application'
