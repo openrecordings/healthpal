@@ -29,15 +29,18 @@
 
   - if @shares.any?
     .table-container
-      .center.title You are sharing your recordings with these people
-      %table.table
+      %br
+      %br
+      .text-center You are sharing your recordings with these people
+      %table.margin-top-20
         %thead
-          %th Name
-          %th Email address
-          %th
+          %tr.header-row
+            %th Name
+            %th Email address
+            %th
         %tbody
           - @shares.each do |s|
-            %tr
+            %tr.table-row
               %td= s.shared_with.full_name
               %td= s.shared_with.email
-              %td.button= link_to 'Stop sharing with this person', 'javascript:;', class: 'btn btn-primary revoke-share', data: {'share-id': s.id}
+              %td= link_to 'stop sharing with this person', 'javascript:;', class: 'text-link', data: {'share-id': s.id}

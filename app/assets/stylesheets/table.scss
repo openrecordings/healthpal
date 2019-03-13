@@ -1,2 +1,21 @@
 .table-container{
+  table{
+    border-collapse: collapse;
+    tr.header-row{
+      text-align: left;
+    }
+    th{
+      padding-left: 10px;
+      font-weight: normal;
+    }
+    tr.table-row:nth-child(even){
+      background-color: $table-row-dark
+    }
+    tr.table-row:nth-child(odd){
+      background-color: $table-row-light
+    }
+    td{
+      padding: 10px;
+    }
+  }
 }
