@@ -1,18 +1,25 @@
 .centered-form-container{
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
+  height: 200px;
   margin-top: 50px;
 }
 
 .form-title{
-  margin-bottom: 40px;
   text-align: center;
   font-size: 24px;
 }
 
 .form-field-container{
   margin-bottom: 20px;
+}
+
+.field-centered{
+  width: 300px;
+  margin: 0 auto;
+  margin-bottom: 10px;
 }
 
 .form-input{
@@ -33,12 +40,9 @@
 }
 
 .button{
-  display: flex;
-  align-items: center;
-  justify-content: center;
   height: 50px;
+  lin-height: 50px;
   width: 322px;
-  margin-top: 20px;
   background-color: $background-light;
   text-align: center;
   text-decoration: none;

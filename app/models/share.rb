@@ -8,12 +8,12 @@ class Share < ApplicationRecord
 
   # All active shares
   scope :active, ->() {where revoked_at: nil}
-  # All shares where the passed-in user is the receiver
+  # All shares where the passed-in user is the share-ee
   scope :shared_with_user, ->(u) {active.where(shared_with_user_id: u.id)}
 
   # Returns the shared-with User
   def shared_with
-    User.find_by(id: shared_with_user_id)
+    User.find_by(id: self.shared_with_user_id)
   end
   
 end
