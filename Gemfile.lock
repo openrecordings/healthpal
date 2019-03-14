@@ -487,6 +487,7 @@ DEPENDENCIES
   capistrano-rails
   capistrano-rbenv
   coffee-rails (~> 4.2)
+  concurrent-ruby
   delayed_job_active_record
   devise
   devise_invitable (~> 1.7.0)
