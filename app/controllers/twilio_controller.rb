@@ -17,9 +17,7 @@ class TwilioController < ApplicationController
         body: "Hey friend!"
       )
     rescue => e
-      puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
-      puts e
-      puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+			# TODO handle errors
     end
   end
 
