@@ -17,8 +17,9 @@ body {
   display: grid;
   grid-template-areas: 'navbar'
                        'menubar' 
+                       'flash' 
                        'content';
-  grid-template-rows: #{$navbar-height $menubar-height} calc(100vh - #{$navbar-height + $menubar-height});
+  grid-template-rows: #{$navbar-height $menubar-height $flash-height} calc(100vh - #{$navbar-height + $menubar-height + $flash-height});
 
   #grid-navbar{
     display: grid;
@@ -32,6 +33,37 @@ body {
     grid-area: menubar;
     height: $menubar-height;
     overflow: hidden;
+  }
+
+  #grid-flash{
+    display: grid;
+    grid-area: flash;
+    height: $flash-height;
+    overflow: hidden;
+    .flash{
+      position: relative;
+      height: 46px;
+      width: 600px;
+      line-height: 46px;
+      margin: 10px auto 4px auto;
+      border-radius: 5px;
+      text-align: center;
+      background-color: $notification-color;
+      color: $notification-text-color;
+      #dismiss-flash{
+        position: absolute;
+        top: 0;
+        left: 560px;
+        margin-top: 5px;
+        svg{
+          fill: $notification-text-color;
+          &:hover{
+            fill: #9b8b56;
+            cursor: pointer;
+          }
+        }
+      }
+    }
   }
 
   #grid-content{
@@ -102,4 +134,3 @@ body {
     fill: $background-light;
   }
 }
-
