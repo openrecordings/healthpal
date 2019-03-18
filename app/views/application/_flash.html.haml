@@ -1,4 +1,5 @@
-- if flash.any?
+-# NOTE: Hack to get around alert flash upon signout :(
+- if flash.any? && !(flash[:alert] && flash[:alert] == 'You need to sign in or sign up before continuing.')
   .flash
     - flash.each do |key, message|
       = message
