@@ -4,7 +4,7 @@
   = submit_tag 'Add a person to share with', class: 'button', id: 'open-share-form'
   #new-share-form.hidden
     .form-title
-      Enter a name and email address for the person you want to share with
+      Who do you want to share your recordings with?
     .text-center.margin-bottom-10
       All fields are required
     = form_tag url: shares_path do
@@ -16,6 +16,10 @@
         .form-label
           Last name
         = text_field :last_name, nil, class: 'form-input'
+      .form-field-container.field-centered
+        .form-label
+          Mobile phone number
+        = telephone_field :phone, nil, class: 'form-input phone-number'
       .form-field-container.field-centered
         .form-label
           Email address
