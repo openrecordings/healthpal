@@ -1,7 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :authenticate_user!
-  before_action :check_otp_status, unless: :devise_controller?
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_cache_buster
 
@@ -16,13 +15,6 @@ class ApplicationController < ActionController::Base
 	def configure_permitted_parameters
 		devise_parameter_sanitizer.permit(:invite, keys: [:role])
 	end
-
-  # Prevent application access unless OTP sign up is complete
-  def check_otp_status
-    if current_user.otp_mandatory
-      redirect_to :user_otp_token unless current_user.otp_enabled
-    end
-  end
 
   def set_cache_buster
     response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
