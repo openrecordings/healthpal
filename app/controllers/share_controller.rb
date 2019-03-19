@@ -32,8 +32,8 @@ class ShareController < ApplicationController
         return
       end
     else
-      if create_user_invite_and_share!(params['first_name'], params['last_name'], params['email'])
-        flash.notice = "You are now sharing all of your recordings with #{params['email']}"
+      if invite_and_share!(params['first_name'], params['last_name'], params['email'])
+        flash.notice = "#{params['email']} has been invited to access your recordings"
         render json: {}
         return
       else
@@ -58,7 +58,7 @@ class ShareController < ApplicationController
 
   private
 
-  def create_user_invite_and_share!(first_name, last_name, email)
+  def invite_and_share!(first_name, last_name, email)
     if user = User.create(
       first_name: first_name,
       last_name: last_name,
