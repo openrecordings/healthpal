@@ -12,6 +12,9 @@ class ShareController < ApplicationController
 
   # AJAX-only endpoint for creating a new Share record
   def create
+    puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+    puts params
+    puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
     user = User.find_by(email: params['email'])
     if user
       new_share = Share.new(user: current_user, shared_with_user_id: user.id)
@@ -32,7 +35,7 @@ class ShareController < ApplicationController
         return
       end
     else
-      if invite_and_share!(params['first_name'], params['last_name'], params['email'])
+      if invite_and_share!(params['first_name'], params['last_name'], params['phone_number'], params['email'])
         flash.notice = "#{params['email']} has been invited to access your recordings"
         render json: {}
         return
@@ -58,10 +61,15 @@ class ShareController < ApplicationController
 
   private
 
-  def invite_and_share!(first_name, last_name, email)
+  def user_params
+    params.permit(:first_name, :last_name, :phone_number, :email, :email2)
+  end
+
+  def invite_and_share!(first_name, last_name, phone_number, email)
     if user = User.create(
       first_name: first_name,
       last_name: last_name,
+      phone_number: phone_number,
       password: SecureRandom.hex,
       email: email,
       active: true,
