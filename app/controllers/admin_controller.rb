@@ -43,7 +43,10 @@ class AdminController < ApplicationController
   # Create new user using in-clinic registration
   def create_registration
     @user = User.new(
+      first_name: user_params[:first_name],
+      last_name: user_params[:last_name],
       email: user_params[:email],
+      phone_number: user_params[:phone_number],
       first_name: user_params[:first_name],
       last_name: user_params[:last_name],
       password: user_params[:password],
@@ -61,7 +64,7 @@ class AdminController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:email, :first_name, :last_name, :password)
+    params.require(:user).permit(:email, :phone_number, :first_name, :last_name, :password)
   end
 
   def verify_privileged
