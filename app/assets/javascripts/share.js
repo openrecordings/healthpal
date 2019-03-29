@@ -30,12 +30,13 @@ $(document).ready(function(){
       e.preventDefault();
       var firstName = $('#first_name_').val(); 
       var lastName = $('#last_name_').val();
+      var phoneNumber = $('#phone_number_').val().replace(/\D/g,'');
       var email1 = $('#email_').val();
       var email2 = $('#email2_').val();
       var validationResult = validateShareForm(firstName, lastName, email1, email2);
       if(validationResult[0]){
         console.log('Posting to create');
-        $.post('/shares', {first_name: firstName, last_name: lastName, email: email1}, function(json) {
+        $.post('/shares', {first_name: firstName, last_name: lastName, phone_number: phoneNumber, email: email1}, function(json) {
           // Success: refresh the page so that the content reflects the new Share
           location.reload();
         }).fail(function(error) {
