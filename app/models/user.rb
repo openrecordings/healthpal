@@ -9,12 +9,7 @@ class User < ApplicationRecord
 
   scope :regular, ->() { where role: 'user' }
 
-<<<<<<< HEAD
   validates_presence_of :first_name, :last_name, :phone_number, :email
-=======
-  validates_presence_of :first_name
-  validates_presence_of :last_name
->>>>>>> dev
 
   # http://www.rubydoc.info/github/plataformatec/devise/Devise/Models/Authenticatable
   def active_for_authentication?
