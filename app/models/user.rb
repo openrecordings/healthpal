@@ -45,4 +45,8 @@ class User < ApplicationRecord
     "#{first_name} #{last_name}"
   end
 
+  def send_sms_token!
+    new_token = Array.new(4){rand(10)}.join
+  end
+
 end
