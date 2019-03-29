@@ -50,7 +50,8 @@ class AdminController < ApplicationController
       first_name: user_params[:first_name],
       last_name: user_params[:last_name],
       password: user_params[:password],
-      role: 'user'
+      role: 'user',
+      requires_phone_confirmation: false
     )
     if @user.save
       sign_in @user

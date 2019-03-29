@@ -11,7 +11,7 @@ class User < ApplicationRecord
 
   # http://www.rubydoc.info/github/plataformatec/devise/Devise/Models/Authenticatable
   def active_for_authentication?
-    super && active
+    super && active && (phone_confirmed_at || !requires_phone_confirmation)
   end
 
   def privileged?

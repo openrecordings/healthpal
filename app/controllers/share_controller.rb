@@ -12,9 +12,6 @@ class ShareController < ApplicationController
 
   # AJAX-only endpoint for creating a new Share record
   def create
-    puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
-    puts params
-    puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
     user = User.find_by(email: params['email'])
     if user
       new_share = Share.new(user: current_user, shared_with_user_id: user.id)
@@ -73,7 +70,8 @@ class ShareController < ApplicationController
       password: SecureRandom.hex,
       email: email,
       active: true,
-      role: 'user')
+      role: 'user',
+      requires_phone_confirmation: true)
       user.invite!
       Share.create(user: current_user, shared_with_user_id: user.id)
       return true
