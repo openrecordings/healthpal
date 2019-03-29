@@ -11,6 +11,7 @@ unless User.where(email: Rails.application.config.root_email).first
     password: Rails.application.config.root_password,
     first_name: 'An',
     last_name: 'RA',
+    phone_number: 1234567890,
     role: 'root'
   })
   user.save!
