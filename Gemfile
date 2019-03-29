@@ -3,6 +3,7 @@ git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
   "https://github.com/#{repo_name}.git"
 end
+gem 'concurrent-ruby'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'haml'

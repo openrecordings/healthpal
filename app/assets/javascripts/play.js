@@ -3,6 +3,7 @@ if(document.querySelector('#play-pause-button')) {
   let autoScrollDisabled = false;
 
   function showPage(){
+    $('#loader-container').hide();
     let videoElement = document.getElementById('video-element');
     if($(videoElement).data('is-video')){
       $('#video-play-view').removeClass('invisible');
