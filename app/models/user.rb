@@ -9,6 +9,25 @@ class User < ApplicationRecord
 
   validates_presence_of :first_name, :last_name, :phone_number, :email
 
+  def self.send_sms_token!(user_id)
+    user = User.find_by(id: user_id)
+    return unless user
+    new_phone_token = Array.new(4){rand(10)}.join
+    user.update(phone_token: new_phone_token)
+    client = Twilio::REST::Client.new(
+      Rails.configuration.twilio_account_sid,
+      Rails.configuration.twilio_auth_token)
+    begin
+      client.api.account.messages.create(
+        from: Rails.configuration.twilio_from_phone_number,
+        to: "+#{user.phone_number}",
+        body: new_phone_token
+      )
+    rescue => e
+			# TODO handle errors
+    end
+  end
+
   # http://www.rubydoc.info/github/plataformatec/devise/Devise/Models/Authenticatable
   def active_for_authentication?
     super && active && (phone_confirmed_at || !requires_phone_confirmation)
@@ -43,10 +62,6 @@ class User < ApplicationRecord
 
   def full_name
     "#{first_name} #{last_name}"
-  end
-
-  def send_sms_token!
-    new_token = Array.new(4){rand(10)}.join
   end
 
 end

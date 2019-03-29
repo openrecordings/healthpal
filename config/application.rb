@@ -14,6 +14,9 @@ module Orals
     config.root_password = ENV['ROOT_PASSWORD']
     config.research_mode = ENV['RESEARCH_MODE'] == 'true'
     config.local_audio_file_path = Rails.root.join(ENV['LOCAL_AUDIO_DIRECTORY'])
+    config.twilio_account_sid = ENV['TWILIO_ACCOUNT_SID']
+    config.twilio_auth_token = ENV['TWILIO_AUTH_TOKEN']
+    config.twilio_from_phone_number = ENV['TWILIO_FROM_PHONE_NUMBER']
 		# Google Cloud Platform Config
     config.gcp_app_credentials = ENV['GOOGLE_APPLICATION_CREDENTIALS']
     config.gcp_project_name =  ENV['GCP_PROJECT_NAME']
