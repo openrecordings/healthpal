@@ -73,6 +73,7 @@ class ShareController < ApplicationController
       role: 'user',
       requires_phone_confirmation: true)
       user.invite!
+      user.send_sms_token
       Share.create(user: current_user, shared_with_user_id: user.id)
       return true
     end
