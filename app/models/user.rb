@@ -1,4 +1,7 @@
+
 class User < ApplicationRecord
+  
+  require 'twilio-ruby'
   devise :invitable, :database_authenticatable, :registerable, :recoverable, :rememberable,
     :trackable, :validatable, :timeoutable
 
@@ -9,22 +12,20 @@ class User < ApplicationRecord
 
   validates_presence_of :first_name, :last_name, :phone_number, :email
 
-  def self.send_sms_token!(user_id)
-    user = User.find_by(id: user_id)
-    return unless user
+  def send_sms_token
     new_phone_token = Array.new(4){rand(10)}.join
-    user.update(phone_token: new_phone_token)
+    self.update(phone_token: new_phone_token)
     client = Twilio::REST::Client.new(
       Rails.configuration.twilio_account_sid,
       Rails.configuration.twilio_auth_token)
     begin
       client.api.account.messages.create(
         from: Rails.configuration.twilio_from_phone_number,
-        to: "+#{user.phone_number}",
+        to: "+1#{phone_number}",
         body: new_phone_token
       )
     rescue => e
-			# TODO handle errors
+      logger.error ([e.message]+e.backtrace).join($/)
     end
   end
 
