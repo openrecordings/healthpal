@@ -3,8 +3,11 @@
     - if resource.requires_phone_confirmation
       You should have received a text message with a four-digit confirmation code at your phone number ending in
       = resource.phone_number[-4..-1]
-      %br
-      = link_to 'click here to generate a new code', root_path
+
+      -# TODO
+      -# %br
+      -# = link_to 'click here to generate a new code', root_path
+
       %br
       %br
       Enter your confirmation code and choose a password for HealthPal
