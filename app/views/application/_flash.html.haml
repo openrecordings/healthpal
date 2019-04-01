@@ -2,7 +2,7 @@
 - if flash.any? && !(flash[:alert] && flash[:alert] == 'You need to sign in or sign up before continuing.')
   .flash
     - flash.each do |key, message|
-      = message
+      = message.html_safe
       %br
     #dismiss-flash.medium-svg
       %svg#glyphicons-basic{:viewbox => "0 0 32 32", :xmlns => "http://www.w3.org/2000/svg"}

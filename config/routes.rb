@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   # TODO Clean this file up. Make it resourceful.
 
-  devise_for :users
+  devise_for :users, controllers: {invitations: 'invitations'}
 
   root 'home#index'
 
