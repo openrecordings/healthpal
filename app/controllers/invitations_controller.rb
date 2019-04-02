@@ -2,10 +2,10 @@ class InvitationsController < Devise::InvitationsController
 
 	# Raw Devise method extnded to handle SMS verification
   def update
-    self.resource = accept_resource
     raw_invitation_token = update_resource_params[:invitation_token]
 
     # Confirm SMS token
+    self.resource = resource_class.find_by_invitation_token(raw_invitation_token, true)
     phone_token_input = params[:user][:phone_token]
     if (phone_token_input == resource.phone_token) || !resource.requires_phone_confirmation
       resource.phone_confirmed_at = Time.now
@@ -17,9 +17,11 @@ class InvitationsController < Devise::InvitationsController
       return
     end
 
-    raw_invitation_token = update_resource_params[:invitation_token]
+    # Proceed with invitation acceptance logic
+    self.resource = accept_resource
     invitation_accepted = resource.errors.empty?
     yield resource if block_given?
+    self.resource = accept_resource
     if invitation_accepted
       flash_message = resource.active_for_authentication? ? :updated : :updated_not_active
       set_flash_message :notice, flash_message if is_flashing_format?
