@@ -10,7 +10,7 @@ class User < ApplicationRecord
 
   scope :regular, ->() { where role: 'user' }
 
-  validates_presence_of :first_name, :last_name, :phone_number, :email
+  validates_presence_of :first_name, :last_name, :email
 
   def send_sms_token
     new_phone_token = Array.new(4){rand(10)}.join
