@@ -21,7 +21,6 @@ class InvitationsController < Devise::InvitationsController
     self.resource = accept_resource
     invitation_accepted = resource.errors.empty?
     yield resource if block_given?
-    self.resource = accept_resource
     if invitation_accepted
       flash_message = resource.active_for_authentication? ? :updated : :updated_not_active
       set_flash_message :notice, flash_message if is_flashing_format?
