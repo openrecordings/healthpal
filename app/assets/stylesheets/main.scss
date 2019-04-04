@@ -72,6 +72,11 @@ body {
   }
 }
 
+.center-block{
+  display: block;
+  margin: 0 auto;
+}
+
 #loader-container{
   display: flex;
   flex-direction: column;

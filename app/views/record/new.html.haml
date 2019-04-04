@@ -1,7 +1,8 @@
 #record-container
-  #record-start-stop
-    %button#record-start-button.btn.btn-danger Start recording now
-    %button#record-stop-button.btn.btn-danger Stop recording now
-
   %canvas#audio-meter{width: '50', height: '200'}
+  .center-block
+    audio level
+  #record-start-stop
+    #record-start-button.button Start recording now
+    #record-stop-button.button Stop recording now
   %audio#record-audio{autoplay: true}
