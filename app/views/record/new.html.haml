@@ -1,5 +1,7 @@
-#record-start-stop
-  %button#record-start-button.btn.btn-danger Start recording now
-  %button#record-stop-button.btn.btn-danger Stop recording now
+#record-container
+  #record-start-stop
+    %button#record-start-button.btn.btn-danger Start recording now
+    %button#record-stop-button.btn.btn-danger Stop recording now
 
-%video#record-video{autoplay: true}
+  %canvas#audio-meter{width: '50', height: '200'}
+  %audio#record-audio{autoplay: true}
