@@ -1,35 +1,12 @@
-// Wrap entire file in conditional, verifying that we are on the recording page
 if(document.querySelector('#record-start-button')) {
   const videoElement = document.querySelector('video');
-  const audioSelect = document.querySelector('select#audioSource');
-  const videoSelect = document.querySelector('select#videoSource');
   var streamRecorder;
   var recordStream;
+  var mediaRecorder;
+  var chunks = [];
 
   // Stream management. Started with https://www.html5rocks.com/en/tutorials/getusermedia/intro/ 
   //////////////////////////////////////////////////////////////////////////////////////////////////
-  audioSelect.onchange = getStream;
-  videoSelect.onchange = getStream;
-
-  function gotDevices(deviceInfos) {
-    for (let i = 0; i !== deviceInfos.length; ++i) {
-      const deviceInfo = deviceInfos[i];
-      const option = document.createElement('option');
-      option.value = deviceInfo.deviceId;
-      if (deviceInfo.kind === 'audioinput') {
-        option.text = deviceInfo.label ||
-          'microphone ' + (audioSelect.length + 1);
-        audioSelect.appendChild(option);
-      } else if (deviceInfo.kind === 'videoinput') {
-        option.text = deviceInfo.label || 'camera ' +
-          (videoSelect.length + 1);
-        videoSelect.appendChild(option);
-      } else {
-        console.log('Found another kind of device: ', deviceInfo);
-      }
-    }
-  }
-
   function handleError(error) {
     console.error('Error: ', error);
   }
@@ -50,6 +27,7 @@ if(document.querySelector('#record-start-button')) {
 
   function stopStream() {
     console.log('stop');
+    mediaRecorder.stop();
     if (window.stream) {
       window.stream.getTracks().forEach(function(track) {
         track.stop();
@@ -59,21 +37,7 @@ if(document.querySelector('#record-start-button')) {
 
   function getStream() {
     console.log('get');
-    const constraints = {
-      audio: {
-        deviceId: {exact: audioSelect.value}
-      },
-      video: {
-        deviceId: {exact: videoSelect.value}
-      }
-    };
-    navigator.mediaDevices.getUserMedia(constraints).
-      then(gotStream).catch(handleError);
-  }
-
-  function startStream(){
-    navigator.mediaDevices.enumerateDevices()
-      .then(gotDevices).then(getStream).catch(handleError);
+    navigator.mediaDevices.getUserMedia({audio: true}).then(gotStream).catch(handleError);
   }
 
   // Recording. Started with https://stackoverflow.com/a/16784618
@@ -84,26 +48,22 @@ if(document.querySelector('#record-start-button')) {
 
   function startRecording() {
     console.log('startRecording');
-    var mediaRecorder = new MediaRecorder(recordStream);
-    mediaRecorder.mimeType = 'video/webm';
-    mediaRecorder.ondataavailable = function(blob) {
-      videoElement.srcObject = recordStream;
-      postMediaToServer(videoElement.srcObject);
-    };
-    mediaRecorder.start(2000)
-    setTimeout(stopRecording, 10000);
-  }
-
-  function stopRecording() {
-    // TODO
-  }
-
-  function postMediaToServer(mediaBlob) {
-    var data = {};
-    data.video = mediaBlob;
-    data.metadata = 'test metadata';
-    data.action = "upload_video";
-    jQuery.post('/upload', data, onUploadSuccess);
+    mediaRecorder = new MediaRecorder(recordStream);
+    mediaRecorder.mimeType = 'video/ogg';
+    mediaRecorder.ondataavailable = function(e) {
+      chunks.push(e.data);
+    }
+    mediaRecorder.onstop = function(e){
+      var blob = new Blob(chunks, { 'type': 'video/ogg' });
+      $.ajax({
+        type: 'POST',
+        url: '/upload',
+        data: blob,
+        contentType: 'video/ogg',
+        processData: false
+      })
+    }
+    mediaRecorder.start();
   }
 
   function onUploadSuccess() {
@@ -286,11 +246,7 @@ if(document.querySelector('#record-start-button')) {
   //////////////////////////////////////////////////////////////////////////////////////////////////
   $(document).ready(function() {
     if (hasGetUserMedia()) {
-      navigator.mediaDevices.enumerateDevices().then(gotDevices).catch(handleError);
-
-      $('#media-start-button').click(function(){
-        getStream();
-      })
+      navigator.mediaDevices.enumerateDevices().then(getStream).catch(handleError);
 
       $('#record-start-button').click(function(){
         startRecording();
@@ -298,61 +254,11 @@ if(document.querySelector('#record-start-button')) {
 
       $('#record-stop-button').click(function(){
         stopStream();
-        stopRecording();
       })
     } else {
       //TODO: Alert the user
       console.log('getUserMedia not found');  
     }
-    
-    // Audio meter display onload starts here
-    ////////////////////////////////////////////////////////////////////////////////////////////
-    // let video = document.getElementById('record-video');
-    // // grab our canvas
-    // canvasContext = document.getElementById('record-audio-meter').getContext("2d");
-    // // monkeypatch Web Audio
-    // window.AudioContext = window.AudioContext || window.webkitAudioContext;
-    // // grab an audio context
-    // audioContext = new AudioContext();
-    // // Attempt to get audio input
-    // try {
-    //     // ask for an audio input
-    //     navigator.mediaDevices.getUserMedia(
-    //     {
-    //         "audio": {
-    //             "mandatory": {
-    //                 "googEchoCancellation": "false",
-    //                 "googAutoGainControl": "false",
-    //                 "googNoiseSuppression": "false",
-    //                 "googHighpassFilter": "false"
-    //             },
-    //             "optional": []
-    //         },
-    //     }, onMicrophoneGranted, onMicrophoneDenied);
-    // } catch (e) {
-    //     alert('getUserMedia threw exception :' + e);
-    // }
-      
-    // TODO: handle turning tracks on/off
-    // Initialize to recording nothing
-    // let audioTrackOn = false;
-    // let videoTrackOn = false;
-    //
-    // Listen for a/v selection and set stream to record audio and/or video
-    // $("[name='requested-media']").click(function(){
-    //   let requestedMedia = $(this).data('requested-media');
-    //   switch(requestedMedia){
-    //     case 'audio':
-    //       audioTrackOn = true;
-    //       break;
-    //     case 'video':
-    //       videoTrackOn = true;
-    //       break;
-    //     case 'audio-video':
-    //       audioTrackOn = true;
-    //       videoTrackOn = true;
-    //   }
-    // })
 
   });
 }

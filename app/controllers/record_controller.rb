@@ -16,6 +16,11 @@ class RecordController < ApplicationController
     respond_to do |format|
 
       format.js do
+        puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1!!!!!!!!!!'
+        File.open('/Users/will/Desktop/foo.ogg', 'wb') do |file|
+          file.write(request.body.read)
+        end
+
         # TODO
         #
         # flash.alert = 'Recording saved.'

@@ -47,10 +47,10 @@ environment ENV.fetch("RAILS_ENV") { "development" }
 plugin :tmp_restart
 
 # From https://gist.github.com/tadast/9932075#file-ssl_puma-sh
-# if ENV.fetch("RAILS_ENV") == 'development'
-#   ssl_bind '127.0.0.1', '3000', {
-#     key: ENV.fetch("SSL_KEY_PATH"),
-#     cert: ENV.fetch("SSL_CERT_PATH"),
-#     verify_mode: 'none'
-#   }
-# end
+if ENV.fetch("RAILS_ENV") == 'development'
+  ssl_bind '127.0.0.1', '3000', {
+    key: ENV.fetch("SSL_KEY_PATH"),
+    cert: ENV.fetch("SSL_CERT_PATH"),
+    verify_mode: 'none'
+  }
+end

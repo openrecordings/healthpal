@@ -1,24 +1,5 @@
-%select#audioSource
-%select#videoSource
-
-#record-controls
-  
-  #choose-av
-    %p What would you like to record?
-    -# TODO: Fix labels
-    %div
-      %input{type: 'radio', "data-requested-media" => "audio", name: 'requested-media'}
-      %label{for: 'toggle-audio-input'} Audio
-    %div
-      %input{type: 'radio', "data-requested-media" => "video", name: 'requested-media'}
-      %label{for: 'toggle-video-input'} Video
-    %div
-      %input{type: 'radio', "data-requested-media" => "audio-video", name: 'requested-media'}
-      %label{for: 'toggle-video-input'} Both audio and video
-
-  #record-start-stop
-    %button#media-start-button.btn.btn-danger Turn on camera/microphone
-    %button#record-start-button.btn.btn-danger Start recording now
-    %button#record-stop-button.btn.btn-danger Stop recording now
+#record-start-stop
+  %button#record-start-button.btn.btn-danger Start recording now
+  %button#record-stop-button.btn.btn-danger Stop recording now
 
 %video#record-video{autoplay: true}
