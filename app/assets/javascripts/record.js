@@ -37,7 +37,7 @@ if(document.querySelector('#record-start-button')) {
 
   function getStream() {
     console.log('get');
-    navigator.mediaDevices.getUserMedia({audio: true}).then(gotStream).catch(handleError);
+    navigator.mediaDevices.getUserMedia({audio: true}).then(gotStream).then(startMeter).catch(handleError);
   }
 
   // Recording. Started with https://stackoverflow.com/a/16784618
@@ -49,17 +49,17 @@ if(document.querySelector('#record-start-button')) {
   function startRecording() {
     console.log('startRecording');
     mediaRecorder = new MediaRecorder(recordStream);
-    mediaRecorder.mimeType = 'video/ogg';
+    mediaRecorder.mimeType = 'audio/ogg';
     mediaRecorder.ondataavailable = function(e) {
       chunks.push(e.data);
     }
     mediaRecorder.onstop = function(e){
-      var blob = new Blob(chunks, { 'type': 'video/ogg' });
+      var blob = new Blob(chunks, { 'type': 'audio/ogg' });
       $.ajax({
         type: 'POST',
         url: '/upload',
         data: blob,
-        contentType: 'video/ogg',
+        contentType: 'audio/ogg',
         processData: false
       })
     }
@@ -109,7 +109,6 @@ if(document.querySelector('#record-start-button')) {
 
       $('#record-start-button').click(function(){
         startRecording();
-				startMeter();
       })
 
       $('#record-stop-button').click(function(){
