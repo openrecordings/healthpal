@@ -145,6 +145,16 @@ body {
   width: 30px;
 }
 
+.large-svg{
+  margin-top: 10px;
+  height: 50px;
+  width: 50px;
+  fill: #fff;
+  &:hover{
+    fill: $background-light;
+  }
+}
+
 .medium-svg{
   height: 25px;
   width: 25px;
