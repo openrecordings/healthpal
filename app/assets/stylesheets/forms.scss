@@ -55,6 +55,23 @@
   }
 }
 
+.tall-button{
+  height: 100px;
+  line-height: 50px;
+  width: 322px;
+  background-color: $background-light;
+  text-align: center;
+  text-decoration: none;
+  font-size: 18px;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  &:hover{
+    cursor: pointer;
+    background-color: $background-very-light;
+  }
+}
+
 .text-link{
   display: inline-block;
   color: $background-dark;
