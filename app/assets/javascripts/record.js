@@ -98,6 +98,17 @@ if(document.querySelector('#record-start-button')) {
     }
   }
 
+  // Controls
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  function toggleDisabled(){
+    let startButton = $('#record-start-button');
+    let stopButton = $('#record-stop-button');
+    $(startButton).prop('disabled', !$(startButton).prop('disabled'));
+    $(stopButton).prop('disabled', !$(stopButton).prop('disabled'));
+    $(startButton).toggleClass('disabled');
+    $(stopButton).toggleClass('disabled');
+  }
+
   // onload
   //////////////////////////////////////////////////////////////////////////////////////////////////
   $(document).ready(function() {
@@ -106,12 +117,18 @@ if(document.querySelector('#record-start-button')) {
 
       navigator.mediaDevices.enumerateDevices().then(getStream).catch(handleError);
 
-      $('#record-start-button').click(function(){
-        startRecording();
+      $('#record-start-button').click(function(event){
+        if(!$(event.target).prop('disabled')){
+          toggleDisabled();
+          startRecording();
+        }
       })
 
-      $('#record-stop-button').click(function(){
-        stopStream();
+      $('#record-stop-button').click(function(event){
+        if(!$(event.target).prop('disabled')){
+          toggleDisabled();
+          stopStream();
+        }
       })
     } else {
       //TODO: Alert the user
