@@ -72,6 +72,14 @@
   }
 }
 
+.disabled{
+  background-color: #bbb;
+  &:hover{
+    cursor: pointer;
+    background-color: #bbb;
+  }
+}
+
 .text-link{
   display: inline-block;
   color: $background-dark;

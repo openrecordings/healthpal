@@ -95,7 +95,6 @@ if(document.querySelector('#record-start-button')) {
       canvasContext.clearRect(0, 0, 50, 200);
       canvasContext.fillStyle = '#f9d56d';
       canvasContext.fillRect(0, 200 - average, 50, 200);
-      canvasContext.fillStyle = '#555';
     }
   }
 
