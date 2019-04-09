@@ -55,21 +55,17 @@
   }
 }
 
-.tall-button{
+.button-tall{
   height: 100px;
-  line-height: 50px;
-  width: 322px;
-  background-color: $background-light;
-  text-align: center;
-  text-decoration: none;
-  font-size: 18px;
-  color: #fff;
-  border: none;
-  border-radius: 3px;
-  &:hover{
-    cursor: pointer;
-    background-color: $background-very-light;
-  }
+}
+
+.button-fat{
+  height: 100px;
+  width: 150px;
+}
+
+.button-container{
+  width: 320px;
 }
 
 .disabled{

@@ -78,6 +78,20 @@ body {
   text-align: center;
 }
 
+.center-inline{
+  display: inline-block;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.float-left{
+  float: left;
+}
+
+.float-right{
+  float: right;
+}
+
 #loader-container{
   display: flex;
   flex-direction: column;
@@ -154,9 +168,9 @@ body {
   height: 50px;
   width: 50px;
   fill: #fff;
-  &:hover{
-    fill: $background-light;
-  }
+  // &:hover{
+  //   fill: $background-light;
+  // }
 }
 
 .medium-svg{

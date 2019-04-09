@@ -7,71 +7,6 @@ if(document.querySelector('#record-start-button')) {
 	var timer = null;
   var seconds = 0;
 
-  // Stream management. Started with https://www.html5rocks.com/en/tutorials/getusermedia/intro/ 
-  //////////////////////////////////////////////////////////////////////////////////////////////////
-  function handleError(error) {
-    console.error('Error: ', error);
-  }
-    
-  // Check for getUserMedia browser support
-  function hasGetUserMedia() {
-    return !!(navigator.mediaDevices &&
-      navigator.mediaDevices.getUserMedia);
-  }
-
-  function gotStream(stream) {
-    console.log('got');
-    // Make stream available to console
-    window.stream = stream;
-	  audioElement.srcObject = stream;
-    recordStream = stream;
-  }
-
-  function stopStream() {
-    console.log('stop');
-    mediaRecorder.stop();
-    if (window.stream) {
-      window.stream.getTracks().forEach(function(track) {
-        track.stop();
-      });
-    }
-  }
-
-  function getStream() {
-    console.log('get');
-    navigator.mediaDevices.getUserMedia({audio: true}).then(gotStream).then(startMeter).catch(handleError);
-  }
-
-  // Recording. Started with https://stackoverflow.com/a/16784618
-  //////////////////////////////////////////////////////////////////////////////////////////////////
-  function onVideoFail(e) {
-    console.log('webcam fail!', e);
-  };
-
-  function startRecording() {
-    console.log('startRecording');
-    mediaRecorder = new MediaRecorder(recordStream);
-    mediaRecorder.mimeType = 'audio/ogg';
-    mediaRecorder.ondataavailable = function(e) {
-      chunks.push(e.data);
-    }
-    mediaRecorder.onstop = function(e){
-      var blob = new Blob(chunks, { 'type': 'audio/ogg' });
-      $.ajax({
-        type: 'POST',
-        url: '/upload',
-        data: blob,
-        contentType: 'audio/ogg',
-        processData: false
-      })
-    }
-    mediaRecorder.start();
-  }
-
-  function onUploadSuccess() {
-    console.log('video uploaded');
-  }
-
   // Audio level measurement https://codepen.io/travisholliday/pen/gyaJk
   ////////////////////////////////////////////////////////////////////////////////////////////////
 	function startMeter(){
@@ -100,7 +35,7 @@ if(document.querySelector('#record-start-button')) {
     }
   }
 
-  // Controls
+  // Timer
   //////////////////////////////////////////////////////////////////////////////////////////////////
   function formatTime(seconds) {
       var h = Math.floor(seconds / 3600),
@@ -122,15 +57,65 @@ if(document.querySelector('#record-start-button')) {
   }
 
   function clock(){
-    log(formatTime(seconds));
     seconds++;
     $('#time-display').text(formatTime(seconds));
   }
 
-  function toggleDisabled(){
-    $('#record-start-button').toggle();
-    $('#record-stop-button').toggle();
+  // Stream management. Started with https://www.html5rocks.com/en/tutorials/getusermedia/intro/ 
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  function handleError(error) {
+    console.error('Error: ', error);
   }
+    
+  // Check for getUserMedia browser support
+  function hasGetUserMedia() {
+    return !!(navigator.mediaDevices &&
+      navigator.mediaDevices.getUserMedia);
+  }
+
+  function gotStream(stream) {
+    window.stream = stream;
+	  audioElement.srcObject = stream;
+    recordStream = stream;
+  }
+
+  function getStream() {
+    navigator.mediaDevices.getUserMedia({audio: true}).then(gotStream).then(startMeter).catch(handleError);
+  }
+
+  // Recording. Started with https://stackoverflow.com/a/16784618
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  function onVideoFail(e) {
+    console.log('webcam fail!', e);
+  };
+
+  function startRecording() {
+    console.log('startRecording');
+    mediaRecorder = new MediaRecorder(recordStream);
+    mediaRecorder.mimeType = 'audio/ogg';
+    mediaRecorder.ondataavailable = function(e) {
+      chunks.push(e.data);
+    }
+    mediaRecorder.start();
+  }
+
+  function uploadVideo(){
+    var blob = new Blob(chunks, {'type': 'audio/ogg'});
+    $.ajax({
+      type: 'POST',
+      url: '/upload',
+      data: blob,
+      contentType: 'audio/ogg',
+      processData: false
+    })
+  }
+
+  function onUploadSuccess() {
+    console.log('video uploaded');
+  }
+
+  // Controls
+  //////////////////////////////////////////////////////////////////////////////////////////////////
 
   // onload
   //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -143,7 +128,8 @@ if(document.querySelector('#record-start-button')) {
       $('#record-start-button').click(function(event){
         if(!($('#record-start-button').hasClass('disabled'))){
           $('#record-container').addClass('recording-pulse');
-          toggleDisabled();
+          $('#record-start-button').hide();
+          $('#record-stop-button').show();
           startTimer();
           //startRecording();
         }
@@ -152,9 +138,8 @@ if(document.querySelector('#record-start-button')) {
       $('#record-stop-button').click(function(event){
         if(!($('#record-stop-button').hasClass('disabled'))){
           $('#record-container').removeClass('recording-pulse');
-          toggleDisabled();
           stopTimer();
-          //stopStream();
+          // mediaRecorder.stop();
         }
       })
     } else {
