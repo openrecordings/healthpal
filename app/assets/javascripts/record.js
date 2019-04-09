@@ -4,6 +4,8 @@ if(document.querySelector('#record-start-button')) {
   var recordStream;
   var mediaRecorder;
   var chunks = [];
+	var timer = null;
+  var seconds = 0;
 
   // Stream management. Started with https://www.html5rocks.com/en/tutorials/getusermedia/intro/ 
   //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -100,6 +102,31 @@ if(document.querySelector('#record-start-button')) {
 
   // Controls
   //////////////////////////////////////////////////////////////////////////////////////////////////
+  function formatTime(seconds) {
+      var h = Math.floor(seconds / 3600),
+          m = Math.floor(seconds / 60) % 60,
+          s = seconds % 60;
+      if(h < 10){h = "0" + h};
+      if(m < 10){m = "0" + m};
+      if(s < 10){s = "0" + s};
+      return `${h}:${m}:${s}`
+  }
+
+	function startTimer(){
+		timer = setInterval(clock, 1000);
+	}
+
+	function stopTimer(){
+    clearInterval(timer);
+    seconds = 0;
+  }
+
+  function clock(){
+    log(formatTime(seconds));
+    seconds++;
+    $('#time-display').text(formatTime(seconds));
+  }
+
   function toggleDisabled(){
     $('#record-start-button').toggle();
     $('#record-stop-button').toggle();
@@ -117,6 +144,7 @@ if(document.querySelector('#record-start-button')) {
         if(!($('#record-start-button').hasClass('disabled'))){
           $('#record-container').addClass('recording-pulse');
           toggleDisabled();
+          startTimer();
           //startRecording();
         }
       })
@@ -125,6 +153,7 @@ if(document.querySelector('#record-start-button')) {
         if(!($('#record-stop-button').hasClass('disabled'))){
           $('#record-container').removeClass('recording-pulse');
           toggleDisabled();
+          stopTimer();
           //stopStream();
         }
       })
