@@ -101,12 +101,8 @@ if(document.querySelector('#record-start-button')) {
   // Controls
   //////////////////////////////////////////////////////////////////////////////////////////////////
   function toggleDisabled(){
-    let startButton = $('#record-start-button');
-    let stopButton = $('#record-stop-button');
-    $(startButton).prop('disabled', !$(startButton).prop('disabled'));
-    $(stopButton).prop('disabled', !$(stopButton).prop('disabled'));
-    $(startButton).toggleClass('disabled');
-    $(stopButton).toggleClass('disabled');
+    $('#record-start-button').toggle();
+    $('#record-stop-button').toggle();
   }
 
   // onload
@@ -118,16 +114,18 @@ if(document.querySelector('#record-start-button')) {
       navigator.mediaDevices.enumerateDevices().then(getStream).catch(handleError);
 
       $('#record-start-button').click(function(event){
-        if(!$(event.target).prop('disabled')){
+        if(!($('#record-start-button').hasClass('disabled'))){
+          $('#record-container').addClass('recording-pulse');
           toggleDisabled();
-          startRecording();
+          //startRecording();
         }
       })
 
       $('#record-stop-button').click(function(event){
-        if(!$(event.target).prop('disabled')){
+        if(!($('#record-stop-button').hasClass('disabled'))){
+          $('#record-container').removeClass('recording-pulse');
           toggleDisabled();
-          stopStream();
+          //stopStream();
         }
       })
     } else {
