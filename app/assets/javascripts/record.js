@@ -94,6 +94,7 @@ if(document.querySelector('#record-start-button')) {
     mediaRecorder.start();
   }
 
+  // As of now the callback is not being used because we are doing a redirect on the server
   function uploadAudio(){
     var blob = new Blob(chunks, {'type': 'audio/ogg'});
     $.ajax({
@@ -102,8 +103,6 @@ if(document.querySelector('#record-start-button')) {
       data: blob,
       contentType: 'audio/ogg',
       processData: false
-    }).done(function(){
-      alert('Recording saved successfully');
     })
   }
 
