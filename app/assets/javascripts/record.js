@@ -85,12 +85,7 @@ if(document.querySelector('#record-start-button')) {
 
   // Recording. Started with https://stackoverflow.com/a/16784618
   //////////////////////////////////////////////////////////////////////////////////////////////////
-  function onVideoFail(e) {
-    console.log('webcam fail!', e);
-  };
-
   function startRecording() {
-    console.log('startRecording');
     mediaRecorder = new MediaRecorder(recordStream);
     mediaRecorder.mimeType = 'audio/ogg';
     mediaRecorder.ondataavailable = function(e) {
@@ -99,7 +94,7 @@ if(document.querySelector('#record-start-button')) {
     mediaRecorder.start();
   }
 
-  function uploadVideo(){
+  function uploadAudio(){
     var blob = new Blob(chunks, {'type': 'audio/ogg'});
     $.ajax({
       type: 'POST',
@@ -107,15 +102,18 @@ if(document.querySelector('#record-start-button')) {
       data: blob,
       contentType: 'audio/ogg',
       processData: false
+    }).done(function(){
+      alert('Recording saved successfully');
     })
   }
 
-  function onUploadSuccess() {
-    console.log('video uploaded');
+  function resetRecord(){
+    setTimeout(function(){
+      $('#save-delete-container').hide();
+      $('#record-start-button').show();
+      $('#time-display').text('00:00:00');
+    }, 500)
   }
-
-  // Controls
-  //////////////////////////////////////////////////////////////////////////////////////////////////
 
   // onload
   //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -127,24 +125,42 @@ if(document.querySelector('#record-start-button')) {
 
       $('#record-start-button').click(function(event){
         if(!($('#record-start-button').hasClass('disabled'))){
+          startRecording();
           $('#record-container').addClass('recording-pulse');
-          $('#record-start-button').hide();
-          $('#record-stop-button').show();
+          setTimeout(function(){
+            $('#record-start-button').hide();
+            $('#record-stop-button').show();
+          }, 200)
           startTimer();
-          //startRecording();
         }
       })
 
       $('#record-stop-button').click(function(event){
         if(!($('#record-stop-button').hasClass('disabled'))){
+          mediaRecorder.stop();
           $('#record-container').removeClass('recording-pulse');
+          setTimeout(function(){
+            $('#record-stop-button').hide();
+            $('#save-delete-container').show();
+          }, 200)
           stopTimer();
-          // mediaRecorder.stop();
         }
       })
+
+      $('#save-button').click(function(){
+        resetRecord();
+        uploadAudio();
+      })
+
+      $('#delete-button').click(function(){
+        var confirmation = confirm("Are you sure that you want to delete this recording? (Can't undo)");
+        if(confirmation){
+          resetRecord();
+        }
+      })
+
     } else {
-      //TODO: Alert the user
-      console.log('getUserMedia not found');  
+      alert('This browser does not support audio recording.');
     }
 
   });
