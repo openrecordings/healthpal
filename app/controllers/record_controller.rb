@@ -29,6 +29,7 @@ class RecordController < ApplicationController
 
   def upload_file
     # TODO Restrict to supported mime types
+    # Refactor and use the recording_from_blob method
     file = recording_params[:file]
     blob = file.read
     recording = Recording.new(
