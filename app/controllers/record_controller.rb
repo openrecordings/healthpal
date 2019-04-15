@@ -10,6 +10,7 @@ class RecordController < ApplicationController
     @users = User.regular.map {|u| [u.email, u.id]}
   end
 
+  # In-app recordings. Come in as AJAX but redirected to my_recordings if successful.
   def upload
     blob = request.body.read
     new_recording_params = {user: current_user, file_name: "#{Digest::SHA1.hexdigest(blob)}.flac"}
@@ -27,28 +28,19 @@ class RecordController < ApplicationController
     render js: "window.location = '#{my_recordings_path(current_user.id)}'"
   end
 
+  # Create a recording by uploading an existing file
   def upload_file
     # TODO Restrict to supported mime types
-    # Refactor and use the recording_from_blob method
     file = recording_params[:file]
     blob = file.read
-    recording = Recording.new(
+    new_recording_params = {
       user: User.find_by(id: recording_params[:user]),
+      file_name: "#{Digest::SHA1.hexdigest(blob)}.flac",
       original_file_name: file.original_filename,
-      file_name: "#{Digest::SHA1.hexdigest(blob)}.flac"
-    )  
-    begin
-      File.open(recording.media_path, 'wb') do |disk_file|
-        disk_file.write(blob)
-      end
-    rescue File => error
-      recording.errors.add(:base, "An error occured during uploading: #{error}")
-    end
-
+    }
+    recording = recording_from_blob(blob, new_recording_params)
     if recording.save!
-      recording.upload
-      # recording.transcribe
-      flash.notice = "Recording successfully uploaded for #{recording.user.email}"
+      process_recording(recording)
       redirect_to :recordings
     else
       flash.alert = recording.errors.full_messages

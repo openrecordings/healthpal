@@ -13,23 +13,20 @@ class Recording < ApplicationRecord
 
   # TODO: Validation
 
-  def upload
-  end
-
   # Upload audio file to GCP
   # Will return nil unless self is persisted
   # TODO:
 	#  Async
   #  Error-handling
-  # def upload
-    # return nil unless self.persisted?
-    # storage_job = Google::Cloud::Storage.new(project: Rails.configuration.gcp_project_name)
-    # bucket_name = Rails.configuration.gcp_bucket_name
-    # bucket = storage_job.bucket(bucket_name)
-    # audio_file_path = self.media_path
-    # file = bucket.create_file(audio_file_path, self.file_name)
-    # self.update(uri: "gs://#{bucket_name}/#{self.file_name}", url:file.public_url)
-  #end
+  def upload
+    return nil unless self.persisted?
+    storage_job = Google::Cloud::Storage.new(project: Rails.configuration.gcp_project_name)
+    bucket_name = Rails.configuration.gcp_bucket_name
+    bucket = storage_job.bucket(bucket_name)
+    audio_file_path = self.media_path
+    file = bucket.create_file(audio_file_path, self.file_name)
+    self.update(uri: "gs://#{bucket_name}/#{self.file_name}", url:file.public_url)
+  end
 
   # TODO
   def download
@@ -41,26 +38,26 @@ class Recording < ApplicationRecord
   #  Error-handling
   #  Delete local and GCP file if they already exist (warn user?)
   #  Upload tempfile and deprecate local file
-  # def transcribe
-		# return nil unless self.persisted? && self.uri
-    # # Find or create transcript
-    # self.json = [].to_json
-    # # Create and submit STT job
-    # stt_job = Google::Cloud::Speech.new
-    # stt_config = {encoding: :FLAC,
-    #   sample_rate_hertz: 16000,
-    #   language_code: 'en-US',
-    #   enable_word_time_offsets: true,
-    #   enable_automatic_punctuation: true,
-    #   max_alternatives: 1
-    # }
-    # audio  = {uri: self.uri}
-    # operation = stt_job.long_running_recognize(stt_config, audio)
-    # operation.wait_until_done!
-    # raise operation.results.message if operation.error?
-    # # Add result JSON to transcript
-    # self.update(json: operation.response.results)
-  # end
+  def transcribe
+		return nil unless self.persisted? && self.uri
+    # Find or create transcript
+    self.json = [].to_json
+    # Create and submit STT job
+    stt_job = Google::Cloud::Speech.new
+    stt_config = {encoding: :FLAC,
+      sample_rate_hertz: 16000,
+      language_code: 'en-US',
+      enable_word_time_offsets: true,
+      enable_automatic_punctuation: true,
+      max_alternatives: 1
+    }
+    audio  = {uri: self.uri}
+    operation = stt_job.long_running_recognize(stt_config, audio)
+    operation.wait_until_done!
+    raise operation.results.message if operation.error?
+    # Add result JSON to transcript
+    self.update(json: operation.response.results)
+  end
 
   def media_path
     return nil unless self.file_name

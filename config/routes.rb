@@ -33,6 +33,7 @@ Rails.application.routes.draw do
   get 'record',                      to: 'record#new' 
   get 'file_upload',                 to: 'record#file_upload',               as: 'file_upload'
   post 'upload',                     to: 'record#upload',                    as: 'upload'
+  post 'upload_file',                to: 'record#upload_file',               as: 'upload_file'
   get 'recording_saved',             to: 'record#saved'
 
   # Playback
