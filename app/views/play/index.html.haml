@@ -3,7 +3,7 @@
     #tabs
       - @users.each do |user|
         %span.tab{'data-user-id': user.id, class: ('selected' if user == @users.first)}
-          = user.full_name
+          = "<span class='fa fa-user' style='font-size:24px;margin-right:3px;'></span> #{user.full_name}".html_safe
   #content-container
     - @users.each do |user|
       .content{'data-user-id': user.id, class: ('hidden' unless user == @users.first)}
