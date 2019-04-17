@@ -36,6 +36,7 @@ if(document.querySelector('.user-field-content')){
   // Search
   ///////////////////////////////////////////////////////////////////////////////////////////////////
   function handleQuery(query){
+    log(query);
     $('.tag-row').each(function(){
       let rowText = $(this).data('text').toLowerCase();
       if(!(rowText.includes(query))){
@@ -46,20 +47,15 @@ if(document.querySelector('.user-field-content')){
     });
   }
 
-  // Alpha-numeric keys
-  $('#search-input').keypress(function(event){
-    let inputElement = event.target;
-    let query = $(inputElement).val().toLowerCase(); + String.fromCharCode(event.which).toLowerCase();;
-    handleQuery(query);
-  })
-
-  // Delete/backspace key
   $('#search-input').keyup(function(event){
+    let query = null;
+    let inputElement = event.target;
     if(event.which == 8){
-      let inputElement = event.target;
-      let query = $(inputElement).val()
-      handleQuery(query);
+      query = $(inputElement).val()
+    } else {
+      query = $(inputElement).val().toLowerCase(); + String.fromCharCode(event.which).toLowerCase();;
     }
+    handleQuery(query);
   })
   // Onload
   /////////////////////////////////////////////////////////////////////////////////////////////////
