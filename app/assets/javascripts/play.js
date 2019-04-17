@@ -100,29 +100,34 @@ if(document.querySelector('#play-pause-button')) {
     videoElement.currentTime = newTime.toString();
   }
 
-  // Row filtering, time display, row highlighting
-  /////////////////////////////////////////////////////////////////////////////////////////////////
-  function handleFilterClick(filterButton){
-    $(filterButton).toggleClass('filter-on');
-    $(filterButton).find('.check-glyph').toggleClass('hidden');
+  // Search and filtering
+  ///////////////////////////////////////////////////////////////////////////////////////////////////
+  function updateVisibleRows(){
+    let queryString = $('#search-input').val() && $('#search-input').val().toLowerCase();
     let tagTypeIdsShown = [];
     $('.filter-button').each(function(){
       if($(this).hasClass('filter-on')){
         tagTypeIdsShown.push($(this).data('tag-type-id') )
       }
     })
-    if(tagTypeIdsShown.length){
-      $('.tag-row').each(function (){
-        let rowTagTypeIds = $(this).data('tag-type-ids');
-        if($.arrayIntersect(rowTagTypeIds, tagTypeIdsShown).length){
+    // Test all tag rows against filters and query string
+    $('.tag-row').each(function(){
+      let rowTagTypeIds = $(this).data('tag-type-ids');
+      if(!tagTypeIdsShown.length || $.arrayIntersect(rowTagTypeIds, tagTypeIdsShown).length){
+        // Filter check passed
+        let rowText = $(this).data('text').toLowerCase();
+        if(rowText.includes(queryString) || !queryString){
+          // Search string check passed
           $(this).show();
         } else {
+          // Search string check did not pass
           $(this).hide();
         }
-      })
-    } else {
-      $('.tag-row').show();
-    }
+      } else {
+        // Filter check did not pass
+        $(this).hide();
+      }
+    })
     if($('.tag-row').not(':hidden').length){
       $('#empty-result-message').hide();
     } else {
@@ -130,6 +135,8 @@ if(document.querySelector('#play-pause-button')) {
     }
   }
 
+  // Time display, row highlighting
+  /////////////////////////////////////////////////////////////////////////////////////////////////
   function toMmSs(seconds){
     let mm = Math.floor(seconds / 60);
     let ss = parseInt(seconds - mm * 60);
@@ -219,8 +226,14 @@ if(document.querySelector('#play-pause-button')) {
 
   // Sidebar listeneers
   /////////////////////////////////////////////////////////////////////////////////////////////////
+  $('#search-input').keyup(function(event){
+    updateVisibleRows();
+  })
+
   $('.filter-button').click(function(){
-    handleFilterClick(this);
+    $(this).toggleClass('filter-on');
+    $(this).find('.check-glyph').toggleClass('hidden');
+    updateVisibleRows();
   })
 
   $('#show-all-topics').click(function(){

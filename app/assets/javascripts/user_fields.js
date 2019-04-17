@@ -32,33 +32,4 @@ if(document.querySelector('.user-field-content')){
   $('.cancel').click(function(event){
     hideSaveCancel();
   });
-
-  // Search
-  ///////////////////////////////////////////////////////////////////////////////////////////////////
-  function handleQuery(query){
-    log(query);
-    $('.tag-row').each(function(){
-      let rowText = $(this).data('text').toLowerCase();
-      if(!(rowText.includes(query))){
-        $(this).hide();
-      } else {
-        $(this).show();
-      }
-    });
-  }
-
-  $('#search-input').keyup(function(event){
-    let query = null;
-    let inputElement = event.target;
-    if(event.which == 8){
-      query = $(inputElement).val()
-    } else {
-      query = $(inputElement).val().toLowerCase(); + String.fromCharCode(event.which).toLowerCase();;
-    }
-    handleQuery(query);
-  })
-  // Onload
-  /////////////////////////////////////////////////////////////////////////////////////////////////
-  $(document).ready(function() {
-  });
 }
