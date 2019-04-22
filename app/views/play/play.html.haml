@@ -2,9 +2,10 @@
 .invisible{id: @recording.is_video ? 'video-play-view' : 'audio-play-view'}
 
   #video-container
-    #loader-container
-      %h3 Loading media. This could take a few minutes...
-      #loader
+    - if @recording.is_video?
+      #loader-container
+        %h3 Loading media. This could take a few minutes...
+        #loader
     = video_tag(send_media_path(@recording.id),
       id: 'video-element',
       'data-recording-id': @recording.id,
@@ -92,6 +93,7 @@
           %tr#empty-result-message.hidden
             %td{align: 'center', colspan: 3}
               No results found for that topic
+          - debug @utterances
           - @utterances.each do |utterance|
             %tr
               - if utterance.tmp_tag_types.any?
