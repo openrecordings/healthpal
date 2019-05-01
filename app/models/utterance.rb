@@ -14,9 +14,6 @@ class Utterance < ApplicationRecord
 
   # TODO: Encrypt the text attribute
   
-  def self.process_acusis
-  end
-  
   def  tag_types
     tag_types = []
     self.tags.each do |tag|
