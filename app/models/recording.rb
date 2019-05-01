@@ -4,7 +4,7 @@ require "google/cloud/speech"
 class Recording < ApplicationRecord
 
   belongs_to :user
-  has_many :utterances
+  has_many :utterances, -> {order 'index asc'}, dependent: :destroy
   has_many :user_fields
 
   # Add all supported transcription services here

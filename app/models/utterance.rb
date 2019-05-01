@@ -9,11 +9,15 @@ class Utterance < ApplicationRecord
 
   validates_presence_of :recording
 
+  attr_accessor :acusis_file
   attr_accessor :tmp_tag_types
 
   # TODO: Encrypt the text attribute
   
-  def tag_types
+  def self.process_acusis
+  end
+  
+  def  tag_types
     tag_types = []
     self.tags.each do |tag|
       tag_types << tag.tag_type
