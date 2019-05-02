@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   end
   resources :transcripts
   resources :tags
+  resources :links
 
   resources :utterances do
     get 'set_tag/:name',             to: 'utterances#set_tag', :val => true

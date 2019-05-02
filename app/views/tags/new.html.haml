@@ -12,6 +12,7 @@
           %td
             - u.tags.each do |t|
               %div= t.tag_type.label
+            %br
             = form_for Tag.new do |f|
               = f.hidden_field :utterance_id, {value: u.id}
               = f.select :tag_type_id, options_from_collection_for_select(TagType.all, 'id', 'label'), include_blank: true
@@ -19,9 +20,16 @@
           %td
             - u.links.each do |l|
               %div= "#{l.label} => #{l.url}"
+            %br
             = form_for Link.new do |f|
               = f.hidden_field :utterance_id, {value: u.id}
-              = f.text :label
-              = f.text :url
+              = f.label :label
+              %br
+              = f.text_field :label, class: 'form-input'
+              %br
+              = f.label :url, 'URL'
+              %br
+              = f.text_field :url, class: 'form-input'
+              %br
               = f.submit
 
