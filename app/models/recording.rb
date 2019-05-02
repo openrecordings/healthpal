@@ -64,6 +64,10 @@ class Recording < ApplicationRecord
     Rails.root.join('protected_media').join(self.file_name).to_s
   end
 
+  def ogg_path
+    media_path.gsub('.mp3', '.ogg')
+  end
+
   private
 
   def encrypt

@@ -13,7 +13,7 @@ class RecordController < ApplicationController
   # In-app recordings. Come in as AJAX but redirected to my_recordings if successful.
   def upload
     blob = request.body.read
-    new_recording_params = {user: current_user, file_name: "#{Digest::SHA1.hexdigest(blob)}.flac"}
+    new_recording_params = {user: current_user, file_name: "#{Digest::SHA1.hexdigest(blob)}.mp3"}
     recording = recording_from_blob(blob, new_recording_params)
     if recording.save!
 
@@ -35,7 +35,7 @@ class RecordController < ApplicationController
     blob = file.read
     new_recording_params = {
       user: User.find_by(id: recording_params[:user]),
-      file_name: "#{Digest::SHA1.hexdigest(blob)}.flac",
+      file_name: "#{Digest::SHA1.hexdigest(blob)}.mp3",
       original_file_name: file.original_filename,
     }
     recording = recording_from_blob(blob, new_recording_params)
@@ -58,12 +58,14 @@ class RecordController < ApplicationController
     return unless new_recording_params[:file_name]
     recording = Recording.new(new_recording_params)
     begin
-      File.open(recording.media_path, 'wb') do |disk_file|
+      File.open(recording.ogg_path, 'wb') do |disk_file|
         disk_file.write(blob)
       end
     rescue File => error
       recording.errors.add(:base, "An error occured during saving: #{error}")
     end
+    # Convert from OGG to MP3
+    `ffmpeg -i #{recording.ogg_path} #{recording.media_path}`
     recording
   end
 
