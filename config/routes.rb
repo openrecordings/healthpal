@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   resources :transcripts
   resources :tags
   resources :links
+  post 'destroy_tags/:id',          to: 'tags#destroy_for_utterance',       as: 'destroy_tags'
+  post 'destroy_links/:id',         to: 'links#destroy_for_utterance',      as: 'destroy_links'
 
   resources :utterances do
     get 'set_tag/:name',             to: 'utterances#set_tag', :val => true

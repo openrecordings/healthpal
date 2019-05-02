@@ -12,6 +12,12 @@ class LinksController < ApplicationController
     redirect_to new_tag_path(id: link.utterance.recording.id)
   end
 
+  def destroy_for_utterance
+    utterance = Utterance.find_by(id: params[:id])
+    utterance.links.each{|l| l.destroy}
+    redirect_to new_tag_path(id: utterance.recording.id)
+  end
+
   private
 
   def link_params

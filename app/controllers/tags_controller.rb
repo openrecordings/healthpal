@@ -15,6 +15,12 @@ class TagsController < ApplicationController
     @recording = Recording.find(params[:id])
   end
 
+  def destroy_for_utterance
+    utterance = Utterance.find_by(id: params[:id])
+    utterance.tags.each{|t| t.destroy}
+    redirect_to action: :new, id: utterance.recording.id
+  end
+
   private
 
   def tag_params
