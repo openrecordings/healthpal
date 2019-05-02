@@ -1,29 +1,27 @@
-ID TagType<br>
-1) Diagnosis<br>
-2) Discussion of medications<br>
-3) Education<br>
-4) Follow-ups<br>
-5) Recommendation<br>
-6) Signs, Symptoms and Problems<br>
-7) Test and Imaging Results<br>
-8) Treatment Options<br>
+.table-container
+  %table
+    %thead
+      %tr
+        %th text
+        %th tags
+        %th links
+    %tbody
+      - @recording.utterances.each do |u|
+        %tr.table-row
+          %td{style: 'max-width: 800px;'}= u.text
+          %td
+            - u.tags.each do |t|
+              %div= t.tag_type.label
+            = form_for Tag.new do |f|
+              = f.hidden_field :utterance_id, {value: u.id}
+              = f.select :tag_type_id, options_from_collection_for_select(TagType.all, 'id', 'label'), include_blank: true
+              = f.submit
+          %td
+            - u.links.each do |l|
+              %div= "#{l.label} => #{l.url}"
+            = form_for Link.new do |f|
+              = f.hidden_field :utterance_id, {value: u.id}
+              = f.text :label
+              = f.text :url
+              = f.submit
 
-%table
-  %th
-    %tr
-      %td text
-      %td tags
-      %td new tag
-      %td links
-  - @recording.utterances.each do |u|
-    %tr
-      %td= u.text
-      %td
-        - u.tags.each do |t|
-          %div= t.tag_type.label
-      %td 
-        = form_for Tag.new do |f|
-          = f.hidden_field :utterance_id, {value: u.id}
-          = f.label :tag_type_id
-          = f.number_field :tag_type_id
-          = f.submit
