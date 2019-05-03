@@ -16,7 +16,7 @@ Rails.application.routes.draw do
 
   # Admin
   get 'admin',                       to: 'admin#index'
-  get 'manage_recordings',           to: 'admin#manage_recordings'
+  get 'manage_recordings',           to: 'admin#manage_recordings',          as: 'manage_recordings'
   get 'tag_recording/:id',           to: 'admin#tag_recording',              as: 'tag_recording'
   get 'users',                       to: 'admin#users'
   get 'toggle_active/:id',           to: 'admin#toggle_active',              as: 'toggle_active'
@@ -32,6 +32,8 @@ Rails.application.routes.draw do
   post 'upload',                     to: 'record#upload',                    as: 'upload'
   post 'upload_file',                to: 'record#upload_file',               as: 'upload_file'
   get 'recording_saved',             to: 'record#saved'
+  get 'upload_transcript',           to: 'record#upload_transcript',         as: 'upload_transcript'
+  post 'create_utterances',          to: 'record#create_utterances',         as: 'create_utterances'
 
   # Playback
   get 'my_recordings',               to: 'play#index',                       as: 'my_recordings'

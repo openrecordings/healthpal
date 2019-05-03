@@ -51,12 +51,11 @@ class RecordController < ApplicationController
   end
 
   def upload_transcript
-    recording_id = params[:recording_id]
     begin
-      @recording = Recording.find(recording_id)
+      @recording = Recording.find(params[:id])
     rescue
       flash.alert = 'Recording not found.'
-      redirect_to recordings_path
+      redirect_to managage_recordings_path
     end
     if @recording.utterances.any?
       flash.alert = 'A transcript already exists for this recording.  If you continue, it will be deleted along with all of its tags.'

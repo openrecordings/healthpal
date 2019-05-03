@@ -1,5 +1,16 @@
-%h3= "Upload transcript for #{@recording.user.email}, recorded #{format_date_time @recording.created_at}"
-= form_for @transcript, url: recording_transcripts_path do |f|
-  = f.hidden_field :source
-  = f.file_field :file, label: 'Currently only .rtf and .txt files from Acusis are supported'
-  = f.submit 'Create Transcript Now', class: 'btn btn-primary'
+.centered-form-container
+  %h3
+    = "Upload transcript for #{@recording.user.email}, recorded #{format_date_time @recording.created_at}"
+    %br
+    = "Filename: #{@recording.file_name}"
+  = form_tag({action: :create_utterances}, {id: @recording.id}) do
+    %p
+      .form-field-container.field-centered
+        %h4.form-label
+          Select Acusis transcript file (txt format)
+        = file_field_tag :transcript_txt_file
+    %p
+      .form-field-container.field-centered
+        = submit_tag 'Upload now', class: 'button'
+  .form-field-container.field-centered
+    = button_to 'Cancel', manage_recordings_path, class: 'button', method: :get
