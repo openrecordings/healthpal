@@ -6,19 +6,13 @@ Rails.application.routes.draw do
 
   root 'home#index'
 
-  resources :recordings do
-    resources :transcripts
-  end
-  resources :transcripts
+  resources :recordings
   resources :tags
   resources :links
+  resources :utterances
+
   post 'destroy_tags/:id',          to: 'tags#destroy_for_utterance',       as: 'destroy_tags'
   post 'destroy_links/:id',         to: 'links#destroy_for_utterance',      as: 'destroy_links'
-
-  resources :utterances do
-    get 'set_tag/:name',             to: 'utterances#set_tag', :val => true
-    get 'unset_tag/:name',           to: 'utterances#set_tag', :val => false
-  end
 
   # Admin
   get 'admin',                       to: 'admin#index'

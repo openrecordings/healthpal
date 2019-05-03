@@ -1,5 +1,7 @@
 class RecordController < ApplicationController
 
+  before_action :only_admins, except: :upload
+
   # Stub reminder that the view exists
   def new
   end
@@ -48,6 +50,28 @@ class RecordController < ApplicationController
     end
   end
 
+  def upload_transcript
+    recording_id = params[:recording_id]
+    begin
+      @recording = Recording.find(recording_id)
+    rescue
+      flash.alert = 'Recording not found.'
+      redirect_to recordings_path
+    end
+    if @recording.utterances.any?
+      flash.alert = 'A transcript already exists for this recording.  If you continue, it will be deleted along with all of its tags.'
+    end
+  end
+
+  # TODO Error handling
+  def create_utterances
+    recording = Recording.find(params[:recording_id])
+    # Using attr_accessor to pass file to model instance
+    recording.transcript_txt_file = transcript_params[:transcript_txt_file]
+    recording.build_utterances
+    redirect_to recordings_path
+  end
+
   private
 
   def recording_params
@@ -72,6 +96,10 @@ class RecordController < ApplicationController
   def process_recording(recording)
     recording.upload
     recording.transcribe
+  end
+
+  def transcript_params
+    params.require(:transcript).permit(:transcript_txt_file)
   end
 
 end
