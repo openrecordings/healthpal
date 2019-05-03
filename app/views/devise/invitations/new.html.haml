@@ -1,7 +1,16 @@
-.ic3d_small_form
+.centered-form-container
   %h3 Invite New User
   = form_for resource, as: resource_name, url: invitation_path(resource_name), html: {method: :post} do |f|
     - resource.class.invite_key_fields.each do |field|
-      %p= f.text_field field
-    %p= f.select :role, {'User': 'user', 'Admin': 'admin'}
-    %p= f.submit 'Send Invitation', class: 'btn btn-primary'
+      .form-label New user's email address
+      .form-field-container.field-centered
+        = f.text_field field, class: 'form-input'
+    %p
+      .form-field-container.field-centered
+        .form-label Role for new user. CAUTION: Admins can access ALL recordings
+        = f.select :role, {'User': 'user', 'Admin': 'admin'}, {}, {class: 'select-css'}
+    %p.margin-top-40
+      .form-field-container.field-centered
+        = f.submit 'Send Invitation', class: 'button'
+  .form-field-container.field-centered
+    = button_to 'Cancel', admin_path, class: 'button', method: :get

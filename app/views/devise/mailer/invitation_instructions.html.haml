@@ -1,13 +1,14 @@
 %p
-  Hello. This email is an invitation to create a HealthPal account. When you click on the link
+  Hello. This email is an invitation to create a HealthPal account. When you visit the address
   below, you will be taken to the HealthPal website. There you will create a password, then
   you will automatically be logged in to HealthPal. Your password must be at least eight characters
-  long. You can use any web browser to create your account. To use the application, log in using a
-  fully-updated version of the Edge browser or Firefox browser, as described below.
+  long. To use the application, log in using a fully-updated version of the Chrome browser, the
+  Edge browser, or the Firefox browser, as described below.
 
 %p
-  = link_to 'Click here to create your HealthPal account',
-    accept_invitation_url(@resource, :invitation_token => @token)
+  Copy/Paste this URL into the address bar of your HealthPal-compatibile browser: 
+  %div{style: 'padding: 0px 0 0 30px; font-weight: bold;'}
+    = accept_invitation_url(@resource, :invitation_token => @token)
 
 %p
   To use this experimental version of HealthPal, follow these steps: 1) Use the application on a
@@ -16,7 +17,7 @@
 
 %p
   Links for updating and installing browsers:
-  %div{style: 'padding: 10px 0 0 10px'}
+  %div{style: 'padding: 0px 0 0 30px'}
     To install Chrome:  https://support.google.com/chrome/answer/95346
     %br
     To update Chrome:  https://support.google.com/chrome/answer/95414
