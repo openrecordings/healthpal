@@ -17,8 +17,8 @@
                 %div= t.tag_type.label
             = form_for Tag.new do |f|
               = f.hidden_field :utterance_id, {value: u.id}
-              %div= f.select :tag_type_id, options_from_collection_for_select(TagType.all, 'id', 'label'), {include_blank: true}, {class: 'select-css'}
-              %div= f.submit
+              %div= f.select :tag_type_id, options_from_collection_for_select(TagType.all, 'id', 'label'), {include_blank: true}, {class: 'select-css margin-bottom-10'}
+              %div= f.submit class: 'button button-short'
             = button_to 'Delete all tags', destroy_tags_path(u.id)
           %td
             %p
@@ -32,5 +32,5 @@
               %div
                 = f.text_field :url, class: 'form-input-short'
                 URL
-              = f.submit
+              = f.submit class: 'button button-short'
             = button_to 'Delete all links', destroy_links_path(u.id)
