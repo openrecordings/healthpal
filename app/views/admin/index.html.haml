@@ -1,25 +1,24 @@
-= link_to 'Invite New User by Email', new_user_invitation_path, class: 'btn btn-primary'
-= link_to 'Register New User Now', new_registration_path, class: 'btn btn-primary'
-%h3 Users
-.row
-  .col-md-12
-    .panel.panel-default.table-responsive
-      %table.table.table-striped#sort-users
-        %thead
-          %tr
-            %th Email
-            %th Role
-            %th Last Login
-            %th Login enabled
-            %th 2FA enabled
-        %tbody
-          - User.order('email ASC').all.each do |user|
-            %tr
-              %td= user.email
-              %td= user.role.capitalize
-              %td= format_date_time user.last_sign_in_at
-              - if current_user == user
-                %td
-              - else
-                - link_text = user.active ? 'Yes' : 'No'
-                %td= link_to link_text, toggle_active_path(user.id)
+.table-container
+  %p= link_to 'Invite New User by Email', new_user_invitation_path, class: 'btn btn-primary'
+  %p= link_to 'Register New User Now', new_registration_path, class: 'btn btn-primary'
+  %p Existing users
+  %table.table.table-striped#sort-users
+    %thead
+      %tr
+        %th Email
+        %th Role
+        %th Login count
+        %th Last Login
+        %th Login enabled
+    %tbody
+      - User.order('email ASC').all.each do |user|
+        %tr.table-row
+          %td= user.email
+          %td= user.role.capitalize
+          %td= user.sign_in_count
+          %td= format_date_time user.last_sign_in_at
+          - if current_user == user
+            %td
+          - else
+            - link_text = user.active ? 'Yes' : 'No'
+            %td= link_to link_text, toggle_active_path(user.id)
