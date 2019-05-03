@@ -1,5 +1,5 @@
 .table-container
-  = link_to 'Manually upload audio file', file_upload_path, class: 'btn btn-primary'
+  %p= button_to 'Manually upload audio file', file_upload_path, class: 'button', method: :get
   %br
   %br
   %table.table.table-striped.tablesorter{:"data-sort-column" => 0, :"data-sort-desc" => 1}

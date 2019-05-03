@@ -1,5 +1,5 @@
 .centered-form-container
-  .form-title
+  %p.form-title
     Enter information for new user
   = form_for(@user, url: set_password_path) do |f|
     .form-field-container.field-centered
@@ -20,5 +20,5 @@
       = f.text_field :phone_number, class: 'form-input phone-number'
     .form-field-container.field-centered
       = f.submit 'Next', class: 'button'
-    .form-field-container.field-centered
-      = link_to 'Cancel', root_path, class: 'button'
+  .form-field-container.field-centered
+    = button_to 'Cancel', admin_path, class: 'button', method: :get
