@@ -17,7 +17,7 @@
                 %div= t.tag_type.label
             = form_for Tag.new do |f|
               = f.hidden_field :utterance_id, {value: u.id}
-              %div= f.select :tag_type_id, options_from_collection_for_select(TagType.all, 'id', 'label'), include_blank: true
+              %div= f.select :tag_type_id, options_from_collection_for_select(TagType.all, 'id', 'label'), {include_blank: true}, {class: 'select-css'}
               %div= f.submit
             = button_to 'Delete all tags', destroy_tags_path(u.id)
           %td
