@@ -347,11 +347,13 @@
         display: flex;
         justify-content: center;
         align-content: left;
+        align-items: center;
         height: 24px;
         width: 40px;
+        padding: -5px;
         border-radius: 12px;
         background-color: $background-light;
-        font-size: 18px;
+        font-size: 16px;
         fill: #fff;
       }
       .filter-label{
@@ -367,6 +369,7 @@
     justify-content: center;
     width: 200px;
     height: 30px;
+    line-height: 15px;
     padding-left: 10px;
     padding-top: 14px;
     border-radius: 3px;
