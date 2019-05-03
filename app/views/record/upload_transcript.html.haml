@@ -3,12 +3,13 @@
     = "Upload transcript for #{@recording.user.email}, recorded #{format_date_time @recording.created_at}"
     %br
     = "Filename: #{@recording.file_name}"
-  = form_tag({action: :create_utterances}, {id: @recording.id}) do
+  = form_tag({action: :create_utterances}, multipart: true) do
+    = hidden_field_tag :recording_id, @recording.id
     %p
       .form-field-container.field-centered
         %h4.form-label
           Select Acusis transcript file (txt format)
-        = file_field_tag :transcript_txt_file
+        = file_field_tag :file
     %p
       .form-field-container.field-centered
         = submit_tag 'Upload now', class: 'button'

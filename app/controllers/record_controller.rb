@@ -66,9 +66,9 @@ class RecordController < ApplicationController
   def create_utterances
     recording = Recording.find(params[:recording_id])
     # Using attr_accessor to pass file to model instance
-    recording.transcript_txt_file = transcript_params[:transcript_txt_file]
+    recording.transcript_txt_file = transcript_params[:file]
     recording.build_utterances
-    redirect_to recordings_path
+    redirect_to manage_recordings_path
   end
 
   private
@@ -98,7 +98,7 @@ class RecordController < ApplicationController
   end
 
   def transcript_params
-    params.require(:transcript).permit(:transcript_txt_file)
+    params.permit(:recording_id, :file)
   end
 
 end
