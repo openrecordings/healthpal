@@ -9,7 +9,7 @@
     %tbody
       - @recording.utterances.each do |u|
         %tr.table-row
-          %td{style: 'font-size: 40px;'}= u.index + 1
+          %td{style: 'font-size: 40px;'}= u.index
           %td{style: 'max-width: 800px;'}= u.text
           %td
             %p
@@ -26,11 +26,11 @@
                 %div= "#{l.label} => #{l.url}"
             = form_for Link.new do |f|
               = f.hidden_field :utterance_id, {value: u.id}
-              %p
-                %div= f.label :label
-                %div= f.text_field :label, class: 'form-input'
-              %p
-                %div= f.label :url, 'URL'
-                %div= f.text_field :url, class: 'form-input'
-              %div= f.submit
-            %div= button_to 'Delete all links', destroy_links_path(u.id)
+              %div
+                = f.text_field :label, class: 'form-input-short'
+                Label
+              %div
+                = f.text_field :url, class: 'form-input-short'
+                URL
+              = f.submit
+            = button_to 'Delete all links', destroy_links_path(u.id)
