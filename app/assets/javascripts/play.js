@@ -224,6 +224,10 @@ if(document.querySelector('#play-pause-button')) {
     $('#mute-glyph, #unmute-glyph, #mute-label, #unmute-label').toggleClass('hidden');
   })
 
+  $('.external-link').click(function(event) {
+    event.stopPropagation();
+  })
+
   // Sidebar listeneers
   /////////////////////////////////////////////////////////////////////////////////////////////////
   $('#search-input').keyup(function(event){
