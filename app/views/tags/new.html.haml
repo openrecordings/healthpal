@@ -1,3 +1,8 @@
+:javascript
+  window.onload = function(){
+    document.getElementById('utterance-' + #{@utterance.id}).scrollIntoView();
+  };
+
 .table-container.margin-top-20
   %table
     %thead
@@ -8,7 +13,7 @@
         %th Links
     %tbody
       - @recording.utterances.each do |u|
-        %tr.table-row
+        %tr.table-row{id: "utterance-#{u.id}"}
           %td{style: 'font-size: 40px;'}= u.index
           %td{style: 'max-width: 800px;'}= u.text
           %td

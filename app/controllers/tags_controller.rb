@@ -8,17 +8,18 @@ class TagsController < ApplicationController
     unless(tag.save)
       flash.alert = tag.errors.full_messages
     end
-    redirect_to action: :new, id: tag.utterance.recording.id
+    redirect_to action: :new, id: tag.utterance.recording.id, utterance_id: tag.utterance.id
   end
 
   def new
     @recording = Recording.find(params[:id])
+    @utterance = Utterance.find_by(id: params[:utterance_id]) || @recording.utterances.first
   end
 
   def destroy_for_utterance
     utterance = Utterance.find_by(id: params[:id])
     utterance.tags.each{|t| t.destroy}
-    redirect_to action: :new, id: utterance.recording.id
+    redirect_to action: :new, id: utterance.recording.id, utterance_id: utterance.id
   end
 
   private
