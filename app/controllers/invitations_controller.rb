@@ -17,6 +17,10 @@ class InvitationsController < Devise::InvitationsController
       return
     end
 
+    # Set name fields for new users who don't yet have them
+    self.resource.update(first_name: params[:user][:first_name]) if params[:user][:first_name]
+    self.resource.update(last_name: params[:user][:last_name]) if params[:user][:last_name]
+
     # Proceed with invitation acceptance logic
     self.resource = accept_resource
     invitation_accepted = resource.errors.empty?

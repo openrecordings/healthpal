@@ -22,6 +22,14 @@
         .form-field-container
           .form-label Four-digit confirmation code
           = f.text_field :phone_token, value: nil, class: 'form-input'
+      - unless resource.first_name
+        .form-field-container
+          .form-label First name
+          = f.text_field :first_name, class: 'form-input'
+      - unless resource.last_name
+        .form-field-container
+          .form-label Last name
+          = f.text_field :last_name, class: 'form-input'
       .form-field-container
         .form-label Password
         = f.password_field :password, class: 'form-input'
