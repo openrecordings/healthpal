@@ -9,8 +9,8 @@
       #menu-spans
         %ul
           - if current_user.privileged?
-            %li.menu-left= link_to 'Manage Recordings', manage_recordings_path
             %li.menu-left= link_to 'User Management', admin_path
+            %li.menu-left= link_to 'Manage Recordings', manage_recordings_path
           %li.menu-left>= link_to 'New Recording', record_path
           %li.menu-left>= link_to 'Recordings', my_recordings_path
           %li.menu-left>= link_to 'Sharing', shares_path
