@@ -1,7 +1,5 @@
 class RecordController < ApplicationController
 
-  before_action :only_admins, except: :upload
-
   # Stub reminder that the view exists
   def new
   end
