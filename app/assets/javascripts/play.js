@@ -33,6 +33,8 @@ if(document.querySelector('#play-pause-button')) {
   /////////////////////////////////////////////////////////////////////////////////////////////////
   function loadAudio(){
     let videoElement = document.getElementById('video-element');
+    // Leave this log in. Duration display fails without it on first load (?)
+    log(videoElement.duration);
     let recordingId = $(videoElement).data('recording-id');
     videoElement.volume = playVolume;
     $('#duration').text(toMmSs(videoElement.duration));
