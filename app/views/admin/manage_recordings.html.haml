@@ -6,6 +6,8 @@
     %thead
       %tr
         %th Recording created at
+        %th Database ID
+        %th File name
         %th Recorded By
         %th Transcript
         %th Tags
@@ -13,6 +15,8 @@
       - @recordings.all.each do |recording|
         %tr.trecording-select
           %td.recording-select{data: {href: play_path(recording.id)}}= link_to format_date_time_sort(recording.created_at), play_path(recording.id)
+          %td= recording.id
+          %td= recording.file_name
           %td.recording-select{data: {href: play_path(recording.id)}}= recording.user.email
           %td= link_to 'Upload/replace transcript', upload_transcript_path(id: recording.id)
           %td= link_to('Manage tags and links', new_tag_path(id: recording.id)) if recording.utterances.any?
