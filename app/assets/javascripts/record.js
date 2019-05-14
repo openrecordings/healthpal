@@ -147,6 +147,7 @@ if(document.querySelector('#record-start-button')) {
       })
 
       $('#save-button').click(function(){
+        $('#overlay').show();
         resetRecord();
         uploadAudio();
       })
