@@ -17,9 +17,8 @@ body {
   display: grid;
   grid-template-areas: 'navbar'
                        'menubar' 
-                       'flash' 
                        'content';
-  grid-template-rows: #{$navbar-height $menubar-height $flash-height} calc(100vh - #{$navbar-height + $menubar-height + $flash-height});
+  grid-template-rows: #{$navbar-height $menubar-height} calc(100vh - #{$navbar-height + $menubar-height});
 
   #grid-navbar{
     display: grid;
@@ -35,40 +34,37 @@ body {
     overflow: hidden;
   }
 
-  #grid-flash{
-    display: grid;
-    grid-area: flash;
-    height: $flash-height;
-    overflow: hidden;
-    .flash{
-      position: relative;
-      width: 600px;
-      line-height: 46px;
-      margin: 10px auto 4px auto;
-      border-radius: 5px;
-      text-align: center;
-      background-color: $notification-color;
-      color: $notification-text-color;
-      #dismiss-flash{
-        position: absolute;
-        top: 0;
-        left: 560px;
-        margin-top: 5px;
-        svg{
-          fill: $notification-text-color;
-          &:hover{
-            fill: #9b8b56;
-            cursor: pointer;
-          }
-        }
-      }
-    }
-  }
 
   #grid-content{
     display: grid;
     grid-area: content;
     padding: 0 20px 0 20px;
+  }
+}
+
+#flash{
+  position: absolute;
+  width: 640px;
+  top: 40px;
+  left: 50%;
+  margin-left: -320px;
+  line-height: 46px;
+  border-radius: 5px;
+  text-align: center;
+  background-color: $notification-color;
+  color: $notification-text-color;
+  #dismiss-flash{
+    position: absolute;
+    top: 0;
+    left: 600px;
+    margin-top: 6px;
+    svg{
+      fill: $notification-text-color;
+      &:hover{
+        fill: #9b8b56;
+        cursor: pointer;
+      }
+    }
   }
 }
 
