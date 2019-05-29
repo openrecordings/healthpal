@@ -82,7 +82,7 @@ if(document.querySelector('#play-pause-button')) {
 
   function skipToEventPosition(event){
     let videoElement = document.getElementById('video-element');
-    let eventX = event.pageX;
+    let eventX = event.pageX - 50;
     let timeline = $('#timeline');
     let timelinePosition = timeline.position();
     let playhead = $('#playhead');
