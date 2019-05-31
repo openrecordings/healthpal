@@ -91,8 +91,8 @@ class RecordController < ApplicationController
   end
 
   def process_recording(recording)
-    recording.upload
-    recording.transcribe
+    # recording.upload
+    # recording.transcribe
   end
 
   def transcript_params
