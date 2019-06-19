@@ -6,6 +6,7 @@
     %thead
       %tr
         %th Email
+        %th Name
         %th Role
         %th Login count
         %th Last Login
@@ -14,6 +15,7 @@
       - User.order('email ASC').all.each do |user|
         %tr.table-row
           %td= user.email
+          %td= user.full_name
           %td= user.role.capitalize
           %td= user.sign_in_count
           %td= format_date_time user.last_sign_in_at
