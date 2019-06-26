@@ -41,6 +41,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'pg', '~> 0.18'
 gem 'puma', '~> 3.0'
 gem 'uglifier', '>= 1.3.0'
+gem 'aws-sdk-rails'
 group :development do
   gem 'interactive_editor'
   gem 'web-console', '>= 3.3.0'
