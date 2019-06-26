@@ -9,16 +9,41 @@ class Recording < ApplicationRecord
 
   # Add all supported transcription services here
   # TODO: Add old Acusis code back in after getting gcloud going?
-  enum source: [:google]
+  enum source: [:google, :aws]
 
   # TODO: Validation
+  
+  def upload
+    self.send("upload_#{Rails.configuration.cloud_provider}")
+  end
+  
+  def download
+    self.send("download_#{Rails.configuration.cloud_provider}")
+  end
+  
+  def transcribe
+    self.send("transcribe_#{Rails.configuration.cloud_provider}")
+  end
 
+  # AWS
+  #################################################################################################
+  def upload_aws
+  end
+
+  def download_aws
+  end
+
+  def transcribe_aws
+  end
+
+  # GCP
+  #################################################################################################
   # Upload audio file to GCP
   # Will return nil unless self is persisted
   # TODO:
 	#  Async
   #  Error-handling
-  def upload
+  def upload_gcp
     return nil unless self.persisted?
     storage_job = Google::Cloud::Storage.new(project: Rails.configuration.gcp_project_name)
     bucket_name = Rails.configuration.gcp_bucket_name
@@ -29,7 +54,7 @@ class Recording < ApplicationRecord
   end
 
   # TODO
-  def download
+  def download_gcp
   end
 
   # Get GCP speech transcription JSON and store in self
@@ -38,7 +63,7 @@ class Recording < ApplicationRecord
   #  Error-handling
   #  Delete local and GCP file if they already exist (warn user?)
   #  Upload tempfile and deprecate local file
-  def transcribe
+  def transcribe_gcp
 		return nil unless self.persisted? && self.uri
     # Find or create transcript
     self.json = [].to_json
@@ -58,6 +83,7 @@ class Recording < ApplicationRecord
     # Add result JSON to transcript
     self.update(json: operation.response.results)
   end
+  #################################################################################################
 
   def media_path
     return nil unless self.file_name
