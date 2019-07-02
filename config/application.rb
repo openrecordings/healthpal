@@ -23,5 +23,9 @@ module Orals
     config.gcp_app_credentials = ENV['GOOGLE_APPLICATION_CREDENTIALS']
     config.gcp_project_name =  ENV['GCP_PROJECT_NAME']
 		config.gcp_bucket_name = ENV['GCP_BUCKET_NAME']
+
+    # AWS config
+    config.aws_bucket_name = ENV['AWS_BUCKET_NAME']
+    
   end
 end

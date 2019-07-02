@@ -30,6 +30,9 @@ class Recording < ApplicationRecord
   def upload_aws
     puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
     puts 'upload_aws'
+    s3 = Aws::S3::Resource.new
+    bucket = s3.bucket(Rails.configuration.aws_bucket_name)
+    puts ap bucket
     puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
   end
 
