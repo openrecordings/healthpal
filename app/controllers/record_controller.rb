@@ -16,10 +16,7 @@ class RecordController < ApplicationController
     new_recording_params = {user: current_user, file_name: "#{Digest::SHA1.hexdigest(blob)}.mp3"}
     recording = recording_from_blob(blob, new_recording_params)
     if recording.save!
-
-      # TODO Re-enable once asynchronous
-      # process_recording(recording)
-
+      process_recording(recording)
       flash.alert = 'Recording successfully saved.'
     else
       flash.alert = recording.errors.full_messages
@@ -48,6 +45,7 @@ class RecordController < ApplicationController
     end
   end
 
+  # For manually uploading a transcripbe from a file. Currently supports Acusis format
   def upload_transcript
     begin
       @recording = Recording.find(params[:id])
@@ -91,8 +89,8 @@ class RecordController < ApplicationController
   end
 
   def process_recording(recording)
-    # recording.upload
-    # recording.transcribe
+    recording.upload
+    recording.transcribe
   end
 
   def transcript_params

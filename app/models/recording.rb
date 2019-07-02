@@ -28,12 +28,15 @@ class Recording < ApplicationRecord
   # AWS
   #################################################################################################
   def upload_aws
-  end
-
-  def download_aws
+    puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+    puts 'upload_aws'
+    puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
   end
 
   def transcribe_aws
+    puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+    puts 'transribe_aws'
+    puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
   end
 
   # GCP
@@ -51,10 +54,6 @@ class Recording < ApplicationRecord
     audio_file_path = self.media_path
     file = bucket.create_file(audio_file_path, self.file_name)
     self.update(uri: "gs://#{bucket_name}/#{self.file_name}", url:file.public_url)
-  end
-
-  # TODO
-  def download_gcp
   end
 
   # Get GCP speech transcription JSON and store in self
