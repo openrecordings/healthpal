@@ -30,10 +30,14 @@ class Recording < ApplicationRecord
   def upload_aws
     puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
     puts 'upload_aws'
+    bucket_name = Rails.configuration.aws_bucket_name
     s3 = Aws::S3::Resource.new
-    s3_object = s3.bucket(Rails.configuration.aws_bucket_name).object(file_name)
+    s3_object = s3.bucket(bucket_name).object(file_name)
     s3_object.upload_file(media_path, {acl: 'private'})
-    self.update(aws_public_url: s3_object.public_url)
+    self.update(
+      aws_bucket_name: bucket_name,
+      aws_public_url: s3_object.public_url
+    )
     puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
   end
 
