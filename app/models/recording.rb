@@ -31,8 +31,9 @@ class Recording < ApplicationRecord
     puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
     puts 'upload_aws'
     s3 = Aws::S3::Resource.new
-    bucket = s3.bucket(Rails.configuration.aws_bucket_name)
-    puts ap bucket
+    s3_object = s3.bucket(Rails.configuration.aws_bucket_name).object(file_name)
+    s3_object.upload_file(media_path, {acl: 'private'})
+    self.update(aws_public_url: s3_object.public_url)
     puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
   end
 
@@ -56,7 +57,7 @@ class Recording < ApplicationRecord
     bucket = storage_job.bucket(bucket_name)
     audio_file_path = self.media_path
     file = bucket.create_file(audio_file_path, self.file_name)
-    self.update(uri: "gs://#{bucket_name}/#{self.file_name}", url:file.public_url)
+    self.update(gcp_uri: "gs://#{bucket_name}/#{self.file_name}", gcp_public_url:file.public_url)
   end
 
   # Get GCP speech transcription JSON and store in self
@@ -66,7 +67,7 @@ class Recording < ApplicationRecord
   #  Delete local and GCP file if they already exist (warn user?)
   #  Upload tempfile and deprecate local file
   def transcribe_gcp
-		return nil unless self.persisted? && self.uri
+		return nil unless self.persisted? && self.gcp_uri
     # Find or create transcript
     self.json = [].to_json
     # Create and submit STT job
@@ -78,7 +79,7 @@ class Recording < ApplicationRecord
       enable_automatic_punctuation: true,
       max_alternatives: 1
     }
-    audio  = {uri: self.uri}
+    audio  = {uri: self.gcp_uri}
     operation = stt_job.long_running_recognize(stt_config, audio)
     operation.wait_until_done!
     raise operation.results.message if operation.error?
@@ -147,6 +148,7 @@ class Recording < ApplicationRecord
     # TODO
   end
 
+  # TODO: Still needed? (Not using a gem for in-place editing anymore)
   def create_blank_fields
     # Blank (existing) fields are required for best_in_place
     self.note = ''
