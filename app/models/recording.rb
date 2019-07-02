@@ -29,7 +29,7 @@ class Recording < ApplicationRecord
   #################################################################################################
   def upload_aws
     puts 'upload_aws'
-    bucket_name = Rails.configuration.aws_audio_bucket_name
+    bucket_name = Rails.configuration.aws_media_bucket_name
     s3 = Aws::S3::Resource.new(region: Rails.configuration.aws_region)
     s3_object = s3.bucket(bucket_name).object(file_name)
     s3_object.upload_file(media_path, {acl: 'private'})
@@ -41,18 +41,22 @@ class Recording < ApplicationRecord
   end
 
   def transcribe_aws
-    puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
     bucket_name = Rails.configuration.aws_transcript_bucket_name
     aws_client = Aws::TranscribeService::Client.new
+    media_file_uri = "https://s3-#{Rails.configuration.aws_region}.amazonaws.com/#{Rails.configuration.aws_media_bucket_name}/#{aws_media_key}"
     stt_job = aws_client.start_transcription_job({
       transcription_job_name: file_name,
       language_code: 'en-US',
       media_sample_rate_hertz: 16000,
       media_format: 'mp3',
-      media: {media_file_uri: aws_media_key},
-      output_bucket_name:  
-    })
-    puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+      media: {media_file_uri: media_file_uri},
+      output_bucket_name: bucket_name 
+    }).transcription_job
+    while(!stt_job.transcript)
+      puts 'waiting'
+      sleep(1)
+    end
+    update json: stt_job.transcript.transcript_file_uri
   end
 
   # GCP
@@ -60,7 +64,7 @@ class Recording < ApplicationRecord
   # Upload audio file to GCP
   # Will return nil unless self is persisted
   # TODO:
-	#  Async
+  #  Async
   #  Error-handling
   def upload_gcp
     return nil unless self.persisted?
@@ -74,12 +78,12 @@ class Recording < ApplicationRecord
 
   # Get GCP speech transcription JSON and store in self
   # TODO:
-	#  Async
+  #  Async
   #  Error-handling
   #  Delete local and GCP file if they already exist (warn user?)
   #  Upload tempfile and deprecate local file
   def transcribe_gcp
-		return nil unless self.persisted? && self.gcp_uri
+    return nil unless self.persisted? && self.gcp_uri
     # Find or create transcript
     self.json = [].to_json
     # Create and submit STT job
