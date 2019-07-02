@@ -25,7 +25,9 @@ module Orals
 		config.gcp_bucket_name = ENV['GCP_BUCKET_NAME']
 
     # AWS config
-    config.aws_bucket_name = ENV['AWS_BUCKET_NAME']
+    config.aws_audio_bucket_name = ENV['AWS_AUDIO_BUCKET_NAME']
+    config.aws_transcript_bucket_name = ENV['AWS_TRANSCRIPT_BUCKET_NAME']
+    config.aws_region = ENV['AWS_REGION']
     
   end
 end

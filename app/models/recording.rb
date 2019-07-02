@@ -28,22 +28,30 @@ class Recording < ApplicationRecord
   # AWS
   #################################################################################################
   def upload_aws
-    puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
     puts 'upload_aws'
-    bucket_name = Rails.configuration.aws_bucket_name
-    s3 = Aws::S3::Resource.new
+    bucket_name = Rails.configuration.aws_audio_bucket_name
+    s3 = Aws::S3::Resource.new(region: Rails.configuration.aws_region)
     s3_object = s3.bucket(bucket_name).object(file_name)
     s3_object.upload_file(media_path, {acl: 'private'})
     self.update(
       aws_bucket_name: bucket_name,
-      aws_public_url: s3_object.public_url
+      aws_public_url: s3_object.public_url,
+      aws_media_key: s3_object.key 
     )
-    puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
   end
 
   def transcribe_aws
     puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
-    puts 'transribe_aws'
+    bucket_name = Rails.configuration.aws_transcript_bucket_name
+    aws_client = Aws::TranscribeService::Client.new
+    stt_job = aws_client.start_transcription_job({
+      transcription_job_name: file_name,
+      language_code: 'en-US',
+      media_sample_rate_hertz: 16000,
+      media_format: 'mp3',
+      media: {media_file_uri: aws_media_key},
+      output_bucket_name:  
+    })
     puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
   end
 

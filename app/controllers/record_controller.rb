@@ -84,7 +84,7 @@ class RecordController < ApplicationController
       recording.errors.add(:base, "An error occured during saving: #{error}")
     end
     # Convert from OGG to MP3
-    `ffmpeg -i #{recording.ogg_path} #{recording.media_path}`
+    `ffmpeg -i #{recording.ogg_path} -ac 1 -ar 16000 #{recording.media_path}`
     recording
   end
 

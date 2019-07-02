@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_02_164642) do
+ActiveRecord::Schema.define(version: 2019_07_02_183711) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 2019_07_02_164642) do
     t.boolean "is_video"
     t.string "aws_bucket_name"
     t.string "aws_public_url"
+    t.string "aws_media_key"
   end
 
   create_table "shares", force: :cascade do |t|
