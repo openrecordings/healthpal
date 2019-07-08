@@ -34,9 +34,9 @@ class Recording < ApplicationRecord
     s3_object = s3.bucket(bucket_name).object(file_name)
     s3_object.upload_file(media_path, {acl: 'private'})
     update(
-        aws_bucket_name: bucket_name,
-        aws_public_url: s3_object.public_url,
-        aws_media_key: s3_object.key
+      aws_bucket_name: bucket_name,
+      aws_public_url: s3_object.public_url,
+      aws_media_key: s3_object.key
     )
   end
 
@@ -44,22 +44,30 @@ class Recording < ApplicationRecord
     bucket_name = Rails.configuration.aws_transcript_bucket_name
     aws_client = Aws::TranscribeService::Client.new
     media_file_uri = "https://s3-#{Rails.configuration.aws_region}.amazonaws.com/#{Rails.configuration.aws_media_bucket_name}/#{aws_media_key}"
-    stt_job = aws_client.start_transcription_job(
-        transcription_job_name: file_name,
-        language_code: 'en-US',
-        media_sample_rate_hertz: 16000,
-        media_format: 'mp3',
-        media: {media_file_uri: media_file_uri},
-        output_bucket_name: bucket_name
-    ).transcription_job
-    while (!stt_job.transcript)
-      puts 'waiting'
+    #TODO Make sure the job launched properly
+    aws_client.start_transcription_job(
+      transcription_job_name: file_name,
+      language_code: 'en-US',
+      media_sample_rate_hertz: 16000,
+      media_format: 'mp3',
+      media: {media_file_uri: media_file_uri},
+      output_bucket_name: bucket_name
+    )
+    transcription_complete = false
+    until transcription_complete
+      job_status = aws_client.get_transcription_job({transcription_job_name: file_name})
+                     .transcription_job
+                     .transcription_job_status
+      transcription_complete = %w[FAILED COMPLETED].include?(job_status)
+      puts job_status
       sleep(1)
     end
-    update json: stt_job.transcript.transcript_file_uri
+    # TODO: Handle failure
+    update aws_transcription_uri: aws_client.get_transcription_job({transcription_job_name: file_name})
+                                    .transcription_job.transcript.transcript_file_uri
   end
 
-  # GCP
+  # GC
   #################################################################################################
   # Upload audio file to GCP
   # Will return nil unless self is persisted
@@ -141,16 +149,16 @@ class Recording < ApplicationRecord
           self.utterances << utt
         end
         utt = Utterance.new(
-            recording: self,
-            index: i,
-            begins_at: begins_at,
-            text: text,
-            ends_at: 0
+          recording: self,
+          index: i,
+          begins_at: begins_at,
+          text: text,
+          ends_at: 0
         )
       end
     end
     if (utt)
-      self.utterances << utt
+      utterances << utt
     end
   end
 
