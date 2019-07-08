@@ -6,6 +6,7 @@
 
 /config/ssl/*
 /.bundle
+/.idea
 /dumps/*
 /log/*
 /tmp/*

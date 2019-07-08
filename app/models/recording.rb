@@ -12,15 +12,15 @@ class Recording < ApplicationRecord
   enum source: [:google, :aws]
 
   # TODO: Validation
-  
+
   def upload
     self.send("upload_#{Rails.configuration.cloud_provider}")
   end
-  
+
   def download
     self.send("download_#{Rails.configuration.cloud_provider}")
   end
-  
+
   def transcribe
     self.send("transcribe_#{Rails.configuration.cloud_provider}")
   end
@@ -33,10 +33,10 @@ class Recording < ApplicationRecord
     s3 = Aws::S3::Resource.new(region: Rails.configuration.aws_region)
     s3_object = s3.bucket(bucket_name).object(file_name)
     s3_object.upload_file(media_path, {acl: 'private'})
-    self.update(
-      aws_bucket_name: bucket_name,
-      aws_public_url: s3_object.public_url,
-      aws_media_key: s3_object.key 
+    update(
+        aws_bucket_name: bucket_name,
+        aws_public_url: s3_object.public_url,
+        aws_media_key: s3_object.key
     )
   end
 
@@ -44,15 +44,15 @@ class Recording < ApplicationRecord
     bucket_name = Rails.configuration.aws_transcript_bucket_name
     aws_client = Aws::TranscribeService::Client.new
     media_file_uri = "https://s3-#{Rails.configuration.aws_region}.amazonaws.com/#{Rails.configuration.aws_media_bucket_name}/#{aws_media_key}"
-    stt_job = aws_client.start_transcription_job({
-      transcription_job_name: file_name,
-      language_code: 'en-US',
-      media_sample_rate_hertz: 16000,
-      media_format: 'mp3',
-      media: {media_file_uri: media_file_uri},
-      output_bucket_name: bucket_name 
-    }).transcription_job
-    while(!stt_job.transcript)
+    stt_job = aws_client.start_transcription_job(
+        transcription_job_name: file_name,
+        language_code: 'en-US',
+        media_sample_rate_hertz: 16000,
+        media_format: 'mp3',
+        media: {media_file_uri: media_file_uri},
+        output_bucket_name: bucket_name
+    ).transcription_job
+    while (!stt_job.transcript)
       puts 'waiting'
       sleep(1)
     end
@@ -73,7 +73,7 @@ class Recording < ApplicationRecord
     bucket = storage_job.bucket(bucket_name)
     audio_file_path = self.media_path
     file = bucket.create_file(audio_file_path, self.file_name)
-    self.update(gcp_uri: "gs://#{bucket_name}/#{self.file_name}", gcp_public_url:file.public_url)
+    self.update(gcp_uri: "gs://#{bucket_name}/#{self.file_name}", gcp_public_url: file.public_url)
   end
 
   # Get GCP speech transcription JSON and store in self
@@ -89,19 +89,20 @@ class Recording < ApplicationRecord
     # Create and submit STT job
     stt_job = Google::Cloud::Speech.new
     stt_config = {encoding: :FLAC,
-      sample_rate_hertz: 16000,
-      language_code: 'en-US',
-      enable_word_time_offsets: true,
-      enable_automatic_punctuation: true,
-      max_alternatives: 1
+                  sample_rate_hertz: 16000,
+                  language_code: 'en-US',
+                  enable_word_time_offsets: true,
+                  enable_automatic_punctuation: true,
+                  max_alternatives: 1
     }
-    audio  = {uri: self.gcp_uri}
+    audio = {uri: self.gcp_uri}
     operation = stt_job.long_running_recognize(stt_config, audio)
     operation.wait_until_done!
     raise operation.results.message if operation.error?
     # Add result JSON to transcript
     self.update(json: operation.response.results)
   end
+
   #################################################################################################
 
   def media_path
@@ -122,7 +123,7 @@ class Recording < ApplicationRecord
 
   def build_utterances
     # Destroy and existing utterances for self (user was warned)
-    self.utterances.each{|u| u.destroy}
+    self.utterances.each {|u| u.destroy}
     # TODO: This breaks if the recording is longer than 99 minutes!
     utt = nil
     raw = @transcript_txt_file.read
@@ -136,15 +137,15 @@ class Recording < ApplicationRecord
         begins_at = mm_ss[0..1].to_i * 60 + mm_ss[-2..-1].to_i
         if (utt)
           # end at the start time of the next utterance, or 1 second later if the start times are the same
-          utt.ends_at = begins_at + ((begins_at == utt.begins_at)? 1 : 0)
+          utt.ends_at = begins_at + ((begins_at == utt.begins_at) ? 1 : 0)
           self.utterances << utt
         end
         utt = Utterance.new(
-          recording: self,
-          index: i,
-          begins_at: begins_at,
-          text: text,
-          ends_at: 0
+            recording: self,
+            index: i,
+            begins_at: begins_at,
+            text: text,
+            ends_at: 0
         )
       end
     end
