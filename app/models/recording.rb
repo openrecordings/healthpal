@@ -28,7 +28,6 @@ class Recording < ApplicationRecord
   # AWS
   #################################################################################################
   def upload_aws
-    puts 'upload_aws'
     bucket_name = Rails.configuration.aws_media_bucket_name
     s3 = Aws::S3::Resource.new(region: Rails.configuration.aws_region)
     s3_object = s3.bucket(bucket_name).object(file_name)
@@ -65,6 +64,9 @@ class Recording < ApplicationRecord
     # TODO: Handle failure
     update aws_transcription_uri: aws_client.get_transcription_job({transcription_job_name: file_name})
                                     .transcription_job.transcript.transcript_file_uri
+    bucket_name = Rails.configuration.aws_transcript_bucket_name
+    aws_s3_client = Aws::S3::Client.new(region: Rails.configuration.aws_region)
+    update json: aws_s3_client.get_object(bucket: bucket_name, key: "#{file_name}.json").body.read
   end
 
   # GC
