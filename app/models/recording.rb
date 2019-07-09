@@ -46,6 +46,8 @@ class Recording < ApplicationRecord
     #TODO Make sure the job launched properly
     aws_client.start_transcription_job(
       transcription_job_name: file_name,
+      show_speaker_labels: true,
+      max_speaker_labels: 2,
       language_code: 'en-US',
       media_sample_rate_hertz: 16000,
       media_format: 'mp3',
@@ -58,7 +60,6 @@ class Recording < ApplicationRecord
                      .transcription_job
                      .transcription_job_status
       transcription_complete = %w[FAILED COMPLETED].include?(job_status)
-      puts job_status
       sleep(1)
     end
     # TODO: Handle failure
@@ -67,6 +68,28 @@ class Recording < ApplicationRecord
     bucket_name = Rails.configuration.aws_transcript_bucket_name
     aws_s3_client = Aws::S3::Client.new(region: Rails.configuration.aws_region)
     update json: aws_s3_client.get_object(bucket: bucket_name, key: "#{file_name}.json").body.read
+  end
+
+  def create_utterances_aws
+    return unless aws_transcription_uri && json
+    utterance_delimiters = ['.', '!', '?', ';']
+    transcript_hash = JSON.parse(json)
+    items = transcript_hash['results']['items']
+    utterance = ''
+    items.each do |i|
+      puts i
+      # puts i['type']
+      # content = i['alternatives'][0]['content']
+      # utterance << content
+      # if utterance_delimiters.include?(content)
+      #   puts '---------------------------------------'
+      #   puts utterance
+      #   utterance = ''
+      # else
+      #   utterance << ' ' if i['type'] == 'pronunciation'
+      # end
+    end
+    return nil
   end
 
   # GC

@@ -91,6 +91,7 @@ class RecordController < ApplicationController
   def process_recording(recording)
     recording.upload
     recording.transcribe
+    recording.create_utterances_aws
   end
 
   def transcript_params
