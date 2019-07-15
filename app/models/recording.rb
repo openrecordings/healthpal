@@ -46,8 +46,10 @@ class Recording < ApplicationRecord
     #TODO Make sure the job launched properly
     aws_client.start_transcription_job(
       transcription_job_name: file_name,
-      show_speaker_labels: true,
-      max_speaker_labels: 2,
+      settings: {
+        show_speaker_labels: true,
+        max_speaker_labels: 2
+      },
       language_code: 'en-US',
       media_sample_rate_hertz: 16000,
       media_format: 'mp3',
@@ -70,24 +72,19 @@ class Recording < ApplicationRecord
     update json: aws_s3_client.get_object(bucket: bucket_name, key: "#{file_name}.json").body.read
   end
 
+  # TODO: Finish
   def create_utterances_aws
     return unless aws_transcription_uri && json
-    utterance_delimiters = ['.', '!', '?', ';']
     transcript_hash = JSON.parse(json)
     items = transcript_hash['results']['items']
-    utterance = ''
-    items.each do |i|
-      puts i
-      # puts i['type']
-      # content = i['alternatives'][0]['content']
-      # utterance << content
-      # if utterance_delimiters.include?(content)
-      #   puts '---------------------------------------'
-      #   puts utterance
-      #   utterance = ''
-      # else
-      #   utterance << ' ' if i['type'] == 'pronunciation'
-      # end
+    ap puts items
+    segments = transcript_hash['results']['speaker_labels']['segments']
+    segments.each do |s|
+      start_index = items.index{|i| i['start_time'] == s['start_time']}
+      end_index = items.index{|i| i['end_time'] == s['end_time']}
+      segment_items = items[start_index..end_index]
+      puts ap segment_items
+      break
     end
     return nil
   end
