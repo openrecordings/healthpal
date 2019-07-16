@@ -77,6 +77,7 @@ class Recording < ApplicationRecord
     transcript_hash = JSON.parse(json)
     items = transcript_hash['results']['items']
     segments = transcript_hash['results']['speaker_labels']['segments']
+    utterance_text = ''
     segments.each_with_index do |s, i|
       start_index = items.index {|item| item['start_time'] == s['start_time']}
       end_index = items.index {|item| item['end_time'] == s['end_time']}
@@ -85,13 +86,19 @@ class Recording < ApplicationRecord
         segment_text.chop! if segment_text[-1] && segment_text[-1] == ' ' && item['type'] == 'punctuation'
         segment_text << item['alternatives'][0]['content'] + ' '
       end
-      Utterance.create(
-        recording: self,
-        index: i,
-        begins_at: s['start_time'].to_i,
-        ends_at: s['end_time'].to_i,
-        text: segment_text
-      )
+      utterance_text << segment_text
+      if segments[i + 1] && segments[i + 1]['speaker_label'] == s['speaker_label']
+        next
+      else
+        Utterance.create(
+          recording: self,
+          index: i,
+          begins_at: s['start_time'].to_i,
+          ends_at: s['end_time'].to_i,
+          text: utterance_text
+        )
+        utterance_text = ''
+      end
     end
   end
 
