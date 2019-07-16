@@ -72,18 +72,26 @@ class Recording < ApplicationRecord
     update json: aws_s3_client.get_object(bucket: bucket_name, key: "#{file_name}.json").body.read
   end
 
-  # TODO: Finish
   def create_utterances_aws
     return unless aws_transcription_uri && json
     transcript_hash = JSON.parse(json)
     items = transcript_hash['results']['items']
     segments = transcript_hash['results']['speaker_labels']['segments']
-    segments.each do |s|
-      start_index = items.index{|i| i['start_time'] == s['start_time']}
-      end_index = items.index{|i| i['end_time'] == s['end_time']}
-      segment_items = items[start_index..end_index]
-      puts ap segment_items
-      break
+    segments.each_with_index do |s, i|
+      start_index = items.index {|item| item['start_time'] == s['start_time']}
+      end_index = items.index {|item| item['end_time'] == s['end_time']}
+      segment_text = ''
+      items[start_index..end_index].each do |item|
+        segment_text.chop! if segment_text[-1] && segment_text[-1] == ' ' && item['type'] == 'punctuation'
+        segment_text << item['alternatives'][0]['content'] + ' '
+      end
+      Utterance.create(
+        recording: self,
+        index: i,
+        begins_at: s['start_time'].to_i,
+        ends_at: s['end_time'].to_i,
+        text: segment_text
+      )
     end
   end
 

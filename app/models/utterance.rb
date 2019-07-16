@@ -19,7 +19,7 @@ class Utterance < ApplicationRecord
     self.tags.each do |tag|
       tag_types << tag.tag_type
     end
-    tag_types
+    tag_types.uniq
   end
   
 end
