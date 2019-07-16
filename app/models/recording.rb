@@ -13,99 +13,18 @@ class Recording < ApplicationRecord
 
   # TODO: Validation
 
-  def upload
-    self.send("upload_#{Rails.configuration.cloud_provider}")
-  end
-
-  def download
-    self.send("download_#{Rails.configuration.cloud_provider}")
-  end
-
   def transcribe
     self.send("transcribe_#{Rails.configuration.cloud_provider}")
   end
 
   # AWS
   #################################################################################################
-  def upload_aws
-    bucket_name = Rails.configuration.aws_media_bucket_name
-    s3 = Aws::S3::Resource.new(region: Rails.configuration.aws_region)
-    s3_object = s3.bucket(bucket_name).object(file_name)
-    s3_object.upload_file(media_path, {acl: 'private'})
-    update(
-      aws_bucket_name: bucket_name,
-      aws_public_url: s3_object.public_url,
-      aws_media_key: s3_object.key
-    )
-  end
-
   def transcribe_aws
-    return unless aws_media_key
-    bucket_name = Rails.configuration.aws_transcript_bucket_name
-    aws_client = Aws::TranscribeService::Client.new
-    media_file_uri = "https://s3-#{Rails.configuration.aws_region}.amazonaws.com/#{Rails.configuration.aws_media_bucket_name}/#{aws_media_key}"
-    #TODO Make sure the job launched properly
-    aws_client.start_transcription_job(
-      transcription_job_name: file_name,
-      settings: {
-        show_speaker_labels: true,
-        max_speaker_labels: 2
-      },
-      language_code: 'en-US',
-      media_sample_rate_hertz: 16000,
-      media_format: 'mp3',
-      media: {media_file_uri: media_file_uri},
-      output_bucket_name: bucket_name
-    )
-    transcription_complete = false
-    until transcription_complete
-      job_status = aws_client.get_transcription_job({transcription_job_name: file_name})
-                     .transcription_job
-                     .transcription_job_status
-      transcription_complete = %w[FAILED COMPLETED].include?(job_status)
-      sleep(1)
-    end
-    # TODO: Handle failure
-    update aws_transcription_uri: aws_client.get_transcription_job({transcription_job_name: file_name})
-                                    .transcription_job.transcript.transcript_file_uri
-    bucket_name = Rails.configuration.aws_transcript_bucket_name
-    aws_s3_client = Aws::S3::Client.new(region: Rails.configuration.aws_region)
-    update json: aws_s3_client.get_object(bucket: bucket_name, key: "#{file_name}.json").body.read
+    TranscribeAwsJob.perform_later(self)
   end
 
-  def create_utterances_aws
-    return unless aws_transcription_uri && json
-    transcript_hash = JSON.parse(json)
-    items = transcript_hash['results']['items']
-    segments = transcript_hash['results']['speaker_labels']['segments']
-    utterance_index = 1
-    utterance_text = ''
-    segments.each_with_index do |s, i|
-      start_index = items.index {|item| item['start_time'] == s['start_time']}
-      end_index = items.index {|item| item['end_time'] == s['end_time']}
-      segment_text = ''
-      items[start_index..end_index].each do |item|
-        segment_text.chop! if segment_text[-1] && segment_text[-1] == ' ' && item['type'] == 'punctuation'
-        segment_text << item['alternatives'][0]['content'] + ' '
-      end
-      utterance_text << segment_text
-      if segments[i + 1] && segments[i + 1]['speaker_label'] == s['speaker_label']
-        next
-      else
-        Utterance.create(
-          recording: self,
-          index: utterance_index,
-          begins_at: s['start_time'].to_i,
-          ends_at: s['end_time'].to_i,
-          text: utterance_text
-        )
-        utterance_index += 1
-        utterance_text = ''
-      end
-    end
-  end
 
-  # GCP
+  # GCP TODO: Put everything in a job as it is with AWS
   #################################################################################################
   # Upload audio file to GCP
   # Will return nil unless self is persisted
