@@ -77,7 +77,6 @@ class Recording < ApplicationRecord
     return unless aws_transcription_uri && json
     transcript_hash = JSON.parse(json)
     items = transcript_hash['results']['items']
-    ap puts items
     segments = transcript_hash['results']['speaker_labels']['segments']
     segments.each do |s|
       start_index = items.index{|i| i['start_time'] == s['start_time']}
@@ -86,10 +85,9 @@ class Recording < ApplicationRecord
       puts ap segment_items
       break
     end
-    return nil
   end
 
-  # GC
+  # GCP
   #################################################################################################
   # Upload audio file to GCP
   # Will return nil unless self is persisted
