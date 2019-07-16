@@ -4,7 +4,9 @@ class TranscribeAwsJob < ApplicationJob
   around_perform :log_job
 
   def perform(recording)
+    return unless recording.is_a?(Recording)
     @recording = recording
+    transcode
     upload
     transcribe
     create_utterances
@@ -16,6 +18,10 @@ class TranscribeAwsJob < ApplicationJob
     puts '***** STARTING AWS TRANSCIPTION JOB *****'
     yield
     puts '***** AWS TRANSCIPTION JOB COMPLETE *****'
+  end
+
+  def transcode
+    `ffmpeg -i #{@recording.ogg_path} -ac 1 -ar 16000 #{@recording.media_path}`
   end
 
   def upload

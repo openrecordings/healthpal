@@ -16,7 +16,7 @@ class RecordController < ApplicationController
     new_recording_params = {user: current_user, file_name: "#{Digest::SHA1.hexdigest(blob)}.mp3"}
     recording = recording_from_blob(blob, new_recording_params)
     if recording.save!
-      process_recording(recording)
+      recording.transcribe
       flash.alert = 'Recording successfully saved.'
     else
       flash.alert = recording.errors.full_messages
@@ -37,7 +37,7 @@ class RecordController < ApplicationController
     }
     recording = recording_from_blob(blob, new_recording_params)
     if recording.save!
-      process_recording(recording)
+      recording.transcribe
       redirect_to :recordings
     else
       flash.alert = recording.errors.full_messages
@@ -45,7 +45,7 @@ class RecordController < ApplicationController
     end
   end
 
-  # For manually uploading a transcripbe from a file. Currently supports Acusis format
+  # For manually uploading a transcription from a file. Currently supports Acusis format
   def upload_transcript
     begin
       @recording = Recording.find(params[:id])
@@ -81,15 +81,9 @@ class RecordController < ApplicationController
         disk_file.write(blob)
       end
     rescue File => error
-      recording.errors.add(:base, "An error occured during saving: #{error}")
+      recording.errors.add(:base, "An error occurred during saving: #{error}")
     end
-    # Convert from OGG to MP3
-    `ffmpeg -i #{recording.ogg_path} -ac 1 -ar 16000 #{recording.media_path}`
     recording
-  end
-
-  def process_recording(recording)
-    recording.transcribe
   end
 
   def transcript_params
