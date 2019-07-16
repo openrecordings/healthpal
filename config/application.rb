@@ -13,10 +13,13 @@ module Orals
     config.app_display_name = ENV['APP_DISPLAY_NAME']
     config.root_email = ENV['ROOT_EMAIL']
     config.root_password = ENV['ROOT_PASSWORD']
-    config.research_mode = ENV['RESEARCH_MODE'] == 'true'
+
+    config.active_job.queue_adapter = :sidekiq
+
     config.twilio_account_sid = ENV['TWILIO_ACCOUNT_SID']
     config.twilio_auth_token = ENV['TWILIO_AUTH_TOKEN']
     config.twilio_from_phone_number = ENV['TWILIO_FROM_PHONE_NUMBER']
+
     config.cloud_provider = ENV['CLOUD_PROVIDER']
 
 		# Google Cloud Platform Config
