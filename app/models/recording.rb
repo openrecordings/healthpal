@@ -77,6 +77,7 @@ class Recording < ApplicationRecord
     transcript_hash = JSON.parse(json)
     items = transcript_hash['results']['items']
     segments = transcript_hash['results']['speaker_labels']['segments']
+    utterance_index = 1
     utterance_text = ''
     segments.each_with_index do |s, i|
       start_index = items.index {|item| item['start_time'] == s['start_time']}
@@ -92,11 +93,12 @@ class Recording < ApplicationRecord
       else
         Utterance.create(
           recording: self,
-          index: i,
+          index: utterance_index,
           begins_at: s['start_time'].to_i,
           ends_at: s['end_time'].to_i,
           text: utterance_text
         )
+        utterance_index += 1
         utterance_text = ''
       end
     end
