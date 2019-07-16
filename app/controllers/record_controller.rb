@@ -17,7 +17,7 @@ class RecordController < ApplicationController
     recording = recording_from_blob(blob, new_recording_params)
     if recording.save!
       recording.transcribe
-      flash.alert = 'Recording successfully saved.'
+      flash.alert = 'Your recording is being processed. We will email you when it is ready.'
     else
       flash.alert = recording.errors.full_messages
     end

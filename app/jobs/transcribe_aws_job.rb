@@ -103,4 +103,8 @@ class TranscribeAwsJob < ApplicationJob
     end
   end
 
+  def email_user
+
+  end
+
 end
