@@ -4,20 +4,20 @@ class TranscribeAwsJob < ApplicationJob
   around_perform :log_job
 
   def perform(recording)
-    return unless recording.is_a?(Recording)
     @recording = recording
     transcode
     upload
     transcribe
     create_utterances
+    email_user
   end
 
   private
 
   def log_job
-    puts '***** STARTING AWS TRANSCIPTION JOB *****'
+    puts "Started processing recording"
     yield
-    puts '***** AWS TRANSCIPTION JOB COMPLETE *****'
+    puts "Finished processing recording"
   end
 
   def transcode
@@ -61,7 +61,6 @@ class TranscribeAwsJob < ApplicationJob
                      .transcription_job_status
       transcription_complete = %w[FAILED COMPLETED].include?(job_status)
       sleep(1)
-      puts 'Transcribing'
     end
     # TODO: Handle failure
     @recording.update aws_transcription_uri: aws_client.get_transcription_job({transcription_job_name: @recording.file_name})
@@ -104,7 +103,7 @@ class TranscribeAwsJob < ApplicationJob
   end
 
   def email_user
-
+    UserMailer.with(recording: @recording).recording_ready.deliver_now
   end
 
 end
