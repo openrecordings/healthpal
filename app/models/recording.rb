@@ -40,6 +40,7 @@ class Recording < ApplicationRecord
   end
 
   def transcribe_aws
+    return unless aws_media_key
     bucket_name = Rails.configuration.aws_transcript_bucket_name
     aws_client = Aws::TranscribeService::Client.new
     media_file_uri = "https://s3-#{Rails.configuration.aws_region}.amazonaws.com/#{Rails.configuration.aws_media_bucket_name}/#{aws_media_key}"
