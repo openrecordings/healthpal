@@ -9,8 +9,8 @@ unless User.where(email: Rails.application.config.root_email).first
   user = User.new({
     email: Rails.application.config.root_email,
     password: Rails.application.config.root_password,
-    first_name: 'An',
-    last_name: 'RA',
+    first_name: 'Will',
+    last_name: 'Haslett',
     phone_number: 1234567890,
     requires_phone_confirmation: false,
     role: 'root'
