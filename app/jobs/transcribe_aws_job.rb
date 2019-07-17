@@ -89,7 +89,7 @@ class TranscribeAwsJob < ApplicationJob
       if segments[i + 1] && segments[i + 1]['speaker_label'] == s['speaker_label']
         next
       else
-        Utterance.create(
+        utterance = Utterance.create(
           recording: @recording,
           index: utterance_index,
           begins_at: s['start_time'].to_i,
@@ -98,6 +98,13 @@ class TranscribeAwsJob < ApplicationJob
         )
         utterance_index += 1
         utterance_text = ''
+
+        # TODO Remove. This is only for demo purposes
+        Tag.create(
+          utterance: utterance,
+          tag_type_id: rand(1..3)
+        )
+
       end
     end
   end
