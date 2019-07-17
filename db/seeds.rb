@@ -1,4 +1,4 @@
-tag_types = ['Medical condition', 'Test & Imaging', 'Treatments & Procedures']
+tag_types = ['Medication', 'Medical condition', 'Test & Imaging', 'Treatments & Procedures']
 
 # Create root user
 unless User.where(email: Rails.application.config.root_email).first
@@ -16,11 +16,11 @@ unless User.where(email: Rails.application.config.root_email).first
 end
 
 # Create tag types
-tag_types.each { |tagName|
-  unless TagType.where(label: tagName).first
-    puts 'Adding tag type: ' + tagName
+tag_types.each { |tag_name|
+  unless TagType.where(label: tag_name).first
+    puts 'Adding tag type: ' + tag_name
     tag = TagType.new({
-      label: tagName
+      label: tag_name
     })
     tag.save
   end
