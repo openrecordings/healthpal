@@ -1,7 +1,4 @@
-tag_types = ['Diagnosis', 'Discussion of medications', 'Education',
-             'Follow-ups', 'Recommendations',
-             'Signs, Symptoms and Problems',
-             'Test and Imaging Results', 'Treatment Options']
+tag_types = ['Medical condition', 'Test & Imaging', 'Treatments & Procedures']
 
 # Create root user
 unless User.where(email: Rails.application.config.root_email).first
