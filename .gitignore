@@ -26,3 +26,9 @@
 !.elasticbeanstalk/*.global.yml
 
 /config/master.key
+
+/config/credentials/development.key
+
+/config/credentials/staging.key
+
+/config/credentials/production.key
