@@ -17,11 +17,11 @@ class User < ApplicationRecord
     new_phone_token = Array.new(4){rand(10)}.join
     self.update(phone_token: new_phone_token)
     client = Twilio::REST::Client.new(
-      Orals::Application.credentials.twilio_account_sid,
-      Orals::Application.credentials.twilio_auth_token)
+      Orals::Application.credentials.twilio[:account_sid],
+      Orals::Application.credentials.twilio[:auth_token])
     begin
       client.api.account.messages.create(
-        from: Orals::Application.credentials.twilio_from_phone_number,
+        from: Orals::Application.credentials.twilio.[:from_phone_number],
         to: "+1#{phone_number}",
         body: new_phone_token
       )

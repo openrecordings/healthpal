@@ -33,8 +33,8 @@ class Recording < ApplicationRecord
   #  Error-handling
   def upload_gcp
     return nil unless self.persisted?
-    storage_job = Google::Cloud::Storage.new(project: Orals::Application.credentials.gcp_project_name)
-    bucket_name = Orals::Application.credentials.gcp_bucket_name
+    storage_job = Google::Cloud::Storage.new(project: Orals::Application.credentials.gcp[:project_name])
+    bucket_name = Orals::Application.credentials.gcp[:bucket_name]
     bucket = storage_job.bucket(bucket_name)
     audio_file_path = self.media_path
     file = bucket.create_file(audio_file_path, self.file_name)
