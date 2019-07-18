@@ -21,7 +21,7 @@ class User < ApplicationRecord
       Orals::Application.credentials.twilio[:auth_token])
     begin
       client.api.account.messages.create(
-        from: Orals::Application.credentials.twilio.[:from_phone_number],
+        from: Orals::Application.credentials.twilio[:from_phone_number],
         to: "+1#{phone_number}",
         body: new_phone_token
       )
