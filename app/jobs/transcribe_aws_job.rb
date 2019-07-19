@@ -1,37 +1,25 @@
 class TranscribeAwsJob < ApplicationJob
   queue_as :default
 
-  around_perform :log_job
-
-  def perform(recording)
+  def perform(recording, aws_credentials)
     @recording = recording
-    puts '############################# Calling transcode method'
+    @aws_credentials = aws_credentials
     transcode
-    puts '############################# Calling upload method'
     upload
-    puts '############################# Calling transcribe method'
     transcribe
-    puts '############################# Calling create_utterances method'
     create_utterances
-    puts '############################# Calling email_user method'
     email_user
   end
 
   private
-
-  def log_job
-    puts "############################# Started processing recording"
-    yield
-    puts "############################# Finished processing recording"
-  end
 
   def transcode
     `ffmpeg -i #{@recording.ogg_path} -ac 1 -ar 16000 #{@recording.media_path}`
   end
 
   def upload
-    bucket_name = Orals::Application.credentials.aws[:media_bucket_name]
-    s3 = Aws::S3::Resource.new(region: Orals::Application.credentials.aws[:region])
+    bucket_name = @aws_credentials[:media_bucket_name]
+    s3 = Aws::S3::Resource.new(region: @aws_credentials[:region])
     s3_object = s3.bucket(bucket_name).object(@recording.file_name)
     s3_object.upload_file(@recording.media_path, {acl: 'private'})
     @recording.update(
@@ -43,9 +31,9 @@ class TranscribeAwsJob < ApplicationJob
 
   def transcribe
     return unless @recording.aws_media_key
-    bucket_name = Orals::Application.credentials.aws[:transcript_bucket_name]
+    bucket_name = @aws_credentials[:transcript_bucket_name]
     aws_client = Aws::TranscribeService::Client.new
-    media_file_uri = "https://s3-#{Orals::Application.credentials.aws[:region]}.amazonaws.com/#{Orals::Application.credentials.aws[:media_bucket_name]}/#{@recording.aws_media_key}"
+    media_file_uri = "https://s3-#{@aws_credentials[:region]}.amazonaws.com/#{@aws_credentials[:media_bucket_name]}/#{@recording.aws_media_key}"
     #TODO Make sure the job launched properly
     aws_client.start_transcription_job(
       transcription_job_name: @recording.file_name,
@@ -70,8 +58,8 @@ class TranscribeAwsJob < ApplicationJob
     # TODO: Handle failure
     @recording.update aws_transcription_uri: aws_client.get_transcription_job({transcription_job_name: @recording.file_name})
                                     .transcription_job.transcript.transcript_file_uri
-    bucket_name = Orals::Application.credentials.aws[:transcript_bucket_name]
-    aws_s3_client = Aws::S3::Client.new(region: Orals::Application.credentials.aws[:region])
+    bucket_name = @aws_credentials[:transcript_bucket_name]
+    aws_s3_client = Aws::S3::Client.new(region: @aws_credentials[:region])
     @recording.update json: aws_s3_client.get_object(bucket: bucket_name, key: "#{@recording.file_name}.json").body.read
   end
 

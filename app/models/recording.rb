@@ -20,7 +20,7 @@ class Recording < ApplicationRecord
   # AWS
   #################################################################################################
   def transcribe_aws
-    TranscribeAwsJob.perform_later(self)
+    TranscribeAwsJob.perform_later(self, Application.credentials.aws)
   end
 
 
