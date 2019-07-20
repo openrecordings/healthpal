@@ -12,6 +12,8 @@ development:
 
 staging:
   <<: *default
+  password: <%= Orals::Application.credentials.db_password %>
+  port: <%= Orals::Application.credentials.db_port %>
 
 production:
   <<: *default
