@@ -1,0 +1,17 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  timeout: 5000
+  host: <%= Orals::Application.credentials.host %>
+  database: <%= Orals::Application.credentials.db_name %>
+  username: <%= Orals::Application.credentials.db_user %>
+
+development:
+  <<: *default
+
+staging:
+  <<: *default
+
+production:
+  <<: *default

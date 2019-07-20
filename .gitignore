@@ -13,9 +13,6 @@
 !/log/.keep
 !/tmp/.keep
 .byebug_history
-/config/application.yml
-/config/secrets.yml
-/config/database.yml
 .gemrc
 *.swp
 
