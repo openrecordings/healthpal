@@ -4,8 +4,8 @@ tag_types = ['Medication', 'Medical condition', 'Test & Imaging', 'Treatments & 
 unless User.where(email: Rails.application.config.root_email).first
   puts 'Creating root user'
   user = User.new({
-    email: Rails.application.config.root_email,
-    password: Rails.application.config.root_password,
+    email: Rails.application.credentials.root_email,
+    password: Rails.application.credentials.root_password,
     first_name: 'Will',
     last_name: 'Haslett',
     phone_number: 1234567890,
