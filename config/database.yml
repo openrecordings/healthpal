@@ -3,7 +3,7 @@ default: &default
   encoding: unicode
   pool: 5
   timeout: 5000
-  host: <%= Orals::Application.credentials.host %>
+  host: <%= Orals::Application.credentials.db_host %>
   database: <%= Orals::Application.credentials.db_name %>
   username: <%= Orals::Application.credentials.db_user %>
 
