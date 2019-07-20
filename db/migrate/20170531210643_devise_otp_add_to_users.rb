@@ -1,4 +1,4 @@
-class DeviseOtpAddToUsers < ActiveRecord::Migration
+class DeviseOtpAddToUsers < ActiveRecord::Migration[5.0]
   def self.up
     change_table :users do |t|
       t.string    :otp_auth_secret
