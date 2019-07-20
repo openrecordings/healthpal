@@ -1,0 +1,6 @@
+amazon:
+  service: S3
+  access_key_id: <%= Orals::Application.credentials.aws[:access_key_id] %> 
+  secret_access_key: <%= Orals::Application.credentials.aws[:secret_access_key] %> 
+  region: <%= Orals::Application.credentials.aws[:secret_access_key] %>
+  bucket: <%= Orals::Application.credentials.aws[:active_storage_bucket] %>
