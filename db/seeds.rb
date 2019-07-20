@@ -1,7 +1,7 @@
 tag_types = ['Medication', 'Medical condition', 'Test & Imaging', 'Treatments & Procedures']
 
 # Create root user
-unless User.where(email: Rails.application.config.root_email).first
+unless User.where(email: Rails.application.credentials.root_email).first
   puts 'Creating root user'
   user = User.new({
     email: Rails.application.credentials.root_email,
