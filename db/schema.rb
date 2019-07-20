@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 2019_07_16_145609) do
     t.integer "utterance_id"
   end
 
-  create_table "recordings", force: :cascade do |t|
+  create_table "recordings", id: :serial, force: :cascade do |t|
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -51,13 +51,13 @@ ActiveRecord::Schema.define(version: 2019_07_16_145609) do
     t.index ["user_id"], name: "index_shares_on_user_id"
   end
 
-  create_table "tag_types", force: :cascade do |t|
+  create_table "tag_types", id: :serial, force: :cascade do |t|
     t.text "label"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "tags", force: :cascade do |t|
+  create_table "tags", id: :serial, force: :cascade do |t|
     t.integer "utterance_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -66,33 +66,15 @@ ActiveRecord::Schema.define(version: 2019_07_16_145609) do
     t.index ["utterance_id"], name: "index_tags_on_utterance_id"
   end
 
-  create_table "transcripts", force: :cascade do |t|
-    t.integer "recording_id"
-    t.integer "source"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.json "json"
-  end
-
   create_table "user_fields", force: :cascade do |t|
     t.string "text"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "type"
-    t.boolean "text_area"
     t.integer "recording_id"
   end
 
-  create_table "user_notes", force: :cascade do |t|
-    t.string "text"
-    t.datetime "deleted_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "recording_id"
-    t.index ["recording_id"], name: "index_user_notes_on_recording_id"
-  end
-
-  create_table "users", force: :cascade do |t|
+  create_table "users", id: :serial, force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -125,10 +107,11 @@ ActiveRecord::Schema.define(version: 2019_07_16_145609) do
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["invitations_count"], name: "index_users_on_invitations_count"
     t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
+    t.index ["invited_by_type", "invited_by_id"], name: "index_users_on_invited_by_type_and_invited_by_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  create_table "utterances", force: :cascade do |t|
+  create_table "utterances", id: :serial, force: :cascade do |t|
     t.integer "index"
     t.float "begins_at"
     t.text "text"
