@@ -34,9 +34,11 @@ class TranscribeAwsJob < ApplicationJob
     bucket_name = @aws_credentials[:transcript_bucket_name]
     aws_client = Aws::TranscribeService::Client.new
     media_file_uri = "https://s3-#{@aws_credentials[:region]}.amazonaws.com/#{@aws_credentials[:media_bucket_name]}/#{@recording.aws_media_key}"
+    job_name = @recording.file_name.gsub('.mp3', "_#{Time.now.to_s.gsub(' ','_').gsub(':', '_')}")
+    # Delete existing transcription job if there is one with the same name
     #TODO Make sure the job launched properly
     aws_client.start_transcription_job(
-      transcription_job_name: @recording.file_name,
+      transcription_job_name: job_name,
       settings: {
         show_speaker_labels: true,
         max_speaker_labels: 2
@@ -49,18 +51,18 @@ class TranscribeAwsJob < ApplicationJob
     )
     transcription_complete = false
     until transcription_complete
-      job_status = aws_client.get_transcription_job({transcription_job_name: @recording.file_name})
+      job_status = aws_client.get_transcription_job({transcription_job_name: job_name})
                      .transcription_job
                      .transcription_job_status
       transcription_complete = %w[FAILED COMPLETED].include?(job_status)
       sleep(1)
     end
     # TODO: Handle failure
-    @recording.update aws_transcription_uri: aws_client.get_transcription_job({transcription_job_name: @recording.file_name})
+    @recording.update aws_transcription_uri: aws_client.get_transcription_job({transcription_job_name: job_name})
                                     .transcription_job.transcript.transcript_file_uri
     bucket_name = @aws_credentials[:transcript_bucket_name]
     aws_s3_client = Aws::S3::Client.new(region: @aws_credentials[:region])
-    @recording.update json: aws_s3_client.get_object(bucket: bucket_name, key: "#{@recording.file_name}.json").body.read
+    @recording.update json: aws_s3_client.get_object(bucket: bucket_name, key: "#{job_name}.json").body.read
   end
 
   def create_utterances
