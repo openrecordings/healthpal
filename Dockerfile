@@ -1,10 +1,13 @@
 FROM ruby:2.6.3-slim-buster
-RUN apt-get update -qq\
+RUN apt-get update -qq \
+  && apt-get install -y build-essential \
+  && apt-get install -y libpq-dev \
   && apt-get install -y postgresql-client \
-  && apt-get install -y nodejs \
+  && apt-get install -y nodejs
 RUN mkdir /app
 WORKDIR /app
-ADD Gemfile*$ /app/
+COPY Gemfile /app/Gemfile
+COPY Gemfile.lock /app/Gemfile.lock
 RUN bundle install
 COPY . /app
 
