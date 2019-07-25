@@ -12,5 +12,12 @@ module Orals
     config.load_defaults '6.0'
     config.time_zone = 'Eastern Time (US & Canada)'
     config.active_job.queue_adapter = :sidekiq
+
+    # Dockerize logs
+		logger = ActiveSupport::Logger.new(STDOUT)
+		logger.formatter = config.log_formatter
+		config.log_tags = [:subdomain, :uuid]
+		config.logger = ActiveSupport::TaggedLogging.new(logger)
+
   end
 end
