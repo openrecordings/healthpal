@@ -1,5 +1,5 @@
-require "google/cloud/storage"
-require "google/cloud/speech"
+# require "google/cloud/storage"
+# require "google/cloud/speech"
 
 class Recording < ApplicationRecord
 
