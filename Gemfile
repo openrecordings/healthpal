@@ -32,7 +32,7 @@ gem 'sprockets', '>= 3.7.2'
 gem 'ffi', '>= 1.9.24'
 gem 'rack', '>= 2.0.6'
 gem 'mini_racer'
-gem 'google-cloud'
+# gem 'google-cloud'
 gem 'inline_svg'
 gem 'twilio-ruby', '~> 5.21.1'
 gem 'bootsnap', '>= 1.1.0', require: false
