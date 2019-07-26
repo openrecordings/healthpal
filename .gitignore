@@ -4,6 +4,7 @@
 /protected_media/*
 ##################################################################################################
 
+/config/local_env.yml
 /config/ssl/*
 /.bundle
 /.idea
@@ -16,17 +17,14 @@
 .gemrc
 *.swp
 
-
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
 
+# Decryption keys for credentials
 /config/master.key
-
 /config/credentials/development.key
-
 /config/credentials/staging.key
-
 /config/credentials/production.key
 
