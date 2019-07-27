@@ -6,14 +6,14 @@ default: &default
   host: <%= Orals::Application.credentials.db_host %>
   database: <%= Orals::Application.credentials.db_name %>
   username: <%= Orals::Application.credentials.db_user %>
+  password: <%= Orals::Application.credentials.db_password %>
+  port: <%= Orals::Application.credentials.db_port %>
 
 development:
   <<: *default
 
 staging:
   <<: *default
-  password: <%= Orals::Application.credentials.db_password %>
-  port: <%= Orals::Application.credentials.db_port %>
 
 production:
   <<: *default
