@@ -1,0 +1,55 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "containerDefinitions": [
+    {
+      "essential": true,
+      "image": "postgres",
+      "memory": 128,
+      "mountPoints": [
+        {
+          "containerPath": "/var/lib/postgresql/data",
+          "sourceVolume": "_TmpDb"
+        }
+      ],
+      "name": "db"
+    },
+    {
+      "command": [
+        "bash",
+        "-c",
+        "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+      ],
+      "essential": true,
+      "image": "registry.gitlab.com/will.haslett/orals",
+      "memory": 128,
+      "mountPoints": [
+        {
+          "containerPath": "/app",
+          "sourceVolume": "_"
+        }
+      ],
+      "name": "web",
+      "portMappings": [
+        {
+          "containerPort": 3000,
+          "hostPort": 3000
+        }
+      ]
+    }
+  ],
+  "family": "",
+  "volumes": [
+    {
+      "host": {
+        "sourcePath": "./tmp/db"
+      },
+      "name": "_TmpDb"
+    },
+    {
+      "host": {
+        "sourcePath": "."
+      },
+      "name": "_"
+    }
+  ]
+}
