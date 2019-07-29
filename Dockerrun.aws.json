@@ -6,5 +6,6 @@
       "HostPort": "80"
     }
   ],
+  "Volumes": [],
   "Command": "rails server -b 0.0.0.0 -p 80"
 }
