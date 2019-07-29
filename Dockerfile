@@ -8,7 +8,5 @@ RUN apt update -qq \
 RUN mkdir /app
 WORKDIR /app
 COPY . /app
-COPY entrypoint.sh /usr/bin/
-RUN chmod +x /usr/bin/entrypoint.sh
 ENV RAILS_ENV staging
 EXPOSE 80
