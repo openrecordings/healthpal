@@ -8,5 +8,6 @@ RUN apt update -qq \
 RUN mkdir /app
 WORKDIR /app
 COPY . /app
+RUN bundle install
 ENV RAILS_ENV staging
 EXPOSE 80
