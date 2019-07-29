@@ -5,5 +5,7 @@
       "ContainerPort": "80",
       "HostPort": "80"
     }
-  ]
+  ],
+  "Entrypoint": "entrypoint.sh",
+  "Command": "rails server -b 0.0.0.0 -p 80"
 }
