@@ -47,8 +47,6 @@ class AdminController < ApplicationController
       last_name: user_params[:last_name],
       email: user_params[:email],
       phone_number: user_params[:phone_number],
-      first_name: user_params[:first_name],
-      last_name: user_params[:last_name],
       password: user_params[:password],
       role: 'user',
       requires_phone_confirmation: false
