@@ -15,4 +15,4 @@ WORKDIR /app
 COPY . /app
 ENV RAILS_ENV staging
 RUN rake check_db
-EXPOSE 80
+EXPOSE 3000
