@@ -16,4 +16,5 @@ COPY . /app
 ENV RAILS_ENV staging
 RUN rake check_db
 EXPOSE 3000
-CMD rails s -b 0.0.0.0:3000
+CMD rails s -b 0.0.0.0
+
