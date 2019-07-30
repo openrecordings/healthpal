@@ -10,5 +10,5 @@ WORKDIR /app
 COPY . /app
 ENV RAILS_ENV staging
 RUN bundle install
-RUN rake check_db 
+RUN bundle exec rake check_db 
 EXPOSE 80
