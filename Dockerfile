@@ -13,8 +13,9 @@ RUN bundle install
 RUN mkdir /app
 WORKDIR /app
 COPY . /app
-ENV RAILS_ENV staging
+ENV RAILS_ENV development
 RUN rake check_db
+RUN rake assets:precompile
 EXPOSE 3000
 CMD rails s -b 0.0.0.0
 
