@@ -2,10 +2,10 @@
   "AWSEBDockerrunVersion": "1",
   "Ports": [
     {
-      "ContainerPort": "80",
+      "ContainerPort": "3000",
       "HostPort": "80"
     }
   ],
   "Volumes": [],
-  "Command": "rails server -b 0.0.0.0 -p 80"
+  "Command": "rails server -b 0.0.0.0 -p 3000"
 }
