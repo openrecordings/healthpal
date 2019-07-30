@@ -5,9 +5,13 @@ RUN apt update -qq \
   && apt-get install -y postgresql-client \
   && apt-get install -y nodejs \
   && apt-get install -y redis-server
+
+COPY Gemfile* /tmp/
+WORKDIR /tmp
+RUN bundle install
+
 RUN mkdir /app
 WORKDIR /app
 COPY . /app
 ENV RAILS_ENV staging
-RUN bundle install
 EXPOSE 80
