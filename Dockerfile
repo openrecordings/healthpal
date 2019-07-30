@@ -11,3 +11,6 @@ COPY . /app
 RUN bundle install
 ENV RAILS_ENV staging
 EXPOSE 80
+RUN rm /etc/nginx/sites-enabled/*
+RUN rm /etc/nginx/conf.d/*
+COPY nginx-orals.conf /etc/nginx/sites-enabled
