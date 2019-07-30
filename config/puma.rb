@@ -12,3 +12,4 @@ if ENV.fetch("RAILS_ENV") == 'development'
     cert: Orals::Application.credentials.ssl_cert_path,
     verify_mode: 'none'
   }
+end
