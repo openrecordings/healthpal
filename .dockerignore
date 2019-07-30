@@ -3,3 +3,6 @@
 .byebug_history
 log/*
 tmp/*
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+.gitignore
