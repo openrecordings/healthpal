@@ -14,6 +14,3 @@ COPY . /app
 RUN bundle install
 ENV RAILS_ENV staging
 EXPOSE 80
-RUN rm /etc/nginx/sites-enabled/elasticbeanstalk-nginx-docker-proxy.conf
-RUN rm /etc/nginx/conf.d/elasticbeanstalk-nginx-docker-upstream.conf
-COPY nginx-orals.conf /etc/nginx/sites-enabled
