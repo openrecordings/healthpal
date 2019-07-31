@@ -13,6 +13,6 @@ WORKDIR /app
 COPY . /app
 ARG RAILS_ENV
 ENV RAILS_ENV=$RAILS_ENV
-RUN rake check_db
-RUN rake assets:precompile
+RUN bundle exec rake check_db
+RUN bundle exec rake assets:precompile
 EXPOSE 3000
