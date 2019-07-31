@@ -12,5 +12,6 @@ RUN mkdir /app
 WORKDIR /app
 COPY . /app
 ENV RAILS_ENV=staging
+ENV RACK_ENV=staging
 RUN bundle exec rake assets:precompile
 EXPOSE 3000
