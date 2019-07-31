@@ -7,5 +7,5 @@
     }
   ],
   "Volumes": [],
-  "Command": "rails s -b 0.0.0.0"
+  "Command": "rails s -b 0.0.0.0 -e staging"
 }
