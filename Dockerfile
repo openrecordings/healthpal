@@ -14,5 +14,6 @@ COPY . /app
 ENV RAILS_ENV=staging
 ENV RACK_ENV=staging
 RUN bundle exec rake assets:precompile
+RUN service redis-server start
 CMD rails s -b 0.0.0.0
 EXPOSE 3000
