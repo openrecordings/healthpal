@@ -11,6 +11,8 @@ RUN bundle install
 RUN mkdir /app
 WORKDIR /app
 COPY . /app
+ARG RAILS_ENV
+ENV RAILS_ENV=$RAILS_ENV
 RUN rake check_db
 RUN rake assets:precompile
 EXPOSE 3000
