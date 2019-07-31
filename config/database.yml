@@ -3,17 +3,14 @@ default: &default
   encoding: unicode
   pool: 5
   timeout: 5000
-  host: <%= Orals::Application.credentials.db_host %>
-  database: <%= Orals::Application.credentials.db_name %>
-  username: <%= Orals::Application.credentials.db_user %>
-  password: <%= Orals::Application.credentials.db_password %>
-  port: <%= Orals::Application.credentials.db_port %>
+  host: <%= Orals::Application.credentials[Rails.env][:db_host] %>
+  database: <%= Orals::Application.credentials[Rails.env][:db_name] %>
+  username: <%= Orals::Application.credentials[Rails.env][:db_user] %>
+  password: <%= Orals::Application.credentials[Rails.env][:db_password] %>
+  port: <%= Orals::Application.credentials[Rails.env][:db_port] %>
 
 development:
   <<: *default
 
 staging:
-  <<: *default
-
-production:
   <<: *default

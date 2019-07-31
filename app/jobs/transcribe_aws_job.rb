@@ -1,9 +1,9 @@
 class TranscribeAwsJob < ApplicationJob
   queue_as :default
 
-  def perform(recording, aws_credentials)
+  def perform(recording, credentials)
     @recording = recording
-    @aws_credentials = aws_credentials
+    @credentials = credentials
     transcode
     upload
     transcribe
@@ -18,8 +18,8 @@ class TranscribeAwsJob < ApplicationJob
   end
 
   def upload
-    bucket_name = @aws_credentials[:media_bucket_name]
-    s3 = Aws::S3::Resource.new(region: @aws_credentials[:region])
+    bucket_name = @credentials[Rails.env][:media_bucket_name]
+    s3 = Aws::S3::Resource.new(region: @credentials.aws[:region])
     s3_object = s3.bucket(bucket_name).object(@recording.file_name)
     s3_object.upload_file(@recording.media_path, {acl: 'private'})
     @recording.update(
@@ -31,9 +31,9 @@ class TranscribeAwsJob < ApplicationJob
 
   def transcribe
     return unless @recording.aws_media_key
-    bucket_name = @aws_credentials[:transcript_bucket_name]
+    bucket_name = @credentials[Rails.env][:transcript_bucket_name]
     aws_client = Aws::TranscribeService::Client.new
-    media_file_uri = "https://s3-#{@aws_credentials[:region]}.amazonaws.com/#{@aws_credentials[:media_bucket_name]}/#{@recording.aws_media_key}"
+    media_file_uri = "https://s3-#{@credentials.aws[:region]}.amazonaws.com/#{@credentials[Rails.env][:media_bucket_name]}/#{@recording.aws_media_key}"
     job_name = @recording.file_name.gsub('.mp3', "_#{Time.now.to_s.gsub(' ','_').gsub(':', '_')}")
     # Delete existing transcription job if there is one with the same name
     #TODO Make sure the job launched properly
@@ -60,8 +60,8 @@ class TranscribeAwsJob < ApplicationJob
     # TODO: Handle failure
     @recording.update aws_transcription_uri: aws_client.get_transcription_job({transcription_job_name: job_name})
                                     .transcription_job.transcript.transcript_file_uri
-    bucket_name = @aws_credentials[:transcript_bucket_name]
-    aws_s3_client = Aws::S3::Client.new(region: @aws_credentials[:region])
+    bucket_name = @credentials[Rails.env][:transcript_bucket_name]
+    aws_s3_client = Aws::S3::Client.new(region: @credentials.aws[:region])
     @recording.update json: aws_s3_client.get_object(bucket: bucket_name, key: "#{job_name}.json").body.read
   end
 
