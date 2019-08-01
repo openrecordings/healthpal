@@ -11,8 +11,7 @@ RUN bundle install
 RUN mkdir /app
 WORKDIR /app
 COPY . /app
-ENV RAILS_ENV=staging
-ENV RACK_ENV=staging
+ENV RAILS_ENV=development
 RUN bundle exec rake assets:precompile
 RUN service redis-server start
 CMD rails s -b 0.0.0.0
