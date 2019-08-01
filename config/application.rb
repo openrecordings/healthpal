@@ -9,6 +9,15 @@ Bundler.require(*Rails.groups)
 
 module Orals
   class Application < Rails::Application
+
+		# Load env vars from local_env.yml
+		config.before_configuration do
+			env_file = File.join(Rails.root, 'config', 'local_env.yml')
+			YAML.load(File.open(env_file)).each do |key, value|
+				ENV[key.to_s] = value
+			end if File.exists?(env_file)
+		end
+
     config.load_defaults '6.0'
     config.time_zone = 'Eastern Time (US & Canada)'
     config.active_job.queue_adapter = :sidekiq
