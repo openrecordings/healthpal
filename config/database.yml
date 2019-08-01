@@ -1,21 +1,10 @@
-default: &default
+staging:
   adapter: postgresql
   encoding: unicode
   pool: 5
   timeout: 5000
-
-development:
-  <<: *default
-  host: <%= Orals::Application.credentials[:development][:db_host] %>
-  database: <%= Orals::Application.credentials[:development][:db_name] %>
-  username: <%= Orals::Application.credentials[:development][:db_user] %>
-  password: <%= Orals::Application.credentials[:development][:db_password] %>
-  port: <%= Orals::Application.credentials[:development][:db_port] %>
-
-staging:
-  <<: *default
-  host: <%= Orals::Application.credentials[:staging][:db_host] %>
-  database: <%= Orals::Application.credentials[:staging][:db_name] %>
-  username: <%= Orals::Application.credentials[:staging][:db_user] %>
-  password: <%= Orals::Application.credentials[:staging][:db_password] %>
-  port: <%= Orals::Application.credentials[:staging][:db_port] %>
+  host: orals-dev.cfp779mnvch7.us-east-1.rds.amazonaws.com
+  database: orals_staging
+  username: rails
+  password: sE1a6RdIan!GJ5Vy74v
+  port: 5432
