@@ -1,6 +1,8 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
   
+  config.require_master_key = true
+  
   # Use NGINX for send_file
   config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect'
 

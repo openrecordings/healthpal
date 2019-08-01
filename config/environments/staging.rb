@@ -1,4 +1,7 @@
 Rails.application.configure do
+
+  config.require_master_key = true
+
   # Staging and production:
   config.action_mailer.perform_deliveries = true
   config.action_mailer.delivery_method = :sendmail
