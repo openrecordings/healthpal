@@ -6,6 +6,5 @@
       "HostPort": "3000"
     }
   ],
-  "Volumes": [],
-  "Command": "rails s -b 0.0.0.0"
+  "Volumes": []
 }
