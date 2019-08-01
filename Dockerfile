@@ -12,5 +12,7 @@ RUN mkdir /app
 WORKDIR /app
 COPY . /app
 ENV RAILS_ENV=staging
+RUN bundle exec rake assets:precompile --trace
 RUN service redis-server start
+CMD rails s -b 0.0.0.0
 EXPOSE 3000
