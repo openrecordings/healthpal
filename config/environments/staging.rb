@@ -1,8 +1,5 @@
 Rails.application.configure do
 
-  # TODO: Haven't yet figured out NGINX config for serving assets
-  config.serve_static_files = true
-
   config.require_master_key = true
 
   # Staging and production:
