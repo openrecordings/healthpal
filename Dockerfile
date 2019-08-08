@@ -9,6 +9,7 @@ COPY Gemfile* /tmp/
 WORKDIR /tmp
 RUN bundle install
 RUN mkdir /app
+RUN mkdir /app/protected_media
 WORKDIR /app
 COPY . /app
 RUN bundle exec rake assets:precompile --trace
