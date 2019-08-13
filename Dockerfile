@@ -6,6 +6,7 @@ RUN apt update -qq \
   && apt-get install -y nodejs \
   && apt-get install -y redis-server \
   && apt-get install -y ffmpeg
+RUN service redis-server start
 COPY Gemfile* /tmp/
 WORKDIR /tmp
 RUN bundle install
@@ -14,6 +15,5 @@ RUN mkdir /app/protected_media
 WORKDIR /app
 COPY . /app
 RUN bundle exec rake assets:precompile --trace
-RUN service redis-server start
 CMD rails s -b 0.0.0.0
 EXPOSE 3000
