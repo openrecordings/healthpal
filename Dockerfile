@@ -1,10 +1,18 @@
 FROM ruby:2.6.3-slim-buster
 RUN apt update -qq \
-  && apt-get install -y build-essential \
-  && apt-get install -y libpq-dev \
-  && apt-get install -y postgresql-client \
-  && apt-get install -y nodejs \
-  && apt-get install -y ffmpeg
+  && apt-get install -y \
+    build-essential \
+    libpq-dev \
+    postgresql-client \
+    nodejs \
+    ffmpeg \
+  && apt-get clean autoclean \
+  && apt-get autoremove -y \
+  && rm -rf \
+    /var/lib/apt \
+    /var/lib/dpkg \
+    /var/lib/cache \
+    /var/lib/log
 COPY Gemfile* /tmp/
 WORKDIR /tmp
 RUN bundle install
