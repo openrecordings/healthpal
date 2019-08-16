@@ -1,4 +1,4 @@
 FROM nginx
 COPY rails.config /etc/nginx/conf.d
-CMD service nginx restart
+CMD ["nginx", "-g", "daemon off;"]
 EXPOSE 80
