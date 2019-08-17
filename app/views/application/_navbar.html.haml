@@ -4,6 +4,7 @@
       %span= image_tag('open_recordings.png', width: '120px')
       %span#logo-health Health
       %span#logo-pal> PAL
+      %span= Rails.env
   - if user_signed_in?
     #menu-container
       #menu-spans
