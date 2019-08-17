@@ -13,6 +13,9 @@ module Orals
     config.time_zone = 'Eastern Time (US & Canada)'
     config.active_job.queue_adapter = :sidekiq
 
+    # AWS hostname for the current environment
+    config.hosts << Orals::Application.credentials[Rails.env.to_sym][:host]
+
     # Dockerize logs
 		logger = ActiveSupport::Logger.new(STDOUT)
 		logger.formatter = config.log_formatter
