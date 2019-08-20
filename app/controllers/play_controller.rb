@@ -17,8 +17,8 @@ class PlayController < ApplicationController
     @recording = Recording.find_by(id: params[:id])
     if(@recording && current_user.can_access(@recording))
       @title = "#{@recording.user.full_name}, #{@recording.created_at.strftime('%-m/%-d/%-y')}"
-      @provider = UserField.find_by(recording: @recording, type: :provider) || UserField.new(recording: @recording, type: :provider, text_area: false)
-      @note = UserField.find_by(recording: @recording, type: :note) || UserField.new(recording: @recording, type: :note , text_area: false)
+      @provider = UserField.find_by(recording: @recording, type: :provider) || UserField.new(recording: @recording, type: :provider)
+      @note = UserField.find_by(recording: @recording, type: :note) || UserField.new(recording: @recording, type: :note)
       @utterances = prepare_utterances(@recording)
     else
       flash.alert = 'An error ocurred while retriving the audio data. Please contact support.'
