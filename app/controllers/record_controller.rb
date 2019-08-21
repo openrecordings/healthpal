@@ -14,7 +14,8 @@ class RecordController < ApplicationController
   def upload
     blob = request.body.read
     new_recording_params = {user: current_user, file_name: "#{Digest::SHA1.hexdigest(blob)}.mp3"}
-    if recording_from_blob(blob, new_recording_params)
+    recording = recording_from_blob(blob, new_recording_params)
+    if recording.save!
       recording.transcribe
       flash.alert = 'Your recording is being processed. We will email you when it is ready.'
     else
