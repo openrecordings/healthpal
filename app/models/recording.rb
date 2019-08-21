@@ -14,7 +14,7 @@ class Recording < ApplicationRecord
   # TODO: Validation
 
   def transcribe
-    self.send("transcribe_#{Orals::Application.credentials.cloud_provider}")
+    # self.send("transcribe_#{Orals::Application.credentials.cloud_provider}")
   end
 
   # AWS
