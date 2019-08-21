@@ -19,7 +19,7 @@ class TranscribeAwsJob < ApplicationJob
 
   def upload
     bucket_name = @credentials[Rails.env.to_sym][:media_bucket_name]
-    s3 = Aws::S3::Resource.new(region: @credentials.aws[:region])
+    s3 = Aws::S3::Resource.new
     s3_object = s3.bucket(bucket_name).object(@recording.file_name)
     s3_object.upload_file(@recording.media_path, {acl: 'private'})
     @recording.update(
