@@ -1,0 +1,2 @@
+FROM orals-dev
+CMD tail -f /dev/null
