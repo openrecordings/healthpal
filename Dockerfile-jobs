@@ -1,2 +1,2 @@
 FROM orals-dev
-CMD bin/delayed_job start
+CMD bundle exec rake jobs:work
