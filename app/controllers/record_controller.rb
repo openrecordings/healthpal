@@ -11,12 +11,15 @@ class RecordController < ApplicationController
   end
 
   # In-app recordings. Come in as AJAX but redirected to my_recordings if successful.
+  # TODO: Only handles audio as of now
   def upload
-    blob = request.body.read
-    new_recording_params = {user: current_user, file_name: "#{Digest::SHA1.hexdigest(blob)}.mp3"}
-    recording = recording_from_blob(blob, new_recording_params)
+    recording = Recording.new(
+      user: current_user,
+      media_format: 'mp3'
+    )
+    recording.media_file.attach(request.body.read)
     if recording.save!
-      recording.transcribe
+      # recording.transcribe
       flash.alert = 'Your recording is being processed. We will email you when it is ready.'
     else
       flash.alert = recording.errors.full_messages
@@ -26,23 +29,24 @@ class RecordController < ApplicationController
   end
 
   # Create a recording by uploading an existing file
+  # TODO: Broken. Needs update for new ActiveStorage approach
   def upload_file
     # TODO Restrict to supported mime types
-    file = recording_params[:file]
-    blob = file.read
-    new_recording_params = {
-      user: User.find_by(id: recording_params[:user]),
-      file_name: "#{Digest::SHA1.hexdigest(blob)}.mp3",
-      original_file_name: file.original_filename,
-    }
-    recording = recording_from_blob(blob, new_recording_params)
-    if recording.save!
-      recording.transcribe
-      redirect_to :recordings
-    else
-      flash.alert = recording.errors.full_messages
-      render :file_upload
-    end
+    # file = recording_params[:file]
+    # blob = file.read
+    # new_recording_params = {
+    #   user: User.find_by(id: recording_params[:user]),
+    #   file_name: "#{Digest::SHA1.hexdigest(blob)}.mp3",
+    #   original_file_name: file.original_filename,
+    # }
+    # recording = recording_from_blob(blob, new_recording_params)
+    # if recording.save!
+    #   recording.transcribe
+    #   redirect_to :recordings
+    # else
+    #   flash.alert = recording.errors.full_messages
+    #   render :file_upload
+    # end
   end
 
   # For manually uploading a transcription from a file. Currently supports Acusis format
@@ -71,19 +75,6 @@ class RecordController < ApplicationController
 
   def recording_params
     params.require(:recording).permit(:file, :user)
-  end
-
-  def recording_from_blob(blob, new_recording_params)
-    return unless new_recording_params[:file_name]
-    recording = Recording.new(new_recording_params)
-    begin
-      File.open(recording.ogg_path, 'wb') do |disk_file|
-        disk_file.write(blob)
-      end
-    rescue File => error
-      recording.errors.add(:base, "An error occurred during saving: #{error}")
-    end
-    recording
   end
 
   def transcript_params
