@@ -21,4 +21,3 @@ RUN mkdir /app/protected_media
 WORKDIR /app
 COPY . /app
 RUN bundle exec rake assets:precompile --trace
-EXPOSE 3000
