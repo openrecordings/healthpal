@@ -5,10 +5,9 @@ class TranscribeAwsJob < ApplicationJob
     @recording = recording
     @credentials = Rails.application.credentials
     transcode
-    upload
-    transcribe
-    create_utterances
-    email_user
+    # transcribe
+    # create_utterances
+    # email_user
   end
 
   private
@@ -18,18 +17,6 @@ class TranscribeAwsJob < ApplicationJob
       `ffmpeg -i #{file.path} -ac 1 -ar 16000 #{file.path}.mp3`
 		  @recording.media_file.attach(io: File.open("#{file.path}.mp3"), filename: "#{@recording.sha1}.mp3")
 		end
-  end
-
-  def upload
-    bucket_name = @credentials[Rails.env.to_sym][:media_bucket_name]
-    s3 = Aws::S3::Resource.new
-    s3_object = s3.bucket(bucket_name).object(@recording.file_name)
-    s3_object.upload_file(@recording.media_path, {acl: 'private'})
-    @recording.update(
-      aws_bucket_name: bucket_name,
-      aws_public_url: s3_object.public_url,
-      aws_media_key: s3_object.key
-    )
   end
 
   def transcribe
