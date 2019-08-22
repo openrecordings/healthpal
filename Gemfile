@@ -38,7 +38,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'aws-sdk-rails'
 gem 'aws-sdk-s3'
 gem 'aws-sdk-transcribeservice'
-gem 'sidekiq'
+gem 'delayed_job_active_record'
 group :development do
   gem 'interactive_editor'
   gem 'web-console', '>= 3.3.0'
