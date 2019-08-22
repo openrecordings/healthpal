@@ -21,6 +21,5 @@ module Orals
 		logger.formatter = config.log_formatter
 		config.log_tags = [:subdomain, :uuid]
 		config.logger = ActiveSupport::TaggedLogging.new(logger)
-
   end
 end
