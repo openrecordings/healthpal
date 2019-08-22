@@ -14,7 +14,10 @@ class TranscribeAwsJob < ApplicationJob
   private
 
   def transcode
-    `ffmpeg -i #{@recording.ogg_path} -ac 1 -ar 16000 #{@recording.media_path}`
+		@recording.media_file.open do |file|
+      `ffmpeg -i #{file.path} -ac 1 -ar 16000 #{file.path}.mp3`
+		  @recording.media_file.attach(io: File.open("#{file.path}.mp3"), filename: "#{@recording.sha1}.mp3")
+		end
   end
 
   def upload
