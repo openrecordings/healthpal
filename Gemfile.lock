@@ -102,6 +102,7 @@ GEM
     coffee-script-source (1.12.2)
     concurrent-ruby (1.1.5)
     crass (1.0.4)
+    daemon (1.2.0)
     delayed_job (4.1.8.beta1)
       activesupport (>= 3.0, < 6.1)
     delayed_job_active_record (4.1.4.beta1)
@@ -307,6 +308,7 @@ DEPENDENCIES
   byebug
   coffee-rails (~> 4.2)
   concurrent-ruby
+  daemon
   delayed_job_active_record
   devise (>= 4.6.0)
   devise_invitable (~> 1.7.0)

@@ -21,5 +21,4 @@ RUN mkdir /app/protected_media
 WORKDIR /app
 COPY . /app
 RUN bundle exec rake assets:precompile --trace
-CMD rails s -b 0.0.0.0
 EXPOSE 3000
