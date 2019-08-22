@@ -13,11 +13,13 @@ class RecordController < ApplicationController
   # In-app recordings. Come in as AJAX but redirected to my_recordings if successful.
   # TODO: Only handles audio as of now
   def upload
+    blob = request.body.read
+    file_name = "#{Digest::SHA1.hexdigest(blob)}.ogg"
     recording = Recording.new(
       user: current_user,
       media_format: 'mp3'
     )
-    recording.media_file.attach(request.body.read)
+    recording.media_file.attach(io: blob, filename: file_name)
     if recording.save!
       # recording.transcribe
       flash.alert = 'Your recording is being processed. We will email you when it is ready.'
