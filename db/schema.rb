@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_22_173053) do
+ActiveRecord::Schema.define(version: 2019_08_22_180054) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,18 +64,13 @@ ActiveRecord::Schema.define(version: 2019_08_22_173053) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "duration"
-    t.string "patient_identifier"
-    t.string "file_name"
-    t.string "gcp_uri"
-    t.string "original_file_name"
-    t.string "source"
     t.json "json"
-    t.string "gcp_public_url"
     t.boolean "is_video"
     t.string "aws_bucket_name"
     t.string "aws_public_url"
     t.string "aws_media_key"
     t.string "aws_transcription_uri"
+    t.string "media_format"
   end
 
   create_table "shares", force: :cascade do |t|

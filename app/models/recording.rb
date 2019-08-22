@@ -1,6 +1,3 @@
-# require "google/cloud/storage"
-# require "google/cloud/speech"
-
 class Recording < ApplicationRecord
 
   belongs_to :user
@@ -14,23 +11,7 @@ class Recording < ApplicationRecord
   # TODO: Validation
 
   def transcribe
-    self.send("transcribe_#{Orals::Application.credentials.cloud_provider}")
-  end
-
-  # AWS
-  #################################################################################################
-  def transcribe_aws
     TranscribeAwsJob.perform_later(self)
-  end
-
-  #################################################################################################
-  def media_path
-    return nil unless self.file_name
-    Rails.root.join('protected_media').join(self.file_name).to_s
-  end
-
-  def ogg_path
-    media_path.gsub('.mp3', '.ogg')
   end
 
   # Transcript upload (Acusis)
@@ -71,29 +52,6 @@ class Recording < ApplicationRecord
     if (utt)
       utterances << utt
     end
-  end
-
-  private
-
-  def encrypt
-    # TODO: Use gpg and the Open3 Ruby module
-    # Put the local GPG user ID in application.yml?
-  end
-
-  def set_duration
-    # TODO
-  end
-
-  # TODO: Still needed? (Not using a gem for in-place editing anymore)
-  def create_blank_fields
-    # Blank (existing) fields are required for best_in_place
-    self.note = ''
-    self.provider = ''
-  end
-
-  # TODO Use this
-  def gcp_logger
-    @@gcp_logger ||= Logger.new("#{Rails.root}/log/gcp.log")
   end
 
 end

@@ -12,6 +12,7 @@ module Orals
     config.load_defaults '6.0'
     config.time_zone = 'Eastern Time (US & Canada)'
     config.active_job.queue_adapter = :delayed_job
+    config.active_storage.service = :amazon
 
     # AWS hostname for the current environment
     config.hosts << Rails.application.credentials[Rails.env.to_sym][:host]
