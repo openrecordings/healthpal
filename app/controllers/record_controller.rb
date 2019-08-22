@@ -13,11 +13,19 @@ class RecordController < ApplicationController
   # In-app recordings. Come in as AJAX but redirected to my_recordings if successful.
   # TODO: Only handles audio as of now
   def upload
+		blob = request.body.read
+    filename = Digest::SHA1.hexdigest(blob)
+    filepath =  "#{Rails.root}/tmp/#{filename}"
+		File.open(filepath, 'wb') do |disk_file|
+			disk_file.write(blob)
+		end
     recording = Recording.new(
       user: current_user,
-      media_file: request.body.read,
-      file_name: "#{Digest::SHA1.hexdigest(blob)}.ogg"
+			is_video: false,
+      media_format: 'mp3'
     )
+		recording.media_file.attach(io: File.open(filepath), filename: filename)
+		`rm #{filepath}`	
     if recording.save!
       # recording.transcribe
       flash.alert = 'Your recording is being processed. We will email you when it is ready.'
