@@ -1,9 +1,9 @@
 class TranscribeAwsJob < ApplicationJob
   queue_as :default
 
-  def perform(recording, credentials)
+  def perform(recording)
     @recording = recording
-    @credentials = credentials
+    @credentials = Rails.application.credentials
     transcode
     upload
     transcribe
@@ -34,7 +34,7 @@ class TranscribeAwsJob < ApplicationJob
     bucket_name = @credentials[Rails.env.to_sym][:transcript_bucket_name]
     aws_client = Aws::TranscribeService::Client.new
     media_file_uri = "https://s3-#{@credentials.aws[:region]}.amazonaws.com/#{@credentials[Rails.env.to_sym][:media_bucket_name]}/#{@recording.aws_media_key}"
-    job_name = @recording.file_name.gsub('.mp3', "_#{Time.now.to_s.gsub(' ','_').gsub(':', '_')}")
+    job_name = @recording.file_name.gsub('.mp3', "_#{Time.now.to_s.gsub(' ','_').gsub(':', '_').gsub('+', '')}")
     # Delete existing transcription job if there is one with the same name
     #TODO Make sure the job launched properly
     aws_client.start_transcription_job(
