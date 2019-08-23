@@ -6,7 +6,7 @@
       #loader-container
         %h3 Loading media. This could take a few minutes...
         #loader
-    = video_tag(send_media_path(@recording.id),
+    = video_tag(url_for(@recording.media_file),
       id: 'video-element',
       'data-recording-id': @recording.id,
       'data-is-video': @recording.is_video,

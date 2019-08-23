@@ -25,17 +25,6 @@ class PlayController < ApplicationController
       redirect_to :root and return
     end
   end
-
-  # TODO Handle bad params
-  def send_media
-    file_path = Recording.find(params[:id]).media_path 
-    response.set_header('Cache-Control', 'public, must-revalidate, max-age=0')
-    response.set_header('Accept-Ranges', 'bytes')
-    response.set_header('Content-Length', File.size(file_path))
-    response.set_header('Pragma', 'no-cache')
-    response.set_header('Content-Transfer-Encoding', 'binary')
-    send_file(file_path, disposition: 'inline')
-  end
   
   # AJAX endpoint for in-place editing of UserFields
   # TODO Handle bad params
@@ -55,6 +44,7 @@ class PlayController < ApplicationController
 
   private
 
+  # Merges contiguous utterances that have the same tag(s)
   def prepare_utterances(recording)
     return_utterances = []
     multi_utterance = nil
