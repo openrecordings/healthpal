@@ -6,8 +6,8 @@ class TranscribeAwsJob < ApplicationJob
     @credentials = Rails.application.credentials
     transcode
     transcribe
-    # create_utterances
-    # email_user
+    create_utterances
+    email_user
   end
 
   private
