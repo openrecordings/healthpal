@@ -6,16 +6,16 @@ default: &default
 
 development:
   <<: *default
-  host: <%= Orals::Application.credentials[:development][:db_host] %>
-  database: <%= Orals::Application.credentials[:development][:db_name] %>
-  username: <%= Orals::Application.credentials[:development][:db_user] %>
-  password: <%= Orals::Application.credentials[:development][:db_password] %>
-  port: <%= Orals::Application.credentials[:development][:db_port] %>
+  host: <%= Rails.application.credentials[:development][:db_host] %>
+  database: <%= Rails.application.credentials[:development][:db_name] %>
+  username: <%= Rails.application.credentials[:development][:db_user] %>
+  password: <%= Rails.application.credentials[:development][:db_password] %>
+  port: <%= Rails.application.credentials[:development][:db_port] %>
 
 staging:
   <<: *default
-  host: <%= Orals::Application.credentials[:staging][:db_host] %>
-  database: <%= Orals::Application.credentials[:staging][:db_name] %>
-  username: <%= Orals::Application.credentials[:staging][:db_user] %>
-  password: <%= Orals::Application.credentials[:staging][:db_password] %>
-  port: <%= Orals::Application.credentials[:staging][:db_port] %>
+  host: <%= Rails.application.credentials[:staging][:db_host] %>
+  database: <%= Rails.application.credentials[:staging][:db_name] %>
+  username: <%= Rails.application.credentials[:staging][:db_user] %>
+  password: <%= Rails.application.credentials[:staging][:db_password] %>
+  port: <%= Rails.application.credentials[:staging][:db_port] %>
