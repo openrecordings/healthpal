@@ -23,7 +23,7 @@ class TranscribeAwsJob < ApplicationJob
     bucket_name = @credentials[Rails.env.to_sym][:transcript_bucket_name]
     aws_client = Aws::TranscribeService::Client.new
     media_file_uri = "https://s3-#{@credentials.aws[:region]}.amazonaws.com/#{@credentials[Rails.env.to_sym][:media_bucket_name]}/#{@recording.media_file.key}"
-    job_name = "orals_transcibe_job__#{Time.now.to_s.gsub(' ','_').gsub(':', '_').gsub('+', '')}"
+    job_name = "orals_transcibe_job_#{Time.now.to_s.gsub(' ','_').gsub(':', '_').gsub('+', '')}"
     aws_client.start_transcription_job(
       transcription_job_name: job_name,
       settings: {
