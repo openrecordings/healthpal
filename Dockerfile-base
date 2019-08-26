@@ -1,22 +1,22 @@
 FROM ruby:2.6.3-slim-buster
 RUN apt update -qq \
-  && apt-get install -y \
+  && apt install -y --no-install-recommends \
     build-essential \
     libpq-dev \
     postgresql-client \
     nodejs \
-    ffmpeg \
-    vim \
-  && apt-get clean autoclean \
-  && apt-get autoremove -y \
+    ffmpeg
+COPY Gemfile* /tmp/
+WORKDIR /tmp
+RUN bundle install
+RUN apt remove -y --purge build-essential \
+  && apt clean autoclean \
+  && apt autoremove -y \
   && rm -rf \
     /var/lib/apt \
     /var/lib/dpkg \
     /var/lib/cache \
     /var/lib/log
-COPY Gemfile* /tmp/
-WORKDIR /tmp
-RUN bundle install
 RUN mkdir /app
 WORKDIR /app
 COPY . /app
