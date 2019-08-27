@@ -6,7 +6,7 @@ Rails.application.configure do
   config.action_mailer.perform_deliveries = true
   config.action_mailer.delivery_method = :sendmail
   # config.action_mailer.default_url_options = { host: Orals::Application.credentials[Rails.env.to_sym][:host] }
-  config.action_mailer.default_url_options = { host: 'localhost' }
+  config.action_mailer.default_url_options = {host: Rails.application.credentials[:staging][:host]}
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false

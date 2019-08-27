@@ -9,7 +9,7 @@ Rails.application.configure do
   # Staging and Production:
   config.action_mailer.perform_deliveries = true
   config.action_mailer.delivery_method = :sendmail
-  config.action_mailer.default_url_options = { host: Orals::Application.credentials[Rails.env.to_sym][:host] }
+  config.action_mailer.default_url_options = { host: Orals::Application.credentials[:production][:host] }
 
   # Eager load code on boot. This eager loads most of Rails and
   # your application in memory, allowing both threaded web servers

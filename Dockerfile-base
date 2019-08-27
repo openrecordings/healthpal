@@ -5,6 +5,7 @@ RUN apt update -qq \
     libpq-dev \
     postgresql-client \
     nodejs \
+    exim4 \
     ffmpeg
 COPY Gemfile* /tmp/
 WORKDIR /tmp
