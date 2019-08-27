@@ -9,12 +9,20 @@ Rails.application.configure do
   # since you don't have to restart the web server when you make code changes.
   config.cache_classes = false
 
+	config.action_mailer.smtp_settings = {
+		:address => Rails.application.credentials[:staging][:ses_smtp_server_address],
+		:port => 587,
+		:user_name => Rails.application.credentials[:staging][:ses_smtp_user_name],
+		:password => Rails.application.credentials[:staging][:ses_smtp_password],
+		:authentication => :login,
+		:enable_starttls_auto => true
+	}
 
-  # Mirroring production emailing
+  # Staging and production:
   config.action_mailer.perform_deliveries = true
-  config.action_mailer.delivery_method = :sendmail
-  config.action_mailer.default_url_options = {host: Rails.application.credentials[:development][:host]}
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.default_url_options = {host: Rails.application.credentials[:staging][:host]}
+  config.action_mailer.raise_delivery_errors = true
 
   # send email in development. Configured for Letter Opener
   # config.action_mailer.perform_deliveries = true
