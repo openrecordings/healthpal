@@ -3,7 +3,7 @@
 class User < ApplicationRecord
   
   require 'twilio-ruby'
-  devise :invitable, :database_authenticatable, :registerable, :recoverable, :rememberable,
+  devise :async, :invitable, :database_authenticatable, :registerable, :recoverable, :rememberable,
     :trackable, :validatable, :timeoutable
 
   has_many :recordings
