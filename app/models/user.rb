@@ -3,7 +3,7 @@
 class User < ApplicationRecord
   
   require 'twilio-ruby'
-  devise :async, :invitable, :database_authenticatable, :registerable, :recoverable, :rememberable,
+  devise :invitable, :database_authenticatable, :registerable, :recoverable, :rememberable,
     :trackable, :validatable, :timeoutable
 
   has_many :recordings
@@ -32,6 +32,11 @@ class User < ApplicationRecord
     rescue => e
       logger.error ([e.message]+e.backtrace).join($/)
     end
+  end
+
+	# https://github.com/plataformatec/devise#activejob-integration
+  def send_devise_notification(notification, *args)
+    devise_mailer.send(notification, self, *args).deliver_later
   end
 
   # http://www.rubydoc.info/github/plataformatec/devise/Devise/Models/Authenticatable
