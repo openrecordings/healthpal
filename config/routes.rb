@@ -4,7 +4,8 @@ Rails.application.routes.draw do
 
   devise_for :users, controllers: {invitations: 'invitations'}
 
-  root 'home#index'
+  # root 'home#index'
+  root 'help#intro_video'
 
   resources :recordings
   resources :tags
