@@ -1,3 +1,6 @@
+#logo-health{ color: rgba(74, 164, 156, 1.0); }
+#logo-pal{ color: rgba(187, 189, 191, 1.0); }
+
 #nav-container {
   display: grid;
   width: 100%;
@@ -14,8 +17,6 @@
       padding: 12px;
       max-height: $navbar-height;
       font-size: 48px;
-      #logo-health{ color: rgba(74, 164, 156, 1.0); }
-      #logo-pal{ color: rgba(187, 189, 191, 1.0); }
     }
   }
 

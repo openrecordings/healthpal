@@ -127,9 +127,24 @@ body {
   background-color: rgba(0,0,0,0.8);
 }
 
+.overlay-video{
+  position: fixed;
+  width: 60%;
+  height: 60%;
+  top: 20%;
+  left: 20%;
+  right: 0;
+  bottom: 0;
+  z-index: 3;
+}
+
 .opaque-overlay {
   @include overlay;
   background-color: black;
+}
+
+.margin-top-100{
+  margin-top: 100px;
 }
 
 .margin-top-40{
@@ -150,6 +165,10 @@ body {
 
 .title{
   font-size: 20px;
+}
+
+.huge{
+  font-size: 40px;
 }
 
 .smaller{
@@ -218,4 +237,8 @@ body {
 
 .width-800{
   width: 800px;
+}
+
+.blue-text{
+  color: $background-dark;
 }

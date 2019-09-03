@@ -1,2 +1,8 @@
 .overlay
-  %div{style: 'padding: 100px 200px 0 200px;'}= video_tag 'intro_video.mp4', autoplay: :autoplay, controls: true
+  .overlay-video
+    = video_tag 'intro_video.mp4', controls: true, id: 'intro-video'
+  .overlay-video.margin-top-100
+    .full-center.huge
+      %span.blue-text Welcome to&nbsp;
+      %span#logo-health Health
+      %span#logo-pal> PAL
