@@ -1,8 +1,11 @@
 class HomeController < ApplicationController
 
   def index
-    # TODO: Temporarily starting on recordings page until we have a real landing page
-    redirect_to (current_user&.privileged? ? :admin : :my_recordings)
+    if current_user.onboarded || session[:dont_onboard]
+      redirect_to (current_user&.privileged? ? :admin : :my_recordings)
+    else
+      redirect_to intro_video_url
+    end
   end
 
 end

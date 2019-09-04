@@ -4,8 +4,7 @@ Rails.application.routes.draw do
 
   devise_for :users, controllers: {invitations: 'invitations'}
 
-  # root 'home#index'
-  root 'help#intro_video'
+  root 'home#index'
 
   resources :recordings
   resources :tags
@@ -50,7 +49,11 @@ Rails.application.routes.draw do
   # Sharing
   resources :shares, controller: :share
   get 'no_shares',                   to: 'share#no_shares',                  as: 'no_shares'
-
   get 'twilio/sms',                  to: 'twilio#sms'
+
+  # Help
+  get 'intro_video',                 to: 'help#intro_video',                 as: 'intro_video'
+  get 'dont_onboard',                to: 'help#dont_onboard',                as: 'dont_onboard'
+  get 'set_onboarded',               to: 'help#set_onboarded',               as: 'set_onboarded'
 
 end
