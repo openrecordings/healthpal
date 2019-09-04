@@ -10,6 +10,8 @@ class Recording < ApplicationRecord
   enum source: [:google, :aws]
 
   # TODO: Validation
+  
+  scope :processed, -> {where(is_processed: true)}
 
   def transcribe
     TranscribeAwsJob.perform_later(self)

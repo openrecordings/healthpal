@@ -17,7 +17,8 @@ RUN apt remove -y --purge build-essential \
     /var/lib/dpkg \
     /var/lib/cache \
     /var/lib/log
-ENV RAILS_ENV=staging
+ARG rails_env=development
+ENV RAILS_ENV=$rails_env
 RUN mkdir /app
 WORKDIR /app
 COPY . /app

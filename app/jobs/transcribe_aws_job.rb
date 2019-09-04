@@ -7,6 +7,7 @@ class TranscribeAwsJob < ApplicationJob
     transcode
     transcribe
     create_utterances
+    set_is_processed
     email_user
   end
 
@@ -89,6 +90,10 @@ class TranscribeAwsJob < ApplicationJob
 
       end
     end
+  end
+
+  def set_is_processed
+    @recording.update is_processed: true
   end
 
   def email_user
