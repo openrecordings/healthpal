@@ -13,4 +13,9 @@ class HelpController < ApplicationController
     redirect_to root_url
   end
 
+  def view_transcript
+    @recording = Recording.find(params[:id])
+    render layout: false
+  end
+
 end

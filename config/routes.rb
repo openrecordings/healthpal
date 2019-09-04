@@ -55,5 +55,6 @@ Rails.application.routes.draw do
   get 'intro_video',                 to: 'help#intro_video',                 as: 'intro_video'
   get 'dont_onboard',                to: 'help#dont_onboard',                as: 'dont_onboard'
   get 'set_onboarded',               to: 'help#set_onboarded',               as: 'set_onboarded'
+  get 'play/view_transcript/:id',             to: 'help#view_transcript',             as: 'view_transcript'
 
 end
