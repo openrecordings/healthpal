@@ -1,2 +1,4 @@
 FROM orals-dev
+ARG rails_env=development
+ENV RAILS_ENV=$rails_env
 CMD bundle exec rake jobs:work
