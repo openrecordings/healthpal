@@ -14,7 +14,7 @@ module Orals
     config.active_job.queue_adapter = :delayed_job
     config.active_storage.service = :amazon
 
-    # AWS hostname for the current environment
+    # Hostname for the current environment
     config.hosts << Rails.application.credentials[Rails.env.to_sym][:host]
 
     ENV['AWS_ACCESS_KEY_ID'] = Rails.application.credentials.aws[:access_key_id]
