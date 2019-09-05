@@ -1,4 +1,0 @@
-FROM ruby:2.6.3-slim-buster
-RUN apt update -qq \
-  && apt install -y --no-install-recommends exim4
-CMD tail -f /dev/null
