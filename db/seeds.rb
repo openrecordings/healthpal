@@ -10,7 +10,8 @@ unless User.where(email: Rails.application.credentials.root_email).first
     last_name: 'Haslett',
     phone_number: 1234567890,
     requires_phone_confirmation: false,
-    role: 'root'
+    role: 'root',
+    onboarded: true
   })
   user.save!
 end
