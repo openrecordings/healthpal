@@ -55,39 +55,30 @@ class TranscribeAwsJob < ApplicationJob
 
   def create_utterances
     return unless @recording.aws_transcription_uri && @recording.json
+    @recording.utterances.each{|u| u.destroy}
     transcript_hash = JSON.parse(@recording.json)
     items = transcript_hash['results']['items']
     segments = transcript_hash['results']['speaker_labels']['segments']
-    utterance_index = 1
-    utterance_text = ''
     segments.each_with_index do |s, i|
-      start_index = items.index {|item| item['start_time'] == s['start_time']}
-      end_index = items.index {|item| item['end_time'] == s['end_time']}
-      segment_text = ''
-      items[start_index..end_index].each do |item|
-        segment_text.chop! if segment_text[-1] && segment_text[-1] == ' ' && item['type'] == 'punctuation'
-        segment_text << item['alternatives'][0]['content'] + ' '
-      end
-      utterance_text << segment_text
-      if segments[i + 1] && segments[i + 1]['speaker_label'] == s['speaker_label']
-        next
-      else
+      segment_items = items.select{|i| i['start_time'] && i['end_time'] && i['start_time'] >= s['start_time'] && i['start_time'] < s['end_time']}
+      if segment_items.any?
+        segment_text = ''
+        segment_items.each do |item|
+          segment_text.chop! if segment_text.present? && segment_text[-1] && segment_text[-1] == ' ' && item['type'] == 'punctuation'
+          segment_text << item['alternatives'][0]['content'] + ' '
+        end
         utterance = Utterance.create(
           recording: @recording,
-          index: utterance_index,
+          index: Utterance.where(recording_id: @recording.id).count,
           begins_at: s['start_time'].to_i,
           ends_at: s['end_time'].to_i,
-          text: utterance_text
+          text: segment_text
         )
-        utterance_index += 1
-        utterance_text = ''
-
         # TODO Remove. This is only for demo purposes
         Tag.create(
           utterance: utterance,
-          tag_type_id: rand(1..3)
+          tag_type_id: rand(1..4)
         )
-
       end
     end
   end
