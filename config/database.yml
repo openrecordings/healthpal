@@ -19,3 +19,11 @@ staging:
   username: <%= Rails.application.credentials[:staging][:db_user] %>
   password: <%= Rails.application.credentials[:staging][:db_password] %>
   port: <%= Rails.application.credentials[:staging][:db_port] %>
+
+production:
+  <<: *default
+  host: <%= Rails.application.credentials[:production][:db_host] %>
+  database: <%= Rails.application.credentials[:production][:db_name] %>
+  username: <%= Rails.application.credentials[:production][:db_user] %>
+  password: <%= Rails.application.credentials[:production][:db_password] %>
+  port: <%= Rails.application.credentials[:production][:db_port] %>
