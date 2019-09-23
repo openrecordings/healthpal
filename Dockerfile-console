@@ -1,0 +1,5 @@
+ARG image=orals-dev-base
+FROM $image
+ARG rails_env=development
+ENV RAILS_ENV=$rails_env
+CMD rails c
