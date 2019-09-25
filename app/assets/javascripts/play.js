@@ -2,14 +2,6 @@ if(document.querySelector('#play-pause-button')) {
   const playVolume = 1.0;
   let autoScrollDisabled = false;
 
-
-  // TODO Remove. Temporary for dev use
-  $('#title').click(function(){
-    let videoElement = document.getElementById('video-element');
-    let recordingId = $(videoElement).data('recording-id');
-    window.open(`view_transcript/${recordingId}`);
-  })
-
   function showPage(){
     $('#loader-container').hide();
     let videoElement = document.getElementById('video-element');
