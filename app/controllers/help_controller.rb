@@ -1,5 +1,8 @@
 class HelpController < ApplicationController
 
+  def index
+  end
+
   def intro_video
   end
 
