@@ -148,6 +148,9 @@ body {
   top: 0;
   right: 0;
   margin-top: -2px;
+  &:hover{
+    cursor: pointer;
+  }
 }
 
 .margin-top-neg-100{

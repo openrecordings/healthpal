@@ -1,5 +1,22 @@
 if(document.querySelector('#intro-video')) {
 
+
+  // Dismiss
+  /////////////////////////////////////////////////////////////////////////////////////////////////
+  $('#dismiss-video').click(function(){
+    let videoElement = document.getElementById('intro-video');
+    videoElement.pause();
+    $('#intro-overlay').hide(); 
+  })
+
+  $('.overlay-video').mouseover(function(){
+    $('#dismiss-video').show();
+  })
+
+  $('.overlay-video').mouseout(function(){
+    $('#dismiss-video').hide();
+  })
+
   // On-boarding
   /////////////////////////////////////////////////////////////////////////////////////////////////
   $('#watch-now').click(function(){
