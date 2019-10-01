@@ -1,3 +1,6 @@
+.overlay.hidden#intro-overlay
+  .overlay-video
+    = video_tag 'intro_video.mp4', controls: true, id: 'intro-video'
 .full-center
   .margin-top-neg-100
-    = link_to 'Watch the HeathPAL introduction video', intro_video_path 
+    = link_to 'Watch the HeathPAL introduction video', 'javascript:;', id: 'play_intro_video'
