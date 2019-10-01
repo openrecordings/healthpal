@@ -1,5 +1,7 @@
 if(document.querySelector('#intro-video')) {
 
+  // On-boarding
+  /////////////////////////////////////////////////////////////////////////////////////////////////
   $('#watch-now').click(function(){
     let videoElement = document.getElementById('intro-video');
     $('#intro-text-container').hide();
@@ -12,6 +14,12 @@ if(document.querySelector('#intro-video')) {
 
   $('#never-watch').click(function(){
     window.location = '/set_onboarded';
+  })
+
+  // Help page
+  /////////////////////////////////////////////////////////////////////////////////////////////////
+  $('#play-intro-video').click(function() {
+    $('#intro-overlay').show();
   })
 
   // Onload
