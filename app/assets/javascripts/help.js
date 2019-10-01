@@ -43,6 +43,8 @@ if(document.querySelector('#intro-video')) {
   /////////////////////////////////////////////////////////////////////////////////////////////////
   $('#play-intro-video').click(function() {
     $('#intro-overlay').show();
+    let videoElement = document.getElementById('intro-video');
+    videoElement.play();
   })
 
   // Onload
