@@ -6,7 +6,12 @@ if(document.querySelector('#intro-video')) {
   $('#dismiss-video').click(function(){
     let videoElement = document.getElementById('intro-video');
     videoElement.pause();
-    $('#intro-overlay').hide(); 
+    // Handle video dismissal differently between onboarding and help screen
+    if ($('#watch-later').length) {
+      window.location = '/dont_onboard';
+    } else {
+      $('#intro-overlay').hide(); 
+    }
   })
 
   $('.overlay-video').mouseover(function(){
@@ -22,6 +27,7 @@ if(document.querySelector('#intro-video')) {
   $('#watch-now').click(function(){
     let videoElement = document.getElementById('intro-video');
     $('#intro-text-container').hide();
+    $('#dismiss-video').css('visibility', 'visible');
     videoElement.play();
   })
 
