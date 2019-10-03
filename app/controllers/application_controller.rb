@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_cache_buster
+  after_action :track_action
 
   # Used in a before_filter in individual controllers for authorization.
   def only_admins
@@ -25,6 +26,10 @@ class ApplicationController < ActionController::Base
   # Used in a before_filter in individual controllers for authorization.
   def only_admins
     redirect_to root_url unless current_user && current_user.privileged?
+  end
+
+  def track_action
+    ahoy.track 'Request', request.path_parameters
   end
 
 end
