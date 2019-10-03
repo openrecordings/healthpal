@@ -32,4 +32,12 @@ class ApplicationController < ActionController::Base
     ahoy.track 'Request', request.path_parameters
   end
 
+  # Called from controllers/actions that exclude regular users. Ends session if not privileged
+  def verify_privileged
+    unless current_user.privileged?
+      flash[:error] = 'You are not authorized to view that page'
+      reset_session
+    end
+  end
+
 end

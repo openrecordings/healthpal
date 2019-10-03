@@ -58,4 +58,7 @@ Rails.application.routes.draw do
   get 'set_onboarded',               to: 'help#set_onboarded',               as: 'set_onboarded'
   get 'play/view_transcript/:id',    to: 'help#view_transcript',             as: 'view_transcript'
 
+  # Analytics
+  get 'analytics',                   to: 'analytics#index',                  as: 'analytics'
+    
 end
