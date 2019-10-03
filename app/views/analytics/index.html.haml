@@ -1,24 +1,26 @@
 .table-container.margin-top-40
-  - @visits.each do |visit|
-    .table-heading-format= "#{visit.user.email} started at #{format_date_time(visit.started_at)}"
-    %table
-      %thead
-        %tr
-          %th Visit parameter
-          %th Value
-      %tbody
-        %tr.table-row
-          %td IP address
-          %td= visit.ip
-        %tr.table-row
-          %td Browser
-          %td= visit.browser
-        %tr.table-row
-          %td Operating system
-          %td= visit.os
-        %tr.table-row
-          %td Device type
-          %td= visit.device_type
+  .title.margin-bottom-10 Select a visit to view its details
+  %div= select_tag 'visit_id', options_for_select(@visits_for_select, @visit&.id), {include_blank: true, class: 'select-css-auto-width margin-bottom-20', id: 'select-visit'}
+  - if @visit
+    .margin-bottom-20
+      %table
+        %thead
+          %tr
+            %th Visit parameter
+            %th Value
+        %tbody
+          %tr.table-row
+            %td IP address
+            %td= @visit.ip
+          %tr.table-row
+            %td Browser
+            %td= @visit.browser
+          %tr.table-row
+            %td Operating system
+            %td= @visit.os
+          %tr.table-row
+            %td Device type
+            %td= @visit.device_type
     %table
       %thead
         %tr
@@ -27,7 +29,7 @@
           %th Page
           %th Element ID
       %tbody
-        - visit.events.order(:time).each do |event|
+        - @visit.events.order(:time).each do |event|
           - unless event.name == 'Request'
             %tr.table-row
               %td= format_date_time_sec(event.time)

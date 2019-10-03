@@ -59,6 +59,6 @@ Rails.application.routes.draw do
   get 'play/view_transcript/:id',    to: 'help#view_transcript',             as: 'view_transcript'
 
   # Analytics
-  get 'analytics',                   to: 'analytics#index',                  as: 'analytics'
+  get 'analytics(/:id)',                   to: 'analytics#index',                  as: 'analytics'
     
 end
