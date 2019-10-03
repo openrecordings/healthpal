@@ -23,9 +23,14 @@
       %thead
         %tr
           %th Event time
-          %th Client/server
+          %th Type
+          %th Page
+          %th Element ID
       %tbody
         - visit.events.order(:time).each do |event|
-          %tr.table-row
-            %td= format_date_time_sec(event.time)
-            %td= event.name.include?('$') ? 'client' : 'server'
+          - unless event.name == 'Request'
+            %tr.table-row
+              %td= format_date_time_sec(event.time)
+              %td= event.name.downcase.gsub('$', '')
+              %td= event.properties['page']
+              %td= event.properties['id']
