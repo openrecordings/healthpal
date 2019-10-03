@@ -1,1 +1,31 @@
-= debug @visits
+.table-container.margin-top-40
+  - @visits.each do |visit|
+    .table-heading-format= "#{visit.user.email} started at #{format_date_time(visit.started_at)}"
+    %table
+      %thead
+        %tr
+          %th Visit parameter
+          %th Value
+      %tbody
+        %tr.table-row
+          %td IP address
+          %td= visit.ip
+        %tr.table-row
+          %td Browser
+          %td= visit.browser
+        %tr.table-row
+          %td Operating system
+          %td= visit.os
+        %tr.table-row
+          %td Device type
+          %td= visit.device_type
+    %table
+      %thead
+        %tr
+          %th Event time
+          %th Client/server
+      %tbody
+        - visit.events.order(:time).each do |event|
+          %tr.table-row
+            %td= format_date_time_sec(event.time)
+            %td= event.name.include?('$') ? 'client' : 'server'

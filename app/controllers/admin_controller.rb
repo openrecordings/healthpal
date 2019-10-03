@@ -66,11 +66,4 @@ class AdminController < ApplicationController
     params.require(:user).permit(:email, :phone_number, :first_name, :last_name, :password)
   end
 
-  def verify_privileged
-    unless current_user.privileged?
-      flash[:error] = 'You are not authorized to view that page'
-      reset_session
-    end
-  end
-
 end
