@@ -37,6 +37,7 @@ gem 'aws-sdk-transcribeservice'
 gem 'daemons'
 gem 'delayed_job_active_record'
 gem 'ahoy_matey'
+gem 'selenium-webdriver'
 group :development do
   gem 'interactive_editor'
   gem 'web-console', '>= 3.3.0'
