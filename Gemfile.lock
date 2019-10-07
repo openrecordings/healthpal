@@ -95,8 +95,11 @@ GEM
     bindex (0.7.0)
     bootsnap (1.4.4)
       msgpack (~> 1.0)
+    browserstack-local (1.3.0)
     builder (3.2.3)
     byebug (11.0.1)
+    childprocess (1.0.1)
+      rake (< 13.0)
     coffee-rails (4.2.2)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0)
@@ -222,6 +225,10 @@ GEM
     responders (3.0.0)
       actionpack (>= 5.0)
       railties (>= 5.0)
+    rspec (3.8.0)
+      rspec-core (~> 3.8.0)
+      rspec-expectations (~> 3.8.0)
+      rspec-mocks (~> 3.8.0)
     rspec-core (3.8.1)
       rspec-support (~> 3.8.0)
     rspec-expectations (3.8.4)
@@ -239,6 +246,7 @@ GEM
       rspec-mocks (~> 3.8.0)
       rspec-support (~> 3.8.0)
     rspec-support (3.8.2)
+    rubyzip (1.2.3)
     safely_block (0.2.2)
       errbase (>= 0.1.1)
     sassc (2.0.1)
@@ -250,6 +258,9 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
+    selenium-webdriver (3.142.3)
+      childprocess (>= 0.5, < 2.0)
+      rubyzip (~> 1.2, >= 1.2.2)
     spoon (0.0.6)
       ffi
     spring (2.1.0)
@@ -300,6 +311,7 @@ DEPENDENCIES
   aws-sdk-s3
   aws-sdk-transcribeservice
   bootsnap (>= 1.1.0)
+  browserstack-local
   byebug
   coffee-rails (~> 4.2)
   concurrent-ruby
@@ -325,8 +337,10 @@ DEPENDENCIES
   rack (>= 2.0.6)
   rails (= 6.0.0.rc1)
   rails-html-sanitizer (>= 1.0.4)
+  rspec
   rspec-rails
   sassc-rails (>= 2.0.0)
+  selenium-webdriver
   spring
   spring-watcher-listen (~> 2.0.0)
   sprockets (>= 3.7.2)
