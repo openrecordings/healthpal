@@ -20,8 +20,13 @@ RSpec.describe 'Login and record' do
     sleep 0.5
     expect(@driver.current_url).to eql('https://audiohealthpal.com/record')
 
-    # Start recording
+    # Record and upload
     @driver.find_element(:id, 'record-start-button').click
+    sleep 0.5
+    @driver.find_element(:id, 'record-stop-button').click
+    @driver.find_element(:id, 'save-button').click
+    sleep 5
+    expect(@driver.current_url).to include('https://audiohealthpal.com/my_recordings')
   end
 
 end
