@@ -26,12 +26,12 @@ RSpec.configure do |config|
   #################################################################################################
 
   # Browserstack credentials and config
-	browserstack_config = Rails.application.credentials.browserstack
+  browserstack_config = Rails.application.credentials.browserstack
   server = browserstack_config[:server]
-	user = browserstack_config[:user]
-	key = browserstack_config[:key]
-	common_caps = browserstack_config[:common_caps]
-	browser_caps = browserstack_config[:browser_caps]
+  user = browserstack_config[:user]
+  key = browserstack_config[:key]
+  common_caps = browserstack_config[:common_caps]
+  browser_caps = browserstack_config[:browser_caps]
 
   config.around(:example) do |example|
 
@@ -42,11 +42,18 @@ RSpec.configure do |config|
     @caps = common_caps.merge(browser_caps[TASK_ID])
     @caps['name'] = ENV['name'] || example.metadata[:name] || example.metadata[:file_path].split('/').last.split('.').first
 
-    # Chrome options
+    # Microphone access - Chrome
     @caps['chromeOptions'] = {}
     @caps['chromeOptions']['args'] = ['--allow-file-access-from-files',
                                       '--use-fake-device-for-media-stream',
                                       '--use-fake-ui-for-media-stream']
+
+    # Microphone access - Firefox
+		options = Selenium::WebDriver::Firefox::Options.new
+		options.add_preference('media.navigator.permission.disabled', true)
+    @caps['firefoxOptions'] = options
+    # profile = Selenium::WebDriver::Firefox::Profile.new({'media.navigator.permission.disabled': true})
+		# @caps['profile'] = profile
 
     enable_local = @caps["browserstack.local"] && @caps["browserstack.local"].to_s == "true"
 
