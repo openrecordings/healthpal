@@ -1,6 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe 'Login' do
+RSpec.describe 'Login and record' do
+  
   it 'can log in the test user' do
     @driver.navigate.to 'https://audiohealthpal.com'
 
@@ -12,6 +13,11 @@ RSpec.describe 'Login' do
     password_field.send_keys @test_user_password
     submit_field.click
     sleep 2
-    expect(@driver.getCurrentUrl).to eql('https://audiohelahpal.com/my_recordings')
+    expect(@driver.current_url).to eql('https://audiohealthpal.com/my_recordings')
+  end
+
+  it 'can navigate to recording page' do
+    @driver.find_element(:href, '/record').click
+    expect(@driver.current_url).to eql('https://audiohealthpal.com/record')
   end
 end

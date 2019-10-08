@@ -33,11 +33,12 @@ RSpec.configure do |config|
 	common_caps = browserstack_config[:common_caps]
 	browser_caps = browserstack_config[:browser_caps]
 
-  # Test user credentials
-  @test_user_email = Rails.application.credentials.staging[:test_user_email]
-  @test_user_password = Rails.application.credentials.staging[:test_user_password]
-
   config.around(:example) do |example|
+
+    # Test user credentials
+    @test_user_email = Rails.application.credentials.staging[:test_user_email]
+    @test_user_password = Rails.application.credentials.staging[:test_user_password]
+
     @caps = common_caps.merge(browser_caps[TASK_ID])
     @caps["name"] = ENV['name'] || example.metadata[:name] || example.metadata[:file_path].split('/').last.split('.').first
     enable_local = @caps["browserstack.local"] && @caps["browserstack.local"].to_s == "true"
