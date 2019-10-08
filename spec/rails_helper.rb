@@ -22,13 +22,21 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
 
-  #browserstack
+  # Browserstack
+  #################################################################################################
+
+  # Browserstack credentials and config
 	browserstack_config = Rails.application.credentials.browserstack
   server = browserstack_config[:server]
 	user = browserstack_config[:user]
 	key = browserstack_config[:key]
 	common_caps = browserstack_config[:common_caps]
 	browser_caps = browserstack_config[:browser_caps]
+
+  # Test user credentials
+  @test_user_email = Rails.application.credentials.staging[:test_user_email]
+  @test_user_password = Rails.application.credentials.staging[:test_user_password]
+
   config.around(:example) do |example|
     @caps = common_caps.merge(browser_caps[TASK_ID])
     @caps["name"] = ENV['name'] || example.metadata[:name] || example.metadata[:file_path].split('/').last.split('.').first

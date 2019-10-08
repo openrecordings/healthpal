@@ -1,12 +1,17 @@
 require 'rails_helper'
 
-RSpec.describe 'Google search' do
-  it 'can find search results' do
-    @driver.navigate.to 'https://www.google.com/ncr'
-    element = @driver.find_element(:name, 'q')
-    element.send_keys 'BrowserStack'
-    element.submit
-    sleep 5
-    expect(@driver.title).to eql('BrowserStack - Google Search')
+RSpec.describe 'Login' do
+  it 'can log in the test user' do
+    @driver.navigate.to 'https://audiohealthpal.com'
+
+    email_field = @driver.find_element(:id, 'user_email')
+    password_field = @driver.find_element(:id, 'user_password')
+    submit_field = @driver.find_element(:id, 'login-button')
+
+    email_field.send_keys @test_user_email
+    password_field.send_keys @test_user_password
+    submit_field.click
+    sleep 2
+    expect(@driver.getCurrentUrl).to eql('https://audiohelahpal.com/my_recordings')
   end
 end
