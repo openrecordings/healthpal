@@ -15,12 +15,6 @@ $('.track').click(function(){
   ahoy.track('$click', {id: this.id, tag: this.previousSibling.nodeName, page: window.location.pathname, class: this.classList});
 })
 
-// Destroy any existing Ahoy cookie upon login attempt
-$('#login-button').click(function(){
-  ahoy.reset();
-})
-
-
 // Utility
 /////////////////////////////////////////////////////////////////////////////////////////////////
 function log(msg){
