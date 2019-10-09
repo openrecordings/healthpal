@@ -15,6 +15,7 @@
 .byebug_history
 .gemrc
 *.swp
+/app/views/application/_navbar.html.haml.bak
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*

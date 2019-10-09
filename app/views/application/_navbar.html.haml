@@ -4,6 +4,9 @@
       %span= image_tag('open_recordings.png', width: '120px')
       %span#logo-health Health
       %span#logo-pal> PAL
+      - unless Rails.env == 'production'
+        -# foo is replaced by latest commit SHA1 by running commit_hash_to_navbar during docker builds
+        %span.title#commit-hash 8903c04e9dea8ebbc5b6cb1ade8bcfa750fcabb7
   - if user_signed_in?
     -# Element IDs are for Selenium testing
     #menu-container
