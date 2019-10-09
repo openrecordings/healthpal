@@ -38,7 +38,7 @@ RSpec.configure do |config|
     @test_user_email = browserstack_config[:test_user_email]
     @test_user_password = browserstack_config[:test_user_password]
 
-    task_id = ENV['TASK_ID'] || 0
+    task_id = ENV['TASK_ID'].to_i || 0
 
     browser_caps = browser_caps[task_id]
     browser = browser_caps[:browser]

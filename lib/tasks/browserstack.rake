@@ -7,7 +7,7 @@ task browserstack: :environment do
     puts
     puts "Testing against #{target[:browser]} #{target[:browser_version]} on #{target[:os]} #{target[:os_version]}:"
     puts '####################################################################################################'
-    passed = !!system("ENV['TASK_ID']=#{i} bundle exec rspec spec")
+    passed = !!system("export TASK_ID=#{i} && bundle exec rspec spec")
     exit 1 unless passed
   end
 end

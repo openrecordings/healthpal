@@ -27,7 +27,12 @@ RSpec.describe 'Login and record' do
     @driver.find_element(:id, 'record-stop-button').click
     sleep 0.5
     @driver.find_element(:id, 'save-button').click
-    sleep 5
+    start_time = Time.now
+    # Check every second for 30 seconds to see if the recording uploaded successfully
+    while Time.now - start_time < 30
+      sleep 1
+      break if @driver.current_url.include?('https://audiohealthpal.com/my_recordings')
+    end
     expect(@driver.current_url).to include('https://audiohealthpal.com/my_recordings')
   end
 
