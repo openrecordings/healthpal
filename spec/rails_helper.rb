@@ -34,7 +34,6 @@ RSpec.configure do |config|
   browser_caps = browserstack_config[:browser_caps]
 
   config.around(:example) do |example|
-
     # Test user credentials
     @test_user_email = Rails.application.credentials.staging[:test_user_email]
     @test_user_password = Rails.application.credentials.staging[:test_user_password]
@@ -49,12 +48,10 @@ RSpec.configure do |config|
                                       '--use-fake-ui-for-media-stream']
 
     # Microphone access - Firefox
-		options = Selenium::WebDriver::Firefox::Options.new
-		options.add_preference('media.navigator.permission.disabled', true)
-    @caps['firefoxOptions'] = options
-    # profile = Selenium::WebDriver::Firefox::Profile.new({'media.navigator.permission.disabled': true})
-		# @caps['profile'] = profile
-
+		profile = Selenium::WebDriver::Firefox::Profile.new
+		profile['permissions.default.microphone'] = 1
+		profile['permissions.default.camera'] = 1
+    @caps = Selenium::WebDriver::Remote::Capabilities.firefox({firefox_profile: profile}.merge(@caps))
     enable_local = @caps["browserstack.local"] && @caps["browserstack.local"].to_s == "true"
 
     # Code to start browserstack local before start of test
