@@ -35,10 +35,10 @@ RSpec.configure do |config|
 
   config.around(:example) do |example|
     # Test user credentials
-    @test_user_email = Rails.application.credentials.staging[:test_user_email]
-    @test_user_password = Rails.application.credentials.staging[:test_user_password]
+    @test_user_email = browserstack_config[:test_user_email]
+    @test_user_password = browserstack_config[:test_user_password]
 
-    task_id = 0
+    task_id = ENV['TASK_ID'] || 0
 
     browser_caps = browser_caps[task_id]
     browser = browser_caps[:browser]
