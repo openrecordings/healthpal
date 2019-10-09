@@ -6,7 +6,7 @@
       %span#logo-pal> PAL
       - unless Rails.env == 'production'
         -# foo is replaced by latest commit SHA1 by running commit_hash_to_navbar during docker builds
-        %span.title#commit-hash 8903c04e9dea8ebbc5b6cb1ade8bcfa750fcabb7
+        %span.title#commit-hash 
   - if user_signed_in?
     -# Element IDs are for Selenium testing
     #menu-container
