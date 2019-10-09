@@ -8,6 +8,6 @@ task browserstack: :environment do
     puts "Testing against #{target[:browser]} #{target[:browser_version]} on #{target[:os]} #{target[:os_version]}:"
     puts '####################################################################################################'
     passed = !!system("ENV['TASK_ID']=#{i} bundle exec rspec spec")
-    puts passed
+    exit 1 unless passed
   end
 end

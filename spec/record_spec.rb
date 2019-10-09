@@ -12,7 +12,6 @@ RSpec.describe 'Login and record' do
     password_field.send_keys @test_user_password
     submit_field = @driver.find_element(:id, 'login-button')
     # Time for JS to delete Ahoy cookie :(
-    sleep 0.5
     submit_field.click
     sleep 0.5
     expect(@driver.current_url).to eql('https://audiohealthpal.com/my_recordings')
