@@ -38,20 +38,28 @@ RSpec.configure do |config|
     @test_user_email = Rails.application.credentials.staging[:test_user_email]
     @test_user_password = Rails.application.credentials.staging[:test_user_password]
 
-    @caps = common_caps.merge(browser_caps[TASK_ID])
+    task_id = 0
+
+    browser_caps = browser_caps[task_id]
+    browser = browser_caps[:browser]
+    @caps = common_caps.merge(browser_caps)
     @caps['name'] = ENV['name'] || example.metadata[:name] || example.metadata[:file_path].split('/').last.split('.').first
 
-    # Microphone access - Chrome
-    @caps['chromeOptions'] = {}
-    @caps['chromeOptions']['args'] = ['--allow-file-access-from-files',
-                                      '--use-fake-device-for-media-stream',
-                                      '--use-fake-ui-for-media-stream']
+    # Microphone access
+    if browser == 'chrome'
+      @caps['chromeOptions'] = {}
+      @caps['chromeOptions']['args'] = [
+        '--allow-file-access-from-files',
+        '--use-fake-device-for-media-stream',
+        '--use-fake-ui-for-media-stream']
+    end
+    if browser == 'firefox'
+      profile = Selenium::WebDriver::Firefox::Profile.new
+      profile['permissions.default.microphone'] = 1
+      profile['permissions.default.camera'] = 1
+      @caps = Selenium::WebDriver::Remote::Capabilities.firefox({firefox_profile: profile}.merge(@caps))
+    end
 
-    # Microphone access - Firefox
-		profile = Selenium::WebDriver::Firefox::Profile.new
-		profile['permissions.default.microphone'] = 1
-		profile['permissions.default.camera'] = 1
-    @caps = Selenium::WebDriver::Remote::Capabilities.firefox({firefox_profile: profile}.merge(@caps))
     enable_local = @caps["browserstack.local"] && @caps["browserstack.local"].to_s == "true"
 
     # Code to start browserstack local before start of test
