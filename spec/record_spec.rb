@@ -8,12 +8,13 @@ RSpec.describe 'Login and record' do
     # Log in
     email_field = @driver.find_element(:id, 'user_email')
     email_field.send_keys @test_user_email
+    sleep 0.5
     password_field = @driver.find_element(:id, 'user_password')
     password_field.send_keys @test_user_password
-    submit_field = @driver.find_element(:id, 'login-button')
-    # Time for JS to delete Ahoy cookie :(
-    submit_field.click
     sleep 0.5
+    submit_field = @driver.find_element(:id, 'login-button')
+    submit_field.click
+    sleep 1.0
     expect(@driver.current_url).to eql('https://audiohealthpal.com/my_recordings')
 
     # Navigate to recording page
