@@ -46,15 +46,20 @@ RSpec.configure do |config|
     @caps['name'] = ENV['name'] || example.metadata[:name] || example.metadata[:file_path].split('/').last.split('.').first
 
     # Microphone access
-    if browser == 'chrome'
+    case browser
+    when 'chrome'
       @caps['chromeOptions'] = {}
       @caps['chromeOptions']['args'] = [
         '--allow-file-access-from-files',
         '--use-fake-device-for-media-stream',
         '--use-fake-ui-for-media-stream']
-    end
-    if browser == 'firefox'
+    when 'firefox'
       profile = Selenium::WebDriver::Firefox::Profile.new
+      profile['permissions.default.microphone'] = 1
+      profile['permissions.default.camera'] = 1
+      @caps = Selenium::WebDriver::Remote::Capabilities.firefox({firefox_profile: profile}.merge(@caps))
+    when 'Edge'
+      profile = Selenium::WebDriver::Edge::Profile.new
       profile['permissions.default.microphone'] = 1
       profile['permissions.default.camera'] = 1
       @caps = Selenium::WebDriver::Remote::Capabilities.firefox({firefox_profile: profile}.merge(@caps))

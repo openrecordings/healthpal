@@ -6,16 +6,16 @@ task :bs, [:target_index] => :environment do |t, args|
   all_targets = Rails.application.credentials.browserstack[:browser_caps]
   if target_index == 'all'
     targets = all_targets
-  elsif target_index.is_a?(Integer) && target_index <= all_targets.length
-    targets = all_targets[target_index - 1]
+  elsif target_index.to_i.is_a?(Integer) && target_index.to_i <= all_targets.length
+    targets = [all_targets[target_index.to_i - 1]]
   else
     help_and_exit
   end
-  targets.each_with_index do |target, i|
+  targets.each do |target|
     puts
     puts "Testing against #{target[:browser]} #{target[:browser_version]} on #{target[:os]} #{target[:os_version]}:"
     puts '####################################################################################################'
-    passed = !!system("export TASK_ID=#{i} && bundle exec rspec spec")
+    passed = !!system("export TASK_ID=#{all_targets.find_index(target)} && bundle exec rspec spec")
     exit 1 unless passed
   end
 end
