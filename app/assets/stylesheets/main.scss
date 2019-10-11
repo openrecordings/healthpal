@@ -266,6 +266,7 @@ body {
 }
 
 .table-heading-format{
+  opacity: 0;
   padding: 10px;
   font-weight: normal;
   background-color: $background-dark;
@@ -273,6 +274,7 @@ body {
 }
 
 .debug-content{
+  opacity: 0;
   margin: 10px;
   padding: 5px;
   font-size: 12px;
