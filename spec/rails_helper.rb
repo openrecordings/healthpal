@@ -41,12 +41,13 @@ RSpec.configure do |config|
     task_id = ENV['TASK_ID'].to_i || 0
 
     browser_caps = browser_caps[task_id]
-    browser = browser_caps[:browser]
     @caps = common_caps.merge(browser_caps)
     @caps['name'] = ENV['name'] || example.metadata[:name] || example.metadata[:file_path].split('/').last.split('.').first
+    @caps['browserstack.networkLogs'] = true
 
     # Microphone access
-    case browser
+    @browser = browser_caps[:browser]
+    case @browser
     when 'chrome'
       @caps['chromeOptions'] = {}
       @caps['chromeOptions']['args'] = [
