@@ -25,7 +25,7 @@ RSpec.describe 'Playback' do
     sleep 4.0
     @driver.find_element(:id, 'play').click
     sleep 2.0
-    expect(@driver.find_element(:id, 'video-element').attribute('currentTime').to_i.to b > 0.5
+    expect(@driver.find_element(:id, 'video-element')).attribute('currentTime').to_i.to be > 0.5
   end
 
 end
