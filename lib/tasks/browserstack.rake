@@ -1,6 +1,8 @@
 # TODO: This should be replaced with parallel testing when we have a paid Browserstack account :(
 desc 'Runs Selenium/Browserstack tests serially'
 task :bs, [:target_index] => :environment do |t, args|
+  successes = 0
+  failures = 0
   target_index = args[:target_index]
   help_and_exit unless target_index
   all_targets = Rails.application.credentials.browserstack[:browser_caps]
@@ -15,8 +17,10 @@ task :bs, [:target_index] => :environment do |t, args|
     puts
     puts "Testing against #{target[:browser]} #{target[:browser_version]} on #{target[:os]} #{target[:os_version]}:"
     puts '####################################################################################################'
+    puts "Successes so far: #{successes}"
+    puts " Failures so far: #{failures}"
     passed = !!system("export TASK_ID=#{all_targets.find_index(target)} && bundle exec rspec spec")
-    exit 1 unless passed
+    passed ? (successes += 1) : (failures += 1)
   end
 end
 
