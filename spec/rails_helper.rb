@@ -30,10 +30,11 @@ RSpec.configure do |config|
   server = browserstack_config[:server]
   user = browserstack_config[:user]
   key = browserstack_config[:key]
-  common_caps = browserstack_config[:common_caps]
-  browser_caps = browserstack_config[:browser_caps]
 
   config.around(:example) do |example|
+    common_caps = browserstack_config[:common_caps]
+    browser_caps = browserstack_config[:browser_caps]
+
     # Test user credentials
     @test_user_email = browserstack_config[:test_user_email]
     @test_user_password = browserstack_config[:test_user_password]
