@@ -58,8 +58,9 @@ RSpec.configure do |config|
       profile['permissions.default.microphone'] = 1
       @caps = Selenium::WebDriver::Remote::Capabilities.firefox({firefox_profile: profile}.merge(@caps))
     when 'Edge'
-      options = Selenium::WebDriver::Edge::Options.new('permissions.default.microphone': 1)
-      @caps = Selenium::WebDriver::Remote::Capabilities.edge({firefox_profile: profile}.merge(@caps))
+      # TODO: Get this working
+      options = Selenium::WebDriver::Edge::Options.new({'permissions.default.microphone': 1}.merge(@caps))
+      @caps = Selenium::WebDriver::Remote::Capabilities.edge(options)
     end
 
     enable_local = @caps["browserstack.local"] && @caps["browserstack.local"].to_s == "true"
