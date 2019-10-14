@@ -1,6 +1,6 @@
 if(document.querySelector('#play-pause-button')) {
-  const playVolume = 1.0;
-  let autoScrollDisabled = false;
+  var playVolume = 1.0;
+  var autoScrollDisabled = false;
 
   function showPage(){
     $('#loader-container').hide();

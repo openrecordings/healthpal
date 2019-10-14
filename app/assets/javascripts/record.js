@@ -1,5 +1,5 @@
 if(document.querySelector('#record-start-button')) {
-  const audioElement = document.querySelector('audio');
+  var audioElement = document.querySelector('audio');
   var streamRecorder;
   var recordStream;
   var mediaRecorder;
@@ -10,10 +10,11 @@ if(document.querySelector('#record-start-button')) {
   // Audio level measurement https://codepen.io/travisholliday/pen/gyaJk
   ////////////////////////////////////////////////////////////////////////////////////////////////
 	function startMeter(){
-    audioContext = new AudioContext();
-    analyser = audioContext.createAnalyser();
-    microphone = audioContext.createMediaStreamSource(recordStream);
-    javascriptNode = audioContext.createScriptProcessor(2048, 1, 1);
+    window.AudioContext = window.AudioContext || window.webkitAudioContext;
+    var audioContext = new AudioContext();
+    var analyser = audioContext.createAnalyser();
+    var microphone = audioContext.createMediaStreamSource(recordStream);
+    var javascriptNode = audioContext.createScriptProcessor(2048, 1, 1);
     analyser.smoothingTimeConstant = 0.8;
     analyser.fftSize = 1024;
     microphone.connect(analyser);
