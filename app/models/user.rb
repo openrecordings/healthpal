@@ -28,7 +28,7 @@ class User < ApplicationRecord
       client.api.account.messages.create(
         from: Orals::Application.credentials.twilio[:from_phone_number],
         to: "+1#{phone_number}",
-        body: new_phone_token
+        body: "Here is your HealthPAL access code: #{new_phone_token}"
       )
     rescue => e
       logger.error ([e.message]+e.backtrace).join($/)

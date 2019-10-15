@@ -5,10 +5,6 @@
 function validateShareForm(firstName, lastName, email1, email2) {
   let regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   let invalidReason = null;
-  log(email1);
-  log(email2);
-  log(email1 != email2); 
-  log(!regex.test(String(email1).toLowerCase()));
   if((email1 != email2) || !regex.test(String(email1).toLowerCase())){
     invalidReason = 'Emails invalid or do not match';
   }
@@ -35,7 +31,6 @@ $(document).ready(function(){
       var email2 = $('#email2_').val();
       var validationResult = validateShareForm(firstName, lastName, email1, email2);
       if(validationResult[0]){
-        console.log('Posting to create');
         $.post('/shares', {first_name: firstName, last_name: lastName, phone_number: phoneNumber, email: email1}, function(json) {
           // Success: refresh the page so that the content reflects the new Share
           location.reload();
