@@ -250,11 +250,17 @@ if(document.querySelector('#play-pause-button')) {
     playerListener();
 
     let videoElement = document.getElementById('video-element');
+
     videoElement.oncanplay = function(){
       showPage();
     }
+
     videoElement.ondurationchange = function(){
       $('#duration').text(toMmSs(videoElement.duration));
+    }
+
+    videoElement.onended = function(){
+      $('#play-glyph, #pause-glyph, #play-label, #pause-label').toggleClass('hidden');
     }
 
   });
