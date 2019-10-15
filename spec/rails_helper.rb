@@ -47,7 +47,7 @@ RSpec.configure do |config|
     @caps['browserstack.networkLogs'] = true
 
     # Microphone access
-    @browser = browser_caps[:browser]
+    @browser = browser_caps[:browser] || browser_caps[:browserName]
     case @browser
     when 'chrome'
       @caps['chromeOptions'] = {}
