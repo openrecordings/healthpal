@@ -10,17 +10,27 @@
   - if user_signed_in?
     -# Element IDs are for Selenium testing
     #menu-container
-      #menu-spans
-        %ul
-          - if current_user.privileged?
-            %li.menu-left= link_to 'User Management', admin_path, id: 'nav-user-management'
-            %li.menu-left= link_to 'Manage Recordings', manage_recordings_path, id: 'nav-manage-recordings'
-            %li.menu-left= link_to 'Analytics', analytics_path, id: 'nav-analytics'
-          %li.menu-left>= link_to 'New Recording', record_path, id: 'nav-new-recording'
-          %li.menu-left>= link_to 'Recordings', my_recordings_path, id: 'nav-my-recordings'
-          %li.menu-left>= link_to 'Sharing', shares_path, id: 'nav-share'
-        %span#menu-right
-          %ul
-            %li.menu-right>= link_to 'Help', help_path, id: 'nav-help'
-            %li.menu-right>= link_to "Account <span class='fa fa-cog' style='margin-right: 3px;'></span>".html_safe, edit_user_registration_path, id: 'nav-account'
-            %li.menu-right>= link_to "Sign out #{current_user.full_name}", destroy_user_session_path, method: :delete, id: 'nav-signout'
+      .navbar
+        =link_to 'User Management', '#'
+        =link_to 'Manage Recordings', '#'
+        =link_to 'Analytics', '#'
+        =link_to 'New Recording', '#'
+        =link_to 'Recordings', '#'
+        =link_to 'Sharing', '#'
+        =link_to 'Help', '#'
+        =link_to 'Account', '#'
+        =link_to "Sign out #{current_user.email}", '#'
+
+-#       #menu-spans
+-#           - if current_user.privileged?
+-#             %li.menu-left= link_to 'User Management', admin_path, id: 'nav-user-management'
+-#             %li.menu-left= link_to 'Manage Recordings', manage_recordings_path, id: 'nav-manage-recordings'
+-#             %li.menu-left= link_to 'Analytics', analytics_path, id: 'nav-analytics'
+-#           %li.menu-left>= link_to 'New Recording', record_path, id: 'nav-new-recording'
+-#           %li.menu-left>= link_to 'Recordings', my_recordings_path, id: 'nav-my-recordings'
+-#           %li.menu-left>= link_to 'Sharing', shares_path, id: 'nav-share'
+-#         %span#menu-right
+-#           %ul
+-#             %li.menu-right>= link_to 'Help', help_path, id: 'nav-help'
+-#             %li.menu-right>= link_to "Account <span class='fa fa-cog' style='margin-right: 3px;'></span>".html_safe, edit_user_registration_path, id: 'nav-account'
+-#             %li.menu-right>= link_to "Sign out #{current_user.full_name}", destroy_user_session_path, method: :delete, id: 'nav-signout'
