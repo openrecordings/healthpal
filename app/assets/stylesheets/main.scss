@@ -13,35 +13,6 @@ body {
   color: #333;
 }
 
-#page-container{
-  display: grid;
-  grid-template-areas: 'navbar'
-                       'menubar' 
-                       'content';
-  grid-template-rows: #{$navbar-height $menubar-height} calc(100vh - #{$navbar-height + $menubar-height});
-
-  #grid-navbar{
-    display: grid;
-    grid-area: navbar;
-    height: #{$navbar-height + $menubar-height};
-    overflow: hidden;
-  }
-
-  #grid-menubar{
-    display: grid;
-    grid-area: menubar;
-    height: $menubar-height;
-    overflow: hidden;
-  }
-
-
-  #grid-content{
-    display: grid;
-    grid-area: content;
-    padding: 0 20px 0 20px;
-  }
-}
-
 #flash{
   position: absolute;
   width: 640px;
@@ -66,6 +37,10 @@ body {
       }
     }
   }
+}
+
+#content{
+  padding: 20px 0 20px 0;
 }
 
 .center-block{
