@@ -22,10 +22,21 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
 
+  ## The code below configures Rspec, a testing framework for Ruby, to interact with the
+  ## browserstack.com API. The only tricky thing is accessing the microphone. We need Selenium
+  ## to access the microphone in order to test recording, and the way you set this configurations
+  ## is browser-specific. I think that the "Microphone access" section is the only thing that will
+  ## need editing as we add more browsers. That section is a case statement (switch) where each
+  ## target browser is a case. You can see that I've got it working on Chrome and Firefox, but Edge
+  ## is not working yet, and I haven't yet looked into others. Here are two key links for working
+  ## on this file:
+  ##
+  ##  https://github.com/SeleniumHQ/selenium/wiki/Ruby-Bindings - Docs for Selenium Ruby bindings
+  ##  https://www.browserstack.com/automate/capabilities - Browserstack-specific config
+
   # Browserstack
   #################################################################################################
-
-  # Browserstack credentials and config
+  # Credentials and config
   browserstack_config = Rails.application.credentials.browserstack
   server = browserstack_config[:server]
   user = browserstack_config[:user]
