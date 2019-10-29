@@ -1,23 +1,32 @@
-#logo-health{ color: rgba(74, 164, 156, 1.0); }
-#logo-pal{ color: rgba(187, 189, 191, 1.0); }
 
 #nav-container {
   width: 100%;
 
   #logo-container{
-    height: $navbar-height;
     background-color: $background-dark;
     #logo-spans{
-      padding: 12px;
-      max-height: $navbar-height;
+      padding: 12px 12px 0 12px;
       font-size: 48px;
+      #logo-health{
+        color: rgba(74, 164, 156, 1.0);
+      }
+      #logo-pal{
+        color: rgba(187, 189, 191, 1.0);
+      }
+      .debug-content{
+        opacity: 0;
+        font-size: 12px;
+        background-color: $notification-color;
+        color: $notification-text-color;
+        border-radius: 3px;
+      }
     }
   }
 
   #menu-container{
 		.navbar {
 			width: 100%;
-			background-color: #555;
+			background-color: $background-light;
 			overflow: auto;
 		}
 
@@ -30,7 +39,7 @@
 		}
 
 		.navbar a:hover {
-			background-color: #000;
+			background-color: $background-very-light;
 		}
 
 		.active {
