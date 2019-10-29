@@ -1,20 +1,41 @@
-
-#nav-container {
+#nav-container{
   width: 100%;
-
   #logo-container{
+    width: 100%;
     background-color: $background-dark;
     #logo-spans{
-      padding: 12px 12px 0 12px;
-      font-size: 48px;
+      display: flex;
+      align-items: center;
+      font-size: 38px;
+      .image img{
+        display: flex;
+        align-items: center;
+      }
+      #icon{
+        padding: 10px;
+        height: 55px;
+      }
+      #open-recordings{
+        align-self: flex-end;
+        padding-left: 5px;
+        height: 38px;
+      }
       #logo-health{
         color: rgba(74, 164, 156, 1.0);
       }
       #logo-pal{
         color: rgba(187, 189, 191, 1.0);
       }
+      #mobile-menu-button {
+        padding-left: 10px;
+        color: white;
+        font-size: 22px;
+        font-weight: bold;
+      }
       .debug-content{
         opacity: 0;
+        width: 1px;
+        height: 1px;
         font-size: 12px;
         background-color: $notification-color;
         color: $notification-text-color;
@@ -29,42 +50,53 @@
     overflow: auto;
 
     @mixin navbar{
-			background-color: $background-light;
-			overflow: auto;
-			padding: 12px;
-			color: white;
-			text-decoration: none;
-			font-size: 17px;
+      background-color: $background-light;
+      overflow: auto;
+      padding: 12px;
+      color: white;
+      text-decoration: none;
+      font-size: 17px;
     }
 
-		.navbar-left a {
-			float: left;
+    .navbar-left a {
+      float: left;
       @include navbar;
-		}
+    }
 
-		.navbar-right a {
-			float: right;
+    .navbar-right a {
+      float: right;
       @include navbar;
-		}
+    }
 
-		.navbar a:hover {
-			background-color: $background-very-light;
-		}
+    .navbar a:hover {
+      background-color: $background-very-light;
+    }
 
-		.active {
-			background-color: #4CAF50;
-		}
+    .active {
+      background-color: #4CAF50;
+    }
 
-		@media screen and (max-width: 500px) {
-			.navbar a {
-				float: none;
-				display: block;
-			}
-		}
+    @media screen and (max-width: 1220px) {
+      .navbar-left, .navbar-right{
+        display: block;
+        a{
+          float: none;
+        }
+      }
+    }
+
+    @media screen and (max-width: 500px) {
+      .navbar-left a, .navbar-right a{
+        float: none;
+        display: block;
+      }
+      #logo-health{
+        font-size: 24px;
+      }
+      #mobile-menu-button{
+        display: inline;
+      }
+    }
   }
 
-}
-
-.admin-background{
-  background-color: #a33;
 }

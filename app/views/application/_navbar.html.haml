@@ -1,10 +1,11 @@
 #nav-container
   #logo-container
     #logo-spans
-      %span= image_tag('open_recordings.png', width: '120px')
+      %span.image#icon= image_tag('open_recordings_icon.png', width: '40px')
       %span#logo-health Health
-      - pal_text = current_user&.privileged? ? 'PAL-ADMIN' : 'PAL'
-      %span#logo-pal>= pal_text
+      %span#logo-pal> PAL
+      %span.image#open-recordings= image_tag('open_recordings_text.png', width: '140px')
+      %span#mobile-menu-button &#x22EE;
       - unless Rails.env == 'production'
         -# foo is replaced by latest commit SHA1 by running commit_hash_to_navbar during docker builds
         %span.debug-content#commit-hash foo
