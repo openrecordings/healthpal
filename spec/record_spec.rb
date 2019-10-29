@@ -1,5 +1,12 @@
 require 'rails_helper'
 
+## This are the test instructions for recording. The comments divide the code into the different
+## user actions that are simulated. Use this code as a cheat sheet for writing tests that test
+## other functionality. The lines that start with "expect" are the actual boolean pass/fail tests
+## if any one of them fails, the whole thing fails. There are many kinds of boolean tests you can
+## use to verify that the code is working correctly. See:
+##   https://relishapp.com/rspec/rspec-expectations/docs/built-in-matchers
+
 RSpec.describe 'Recording' do
   
   it 'can make a recording' do
@@ -9,6 +16,7 @@ RSpec.describe 'Recording' do
       true
     else
       @driver.navigate.to 'https://audiohealthpal.com'
+
       # Log in
       email_field = @driver.find_element(:id, 'user_email')
       email_field.send_keys @test_user_email
@@ -32,8 +40,9 @@ RSpec.describe 'Recording' do
       @driver.find_element(:id, 'record-stop-button').click
       sleep 0.5
       @driver.find_element(:id, 'save-button').click
-      start_time = Time.now
+
       # Check every second for 30 seconds to see if the recording uploaded successfully
+      start_time = Time.now
       while Time.now - start_time < 30
         sleep 1
         break if @driver.current_url.include?('https://audiohealthpal.com/my_recordings')

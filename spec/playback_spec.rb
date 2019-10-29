@@ -1,5 +1,12 @@
 require 'rails_helper'
 
+## This are the test instructions for recording. The comments divide the code into the different
+## user actions that are simulated. Use this code as a cheat sheet for writing tests that test
+## other functionality. The lines that start with "expect" are the actual boolean pass/fail tests
+## if any one of them fails, the whole thing fails. There are many kinds of boolean tests you can
+## use to verify that the code is working correctly. See:
+##   https://relishapp.com/rspec/rspec-expectations/docs/built-in-matchers
+
 RSpec.describe 'Playback' do
   
   it 'can play a recording' do
