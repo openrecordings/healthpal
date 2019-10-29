@@ -24,18 +24,27 @@
   }
 
   #menu-container{
-		.navbar {
-			width: 100%;
+    width: 100%;
+    background-color: $background-light;
+    overflow: auto;
+
+    @mixin navbar{
 			background-color: $background-light;
 			overflow: auto;
-		}
-
-		.navbar a {
-			float: left;
 			padding: 12px;
 			color: white;
 			text-decoration: none;
 			font-size: 17px;
+    }
+
+		.navbar-left a {
+			float: left;
+      @include navbar;
+		}
+
+		.navbar-right a {
+			float: right;
+      @include navbar;
 		}
 
 		.navbar a:hover {

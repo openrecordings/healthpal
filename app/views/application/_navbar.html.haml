@@ -11,16 +11,17 @@
   - if user_signed_in?
     -# Element IDs are for Selenium testing
     #menu-container
-      .navbar
-        =link_to 'User Management', '#'
-        =link_to 'Manage Recordings', '#'
-        =link_to 'Analytics', '#'
-        =link_to 'New Recording', '#'
-        =link_to 'Recordings', '#'
-        =link_to 'Sharing', '#'
-        =link_to 'Help', '#'
-        =link_to 'Account', '#'
+      .navbar-left
+        =link_to 'User Management', admin_path, id: 'nav-user-management'
+        =link_to 'Manage Recordings', manage_recordings_path, id: 'nav-manage-recordings'
+        =link_to 'Analytics', analytics_path, id: 'nav-analytics'
+        =link_to 'New Recording', record_path, id: 'nav-new-recording'
+        =link_to 'Recordings', my_recordings_path, id: 'nav-my-recordings'
+        =link_to 'Sharing', shares_path, id: 'nav-share'
+      .navbar-right
         =link_to "Sign out #{current_user.email}", '#'
+        =link_to 'Account', '#'
+        =link_to 'Help', '#'
 
 -#       #menu-spans
 -#           - if current_user.privileged?
