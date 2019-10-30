@@ -32,16 +32,18 @@
         color: $notification-text-color;
         border-radius: 3px;
       }
-      #mobile-menu-button {
+      #mobile-menu-button-container{
         width: 100%;
         text-align: right;
         padding-left: 15px;
         padding-right: 15px;
-        color: white;
-        font-size: 22px;
-        font-weight: bold;
-				&:hover{
-					cursor: pointer;
+        #mobile-menu-button {
+          color: white;
+          font-size: 22px;
+          font-weight: bold;
+          &:hover{
+            cursor: pointer;
+          }
         }
       }
     }

@@ -11,7 +11,8 @@
         - unless Rails.env == 'production'
           -# foo is replaced by latest commit SHA1 by running commit_hash_to_navbar during docker builds
           %span.debug-content#commit-hash foo
-      %span#mobile-menu-button.hidden &#x22EE;
+      %span#mobile-menu-button-container
+        %span#mobile-menu-button.hidden &#x22EE;
   - if user_signed_in?
     -# Element IDs are for Selenium testing
     #menu-container
