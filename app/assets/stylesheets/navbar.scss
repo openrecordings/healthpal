@@ -6,21 +6,21 @@
     #logo-spans{
       display: flex;
       align-items: center;
-      font-size: 38px;
       #icon{
         padding: 10px;
         height: 55px;
       }
-      #open-recordings{
-        align-self: flex-end;
-        padding-left: 5px;
-        height: 38px;
+      #logo-health, #logo-pal{
+        font-size: 38px;
       }
-      #logo-health{
-        color: rgba(74, 164, 156, 1.0);
+      #logo-open, #logo-recording{
+        font-size: 16px;
       }
-      #logo-pal{
-        color: rgba(187, 189, 191, 1.0);
+      #logo-health, #logo-open{
+        color: $logo-dark;
+      }
+      #logo-pal, #logo-recordings{
+        color: $logo-light;
       }
       #mobile-menu-button {
         padding-left: 10px;

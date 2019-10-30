@@ -2,9 +2,12 @@
   #logo-container
     #logo-spans
       %span.image#icon= image_tag('open_recordings_icon.png', width: '40px')
-      %span#logo-health Health
-      %span#logo-pal> PAL
-      %span.image#open-recordings= image_tag('open_recordings_text.png', width: '140px')
+      #logo-text
+        %span#logo-open Open
+        %span#logo-recordings> Recordings
+        %br
+        %span#logo-health Health
+        %span#logo-pal> PAL
       %span#mobile-menu-button &#x22EE;
       - unless Rails.env == 'production'
         -# foo is replaced by latest commit SHA1 by running commit_hash_to_navbar during docker builds
