@@ -7,10 +7,6 @@
       display: flex;
       align-items: center;
       font-size: 38px;
-      .image img{
-        display: flex;
-        align-items: center;
-      }
       #icon{
         padding: 10px;
         height: 55px;
@@ -42,13 +38,19 @@
         border-radius: 3px;
       }
     }
+    @media screen and (max-width: 500px) {
+      #logo-spans{
+        font-size: 24px;
+      }
+      #mobile-menu-button{
+        display: inline;
+      }
+    }
   }
-
   #menu-container{
     width: 100%;
     background-color: $background-light;
     overflow: auto;
-
     @mixin navbar{
       background-color: $background-light;
       overflow: auto;
@@ -57,25 +59,20 @@
       text-decoration: none;
       font-size: 17px;
     }
-
     .navbar-left a {
       float: left;
       @include navbar;
     }
-
     .navbar-right a {
       float: right;
       @include navbar;
     }
-
     .navbar a:hover {
       background-color: $background-very-light;
     }
-
     .active {
       background-color: #4CAF50;
     }
-
     @media screen and (max-width: 1220px) {
       .navbar-left, .navbar-right{
         display: block;
@@ -84,19 +81,11 @@
         }
       }
     }
-
     @media screen and (max-width: 500px) {
       .navbar-left a, .navbar-right a{
         float: none;
         display: block;
       }
-      #logo-health{
-        font-size: 24px;
-      }
-      #mobile-menu-button{
-        display: inline;
-      }
     }
   }
-
 }

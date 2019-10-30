@@ -13,16 +13,17 @@
     -# Element IDs are for Selenium testing
     #menu-container
       .navbar-left
-        =link_to 'User Management', admin_path, id: 'nav-user-management'
-        =link_to 'Manage Recordings', manage_recordings_path, id: 'nav-manage-recordings'
-        =link_to 'Analytics', analytics_path, id: 'nav-analytics'
+        - if current_user.privileged?
+          =link_to 'User Management', admin_path, id: 'nav-user-management'
+          =link_to 'Manage Recordings', manage_recordings_path, id: 'nav-manage-recordings'
+          =link_to 'Analytics', analytics_path, id: 'nav-analytics'
         =link_to 'New Recording', record_path, id: 'nav-new-recording'
         =link_to 'Recordings', my_recordings_path, id: 'nav-my-recordings'
         =link_to 'Sharing', shares_path, id: 'nav-share'
       .navbar-right
-        =link_to "Sign out #{current_user.email}", '#'
-        =link_to 'Account', '#'
-        =link_to 'Help', '#'
+        =link_to "Sign out #{current_user.email}", destroy_user_session_path, method: :delete, id: 'nav-signout'
+        =link_to 'Account', edit_user_registration_path, id: 'nav-account'
+        =link_to 'Help', help_path, id: 'nav-help'
 
 -#       #menu-spans
 -#           - if current_user.privileged?
