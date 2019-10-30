@@ -40,6 +40,9 @@
         color: white;
         font-size: 22px;
         font-weight: bold;
+				&:hover{
+					cursor: pointer;
+        }
       }
     }
     @media screen and (max-width: 500px) {
