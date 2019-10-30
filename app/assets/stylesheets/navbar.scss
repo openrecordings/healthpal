@@ -12,8 +12,9 @@
       }
       #logo-health, #logo-pal{
         font-size: 38px;
+        line-height: 38px;
       }
-      #logo-open, #logo-recording{
+      #logo-open, #logo-recordings{
         font-size: 16px;
       }
       #logo-health, #logo-open{
@@ -21,12 +22,6 @@
       }
       #logo-pal, #logo-recordings{
         color: $logo-light;
-      }
-      #mobile-menu-button {
-        padding-left: 10px;
-        color: white;
-        font-size: 22px;
-        font-weight: bold;
       }
       .debug-content{
         opacity: 0;
@@ -37,13 +32,19 @@
         color: $notification-text-color;
         border-radius: 3px;
       }
+      #mobile-menu-button {
+        width: 100%;
+        text-align: right;
+        padding-left: 15px;
+        padding-right: 15px;
+        color: white;
+        font-size: 22px;
+        font-weight: bold;
+      }
     }
     @media screen and (max-width: 500px) {
       #logo-spans{
         font-size: 24px;
-      }
-      #mobile-menu-button{
-        display: inline;
       }
     }
   }
@@ -72,14 +73,6 @@
     }
     .active {
       background-color: #4CAF50;
-    }
-    @media screen and (max-width: 1220px) {
-      .navbar-left, .navbar-right{
-        display: block;
-        a{
-          float: none;
-        }
-      }
     }
     @media screen and (max-width: 500px) {
       .navbar-left a, .navbar-right a{
