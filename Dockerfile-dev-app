@@ -1,4 +1,4 @@
-ARG image=orals-development
+ARG image=orals-dev
 FROM $image
 ARG rails_env=development
 ENV RAILS_ENV=$rails_env
