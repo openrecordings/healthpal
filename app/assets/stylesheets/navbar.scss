@@ -23,17 +23,6 @@
       #logo-pal, #logo-recordings{
         color: $logo-light;
       }
-      #logo-text-container{
-        .debug-content{
-          opacity: 0;
-          width: 1px;
-          height: 1px;
-          font-size: 12px;
-          background-color: $notification-color;
-          color: $notification-text-color;
-          border-radius: 3px;
-        }
-      }
       #mobile-menu-button-container{
         width: 100%;
         text-align: right;
@@ -88,4 +77,8 @@
       }
     }
   }
+}
+
+.debug-content{
+  display: invisible;
 }
