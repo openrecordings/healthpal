@@ -62,23 +62,23 @@
       color: white;
       text-decoration: none;
       font-size: 17px;
+      &:hover {
+        background-color: $background-very-light;
+      }
     }
-    .navbar-left a {
+    #navbar-left a {
       float: left;
       @include navbar;
     }
-    .navbar-right a {
+    #navbar-right-big a {
       float: right;
       @include navbar;
-    }
-    .navbar a:hover {
-      background-color: $background-very-light;
     }
     .active {
       background-color: #4CAF50;
     }
     @media screen and (max-width: 500px) {
-      .navbar-left a, .navbar-right a{
+      #navbar-left a, #navbar-right-small a{
         float: none;
         display: block;
       }

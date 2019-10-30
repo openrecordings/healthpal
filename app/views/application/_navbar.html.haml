@@ -11,11 +11,11 @@
         - unless Rails.env == 'production'
           -# foo is replaced by latest commit SHA1 by running commit_hash_to_navbar during docker builds
           %span.debug-content#commit-hash foo
-      %span#mobile-menu-button &#x22EE;
+      %span#mobile-menu-button.hidden &#x22EE;
   - if user_signed_in?
     -# Element IDs are for Selenium testing
     #menu-container
-      .navbar-left
+      #navbar-left
         - if current_user.privileged?
           =link_to 'User Management', admin_path, id: 'nav-user-management'
           =link_to 'Manage Recordings', manage_recordings_path, id: 'nav-manage-recordings'
@@ -23,7 +23,12 @@
         =link_to 'New Recording', record_path, id: 'nav-new-recording'
         =link_to 'Recordings', my_recordings_path, id: 'nav-my-recordings'
         =link_to 'Sharing', shares_path, id: 'nav-share'
-      .navbar-right
+        -# Redundancy: order is opposite depending on whether or not we are floating the elements
+        #navbar-right-small.hidden
+          =link_to 'Help', help_path, id: 'nav-help'
+          =link_to 'Account', edit_user_registration_path, id: 'nav-account'
+          =link_to "Sign out #{current_user.email}", destroy_user_session_path, method: :delete, id: 'nav-signout'
+      #navbar-right-big.hidden
         =link_to "Sign out #{current_user.email}", destroy_user_session_path, method: :delete, id: 'nav-signout'
         =link_to 'Account', edit_user_registration_path, id: 'nav-account'
         =link_to 'Help', help_path, id: 'nav-help'
