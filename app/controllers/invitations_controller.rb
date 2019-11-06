@@ -17,6 +17,12 @@ class InvitationsController < Devise::InvitationsController
       return
     end
 
+    # TODO: REMOVE
+    # Temprarily flag all new users as onboarded so that they don't see the onboarding video
+    ###############################################################################################
+    self.resource.update(onboarded: true)
+    ###############################################################################################
+
     # Set name fields for new users who don't yet have them
     self.resource.update(first_name: params[:user][:first_name]) if params[:user][:first_name]
     self.resource.update(last_name: params[:user][:last_name]) if params[:user][:last_name]
