@@ -41,5 +41,18 @@ RSpec.describe 'Recording' do
       expect(@driver.current_url).to include('https://audiohealthpal.com/my_recordings')
       end
   end
+  
+  # it 'can play a recording' do
+  #   @driver.navigate.to 'https://audiohealthpal.com'
+  #   # Select a recording
+  #   @driver.find_element(:link, 'Sat, Jan 1, 2000').click
+  #   sleep 0.5
+  #   expect(@driver.current_url).to include('https://audiohealthpal.com/play')
+  #   # Play
+  #   sleep 4.0
+  #   @driver.find_element(:id, 'play').click
+  #   sleep 2.0
+  #   expect(@driver.find_element(:id, 'video-element').attribute('currentTime').to_i).to be > 0.5
+  # end
 
 end
