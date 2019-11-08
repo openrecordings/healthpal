@@ -30,6 +30,7 @@ RSpec.configure do |config|
         platform: browser_caps[:platform_name],
         browser_name: browser_caps[:browser_name],
         browser_version: browser_caps[:browser_version],
+        screen_resolution: browser_caps[:screen_resolution],
         name: 'HealthPAL test'
     }
 
@@ -44,16 +45,20 @@ RSpec.configure do |config|
     when 'firefox'
       # profile = Selenium::WebDriver::Firefox::Profile.new
       # profile['permissions.default.microphone'] = 1
-      # @caps = Selenium::WebDriver::Remote::Capabilities.firefox({firefox_profile: profile}.merge(@caps))
+      options = Selenium::WebDriver::Firefox::Options.new
+      options.add_preference('dom.webnotifications.enabled', false)
+      options.add_argument('use-fake-ui-for-media-stream')
+      @driver = Selenium::WebDriver.for(
+        :firefox,
+        url: Rails.application.credentials.saucelabs[:driver_url],
+        desired_capabilities: @caps,
+        options: options)
     when 'Edge'
       # TODO: Get this working
       # options = Selenium::WebDriver::Edge::Options.new({'permissions.default.microphone': 1}.merge(@caps))
       # @caps = Selenium::WebDriver::Remote::Capabilities.edge(options)
     end
 	
-    @driver = Selenium::WebDriver.for(:remote,
-      :url => Rails.application.credentials.saucelabs[:driver_url],
-      :desired_capabilities => @caps)
     begin
       example.run
     ensure 
