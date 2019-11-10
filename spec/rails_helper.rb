@@ -49,21 +49,23 @@ RSpec.configure do |config|
     when 'firefox'
       profile = Selenium::WebDriver::Firefox::Profile.new
       profile['permissions.default.microphone'] = 1
-      # options = Selenium::WebDriver::Firefox::Options.new
-      # options.add_preference('dom.webnotifications.enabled', false)
-      # options.add_preference('media.navigator.permission.disabled', true)
+      options = Selenium::WebDriver::Firefox::Options.new(profile: profile)
+      options.add_preference('permissions.default.microphone', 1)
+      options.add_preference('permissions.default.camera', 1)
+      # options.add_preference('dom.webnotifications.enabled', 0)
+      options.add_preference('media.navigator.permission.disabled', 1)
       # options.add_argument('use-fake-ui-for-media-stream')
       @driver = Selenium::WebDriver.for(
-        :firefox,
+        :remote,
         url: Rails.application.credentials.saucelabs[:driver_url],
         desired_capabilities: @caps,
-        profile: profile)
+        options: options)
     when 'Edge'
       # TODO: Get this working
       # options = Selenium::WebDriver::Edge::Options.new({'permissions.default.microphone': 1}.merge(@caps))
       # @caps = Selenium::WebDriver::Remote::Capabilities.edge(options)
     end
-	
+  
     begin
       example.run
     ensure 
