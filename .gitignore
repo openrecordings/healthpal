@@ -24,3 +24,6 @@
 
 # Decryption key for credentials
 /config/master.key
+
+# YAML dumps
+/dump/*
