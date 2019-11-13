@@ -1,4 +1,4 @@
-tag_types = ['medication', 'medical_condition', 'test_imaging', 'treatments_and_procedures']
+tag_types = ['medication', 'medical_condition', 'tests_and_imaging', 'treatments_and_procedures']
 
 # Create root user
 unless User.where(email: Rails.application.credentials.root_email).first
