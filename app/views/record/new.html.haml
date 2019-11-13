@@ -1,11 +1,11 @@
 %audio#record-audio{autoplay: true}
 #overlay.overlay.hidden
   #loader-container
-    %h3#upload-text Uploading recording. This could take a few minutes...
+    %h3#upload-text= t(:uploading_recording)
     #loader
 #record-container
   #meter-container
-    #meter-label Audio level
+    #meter-label= t(:audio_level)
     %canvas#audio-meter{width: '50', height: '200'}
   #time-display
     00:00:00
@@ -14,20 +14,20 @@
       %svg#glyphicons-basic.large-svg{:viewbox => "0 0 32 32", :xmlns => "http://www.w3.org/2000/svg"}
         %path.svg-path#mic{:d => "M11,15V13H21v2a5,5,0,0,1-10,0ZM21,9A5,5,0,0,0,11,9v2H21Zm3,2a1,1,0,0,0-1,1v3a6.627,6.627,0,0,1-7,7,6.627,6.627,0,0,1-7-7V12a1,1,0,0,0-2,0v3a8.52562,8.52562,0,0,0,7,8.80927V26H13a1,1,0,0,0-1,1v1h8V27a1,1,0,0,0-1-1H18V23.80927A8.52562,8.52562,0,0,0,25,15V12A1,1,0,0,0,24,11Z"}
       .record-button-label
-        Start recording
+        = t(:start_recording)
     #record-stop-button.button.button-tall.center-block.margin-top-20.hidden.track
       %svg#glyphicons-basic.large-svg{:viewbox => "0 0 32 32", :xmlns => "http://www.w3.org/2000/svg"}
         %path.svg-path#stop{:d => "M25,8V24a1,1,0,0,1-1,1H8a1,1,0,0,1-1-1V8A1,1,0,0,1,8,7H24A1,1,0,0,1,25,8Z"}
       .record-button-label
-        Stop recording
+        = t(:stop_recording)
     #save-delete-container.button-container.center-block.hidden
       #save-button.button.button-fat.float-left.margin-top-20.track
         %svg#glyphicons-basic.large-svg{:viewbox => "0 0 32 32", :xmlns => "http://www.w3.org/2000/svg"}
           %path#circle-check{:d => "M16,4A12,12,0,1,0,28,16,12.01312,12.01312,0,0,0,16,4Zm6.5697,8.40088-7.29217,8.62744a1,1,0,0,1-1.50623.02429L9.88147,16.741a.5.5,0,0,1,.00616-.67652l1.137-1.21508a.5.5,0,0,1,.63354-.0802l2.611,1.66149,6.57276-5.69458a.5.5,0,0,1,.67114.01465l1.01856.96424A.5.5,0,0,1,22.5697,12.40088Z"}
         .record-button-label
-          Save recording
+          = t(:save_recording)
       #delete-button.button.button-fat.float-right.margin-top-20.track
         %svg#glyphicons-basic.large-svg{:viewbox => "0 0 32 32", :xmlns => "http://www.w3.org/2000/svg"}
           %path#circle-remove{:d => "M16,4A12,12,0,1,0,28,16,12.01312,12.01312,0,0,0,16,4Zm5.30328,14.47485a.49991.49991,0,0,1,0,.707L19.182,21.30322a.5.5,0,0,1-.70716,0L16,18.82837l-2.47485,2.47485a.5.5,0,0,1-.70716,0l-2.12127-2.12134a.49991.49991,0,0,1,0-.707L13.17157,16l-2.47485-2.47485a.50007.50007,0,0,1,0-.70716L12.818,10.69666a.50018.50018,0,0,1,.70716,0L16,13.17151l2.47485-2.47485a.50018.50018,0,0,1,.70716,0L21.30328,12.818a.50007.50007,0,0,1,0,.70716L18.82843,16Z"}
         .record-button-label
-          Delete recording
+          = t(:delete_recording)
