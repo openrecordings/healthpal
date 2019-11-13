@@ -13,14 +13,14 @@
       #menu-spans
         %ul
           - if current_user.privileged?
-            %li.menu-left= link_to 'User Management', admin_path, id: 'nav-user-management'
-            %li.menu-left= link_to 'Manage Recordings', manage_recordings_path, id: 'nav-manage-recordings'
-            %li.menu-left= link_to 'Analytics', analytics_path, id: 'nav-analytics'
-          %li.menu-left>= link_to 'New Recording', record_path, id: 'nav-new-recording'
-          %li.menu-left>= link_to 'Recordings', my_recordings_path, id: 'nav-my-recordings'
-          %li.menu-left>= link_to 'Sharing', shares_path, id: 'nav-share'
+            %li.menu-left= link_to t(:user_management), admin_path, id: 'nav-user-management'
+            %li.menu-left= link_to t(:manage_recordings), manage_recordings_path, id: 'nav-manage-recordings'
+            %li.menu-left= link_to t(:analytics), analytics_path, id: 'nav-analytics'
+          %li.menu-left>= link_to t(:new_recording), record_path, id: 'nav-new-recording'
+          %li.menu-left>= link_to t(:recordings), my_recordings_path, id: 'nav-my-recordings'
+          %li.menu-left>= link_to t(:sharing), shares_path, id: 'nav-share'
         %span#menu-right
           %ul
-            %li.menu-right>= link_to 'Help', help_path, id: 'nav-help'
-            %li.menu-right>= link_to "Account <span class='fa fa-cog' style='margin-right: 3px;'></span>".html_safe, edit_user_registration_path, id: 'nav-account'
-            %li.menu-right>= link_to "Sign out #{current_user.full_name}", destroy_user_session_path, method: :delete, id: 'nav-signout'
+            %li.menu-right>= link_to t(:help), help_path, id: 'nav-help'
+            %li.menu-right>= link_to "#{t(:account)} <span class='fa fa-cog' style='margin-right: 3px;'></span>".html_safe, edit_user_registration_path, id: 'nav-account'
+            %li.menu-right>= link_to "#{t(:sign_out)} Sign out #{current_user.full_name}", destroy_user_session_path, method: :delete, id: 'nav-signout'
