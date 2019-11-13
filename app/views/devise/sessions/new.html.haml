@@ -1,12 +1,12 @@
 .centered-form-container
   = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
     .form-field-container
-      .form-label Email
+      .form-label= t(:email_address)
       = f.email_field :email, autofocus: true, class: 'form-input'
     .form-field-container
-      .form-label Password
+      .form-label= t(:password)
       = f.password_field :password, autocomplete: "off", class: 'form-input'
     .form-field-container.full-center
-      = f.submit "Log in", class: 'button', id: 'login-button'
+      = f.submit t(:log_in), class: 'button', id: 'login-button'
     .form-field-container
-      = link_to 'I forgot my password', new_user_password_path, class: 'blue-link'
+      = link_to t(:forgot_password), new_user_password_path, class: 'blue-link'

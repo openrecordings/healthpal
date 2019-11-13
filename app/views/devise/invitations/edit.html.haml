@@ -1,18 +1,16 @@
 .centered-form-container
   .title.text-center
     - if resource.requires_phone_confirmation
-      You should have received a text message with a four-digit confirmation code at your phone number ending in
+      = t(:confirmation_code)
       = resource.phone_number[-4..-1]
-
       -# TODO
       -# %br
       -# = link_to 'click here to generate a new code', root_path
-
       %br
       %br
-      Enter your confirmation code and choose a password for HealthPal
+      = t(:enter_confirmation_code)
     - else
-      Choose a password for HealthPal
+      = t(:choose_password)
     %br
     %br
   = form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => { :method => :put } do |f|
