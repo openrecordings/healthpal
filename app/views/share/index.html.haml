@@ -1,32 +1,32 @@
 .centered-form-container
   #open-share-form-title.form-title.margin-bottom-10
-    Share Recordings
-  = submit_tag 'Add a person to share with', class: 'button', id: 'open-share-form'
+    = t(:share_recordings)
+  = submit_tag t(:add_share), class: 'button', id: 'open-share-form'
   #new-share-form.hidden
     .form-title
-      Who do you want to share your recordings with?
+      = t(:share_who)
     .text-center.margin-bottom-10
-      All fields are required
+      = t(:all_fields_required)
     = form_tag url: shares_path do
       .form-field-container.field-centered
         .form-label
-          First name
+          = t(:first_name)
         = text_field :first_name, nil, class: 'form-input'
       .form-field-container.field-centered
         .form-label
-          Last name
+          = t(:last_name)
         = text_field :last_name, nil, class: 'form-input'
       .form-field-container.field-centered
         .form-label
-          Mobile phone number
+          = t(:phone_number)
         = text_field :phone_number, nil, class: 'form-input phone-number'
       .form-field-container.field-centered
         .form-label
-          Email address
+          = t(:email_address)
         = email_field :email, nil, class: 'form-input'
       .form-field-container.field-centered
         .form-label
-          Re-enter email address
+          = t(:re_enter_email)
         = email_field :email2, nil, class: 'form-input margin-bottom-10'
       .form-field-container.field-centered
         = submit_tag 'Share with this person', class: 'button', id: 'new-share-submit'
@@ -35,17 +35,17 @@
     -# TODO: Figure out overflow problem and remove %br
     %br
     %br
-    .text-center You are sharing your recordings with these people
+    .text-center= t(:sharing_with)
     .table-container
       %table.margin-top-20
         %thead
           %tr.header-row
-            %th Name
-            %th Email address
+            %th= t(:name)
+            %th= t(:email_address)
             %th
         %tbody
           - @shares.each do |s|
             %tr.table-row
               %td= s.shared_with.full_name
               %td= s.shared_with.email
-              %td= link_to 'stop sharing with this person', 'javascript:;', class: 'text-link revoke-share', data: {'share-id': s.id}
+              %td= link_to t(:stop_sharing), 'javascript:;', class: 'text-link revoke-share', data: {'share-id': s.id}

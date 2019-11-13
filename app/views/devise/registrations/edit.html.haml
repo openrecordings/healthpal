@@ -1,11 +1,11 @@
 .centered-form-container
-  .form-title Edit Login Information
+  .form-title= t(:edit_login_info)
   = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
     .form-field-container
-      .form-label Current password (required)
+      .form-label= t(:current_password)
       = f.password_field :current_password, autofocus: true, autocomplete: 'off', size: 30, class: 'form-input'
     .form-field-container
-      .form-label Email
+      .form-label= t(:email_address)
       = f.email_field :email, class: 'form-input'
       
     -# - if devise_mapping.confirmable? && resource.pending_reconfirmation?
@@ -13,12 +13,12 @@
     -#     Currently waiting confirmation for: #{resource.unconfirmed_email}
 
     .form-field-container
-      .form-label New password
+      .form-label= t(:new_password)
       = f.password_field :password, autocomplete: 'off', class: 'form-input'
     .form-field-container
-      .form-label New password confirmation
+      .form-label= t(:new_password_confirmation)
       = f.password_field :password_confirmation, autocomplete: 'off', class: 'form-input'
     .actions.text-center.pad-top-20
-      = f.submit 'Update', class: 'button'
+      = f.submit t(:update), class: 'button'
       %div
-        = link_to 'Back', :back, class: 'text-link'
+        = link_to t(:back), :back, class: 'text-link'

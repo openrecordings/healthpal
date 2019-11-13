@@ -1,5 +1,5 @@
 .centered-form-container
   .form-title
-    Do you want to give someone else access to your recordings?
-  = link_to 'Yes', shares_path(confirmed: true), class: 'button margin-top-20'
-  = link_to 'No. Get me out of here!', root_path, class: 'button margin-top-20'
+    = t(:want_to_share)
+  = link_to t(:yes), shares_path(confirmed: true), class: 'button margin-top-20'
+  = link_to t(:out_of_here), root_path, class: 'button margin-top-20'

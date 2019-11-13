@@ -37,3 +37,27 @@ en:
   by_text: by Text
   by_topics: by Topics
   clear_all_filters: Clear all filters
+  want_to_share: Do you want to give someone else access to your recordings?
+  out_of_here: No. Get me out of here!
+  share_recordings: Share Recordings
+  add_share: Add a person to share with
+  share_who: Who do you want to share your recordings with?
+  all_fields_required: All fields are required
+  first_name: First name
+  last_name: Last name
+  phone_number: Mobile phone number
+  email_address: Email address
+  re_enter_email: Re-enter email address
+  sharing_with: You are sharing your recordings with these people
+  name: Name
+  stop_sharing: stop sharing with this person
+  watch_intro_video: Watch the HeathPAL introduction video
+  watch_now: Watch the introductory video now
+  watch_later: Watch later
+  dont_ask_again: Don't ask me again
+  edit_login_info: Edit Login Information
+  current_password: Current password (required)
+  new_password: New password
+  new_password_confirmation: New password confirmation
+  update: Update
+  back: Back
