@@ -105,7 +105,7 @@
                   %td.tag-cell.click-to-seek.track{'data-start-time': utterance.begins_at}= "#{mm_ss(utterance.begins_at)} - #{mm_ss(utterance.ends_at)}"
                   %td.tag-cell.click-to-seek.track{'data-start-time': utterance.begins_at}
                     - utterance.tmp_tag_types.each do |tag_type|
-                      .tag{class: "filter-#{tag_type.id}"}= tag_type.label
+                      .tag{class: "filter-#{tag_type.id}"}= t(tag_type.label)
                   %td.tag-cell.click-to-seek.track{'data-start-time': utterance.begins_at}
                     - utterance.links.each do |link|
                       %a.link.external-link{href: link.url, target: '_blank'}
@@ -134,6 +134,6 @@
               .filter-check
                 %svg.check-glyph.svg.hidden{:viewbox => "0 0 32 32", :xmlns => "http://www.w3.org/2000/svg"}
                   %path#check{:d => "M27.37592,9.70459l-14.151,15.97693a.99985.99985,0,0,1-1.47558.02356L4.59711,18.1322a.99992.99992,0,0,1-.05384-1.31128L5.495,15.63123a.99994.99994,0,0,1,1.22808-.26966L12,18,24.79724,7.09863a.99991.99991,0,0,1,1.35553.0542l1.1817,1.18164A1,1,0,0,1,27.37592,9.70459Z"}
-              .filter-label= tag_type.label
+              .filter-label= t(tag_type.label)
         #show-all-topics
           Clear all filters

@@ -14,3 +14,7 @@ en:
   stop_recording: Stop recording
   save_recording: Save recording
   delete_recording: Delete recording
+  medication: Medication
+  medical_condition: Medical condition
+  tests_and_imaging: Tests and imaging
+  treatments_and_procedures: Treatments and procedures 
