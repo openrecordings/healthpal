@@ -2,7 +2,7 @@ class RecordController < ApplicationController
 
   # In-app recordings, coming in as AJAX
   def upload
-    handle_blog(request.body.read, current_user)
+    handle_blob(request.body.read, current_user)
   end
 
   # View for manually uploading an existing file
