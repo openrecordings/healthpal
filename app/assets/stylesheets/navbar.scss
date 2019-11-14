@@ -1,65 +1,81 @@
-#logo-health{ color: rgba(74, 164, 156, 1.0); }
-#logo-pal{ color: rgba(187, 189, 191, 1.0); }
-
-#nav-container {
-  display: grid;
+#nav-container{
+  grid-area: navbar;
   width: 100%;
-  grid-template-areas: 'logo'
-                       'menu';
-  grid-template-rows: #{$navbar-height $menubar-height};
-
   #logo-container{
-    display: grid;
-    grid-area: logo;
-    height: $navbar-height;
+    width: 100%;
     background-color: $background-dark;
     #logo-spans{
-      padding: 12px;
-      max-height: $navbar-height;
-      font-size: 48px;
+      display: flex;
+      align-items: center;
+      #icon{
+        padding: 10px;
+        height: 55px;
+      }
+      #logo-health, #logo-pal{
+        font-size: 38px;
+        line-height: 38px;
+      }
+      #logo-open, #logo-recordings{
+        font-size: 16px;
+      }
+      #logo-health, #logo-open{
+        color: $logo-dark;
+      }
+      #logo-pal, #logo-recordings{
+        color: $logo-light;
+      }
+      #mobile-menu-button-container{
+        width: 100%;
+        text-align: right;
+        padding-left: 15px;
+        padding-right: 15px;
+        #mobile-menu-button {
+          color: white;
+          font-size: 22px;
+          font-weight: bold;
+          &:hover{
+            cursor: pointer;
+          }
+        }
+      }
+    }
+    @media screen and (max-width: 500px) {
+      #logo-spans{
+        font-size: 24px;
+      }
     }
   }
-
   #menu-container{
-    display: grid;
-    grid-area: menu;
+    width: 100%;
     background-color: $background-light;
-    #menu-spans{
-      height: $menubar-height;
-      font-size: 18px;
-      #menu-right{
-        float: right;
-      }
-      ul{
-        display: inline-block;
-        padding: 0;
-        margin: 0;
-        list-style-type: none;
-      }
-      li.menu-left{
-        display: inline-block;
-        border-right: 1px solid rgb(117, 161, 221);
-      }
-      li.menu-right{
-        display: inline-block;
-        border-left: 1px solid rgb(117, 161, 221);
-      }
-      li a{
-          display: inline-block;
-          height: $menubar-height;
-          padding: 14px 13px;
-          color: #ddd;
-          text-decoration: none;
-      }
-      li a:hover{
+    overflow: auto;
+    @mixin navbar{
+      background-color: $background-light;
+      overflow: auto;
+      padding: 12px;
+      color: white;
+      text-decoration: none;
+      font-size: 17px;
+      &:hover {
         background-color: $background-very-light;
-        color: #fff;
+      }
+    }
+    #navbar-left a {
+      float: left;
+      @include navbar;
+    }
+    #navbar-right-big a {
+      float: right;
+      @include navbar;
+    }
+    .active {
+      background-color: #4CAF50;
+    }
+    @media screen and (max-width: 500px) {
+      #navbar-left a, #navbar-right-small a{
+        float: none;
+        display: block;
       }
     }
   }
-
-}
-
-.admin-background{
-  background-color: #a33;
 }
