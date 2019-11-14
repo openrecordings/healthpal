@@ -73,7 +73,8 @@
                        'table sidebar';
   grid-template-rows: auto auto minmax(0, 1fr);
   grid-template-columns: 3fr 1fr;
-  max-height: inherit;
+  min-height: 0;
+  height: 100%;
   // Info, provider, notes
   //////////////////////////////////////////////////////////////////////////////////////////////////
   #header-container{
@@ -92,7 +93,7 @@
   //////////////////////////////////////////////////////////////////////////////////////////////////
   #tag-table {
     grid-area: table;
-    overflow: scroll;
+    overflow-y: scroll;
     border-collapse: collapse;
     border-top: 1px solid $well-background;
     border-bottom-left-radius: 3px;
@@ -103,6 +104,11 @@
       width: 100%;
       border-collapse: collapse;
       border: none;
+      tbody{
+        overflow: scroll;
+        min-height: 0;
+        max-height: 100%;
+      }
       td {
         padding: 15px;
       }

@@ -1,8 +1,11 @@
 body {
+  display: grid;
+  grid-template-areas: 'navbar'
+                       'content';
+  grid-template-rows: auto minmax(0, 1fr);
   visibility: invisible;
-  max-height: 100vh;
+  height: 100vh;
   margin: 0;
-  padding: 0;
   font-family: 'Lato', sans-serif;
   font-size: 18px;
   background-color: $well-background;
@@ -10,7 +13,9 @@ body {
 }
 
 #content{
-  max-height: inherit;
+  grid-area: content;
+  box-sizing: border-box;
+  padding: 20px;
 }
 
 #flash{
