@@ -1,18 +1,19 @@
-if(document.querySelector('#record-start-button')) {
+if(window.location.pathname == '/record') {
   var audioElement = document.querySelector('audio');
   var streamRecorder;
   var recordStream;
   var mediaRecorder;
   var chunks = [];
-	var timer = null;
+  var timer = null;
   var seconds = 0;
-	var amplitude = 0;
+  var amplitude = 0;
   var canvas = document.querySelector('#audio-meter')
-	var canvasContext = canvas.getContext("2d");
+  var canvasStyle = window.getComputedStyle(canvas);
+  var canvasContext = canvas.getContext("2d");
 
-  // Audio level measurement https://codepen.io/travisholliday/pen/gyaJk
+  // Audio level measurement
   ////////////////////////////////////////////////////////////////////////////////////////////////
-	function startMeter(){
+  function startMeter(){
     window.AudioContext = window.AudioContext || window.webkitAudioContext;
     var audioContext = new AudioContext();
     var analyser = audioContext.createAnalyser();
@@ -33,30 +34,25 @@ if(document.querySelector('#record-start-button')) {
       }
       var amplitude = values / length;
       canvasContext.clearRect(0, 0, canvas.width, canvas.height);
-      canvasContext.fillStyle = '#f9d56d';
-      canvasContext.fillRect(0, canvas.height - amplitude, canvas.width, canvas.height);
+      //canvasContext.fillStyle = '#f9d56d';
+      //canvasContext.fillRect(0, canvas.height - amplitude, canvas.width, canvas.height);
+      canvasContext.beginPath();
+      canvasContext.arc(canvas.width / 2, canvas.height / 2, 10 + amplitude, 0, Math.PI * 2, false);
+      canvasContext.stroke();
+      canvasContext.closePath();
     }
   }
+	
+	function setCanvasSize(){
+    canvasWidth = parseInt(canvasStyle.getPropertyValue('width'), 10);
+    canvasHeight = parseInt(canvasStyle.getPropertyValue('height'), 10);
+    canvas.width = canvasWidth;
+    canvas.height = canvasHeight;
+  }
 
-	//var x=0;
-	//var red=200;
-	//var green=0;
-	//var blue=200;
-	//function drawCircle(){
-	//	if(x<180){x=x+1;}
-	//	if(x>50){red= red+3; blue= blue+3; green=green+3;}
-	//	var rgb='rgb('+ red +',' + green + ',' + blue + ')';
-	//	canvasContext.beginPath();
-	//	var circle = canvasContext.arc(200,200,x,0,2*Math.PI);
-	//	canvasContext.fill();
-	//	canvasContext.fillStyle=rgb;
-	//	if(x>=180){
-	//		canvasContext.clearRect(0, 0, 400, 400);
-	//		x=0;
-	//		red=100; green=0; blue=255;
-	//	}
-	//};
-	//var myInterval = setInterval(drawCircle, 15);
+	$(window).resize(function() {
+		setCanvasSize();
+	});
 
   // Timer
   //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -70,11 +66,11 @@ if(document.querySelector('#record-start-button')) {
       return `${h}:${m}:${s}`
   }
 
-	function startTimer(){
-		timer = setInterval(clock, 1000);
-	}
+  function startTimer(){
+    timer = setInterval(clock, 1000);
+  }
 
-	function stopTimer(){
+  function stopTimer(){
     clearInterval(timer);
     seconds = 0;
   }
@@ -98,7 +94,7 @@ if(document.querySelector('#record-start-button')) {
 
   function gotStream(stream) {
     window.stream = stream;
-	  audioElement.srcObject = stream;
+    audioElement.srcObject = stream;
     recordStream = stream;
   }
 
@@ -141,6 +137,7 @@ if(document.querySelector('#record-start-button')) {
   //////////////////////////////////////////////////////////////////////////////////////////////////
   $(document).ready(function() {
     if (hasGetUserMedia()) {
+		  setCanvasSize();
       $('#record-audio').prop('muted', true);
 
       navigator.mediaDevices.enumerateDevices().then(getStream).catch(handleError);
