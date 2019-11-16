@@ -1,12 +1,15 @@
 #record-container{
-  background-color: #ccc;
-  border: solid 7px #ccc;
-  width: 420px;
-  height: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  //background-color: #ccc;
+  border: solid 1px red;
+  //width: 420px;
+  //height: 500px;
   padding-top: 50px;
-  border-radius: 3px;
-  margin: 0 auto;
-  margin-top: 50px;
+  //border-radius: 3px;
+  //margin: 0 auto;
+  //margin-top: 50px;
 }
 
 .recording-pulse{
@@ -33,13 +36,14 @@
 }
 
 #audio-meter{
-  display: block;
-  width: 140px;
-  height: 200px;
-  margin: 0 auto;
-	background-color: $background-dark;
-	border-bottom-left-radius: 3px;
-	border-bottom-right-radius: 3px;
+  border: 1px solid red;
+  //display: block;
+  //width: 140px;
+  //height: 200px;
+  //margin: 0 auto;
+	//background-color: $background-dark;
+	//border-bottom-left-radius: 3px;
+	//border-bottom-right-radius: 3px;
 }
 
 #meter-label{

@@ -7,7 +7,8 @@ if(document.querySelector('#record-start-button')) {
 	var timer = null;
   var seconds = 0;
 	var amplitude = 0;
-	var canvasContext = document.querySelector('#audio-meter').getContext("2d");
+  var canvas = document.querySelector('#audio-meter')
+	var canvasContext = canvas.getContext("2d");
 
   // Audio level measurement https://codepen.io/travisholliday/pen/gyaJk
   ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -31,31 +32,31 @@ if(document.querySelector('#record-start-button')) {
         values += (array[i] * 1.2);
       }
       var amplitude = values / length;
-      canvasContext.clearRect(0, 0, 50, 200);
+      canvasContext.clearRect(0, 0, canvas.width, canvas.height);
       canvasContext.fillStyle = '#f9d56d';
-      canvasContext.fillRect(0, 200 - average, 50, 200);
+      canvasContext.fillRect(0, canvas.height - amplitude, canvas.width, canvas.height);
     }
   }
 
-	var x=0;
-	var red=200;
-	var green=0;
-	var blue=200;
-	function drawCircle(){
-		if(x<180){x=x+1;}
-		if(x>50){red= red+3; blue= blue+3; green=green+3;}
-		var rgb='rgb('+ red +',' + green + ',' + blue + ')';
-		canvasContext.beginPath();
-		var circle = canvasContext.arc(200,200,x,0,2*Math.PI);
-		canvasContext.fill();
-		canvasContext.fillStyle=rgb;
-		if(x>=180){
-			canvasContext.clearRect(0, 0, 400, 400);
-			x=0;
-			red=100; green=0; blue=255;
-		}
-	};
-	var myInterval = setInterval(drawCircle, 15);
+	//var x=0;
+	//var red=200;
+	//var green=0;
+	//var blue=200;
+	//function drawCircle(){
+	//	if(x<180){x=x+1;}
+	//	if(x>50){red= red+3; blue= blue+3; green=green+3;}
+	//	var rgb='rgb('+ red +',' + green + ',' + blue + ')';
+	//	canvasContext.beginPath();
+	//	var circle = canvasContext.arc(200,200,x,0,2*Math.PI);
+	//	canvasContext.fill();
+	//	canvasContext.fillStyle=rgb;
+	//	if(x>=180){
+	//		canvasContext.clearRect(0, 0, 400, 400);
+	//		x=0;
+	//		red=100; green=0; blue=255;
+	//	}
+	//};
+	//var myInterval = setInterval(drawCircle, 15);
 
   // Timer
   //////////////////////////////////////////////////////////////////////////////////////////////////

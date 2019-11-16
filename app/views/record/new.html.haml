@@ -4,9 +4,7 @@
     %h3#upload-text= t(:uploading_recording)
     #loader
 #record-container
-  #meter-container
-    #meter-label= t(:audio_level)
-    %canvas#audio-meter{width: '50', height: '200'}
+  %canvas#audio-meter
   #time-display
     00:00:00
   #record-start-stop
