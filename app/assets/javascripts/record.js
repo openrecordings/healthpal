@@ -10,6 +10,8 @@ if(window.location.pathname == '/record') {
   var canvas = document.querySelector('#audio-meter')
   var canvasStyle = window.getComputedStyle(canvas);
   var canvasContext = canvas.getContext("2d");
+  var circleColor = '#89aadf';
+  var baseRadius = 20;
 
   // Audio level measurement
   ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -34,25 +36,42 @@ if(window.location.pathname == '/record') {
       }
       var amplitude = values / length;
       canvasContext.clearRect(0, 0, canvas.width, canvas.height);
-      //canvasContext.fillStyle = '#f9d56d';
-      //canvasContext.fillRect(0, canvas.height - amplitude, canvas.width, canvas.height);
       canvasContext.beginPath();
-      canvasContext.arc(canvas.width / 2, canvas.height / 2, 10 + amplitude, 0, Math.PI * 2, false);
-      canvasContext.stroke();
-      canvasContext.closePath();
+      canvasContext.arc(canvas.width / 2, canvas.height / 2, baseRadius + amplitude, 0, Math.PI * 2, false);
+      canvasContext.fillStyle = circleColor;
+      canvasContext.fill();
     }
   }
-	
-	function setCanvasSize(){
+
+  function drawCircle({opacity}){
+  }
+
+  function animateMeter(){
+    drawCircle({opacity: 0.3})
+    //sleep(300);
+    //sleep(300);
+  }
+  setInterval(animateMeter, 1000);
+  
+  function setCanvasSize(){
     canvasWidth = parseInt(canvasStyle.getPropertyValue('width'), 10);
     canvasHeight = parseInt(canvasStyle.getPropertyValue('height'), 10);
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
   }
 
-	$(window).resize(function() {
-		setCanvasSize();
-	});
+  function sleep(milliseconds) {
+    var start = new Date().getTime();
+    for (var i = 0; i < 1e7; i++) {
+      if ((new Date().getTime() - start) > milliseconds){
+        break;
+      }
+    }
+  }
+
+  $(window).resize(function() {
+    setCanvasSize();
+  });
 
   // Timer
   //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -137,7 +156,7 @@ if(window.location.pathname == '/record') {
   //////////////////////////////////////////////////////////////////////////////////////////////////
   $(document).ready(function() {
     if (hasGetUserMedia()) {
-		  setCanvasSize();
+      setCanvasSize();
       $('#record-audio').prop('muted', true);
 
       navigator.mediaDevices.enumerateDevices().then(getStream).catch(handleError);
