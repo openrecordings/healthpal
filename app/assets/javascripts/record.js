@@ -8,14 +8,21 @@ if(window.location.pathname == '/record') {
   var seconds = 0;
   var amplitude = 0;
   var canvas = document.querySelector('#audio-meter')
+  var canvasContext = canvas.getContext('2d');
   var canvasStyle = window.getComputedStyle(canvas);
-  var canvasContext = canvas.getContext("2d");
-  var circleColor = '#89aadf';
-  var baseRadius = 20;
+  const circleColor = '#89aadf';
+  const baseRadius = 20;
+  const radiusAmplitudeMultiplier = 0.5;
+  const radiusDeltaBetweenCircles = 10;
+  const circlesArray = [];
+  const animationDuration = 1000;
+  var animationTime = 0;
+  const animationTimeMultiplier = .02;
+  const animationFrameDuration = 50;
 
   // Audio level measurement
   ////////////////////////////////////////////////////////////////////////////////////////////////
-  function startMeter(){
+  function monitorAmplitude(){
     window.AudioContext = window.AudioContext || window.webkitAudioContext;
     var audioContext = new AudioContext();
     var analyser = audioContext.createAnalyser();
@@ -34,39 +41,59 @@ if(window.location.pathname == '/record') {
       for (var i = 0; i < length; i++) {
         values += (array[i] * 1.2);
       }
-      var amplitude = values / length;
-      canvasContext.clearRect(0, 0, canvas.width, canvas.height);
-      canvasContext.beginPath();
-      canvasContext.arc(canvas.width / 2, canvas.height / 2, baseRadius + amplitude, 0, Math.PI * 2, false);
-      canvasContext.fillStyle = circleColor;
-      canvasContext.fill();
+      amplitude = values / length;
     }
   }
 
-  function drawCircle({opacity}){
+  function animateMeter(){
+    setInterval(function(){
+      var startTime = new Date().getTime();
+      setInterval(function(){
+        animationTime = new Date().getTime() - startTime;
+        drawCircles();
+      }, animationFrameDuration);
+    }, animationDuration); 
   }
 
-  function animateMeter(){
-    drawCircle({opacity: 0.3})
-    //sleep(300);
-    //sleep(300);
+  function drawCircles(){
+    canvasContext.clearRect(0, 0, canvas.width, canvas.height);
+    // Inner circle. Not animated.
+    var radius = getRadius({baseRadius: baseRadius, amplitude: amplitude, animate: 0});
+    drawCircle({opacity: 1.0, radius: radius});
+    // Outer animated circle
+    var radius2 = getRadius({baseRadius: baseRadius + (2 * radiusDeltaBetweenCircles)});
+    drawCircle({opacity: 0.2, radius: radius2});
+    // Middle animated circle
+    //if(animationTime >= animationDuration / 3){
+    //  var radius = getRadius({baseRadius: baseRadius + (1 * radiusDeltaBetweenCircles), amplitude: amplitude});
+    //  drawCircle({opacity: 0.4, radius: amplitude});
+    //}
+    //// Inner animated circle
+    //if(animationTime >= 2 * animationDuration / 3){
+    //  var radius = getRadius({baseRadius: baseRadius + radiusDeltaBetweenCircles, amplitude: amplitude});
+    //  drawCircle({opacity: 0.4, radius: amplitude});
+    //}
   }
-  setInterval(animateMeter, 1000);
+
+  function getRadius({baseRadius, animate=1}){
+    return baseRadius + (animate * animationTimeMultiplier * animationTime) + (radiusAmplitudeMultiplier * amplitude);
+  }
+
+  function drawCircle({opacity, radius}){
+		canvasContext.save();
+    canvasContext.beginPath();
+    canvasContext.arc(canvas.width / 2, canvas.height / 2, radius, 0, Math.PI * 2, false);
+    canvasContext.fillStyle = circleColor;
+		canvasContext.globalAlpha = opacity;
+    canvasContext.fill();
+		canvasContext.restore();
+  }
   
   function setCanvasSize(){
     canvasWidth = parseInt(canvasStyle.getPropertyValue('width'), 10);
     canvasHeight = parseInt(canvasStyle.getPropertyValue('height'), 10);
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
-  }
-
-  function sleep(milliseconds) {
-    var start = new Date().getTime();
-    for (var i = 0; i < 1e7; i++) {
-      if ((new Date().getTime() - start) > milliseconds){
-        break;
-      }
-    }
   }
 
   $(window).resize(function() {
@@ -118,7 +145,7 @@ if(window.location.pathname == '/record') {
   }
 
   function getStream() {
-    navigator.mediaDevices.getUserMedia({audio: true}).then(gotStream).then(startMeter).catch(handleError);
+    navigator.mediaDevices.getUserMedia({audio: true}).then(gotStream).then(monitorAmplitude).catch(handleError);
   }
 
   // Recording. Started with https://stackoverflow.com/a/16784618
@@ -156,9 +183,9 @@ if(window.location.pathname == '/record') {
   //////////////////////////////////////////////////////////////////////////////////////////////////
   $(document).ready(function() {
     if (hasGetUserMedia()) {
-      setCanvasSize();
       $('#record-audio').prop('muted', true);
-
+      setCanvasSize();
+      animateMeter();
       navigator.mediaDevices.enumerateDevices().then(getStream).catch(handleError);
 
       $('#record-start-button').click(function(event){
