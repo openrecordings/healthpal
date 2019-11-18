@@ -1,4 +1,5 @@
 if(window.location.pathname == '/record') {
+  // Audio
   var audioElement = document.querySelector('audio');
   var streamRecorder;
   var recordStream;
@@ -6,19 +7,27 @@ if(window.location.pathname == '/record') {
   var chunks = [];
   var timer = null;
   var seconds = 0;
+
+  // Metering
   var amplitude = 0;
   var canvas = document.querySelector('#audio-meter')
   var canvasContext = canvas.getContext('2d');
   var canvasStyle = window.getComputedStyle(canvas);
   const circleColor = '#89aadf';
-  const baseRadius = 20;
+  const baseRadius = 50;
   const radiusAmplitudeMultiplier = 0.5;
   const radiusDeltaBetweenCircles = 10;
   const circlesArray = [];
   const animationDuration = 2000;
   var animationTime = 0;
+  var delayedStartTime1 = 1 / 3 *animationDuration;
+  var delayedStartTime2 = 3 / 4 * animationDuration;
   const animationTimeMultiplier = .04;
   const animationFrameDuration = 10;
+  const endOpacityMultiplier = 1;
+  const lowOpacity = 0.2;
+  const medOpacity = 0.3;
+  const highOpacity = 0.4;
 
   // Audio level measurement
   ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -61,33 +70,41 @@ if(window.location.pathname == '/record') {
   function drawCircles(){
     canvasContext.clearRect(0, 0, canvas.width, canvas.height);
     // Inner circle. Not animated.
-    var radius = getRadius({baseRadius: baseRadius, amplitude: amplitude, animate: 0});
-    drawCircle({opacity: 1.0, radius: radius});
+    drawCircle({
+      baseRadius: baseRadius,
+      baseOpacity: 1.0,
+      time: 0
+    });
     // Outer animated circle
-    var radius2 = getRadius({baseRadius: baseRadius + (2 * radiusDeltaBetweenCircles)});
-    drawCircle({opacity: 0.2, radius: radius2});
+    drawCircle({
+      baseRadius: baseRadius + 2 * radiusDeltaBetweenCircles,
+      baseOpacity: lowOpacity,
+      time: animationTime
+    });
     // Middle animated circle
-    if(animationTime >= animationDuration / 3){
-      var radius3 = getRadius({baseRadius: baseRadius + radiusDeltaBetweenCircles});
-      drawCircle({opacity: 0.4, radius: radius3});
+    if(animationTime >= delayedStartTime1){
+      var myTime = animationTime - delayedStartTime1;
+      drawCircle({
+        baseOpacity: medOpacity,
+        time: myTime
+      });
     }
     // Inner animated circle
-    if(animationTime >= 2 * animationDuration / 3){
-      var radius4 = getRadius({baseRadius: baseRadius});
-      drawCircle({opacity: 0.4, radius: radius4});
+    if(animationTime >= delayedStartTime2){
+      var myTime = animationTime - delayedStartTime2
+      drawCircle({
+        opacity: highOpacity,
+        time: myTime
+      });
     }
   }
 
-  function getRadius({baseRadius, animate=1}){
-    return baseRadius + (animate * animationTimeMultiplier * animationTime) + (radiusAmplitudeMultiplier * amplitude);
-  }
-
-  function drawCircle({opacity, radius}){
-    $('.record-button-label').text(parseInt(radius));
+  function drawCircle({baseOpacity, time}){
+    var radius = baseRadius + animationTimeMultiplier * time + radiusAmplitudeMultiplier * amplitude;
     canvasContext.beginPath();
     canvasContext.arc(canvas.width / 2, canvas.height / 2, radius, 0, Math.PI * 2, false);
     canvasContext.fillStyle = circleColor;
-		canvasContext.globalAlpha = opacity;
+		canvasContext.globalAlpha = baseOpacity;
     canvasContext.fill();
   }
   
