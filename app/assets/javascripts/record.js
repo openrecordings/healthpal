@@ -18,7 +18,7 @@ if(window.location.pathname == '/record') {
   const animationDuration = 1000;
   var animationTime = 0;
   const animationTimeMultiplier = .02;
-  const animationFrameDuration = 50;
+  const animationFrameDuration = 200;
 
   // Audio level measurement
   ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -46,13 +46,16 @@ if(window.location.pathname == '/record') {
   }
 
   function animateMeter(){
+    var startTime = now();
     setInterval(function(){
-      var startTime = new Date().getTime();
-      setInterval(function(){
-        animationTime = new Date().getTime() - startTime;
-        drawCircles();
-      }, animationFrameDuration);
-    }, animationDuration); 
+      if(animationTime > animationDuration){
+        animationTime = 0;
+        startTime = now();
+      } else {
+        animationTime = now() - startTime;
+      }
+      drawCircles();
+    }, animationFrameDuration);
   }
 
   function drawCircles(){
@@ -80,13 +83,12 @@ if(window.location.pathname == '/record') {
   }
 
   function drawCircle({opacity, radius}){
-		canvasContext.save();
+    $('.record-button-label').text(parseInt(radius));
     canvasContext.beginPath();
     canvasContext.arc(canvas.width / 2, canvas.height / 2, radius, 0, Math.PI * 2, false);
     canvasContext.fillStyle = circleColor;
 		canvasContext.globalAlpha = opacity;
     canvasContext.fill();
-		canvasContext.restore();
   }
   
   function setCanvasSize(){
@@ -94,6 +96,10 @@ if(window.location.pathname == '/record') {
     canvasHeight = parseInt(canvasStyle.getPropertyValue('height'), 10);
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
+  }
+
+  function now(){
+    return new Date().getTime();
   }
 
   $(window).resize(function() {
