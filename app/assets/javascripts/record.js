@@ -13,18 +13,17 @@ if(window.location.pathname == '/record') {
   var canvas = document.querySelector('#audio-meter')
   var canvasContext = canvas.getContext('2d');
   var canvasStyle = window.getComputedStyle(canvas);
-  const circleColor = '#89aadf';
-  const baseRadius = 50;
-  const radiusAmplitudeMultiplier = 0.5;
+  const circleColor = '#1c3e66';
+  const baseRadius = 30;
+  const radiusAmplitudeMultiplier = 0.8;
   const radiusDeltaBetweenCircles = 10;
   const circlesArray = [];
   const animationDuration = 2000;
   var animationTime = 0;
   var delayedStartTime1 = 1 / 3 *animationDuration;
   var delayedStartTime2 = 3 / 4 * animationDuration;
-  const animationTimeMultiplier = .04;
+  const animationTimeMultiplier = .06;
   const animationFrameDuration = 10;
-  const endOpacityMultiplier = 1;
   const lowOpacity = 0.2;
   const medOpacity = 0.3;
   const highOpacity = 0.4;
@@ -57,7 +56,7 @@ if(window.location.pathname == '/record') {
   function animateMeter(){
     var startTime = now();
     setInterval(function(){
-      if(animationTime > animationDuration){
+      if(animationTime >= animationDuration){
         animationTime = 0;
         startTime = now();
       } else {
@@ -69,12 +68,6 @@ if(window.location.pathname == '/record') {
 
   function drawCircles(){
     canvasContext.clearRect(0, 0, canvas.width, canvas.height);
-    // Inner circle. Not animated.
-    drawCircle({
-      baseRadius: baseRadius,
-      baseOpacity: 1.0,
-      time: 0
-    });
     // Outer animated circle
     drawCircle({
       baseRadius: baseRadius + 2 * radiusDeltaBetweenCircles,
@@ -93,26 +86,34 @@ if(window.location.pathname == '/record') {
     if(animationTime >= delayedStartTime2){
       var myTime = animationTime - delayedStartTime2
       drawCircle({
-        opacity: highOpacity,
+        baseOpacity: highOpacity,
         time: myTime
       });
     }
+    // Inner circle. Not animated.
+    drawCircle({
+      baseRadius: baseRadius,
+      baseOpacity: .6,
+      time: 0
+    });
   }
 
   function drawCircle({baseOpacity, time}){
     var radius = baseRadius + animationTimeMultiplier * time + radiusAmplitudeMultiplier * amplitude;
+    var opacity = baseOpacity - baseOpacity * time / animationDuration;
+    opacity = opacity < 0 ? 0 : opacity;
+    canvasContext.save();
     canvasContext.beginPath();
     canvasContext.arc(canvas.width / 2, canvas.height / 2, radius, 0, Math.PI * 2, false);
     canvasContext.fillStyle = circleColor;
-		canvasContext.globalAlpha = baseOpacity;
+		canvasContext.globalAlpha = opacity;
     canvasContext.fill();
+    canvasContext.restore();
   }
   
   function setCanvasSize(){
-    canvasWidth = parseInt(canvasStyle.getPropertyValue('width'), 10);
-    canvasHeight = parseInt(canvasStyle.getPropertyValue('height'), 10);
-    canvas.width = canvasWidth;
-    canvas.height = canvasHeight;
+    canvas.width = parseInt(canvasStyle.getPropertyValue('width'), 10);
+    canvas.height = parseInt(canvasStyle.getPropertyValue('height'), 10);
   }
 
   function now(){
