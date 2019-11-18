@@ -206,52 +206,46 @@ if(window.location.pathname == '/record') {
   // onload
   //////////////////////////////////////////////////////////////////////////////////////////////////
   $(document).ready(function() {
-    if (hasGetUserMedia()) {
-      $('#record-audio').prop('muted', true);
-      setCanvasSize();
-      animateMeter();
-      navigator.mediaDevices.enumerateDevices().then(getStream).catch(handleError);
+    $('#record-audio').prop('muted', true);
+    setCanvasSize();
+    animateMeter();
+    navigator.mediaDevices.enumerateDevices().then(getStream).catch(handleError);
 
-      $('#record-start-button').click(function(event){
-        if(!($('#record-start-button').hasClass('disabled'))){
-          startRecording();
-          $('#record-container').addClass('recording-pulse');
-          setTimeout(function(){
-            $('#record-start-button').hide();
-            $('#record-stop-button').show();
-          }, 200)
-          startTimer();
-        }
-      })
+    $('#record-start-button').click(function(event){
+      if(!($('#record-start-button').hasClass('disabled'))){
+        startRecording();
+        $('#record-container').addClass('recording-pulse');
+        setTimeout(function(){
+          $('#record-start-button').hide();
+          $('#record-stop-button').show();
+        }, 200)
+        startTimer();
+      }
+    })
 
-      $('#record-stop-button').click(function(event){
-        if(!($('#record-stop-button').hasClass('disabled'))){
-          mediaRecorder.stop();
-          $('#record-container').removeClass('recording-pulse');
-          setTimeout(function(){
-            $('#record-stop-button').hide();
-            $('#save-delete-container').show();
-          }, 200)
-          stopTimer();
-        }
-      })
+    $('#record-stop-button').click(function(event){
+      if(!($('#record-stop-button').hasClass('disabled'))){
+        mediaRecorder.stop();
+        $('#record-container').removeClass('recording-pulse');
+        setTimeout(function(){
+          $('#record-stop-button').hide();
+          $('#save-delete-container').show();
+        }, 200)
+        stopTimer();
+      }
+    })
 
-      $('#save-button').click(function(){
-        $('#overlay').show();
+    $('#save-button').click(function(){
+      $('#overlay').show();
+      resetRecord();
+      uploadAudio();
+    })
+
+    $('#delete-button').click(function(){
+      var confirmation = confirm("Are you sure that you want to delete this recording? (Can't undo)");
+      if(confirmation){
         resetRecord();
-        uploadAudio();
-      })
-
-      $('#delete-button').click(function(){
-        var confirmation = confirm("Are you sure that you want to delete this recording? (Can't undo)");
-        if(confirmation){
-          resetRecord();
-        }
-      })
-
-    } else {
-      alert('This browser does not support audio recording.');
-    }
-
+      }
+    })
   });
 }
