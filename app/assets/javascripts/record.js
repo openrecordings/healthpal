@@ -15,10 +15,10 @@ if(window.location.pathname == '/record') {
   const radiusAmplitudeMultiplier = 0.5;
   const radiusDeltaBetweenCircles = 10;
   const circlesArray = [];
-  const animationDuration = 1000;
+  const animationDuration = 2000;
   var animationTime = 0;
-  const animationTimeMultiplier = .02;
-  const animationFrameDuration = 200;
+  const animationTimeMultiplier = .04;
+  const animationFrameDuration = 10;
 
   // Audio level measurement
   ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -67,15 +67,15 @@ if(window.location.pathname == '/record') {
     var radius2 = getRadius({baseRadius: baseRadius + (2 * radiusDeltaBetweenCircles)});
     drawCircle({opacity: 0.2, radius: radius2});
     // Middle animated circle
-    //if(animationTime >= animationDuration / 3){
-    //  var radius = getRadius({baseRadius: baseRadius + (1 * radiusDeltaBetweenCircles), amplitude: amplitude});
-    //  drawCircle({opacity: 0.4, radius: amplitude});
-    //}
-    //// Inner animated circle
-    //if(animationTime >= 2 * animationDuration / 3){
-    //  var radius = getRadius({baseRadius: baseRadius + radiusDeltaBetweenCircles, amplitude: amplitude});
-    //  drawCircle({opacity: 0.4, radius: amplitude});
-    //}
+    if(animationTime >= animationDuration / 3){
+      var radius3 = getRadius({baseRadius: baseRadius + radiusDeltaBetweenCircles});
+      drawCircle({opacity: 0.4, radius: radius3});
+    }
+    // Inner animated circle
+    if(animationTime >= 2 * animationDuration / 3){
+      var radius4 = getRadius({baseRadius: baseRadius});
+      drawCircle({opacity: 0.4, radius: radius4});
+    }
   }
 
   function getRadius({baseRadius, animate=1}){
