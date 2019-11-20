@@ -5,13 +5,6 @@
   padding-top: 50px;
 }
 
-.recording-pulse{
-  border: solid 10px #4aa49c;
-  animation-name: color;
-  animation-duration: 2s;
-  animation-iteration-count: infinite;
-}
-
 @keyframes color {
   0% {
     border-color: #ccc;
@@ -29,7 +22,6 @@
 }
 
 #audio-meter{
-  //border:  1px solid $background-very-light;
   width: 400px;
   height: 400px;
   border-radius: 200px;

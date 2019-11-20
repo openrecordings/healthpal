@@ -7,13 +7,15 @@ if(window.location.pathname == '/record') {
   var chunks = [];
   var timer = null;
   var seconds = 0;
+  var recordingNow = false;
 
   // Metering
   var amplitude = 0;
   var canvas = document.querySelector('#audio-meter')
   var canvasContext = canvas.getContext('2d');
   var canvasStyle = window.getComputedStyle(canvas);
-  const circleColor = '#1c3e66';
+  const colorMonitoring = '#1c3e66';
+  const colorRecording = 'red';
   const baseRadius = 30;
   const radiusAmplitudeMultiplier = 0.8;
   const radiusDeltaBetweenCircles = 10;
@@ -105,7 +107,7 @@ if(window.location.pathname == '/record') {
     canvasContext.save();
     canvasContext.beginPath();
     canvasContext.arc(canvas.width / 2, canvas.height / 2, radius, 0, Math.PI * 2, false);
-    canvasContext.fillStyle = circleColor;
+    canvasContext.fillStyle = recordingNow ? colorRecording : colorMonitoring;
 		canvasContext.globalAlpha = opacity;
     canvasContext.fill();
     canvasContext.restore();
@@ -212,6 +214,7 @@ if(window.location.pathname == '/record') {
     navigator.mediaDevices.enumerateDevices().then(getStream).catch(handleError);
 
     $('#record-start-button').click(function(event){
+      recordingNow = true;
       if(!($('#record-start-button').hasClass('disabled'))){
         startRecording();
         $('#record-container').addClass('recording-pulse');
@@ -224,6 +227,7 @@ if(window.location.pathname == '/record') {
     })
 
     $('#record-stop-button').click(function(event){
+      recordingNow = false;
       if(!($('#record-stop-button').hasClass('disabled'))){
         mediaRecorder.stop();
         $('#record-container').removeClass('recording-pulse');
