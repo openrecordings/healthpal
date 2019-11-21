@@ -105,14 +105,7 @@ body {
 }
 
 .overlay-video{
-  position: fixed;
-  width: 80%;
-  height: 80%;
-  top: 10%;
-  left: 10%;
-  right: 0;
-  bottom: 0;
-  z-index: 3;
+  @include overlay;
 }
 
 .opaque-overlay {
