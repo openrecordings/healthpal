@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe 'Recording' do
-  
   it 'can make a recording' do
     # TODO: Remove conditional once Selenium microphone access with Edge is working
     if @browser == 'Edge'

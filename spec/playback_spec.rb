@@ -17,14 +17,14 @@ RSpec.describe 'Playback' do
     expect(@driver.current_url).to eql('https://audiohealthpal.com/my_recordings')
 
     # Select a recording
-    @driver.find_element(:link, 'Sat, Jan 1, 2000').click
+    @driver.find_element(:link, 'Tue, Nov 26, 2019').click
     sleep 0.5
     expect(@driver.current_url).to include('https://audiohealthpal.com/play')
 
     # Play
     sleep 4.0
     @driver.find_element(:id, 'play').click
-    sleep 2.0
+    sleep 4.0
     expect(@driver.find_element(:id, 'video-element').attribute('currentTime').to_i).to be > 0.5
   end
 
