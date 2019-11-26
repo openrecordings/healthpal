@@ -1,0 +1,2 @@
+echo "Creating orals-net unless exists"
+docker network create --driver bridge orals-net > /dev/null  2>&1

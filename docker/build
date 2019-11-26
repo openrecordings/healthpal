@@ -1,0 +1,4 @@
+echo "Building images orals-dev, orals-dev-app, and orals-dev-jobs"
+docker build --pull -t orals-dev -f Dockerfile-base --build-arg rails_env=development .
+docker build -t orals-dev-app -f Dockerfile-dev-app --build-arg rails_env=development .
+docker build -t orals-dev-jobs -f Dockerfile-dev-jobs --build-arg rails_env=development .

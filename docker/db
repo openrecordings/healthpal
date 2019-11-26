@@ -1,0 +1,9 @@
+echo "Creating and running orals-dev-db container. Ctrl-C is safe."
+docker pull postgres
+docker run -d \
+  --network orals-net \
+  -p 5432:5432 \
+  -e POSTGRES_PASSWORD=not_so_secret \
+  --mount type=volume,source=orals-dev-db,target=/var/lib/postgresql/data \
+  --name orals-dev-db postgres:latest
+docker logs -f orals-dev-db
