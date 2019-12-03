@@ -43,7 +43,7 @@ RSpec.describe 'Everything' do
       sleep 4.0
       @driver.find_element(:id, 'play').click
       sleep 2.0
-      expect(@driver.find_element(:id, 'video-element').attribute('currentTime').to_i).to be > 10.0
+      expect(@driver.find_element(:id, 'video-element').attribute('currentTime').to_i).to be > 0.0
     end
   end
 end

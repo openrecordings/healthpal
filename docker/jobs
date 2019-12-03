@@ -1,10 +1,8 @@
 echo "Creating and running orals-dev-jobs container. Ctrl-C is safe."
-pushd /Users/will/code/orals
 docker run -d \
   --network orals-net \
   -e RAILS_ENV=development \
   --mount type=bind,source="$(pwd)",target=/app \
   --name orals-dev-jobs orals-dev-jobs:latest
 docker logs -f orals-dev-jobs
-popd
 
