@@ -28,8 +28,9 @@ RSpec.configure do |config|
   # Browserstack credentials and config
   browserstack_config = Rails.application.credentials.browserstack
   server = browserstack_config[:server]
-  user = browserstack_config[:user]
-  key = browserstack_config[:key]
+  bs_file = File.open("#{Rails.root}/.browserstack").readlines
+  user = bs_file[0].chop
+  key = bs_file[1].chop
 
   config.around(:example) do |example|
     common_caps = browserstack_config[:common_caps]
