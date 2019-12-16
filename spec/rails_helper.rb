@@ -50,7 +50,7 @@ RSpec.configure do |config|
     # Microphone access
     @browser = browser_caps[:browser]
     case @browser
-    when 'chrome'
+    when 'Chrome'
       @caps['chromeOptions'] = {}
       @caps['chromeOptions']['args'] = [
         '--allow-file-access-from-files',
