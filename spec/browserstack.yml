@@ -1,0 +1,47 @@
+- os: Windows
+  os_version: 10
+  browser: firefox
+  browser_version: 71.0
+  resolution: 1024x768
+-
+  os: Windows
+  os_version: 10
+  browser: firefox
+  browser_version: 69.0
+  resolution: 1024x768
+-
+  os: Windows
+  os_version: 7
+  browser: firefox
+  browser_version: 71.0
+  resolution: 1024x768
+-
+  os: Windows
+  os_version: 7
+  browser: firefox
+  browser_version: 69.0
+  resolution: 1024x768
+-
+  os: OS X
+  os_version: Catalina
+  browser: firefox
+  browser_version: 71.0
+  resolution: 1024x768
+-
+  os: OS X
+  os_version: Catalina
+  browser: firefox
+  browser_version: 69.0
+  resolution: 1024x768
+-
+  os: OS X
+  os_version: Mojave
+  browser: firefox
+  browser_version: 71.0
+  resolution: 1024x768
+-
+  os: OS X
+  os_version: Mojave
+  browser: firefox
+  browser_version: 69.0
+  resolution: 1024x768
