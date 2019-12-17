@@ -5,8 +5,6 @@ task :bs, [:target_index] => :environment do |t, args|
   target_index = args[:target_index]
   help_and_exit unless target_index
   all_targets = YAML.load_file("#{Rails.root}/spec/browserstack.yml")
-  puts '$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$4'
-  puts ap all_targets
   if target_index == 'all'
     targets = all_targets
   elsif target_index.to_i.is_a?(Integer) && target_index.to_i <= all_targets.length
@@ -15,8 +13,6 @@ task :bs, [:target_index] => :environment do |t, args|
     help_and_exit
   end
   targets.each do |target|
-  puts '$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$4'
-  puts ap target
     puts
     puts "Testing against #{target['browser']} #{target['browser_version']} on #{target['os']} #{target['os_version']}:"
     puts '####################################################################################################'
