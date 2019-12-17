@@ -17,7 +17,6 @@
 .gemrc
 *.swp
 /app/views/application/_navbar.html.haml.bak
-.browserstack
 .ruby-version
 
 # Elastic Beanstalk Files
@@ -30,6 +29,3 @@
 
 # YAML dumps
 /dump/*
-
-# Browserstack config
-/config/browserstack.yml
