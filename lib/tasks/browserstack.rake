@@ -1,14 +1,16 @@
 desc 'Runs Selenium/Browserstack tests serially'
-task :bs, [:target_index] => :environment do |t, args|
+task :bs, [:targets] => :environment do |t, args|
   all_targets = YAML.load_file("#{Rails.root}/spec/browserstack.yml")
   successes = 0
   failures = 0
-  target_index = args[:target_index]
-  help_and_exit(all_targets) unless target_index
-  if target_index == 'all'
+  targets = args[:targets]
+  help_and_exit(all_targets) unless targets
+  if targets == 'all'
     targets = all_targets
-  elsif target_index.to_i.is_a?(Integer) && target_index.to_i <= all_targets.length
-    targets = [all_targets[target_index.to_i - 1]]
+  elsif targets.to_i.to_s == targets
+    targets = [all_targets[targets.to_i - 1]]
+  elsif targets.include?('..')
+    targets = all_targets[eval(targets)]
   else
     help_and_exit(all_targets)
   end
