@@ -29,3 +29,6 @@
 
 # YAML dumps
 /dump/*
+
+# Browserstack config
+/config/browserstack.yml
