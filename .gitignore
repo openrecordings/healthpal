@@ -4,6 +4,7 @@
 /protected_media/*
 ##################################################################################################
 /config/local_env.yml
+/config/browserstack.yml
 /config/ssl/*
 /.bundle
 /.idea

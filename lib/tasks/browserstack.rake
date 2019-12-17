@@ -4,7 +4,7 @@ task :bs, [:target_index] => :environment do |t, args|
   failures = 0
   target_index = args[:target_index]
   help_and_exit unless target_index
-  all_targets = Rails.application.credentials.browserstack[:browser_caps]
+  all_targets = YAML.load_file("#{Rails.root}/spec/browserstack.yml")
   if target_index == 'all'
     targets = all_targets
   elsif target_index.to_i.is_a?(Integer) && target_index.to_i <= all_targets.length
@@ -14,7 +14,7 @@ task :bs, [:target_index] => :environment do |t, args|
   end
   targets.each do |target|
     puts
-    puts "Testing against #{target[:browser]} #{target[:browser_version]} on #{target[:os]} #{target[:os_version]}:"
+    puts "Testing against #{target['browser']} #{target['browser_version']} on #{target['os']} #{target['os_version']}:"
     puts '####################################################################################################'
     puts "Successes so far: #{successes}"
     puts " Failures so far: #{failures}"
