@@ -32,7 +32,7 @@ RSpec.configure do |config|
     @caps['browserstack.networkLogs'] = true
     @caps['browserstack.console'] = 'errors'
     case @caps['browser']
-    when 'chrome'
+    when 'Chrome'
       @caps['chromeOptions'] = {}
       @caps['chromeOptions']['args'] = [
         '--allow-file-access-from-files',
