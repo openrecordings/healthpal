@@ -14,21 +14,21 @@ if(window.location.pathname == '/record') {
   var canvas = document.querySelector('#audio-meter')
   var canvasContext = canvas.getContext('2d');
   var canvasStyle = window.getComputedStyle(canvas);
-  const colorMonitoring = '#1c3e66';
-  const colorRecording = 'red';
-  const baseRadius = 30;
-  const radiusAmplitudeMultiplier = 0.8;
-  const radiusDeltaBetweenCircles = 10;
-  const circlesArray = [];
-  const animationDuration = 2000;
+  var colorMonitoring = '#1c3e66';
+  var colorRecording = 'red';
+  var baseRadius = 30;
+  var radiusAmplitudeMultiplier = 0.8;
+  var radiusDeltaBetweenCircles = 10;
+  var circlesArray = [];
+  var animationDuration = 2000;
   var animationTime = 0;
   var delayedStartTime1 = 1 / 3 *animationDuration;
   var delayedStartTime2 = 3 / 4 * animationDuration;
-  const animationTimeMultiplier = .06;
-  const animationFrameDuration = 10;
-  const lowOpacity = 0.2;
-  const medOpacity = 0.3;
-  const highOpacity = 0.4;
+  var animationTimeMultiplier = .06;
+  var animationFrameDuration = 10;
+  var lowOpacity = 0.2;
+  var medOpacity = 0.3;
+  var highOpacity = 0.4;
 
   // Audio level measurement
   ////////////////////////////////////////////////////////////////////////////////////////////////
