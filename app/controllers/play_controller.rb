@@ -14,6 +14,9 @@ class PlayController < ApplicationController
   end
 
   def play
+    puts '###########################################################'
+    puts hide_tags_in_playback
+    puts '###########################################################'
     @recording = Recording.find_by(id: params[:id])
     if(@recording && current_user.can_access(@recording))
       @title = "#{@recording.user.full_name}, #{@recording.created_at.strftime('%-m/%-d/%-y')}"

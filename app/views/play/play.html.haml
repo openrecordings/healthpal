@@ -81,7 +81,7 @@
           %span#unmute-label.hidden
             %span.button-label= t(:unmute)
 
-  - unless @recording.is_video
+  - unless @recording.is_video || hide_tags_in_playback
     #tag-table
       %table
         %thead

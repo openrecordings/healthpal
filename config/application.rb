@@ -14,6 +14,10 @@ module Orals
     config.active_job.queue_adapter = :delayed_job
     config.active_storage.service = :amazon
 
+    # app-level config
+    app_config = YAML.load_file("#{Rails.root}/config/app_config.yml").symbolize_keys
+    config.hide_tags_in_playback = app_config[:hide_tags_in_playback]
+
     # Hostname for the current environment
     config.hosts << Rails.application.credentials[Rails.env.to_sym][:host]
 
