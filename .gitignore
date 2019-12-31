@@ -5,6 +5,7 @@
 ##################################################################################################
 /config/local_env.yml
 /config/browserstack.yml
+/config/app_config.yml
 /config/ssl/*
 /.bundle
 /.idea
