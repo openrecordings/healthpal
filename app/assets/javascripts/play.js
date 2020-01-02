@@ -9,7 +9,7 @@ if(document.querySelector('#play-pause-button')) {
       $('#video-play-view').removeClass('invisible');
       $(videoElement).show();
     } else {
-      $('#audio-play-view').removeClass('invisible');
+      $('#audio-view, #audio-view-hide-tags').removeClass('invisible');
     }
   }
 
@@ -26,7 +26,7 @@ if(document.querySelector('#play-pause-button')) {
     else {
        videoElement.pause();
     }
-    $('#play-glyph, #pause-glyph, #play-label, #pause-label').toggleClass('hidden');
+    $('#play-glyph, #pause-glyph, #play-label, #pause-label').toggleClass('invisible');
   }
 
   // Playback control

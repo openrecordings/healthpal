@@ -55,14 +55,15 @@
 
         #play-pause-button.player-button.track
           .centered-glyph
-            %svg#pause-glyph.hidden.svg{:viewbox => "0 0 32 32", :xmlns => "http://www.w3.org/2000/svg"}
+            %svg#pause-glyph.invisible.absolute.svg{:viewbox => "0 0 32 32", :xmlns => "http://www.w3.org/2000/svg"}
               %path#pause.svg-path{:d => "M14,7V25a1,1,0,0,1-1,1H8a1,1,0,0,1-1-1V7A1,1,0,0,1,8,6h5A1,1,0,0,1,14,7Zm9-1H18a1,1,0,0,0-1,1V25a1,1,0,0,0,1,1h5a1,1,0,0,0,1-1V7A1,1,0,0,0,23,6Z"}
-            %svg#play-glyph.svg{:viewbox => "0 0 32 32", :xmlns => "http://www.w3.org/2000/svg"}
+            %svg#play-glyph.absolute.svg{:viewbox => "0 0 32 32", :xmlns => "http://www.w3.org/2000/svg"}
               %path#play.svg-path{:d => "M24.8175,16.86432,9.503,25.77667A1,1,0,0,1,8,24.91235V7.08765a1,1,0,0,1,1.503-.86432L24.8175,15.13568A1.00006,1.00006,0,0,1,24.8175,16.86432Z"}
-          %span#play-label
-            %span.button-label= t(:play)
-          %span#pause-label.hidden
-            %span.button-label= t(:pause)
+          .full-center
+            %span#play-label.absolute.play-pause-label
+              %span.button-label= t(:play)
+            %span#pause-label.invisible.absolute.play-pause-label
+              %span.button-label= t(:pause)
 
         #forward-button.player-button.track
           .centered-glyph

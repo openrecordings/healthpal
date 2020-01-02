@@ -359,8 +359,6 @@
   grid-template-areas: 'head'
                        'player';
   grid-template-rows: auto auto;
-  min-height: 0;
-  height: 100%;
   @include header;
   @include controls;
 }
@@ -381,6 +379,12 @@
   //     margin: 0 auto;
   //   }
   // }
+}
+
+.play-pause-label{
+  width:50px;
+  margin-top:12px;
+  text-align:center;
 }
 
 .filter-1{background-color: $filter-color-1;}

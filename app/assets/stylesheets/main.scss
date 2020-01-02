@@ -168,7 +168,11 @@ body {
 }
 
 .invisible{
-  visibility: invisible;
+  visibility: hidden;
+}
+
+.absolute{
+  position: absolute;
 }
 
 .text-left{
