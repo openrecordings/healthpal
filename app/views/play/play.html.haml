@@ -1,5 +1,5 @@
 -# Conditional ID to handle different grid layouts between audio and video
-.invisible{id: @recording.is_video ? 'video-play-view' : 'audio-play-view'}
+.invisible{id: @view_id}
 
   #video-container
     - if @recording.is_video?

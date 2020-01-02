@@ -6,18 +6,6 @@ class ApplicationController < ActionController::Base
   around_action :set_locale
   after_action :track_action
 
-  # app-level config (factor this out if app_config.yml ends up with more than one entry)
-  #################################################################################################
-  def hide_tags_in_playback
-    begin
-      return Rails.application.config.hide_tags_in_playback
-    rescue
-      return false
-    end
-  end
-  helper_method :hide_tags_in_playback
-  #################################################################################################
-
   # Used in a before_filter in individual controllers for authorization.
   def only_admins
     redirect_to root_url unless current_user and current_user.privileged?

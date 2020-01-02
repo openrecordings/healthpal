@@ -14,15 +14,13 @@ class PlayController < ApplicationController
   end
 
   def play
-    puts '###########################################################'
-    puts hide_tags_in_playback
-    puts '###########################################################'
     @recording = Recording.find_by(id: params[:id])
     if(@recording && current_user.can_access(@recording))
       @title = "#{@recording.user.full_name}, #{@recording.created_at.strftime('%-m/%-d/%-y')}"
       @provider = UserField.find_by(recording: @recording, type: :provider) || UserField.new(recording: @recording, type: :provider)
       @note = UserField.find_by(recording: @recording, type: :note) || UserField.new(recording: @recording, type: :note)
       @utterances = prepare_utterances(@recording)
+      @view_id = @recording.is_video ? 'video-view' : (!!ENV['HIDE_TAGS'] ? 'audio-view-hide-tags' : 'audio-view')
     else
       flash.alert = 'An error ocurred while retriving the audio data. Please contact support.'
       redirect_to :root and return

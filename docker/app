@@ -4,6 +4,7 @@ docker run -d \
   --network orals-net \
   -p 3000:3000 \
   -e RAILS_ENV=development \
+  -e HIDE_TAGS=true \
   --mount type=bind,source="$(pwd)",target=/app \
   --name orals-dev-app \
   orals-dev-app:latest
