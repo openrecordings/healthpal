@@ -260,7 +260,7 @@ if(document.querySelector('#play-pause-button')) {
     }
 
     videoElement.onended = function(){
-      $('#play-glyph, #pause-glyph, #play-label, #pause-label').toggleClass('hidden');
+      $('#play-glyph, #pause-glyph, #play-label, #pause-label').toggleClass('invisible');
     }
 
   });
