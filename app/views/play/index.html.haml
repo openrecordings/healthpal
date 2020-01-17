@@ -7,7 +7,7 @@
   #content-container
     - @users.each do |user|
       .content{'data-user-id': user.id, class: ('hidden' unless user == @users.first)}
-        %table
+        %table.compressed
           %thead
             %tr#header-row
               %th Recorded at
