@@ -1,5 +1,5 @@
 @media
-only screen and (max-width: 760px),
+only screen and (max-width: 820px),
 (min-device-width: 768px) and (max-device-width: 1024px)  {
   .compressed {
     /* Force table to not be like tables anymore */
@@ -41,5 +41,11 @@ only screen and (max-width: 760px),
     td:nth-of-type(1):before { content: "Recorded at"; }
     td:nth-of-type(2):before { content: "Provider"; }
     td:nth-of-type(3):before { content: "Notes"; }
+  }
+  #tab-container {
+    width: 100% !important;
+  }
+  #content-container {
+    width: 100% !important;
   }
 }
