@@ -4,7 +4,7 @@ Rails.application.configure do
 
 	config.action_mailer.smtp_settings = {
 		:address => Rails.application.credentials[:staging][:ses_smtp_server_address],
-		:port => 25,
+		:port => 587,
 		:user_name => Rails.application.credentials[:staging][:ses_smtp_user_name],
 		:password => Rails.application.credentials[:staging][:ses_smtp_password],
 		:authentication => :login,
