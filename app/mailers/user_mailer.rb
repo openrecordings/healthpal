@@ -4,7 +4,7 @@ class UserMailer < ApplicationMailer
 
   def recording_ready
     @recording = params[:recording]
-    mail(to: @recording.user.email, subject: 'Your HealthPal audio recording is ready')
+    mail(to: @recording.user.email, subject: 'Your HealthPAL audio recording is ready')
   end
 
 end
