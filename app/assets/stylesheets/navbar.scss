@@ -11,7 +11,7 @@
         padding: 10px;
         height: 55px;
       }
-      #logo-health, #logo-pal{
+      #logo-health, #logo-pal, #logo-admin{
         font-size: 38px;
         line-height: 38px;
       }
@@ -23,6 +23,11 @@
       }
       #logo-pal, #logo-recordings{
         color: $logo-light;
+      }
+      #logo-admin{
+        margin-left: 10px;
+        color: yellow;
+        opacity: 0.5;
       }
       #mobile-menu-button-container{
         width: 100%;
