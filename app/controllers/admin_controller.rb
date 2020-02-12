@@ -11,7 +11,7 @@ class AdminController < ApplicationController
   end
 
   def manage_recordings
-    @recordings = Recording.all
+    @recordings = Recording.all.order('created_at desc')
   end
 
   def create_tag
