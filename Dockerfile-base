@@ -11,6 +11,7 @@ RUN apt update -qq \
 COPY Gemfile* /tmp/
 WORKDIR /tmp
 RUN bundle install
+RUN bundle exec wheneverize .
 RUN apt remove -y --purge build-essential \
   && apt clean autoclean \
   && apt autoremove -y \
