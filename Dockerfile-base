@@ -6,6 +6,7 @@ RUN apt update -qq \
     postgresql-client \
     nodejs \
     ffmpeg \
+    cron \
     nano
 COPY Gemfile* /tmp/
 WORKDIR /tmp
