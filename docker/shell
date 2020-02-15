@@ -1,7 +1,2 @@
 echo "Starting a bash shell in the orals-dev-app container"
-docker run -it \
-  --network orals-net \
-  -e RAILS_ENV=development \
-  --mount type=bind,source="$(pwd)",target=/app \
-  --entrypoint '/bin/bash' \
-  --name orals-dev-shell orals-dev-app:latest
+docker exec -it --privileged orals-dev-app /bin/bash

@@ -10,8 +10,8 @@ docker run -d \
   --mount type=bind,source="$(pwd)",target=/app \
   --name orals-dev-app \
   orals-dev-app:latest
-# docker logs -f orals-dev-app
-#  -e HIDE_TAGS=true \
+
+echo "Starting cron in app container"
 
 echo "Creating and running orals-dev-db container. Ctrl-C is safe."
 docker pull postgres
@@ -21,7 +21,6 @@ docker run -d \
   -e POSTGRES_PASSWORD=not_so_secret \
   --mount type=volume,source=orals-dev-db,target=/var/lib/postgresql/data \
   --name orals-dev-db postgres:latest
-# docker logs -f orals-dev-db
 
 echo "Creating and running orals-dev-jobs container. Ctrl-C is safe."
 docker run -d \
@@ -29,7 +28,6 @@ docker run -d \
   -e RAILS_ENV=development \
   --mount type=bind,source="$(pwd)",target=/app \
   --name orals-dev-jobs orals-dev-jobs:latest
-# docker logs -f orals-dev-jobs
 
 echo 
 echo "App is up and available at 127.0.0.1:3000"

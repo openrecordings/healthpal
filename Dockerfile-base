@@ -7,24 +7,28 @@ RUN apt update -qq \
     nodejs \
     ffmpeg \
     cron \
-    nano
+    rsyslog \
+    vim
 COPY Gemfile* /tmp/
 WORKDIR /tmp
-RUN bundle install
-RUN bundle exec wheneverize .
-RUN apt remove -y --purge build-essential \
-  && apt clean autoclean \
-  && apt autoremove -y \
-  && rm -rf \
-    /var/lib/apt \
-    /var/lib/dpkg \
-    /var/lib/cache \
-    /var/lib/log
 ARG rails_env=development
 ENV RAILS_ENV=$rails_env
+RUN bundle install
+RUN bundle exec wheneverize .
+RUN bundle exec whenever -s 'environment=$RAILS_ENV'
 RUN mkdir /app
 WORKDIR /app
 COPY . /app
 RUN rm -f ./tmp/pids/server.pid
 RUN if [ "$RAILS_ENV" != "development" ]; then bundle exec rake assets:precompile --trace ; fi
+# RUN service syslog start
+# RUN service cron start
 
+# RUN apt remove -y --purge build-essential \
+#   && apt clean autoclean \
+#   && apt autoremove -y \
+#   && rm -rf \
+#     /var/lib/apt \
+#     /var/lib/dpkg \
+#     /var/lib/cache \
+#     /var/lib/log
