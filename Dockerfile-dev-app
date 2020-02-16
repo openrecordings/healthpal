@@ -2,5 +2,6 @@ ARG image=orals-dev
 FROM $image
 ARG rails_env=development
 ENV RAILS_ENV=$rails_env
+RUN service cron start
 CMD rails s -b 0.0.0.0
 EXPOSE 3000

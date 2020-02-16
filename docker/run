@@ -11,8 +11,6 @@ docker run -d \
   --name orals-dev-app \
   orals-dev-app:latest
 
-echo "Starting cron in app container"
-
 echo "Creating and running orals-dev-db container. Ctrl-C is safe."
 docker pull postgres
 docker run -d \
