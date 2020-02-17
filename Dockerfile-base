@@ -1,4 +1,4 @@
-FROM ruby:2.6.3-slim-buster
+FROM ruby:2.7.0-buster
 RUN apt update -qq \
   && apt install -y --no-install-recommends \
     build-essential \
@@ -24,11 +24,11 @@ RUN if [ "$RAILS_ENV" != "development" ]; then bundle exec rake assets:precompil
 # RUN service syslog start
 # RUN service cron start
 
-# RUN apt remove -y --purge build-essential \
-#   && apt clean autoclean \
-#   && apt autoremove -y \
-#   && rm -rf \
-#     /var/lib/apt \
-#     /var/lib/dpkg \
-#     /var/lib/cache \
-#     /var/lib/log
+RUN apt remove -y --purge build-essential \
+  && apt clean autoclean \
+  && apt autoremove -y \
+  && rm -rf \
+    /var/lib/apt \
+    /var/lib/dpkg \
+    /var/lib/cache \
+    /var/lib/log

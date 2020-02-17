@@ -19,7 +19,6 @@
 *.swp
 /app/views/application/_navbar.html.haml.bak
 .ruby-version
-dev-reset
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
