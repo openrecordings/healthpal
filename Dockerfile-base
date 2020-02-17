@@ -1,4 +1,4 @@
-FROM ruby:2.7.0-buster
+FROM ruby:2.6.3-slim-buster
 RUN apt update -qq \
   && apt install -y --no-install-recommends \
     build-essential \
@@ -6,26 +6,29 @@ RUN apt update -qq \
     postgresql-client \
     nodejs \
     ffmpeg \
+    cron \
+    rsyslog \
     vim
 COPY Gemfile* /tmp/
 WORKDIR /tmp
 ARG rails_env=development
 ENV RAILS_ENV=$rails_env
-WORKDIR /app
-COPY . /app
-RUN gem install bundler:2.1.4
 RUN bundle install
 RUN bundle exec wheneverize .
 RUN bundle exec whenever -s 'environment=$RAILS_ENV'
 RUN mkdir /app
+WORKDIR /app
+COPY . /app
 RUN rm -f ./tmp/pids/server.pid
 RUN if [ "$RAILS_ENV" != "development" ]; then bundle exec rake assets:precompile --trace ; fi
+# RUN service syslog start
+# RUN service cron start
 
-RUN apt remove -y --purge build-essential \
-  && apt clean autoclean \
-  && apt autoremove -y \
-  && rm -rf \
-    /var/lib/apt \
-    /var/lib/dpkg \
-    /var/lib/cache \
-    /var/lib/log
+# RUN apt remove -y --purge build-essential \
+#   && apt clean autoclean \
+#   && apt autoremove -y \
+#   && rm -rf \
+#     /var/lib/apt \
+#     /var/lib/dpkg \
+#     /var/lib/cache \
+#     /var/lib/log
