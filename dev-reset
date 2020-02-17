@@ -1,0 +1,4 @@
+docker stop -t 0 $(docker ps -a -q); docker rm $(docker ps -a -q);
+docker system prune -f
+./docker/build
+./docker/run
