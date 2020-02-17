@@ -1,7 +1,6 @@
-#!/bin/bash
+touch /var/log/runner
 
-bundle exec rails s -b 0.0.0.0 &
 while sleep 60; do
-  date >> log/runner
+  date +"%T" >> var/log/runner
 	bundle exec bin/rails runner -e development 'Message.send_messages'
 done
