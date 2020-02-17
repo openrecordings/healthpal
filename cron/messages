@@ -1,0 +1,1 @@
+* * * * * '. /root/projectenv.sh && cd /app && bundle exec bin/rails runner -e development '\''Message.send_messages'\'' >> log/cron.log 2>&1'

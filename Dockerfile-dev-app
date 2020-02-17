@@ -2,10 +2,16 @@ ARG image=orals-dev
 FROM $image
 ARG rails_env=development
 ENV RAILS_ENV=$rails_env
-RUN bundle exec whenever --update-crontab
+
 RUN printenv | sed 's/^\(.*\)$/export \1/g' > /root/project_env.sh
+RUN chmod 100 /root/project_env.sh
+RUN crontab cron/messages
+
 RUN sed -i '/imklog/s/^/#/' /etc/rsyslog.conf
+RUN touch /var/log/syslog
+RUN touch /var/log/rsyslog
 RUN service rsyslog start
 RUN service cron start
+
 CMD rails s -b 0.0.0.0
 EXPOSE 3000
