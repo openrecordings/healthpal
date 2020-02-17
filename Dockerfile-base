@@ -13,7 +13,7 @@ ARG rails_env=development
 ENV RAILS_ENV=$rails_env
 WORKDIR /app
 COPY . /app
-RUN gem install bundler
+RUN gem install bundler:2.1.4
 RUN bundle install
 RUN bundle exec wheneverize .
 RUN bundle exec whenever -s 'environment=$RAILS_ENV'
