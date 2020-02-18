@@ -3,6 +3,7 @@ class Recording < ApplicationRecord
   belongs_to :user
   has_many :utterances, -> {order 'index asc'}, dependent: :destroy
   has_many :user_fields
+  has_many :messages, dependent: :destroy
   has_one_attached :media_file
   visitable :ahoy_visit
 

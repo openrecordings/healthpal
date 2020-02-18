@@ -4,5 +4,5 @@ bundle exec rails s -b 0.0.0.0 &
 
 while sleep 60; do
   date >> log/runner
-  # bundle exec bin/rails runner -e development 'Message.send_messages'
+  bundle exec bin/rails runner -e development 'Message.send_messages'
 done

@@ -1,5 +1,7 @@
 class MessageTemplate < ApplicationRecord
 
+  has_many :messages
+
   attribute :offset_duration, :duration
 
   enum trigger: [

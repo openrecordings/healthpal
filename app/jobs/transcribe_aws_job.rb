@@ -90,12 +90,12 @@ class TranscribeAwsJob < ApplicationJob
   end
 
   def email_user
-    UserMailer.with(recording: @recording).recording_ready.deliver_now
     Message.create(
       recording: @recording,
       message_template: MessageTemplate.find_by(trigger: :after_processing),
       deliver_at: Time.now,
-      deliver: true
+      deliver: true,
+      to_email: true
     )
   end
 
