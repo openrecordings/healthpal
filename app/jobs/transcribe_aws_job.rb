@@ -10,6 +10,7 @@ class TranscribeAwsJob < ApplicationJob
     set_is_processed
     create_recording_processed_message
     create_reminder_message
+    create_next_appt_message
   end
 
   private
@@ -105,6 +106,16 @@ class TranscribeAwsJob < ApplicationJob
       recording: @recording,
       message_template: MessageTemplate.find_by(trigger: :time_after_recording),
       deliver_at: Time.now + 2.minutes,
+      deliver: true,
+      to_email: true
+    )
+  end
+
+  def create_next_appt_message
+    Message.create(
+      recording: @recording,
+      message_template: MessageTemplate.find_by(trigger: :pre_followup),
+      deliver_at: @recording.next_appt_at - 2.seconds,
       deliver: true,
       to_email: true
     )
