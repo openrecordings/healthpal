@@ -7,22 +7,27 @@ RUN apt update -qq \
     nodejs \
     ffmpeg \
     telnet \
-    vim
+    vim \
+    iputils-ping
 COPY Gemfile* /tmp/
 WORKDIR /tmp
 ARG rails_env=development
 ENV RAILS_ENV=$rails_env
 RUN bundle install
+
+# RUN apt remove -y --purge build-essential \
+#   && apt clean autoclean \
+#   && apt autoremove -y \
+#   && rm -rf \
+#     /var/lib/apt \
+#     /var/lib/dpkg \
+#     /var/lib/cache \
+#     /var/lib/log
+
+ARG rails_env=development
+ENV RAILS_ENV=$rails_env
 RUN mkdir /app
 WORKDIR /app
 COPY . /app
 RUN rm -f ./tmp/pids/server.pid
 RUN if [ "$RAILS_ENV" != "development" ]; then bundle exec rake assets:precompile --trace ; fi
-RUN apt remove -y --purge build-essential \
-  && apt clean autoclean \
-  && apt autoremove -y \
-  && rm -rf \
-    /var/lib/apt \
-    /var/lib/dpkg \
-    /var/lib/cache \
-    /var/lib/log
