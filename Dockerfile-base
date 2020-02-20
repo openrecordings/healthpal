@@ -6,6 +6,7 @@ RUN apt update -qq \
     postgresql-client \
     nodejs \
     ffmpeg \
+    telnet \
     vim
 COPY Gemfile* /tmp/
 WORKDIR /tmp
