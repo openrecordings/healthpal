@@ -4,7 +4,7 @@ class Message < ApplicationRecord
   belongs_to :message_template
 
   # Called by Cron once per minute
-  def self.send_messages
+  def self.send_due_messages
     send_now = Message.
       where('deliver_at < ?', DateTime.now).
       where(deliver: true).
