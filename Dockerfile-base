@@ -32,3 +32,6 @@ COPY . /app
 RUN rm -f ./tmp/pids/server.pid
 RUN if [ "$RAILS_ENV" != "development" ]; then bundle exec rake assets:precompile --trace ; fi
 EXPOSE 3000
+EXPOSE 25
+EXPOSE 80
+EXPOSE 443
