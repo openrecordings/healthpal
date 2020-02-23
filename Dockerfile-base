@@ -30,7 +30,7 @@ RUN mkdir /app
 WORKDIR /app
 COPY . /app
 RUN rm -f ./tmp/pids/server.pid
-RUN if [ "$RAILS_ENV" != "development" ]; then bundle exec rake assets:precompile --trace ; fi
+RUN bundle exec rake assets:precompile --trace
 EXPOSE 3000
 EXPOSE 25
 EXPOSE 80

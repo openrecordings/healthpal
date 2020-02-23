@@ -92,7 +92,6 @@ GEM
     aws-sigv4 (1.1.0)
       aws-eventstream (~> 1.0, >= 1.0.2)
     bcrypt (3.1.13)
-    bindex (0.7.0)
     bootsnap (1.4.4)
       msgpack (~> 1.0)
     browserstack-local (1.3.0)
@@ -247,11 +246,6 @@ GEM
       rspec-support (~> 3.8.0)
     rspec-support (3.8.2)
     rubyzip (1.3.0)
-    rvt (1.1.0)
-      activemodel (>= 4.0)
-      coffee-rails
-      railties (>= 4.0)
-      sprockets-rails
     safely_block (0.2.2)
       errbase (>= 0.1.1)
     sassc (2.0.1)
@@ -295,11 +289,6 @@ GEM
       execjs (>= 0.3.0, < 3)
     warden (1.2.8)
       rack (>= 2.0.6)
-    web-console (4.0.0)
-      actionview (>= 6.0.0.a)
-      activemodel (>= 6.0.0.a)
-      bindex (>= 0.4.0)
-      railties (>= 6.0.0.a)
     websocket-driver (0.7.1)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.4)
@@ -344,7 +333,6 @@ DEPENDENCIES
   rails-html-sanitizer (>= 1.0.4)
   rspec
   rspec-rails
-  rvt
   sassc-rails (>= 2.0.0)
   selenium-webdriver
   spring
@@ -353,7 +341,6 @@ DEPENDENCIES
   tether-rails
   twilio-ruby (~> 5.21.1)
   uglifier (>= 1.3.0)
-  web-console
 
 BUNDLED WITH
    1.17.2
