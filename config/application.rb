@@ -15,7 +15,7 @@ module Orals
     config.active_storage.service = :amazon
 
     # Hostname for the current environment
-    config.hosts << Rails.application.credentials[Rails.env.to_sym][:host]
+    config.hosts << Rails.application.credentials[:host]
 
     ENV['AWS_ACCESS_KEY_ID'] = Rails.application.credentials.aws[:access_key_id]
     ENV['AWS_SECRET_ACCESS_KEY'] = Rails.application.credentials.aws[:secret_access_key]
