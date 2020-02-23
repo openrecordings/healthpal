@@ -14,10 +14,10 @@ Rails.application.configure do
   config.serve_static_assets = false
 
 	config.action_mailer.smtp_settings = {
-		:address => Rails.application.credentials[:staging][:ses_smtp_server_address],
+		:address => Rails.application.credentials[:ses][:server_address],
 		:port => 25,
-		:user_name => Rails.application.credentials[:staging][:ses_smtp_user_name],
-		:password => Rails.application.credentials[:staging][:ses_smtp_password],
+		:user_name => Rails.application.credentials[:ses][:user_name],
+		:password => Rails.application.credentials[:ses][:password],
 		:authentication => :login,
 		:enable_starttls_auto => true
 	}
