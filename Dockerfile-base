@@ -14,24 +14,19 @@ WORKDIR /tmp
 ARG rails_env=development
 ENV RAILS_ENV=$rails_env
 RUN bundle install
-
-# RUN apt remove -y --purge build-essential \
-#   && apt clean autoclean \
-#   && apt autoremove -y \
-#   && rm -rf \
-#     /var/lib/apt \
-#     /var/lib/dpkg \
-#     /var/lib/cache \
-#     /var/lib/log
-
+RUN apt remove -y --purge build-essential \
+  && apt clean autoclean \
+  && apt autoremove -y \
+  && rm -rf \
+    /var/lib/apt \
+    /var/lib/dpkg \
+    /var/lib/cache \
+    /var/lib/log
 ARG rails_env=development
 ENV RAILS_ENV=$rails_env
 RUN mkdir /app
 WORKDIR /app
 COPY . /app
 RUN rm -f ./tmp/pids/server.pid
-RUN bundle exec rake assets:precompile --trace
+RUN bundle exec rake assets:precompile
 EXPOSE 3000
-EXPOSE 25
-EXPOSE 80
-EXPOSE 443
