@@ -12,7 +12,7 @@ development:
   password: <%= Rails.application.credentials[:development][:db_password] %>
   port: <%= Rails.application.credentials[:development][:db_port] %>
 
-h1:
+hp1:
   <<: *default
   host: <%= Rails.application.credentials[:hp1][:db_host] %>
   database: <%= Rails.application.credentials[:hp1][:db_name] %>
