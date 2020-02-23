@@ -14,8 +14,8 @@ development:
 
 h1:
   <<: *default
-  host: <%= Rails.application.credentials[:h1][:db_host] %>
-  database: <%= Rails.application.credentials[:h1][:db_name] %>
-  username: <%= Rails.application.credentials[:h1][:db_user] %>
-  password: <%= Rails.application.credentials[:h1][:db_password] %>
-  port: <%= Rails.application.credentials[:h1][:db_port] %>
+  host: <%= Rails.application.credentials[:hp1][:db_host] %>
+  database: <%= Rails.application.credentials[:hp1][:db_name] %>
+  username: <%= Rails.application.credentials[:hp1][:db_user] %>
+  password: <%= Rails.application.credentials[:hp1][:db_password] %>
+  port: <%= Rails.application.credentials[:hp1][:db_port] %>
