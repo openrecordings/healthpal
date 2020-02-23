@@ -41,7 +41,6 @@ gem 'selenium-webdriver'
 gem 'rspec'
 gem 'browserstack-local'
 group :development do
-  gem 'web-console'
   gem 'interactive_editor'
   gem 'listen', '~> 3.0.5'
   gem 'spring'

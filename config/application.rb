@@ -9,10 +9,6 @@ Bundler.require(*Rails.groups)
 
 module Orals
   class Application < Rails::Application
-
-
-    config.web_console.permissions = '0.0.0.0/0'
-
     config.load_defaults '6.0'
     config.time_zone = 'Eastern Time (US & Canada)'
     config.active_job.queue_adapter = :delayed_job
