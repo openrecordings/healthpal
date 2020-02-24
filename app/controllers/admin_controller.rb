@@ -5,7 +5,7 @@ class AdminController < ApplicationController
   before_action :verify_privileged
 
   def index
-    @ping = `ping google.com -c 1`
+    # @ping = `ping google.com -c 1`
   end
 
   def users
