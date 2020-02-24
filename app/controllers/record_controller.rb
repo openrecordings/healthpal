@@ -42,7 +42,6 @@ class RecordController < ApplicationController
       sha1: sha1,
       is_video: false,
       media_format: 'mp3',
-      next_appt_at: DateTime.now + 10.minutes
     )
     recording.media_file.attach(io: File.open(filepath), filename: "#{sha1}.ogg")
     `rm #{filepath}`  

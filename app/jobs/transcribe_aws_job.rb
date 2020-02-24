@@ -91,34 +91,35 @@ class TranscribeAwsJob < ApplicationJob
     @recording.update is_processed: true
   end
 
-  def create_recording_processed_message
-    Message.create(
-      recording: @recording,
-      message_template: MessageTemplate.find_by(trigger: :after_processing),
-      deliver_at: Time.now,
-      deliver: true,
-      to_email: true
-    )
-  end
+  # def create_recording_processed_message
+  #   Message.create(
+  #     recording: @recording,
+  #     message_template: MessageTemplate.find_by(trigger: :after_processing),
+  #     deliver_at: Time.now,
+  #     deliver: true,
+  #     to_email: true
+  #   )
+  # end
 
-  def create_reminder_message
-    Message.create(
-      recording: @recording,
-      message_template: MessageTemplate.find_by(trigger: :time_after_recording),
-      deliver_at: Time.now + 2.minutes,
-      deliver: true,
-      to_email: true
-    )
-  end
+  # def create_reminder_message
+  #   Message.create(
+  #     recording: @recording,
+  #     message_template: MessageTemplate.find_by(trigger: :time_after_recording),
+  #     deliver_at: Time.now + 2.minutes,
+  #     deliver: true,
+  #     to_email: true
+  #   )
+  # end
 
-  def create_next_appt_message
-    Message.create(
-      recording: @recording,
-      message_template: MessageTemplate.find_by(trigger: :pre_followup),
-      deliver_at: @recording.next_appt_at - 2.seconds,
-      deliver: true,
-      to_email: true
-    )
-  end
+  # This doesn't belong here. Trigger this message when next_appt is added
+  # def create_next_appt_message
+  #   Message.create(
+  #     recording: @recording,
+  #     message_template: MessageTemplate.find_by(trigger: :pre_followup),
+  #     deliver_at: @recording.next_appt_at - 2.seconds,
+  #     deliver: true,
+  #     to_email: true
+  #   ) if @recording.next_appt
+  # end
 
 end
