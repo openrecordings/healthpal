@@ -47,7 +47,7 @@ class TranscribeAwsJob < ApplicationJob
             data: 'Yes!',
           },
         },
-      source: sender,
+        source: 'no-reply@audiohealthpal.com',
       })
       puts "Email sent!"
     rescue Aws::SES::Errors::ServiceError => error
