@@ -8,18 +8,58 @@ class TranscribeAwsJob < ApplicationJob
     transcribe
     create_utterances
     set_is_processed
-    create_recording_processed_message
-    create_reminder_message
-    create_next_appt_message
+    send_is_processed_email
+    # create_recording_processed_message
+    # create_reminder_message
+    # create_next_appt_message
   end
 
   private
 
+  def sent_is_processed_email
+    recipient = 'will.haslett@gmail.com'
+		htmlbody =
+			'<h1>Amazon SES test (AWS SDK for Ruby)</h1>'\
+			'<p>This email was sent with <a href="https://aws.amazon.com/ses/">'\
+			'Amazon SES</a> using the <a href="https://aws.amazon.com/sdk-for-ruby/">'\
+			'AWS SDK for Ruby</a>.'
+    ses = Aws::SES::Client.new(region: 'us-east-1')
+    begin
+      resp = ses.send_email({
+        destination: {
+          to_addresses: [
+            recipient,
+          ],
+        },
+        message: {
+          body: {
+            html: {
+              charset: 'UTF-8',
+              data: htmlbody,
+            },
+            text: {
+              charset: 'UTF-8',
+              data: 'foo',
+            },
+          },
+          subject: {
+            charset: 'UTF-8',
+            data: 'Yes!',
+          },
+        },
+      source: sender,
+      })
+      puts "Email sent!"
+    rescue Aws::SES::Errors::ServiceError => error
+      puts "Email not sent. Error message: #{error}"
+    end
+  end
+
   def transcode
-		@recording.media_file.open do |file|
+    @recording.media_file.open do |file|
       `ffmpeg -i #{file.path} -ac 1 -ar 16000 #{file.path}.mp3`
-		  @recording.media_file.attach(io: File.open("#{file.path}.mp3"), filename: "#{@recording.sha1}.mp3")
-		end
+      @recording.media_file.attach(io: File.open("#{file.path}.mp3"), filename: "#{@recording.sha1}.mp3")
+    end
   end
 
   def transcribe
