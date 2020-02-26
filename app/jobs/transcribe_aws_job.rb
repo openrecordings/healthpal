@@ -16,7 +16,7 @@ class TranscribeAwsJob < ApplicationJob
 
   private
 
-  def sent_is_processed_email
+  def send_is_processed_email
     recipient = 'will.haslett@gmail.com'
 		htmlbody =
 			'<h1>Amazon SES test (AWS SDK for Ruby)</h1>'\
