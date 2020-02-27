@@ -1,4 +1,4 @@
-class DeviseMailer < Devise::Mailer
+class DeviseMailer < ApplicationMailer
 
     def confirmation_instructions(record, token, opts={})
       @token = token
