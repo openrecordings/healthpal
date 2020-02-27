@@ -3,12 +3,13 @@ Rails.application.configure do
   config.require_master_key = true
 
 	config.action_mailer.smtp_settings = {
-		:address => Rails.application.credentials[:ses][:server_address],
-		:port => 25,
-		:user_name => Rails.application.credentials[:ses][:user_name],
-		:password => Rails.application.credentials[:ses][:password],
-		:authentication => :login,
-		:enable_starttls_auto => true
+		address: Rails.application.credentials[:ses][:server_address],
+		port: 587,
+		user_name: Rails.application.credentials[:ses][:user_name],
+		password: Rails.application.credentials[:ses][:password],
+		authentication: :login,
+    ssl: true,
+		enable_starttls_auto: true
 	}
 
   # Staging and production:

@@ -9,7 +9,7 @@ class TranscribeAwsJob < ApplicationJob
     create_utterances
     set_is_processed
     send_is_processed_email
-    # create_recording_processed_message
+    create_recording_processed_message
     # create_reminder_message
     # create_next_appt_message
   end
@@ -131,15 +131,15 @@ class TranscribeAwsJob < ApplicationJob
     @recording.update is_processed: true
   end
 
-  # def create_recording_processed_message
-  #   Message.create(
-  #     recording: @recording,
-  #     message_template: MessageTemplate.find_by(trigger: :after_processing),
-  #     deliver_at: Time.now,
-  #     deliver: true,
-  #     to_email: true
-  #   )
-  # end
+  def create_recording_processed_message
+    Message.create(
+      recording: @recording,
+      message_template: MessageTemplate.find_by(trigger: :after_processing),
+      deliver_at: Time.now,
+      deliver: true,
+      to_email: true
+    )
+  end
 
   # def create_reminder_message
   #   Message.create(
