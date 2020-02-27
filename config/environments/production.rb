@@ -2,19 +2,9 @@ Rails.application.configure do
 
   config.require_master_key = true
 
-	config.action_mailer.smtp_settings = {
-		address: Rails.application.credentials[:ses][:server_address],
-		port: 587,
-		user_name: Rails.application.credentials[:ses][:user_name],
-		password: Rails.application.credentials[:ses][:password],
-		authentication: :login,
-    ssl: true,
-		enable_starttls_auto: true
-	}
-
   # Staging and production:
   config.action_mailer.perform_deliveries = false
-  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.delivery_method = :ses
   config.action_mailer.default_url_options = {host: Rails.application.credentials[:host]}
   config.action_mailer.raise_delivery_errors = true
 

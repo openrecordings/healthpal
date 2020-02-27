@@ -313,7 +313,7 @@ DEPENDENCIES
   aws-sdk-rails
   aws-sdk-s3
   aws-sdk-transcribeservice
-  aws-ses
+  aws-ses (~> 0.6.0)
   bootsnap (>= 1.1.0)
   browserstack-local
   byebug

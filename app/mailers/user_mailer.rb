@@ -8,40 +8,8 @@ class UserMailer < ApplicationMailer
   end
 
   def recording_ready
-    recording = params[:recording]
-
-    recipient = 'will.haslett@dartmouth.edu'
-    htmlbody = 'Foo!'
-    ses = Aws::SES::Client.new(region: 'us-east-1')
-    begin
-      resp = ses.send_email({
-        destination: {
-          to_addresses: [
-            recipient,
-          ],
-        },
-        message: {
-          body: {
-            html: {
-              charset: 'UTF-8',
-              data: htmlbody,
-            },
-            text: {
-              charset: 'UTF-8',
-              data: 'foo',
-            },
-          },
-          subject: {
-            charset: 'UTF-8',
-            data: 'Yes!',
-          },
-        },
-        source: 'no-reply@audiohealthpal.com',
-      })
-      puts "Email sent!"
-    rescue Aws::SES::Errors::ServiceError => error
-      puts "Email not sent. Error message: #{error}"
-    end
+    @recording = params[:recording]
+    mail(to: @recording.user.email, subject: 'Your HealthPal audio recording is ready')
   end
 
 end

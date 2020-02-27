@@ -40,7 +40,7 @@ gem 'ahoy_matey'
 gem 'selenium-webdriver'
 gem 'rspec'
 gem 'browserstack-local'
-gem 'aws-ses'
+gem 'aws-ses', '~> 0.6.0', require: 'aws/ses'
 group :development do
   gem 'interactive_editor'
   gem 'listen', '~> 3.0.5'

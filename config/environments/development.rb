@@ -13,18 +13,9 @@ Rails.application.configure do
   # Dev only 
   config.serve_static_assets = false
 
-	config.action_mailer.smtp_settings = {
-		:address => Rails.application.credentials[:ses][:server_address],
-		:port => 25,
-		:user_name => Rails.application.credentials[:ses][:user_name],
-		:password => Rails.application.credentials[:ses][:password],
-		:authentication => :login,
-		:enable_starttls_auto => true
-	}
-
   # Staging and production:
   config.action_mailer.perform_deliveries = true
-  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.delivery_method = :ses
   config.action_mailer.default_url_options = {host: Rails.application.credentials[:host]}
   config.action_mailer.raise_delivery_errors = true
 
