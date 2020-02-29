@@ -11,23 +11,44 @@ class TranscribeAwsJob < ApplicationJob
 
     # R01
     ######################################
-    r01_recording_ready_message
+    # r01_recording_ready_message
 
     # R56
     ######################################
     # r56_recording_ready_message
     # r56_reminder_message
-    # r56_next_appt_message
   end
 
   private
 
   def r01_recording_ready_message
-    UserMailer.with(recording: @recording).r01_recording_ready.deliver_now
+    Message.create(
+      recording: @recording,
+      mailer_method: 'r01_recording_ready', 
+      deliver_at: Time.now,
+      deliver: true,
+      to_email: true
+    )
   end
 
   def r56_recording_ready_message
-    UserMailer.with(recording: @recording).r56_recording_ready.deliver_now
+    Message.create(
+      recording: @recording,
+      mailer_method: 'r56_recording_ready', 
+      deliver_at: Time.now,
+      deliver: true,
+      to_email: true
+    )
+  end
+
+  def r56_reminder_1
+    Message.create(
+      recording: @recording,
+      mailer_method: 'r56_reminder_1', 
+      deliver_at: Time.now + 3.minutes
+      deliver: true,
+      to_email: true
+    )
   end
 
   def transcode
@@ -105,36 +126,5 @@ class TranscribeAwsJob < ApplicationJob
   def set_is_processed
     @recording.update is_processed: true
   end
-
-  def create_recording_processed_message
-    Message.create(
-      recording: @recording,
-      message_template: MessageTemplate.find_by(trigger: :after_processing),
-      deliver_at: Time.now,
-      deliver: true,
-      to_email: true
-    )
-  end
-
-  # def create_reminder_message
-  #   Message.create(
-  #     recording: @recording,
-  #     message_template: MessageTemplate.find_by(trigger: :time_after_recording),
-  #     deliver_at: Time.now + 2.minutes,
-  #     deliver: true,
-  #     to_email: true
-  #   )
-  # end
-
-  # This doesn't belong here. Trigger this message when next_appt is added
-  # def create_next_appt_message
-  #   Message.create(
-  #     recording: @recording,
-  #     message_template: MessageTemplate.find_by(trigger: :pre_followup),
-  #     deliver_at: @recording.next_appt_at - 2.seconds,
-  #     deliver: true,
-  #     to_email: true
-  #   ) if @recording.next_appt
-  # end
 
 end

@@ -1,8 +1,9 @@
 class MessageJob < ActiveJob::Base
   queue_as :message_jobs
 
-  def perform(message_template, user)
-    UserMailer.with(message_template: message_template, user: user).user_message.deliver_now 
+  def perform(message)
+    UserMailer.with(message:  message).send(mailer_method).deliver_now 
+    message.update(delivered_at: Time.now)
   end
 
 end

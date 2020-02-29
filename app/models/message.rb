@@ -9,10 +9,7 @@ class Message < ApplicationRecord
       where('deliver_at < ?', DateTime.now).
       where(deliver: true).
       where('delivered_at is NULL')
-    send_now.each do |m|
-      MessageJob.perform_later(m.message_template, m.recording.user)  
-      m.update(delivered_at: Time.now)
-    end
+    send_now.each{|message| MessageJob.perform_later(message)}
   end
 
 end
