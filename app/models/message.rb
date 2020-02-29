@@ -1,7 +1,6 @@
 class Message < ApplicationRecord
 
   belongs_to :recording
-  belongs_to :message_template
 
   # Called by Cron once per minute
   def self.send_due_messages
@@ -9,7 +8,7 @@ class Message < ApplicationRecord
       where('deliver_at < ?', DateTime.now).
       where(deliver: true).
       where('delivered_at is NULL')
-    send_now.each{|message| MessageJob.perform_later(message)}
+    send_now.each{|m| MessageJob.perform_later(m); puts "Sending message #{m.id}"}
   end
 
 end

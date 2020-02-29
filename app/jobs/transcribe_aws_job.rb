@@ -9,14 +9,14 @@ class TranscribeAwsJob < ApplicationJob
     create_utterances
     set_is_processed
 
-    # R01
+    # R01 messages
     ######################################
     # r01_recording_ready_message
 
-    # R56
+    # R56 messages
     ######################################
-    # r56_recording_ready_message
-    # r56_reminder_message
+    r56_recording_ready_message
+    r56_reminder_1
   end
 
   private
@@ -45,7 +45,7 @@ class TranscribeAwsJob < ApplicationJob
     Message.create(
       recording: @recording,
       mailer_method: 'r56_reminder_1', 
-      deliver_at: Time.now + 3.minutes
+      deliver_at: Time.now + 3.minutes,
       deliver: true,
       to_email: true
     )
