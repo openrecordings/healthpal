@@ -8,16 +8,26 @@ class TranscribeAwsJob < ApplicationJob
     transcribe
     create_utterances
     set_is_processed
-		email_user	
-    # create_recording_processed_message
-    # create_reminder_message
-    # create_next_appt_message
+
+    # R01
+    ######################################
+    r01_recording_ready_message
+
+    # R56
+    ######################################
+    # r56_recording_ready_message
+    # r56_reminder_message
+    # r56_next_appt_message
   end
 
   private
 
-  def email_user
-    UserMailer.with(recording: @recording).recording_ready.deliver_now
+  def r01_recording_ready_message
+    UserMailer.with(recording: @recording).r01_recording_ready.deliver_now
+  end
+
+  def r56_recording_ready_message
+    UserMailer.with(recording: @recording).r56_recording_ready.deliver_now
   end
 
   def transcode

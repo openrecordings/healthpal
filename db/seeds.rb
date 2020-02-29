@@ -23,7 +23,6 @@ tag_types.each { |tag_name|
 
 # Create message templates
 MessageTemplate.create(
-  subject: 'Your audio recording is ready',
   trigger: :after_processing
 ) 
 MessageTemplate.create(
@@ -31,7 +30,6 @@ MessageTemplate.create(
   offset_duration: 1.week
 ) 
 MessageTemplate.create(
-  subject: 'Your next recorded visit is coming up',
   trigger: :pre_followup,
   offset_duration: 3.days
 ) 
