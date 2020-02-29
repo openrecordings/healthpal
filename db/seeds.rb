@@ -20,16 +20,3 @@ tag_types.each { |tag_name|
     tag.save
   end
 }
-
-# Create message templates
-MessageTemplate.create(
-  trigger: :after_processing
-) 
-MessageTemplate.create(
-  trigger: :time_after_recording,
-  offset_duration: 1.week
-) 
-MessageTemplate.create(
-  trigger: :pre_followup,
-  offset_duration: 3.days
-) 
