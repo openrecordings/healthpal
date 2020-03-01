@@ -11,12 +11,12 @@ class TranscribeAwsJob < ApplicationJob
 
     # R01 messages
     ######################################
-    # r01_recording_ready_message
+    r01_recording_ready_message
 
     # R56 messages
     ######################################
-    r56_recording_ready_message
-    r56_reminder_1
+    # r56_recording_ready_message
+    # r56_reminder_1
   end
 
   private
