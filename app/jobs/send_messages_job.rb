@@ -2,9 +2,9 @@ class SendMessagesJob < ActiveJob::Base
   # Don't add any more jobs to this queue
   queue_as :send_messages
 
-  # This job never ends bail if the job already exists
+  # This job never ends, bail if the job already exists 
   def perform
-    return if Delayed::Job.where(queue: 'send_messages').any?
+    return if Delayed::Job.where(queue: 'send_messages').count > 1
     while true
       send_due_messages
       sleep 60
