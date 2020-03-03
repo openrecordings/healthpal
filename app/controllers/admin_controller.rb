@@ -62,11 +62,11 @@ class AdminController < ApplicationController
 
   # Select an existing user to switch to
   def switch_user_select
-    @users = User.active.select{|u| u.active_for_authentication?}
+    @users = User.regular
   end
 
   def switch_to_user
-
+    redirect_to :root and return
   end
 
   def new_caregiver
