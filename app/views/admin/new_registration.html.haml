@@ -3,15 +3,15 @@
     Enter information for new user
   = form_for(@user, url: set_password_path) do |f|
     .form-field-container.field-centered
-      .form-label
+      .form-label.margin-top-20
         First name
       = f.text_field :first_name, class: 'form-input'
     .form-field-container.field-centered
-      .form-label
+      .form-label.margin-top-20
         Last name
       = f.text_field :last_name, class: 'form-input'
     .form-field-container.field-centered
-      .form-label
+      .form-label.margin-top-20
         Email
       = f.email_field :email, class: 'form-input'
     -#.form-field-container.field-centered
@@ -19,6 +19,8 @@
     -#    Mobile phone number
     -#  = f.text_field :phone_number, class: 'form-input phone-number'
     .form-field-container.field-centered
-      = f.submit 'Next', class: 'button'
+      .margin-top-20
+        = f.submit 'Next', class: 'button'
   .form-field-container.field-centered
-    = button_to 'Cancel', admin_path, class: 'button', method: :get
+    .margin-top-20
+      = button_to 'Cancel', admin_path, class: 'button', method: :get
