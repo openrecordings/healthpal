@@ -26,7 +26,7 @@ Rails.application.routes.draw do
   post 'create_registration',        to: 'admin#create_registration'
   get 'switch_user_select',          to: 'admin#switch_user_select'
   post 'switch_to_user',             to: 'admin#switch_to_user'
-  get 'new_caregiver',               to: 'admin#new_cargiver'
+  get 'new_caregiver',               to: 'admin#new_caregiver'
   post 'create_caregiver',           to: 'admin#create_cargiver'
 
   # Recording
