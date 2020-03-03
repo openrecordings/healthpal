@@ -24,7 +24,10 @@ Rails.application.routes.draw do
   get 'new_registration',            to: 'admin#new_registration'
   post 'set_password',               to: 'admin#set_password'
   post 'create_registration',        to: 'admin#create_registration'
-  get 'switch_to_new_user',          to: 'admin#switch_to_new_user'
+  get 'switch_user_select',          to: 'admin#switch_user_select'
+  post 'switch_to_user',             to: 'admin#switch_to_user'
+  get 'new_caregiver',               to: 'admin#new_cargiver'
+  post 'create_caregiver',           to: 'admin#create_cargiver'
 
   # Recording
   get 'record',                      to: 'record#new' 

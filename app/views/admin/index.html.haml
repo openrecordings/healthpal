@@ -1,8 +1,8 @@
 .table-container
   %p= button_to 'Invite New User by Email', new_user_invitation_path, class: 'button', method: :get
-  %p= button_to 'Register New User Now', new_registration_path, class: 'button', method: :get
-  %p= button_to 'Create Caregiver Account', new_registration_path, class: 'button', method: :get
-  %p= button_to 'Switch to Existing User', new_registration_path, class: 'button', method: :get
+  %p= button_to 'Create and Switch to New User Now', new_registration_path, class: 'button', method: :get
+  %p= button_to 'Create Caregiver Account', new_caregiver_path, class: 'button', method: :get
+  %p= button_to 'Switch to Existing User', switch_to_user_path, class: 'button', method: :get
   %p.margin-top-40 Existing users
   %table
     %thead

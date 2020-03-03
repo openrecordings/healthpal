@@ -40,7 +40,7 @@ class AdminController < ApplicationController
     @user = User.new(user_params)
   end
 
-  # Create new user using in-clinic registration
+  # Create and swtich to new user
   def create_registration
     @user = User.new(
       first_name: user_params[:first_name],
@@ -58,6 +58,23 @@ class AdminController < ApplicationController
       flash.alert = @user.errors.full_messages
       redirect_to new_registration_path(email: @user.email)
     end
+  end
+
+  # Select an existing user to switch to
+  def switch_user_select
+    @users = User.active.select{|u| u.active_for_authentication?}
+  end
+
+  def switch_to_user
+
+  end
+
+  def new_caregiver
+
+  end
+
+  def create_caregiver
+
   end
 
   private
