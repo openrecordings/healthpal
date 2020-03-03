@@ -66,6 +66,13 @@ class AdminController < ApplicationController
   end
 
   def switch_to_user
+    user = User.find_by(id: params[:user_id])
+    if user
+      reset_session
+      sign_in user
+    else
+      flash.now[:alert] = 'Could not find that user'
+    end
     redirect_to :root and return
   end
 
