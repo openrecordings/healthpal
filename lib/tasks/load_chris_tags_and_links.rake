@@ -2,6 +2,8 @@
 desc "Load Chris's tags and links for usability testing"
 task chris_tags_and_links: :environment do
   id_offset = 3279
+  r = Recording.find(8)
+  utts = utterances.delete_if {|u| u[0].round(-3) < 3000}
   loadtags(r, utts)
   loadlinks(r, utts)
 end
