@@ -1,5 +1,4 @@
 class Recording < ApplicationRecord
-
   belongs_to :user
   has_many :utterances, -> {order 'index asc'}, dependent: :destroy
   has_many :user_fields
@@ -58,6 +57,4 @@ class Recording < ApplicationRecord
       utterances << utt
     end
   end
-
 end
-

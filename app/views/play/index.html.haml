@@ -16,7 +16,7 @@
           %tbody
             - user.recordings.processed.order(created_at: :desc).each do |recording|
               %tr
-                %td= link_to(format_date_time_friendly(recording.created_at), play_path(recording))
+                %td= link_to("Click to play -  #{format_date_time_friendly(recording.created_at)}", play_path(recording))
                 %td
                   .provider.user-field-container
                     .user-field-links
