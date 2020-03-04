@@ -1,12 +1,12 @@
 .centered-form-container
   %p.form-title
     Enter information for new caregiver account
-  = form_for(User.new, url: set_password_path) do |f|
+  = form_with(url: create_caregiver_path) do |f|
     .form-field-container.field-centered
       .form-label.margin-top-15
         Caregiver for
       - select_options = options_from_collection_for_select(@users, 'id', 'name_and_email')
-      = f.select(:phone_number, select_options, {include_blank: true}, {class: 'form-input select-css'})
+      = f.select(:sharer_id, select_options, {include_blank: true}, {class: 'form-input select-css'})
     .form-field-container.field-centered
       .form-label.margin-top-15
         First name
@@ -22,15 +22,14 @@
     .form-field-container.field-centered
       .form-label.margin-top-15
         Password
-        = f.password_field :password, class: 'form-input password-1'
+        = f.password_field :password, class: 'form-input password'
     .form-field-container.field-centered
       .form-label.margin-top-15
         Confirm password
-        = f.password_field :password, class: 'form-input password-2'
+        = f.password_field :password_2, class: 'form-input password-2'
     .form-field-container.field-centered
       .margin-top-15
         = f.submit 'Create caregiver', class: 'button'
   .form-field-container.field-centered
     .margin-top-15
       = button_to 'Cancel', admin_path, class: 'button', method: :get
-

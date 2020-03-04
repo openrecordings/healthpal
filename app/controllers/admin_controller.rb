@@ -73,7 +73,7 @@ class AdminController < ApplicationController
     else
       flash.now[:alert] = 'Could not find that user'
     end
-    redirect_to :root and return
+    redirect_to :root
   end
 
   def new_caregiver
@@ -81,13 +81,29 @@ class AdminController < ApplicationController
   end
 
   def create_caregiver
-
+    puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+    puts ap params.keys
+    puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+    user = User.new(
+      email: params['email'],
+      role: 'user',
+      active: true,
+      first_name: params['first_name'],
+      last_name: params['last_name'],
+    )
+    user.password = params['password']
+    user.save
+    Share.create(
+      user_id: params['sharer_id'],
+      shared_with_user_id: user.id,
+    )
+    redirect_to :root
   end
 
   private
 
   def user_params
-    params.require(:user).permit(:email, :phone_number, :first_name, :last_name, :password)
+    params.require(:user).permit(:email, :phone_number, :first_name, :last_name, :password, :password_2, :sharer_id)
   end
 
 end
