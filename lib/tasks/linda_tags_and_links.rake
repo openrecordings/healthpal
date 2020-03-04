@@ -8,7 +8,7 @@ task linda_tags_and_links: :environment do
     # Crete the Utterance record
     utterance_record = Utterance.create!(
       index: i + 1,
-      text: u[0]
+      text: u[0],
       begins_at: u[1],
       ends_at: u[2],
       recording: recording
@@ -17,7 +17,7 @@ task linda_tags_and_links: :environment do
     # Create tags
     tags.find_all {|t| t[0] == i}.each do |t|
       Tag.create!(
-        utterance: utterance_record
+        utterance: utterance_record,
         tag_type: TagType.find(t[1])
       )
     end
