@@ -163,7 +163,7 @@ if(document.querySelector('#play-pause-button')) {
     let videoElement = document.getElementById('video-element');
     skipToTime($(this).data('start-time'))
     if(videoElement.paused){
-      $('#play-glyph, #pause-glyph, #play-label, #pause-label').toggleClass('hidden');
+      $('#play-glyph, #pause-glyph, #play-label, #pause-label').toggleClass('invisible');
     }
     videoElement.play();
   })
