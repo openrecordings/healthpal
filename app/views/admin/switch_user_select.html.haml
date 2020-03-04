@@ -3,7 +3,7 @@
     Select a user to switch to
   = form_with(url: switch_to_user_path) do |f|
     .form-field-container.field-centered
-      - select_options = options_from_collection_for_select(@users, 'id', 'email')
+      - select_options = options_from_collection_for_select(@users, 'id', 'name_and_email')
       .margin-top-20= f.select(:user_id, select_options, {include_blank: true}, {class: 'form-input select-css'})
     .form-field-container.field-centered
       .margin-top-40= f.submit 'Switch to user now', class: 'button'

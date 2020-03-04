@@ -77,7 +77,7 @@ class AdminController < ApplicationController
   end
 
   def new_caregiver
-
+    @users = User.regular
   end
 
   def create_caregiver
