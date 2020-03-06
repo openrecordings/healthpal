@@ -1,6 +1,6 @@
 class UserMailer < ApplicationMailer
 
-  default from: 'will.haslett@dartmouth.edu'
+  default from: 'no-reply@audiohelthpal.com'
 
   def r01_recording_ready
     @recording = params[:message].recording
