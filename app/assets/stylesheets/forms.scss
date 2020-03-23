@@ -57,7 +57,7 @@
   text-align: center;
   text-decoration: none;
   font-size: 18px;
-  color: #fff;
+  color: $text-dark;
   border: none;
   border-radius: 3px;
   &:hover{
@@ -96,5 +96,5 @@
 
 .text-link{
   display: inline-block;
-  color: $background-dark;
+  color: $text-dark;
 }
