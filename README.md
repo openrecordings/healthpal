@@ -13,6 +13,7 @@ Docker is the only prerequisite
 
     ```
     echo the-key-hash > config/master.key
+    ```
 
 1. Run the development reset script to create the needed Docker images and run the containers
     ```
