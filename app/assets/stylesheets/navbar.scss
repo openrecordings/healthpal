@@ -3,7 +3,7 @@
   width: 100%;
   #logo-container{
     width: 100%;
-    background-color: $background-light;
+    background-color: $background-dark;
     #logo-spans{
       display: flex;
       align-items: center;
@@ -58,7 +58,7 @@
       background-color: $background-light;
       overflow: auto;
       padding: 12px;
-      color: $text-dark;
+      color: white;
       text-decoration: none;
       font-size: 17px;
       &:hover {
