@@ -42,13 +42,7 @@ Docker is the only prerequisite
 
     The shell that you used for installation is now tailing the logs for the Puma webserver that is running the application locally. You can use `CTRL-C` and keep using the shell, or you can leave that shell alone so that you can see the server output after each request.
 
-1. Create the database. After a minute or so, the asynchronous job container will start complaining because
-    it can't find the appliciation's database. The server will start throwing errors like this:
-    ```
-    ActiveRecord::NoDatabaseError: FATAL:  database "orals_dev" does not exist
-    ```
-    To create the database, open a shell inside the application's container, create the database, then exit
-    the container shell.
+1. Create the database by opening a shell inside the application's Docker container.
     ```
     ./docker/shell
     bundle exec rake db:reset
