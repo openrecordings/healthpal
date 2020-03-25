@@ -1,5 +1,3 @@
-
-
 # Create seeded users
 def create_user(user_yaml)
   unless User.where(email: Rails.application.credentials.root_email).first
