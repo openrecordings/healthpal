@@ -14,7 +14,11 @@ Docker is the only prerequisite
     ```
     echo the-key-hash > config/master.key
 
-1. Run the installation script
+1. Run the development reset script to create the needed Docker images and run the containers
+    ```
+    ./dev-reset
+    ```
+
 1. Coffee
 1. If all goes well, this will be the final output of the installation process:
 
