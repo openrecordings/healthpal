@@ -12,7 +12,7 @@ Docker is the only prerequisite
 1. Acquire the app's decryption key and place it in the config folder.
 
     ```
-    echo the-key-hash > config/master.key
+    echo [the-key] > config/master.key
     ```
 
 1. Run the development reset script to create the needed Docker images and run the containers
@@ -21,7 +21,8 @@ Docker is the only prerequisite
     ```
 
 1. Coffee
-1. If all goes well, this will be the final output of the installation process:
+
+1. When the installation is complete, the last lines of output from the process should be:
 
     ```
     App is up and available at 127.0.0.1:3000
@@ -38,9 +39,9 @@ Docker is the only prerequisite
     Use Ctrl-C to stop
     ```
 
-    If the script errors out, contact Will.
-
-    The shell that you used for installation is now tailing the logs for the Puma webserver that is running the application locally. You can use `CTRL-C` and keep using the shell, or you can leave that shell alone so that you can see the server output after each request.
+    The shell that you used for installation is now tailing the logs for the Puma webserver
+    that is running the application locally. You can use `CTRL-C` and keep using the shell,
+    or you can leave that shell alone so that you can see the server output after each request.
 
 1. Create the database by opening a shell inside the application's Docker container.
     ```
