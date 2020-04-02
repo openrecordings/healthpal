@@ -29,15 +29,18 @@
       display: flex;
       align-items: center;
       #icon{
-        padding: 10px;
+        padding: 15px 15px 15px 25px;
         height: 55px;
       }
       #logo-health, #logo-pal, #logo-admin{
-        font-size: 38px;
-        line-height: 38px;
+        font-size: 42px;
+        line-height: 42px;
       }
       #logo-open, #logo-recordings{
-        font-size: 16px;
+        display: inline-block;
+        margin-top: 32px;
+        vertical-align: baseline;
+        font-size: 20px;
       }
       #logo-health, #logo-open{
         color: $logo-dark;
@@ -73,8 +76,11 @@
   }
 
   #menu-container{
+    box-sizing: border-box;
+    padding: 10px 13px 5px 13px;
     width: 100%;
     background-color: white;
+    box-shadow: 0 6px 4px -4px  rgba(0,0,0,0.2);
     overflow: auto;
     #navbar-left a {
       float: left;
