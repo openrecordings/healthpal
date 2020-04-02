@@ -2,9 +2,11 @@
 -# The HTTP comment below will always show the commit being served
 / foo
 
+
+
 #nav-container
   #logo-container
-    #logo-spans
+    #logo-spans{style: 'background-color:white'}
       %span.image#icon= image_tag('open_recordings_icon.png', width: '40px')
       #logo-text-container
         %span#logo-open Open
@@ -12,7 +14,8 @@
         %br
         %span#logo-health Health
         %span#logo-pal> PAL
-        - if current_user&.privileged?
+        -# - if current_user&.privileged?
+        - if false
           %span#logo-admin ADMIN
       %span#mobile-menu-button-container
         %span#mobile-menu-button.hidden &#x22EE;
@@ -21,12 +24,12 @@
     #menu-container
       #navbar-left
         - if current_user.privileged?
-          =link_to t(:user_management), admin_path, id: 'nav-user-management'
-          =link_to t(:manage_recordings), manage_recordings_path, id: 'nav-manage-recordings'
-          =link_to t(:analytics), analytics_path, id: 'nav-analytics'
-        =link_to t(:new_recording), record_path, id: 'nav-new-recording'
-        =link_to t(:recordings), my_recordings_path, id: 'nav-my-recordings'
-        =link_to t(:sharing), shares_path, id: 'nav-share'
+          =link_to t(:user_management), admin_path, id: 'nav-user-management', class: clickable_class(admin_path)
+          =link_to t(:manage_recordings), manage_recordings_path, id: 'nav-manage-recordings', class: clickable_class(manage_recordings_path)
+          =link_to t(:analytics), analytics_path, id: 'nav-analytics', class: clickable_class(analytics_path)
+        =link_to t(:new_recording), record_path, id: 'nav-new-recording', class: clickable_class(record_path)
+        =link_to t(:recordings), my_recordings_path, id: 'nav-my-recordings', class: clickable_class(my_recordings_path)
+        =link_to t(:sharing), shares_path, id: 'nav-share', class: clickable_class(shares_path)
         -# Redundancy: order is opposite depending on whether or not we are floating the elements
         #navbar-right-small.hidden
           =link_to t(:help), help_path, id: 'nav-help'

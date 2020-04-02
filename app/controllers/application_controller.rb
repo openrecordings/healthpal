@@ -11,6 +11,11 @@ class ApplicationController < ActionController::Base
     redirect_to root_url unless current_user and current_user.privileged?
   end
 
+  def clickable_class(path)
+    request.path == path ? 'clickable-selected' : 'clickable'
+  end
+  helper_method :clickable_class
+
   protected
 
   # Allow devise_invitable to handle the role parameter when creating users

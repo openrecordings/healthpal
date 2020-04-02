@@ -20,3 +20,11 @@ $filter-color-7: #8ad7e4;
 $filter-color-8: #9efb92;
 $notification-color: #f9d56d;
 $notification-text-color: #534825;
+
+@mixin clickable {
+   background-color: white; 
+   color: #222;
+   &:hover {
+       background-color: #fdfdfd;
+   }
+}

@@ -1,3 +1,24 @@
+@mixin clickable-base{
+  background-color: white;
+  overflow: auto;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 17px;
+  &:hover {
+    color: #222;
+  }
+}
+
+.clickable{
+  @include clickable-base;
+  color: #666;
+}
+
+.clickable-selected{
+  @include clickable-base;
+  color: #222
+}
+
 #nav-container{
   grid-area: navbar;
   width: 100%;
@@ -50,31 +71,16 @@
       }
     }
   }
+
   #menu-container{
     width: 100%;
-    background-color: $background-light;
+    background-color: white;
     overflow: auto;
-    @mixin navbar{
-      background-color: $background-light;
-      overflow: auto;
-      padding: 12px;
-      color: white;
-      text-decoration: none;
-      font-size: 17px;
-      &:hover {
-        background-color: $background-very-light;
-      }
-    }
     #navbar-left a {
       float: left;
-      @include navbar;
     }
     #navbar-right-big a {
       float: right;
-      @include navbar;
-    }
-    .active {
-      background-color: #4CAF50;
     }
     @media screen and (max-width: 500px) {
       #navbar-left a, #navbar-right-small a{
