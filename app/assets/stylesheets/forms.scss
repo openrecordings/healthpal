@@ -12,20 +12,25 @@
 }
 
 .form-field-container{
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
 
 .field-centered{
   width: 322px;
-  margin: 0 auto;
-  margin-bottom: 10px;
+}
+
+.form-input-container{
+  display: flex;
+  width: 322;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .form-input{
-  background-color: #ddd;
-  width: 300px;
-  padding: 10px;
+  padding: 10px 0 5px 0;
   margin: 0;
+  width: 300px;
   border-style: initial;
   border-bottom: 1px solid #888;
   box-shadow: none;
@@ -33,32 +38,30 @@
   font-size: 18px;
 }
 
-.form-input-short{
-  background-color: #fff;
-  width: 300px;
-  padding: 5px;
-  margin: 0;
-  border-bottom: 1px solid $background-light;
-  color: #333;
-  font-size: 14px;
-}
+// .form-input-short{
+//   width: 300px;
+//   padding: 5px;
+//   margin: 0;
+//   border-bottom: 1px solid $background-light;
+//   color: #333;
+//   font-size: 14px;
+// }
 
 .form-label{
-  margin-bottom: 3px;
-  font-size: 18px;
-  color: #333;
+  font-size: 14px;
+  color: #888;
 }
 
 .button{
+  margin: 10px 0;
   height: 50px;
   line-height: 50px;
-  width: 322px;
-  background-color: $background-light;
+  width: 300px;
   text-align: center;
   text-decoration: none;
   font-size: 18px;
-  color: #fff;
-  border: none;
+  color: #444;
+  border: 1px solid #888;
   border-radius: 3px;
   &:hover{
     cursor: pointer;

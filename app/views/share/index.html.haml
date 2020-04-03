@@ -2,31 +2,23 @@
   -# #open-share-form-title.form-title.margin-bottom-10
   -#   = t(:share_recordings)
   -# = submit_tag t(:add_share), class: 'button', id: 'open-share-form'
-  #new-share-form
+  #new-share-form.form-input-container
     .text-center.big-title.margin-bottom-40
       = t(:share_who)
     = form_tag url: shares_path do
       .form-field-container.field-centered
         .form-label
-          = t(:first_name)
-        = text_field :first_name, nil, class: 'form-input'
-      .form-field-container.field-centered
-        .form-label
-          = t(:last_name)
-        = text_field :last_name, nil, class: 'form-input'
+          = t(:full_name)
+        = text_field :first_name, nil, class: 'form-input', placeholder: 'Full name'
       .form-field-container.field-centered
         .form-label
           = t(:phone_number)
-        = text_field :phone_number, nil, class: 'form-input phone-number'
+        = text_field :phone_number, nil, class: 'form-input phone-number', placeholder: 'Phone number'
       .form-field-container.field-centered
         .form-label
           = t(:email_address)
-        = email_field :email, nil, class: 'form-input'
-      .form-field-container.field-centered
-        .form-label
-          = t(:re_enter_email)
-        = email_field :email2, nil, class: 'form-input margin-bottom-10'
-      .form-field-container.field-centered
+        = email_field :email, nil, class: 'form-input', placeholder: 'Email address'
+      .form-field-container.field-centered.margin-top-40
         = submit_tag 'Share with this person', class: 'button', id: 'new-share-submit'
 
   - if @shares.any?

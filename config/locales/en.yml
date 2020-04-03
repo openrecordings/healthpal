@@ -43,8 +43,7 @@ en:
   add_share: Add a person to share with
   share_who: Who do you want to share your recordings with?
   all_fields_required: All fields are required
-  first_name: First name
-  last_name: Last name
+  full_name: Full name
   phone_number: Mobile phone number
   email_address: Email address
   re_enter_email: Re-enter email address
