@@ -23,7 +23,6 @@ $tab-height: 40px;
         padding-right: 8px;
         // background-color: $background-light;;
         color: #777;
-        border-bottom: 3px solid rgba(255, 255, 255, 0.0);
         // border-top: 1px solid $background-light;
         // border-right: 1px solid $background-light;
         // border-left: 1px solid $background-light;
@@ -36,8 +35,7 @@ $tab-height: 40px;
       .selected{
         z-index: 1;
         // background-color: #fff;
-        color: #333;
-        border-bottom: 3px solid rgba(255, 0 ,0 , 0.5);
+        color: $background-light;
       }
     }
   }

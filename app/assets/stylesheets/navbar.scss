@@ -1,8 +1,7 @@
 @mixin clickable-base{
   background-color: white;
   overflow: auto;
-  margin-bottom: 15px;
-  padding: 12px 12px 4px 12px;
+  padding: 20px 15px 15px 15px;
   text-decoration: none;
   font-size: 17px;
   &:hover {
@@ -13,12 +12,13 @@
 .clickable{
   @include clickable-base;
   color: #777;
+  border-bottom: 3px solid rgba(255, 155 , 255, 0.0);
 }
 
 .clickable-selected{
   @include clickable-base;
   color: #222;
-  border-bottom: 3px solid rgba(255, 0 ,0 , 0.5);
+  border-bottom: 3px solid #89aadf;
 }
 
 #nav-container{
@@ -79,10 +79,11 @@
 
   #menu-container{
     box-sizing: border-box;
-    padding: 10px 13px 5px 13px;
+    padding: 10px 13px 0 13px;
     width: 100%;
     background-color: white;
-    box-shadow: 0 6px 4px -4px  rgba(0,0,0,0.2);
+    // box-shadow: 0 6px 4px -4px  rgba(0,0,0,0.2);
+    border-bottom: 1px solid #bbb;
     overflow: auto;
     #navbar-left a {
       float: left;
