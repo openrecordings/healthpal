@@ -1,4 +1,4 @@
-$tab-height: 50px;
+$tab-height: 40px;
 
 #index-view {
   display: flex;
@@ -13,7 +13,6 @@ $tab-height: 50px;
       display: flex;
       justify-content: flex-start;
       align-items: center;
-      height: 50px;
       .tab{
         display: inline-block;
         height: $tab-height;
@@ -22,22 +21,23 @@ $tab-height: 50px;
         margin-right: 8px;
         padding-left: 8px;
         padding-right: 8px;
-        background-color: $background-light;;
-        color: #ddd;
-        border-top: 1px solid $background-light;
-        border-right: 1px solid $background-light;
-        border-left: 1px solid $background-light;
-        border-top-left-radius: 3px;
-        border-top-right-radius: 3px;
+        // background-color: $background-light;;
+        color: #777;
+        border-bottom: 3px solid rgba(255, 255, 255, 0.0);
+        // border-top: 1px solid $background-light;
+        // border-right: 1px solid $background-light;
+        // border-left: 1px solid $background-light;
+        // border-top-left-radius: 3px;
+        // border-top-right-radius: 3px;
         &:hover{
           cursor: pointer;
         }
       }
       .selected{
         z-index: 1;
-        padding-bottom: 1px;
-        background-color: #fff;
+        // background-color: #fff;
         color: #333;
+        border-bottom: 3px solid rgba(255, 0 ,0 , 0.5);
       }
     }
   }
@@ -46,8 +46,8 @@ $tab-height: 50px;
     padding: 20px;
     width: calc(90% - 42px);
     background-color: #fff;
-    border: 1px solid $background-light;
-    border-radius: 0 3px 3px 3px;;
+    // border: 1px solid $background-light;
+    // border-radius: 0 3px 3px 3px;;
     table {
       width: calc(100% - 100px);
       margin-top: 30px;
@@ -70,4 +70,3 @@ $tab-height: 50px;
     text-align: left;
   }
 }
-
