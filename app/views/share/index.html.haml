@@ -1,12 +1,10 @@
 .centered-form-container
-  #open-share-form-title.form-title.margin-bottom-10
-    = t(:share_recordings)
-  = submit_tag t(:add_share), class: 'button', id: 'open-share-form'
-  #new-share-form.hidden
-    .form-title
+  -# #open-share-form-title.form-title.margin-bottom-10
+  -#   = t(:share_recordings)
+  -# = submit_tag t(:add_share), class: 'button', id: 'open-share-form'
+  #new-share-form
+    .text-center.big-title.margin-bottom-40
       = t(:share_who)
-    .text-center.margin-bottom-10
-      = t(:all_fields_required)
     = form_tag url: shares_path do
       .form-field-container.field-centered
         .form-label

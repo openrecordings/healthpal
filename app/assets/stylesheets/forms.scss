@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  margin-top: 50px;
+  margin-top: 40px;
 }
 
 .form-title{
@@ -22,12 +22,13 @@
 }
 
 .form-input{
-  background-color: #fff;
+  background-color: #ddd;
   width: 300px;
   padding: 10px;
   margin: 0;
-  border-radius: 3px;
-  border: 1px solid $background-light;
+  border-style: initial;
+  border-bottom: 1px solid #888;
+  box-shadow: none;
   color: #333;
   font-size: 18px;
 }
@@ -37,8 +38,7 @@
   width: 300px;
   padding: 5px;
   margin: 0;
-  border-radius: 3px;
-  border: 1px solid $background-light;
+  border-bottom: 1px solid $background-light;
   color: #333;
   font-size: 14px;
 }
