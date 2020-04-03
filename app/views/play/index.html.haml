@@ -3,7 +3,8 @@
     #tabs
       - @users.each do |user|
         %span.tab{'data-user-id': user.id, class: ('selected' if user == @users.first)}
-          = "<span class='fa fa-user' style='font-size:24px;margin-right:3px;'></span> #{user.full_name}".html_safe
+          %span{class: 'fa fa-user user-icon'}
+          = "#{user.full_name}".html_safe
   #content-container
     - @users.each do |user|
       .content{'data-user-id': user.id, class: ('hidden' unless user == @users.first)}
@@ -16,7 +17,7 @@
           %tbody
             - user.recordings.processed.order(created_at: :desc).each do |recording|
               %tr
-                %td= link_to("Click to play -  #{format_date_time_friendly(recording.created_at)}", play_path(recording))
+                %td= link_to("Click to play - #{format_date_time_friendly(recording.created_at)}", play_path(recording))
                 %td
                   .provider.user-field-container
                     .user-field-links
