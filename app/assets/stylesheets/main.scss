@@ -12,6 +12,10 @@ body {
   color: #333;
 }
 
+*:focus {
+  outline: none;
+}
+
 #content{
   grid-area: content;
   box-sizing: border-box;
