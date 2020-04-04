@@ -1,12 +1,13 @@
 .centered-form-container
-  .form-title
-    Forgot your password?
-  = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
-    .form-field-container
-      .form-label
-        Enter your email address
-      = f.email_field :email, autofocus: true, class: 'form-input'
-    .form-field-container
-      = f.submit "Send me reset password instructions", class: 'button'
-    .form-field-container
-      = link_to 'Back to sign-in screen', new_user_session_path
+  .form-input-container
+    .form-title
+      Forgot your password?
+    = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
+      .form-field-container
+        .form-label
+          Enter your email address
+        = f.email_field :email, autofocus: true, class: 'form-input'
+      .form-field-container
+        = f.submit "Send me reset password instructions", class: 'button'
+      .form-field-container
+        = link_to 'Back to sign-in screen', new_user_session_path

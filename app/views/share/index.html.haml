@@ -7,10 +7,9 @@
       = t(:share_who)
     = form_tag url: shares_path do
       .form-field-container.field-centered
-        - placeholder = 'Full name'
-        .form-label.invisible(data-placeholder="#{placeholder}")
+        .form-label.invisible(data-placeholder="#{t(:placeholder)}")
           = t(:full_name)
-        = text_field :first_name, nil, class: 'form-input', placeholder: placeholder
+        = text_field :first_name, nil, class: 'form-input', placeholder: t(:placeholder)
       .form-field-container.field-centered
         .form-label.invisible
           = t(:phone_number)
