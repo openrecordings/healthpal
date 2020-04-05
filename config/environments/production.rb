@@ -2,6 +2,10 @@ Rails.application.configure do
 
   config.require_master_key = true
 
+  # Hide tags?
+  hide_tags = Rails.application.credentials[Rails.env.to_sym][:hide_tags]
+  ENV['HIDE_TAGS'] = 'true' if hide_tags
+
   # Staging and production:
   config.action_mailer.perform_deliveries = true
   config.action_mailer.delivery_method = :ses

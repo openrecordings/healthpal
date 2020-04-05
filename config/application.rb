@@ -21,10 +21,6 @@ module Orals
     ENV['AWS_SECRET_ACCESS_KEY'] = Rails.application.credentials.aws[:secret_access_key]
     ENV['AWS_REGION'] = Rails.application.credentials.aws[:region]
 
-    # Hide tags?
-    hide_tags = Rails.application.credentials[Rails.env.to_sym][:hide_tags]
-    ENV['HIDE_TAGS'] = 'true' if hide_tags
-
     # Dockerize logs
     logger = ActiveSupport::Logger.new(STDOUT)
     logger.formatter = config.log_formatter

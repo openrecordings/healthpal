@@ -1,5 +1,8 @@
 Rails.application.configure do
 
+  # Hide tags?
+  hide_tags = Rails.application.credentials[Rails.env.to_sym][:hide_tags]
+  ENV['HIDE_TAGS'] = 'true' if hide_tags
 
   # Settings specified here will take precedence over those in config/application.rb.
   
