@@ -24,7 +24,6 @@
 @mixin logo{
   #logo-container{
     width: 100%;
-    background-color: $background-dark;
     #logo-spans{
       display: flex;
       align-items: center;
