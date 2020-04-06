@@ -291,3 +291,9 @@ a {
   font-size: 20px;
   line-height: 20px;
 }
+
+// imprtants are needed or fa ignores this
+.local-fa{
+  font-size: 28px !important;
+  color: #666 !important;
+}

@@ -14,8 +14,6 @@
         %span#logo-pal> PAL
         - if current_user&.privileged?
           %span#logo-admin ADMIN
-      %span#mobile-menu-button-container
-        %span#mobile-menu-button.hidden &#x22EE;
   - if user_signed_in?
     -# Element IDs are for Selenium testing
     #menu-container
@@ -27,7 +25,9 @@
         =link_to t(:new_recording), record_path, id: 'nav-new-recording', class: clickable_class(record_path)
         =link_to t(:recordings), my_recordings_path, id: 'nav-my-recordings', class: clickable_class(my_recordings_path)
         =link_to t(:sharing), shares_path, id: 'nav-share', class: clickable_class([shares_path, no_shares_path])
-      #navbar-right.hidden
+      #navbar-right
+        %span#mobile-menu-button-container
+          %span#mobile-menu-button{class: 'local-fa fa fa-bars'}
         =link_to "Sign out #{current_user.email}", destroy_user_session_path, method: :delete, id: 'nav-signout', class: clickable_class(destroy_user_session_path)
         =link_to "#{t(:account)} <span class='fa fa-cog' style='margin-right: 3px;'></span>".html_safe, edit_user_registration_path, id: 'nav-account', class: clickable_class(edit_user_registration_path)
         =link_to t(:help), help_path, id: 'nav-help', class: clickable_class(help_path)

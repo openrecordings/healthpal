@@ -15,14 +15,7 @@
   width: 100%;
   @include logo; 
   #mobile-menu-button-container{
-    width: 100%;
-    text-align: right;
-    padding-left: 15px;
-    padding-right: 15px;
     #mobile-menu-button {
-      color: white;
-      font-size: 22px;
-      font-weight: bold;
       &:hover{
         cursor: pointer;
       }
@@ -38,7 +31,7 @@
     #navbar-left a {
       float: left;
     }
-    #navbar-right-big a {
+    #navbar-right a, #navbar-right span{
       float: right;
     }
   }
