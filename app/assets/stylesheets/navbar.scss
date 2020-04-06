@@ -21,9 +21,7 @@
   border-bottom: 3px solid #89aadf;
 }
 
-#nav-container{
-  grid-area: navbar;
-  width: 100%;
+@mixin logo{
   #logo-container{
     width: 100%;
     background-color: $background-dark;
@@ -55,24 +53,32 @@
         color: red;
         opacity: 0.7;
       }
-      #mobile-menu-button-container{
-        width: 100%;
-        text-align: right;
-        padding-left: 15px;
-        padding-right: 15px;
-        #mobile-menu-button {
-          color: white;
-          font-size: 22px;
-          font-weight: bold;
-          &:hover{
-            cursor: pointer;
-          }
-        }
-      }
     }
     @media screen and (max-width: 500px) {
       #logo-spans{
         font-size: 24px;
+      }
+    }
+  }
+}
+
+#nav-container{
+  grid-area: navbar;
+  width: 100%;
+
+  @include logo; 
+
+  #mobile-menu-button-container{
+    width: 100%;
+    text-align: right;
+    padding-left: 15px;
+    padding-right: 15px;
+    #mobile-menu-button {
+      color: white;
+      font-size: 22px;
+      font-weight: bold;
+      &:hover{
+        cursor: pointer;
       }
     }
   }
