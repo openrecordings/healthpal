@@ -12,7 +12,9 @@ if(document.querySelector('.form-input-container')) {
 
     $('.form-input').focusout(function() {
       $(this).attr('placeholder', $(this).data('placeholder'));
-      $(this).prev().css('visibility', 'hidden');
+      if( !$(this).val() ) {
+        $(this).prev().css('visibility', 'hidden');
+      }
     })
 
   })
