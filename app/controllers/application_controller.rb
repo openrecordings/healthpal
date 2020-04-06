@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_cache_buster
+  before_action :check_layout
   around_action :set_locale
   after_action :track_action
 
@@ -30,10 +31,14 @@ class ApplicationController < ActionController::Base
     response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
   end
 
-	def set_locale(&action)
-		locale = current_user.try(:locale) || I18n.default_locale
-		I18n.with_locale(locale, &action)
-	end
+  def check_layout
+    @hide_navbar = true if ['devise/sessions'].include? request.parameters['controller']
+  end
+
+  def set_locale(&action)
+    locale = current_user.try(:locale) || I18n.default_locale
+    I18n.with_locale(locale, &action)
+  end
 
   def track_action
     ahoy.track 'Request', request.path_parameters

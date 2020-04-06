@@ -9,7 +9,7 @@
     = stylesheet_link_tag "application", :media => "all"
   %body
     = render 'flash'
-    = render 'navbar'
+    = render 'navbar' unless @hide_navbar
     #content
       = yield
 = javascript_include_tag 'application'
