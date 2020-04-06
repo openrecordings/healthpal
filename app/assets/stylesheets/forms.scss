@@ -21,17 +21,17 @@
 }
 
 .form-input-container{
+  width: 322px;
   display: flex;
-  width: 322;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
 }
 
 .form-input{
-  padding: 10px 0 10px 10px;
-  margin: 0;
-  width: 300px;
+  box-sizing: border-box;
+  width: 322px;
+  padding: 10px;
   border-style: initial;
   box-shadow: none;
   color: #333;
@@ -39,7 +39,7 @@
 }
 
 .input-underscore {
-  width: 290px;
+  width: 302px;
   margin-left: 10px;
   border-top: 1px solid #888;
 }
@@ -51,10 +51,11 @@
 }
 
 .button{
-  margin: 10px 0;
+  box-sizing: border-box;
+  margin: 20px 0 10px 10px;
   height: 50px;
   line-height: 50px;
-  width: 300px;
+  width: 302px;
   text-align: center;
   text-decoration: none;
   font-size: 18px;
