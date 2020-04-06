@@ -27,12 +27,7 @@
         =link_to t(:new_recording), record_path, id: 'nav-new-recording', class: clickable_class(record_path)
         =link_to t(:recordings), my_recordings_path, id: 'nav-my-recordings', class: clickable_class(my_recordings_path)
         =link_to t(:sharing), shares_path, id: 'nav-share', class: clickable_class([shares_path, no_shares_path])
-        -# Redundancy: order is opposite depending on whether or not we are floating the elements
-        #navbar-right-small.hidden
-          =link_to t(:help), help_path, id: 'nav-help', class: clickable_class(help_path)
-          =link_to "#{t(:account)} <span class='fa fa-cog' style='margin-right: 3px;'></span>".html_safe, edit_user_registration_path, id: 'nav-account', class: clickable_class(edit_user_registration_path)
-          =link_to "Sign out #{current_user.email}", destroy_user_session_path, method: :delete, id: 'nav-signout', class: clickable_class(destroy_user_session_path)
-      #navbar-right-big.hidden
+      #navbar-right.hidden
         =link_to "Sign out #{current_user.email}", destroy_user_session_path, method: :delete, id: 'nav-signout', class: clickable_class(destroy_user_session_path)
         =link_to "#{t(:account)} <span class='fa fa-cog' style='margin-right: 3px;'></span>".html_safe, edit_user_registration_path, id: 'nav-account', class: clickable_class(edit_user_registration_path)
         =link_to t(:help), help_path, id: 'nav-help', class: clickable_class(help_path)

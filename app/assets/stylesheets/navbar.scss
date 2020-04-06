@@ -1,14 +1,3 @@
-@mixin clickable-base{
-  background-color: white;
-  overflow: auto;
-  padding: 20px 15px 15px 15px;
-  text-decoration: none;
-  font-size: 17px;
-  &:hover {
-    color: #222;
-  }
-}
-
 .clickable{
   @include clickable-base;
   color: #777;
@@ -21,52 +10,10 @@
   border-bottom: 3px solid #89aadf;
 }
 
-@mixin logo{
-  #logo-container{
-    width: 100%;
-    #logo-spans{
-      display: flex;
-      align-items: center;
-      #icon{
-        padding: 15px 15px 15px 25px;
-        height: 55px;
-      }
-      #logo-health, #logo-pal, #logo-admin{
-        font-size: 42px;
-        line-height: 42px;
-      }
-      #logo-open, #logo-recordings{
-        display: inline-block;
-        margin-top: 32px;
-        vertical-align: baseline;
-        font-size: 20px;
-      }
-      #logo-health, #logo-open{
-        color: $logo-dark;
-      }
-      #logo-pal, #logo-recordings{
-        color: $logo-light;
-      }
-      #logo-admin{
-        margin-left: 10px;
-        color: red;
-        opacity: 0.7;
-      }
-    }
-    @media screen and (max-width: 500px) {
-      #logo-spans{
-        font-size: 24px;
-      }
-    }
-  }
-}
-
 #nav-container{
   grid-area: navbar;
   width: 100%;
-
   @include logo; 
-
   #mobile-menu-button-container{
     width: 100%;
     text-align: right;
@@ -86,8 +33,6 @@
     box-sizing: border-box;
     padding: 10px 13px 0 13px;
     width: 100%;
-    background-color: white;
-    // box-shadow: 0 6px 4px -4px  rgba(0,0,0,0.2);
     border-bottom: 1px solid #bbb;
     overflow: auto;
     #navbar-left a {
@@ -95,12 +40,6 @@
     }
     #navbar-right-big a {
       float: right;
-    }
-    @media screen and (max-width: 500px) {
-      #navbar-left a, #navbar-right-small a{
-        float: none;
-        display: block;
-      }
     }
   }
 }
