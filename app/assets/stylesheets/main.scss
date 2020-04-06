@@ -48,6 +48,14 @@ body {
   }
 }
 
+a {
+  color: $background-light;
+  font-size: 16px;
+  &:hover{
+    color: $background-dark;
+  }
+}
+
 
 .center-block{
   display: block;
@@ -149,6 +157,10 @@ body {
 
 .margin-top-15{
   margin-top: 15px;
+}
+
+.margin-left-10{
+  margin-left: 10px;
 }
 
 .margin-bottom-10{

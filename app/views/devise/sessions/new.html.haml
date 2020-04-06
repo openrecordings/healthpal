@@ -10,7 +10,7 @@
           %span#logo-health Health
           %span#logo-pal> PAL
     = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-      .form-field-container
+      .form-field-container.margin-bottom-30
         .form-label.invisible= t(:email_address)
         = f.email_field :email,
           autofocus: true,
@@ -18,7 +18,7 @@
           class: 'form-input',
           data: {placeholder: t(:email_address)}
         .input-underscore
-      .form-field-container
+      .form-field-container.margin-bottom-30
         .form-label.invisible= t(:password)
         = f.password_field :password,
           autocomplete: 'off',
@@ -26,7 +26,7 @@
           class: 'form-input',
           data: {placeholder: t(:password)}
         .input-underscore
-      .form-field-container
+      .form-field-container.margin-bottom-10
         = f.submit t(:log_in), class: 'button' , id: 'login-button'
       .form-field-container
-        = link_to t(:forgot_password), new_user_password_path, class: 'blue-link'
+        = link_to t(:forgot_password), new_user_password_path, class: 'margin-left-10'
