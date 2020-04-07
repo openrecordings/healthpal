@@ -16,8 +16,14 @@
           %span#logo-admin ADMIN
   - if user_signed_in?
     #menu-container
-      #menu-left
-        = render 'menu_left'
-      #menu-right
-        %span#mobile-menu-button.hidden{class: 'local-fa fa fa-bars'}
-        = render 'menu_right'
+      #wide
+        #menu-left
+          = render 'menu_left'
+        #menu-right
+          = render 'menu_right'
+      #long.hidden
+        #menu-top
+          = render 'menu_top'
+        #menu-bottom
+          = render 'menu_bottom'
+      %span#mobile-menu-button.hidden{class: 'local-fa fa fa-bars'}

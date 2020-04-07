@@ -57,48 +57,14 @@
   font-size: 18px;
   color: #666;
   border: 1px solid #888;
-  border-radius: 3px;
+  border-radius: 6px;
   &:hover{
     cursor: pointer;
-    background-color: rgba(0, 116, 217, 0.1);
-    border: 1px solid rgba(62, 69, 88, 1.0);
+    background-color: $logo-light-semi;
+    border: 1px solid $logo-dark-semi;
     color: rgba(62, 69, 88, 1.0);
   }
   &:active{
-    background-color: rgba(0, 116, 217, 0.2);
+    background-color: $logo-dark-semi;
   }
 }
-
-// TODO: Remove once all references are removed
-// .button-short{
-//   width: 150px;
-//   height: 25px;
-//   line-height: 20px;
-//   font-size: 14px;
-// }
-
-// .button-tall{
-//   height: 100px;
-// }
-
-// .button-fat{
-//   height: 100px;
-//   width: 150px;
-// }
-
-// .button-container{
-//   width: 320px;
-// }
-
-// .disabled{
-//   background-color: #ccc;
-//   &:hover{
-//     cursor: pointer;
-//     background-color: #ccc;
-//   }
-// }
-
-// .text-link{
-//   display: inline-block;
-//   color: $background-dark;
-// }

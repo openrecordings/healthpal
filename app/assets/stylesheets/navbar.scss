@@ -7,7 +7,7 @@
 .clickable-selected{
   @include clickable-base;
   color: #222;
-  border-bottom: 3px solid #89aadf;
+  border-bottom: 3px solid $logo-dark;
 }
 
 #nav-container{
@@ -23,16 +23,33 @@
   }
 
   #menu-container{
-    box-sizing: border-box;
-    padding: 10px 13px 0 13px;
-    width: 100%;
-    border-bottom: 1px solid #bbb;
-    overflow: auto;
-    #menu-left a {
-      float: left;
+
+    #wide{
+      box-sizing: border-box;
+      padding: 10px 13px 0 13px;
+      width: 100%;
+      border-bottom: 1px solid #bbb;
+      overflow: auto;
+      #menu-left a {
+        float: left;
+      }
+      #menu-right a, #menu-right span{
+        float: right;
+      }
     }
-    #menu-right a, #menu-right span{
-      float: right;
+
+    #long{
+      box-sizing: border-box;
+      padding: 10px 13px 0 13px;
+      width: 100%;
+      border-bottom: 1px solid #bbb;
+      overflow: auto;
+      #menu-left a {
+        float: left;
+      }
+      #menu-right a, #menu-right span{
+        float: right;
+      }
     }
   }
 }
