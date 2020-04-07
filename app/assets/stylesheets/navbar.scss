@@ -23,18 +23,25 @@
   }
 
   #menu-container{
-
     #wide{
-      box-sizing: border-box;
-      padding: 10px 13px 0 13px;
-      width: 100%;
-      border-bottom: 1px solid #bbb;
-      overflow: auto;
-      #menu-left a {
-        float: left;
+      display: flex;
+      flex-flow: column nowrap;
+      justify-content: flex-start;
+      @mixin menu-wide{
+        box-sizing: border-box;
+        padding: 10px 13px 0 13px;
+        overflow: auto;
+        border-bottom: 1px solid #bbb;
       }
-      #menu-right a, #menu-right span{
-        float: right;
+      #menu-left{
+        background-color: #ccc;;
+        @include menu-wide;
+        align-self: flex-start;
+      }
+      #menu-right{
+        background-color: #ddd;;
+        @include menu-wide;
+        align-self: flex-end;
       }
     }
 
@@ -44,12 +51,6 @@
       width: 100%;
       border-bottom: 1px solid #bbb;
       overflow: auto;
-      #menu-left a {
-        float: left;
-      }
-      #menu-right a, #menu-right span{
-        float: right;
-      }
     }
   }
 }
