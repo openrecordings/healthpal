@@ -25,8 +25,9 @@
   #menu-container{
     #wide{
       display: flex;
-      flex-flow: column nowrap;
+      flex: 0 0 100%;
       justify-content: flex-start;
+      width: 100%;
       @mixin menu-wide{
         box-sizing: border-box;
         padding: 10px 13px 0 13px;
