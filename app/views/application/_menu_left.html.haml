@@ -2,23 +2,23 @@
     =link_to t(:user_management),
         admin_path,
         id: 'nav-user-management',
-        class: clickable_class(admin_path)
+        class: "menu-item-left #{clickable_class(admin_path)}"
     =link_to t(:manage_recordings),
         manage_recordings_path,
         id: 'nav-manage-recordings',
-        class: clickable_class(manage_recordings_path)
+        class: "menu-item-left #{clickable_class(manage_recordings_path)}"
     =link_to t(:analytics),
         analytics_path,
         id: 'nav-analytics',
-        class: clickable_class(analytics_path)
+        class: "menu-item-left #{clickable_class(analytics_path)}"
 =link_to t(:new_recording),
     record_path,
     id: 'nav-new-recording',
-    class: clickable_class(record_path)
+    class: "menu-item-left #{clickable_class(record_path)}"
 =link_to t(:recordings),
     my_recordings_path,
     id: 'nav-my-recordings',
-    class: clickable_class(my_recordings_path)
+    class: "menu-item-left #{clickable_class(my_recordings_path)}"
 =link_to t(:sharing), shares_path,
     id: 'nav-share',
-    class: clickable_class([shares_path, no_shares_path])
+    class: "menu-item-left #{clickable_class([shares_path, no_shares_path])}"

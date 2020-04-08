@@ -9,6 +9,9 @@ if (document.querySelector('#menu-container')) {
 	});
 
 	$(document).ready(function() {
+
+		// $('.menu-item-right').hide();
+
 		mediaQueries.small.addListener(toggleMenuType);
 		mediaQueries.medium.addListener(toggleMenuType);
 	})
