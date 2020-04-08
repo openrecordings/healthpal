@@ -1,16 +1,16 @@
 - if current_user.privileged?
     =link_to t(:user_management),
-    admin_path,
-    id: 'nav-user-management',
-    class: clickable_class(admin_path)
+        admin_path,
+        id: 'nav-user-management',
+        class: clickable_class(admin_path)
     =link_to t(:manage_recordings),
-    manage_recordings_path,
-    id: 'nav-manage-recordings',
-    class: clickable_class(manage_recordings_path)
+        manage_recordings_path,
+        id: 'nav-manage-recordings',
+        class: clickable_class(manage_recordings_path)
     =link_to t(:analytics),
-    analytics_path,
-    id: 'nav-analytics',
-    class: clickable_class(analytics_path)
+        analytics_path,
+        id: 'nav-analytics',
+        class: clickable_class(analytics_path)
 =link_to t(:new_recording),
     record_path,
     id: 'nav-new-recording',

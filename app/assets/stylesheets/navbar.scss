@@ -1,11 +1,13 @@
 .clickable{
   @include clickable-base;
+  display: inline-block;
   color: #777;
-  border-bottom: 3px solid rgba(255, 155 , 255, 0.0);
+  border-bottom: 3px solid white;
 }
 
 .clickable-selected{
   @include clickable-base;
+  display: inline-block;
   color: #222;
   border-bottom: 3px solid $logo-dark;
 }
@@ -25,25 +27,11 @@
   #menu-container{
     #wide{
       display: flex;
-      flex: 0 0 100%;
-      justify-content: flex-start;
-      width: 100%;
-      @mixin menu-wide{
-        box-sizing: border-box;
-        padding: 10px 13px 0 13px;
-        overflow: auto;
-        border-bottom: 1px solid #bbb;
-      }
-      #menu-left{
-        background-color: #ccc;;
-        @include menu-wide;
-        align-self: flex-start;
-      }
-      #menu-right{
-        background-color: #ddd;;
-        @include menu-wide;
-        align-self: flex-end;
-      }
+      flex-flow: row nowrap;
+      justify-content: space-between;
+      border-bottom: 1px solid #bbb;
+      #menu-left{ align-self: flex-start; }
+      #menu-right{ align-self: flex-end; }
     }
 
     #long{
