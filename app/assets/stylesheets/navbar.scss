@@ -30,8 +30,14 @@
       flex-flow: row nowrap;
       justify-content: space-between;
       border-bottom: 1px solid #bbb;
-      #menu-left{ align-self: flex-start; }
-      #menu-right{ align-self: flex-end; }
+      #menu-left{
+        align-self: flex-start;
+        box-sizing: border-box;
+      }
+      #menu-right{
+        align-self: flex-end;
+        box-sizing: border-box;
+      }
     }
 
     #long{
@@ -39,7 +45,6 @@
       padding: 10px 13px 0 13px;
       width: 100%;
       border-bottom: 1px solid #bbb;
-      overflow: auto;
     }
   }
 }
