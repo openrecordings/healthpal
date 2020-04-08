@@ -14,29 +14,25 @@
 
 #nav-container{
   grid-area: navbar;
-  width: 100%;
   @include logo; 
-  #mobile-menu-button-container{
-    #mobile-menu-button {
-      &:hover{
-        cursor: pointer;
-      }
-    }
-  }
-
+  width: 100%;
   #menu-container{
     #wide{
       display: flex;
       flex-flow: row nowrap;
       justify-content: space-between;
+      padding: 0 15px;
       border-bottom: 1px solid #bbb;
       #menu-left{
         align-self: flex-start;
-        box-sizing: border-box;
       }
       #menu-right{
         align-self: flex-end;
-        box-sizing: border-box;
+      }
+      #mobile-menu-button {
+        &:hover{
+          cursor: pointer;
+        }
       }
     }
 

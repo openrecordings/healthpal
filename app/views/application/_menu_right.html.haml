@@ -2,12 +2,12 @@
     destroy_user_session_path,
     method: :delete,
     id: 'nav-signout',
-    class: clickable_class(destroy_user_session_path)
+    class: "right-menu-item #{clickable_class(destroy_user_session_path)}"
 =link_to "#{t(:account)} <span class='local-fa-small fa fa-cog' style='margin-right: 3px;'></span>".html_safe,
     edit_user_registration_path,
     id: 'nav-account',
-    class: clickable_class(edit_user_registration_path)
+    class: "right-menu-item #{clickable_class(edit_user_registration_path)}"
 =link_to t(:help),
     help_path,
     id: 'nav-help',
-    class: clickable_class(help_path)
+    class: "right-menu-item #{clickable_class(help_path)}"

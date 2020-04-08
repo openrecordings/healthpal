@@ -1,6 +1,6 @@
 @mixin clickable-base{
   box-sizing: border-box;
-  padding: 0 13px 13px 13px;
+  padding: 30px 13px 13px 13px;
   text-decoration: none;
   font-size: 17px;
   &:hover {
