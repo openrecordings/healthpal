@@ -4,16 +4,17 @@ if (document.querySelector('#menu-container')) {
 		'medium': window.matchMedia("(max-width: 1000px)"),
 	}
 
-	$('#menu-container #long').click(function (event) {
-		$(event.target).slideToggle(100);
+	$('#mobile-menu-button').click(function() {
+		console.log('foo');
+		$('#menu-container #long').slideToggle(100);
 	});
 
 	$(document).ready(function() {
 
 		// $('.menu-item-right').hide();
 
-		mediaQueries.small.addListener(toggleMenuType);
-		mediaQueries.medium.addListener(toggleMenuType);
+		// mediaQueries.small.addListener(toggleMenuType);
+		// mediaQueries.medium.addListener(toggleMenuType);
 	})
 
 }
