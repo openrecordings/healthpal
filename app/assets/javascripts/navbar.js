@@ -1,10 +1,11 @@
 if (document.querySelector('#menu-container')) {
   var mediaQueries = {
-    'small': window.matchMedia("(max-width: 500px)"),
-    'medium': window.matchMedia("(max-width: 1340)"),
+    'small': window.matchMedia("(max-width: 910px)"),
+    'medium': window.matchMedia("(max-width: 1340px)"),
   }
 
   function setMenuType(mediaQuery){
+	console.log('foo');
     if(mediaQueries.small.matches){
       $('#mobile-menu-button').show();
       $('.menu-item-right').hide();
