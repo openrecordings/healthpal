@@ -1,13 +1,17 @@
 .clickable{
-  @include clickable-base;
-  display: inline-block;
+  @include clickable;
+  &:hover {
+    color: #222;
+  }
   color: #777;
   border-bottom: 3px solid white;
 }
 
 .clickable-selected{
-  @include clickable-base;
-  display: inline-block;
+  @include clickable;
+  &:hover {
+    color: #222;
+  }
   color: #222;
   border-bottom: 3px solid $logo-dark;
 }
@@ -17,6 +21,7 @@
   @include logo; 
   width: 100%;
   #menu-container{
+    margin-top: 20px;
     #wide{
       display: flex;
       flex-flow: row nowrap;

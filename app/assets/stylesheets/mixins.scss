@@ -1,11 +1,9 @@
-@mixin clickable-base{
-  box-sizing: border-box;
-  padding: 30px 13px 13px 13px;
+@mixin clickable{
+  display: inline-block;
+  padding: 0 13px;
   text-decoration: none;
   font-size: 17px;
-  &:hover {
-    color: #222;
-  }
+  line-height: 40px;
 }
 
 @mixin logo{
