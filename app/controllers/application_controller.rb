@@ -12,11 +12,11 @@ class ApplicationController < ActionController::Base
     redirect_to root_url unless current_user and current_user.privileged?
   end
 
-  def clickable_class(paths)
+  def current_path_in?(paths)
     paths = [paths] if paths.is_a?(String)
-    paths.include?(request.path) ? 'clickable-selected' : 'clickable'
+    paths.include?(request.path) ? true : false
   end
-  helper_method :clickable_class
+  helper_method :current_path_in?
 
   protected
 
