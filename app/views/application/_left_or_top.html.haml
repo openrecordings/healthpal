@@ -3,7 +3,7 @@
 - if current_user.privileged?
     =link_to t(:user_management),
         admin_path,
-        id: 'nav-user-management',
+    id: 'nav-user-management',
         class: "menu-item-#{position} #{current_path_in?(admin_path) ? menu_class_selected : menu_class}"
     =link_to t(:manage_recordings),
         manage_recordings_path,
