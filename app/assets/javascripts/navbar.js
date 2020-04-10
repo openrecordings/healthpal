@@ -18,7 +18,7 @@ if (document.querySelector('#menu-container')) {
       $('#mobile-menu-button').hide();
       $('.menu-item-right').show();
       $('.menu-item-left').show();
-	}
+  	}
   }
 
   $('#mobile-menu-button').click(function() {

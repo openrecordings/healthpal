@@ -4,12 +4,12 @@
     destroy_user_session_path,
     method: :delete,
     id: 'nav-signout',
-    class: "menu-item-right #{current_path_in?(destroy_user_session_path) ? menu_class : menu_class_selected}"
+    class: "menu-item-right #{current_path_in?(destroy_user_session_path) ? menu_class_selected : menu_class}"
 =link_to "#{t(:account)} <span class='local-fa-small fa fa-cog' style='margin-right: 3px;'></span>".html_safe,
     edit_user_registration_path,
     id: 'nav-account',
-    class: "menu-item-right #{current_path_in?(edit_user_registration_path) ? menu_class : menu_class_selected}"
+    class: "menu-item-right #{current_path_in?(edit_user_registration_path) ? menu_class_selected : menu_class}"
 =link_to t(:help),
     help_path,
     id: 'nav-help',
-    class: "menu-item-right #{current_path_in?(help_path) ? menu_class : menu_class_selected}"
+    class: "menu-item-right #{current_path_in?(help_path) ? menu_class_selected : menu_class}"
