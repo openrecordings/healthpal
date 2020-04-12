@@ -10,14 +10,22 @@ if (document.querySelector('#menu-container')) {
       $('#mobile-menu-button').show();
       $('.menu-item-right').hide();
       $('.menu-item-left').hide();
+      $('.menu-item-top').show();
+      $('.menu-item-bottom').show();
     } else if(mediaQueries.medium.matches){
       $('#mobile-menu-button').show();
       $('.menu-item-right').hide();
       $('.menu-item-left').show();
+      $('.menu-item-top').show();
+      $('.menu-item-top').show();
+      $('.menu-item-bottom').hide();
     } else {
       $('#mobile-menu-button').hide();
       $('.menu-item-right').show();
       $('.menu-item-left').show();
+      $('#long').hide();
+      $('.menu-item-top').hide();
+      $('.menu-item-bottom').hide();
   	}
   }
 
