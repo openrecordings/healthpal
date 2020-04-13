@@ -8,8 +8,10 @@ body {
   margin: 0;
   font-family: 'Lato', sans-serif;
   font-size: 18px;
-  background-color: $well-background;
   color: #333;
+  @media screen and (max-width: 800px) {
+
+  }
 }
 
 *:focus {
@@ -31,15 +33,15 @@ body {
   line-height: 46px;
   border-radius: 5px;
   text-align: center;
-  background-color: $notification-color;
-  color: $notification-text-color;
+  background-color: white;
+  color: white;
   #dismiss-flash{
     position: absolute;
     top: 0;
     left: 600px;
     margin-top: 6px;
     svg{
-      fill: $notification-text-color;
+      fill: white;
       &:hover{
         fill: #9b8b56;
         cursor: pointer;
@@ -49,10 +51,10 @@ body {
 }
 
 a {
-  color: $background-light;
+  color: white;
   font-size: 16px;
   &:hover{
-    color: $background-dark;
+    color: white;
   }
 }
 
@@ -230,15 +232,15 @@ a {
 }
 
 .highlighted-row{
-  background-color: $light-highlight;
+  background-color: white;
 };
 
 .even-row{
-  background-color: $table-row-dark
+  background-color: white;
 }
 
 .odd-row{
-  background-color: $table-row-light
+  background-color: white;
 }
 
 .svg{
@@ -252,7 +254,7 @@ a {
   width: 50px;
   fill: #fff;
   // &:hover{
-  //   fill: $background-light;
+  //   fill: white;
   // }
 }
 
@@ -265,9 +267,9 @@ a {
   margin-top: 10px;
   height: 20px;
   width: 20px;
-  fill: $background-dark;
+  fill: white;
   &:hover{
-    fill: $background-light;
+    fill: white;
   }
 }
 
@@ -276,14 +278,14 @@ a {
 }
 
 .blue-text{
-  color: $background-dark;
+  color: white;
 }
 
 .table-heading-format{
   opacity: 0;
   padding: 10px;
   font-weight: normal;
-  background-color: $background-dark;
+  background-color: white;
   color: #fff;
 }
 

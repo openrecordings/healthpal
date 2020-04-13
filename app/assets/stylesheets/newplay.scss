@@ -1,6 +1,11 @@
 #playview{
+  display: grid;
+  grid-template-areas: 'select'
+                       'play';
   #search-and-sort{
+    background-color: #cfc;
     box-sizing: border-box;
+    margin-top: -25px;
     padding: 15px 0;
     border-bottom: 1px solid #bbb;
   }
@@ -14,5 +19,7 @@
     border-bottom: 1px solid #bbb;
   }
   #playback{
+    background-color: #ccf;
+    height: 100%;
   }
 }

@@ -7,14 +7,14 @@
     th{
       padding: 10px;
       font-weight: normal;
-      background-color: $background-dark;
+      background-color: white;
       color: #fff;
     }
     tr.table-row:nth-child(even){
-      background-color: $table-row-dark
+      background-color: white;
     }
     tr.table-row:nth-child(odd){
-      background-color: $table-row-light
+      background-color: white;
     }
     td{
       padding: 10px;

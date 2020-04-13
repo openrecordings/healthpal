@@ -1,27 +1,4 @@
-$background-dark: #1c3e66;
-$background-light: #3c679a;
-$background-very-light: #89aadf;
-$well-background: white;
-$table-row-dark: #dddddd;
-$table-row-light: #eeeeee;
-$light-highlight: #fffedf;
-$dark-highlight: #adbfdd;
-$color-link-text: #ccf;
-$filter-color-1: #fdf09f;
-$filter-color-2: #f7c68a;
-$filter-color-3: #e98283;
-$filter-color-4: #ce94cd;
-$filter-color-5: #a682f7;
-$filter-color-6: #7da2d5;
-$filter-color-7: #8ad7e4;
-$filter-color-8: #9efb92;
-$notification-color: #f9d56d;
-$notification-text-color: #534825;
-
-@mixin clickable {
-   background-color: white; 
-   color: #222;
-   &:hover {
-       background-color: #fdfdfd;
-   }
-}
+$logo-dark: rgb(74, 164, 156);
+$logo-light: rgb(187, 189, 191);
+$logo-dark-semi: rgba(74, 164, 156, 0.3);
+$logo-light-semi: rgba(187, 189, 191, 0.3);

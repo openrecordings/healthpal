@@ -253,7 +253,7 @@ $typeahead-label-background: lighten($typeahead-primary-color, 30%) !default;
 
     &field {
         // #193 If applied to input, it overrides the placeholder color on IE10/11
-        color: $typeahead-color;
+        color: white;
         input,
         textarea,
         [contenteditable],
@@ -264,7 +264,7 @@ $typeahead-label-background: lighten($typeahead-primary-color, 30%) !default;
             min-height: calc(#{$typeahead-padding-y} * 2 + 1.25rem + 2px);
             padding: $typeahead-padding-y $typeahead-padding-x;
             background: #fff;
-            border: 1px solid $typeahead-border-color;
+            border: 1px solid white;
             border-radius: $typeahead-radius 0 0 $typeahead-radius;
             appearance: none;
             box-sizing: border-box;
@@ -274,7 +274,7 @@ $typeahead-label-background: lighten($typeahead-primary-color, 30%) !default;
 
             &:focus,
             &:active {
-                border-color: $typeahead-outline-color;
+                border-color: white;
             }
 
             //border-color: #007eff;
@@ -314,11 +314,11 @@ $typeahead-label-background: lighten($typeahead-primary-color, 30%) !default;
         touch-action: manipulation;
         cursor: pointer;
         background-color: #fff;
-        border: 1px solid $typeahead-border-color;
+        border: 1px solid white;
         line-height: $typeahead-line-height;
         padding: $typeahead-padding-y $typeahead-padding-x;
         user-select: none;
-        color: $typeahead-color;
+        color: white;
         @if ($typeahead-shadow) {
             box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.05);
         }
@@ -340,7 +340,7 @@ $typeahead-label-background: lighten($typeahead-primary-color, 30%) !default;
 
         &:focus,
         &:active {
-            border-color: $typeahead-outline-color;
+            border-color: white;
         }
     }
 
@@ -354,7 +354,7 @@ $typeahead-label-background: lighten($typeahead-primary-color, 30%) !default;
             opacity: 0.65;
             box-shadow: none;
             background-color: #fff;
-            border-color: $typeahead-border-color;
+            border-color: white;
         }
 
         //&.multiselect,
@@ -417,7 +417,7 @@ $typeahead-label-background: lighten($typeahead-primary-color, 30%) !default;
         list-style: none;
         text-align: left;
         background-color: #fff;
-        border: 1px solid $typeahead-border-color;
+        border: 1px solid white;
         border-radius: $typeahead-radius;
         background-clip: padding-box;
         @if ($typeahead-shadow) {
@@ -440,7 +440,7 @@ $typeahead-label-background: lighten($typeahead-primary-color, 30%) !default;
 
     &list > li {
         position: relative;
-        border-top: solid 1px $typeahead-border-color;
+        border-top: solid 1px white;
         &:first-child {
             border-top: none;
         }
@@ -451,7 +451,7 @@ $typeahead-label-background: lighten($typeahead-primary-color, 30%) !default;
         &[disabled] {
             > a {
                 cursor: not-allowed;
-                color: $typeahead-item-disabled-color;
+                color: white;
                 background-color: $typeahead-item-disabled-background;
             }
         }
@@ -460,7 +460,7 @@ $typeahead-label-background: lighten($typeahead-primary-color, 30%) !default;
             display: block;
             padding: $typeahead-padding-y $typeahead-padding-x;
             clear: both;
-            color: $typeahead-item-color;
+            color: white;
             text-decoration: none;
         }
 
@@ -477,17 +477,17 @@ $typeahead-label-background: lighten($typeahead-primary-color, 30%) !default;
     &list.empty {
         > li {
             padding: $typeahead-padding-y $typeahead-padding-x;
-            color: $typeahead-item-color;
+            color: white;
         }
     }
 
     &list > .typeahead__group {
-        border-color: $typeahead-group-border-color;
+        border-color: white;
         font-weight: bold;
 
         &:first-child {
             @if ($typeahead-dropdown-spacing > 0) {
-                border-top: solid 1px $typeahead-group-border-color;
+                border-top: solid 1px white;
             }
         }
         > a,
@@ -495,7 +495,7 @@ $typeahead-label-background: lighten($typeahead-primary-color, 30%) !default;
         > a:focus,
         &.active > a {
             cursor: default;
-            color: $typeahead-group-color;
+            color: white;
             background: $typeahead-group-background;
             display: block;
             padding: $typeahead-padding-y $typeahead-padding-x;
@@ -506,7 +506,7 @@ $typeahead-label-background: lighten($typeahead-primary-color, 30%) !default;
 
     &list > {
         li.typeahead__group + li.typeahead__item {
-            border-color: $typeahead-group-border-color;
+            border-color: white;
         }
     }
 
@@ -528,7 +528,7 @@ $typeahead-label-background: lighten($typeahead-primary-color, 30%) !default;
     &dropdown li:last-child {
         margin-top: $typeahead-dropdown-spacing;
         padding-top: $typeahead-dropdown-spacing;
-        border-top: solid 1px $typeahead-border-color;
+        border-top: solid 1px white;
     }
 
     &cancel-button {
@@ -550,7 +550,7 @@ $typeahead-label-background: lighten($typeahead-primary-color, 30%) !default;
         .typeahead__cancel-button {
             visibility: visible;
             &:hover {
-                color: $typeahead-cancel-color;
+                color: white;
             }
         }
     }
@@ -617,7 +617,7 @@ $typeahead-label-background: lighten($typeahead-primary-color, 30%) !default;
         font-size: $typeahead-label-font-size;
         position: relative;
         background: $typeahead-label-background;
-        border: solid 1px $typeahead-label-border-color;
+        border: solid 1px white;
         padding-left: 4px;
         border-radius: $typeahead-radius;
         margin-right: 4px;
@@ -637,7 +637,7 @@ $typeahead-label-background: lighten($typeahead-primary-color, 30%) !default;
             padding-right: 6px;
             margin-left: 4px;
             font-size: $typeahead-label-font-size;
-            border-left: solid 1px $typeahead-label-border-color;
+            border-left: solid 1px white;
             &:hover {
                 background-color: darken($typeahead-label-background, 5%);
             }
