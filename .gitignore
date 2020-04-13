@@ -1,12 +1,6 @@
-##################################################################################################
-# CRITICAL FOR THE SECURITY OF PROTECTED HEALTH INFORMATION.
-# LEAVE THIS AND PUT PHI ONLY IN THIS DIRECTORY.
-/protected_media/*
-##################################################################################################
-/config/local_env.yml
-/config/browserstack.yml
-/config/app_config.yml
-/config/ssl/*
+# Decryption key for credentials
+/config/master.key
+
 /.bundle
 /.idea
 /dumps/*
@@ -17,16 +11,5 @@
 .byebug_history
 .gemrc
 *.swp
-/app/views/application/_navbar.html.haml.bak
 .ruby-version
-
-# Elastic Beanstalk Files
-.elasticbeanstalk/*
-!.elasticbeanstalk/*.cfg.yml
-!.elasticbeanstalk/*.global.yml
-
-# Decryption key for credentials
-/config/master.key
-
-# YAML dumps
-/dump/*
+/dev-assets

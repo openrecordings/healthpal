@@ -25,6 +25,12 @@
   border-left: 3px solid $logo-dark;
 }
 
+#mobile-menu-button{
+  position:  relative;
+  right: 10px;
+  padding-right: 10px;
+}
+
 #nav-container{
   grid-area: navbar;
   @include logo; 
