@@ -19,19 +19,9 @@
     #logo-spans{
       display: flex;
       align-items: center;
-      #icon{
-        padding: 15px 15px 15px 25px;
-        height: 55px;
-      }
-      #logo-health, #logo-pal, #logo-admin{
-        font-size: 42px;
-        line-height: 42px;
-      }
       #logo-open, #logo-recordings{
         display: inline-block;
-        margin-top: 32px;
         vertical-align: baseline;
-        font-size: 20px;
       }
       #logo-health, #logo-open{
         color: $logo-dark;
@@ -43,6 +33,40 @@
         margin-left: 10px;
         color: red;
         opacity: 0.7;
+      }
+    }
+    @media screen and (min-width: $max-mobile-width) {
+      #icon{
+        padding: 15px 15px 15px 25px;
+        height: 55px;
+        img {
+          width: 50px;
+        }
+      }
+      #logo-health, #logo-pal, #logo-admin{
+        font-size: 42px;
+        line-height: 42px;
+      }
+      #logo-open, #logo-recordings{
+        margin-top: 32px;
+        font-size: 20px;
+      }
+    }
+    @media screen and (max-width: $max-mobile-width) {
+      #icon{
+        padding: 10px 10px 10px 15px;
+        height: 45px;
+        img {
+          width: 40px;
+        }
+      }
+      #logo-health, #logo-pal, #logo-admin{
+        font-size: 28px;
+        line-height: 32px;
+      }
+      #logo-open, #logo-recordings{
+        margin-top: 22px;
+        font-size: 16px;
       }
     }
   }
