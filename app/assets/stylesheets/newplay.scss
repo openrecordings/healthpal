@@ -4,30 +4,36 @@
   justify-content: flex-start;
   height: 100%;
   #search-and-select{
-    background-color: #fcf;
     display: flex;
     flex-direction: column;
     height: 100%;
     #search{
-      background-color: #cfc;
       box-sizing: border-box;
       padding: 15px;
       border-bottom: 1px solid #bbb;
     }
     #select{
-      max-height: 100%;
       overflow: scroll;
+      .recording-list-item{
+        box-sizing: border-box;
+        padding: 15px;
+        border-bottom: 1px solid #bbb;
+      }
     }
   }
-  .recording-list-item{
-    background-color: #ffe;
-    box-sizing: border-box;
-    padding: 15px;
-    border-bottom: 1px solid #bbb;
-  }
   #playback{
-    background-color: #eef;
     flex: 1 0 auto; 
-    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    #notes{
+      flex-grow: 1;
+      padding: 15px;
+      border-bottom: 1px solid #bbb;
+      overflow: scroll;
+    }
+    #transport{
+      padding: 15px;
+    }
   }
 }
