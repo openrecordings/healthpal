@@ -9,21 +9,20 @@
 
 .menu-horiz-selected{
   @include menu-horiz;
-  &:hover {
-    color: #222;
-  }
   color: #222;
   border-bottom: 3px solid $logo-dark;
 }
 
 .menu-vert{
   @include menu-vert;
-  color: blue;
+  color: #777;
+  border-left: 3px solid white;
 }
 
 .menu-vert-selected{
   @include menu-vert;
-  color: red;
+  color: #222;
+  border-left: 3px solid $logo-dark;
 }
 
 #nav-container{
@@ -53,7 +52,7 @@
 
     #long{
       box-sizing: border-box;
-      padding: 10px 13px 0 13px;
+      padding: 10px 13px 10px 13px;
       width: 100%;
       border-bottom: 1px solid #bbb;
     }

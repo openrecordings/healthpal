@@ -8,6 +8,9 @@
 
 @mixin menu-vert{
   display: block;
+  padding: 6px 8px;
+  text-decoration: none;
+  font-size: 17px;
 }
 
 @mixin logo{
