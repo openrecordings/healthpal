@@ -1,0 +1,1 @@
+// $('#selection').resizable({handles: 'e, w'});

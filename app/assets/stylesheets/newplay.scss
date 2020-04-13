@@ -1,8 +1,14 @@
 #playview{
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
   #selection{
     background-color: #fdd;
+    width: 250px;
+    border-right: 1px solid $logo-light;
   }
   #playback{
+    min-width: 200px;;
     background-color: #ddf;
   }
 }
