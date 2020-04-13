@@ -2,25 +2,32 @@
   display: flex;
   flex-wrap: nowrap;
   justify-content: flex-start;
+  height: 100%;
   #search-and-select{
+    background-color: #fcf;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
     #search{
       background-color: #cfc;
       box-sizing: border-box;
-      padding: 15px 0;
+      padding: 15px;
       border-bottom: 1px solid #bbb;
     }
     #select{
-      max-height: 150px;
+      max-height: 100%;
       overflow: scroll;
     }
   }
   .recording-list-item{
+    background-color: #ffe;
     box-sizing: border-box;
-    padding: 15px 0;
+    padding: 15px;
     border-bottom: 1px solid #bbb;
   }
   #playback{
-    background-color: #ccf;
-    height: 100%;
+    background-color: #eef;
+    flex: 1 0 auto; 
+    padding: 15px;
   }
 }
