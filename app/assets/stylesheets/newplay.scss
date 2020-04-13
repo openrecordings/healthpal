@@ -1,14 +1,18 @@
 #playview{
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: flex-start;
-  #selection{
-    background-color: #fdd;
-    width: 250px;
-    border-right: 1px solid $logo-light;
+  #search-and-sort{
+    box-sizing: border-box;
+    padding: 15px 0;
+    border-bottom: 1px solid #bbb;
+  }
+  #select{
+    max-height: 150px;
+    overflow: scroll;
+  }
+  .recording-list-item{
+    box-sizing: border-box;
+    padding: 15px 0;
+    border-bottom: 1px solid #bbb;
   }
   #playback{
-    min-width: 200px;;
-    background-color: #ddf;
   }
 }
