@@ -26,9 +26,12 @@
 }
 
 #mobile-menu-button{
-  position:  relative;
+  position:  absolute;
   right: 10px;
   padding-right: 10px;
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 #nav-container{
