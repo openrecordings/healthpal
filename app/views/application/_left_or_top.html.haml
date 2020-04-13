@@ -17,6 +17,10 @@
     my_recordings_path,
     id: 'nav-my-recordings',
     class: "menu-item-#{position} #{current_path_in?(my_recordings_path) ? menu_class_selected : menu_class}"
+=link_to 'Newplay',
+    newplay_path,
+    id: 'nav-newplay',
+    class: "menu-item-#{position} #{current_path_in?(newplay_path) ? menu_class_selected : menu_class}"
 =link_to t(:new_recording),
     record_path,
     id: 'nav-new-recording',

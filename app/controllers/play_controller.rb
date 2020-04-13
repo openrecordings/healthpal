@@ -13,6 +13,10 @@ class PlayController < ApplicationController
     end
   end
 
+  def newplay
+
+  end
+
   def play
     @recording = Recording.find_by(id: params[:id])
     if(@recording && current_user.can_access(@recording))

@@ -41,7 +41,8 @@ Rails.application.routes.draw do
   # Playback
   get 'my_recordings',               to: 'play#index',                       as: 'my_recordings'
   get 'play/:id',                    to: 'play#play',                        as: 'play'
-  get 'play/rm_tmp_file/:id',        to: 'play#rm_tmp_file'
+  get 'newplay',                     to: 'play#newplay',                     as: 'newplay'
+
 
   # TODO One of these needs to go
   post 'play/user_field',            to: 'play#user_field'
