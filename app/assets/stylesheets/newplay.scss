@@ -1,4 +1,4 @@
-#playview{
+#play-view{
   display: flex;
   flex-wrap: nowrap;
   justify-content: flex-start;
@@ -27,6 +27,7 @@
     flex-direction: column;
     height: 100%;
     #notes{
+      background-color: lightblue;
       flex-grow: 1;
       padding: 15px;
       border-bottom: 1px solid #bbb;
