@@ -3,26 +3,8 @@
     #search
       = render 'search'
     #select
-      = render 'recording_list_item'
-      = render 'recording_list_item'
-      = render 'recording_list_item'
-      = render 'recording_list_item'
-      = render 'recording_list_item'
-      = render 'recording_list_item'
-      = render 'recording_list_item'
-      = render 'recording_list_item'
-      = render 'recording_list_item'
-      = render 'recording_list_item'
-      = render 'recording_list_item'
-      = render 'recording_list_item'
-      = render 'recording_list_item'
-      = render 'recording_list_item'
-      = render 'recording_list_item'
-      = render 'recording_list_item'
-      = render 'recording_list_item'
-      = render 'recording_list_item'
-      = render 'recording_list_item'
-      = render 'recording_list_item'
+      - @recordings.each do |recording|
+        = render 'recording_list_item', recording: recording
   #playback
     #notes
       Notes

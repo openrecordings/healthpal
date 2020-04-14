@@ -13,8 +13,9 @@ class PlayController < ApplicationController
     end
   end
 
+  # TODO: integrate recordings shared with current_user
   def newplay
-
+    @recordings = current_user.recordings
   end
 
   def play
