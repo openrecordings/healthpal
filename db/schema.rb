@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_29_133150) do
+ActiveRecord::Schema.define(version: 2020_04_15_192645) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -121,6 +121,12 @@ ActiveRecord::Schema.define(version: 2020_02_29_133150) do
     t.string "mailer_method"
     t.index ["message_template_id"], name: "index_messages_on_message_template_id"
     t.index ["recording_id"], name: "index_messages_on_recording_id"
+  end
+
+  create_table "orgs", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "recordings", id: :serial, force: :cascade do |t|
