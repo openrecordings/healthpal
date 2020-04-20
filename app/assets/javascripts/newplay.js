@@ -6,7 +6,6 @@ if (document.querySelector('#play-view')) {
   }
 
   function hideSelect(){
-    console.log('foo');
     $('#search-and-select').animate({
       width: '50px'
     })
@@ -21,7 +20,6 @@ if (document.querySelector('#play-view')) {
   }
 
   $(document).ready(function() {
-    hideSelect();
 
     $('.recording-list-item').click(function(){
       recordingId = $(this).data('recording-id');

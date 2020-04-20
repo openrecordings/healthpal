@@ -10,7 +10,6 @@
   %body
     = render 'flash'
     = render 'navbar' unless @hide_navbar
-    - unless current_user
-      #content
-        = yield
+    #content
+      = yield
 = javascript_include_tag 'application'

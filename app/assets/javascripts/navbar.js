@@ -43,5 +43,6 @@ if (document.querySelector('#menu-container')) {
     setMenuType(mediaQueries.medium);
     mediaQueries.small.addListener(setMenuType);
     mediaQueries.medium.addListener(setMenuType);
+    $('#nav-container').show();
   })
 }
