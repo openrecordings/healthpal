@@ -1,7 +1,5 @@
 #play-view
   #left
-    #select-collapsed.hidden
-      >
     #search-and-select
       #search
         = render 'search'
@@ -10,6 +8,8 @@
           = render 'recording_list_item', recording: recording
   #right
     #playback.hidden
+      #header
+        #show-select < Select a recording
       #notes
         Notes
       #transport
