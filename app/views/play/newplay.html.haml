@@ -1,5 +1,7 @@
 #play-view
   #left
+    #select-collapsed.hidden
+      >
     #search-and-select
       #search
         = render 'search'
@@ -7,7 +9,7 @@
         - @recordings.each do |recording|
           = render 'recording_list_item', recording: recording
   #right
-    #playback
+    #playback.hidden
       #notes
         Notes
       #transport

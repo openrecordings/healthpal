@@ -5,21 +5,17 @@ if (document.querySelector('#play-view')) {
 
   }
 
-  function hideSelect(){
-    $('#search-and-select').addClass('collapse');
-  }
-
   function showPlayback(){
-    $('#right').css('width', '100px');
-  }
-
-  function hidePlayback(){
-    $('#right').css('width', '0px');
+    $('#left').css('flex-grow', '0');
+    $('#right').css('flex-grow', '1');
+    $('#playback').fadeIn();
+    $('#search-and-select').hide();
+    $('#select-collapsed').fadeIn();
   }
 
   $(document).ready(function() {
 
-    showPlayback();
+    // showPlayback();
 
     $('.recording-list-item').click(function(){
       recordingId = $(this).data('recording-id');

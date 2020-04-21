@@ -4,6 +4,8 @@
   height: 100%;
   #left{
     flex-grow: 1;
+    overflow: hidden;
+    transition-duration: 300ms;
     #search-and-select{
       background-color: lightcoral;
       height: 100%;
@@ -24,8 +26,8 @@
   }
 
   #right{
+    flex-grow: 0;
     overflow: hidden;
-    width: 0;
     transition-duration: 300ms;
     #playback{
       background-color: lightblue;
