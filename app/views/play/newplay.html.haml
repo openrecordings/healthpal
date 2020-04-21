@@ -1,12 +1,14 @@
 #play-view
-  #search-and-select
-    #search
-      = render 'search'
-    #select
-      - @recordings.each do |recording|
-        = render 'recording_list_item', recording: recording
-  #playback.collapse
-    #notes
-      Notes
-    #transport
-      Transport
+  #left
+    #search-and-select
+      #search
+        = render 'search'
+      #select
+        - @recordings.each do |recording|
+          = render 'recording_list_item', recording: recording
+  #right
+    #playback
+      #notes
+        Notes
+      #transport.hidden
+        Transport
