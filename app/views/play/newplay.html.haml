@@ -1,13 +1,11 @@
 #play-view
   #search-and-select
-    #minimized
-      foo
     #search
       = render 'search'
     #select
       - @recordings.each do |recording|
         = render 'recording_list_item', recording: recording
-  #playback
+  #playback.collapse
     #notes
       Notes
     #transport

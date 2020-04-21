@@ -11,6 +11,13 @@
   text-decoration: none;
 }
 
+@mixin flexy{
+  display: flex;
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: auto;
+}
+
 @mixin logo{
   #logo-container{
     width: 100%;
