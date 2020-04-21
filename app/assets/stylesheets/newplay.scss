@@ -2,12 +2,14 @@
   display: flex;
   align-items: stretch; 
   height: 100%;
+
   #left{
+    background-color: #fee;
     flex-grow: 1;
     overflow: hidden;
     transition-duration: 300ms;
     #search-and-select{
-      background-color: lightcoral;
+      background-color: #fee;
       height: 100%;
       overflow: scroll;
       #search{
@@ -26,11 +28,12 @@
   }
 
   #right{
+    background-color: #eef;
     flex-grow: 0;
     overflow: hidden;
     transition-duration: 300ms;
     #playback{
-      background-color: lightblue;
+      background-color: #eef;
       height: 100%;
       #notes{
         padding: 15px;
@@ -43,8 +46,4 @@
     }
   }
 
-}
-
-.collapse{
-  flex-grow: 0.001;
 }

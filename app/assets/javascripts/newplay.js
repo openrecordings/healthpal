@@ -4,7 +4,7 @@ if (document.querySelector('#play-view')) {
   function showSelect(){
     $('#right').css('flex-grow', '0');
     $('#left').css('flex-grow', '1');
-    $('#search-and-select').fadeIn();
+    $('#search-and-select').show();
     $('#playback').hide();
 
   }
@@ -12,7 +12,7 @@ if (document.querySelector('#play-view')) {
   function showPlayback(){
     $('#left').css('flex-grow', '0');
     $('#right').css('flex-grow', '1');
-    $('#playback').fadeIn();
+    $('#playback').show();
     $('#search-and-select').hide();
   }
 
