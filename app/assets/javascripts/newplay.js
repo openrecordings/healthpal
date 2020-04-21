@@ -10,18 +10,16 @@ if (document.querySelector('#play-view')) {
   }
 
   function showPlayback(){
-
+    $('#right').css('width', '100px');
   }
 
   function hidePlayback(){
-    $('#playback').addClass('collapse');
-    $('#notes').addClass('collapse');
-    $('#transport').addClass('collapse');
+    $('#right').css('width', '0px');
   }
 
   $(document).ready(function() {
 
-    // hideSelect();
+    showPlayback();
 
     $('.recording-list-item').click(function(){
       recordingId = $(this).data('recording-id');

@@ -3,18 +3,17 @@
   align-items: stretch; 
   height: 100%;
   #left{
-    flex: 1 1 auto;
+    flex-grow: 1;
     #search-and-select{
       background-color: lightcoral;
-      flex-direction: column;
       height: 100%;
+      overflow: scroll;
       #search{
         box-sizing: border-box;
         padding: 15px;
         border-bottom: 1px solid #bbb;
       }
       #select{
-        overflow: scroll;
         .recording-list-item{
           box-sizing: border-box;
           padding: 15px;
@@ -25,7 +24,9 @@
   }
 
   #right{
-    flex: 1 1 auto;
+    overflow: hidden;
+    width: 0;
+    transition-duration: 300ms;
     #playback{
       background-color: lightblue;
       height: 100%;
