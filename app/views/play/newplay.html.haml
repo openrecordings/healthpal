@@ -1,14 +1,16 @@
 #play-view
-  #search-and-select
-    #minimized
-      foo
-    #search
-      = render 'search'
-    #select
-      - @recordings.each do |recording|
-        = render 'recording_list_item', recording: recording
-  #playback
-    #notes
-      Notes
-    #transport
-      Transport
+  #left
+    #search-and-select
+      #search
+        = render 'search'
+      #select
+        - @recordings.each do |recording|
+          = render 'recording_list_item', recording: recording
+  #right
+    #playback.hidden
+      #header
+        #show-select < Select a recording
+      #notes
+        Notes
+      #transport
+        -# Transport
