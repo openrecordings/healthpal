@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  
+
   require 'twilio-ruby'
   devise :invitable, :database_authenticatable, :registerable, :recoverable, :rememberable,
     :trackable, :validatable, :timeoutable
@@ -48,7 +48,7 @@ class User < ApplicationRecord
   end
 
   def root?
-    role == root
+    role == 'root'
   end
 
   def can_access(recording)
