@@ -7,6 +7,7 @@ class User < ApplicationRecord
   has_many :recordings
   has_many :shares
   has_many :visits, class_name: 'Ahoy::Visit'
+	belongs_to :org
 
   scope :regular, ->() { where role: 'user' }
 
