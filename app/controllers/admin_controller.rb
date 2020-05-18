@@ -1,7 +1,7 @@
 class AdminController < ApplicationController
 
   #TODO Handle bad params
-  
+
   before_action :verify_privileged
 
   def index
@@ -49,6 +49,7 @@ class AdminController < ApplicationController
       phone_number: user_params[:phone_number],
       password: user_params[:password],
       role: 'user',
+      org_id: current_user.org.id,
       requires_phone_confirmation: false
     )
     if @user.save
@@ -62,7 +63,8 @@ class AdminController < ApplicationController
 
   # Select an existing user to switch to
   def switch_user_select
-    @users = User.regular
+    @users = current_user.org.all_users.regular
+    # @users = User.regular
   end
 
   def switch_to_user
@@ -76,7 +78,8 @@ class AdminController < ApplicationController
   end
 
   def new_caregiver
-    @users = User.regular
+    @users = current_user.org.all_users.regular
+    # @users = User.regular
   end
 
   def create_caregiver
@@ -84,6 +87,7 @@ class AdminController < ApplicationController
       email: params['email'],
       role: 'user',
       active: true,
+      org_id: current_user.org.id,
       first_name: params['first_name'],
       last_name: params['last_name'],
     )

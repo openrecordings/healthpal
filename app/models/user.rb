@@ -7,7 +7,7 @@ class User < ApplicationRecord
   has_many :recordings
   has_many :shares
   has_many :visits, class_name: 'Ahoy::Visit'
-	belongs_to :org
+	belongs_to :org, optional: true
 
   scope :regular, ->() { where role: 'user' }
 
@@ -45,11 +45,7 @@ class User < ApplicationRecord
   end
 
   def privileged?
-    ['admin', 'root'].include?(role)
-  end
-
-  def root?
-    role == 'root'
+		role == "admin"
   end
 
   def can_access(recording)

@@ -15,7 +15,7 @@
         %th Last Login
         %th Login enabled
     %tbody
-      - User.order('email ASC').all.each do |user|
+      - current_user.org.all_users.each do |user|
         %tr.table-row
           %td= user.email
           %td= user.full_name
