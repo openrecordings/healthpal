@@ -29,7 +29,8 @@
 
   #right{
     background-color: #eef;
-    flex-grow: 0;
+    // flex-grow: 0;
+    flex-grow: 1;
     overflow: hidden;
     transition-duration: 300ms;
     #playback{
