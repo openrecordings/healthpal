@@ -3,14 +3,10 @@ class PlayController < ApplicationController
   # A reminder for parsing (some generation of) transcript JSON from AWS
   # json.first['alternatives'].first['words'].first['start_time']['seconds']
 
+  # TODO: Handle non-user roles
   def index
-    if current_user.privileged?
-      @users = User.joins(:recordings).order(:email).uniq
-    else
-      # Current user and all users who are currently sharing with current_user
-      @users = [current_user] + Share.shared_with_user(current_user).map {|s| s.user}.
-        sort_by {|s| s.last_name}
-    end
+    @current_user_recordings = current_user.recordings
+    @recordings_shared_with = current_user.recordings_shared_with
   end
 
   # TODO: integrate recordings shared with current_user

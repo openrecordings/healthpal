@@ -12,6 +12,11 @@ class User < ApplicationRecord
 
   validates_presence_of :first_name, :last_name, :email, if: :has_ever_logged_in
 
+  # NOTE: `active` enforces that shares are currently valid. Keep.
+  def recordings_shared_with
+    Share.active.where(shared_with_user_id: self.id).map{|s| s.recording}
+  end
+
   def has_ever_logged_in
     sign_in_count > 0
   end
@@ -52,11 +57,7 @@ class User < ApplicationRecord
   end
 
   def can_access(recording)
-    privileged? || accessible_users.include?(recording.user)
-  end
-
-  def accessible_users
-    [self] + Share.shared_with_user(self).map {|s| s.user}
+    privileged? || recordings_shared_with.include?(recording)
   end
 
   def toggle_active
