@@ -1,9 +1,9 @@
 class PlayController < ApplicationController
 
+  # A reminder for parsing (some generation of) transcript JSON from AWS
   # json.first['alternatives'].first['words'].first['start_time']['seconds']
+
   def index
-    # TODO: Handle bad data
-    # TODO: Restrict admin users again?
     if current_user.privileged?
       @users = User.joins(:recordings).order(:email).uniq
     else
@@ -18,19 +18,19 @@ class PlayController < ApplicationController
     @recordings = current_user.recordings
   end
 
-  def play
-    @recording = Recording.find_by(id: params[:id])
-    if(@recording && current_user.can_access(@recording))
-      @title = "#{@recording.user.full_name}, #{@recording.created_at.strftime('%-m/%-d/%-y')}"
-      @provider = UserField.find_by(recording: @recording, type: :provider) || UserField.new(recording: @recording, type: :provider)
-      @note = UserField.find_by(recording: @recording, type: :note) || UserField.new(recording: @recording, type: :note)
-      @utterances = prepare_utterances(@recording)
-      @view_id = @recording.is_video ? 'video-view' : (!!ENV['HIDE_TAGS'] ? 'audio-view-hide-tags' : 'audio-view')
-    else
-      flash.alert = 'An error ocurred while retriving the audio data. Please contact support.'
-      redirect_to :root and return
-    end
-  end
+  # def play
+  #   @recording = Recording.find_by(id: params[:id])
+  #   if(@recording && current_user.can_access(@recording))
+  #     @title = "#{@recording.user.full_name}, #{@recording.created_at.strftime('%-m/%-d/%-y')}"
+  #     @provider = UserField.find_by(recording: @recording, type: :provider) || UserField.new(recording: @recording, type: :provider)
+  #     @note = UserField.find_by(recording: @recording, type: :note) || UserField.new(recording: @recording, type: :note)
+  #     @utterances = prepare_utterances(@recording)
+  #     @view_id = @recording.is_video ? 'video-view' : (!!ENV['HIDE_TAGS'] ? 'audio-view-hide-tags' : 'audio-view')
+  #   else
+  #     flash.alert = 'An error ocurred while retriving the audio data. Please contact support.'
+  #     redirect_to :root and return
+  #   end
+  # end
   
   # AJAX endpoint for in-place editing of UserFields
   # TODO Handle bad params
