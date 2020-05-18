@@ -1,35 +1,22 @@
-#index-view
-  #tab-container
-    #tabs
-      - @users.each do |user|
-        %span.tab{'data-user-id': user.id, class: ('selected' if user == @users.first)}
-          %span{class: 'fa fa-user user-icon'}
-          = "#{user.full_name}".html_safe
-  #content-container
-    - @users.each do |user|
-      .content{'data-user-id': user.id, class: ('hidden' unless user == @users.first)}
-        %table.compressed
-          %thead
-            %tr#header-row
-              %th Recorded at
-              %th Provider
-              %th Notes
-          %tbody
-            - user.recordings.processed.order(created_at: :desc).each do |recording|
-              %tr
-                %td= link_to("Click to play - #{format_date_time_friendly(recording.created_at)}", play_path(recording))
-                %td
-                  .provider.user-field-container
-                    .user-field-links
-                      .save.hidden Save
-                      .cancel.hidden Cancel
-                    - provider = UserField.find_by(recording: recording, type: :provider)
-                    %input.provider-content.user-field-content{'data-recording-id': recording.id, 'data-type': 'provider', value: provider&.text}
-                %td
-                  .note.user-field-container
-                    .user-field-links
-                      .save.hidden Save
-                      .cancel.hidden Cancel
-                    - note = UserField.find_by(recording: recording, type: :note)
-                    %textarea.note-content.user-field-content{'data-recording-id': recording.id, 'data-type': 'note', value: note&.text}
-                      = note&.text
+-# = video_tag(''),
+-#   id: 'video-element',
+-#   'data-recording-id': '',
+-#   'data-is-video': '',
+-#   class: 'hidden',
+-#   controls: false)
+#play-view
+  #left.hidden
+    #search-and-select
+      #search
+        = render 'search'
+      #select
+        - @recordings.each do |recording|
+          = render 'recording_list_item', recording: recording
+  #right
+    #playback
+      #header
+        #show-select Select a recording
+      #notes
+        Notes
+      #transport
+        -# Transport
