@@ -1,397 +1,50 @@
-// Top level grid layout
-//////////////////////////////////////////////////////////////////////////////////////////////////
-#video-play-view {
-  display: grid;
-  grid-template-areas: 'head'
-                       'video'
-                       'player';
-  grid-template-rows: 100px 1fr 160px;
-  max-height: 100%;
-  max-width: 100%;
-  padding-bottom: 20px;
-}
-
-// Used in more than one section
-//////////////////////////////////////////////////////////////////////////////////////////////////
-.user-field-container{
+#play-view{
   display: flex;
-  margin-bottom: 13px;
-  color: white;
-  .user-field-label{
-    padding-top: 8px;
-    padding-left: 60px;
-  }
-  .user-field-content{
-    background-color: #fff;
-    margin-left: 5px;
-    padding: 8px;
-    border-radius: 3px;
-    border: 1px solid white;
-    font-family: 'Lato', sans-serif;
-    font-size: 18px;
-    color: #333;
-    font-size: 16px;
-    word-wrap: break-word;
-  }
-  .save, .cancel{
-    color: white;
-    text-decoration: underline;
-    &:hover{
-      cursor: pointer;
-    }
-  }
-  .no-input{
-    margin-left: 0;
-    border: none;
-    background: none;
-    font-size: 18px;
-  }
-}
+  align-items: stretch; 
+  height: 100%;
 
-@mixin header{
-  #header-container{
-    grid-area: head;
-    #header {
-      display: flex;
-      width: 100%;
-      padding-top: 13px;
-      #title{
-        color: white;
-        font-size: 26px;
+  #left{
+    background-color: #fee;
+    flex-grow: 1;
+    overflow: hidden;
+    transition-duration: 300ms;
+    #search-and-select{
+      background-color: #fee;
+      height: 100%;
+      overflow: scroll;
+      #search{
+        box-sizing: border-box;
+        padding: 15px;
+        border-bottom: 1px solid #bbb;
       }
-    }
-  }
-}
-
-@mixin controls{
-  #player {
-    grid-area: player;
-    background-color: white;
-    border-top-left-radius: 3px;
-    border-top-right-radius: 3px;
-    #controls-container{
-      display: grid;
-      grid-template-areas: 'timeline'
-                           'buttons';
-      grid-template-rows: 58px 110px;
-      #timeline{
-        grid-area: timeline;
-        align-self: center;
-        height: 20px;
-        margin: 0 20px 0 20px;
-        border-radius: 10px;
-        background-color: inherit;
-        box-shadow: inset 0 0 8px #000;
-        #progress-bar{
-          position: absolute;
-          height: 16px;
-          margin: 2px 0 0 2px;
-          border-radius: 10px;
-          background-color: white;
-        }
-        #playhead{
-          background-color: #ddd;
-          margin-top: -2px;
-          width: 24px;
-          height: 24px;
-          border-radius: 50%;
-          box-shadow: 0
-          0 4px #000;
-        }
-        #time{
-          margin-top: 30px;
-          height: 25px;
-          width: 100%;
-          #current-time{
-            display: inline-block;
-            color: #ddd;
-          }
-          #duration{
-            display: inline-block;
-            color: #ddd;
-            float: right;
-          }
-        }
-      }
-      #buttons-container{
-        grid-area: buttons;
-        width: 100%;
-        display: grid;
-        justify-content: center;
-        align-content: flex-start;
-        grid-template-areas: 'rewind-button back-button play-pause-button forward-button mute-button';
-        grid-template-columns: '400px 1fr 1fr 1fr 1fr 1fr 1fr 400px';
-        text-align: center;
-        font-size: 14px;
-        color: #ddd;
-        .centered-glyph{
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          width: 50px;
-          height: 50px;
-          margin-top: -1px; 
-          margin-bottom: 2px;
-          font-size: 24px;
-          fill: #fff;
-        }
-        #rewind-button { grid-area: rewind-button; }
-        #back-button { grid-area: back-button; }
-        #play-pause-button { grid-area: play-pause-button; }
-        #forward-ten-button { grid-area: forward-button; }
-        #mute-button { grid-area: mute-button; margin-right: 15%; }
-        .player-button{
-          display: inline;
-          align-self: center;
-          justify-self: left;
-          width: 50px; 
-          height: 50px;
-          padding-left: 20px;
-          padding-right: 20px;
-          margin-left: 15px;
-          margin-right: 15px;
-          margin-bottom: 5px;
-          overflow-x: visible;
-          background-color: white;
-          border-radius: 25px;
-          .button-label{
-            display: inline-block;
-            margin-left: -2px;
-            padding-top: 7px;
-            font-size: 16px;
-          }
+      #select{
+        .recording-list-item{
+          box-sizing: border-box;
+          padding: 15px;
+          border-bottom: 1px solid #bbb;
         }
       }
     }
   }
-}
 
-@mixin tag-table{
-  #tag-table {
-    grid-area: table;
-    overflow-y: scroll;
-    border-collapse: collapse;
-    border-top: 1px solid #ccc;
-    border-bottom-left-radius: 3px;
-    border-bottom-right-radius: 3px;
-    table{
-      min-height: 0;
-      max-height: 100%;
-      width: 100%;
-      border-collapse: collapse;
-      border: none;
-      tbody{
+  #right{
+    // flex-grow: 0;
+    flex-grow: 1;
+    overflow: hidden;
+    transition-duration: 300ms;
+    #playback{
+      height: 100%;
+      #notes{
+        background-color: #eef;
+        padding: 15px;
+        border-bottom: 1px solid #bbb;
         overflow: scroll;
-        min-height: 0;
-        max-height: 100%;
       }
-      td {
+      #transport{
+        background-color: #ddf;
         padding: 15px;
       }
-      thead th{
-        position: sticky; top: 0;
-        background: white;
-        color: #ddd;
-        text-align: left;
-        padding-left: 15px;
-        padding-top: 10px;
-        padding-bottom: 10px;
-      }
-      tr#empty-result-message{
-        td{
-          padding-top: 50px;
-          font-size: 24px;
-          color: white;
-        }
-      }
-    }
-    .tag-row{
-      &:hover{
-        background: white;
-        cursor: pointer;
-      }
-    }
-    .tag{
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      width: 300px;
-      height: 40px;
-      padding-left: 10px;
-      border-radius: 3px;
-    }
-    .link{
-      z-index: 10;
-      padding: 8px;
-      font-size: 18px;
-      color: white;
-      text-decoration: underline;
-      &:hover{
-        cursor: pointer;
-        color: white;
-      }
     }
   }
+
 }
-
-@mixin sidebar{
-  #sidebar {
-    grid-area: sidebar;
-    #filter-container{
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 340px;
-      padding-bottom: 10px;
-      margin: 0 auto;
-      border: 1px solid white;
-      border-radius: 3px;
-      #filter-header{
-        display: flex;
-        flex-direction: column;
-        align-self: left;
-        width: 322px;
-        padding: 10px;
-        margin-top: -1px;
-        background-color: white;
-        font-size: 24px;
-        color: #fff;
-        border-radius: 3px;
-      }
-      #search-container{
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-items: left;
-        flex-wrap: wrap;
-        padding-top: 5px;
-        padding-left: 10px;
-        height: 70px;
-        width: 300px;
-        #search-input{
-          display: flex;
-          width: 190px;
-        }
-      }
-      #filter-by-topics{
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-items: left;
-        flex-wrap: wrap;
-        padding-left: 10px;
-        width: 300px;
-        #topics-button-label{
-          display: flex;
-        } 
-      }
-      .filter-button {
-        display: flex;
-        flex-direction: row;
-        justify-items: left;
-        align-items: center;
-        width: 300px;
-        height: 50px;
-        margin-bottom: 10px;
-        padding-left: 10px;
-        border-radius: 3px;
-        &:hover{
-          cursor: pointer;
-        }
-        .filter-check{
-          display: flex;
-          justify-content: center;
-          align-content: left;
-          align-items: center;
-          height: 24px;
-          width: 40px;
-          padding: -5px;
-          border-radius: 12px;
-          background-color: white;
-          font-size: 16px;
-          fill: #fff;
-        }
-        .filter-label{
-          display: flex;
-          justify-content: center;
-          align-content: left;
-          padding-left: 10px;
-        }
-      }
-    }
-    #show-all-topics{
-      display: flex;
-      justify-content: center;
-      width: 200px;
-      height: 30px;
-      line-height: 15px;
-      padding-left: 10px;
-      padding-top: 14px;
-      border-radius: 3px;
-      border-radius: 3px;
-      font-size: 18px;
-      color: #fff;
-      background-color: white;
-      &:hover{
-        cursor: pointer;
-      }
-    }
-  }
-}
-
-#audio-view {
-  display: grid;
-  grid-template-areas: 'head head'
-                       'player sidebar'
-                       'table sidebar';
-  grid-template-rows: auto auto minmax(0, 1fr);
-  grid-template-columns: 3fr 1fr;
-  min-height: 0;
-  height: 100%;
-  @include header;
-  @include controls;
-  @include tag-table;
-  @include sidebar;
-}
-
-#audio-view-hide-tags {
-  display: grid;
-  grid-template-areas: 'head'
-                       'player';
-  grid-template-rows: auto auto;
-  @include header;
-  @include controls;
-}
-
-// video-view {
-  // display: grid;
-  // grid-template-areas: 'head'
-  //                      'video'
-  //                      'player';
-  // grid-template-rows: 100px 1fr 160px;
-  // max-height: 100%;
-  // max-width: 100%;
-  // padding-bottom: 20px;
-  // #video-container{
-  //   video{
-  //     max-height: 100%;
-  //     width: 100%;
-  //     margin: 0 auto;
-  //   }
-  // }
-// }
-
-.play-pause-label{
-  width:50px;
-  margin-top:12px;
-  text-align:center;
-}
-
-.filter-1{background-color: white;}
-.filter-2{background-color: white;}
-.filter-3{background-color: white;}
-.filter-4{background-color: white;}
-.filter-5{background-color: white;}
-.filter-6{background-color: white;}
-.filter-7{background-color: white;}
-.filter-8{background-color: white;}
