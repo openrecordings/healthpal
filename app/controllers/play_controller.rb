@@ -5,6 +5,7 @@ class PlayController < ApplicationController
 
   # TODO: Handle non-user roles
   def index
+    @recording_id = params[:id] ? params[:id] : nil
     @current_user_recordings = current_user.recordings
     @recordings_shared_with = current_user.recordings_shared_with
   end

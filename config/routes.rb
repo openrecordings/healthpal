@@ -39,7 +39,7 @@ Rails.application.routes.draw do
   post 'create_utterances',          to: 'record#create_utterances',         as: 'create_utterances'
 
   # Playback
-  get 'my_recordings',               to: 'play#index',                       as: 'my_recordings'
+  get 'my_recordings(/:id)',               to: 'play#index',                       as: 'my_recordings'
 
   # TODO One of these needs to go
   post 'play/user_field',            to: 'play#user_field'

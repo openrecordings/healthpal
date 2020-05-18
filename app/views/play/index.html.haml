@@ -1,10 +1,10 @@
-#play-view(data-recording-id="#{nil}")
+#play-view{'data-recording-id': @recording_id}
   #left.hidden
     #search-and-select
       #search
         = render 'search'
       #select
-        - @recordings.each do |recording|
+        - @current_user_recordings.each do |recording|
           = render 'recording_list_item', recording: recording
   #right
     #playback

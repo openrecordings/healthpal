@@ -14,9 +14,9 @@
         id: 'nav-analytics',
         class: "menu-item-#{position} #{current_path_in?(analytics_path) ? menu_class_selected : menu_class}"
 =link_to t(:recordings),
-    newplay_path,
-    id: 'nav-newplay',
-    class: "menu-item-#{position} #{current_path_in?(newplay_path) ? menu_class_selected : menu_class}"
+    my_recordings_path,
+    id: 'nav-my_recordings',
+    class: "menu-item-#{position} #{current_path_in?(my_recordings_path) ? menu_class_selected : menu_class}"
 =link_to t(:new_recording),
     record_path,
     id: 'nav-new-recording',
