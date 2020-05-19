@@ -1,36 +1,47 @@
 class PlayController < ApplicationController
-
+  # A reminder for parsing (some generation of) transcript JSON from AWS
   # json.first['alternatives'].first['words'].first['start_time']['seconds']
+
+  # TODO: Handle non-user roles
+  #       Handle non-existant recording ids
+  #       Handle non-existant media files
+  # Has two forms, with and without an intial recording ID on page load:
+  #   - HTML request without a recording ID: /my_recordings (@recording will be nil)
+  #   - HTML request with a recording ID: /my_recordings/45
   def index
-    # TODO: Handle bad data
-    # TODO: Restrict admin users again?
-    if current_user.privileged?
-      @users = User.joins(:recordings).order(:email).uniq
-    else
-      # All users who are currently sharing with current_user
-      @users = [current_user] + Share.shared_with_user(current_user).map {|s| s.user}.
-        sort_by {|s| s.last_name}
-    end
-  end
-
-  # TODO: integrate recordings shared with current_user
-  def newplay
-    @recordings = current_user.recordings
-  end
-
-  def play
     @recording = Recording.find_by(id: params[:id])
-    if(@recording && current_user.can_access(@recording))
-      @title = "#{@recording.user.full_name}, #{@recording.created_at.strftime('%-m/%-d/%-y')}"
-      @provider = UserField.find_by(recording: @recording, type: :provider) || UserField.new(recording: @recording, type: :provider)
-      @note = UserField.find_by(recording: @recording, type: :note) || UserField.new(recording: @recording, type: :note)
-      @utterances = prepare_utterances(@recording)
-      @view_id = @recording.is_video ? 'video-view' : (!!ENV['HIDE_TAGS'] ? 'audio-view-hide-tags' : 'audio-view')
+    @recordings = current_user.viewable_recordings
+  end
+
+  def video_url
+    recording = Recording.find_by(id: params[:id])
+    if current_user.viewable_recordings.include?(recording)
+      render json: {
+        url: helpers.url_for(recording.media_file),
+        status: 200
+      }
     else
-      flash.alert = 'An error ocurred while retriving the audio data. Please contact support.'
-      redirect_to :root and return
+      render json: {
+        error: 'Current user does not have permission to access that recording',
+        status: 401
+      }
     end
   end
+
+  # TODO: Make this AJAX and add the needed data to the video method
+  # def play
+  #   @recording = Recording.find_by(id: params[:id])
+  #   if(@recording && current_user.can_access(@recording))
+  #     @title = "#{@recording.user.full_name}, #{@recording.created_at.strftime('%-m/%-d/%-y')}"
+  #     @provider = UserField.find_by(recording: @recording, type: :provider) || UserField.new(recording: @recording, type: :provider)
+  #     @note = UserField.find_by(recording: @recording, type: :note) || UserField.new(recording: @recording, type: :note)
+  #     @utterances = prepare_utterances(@recording)
+  #     @view_id = @recording.is_video ? 'video-view' : (!!ENV['HIDE_TAGS'] ? 'audio-view-hide-tags' : 'audio-view')
+  #   else
+  #     flash.alert = 'An error ocurred while retriving the audio data. Please contact support.'
+  #     redirect_to :root and return
+  #   end
+  # end
   
   # AJAX endpoint for in-place editing of UserFields
   # TODO Handle bad params
