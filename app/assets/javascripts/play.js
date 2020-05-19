@@ -22,7 +22,11 @@ if (document.querySelector('#play-view')) {
       $.get(`/video_url/${recordingId}`, function(data){
         console.log('foo');
         console.log(data);
-        $('#video-element').html(data.url);
+        $('#video-element').html(`
+          <video controls>
+            <source src=${data.url} type="audio/mp3">
+          </video>`
+        );
       });
     }
   }

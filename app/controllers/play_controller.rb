@@ -15,11 +15,8 @@ class PlayController < ApplicationController
   end
 
   def video_url
-    # recording = Recording.find_by(id: params[:id])
-    puts '!!!!!!!!!!!!!!!!!!'
-    puts '!!!!!!!!!!!!!!!!!!'
-    # render json: {url: helpers.url_for(Recording.find(@recording_id).media_file)}
-    render json: {url: 'foo', callback: 'gotVideoUrl'}
+    recording = Recording.find_by(id: params[:id])
+    render json: {url: helpers.url_for(recording.media_file)}
   end
 
   # TODO: Make this AJAX and add the needed data to the video method
