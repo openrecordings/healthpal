@@ -15,24 +15,30 @@ if (document.querySelector('#play-view')) {
     $('#search-and-select').hide();
   }
 
-  // TODO: Respond smartly if recording-id is null when this is called
+  // Expects data-recording-id to hold a valid recording ID
   function insertVideo(){
     var recordingId = $('#play-view').data('recording-id')
     if(recordingId != null){
-      $.get(`/video_url/${recordingId}`, function(data){
-        console.log('foo');
-        console.log(data);
-        $('#video-element').html(`
-          <video controls>
-            <source src=${data.url} type="audio/mp3">
-          </video>`
-        );
+      $.ajax({
+        url: '/video_url',
+        data: recordingId,
+        success: function() {
+          $('#video-element').html(`
+            <video controls>
+              <source src=${data.url} type="audio/mp3">
+            </video>`
+          );
+        },
+        error: console.log('Error loading recording')
       });
     }
   }
 
+
   $(document).ready(function() {
 
+    // TODO: Run onload only if data-recording-id is not null
+    //       Run if data-recording-id gets set, e.g., selecting a recording
     insertVideo();
 
     // - Management of the video element
@@ -49,9 +55,9 @@ if (document.querySelector('#play-view')) {
       showPlayback();
     })
 
-    // $('#show-select').click(function(){
-    //   showSelect();
-    // })
+    $('#show-select').click(function(){
+      showSelect();
+    })
 
   })
 }

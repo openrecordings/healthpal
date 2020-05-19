@@ -6,17 +6,23 @@ class PlayController < ApplicationController
   #       Handle non-existant recording ids
   #       Handle non-existant media files
   # Has two forms, with and without an intial recording ID on page load:
-  #   - HTML request without a recording ID: /my_recordings
+  #   - HTML request without a recording ID: /my_recordings (@recording will be nil)
   #   - HTML request with a recording ID: /my_recordings/45
   def index
-    @recording_id = params[:id] ? params[:id] : nil
-    @current_user_recordings = current_user.recordings
-    @recordings_shared_with = current_user.recordings_shared_with
+    @recording = Recording.find_by(id: params[:id])
+    @recordings = current_user.viewable_recordings
   end
 
   def video_url
     recording = Recording.find_by(id: params[:id])
-    render json: {url: helpers.url_for(recording.media_file)}
+    if current_user.viewable_recordings.include?(recording)
+      render json: {url: helpers.url_for(recording.media_file)}
+    else
+      render json: {
+        error: 'Current user does not have permission to access that recording',
+        status: 401
+      }
+    end
   end
 
   # TODO: Make this AJAX and add the needed data to the video method

@@ -12,10 +12,31 @@ class User < ApplicationRecord
 
   validates_presence_of :first_name, :last_name, :email, if: :has_ever_logged_in
 
-  # NOTE: `active` enforces that shares are currently valid. Keep.
+  def admin?
+    role == 'admin'
+  end
+
+  def root?
+    role == 'root'
+  end
+
+  def viewable_recordings
+    viewable = recordings
+    viewable << recordings_shared_with
+    viewable << org_recordings if admin?
+    viewable << Recording.all if root?
+    viewable = viewable.uniq
+  end
+
+  # NOTE: `active` is necessary or Share revocation doesn't work
   def recordings_shared_with
     Share.active.where(shared_with_user_id: self.id).map{|s| s.recording}
   end
+
+  def org_recordings
+    # user.org.recordings
+  end
+
 
   def has_ever_logged_in
     sign_in_count > 0
@@ -48,12 +69,9 @@ class User < ApplicationRecord
     super && active && (phone_confirmed_at || !requires_phone_confirmation)
   end
 
+  # DEPRECATED
   def privileged?
     ['admin', 'root'].include?(role)
-  end
-
-  def root?
-    role == root
   end
 
   def can_access(recording)
