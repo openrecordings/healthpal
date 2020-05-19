@@ -19,10 +19,10 @@ if (document.querySelector('#play-view')) {
   function insertVideo(){
     var recordingId = $('#play-view').data('recording-id')
     if(recordingId != null){
-      $.get(`/my_recordings/${recordingId}.js`, function(data){
+      $.get(`/video_url/${recordingId}`, function(data){
         console.log('foo');
-        // console.log(data);
-        // $('#video-element').html(data.url);
+        console.log(data);
+        $('#video-element').html(data.url);
       });
     }
   }
