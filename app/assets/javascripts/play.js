@@ -19,18 +19,17 @@ if (document.querySelector('#play-view')) {
   function insertVideo(){
     var recordingId = $('#play-view').data('recording-id')
     if(recordingId != null){
-      $.ajax({
-        url: '/video_url',
-        data: recordingId,
-        success: function() {
+      $.get(`/video_url/${recordingId}`, function(data){
+        if(data.url){
           $('#video-element').html(`
             <video controls>
               <source src=${data.url} type="audio/mp3">
             </video>`
           );
-        },
-        error: console.log('Error loading recording')
-      });
+        } else {
+          console.log(data.error)
+        }
+      })
     }
   }
 

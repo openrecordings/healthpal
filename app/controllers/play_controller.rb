@@ -16,7 +16,10 @@ class PlayController < ApplicationController
   def video_url
     recording = Recording.find_by(id: params[:id])
     if current_user.viewable_recordings.include?(recording)
-      render json: {url: helpers.url_for(recording.media_file)}
+      render json: {
+        url: helpers.url_for(recording.media_file),
+        status: 200
+      }
     else
       render json: {
         error: 'Current user does not have permission to access that recording',
