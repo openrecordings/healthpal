@@ -15,6 +15,14 @@ if (document.querySelector('#play-view')) {
     $('#search-and-select').hide();
   }
 
+  // TODO: Respond smartly if recording-id is null when this is called
+  function insertVideo {
+    var recordingId = $('#play-view').data('recording-id')
+    if(recordingId != null){
+      $('#video-element').html(`<%= j (render partial: 'video_element', recording_id: ${recordingId}) %>`)
+    }
+  }
+
   $(document).ready(function() {
 
     // - Management of the video element

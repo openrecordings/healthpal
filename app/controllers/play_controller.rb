@@ -10,10 +10,8 @@ class PlayController < ApplicationController
     @recordings_shared_with = current_user.recordings_shared_with
   end
 
-  # TODO: integrate recordings shared with current_user
-  def newplay
-    @recordings = current_user.recordings
-  end
+
+  # Make this AJAX and return the needed data in JSON
 
   # def play
   #   @recording = Recording.find_by(id: params[:id])

@@ -1,0 +1,6 @@
+= video_tag(url_for(Recording.find(recording_id).media_file),
+  id: 'video-element',
+  'data-recording-id': @recording.id,
+  'data-is-video': @recording.is_video,
+  class: 'hidden',
+  controls: false)
