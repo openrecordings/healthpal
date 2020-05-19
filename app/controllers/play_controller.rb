@@ -3,14 +3,26 @@ class PlayController < ApplicationController
   # json.first['alternatives'].first['words'].first['start_time']['seconds']
 
   # TODO: Handle non-user roles
+  #       Handle non-existant recording ids
+  #       Handle non-existant media files
+  # Has three forms:
+  #   - HTML request without a recording ID: /my_recordings
+  #   - HTML request with a recording ID: /my_recordings/45
+  #   - AJAX request with a recording ID: /my_recordings/45
   def index
     @recording_id = params[:id] ? params[:id] : nil
-    @current_user_recordings = current_user.recordings
-    @recordings_shared_with = current_user.recordings_shared_with
-  end
-
-  def video
-    render json: {foo: 'bar'}
+    respond_to do |format|
+      format.html{
+        @current_user_recordings = current_user.recordings
+        @recordings_shared_with = current_user.recordings_shared_with
+      }
+      format.js{
+        puts '!!!!!!!!!!!!!!!!!!'
+        puts '!!!!!!!!!!!!!!!!!!'
+        # render json: {url: helpers.url_for(Recording.find(@recording_id).media_file)}
+        render json: {url: 'foo', callback: 'gotVideoUrl'}
+      }
+    end
   end
 
   # TODO: Make this AJAX and add the needed data to the video method

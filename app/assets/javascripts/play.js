@@ -19,10 +19,10 @@ if (document.querySelector('#play-view')) {
   function insertVideo(){
     var recordingId = $('#play-view').data('recording-id')
     if(recordingId != null){
-      $.get('video', function(data){
-        // $('#video-element').html(data.foo);
-        $('#video-element').html('foo');
+      $.get(`/my_recordings/${recordingId}.js`, function(data){
         console.log('foo');
+        // console.log(data);
+        // $('#video-element').html(data.url);
       });
     }
   }
@@ -45,9 +45,9 @@ if (document.querySelector('#play-view')) {
       showPlayback();
     })
 
-    $('#show-select').click(function(){
-      showSelect();
-    })
+    // $('#show-select').click(function(){
+    //   showSelect();
+    // })
 
   })
 }
