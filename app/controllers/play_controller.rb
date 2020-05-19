@@ -1,5 +1,4 @@
 class PlayController < ApplicationController
-
   # A reminder for parsing (some generation of) transcript JSON from AWS
   # json.first['alternatives'].first['words'].first['start_time']['seconds']
 
@@ -10,9 +9,11 @@ class PlayController < ApplicationController
     @recordings_shared_with = current_user.recordings_shared_with
   end
 
+  def video
+    render json: {foo: 'bar'}
+  end
 
-  # Make this AJAX and return the needed data in JSON
-
+  # TODO: Make this AJAX and add the needed data to the video method
   # def play
   #   @recording = Recording.find_by(id: params[:id])
   #   if(@recording && current_user.can_access(@recording))

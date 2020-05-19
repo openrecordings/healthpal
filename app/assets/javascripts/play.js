@@ -16,14 +16,20 @@ if (document.querySelector('#play-view')) {
   }
 
   // TODO: Respond smartly if recording-id is null when this is called
-  function insertVideo {
+  function insertVideo(){
     var recordingId = $('#play-view').data('recording-id')
     if(recordingId != null){
-      $('#video-element').html(`<%= j (render partial: 'video_element', recording_id: ${recordingId}) %>`)
+      $.get('video', function(data){
+        // $('#video-element').html(data.foo);
+        $('#video-element').html('foo');
+        console.log('foo');
+      });
     }
   }
 
   $(document).ready(function() {
+
+    insertVideo();
 
     // - Management of the video element
     //   - add it via JS if data-recording-id is not null on load
