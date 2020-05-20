@@ -1,4 +1,5 @@
 if (document.querySelector('#play-view')) {
+
   var recordingId = null;
 
   function showSelect(){
@@ -11,12 +12,14 @@ if (document.querySelector('#play-view')) {
   function showPlayback(){
     $('#left').css('flex-grow', '0');
     $('#right').css('flex-grow', '1');
-    $('#playback').show();
+    $('#right').show();
     $('#search-and-select').hide();
   }
 
   // Creates or replaces the video element
-  function loadVideo(recordingId){
+  // Presumes recordingId is already set correctly
+  // TODO: Trun off controls
+  function loadVideo(){
     $.get(`/video_url/${recordingId}`, function(data){
       if(data.url){
         $('#video-element').html(`
@@ -31,18 +34,17 @@ if (document.querySelector('#play-view')) {
   }
 
   $(document).ready(function() {
+    recordingId = $('#play-view').data('initial-recording-id');
 
-    // TODO: figure this out
-    if($(video).length > 0){
-      var recordingId = $(this).data('recording-id');
+    if(recordingId != null){
+      loadVideo();
       showPlayback();
-      loadVideo(recordingId);
     }
 
     $('.recording-list-item').click(function(){
-      var recordingId = $(this).data('recording-id');
+      recordingId = $(this).data('recording-id');
+      loadVideo();
       showPlayback();
-      loadVideo(recordingId);
     })
 
     $('#show-select').click(function(){

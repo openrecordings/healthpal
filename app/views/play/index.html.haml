@@ -1,4 +1,4 @@
-#play-view{'data-recording-id': @recording&.id}
+#play-view{'data-initial-recording-id': @recording&.id}
   #left
     #search-and-select
       #search
@@ -8,7 +8,7 @@
           = render 'recording_list_item', recording: recording
   #right.hidden
     #playback
-      #video-element.hidden
+      #video-element
       #header
         #show-select Select a recording
       #notes
