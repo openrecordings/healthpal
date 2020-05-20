@@ -1,5 +1,4 @@
 if (document.querySelector('#play-view')) {
-
   var recordingId = null;
 
   function showSelect(){
