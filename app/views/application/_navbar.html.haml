@@ -2,7 +2,7 @@
 -# The HTTP comment below will always show the commit being served
 / foo
 
-#nav-container.hidden(data-privileged="#{current_user&.privileged?}")
+#nav-container.hidden(data-privileged="#{!current_user&.regular?}")
   #logo-container
     #logo-spans
       %span.image#icon= image_tag('open_recordings_icon.png')
@@ -12,7 +12,7 @@
         %br
         %span#logo-health Health
         %span#logo-pal> PAL
-        - if current_user&.privileged?
+        - if !current_user&.regular?
           %span#logo-admin ADMIN
       %span#mobile-menu-button.local-fa.fa.fa-bars
   - if user_signed_in?

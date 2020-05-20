@@ -13,6 +13,10 @@ class User < ApplicationRecord
 
   validates_presence_of :first_name, :last_name, :email, if: :has_ever_logged_in
 
+	def regular?
+		role == 'user'
+	end
+
   def admin?
     role == 'admin'
   end
@@ -24,7 +28,8 @@ class User < ApplicationRecord
   def viewable_recordings
     viewable = recordings
     viewable << recordings_shared_with
-    viewable << org_recordings if admin?
+    # viewable << org_recordings if admin?
+		viewable << Recording.all if admin?
     viewable << Recording.all if root?
     viewable = viewable.uniq
   end
@@ -34,9 +39,9 @@ class User < ApplicationRecord
     Share.active.where(shared_with_user_id: self.id).map{|s| s.recording}
   end
 
-  def org_recordings
-    # user.org.recordings
-  end
+  # def org_recordings
+  #   user.org.recordings
+  # end
 
 
   def has_ever_logged_in
@@ -70,13 +75,8 @@ class User < ApplicationRecord
     super && active && (phone_confirmed_at || !requires_phone_confirmation)
   end
 
-  # DEPRECATED
-  def privileged?
-    ['admin', 'root'].include?(role)
-  end
-
   def can_access(recording)
-    privileged? || recordings_shared_with.include?(recording)
+  	viewable_recordings.include?(recording)
   end
 
   def toggle_active
