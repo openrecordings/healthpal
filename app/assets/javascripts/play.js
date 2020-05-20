@@ -27,6 +27,7 @@ if (document.querySelector('#play-view')) {
             <source src=${data.url} type="audio/mp3">
           </video>`
         );
+        $('#current-recording-title').html(recordingId);
       } else {
         console.log(data.error)
       }
