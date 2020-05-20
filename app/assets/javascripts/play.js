@@ -6,7 +6,7 @@ if (document.querySelector('#play-view')) {
     $('#right').css('flex-grow', '0');
     $('#left').css('flex-grow', '1');
     $('#search-and-select').show();
-    $('#playback').hide();
+    $('#right').hide();
   }
 
   function showPlayback(){
