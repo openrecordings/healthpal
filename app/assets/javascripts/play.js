@@ -15,48 +15,42 @@ if (document.querySelector('#play-view')) {
     $('#search-and-select').hide();
   }
 
-  // Expects data-recording-id to hold a valid recording ID
-  function insertVideo(){
-    var recordingId = $('#play-view').data('recording-id')
-    if(recordingId != null){
-      $.get(`/video_url/${recordingId}`, function(data){
-        if(data.url){
-          $('#video-element').html(`
-            <video controls>
-              <source src=${data.url} type="audio/mp3">
-            </video>`
-          );
-        } else {
-          console.log(data.error)
-        }
-      })
-    }
+  // Creates or replaces the video element
+  function loadVideo(recordingId){
+    $.get(`/video_url/${recordingId}`, function(data){
+      if(data.url){
+        $('#video-element').html(`
+          <video id=video-player controls>
+            <source src=${data.url} type="audio/mp3">
+          </video>`
+        );
+      } else {
+        console.log(data.error)
+      }
+    })
   }
-
 
   $(document).ready(function() {
 
-    // TODO: Run onload only if data-recording-id is not null
-    //       Run if data-recording-id gets set, e.g., selecting a recording
-    insertVideo();
-
-    // - Management of the video element
-    //   - add it via JS if data-recording-id is not null on load
-    //     plan 1: Have Rails generate the HTML
-    //     plan 2: Add the HTML from here (just fetch the media URL via AJAX)
-    //   - create it when a recording is selected if data-recording-id is initially null
-    //   - replace the src when a new recording is selected
-    // - Build the transport
-    // - Add the logic in play.js.old
+    // TODO: figure this out
+    if($(video).length > 0){
+      var recordingId = $(this).data('recording-id');
+      showPlayback();
+      loadVideo(recordingId);
+    }
 
     $('.recording-list-item').click(function(){
-      recordingId = $(this).data('recording-id');
+      var recordingId = $(this).data('recording-id');
       showPlayback();
+      loadVideo(recordingId);
     })
 
     $('#show-select').click(function(){
       showSelect();
     })
+
+    // Build the transport
+    // Add the logic in play.js.old
 
   })
 }
