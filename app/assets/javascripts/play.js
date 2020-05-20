@@ -1,9 +1,7 @@
 if(document.querySelector('#play-pause-button')) {
   var playVolume = 1.0;
-  var autoScrollDisabled = false;
 
   function showPage(){
-    $('#loader-container').hide();
     let videoElement = document.getElementById('video-element');
     if($(videoElement).data('is-video')){
       $('#video-play-view').removeClass('invisible');
