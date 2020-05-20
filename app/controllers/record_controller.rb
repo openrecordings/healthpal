@@ -55,7 +55,7 @@ class RecordController < ApplicationController
     if is_file_upload
       redirect_to :recordings
     else
-      render js: "window.location = '#{my_recordings_path(current_user.id)}'"
+      render js: "window.location = 'my_recordings'"
     end
   end
 
