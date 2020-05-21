@@ -1,5 +1,4 @@
 module ApplicationHelper
-
   def app_display_name
     Orals::Application.credentials.app_display_name || 'Open Recordings'
   end
