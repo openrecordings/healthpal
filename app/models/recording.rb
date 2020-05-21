@@ -1,5 +1,6 @@
 class Recording < ApplicationRecord
   belongs_to :user
+  belongs_to :org
   has_many :utterances, -> {order 'index asc'}, dependent: :destroy
   has_many :user_fields
   has_many :messages, dependent: :destroy
@@ -11,7 +12,7 @@ class Recording < ApplicationRecord
   enum source: [:google, :aws]
 
   # TODO: Validation
-  
+
   scope :processed, -> {where(is_processed: true)}
 
   def transcribe
