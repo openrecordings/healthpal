@@ -53,24 +53,36 @@
         background-color: #ddf;
         padding: 15px;
         #timeline-container{
-          display: flex;
-          flex-wrap: nowrap;
-          align-items: center;
-          background-color: #cfc;
+          position: relative;
+          width: 100%;
+          height: $timeline-container-height;
+          background-color: yellow;
           #timeline{
             background-color: green;
+            width: 100%;
+            height: $timeline-thickness;
+            position: absolute;
+            top: calc((#{$timeline-container-height} / 2.0) - (#{$timeline-thickness}) / 2.0); 
+            border-radius: $timeline-thickness;
           }
           #progress-bar{
             background-color: red;
+            position: absolute;
           }
           #playhead{
             background-color: blue;
+            position: absolute;
+            width: calc(#{$playhead-radius} * 2.0);
+            height: calc(#{$playhead-radius} * 2.0);
+            border-radius: $playhead-radius;
+            top: calc((#{$timeline-container-height} / 2.0) - #{$playhead-radius}); 
           }
         }
         #time{
           background-color: orange;
         }
         #buttons-container{
+          padding-top: 15px;
           .player-button{
             display: inline-block;
           }
