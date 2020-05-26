@@ -21,8 +21,8 @@ if (document.querySelector('#play-view')) {
   function loadVideo(){
     $.get(`/video_url/${recordingId}`, function(data){
       if(data.url){
-        $('#video-element').html(`
-          <video id=video-player controls>
+        $('#video-container').html(`
+          <video id=video-element controls>
             <source src=${data.url} type="audio/mp3">
           </video>`
         );

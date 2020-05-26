@@ -1,4 +1,4 @@
-if(document.querySelector('#play-pause-button')) {
+if(document.querySelector('#play-view')) {
   var playVolume = 1.0;
 
   function showPage(){
