@@ -52,6 +52,13 @@
       #player{
         background-color: #ddf;
         padding: 15px;
+        #controls-container{
+          #buttons-container{
+            .player-button{
+              display: inline-block;
+            }
+          }
+        }
       }
     }
   }
