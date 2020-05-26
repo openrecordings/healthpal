@@ -1,5 +1,6 @@
 if (document.querySelector('#play-view')) {
   var recordingId = null;
+  var playVolume = 1.0;
 
   function showSelect(){
     $('#right').css('flex-grow', '0');
@@ -15,6 +16,11 @@ if (document.querySelector('#play-view')) {
     $('#search-and-select').hide();
   }
 
+  function stripeTable(){
+    $('.tag-row:visible:odd').addClass('odd-row');
+    $('.tag-row:visible:even').addClass('even-row');
+  }
+
   // Creates or replaces the video element
   // Presumes recordingId is already set correctly
   function loadVideo(){
@@ -26,6 +32,23 @@ if (document.querySelector('#play-view')) {
           </video>`
         );
         $('#current-recording-title').html(recordingId);
+        $('#spinner').show();
+        videoElement.volume = playVolume;
+        skipToTime(0);
+        videoElement.oncanplay = function(){
+          $('#spinner').hide();
+        }
+        videoElement.ondurationchange = function(){
+          $('#duration').text(toMmSs(videoElement.duration));
+        }
+        videoElement.ontimeupdate = function(){
+          let currentTime = videoElement.currentTime;
+          $('#current-time').text(toMmSs(currentTime));
+          skipToTime(currentTime, false);
+          // !!! DISABLED TAG TABLE FUNCTIONS !!!
+          // updateTableHighlighting(currentTime);
+          // scrollTable();
+        };
       } else {
         console.log(data.error)
       }

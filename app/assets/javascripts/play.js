@@ -1,15 +1,4 @@
 if(document.querySelector('#play-view')) {
-  var playVolume = 1.0;
-
-  function showPage(){
-    let videoElement = document.getElementById('video-element');
-    if($(videoElement).data('is-video')){
-      $('#video-play-view').removeClass('invisible');
-      $(videoElement).show();
-    } else {
-      $('#audio-view, #audio-view-hide-tags').removeClass('invisible');
-    }
-  }
 
   function stripeTable(){
     $('.tag-row:visible:odd').addClass('odd-row');
@@ -29,12 +18,6 @@ if(document.querySelector('#play-view')) {
 
   // Playback control
   /////////////////////////////////////////////////////////////////////////////////////////////////
-  function loadAudio(){
-    let videoElement = document.getElementById('video-element');
-    let recordingId = $(videoElement).data('recording-id');
-    videoElement.volume = playVolume;
-    skipToTime(0);
-  }
 
   $.arrayIntersect = function(a, b)
   {
@@ -43,17 +26,6 @@ if(document.querySelector('#play-view')) {
       return $.inArray(i, b) > -1;
     });
   };
-
-  function playerListener(){
-    let videoElement = document.getElementById('video-element');
-    videoElement.ontimeupdate = function(){
-      let currentTime = videoElement.currentTime;
-      $('#current-time').text(toMmSs(currentTime));
-      skipToTime(currentTime, false);
-      updateTableHighlighting(currentTime);
-      scrollTable();
-    };
-  }
 
   function skipToTime(newTime, updatePlayer = true){
     let videoElement = document.getElementById('video-element');
@@ -243,19 +215,12 @@ if(document.querySelector('#play-view')) {
   // Onload
   /////////////////////////////////////////////////////////////////////////////////////////////////
   $(document).ready(function() {
-    loadAudio();
+
     stripeTable();
-    playerListener();
+
 
     let videoElement = document.getElementById('video-element');
 
-    videoElement.oncanplay = function(){
-      showPage();
-    }
-
-    videoElement.ondurationchange = function(){
-      $('#duration').text(toMmSs(videoElement.duration));
-    }
 
     videoElement.onended = function(){
       $('#play-glyph, #pause-glyph, #play-label, #pause-label').toggleClass('invisible');
