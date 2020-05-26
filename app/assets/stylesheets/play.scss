@@ -33,18 +33,25 @@
     overflow: hidden;
     transition-duration: 300ms;
     height: 100%;
-    #header{
-      background-color: #fcc;
-    }
-    #notes{
-      background-color: #eef;
-      padding: 15px;
-      border-bottom: 1px solid #bbb;
-      overflow: scroll;
-    }
-    #player{
-      background-color: #ddf;
-      padding: 15px;
+    #player-container{
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+      #header{
+        background-color: #fcc;
+      }
+      #notes{
+        flex-grow: 1;
+        background-color: #eef;
+        padding: 15px;
+        border-bottom: 1px solid #bbb;
+        overflow: scroll;
+      }
+      #player{
+        background-color: #ddf;
+        padding: 15px;
+      }
     }
   }
 
