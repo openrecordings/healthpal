@@ -52,11 +52,27 @@
       #player{
         background-color: #ddf;
         padding: 15px;
-        #controls-container{
-          #buttons-container{
-            .player-button{
-              display: inline-block;
-            }
+        #timeline-container{
+          display: flex;
+          flex-wrap: nowrap;
+          align-items: center;
+          background-color: #cfc;
+          #timeline{
+            background-color: green;
+          }
+          #progress-bar{
+            background-color: red;
+          }
+          #playhead{
+            background-color: blue;
+          }
+        }
+        #time{
+          background-color: orange;
+        }
+        #buttons-container{
+          .player-button{
+            display: inline-block;
           }
         }
       }
