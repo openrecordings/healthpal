@@ -17,12 +17,11 @@ if (document.querySelector('#play-view')) {
 
   // Creates or replaces the video element
   // Presumes recordingId is already set correctly
-  // TODO: Trun off controls
   function loadVideo(){
     $.get(`/video_url/${recordingId}`, function(data){
       if(data.url){
         $('#video-container').html(`
-          <video id=video-element controls>
+          <video id=video-element>
             <source src=${data.url} type="audio/mp3">
           </video>`
         );

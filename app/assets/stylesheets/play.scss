@@ -28,12 +28,13 @@
   }
 
   #right{
+    background-color: red;
     flex-grow: 1;
     overflow: hidden;
     transition-duration: 300ms;
     height: 100%;
     #header{
-      color: green;
+      background-color: #fcc;
     }
     #notes{
       background-color: #eef;
@@ -41,7 +42,7 @@
       border-bottom: 1px solid #bbb;
       overflow: scroll;
     }
-    #transport{
+    #player{
       background-color: #ddf;
       padding: 15px;
     }
