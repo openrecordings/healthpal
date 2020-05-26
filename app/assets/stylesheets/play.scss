@@ -49,6 +49,16 @@
         border-bottom: 1px solid #bbb;
         overflow: scroll;
       }
+
+      // TODO:
+      //   - Playhead starts and ends with edge tangent to timeline end
+      //   - Updated JS to poisition the playhead correctly after doing the above
+      //   - Get the progress bar working 
+      //   - Get dragging working 
+      //   - Get the times in the right place
+      //   - Move onto the buttons
+
+
       #player{
         background-color: #ddf;
         padding: 15px;
