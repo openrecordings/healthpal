@@ -1,6 +1,7 @@
 if (document.querySelector('#play-view')) {
   var recordingId = null;
   var playVolume = 1.0;
+  var playheadRadius = 8;
 
   // Select/playback pane visibility
   /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -32,6 +33,9 @@ if (document.querySelector('#play-view')) {
             <source src=${data.url} type="audio/mp3">
           </video>`
         );
+
+        console.log(playheadRadius);
+
         $('#current-recording-title').html(recordingId);
         var videoElement = document.getElementById('video-element');
         videoElement.volume = playVolume;
@@ -95,13 +99,13 @@ if (document.querySelector('#play-view')) {
       let PxPerSec = timelineWidth / duration;
       let newPx = PxPerSec * newTime 
       playhead.css({left: newPx});
-      progressBar.css({width: newPx + 10});
+      progressBar.css({width: newPx});
     }
   }
 
   function skipToEventPosition(event){
     let videoElement = document.getElementById('video-element');
-    let eventX = event.pageX - 50;
+    let eventX = event.pageX;
     let timeline = $('#timeline');
     let timelinePosition = timeline.position();
     let playhead = $('#playhead');
@@ -112,7 +116,7 @@ if (document.querySelector('#play-view')) {
     let progressBar = $('#progress-bar');
     playhead.css({left: eventX});
     if(timelinePosition.left + timeline.width() >= eventX){
-      progressBar.css({width: timelinePosition.left + eventX - 10});
+      progressBar.css({width: timelinePosition.left + eventX});
     }
     videoElement.currentTime = newTime.toString();
   }
@@ -273,6 +277,7 @@ if (document.querySelector('#play-view')) {
   // };
 
   $(document).ready(function() {
+    playheadRadius = $('#playhead').height() / 2;
     recordingId = $('#play-view').data('initial-recording-id');
 
     if(recordingId != null){
