@@ -19,9 +19,12 @@ if (document.querySelector('#play-view')) {
   }
 
   // Replace/create the video element and load from src URL
-  // Presumes recordingId is already set correctly
   /////////////////////////////////////////////////////////////////////////////////////////////////
   function loadVideo(){
+    if(recordingId == null){
+      console.log('Called loadVideo() but recordingId is null!');
+      return
+    }
     $.get(`/video_url/${recordingId}`, function(data){
       if(data.url){
         $('#video-container').html(`
@@ -31,11 +34,8 @@ if (document.querySelector('#play-view')) {
         );
         $('#current-recording-title').html(recordingId);
         $('#spinner').show();
+        var videoElement = document.getElementById('video-element');
         videoElement.volume = playVolume;
-
-        // !!! DISABLED TAG TABLE FUNCTIONS !!!
-        // stripeTable();
-
         skipToTime(0);
         videoElement.oncanplay = function(){
           $('#spinner').hide();
