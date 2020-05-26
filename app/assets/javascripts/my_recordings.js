@@ -33,13 +33,16 @@ if (document.querySelector('#play-view')) {
           </video>`
         );
         $('#current-recording-title').html(recordingId);
-        $('#spinner').show();
         var videoElement = document.getElementById('video-element');
         videoElement.volume = playVolume;
         skipToTime(0);
-        videoElement.oncanplay = function(){
-          $('#spinner').hide();
-        }
+        
+        // TODO
+        // $('#spinner').show();
+        // videoElement.oncanplay = function(){
+        //   $('#spinner').hide();
+        // }
+
         videoElement.ondurationchange = function(){
           $('#duration').text(toMmSs(videoElement.duration));
         }
