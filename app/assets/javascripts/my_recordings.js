@@ -1,7 +1,7 @@
 if (document.querySelector('#play-view')) {
   var recordingId = null;
   var playVolume = 1.0;
-  var playheadRadius = 8;
+  var playheadRadius = null;
 
   // Select/playback pane visibility
   /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -95,7 +95,7 @@ if (document.querySelector('#play-view')) {
       videoElement.currentTime = newTime.toString();
     } else {
       // Update is driven by current play time - move playhead
-      let timelineWidth = $('#timeline').width()
+      let timelineWidth = $('#timeline').width() - 2 * playheadRadius;
       let PxPerSec = timelineWidth / duration;
       let newPx = PxPerSec * newTime 
       playhead.css({left: newPx});
@@ -107,17 +107,18 @@ if (document.querySelector('#play-view')) {
     let videoElement = document.getElementById('video-element');
     let eventX = event.pageX;
     let timeline = $('#timeline');
+    let timelineWidth = timeline.width() - 2 * playheadRadius;
     let timelinePosition = timeline.position();
     let playhead = $('#playhead');
-    let currentTime = $(videoElement).prop('currentTime');
+    // let currentTime = $(videoElement).prop('currentTime');
     let duration = $(videoElement).prop('duration');
-    let secPerPx = duration / $('#timeline').width();
+    let secPerPx = duration / timelineWidth;
     let newTime = secPerPx * eventX;
     let progressBar = $('#progress-bar');
-    playhead.css({left: eventX});
-    if(timelinePosition.left + timeline.width() >= eventX){
-      progressBar.css({width: timelinePosition.left + eventX});
-    }
+    playhead.css({left: eventX - playheadRadius});
+    // if(timelinePosition.left + timeline.width() >= eventX){
+    //   progressBar.css({width: timelinePosition.left + eventX});
+    // }
     videoElement.currentTime = newTime.toString();
   }
 

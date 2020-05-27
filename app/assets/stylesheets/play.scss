@@ -58,7 +58,6 @@
       //   - Get the times in the right place
       //   - Move onto the buttons
 
-
       #player{
         background-color: #ddf;
         padding: 15px;
@@ -69,11 +68,10 @@
           background-color: yellow;
           #timeline{
             background-color: green;
-            width: calc(100% - (#{$playhead-radius} * 2));
+            width: 100%;
             height: $timeline-thickness;
             position: absolute;
             top: calc((#{$timeline-container-height} / 2.0) - (#{$timeline-thickness}) / 2.0); 
-            left: $playhead-radius;
             border-radius: $timeline-thickness;
           }
           #progress-bar{
