@@ -1,6 +1,7 @@
 if (document.querySelector('#play-view')) {
   var recordingId = null;
   var playVolume = 1.0;
+  var playerPadding = null;
   var playheadRadius = null;
 
   // Selection/playback pane visibility
@@ -102,16 +103,20 @@ if (document.querySelector('#play-view')) {
   }
 
   function skipToEventPosition(event){
-    let videoElement = document.getElementById('video-element');
-    let eventX = event.pageX;
-    let timeline = $('#timeline');
-    let timelineWidth = timeline.width() - 2 * playheadRadius;
-    let timelinePosition = timeline.position();
     let playhead = $('#playhead');
+    let videoElement = document.getElementById('video-element');
     let duration = $(videoElement).prop('duration');
-    let secPerPx = duration / timelineWidth;
-    let newTime = secPerPx * eventX;
-    playhead.css({left: eventX - timelinePosition.left - playheadRadius});
+    let timeline = $('#timeline');
+    let timelineWidth = timeline.width();
+    let eventX = event.pageX - playerPadding;
+    console.log({
+      eventX: eventX
+    });
+    // let secPerTimelinePx = duration / timelineWidth;
+    // let newTime = secPerTimelinePx * eventX;
+    // videoElement.currentTime = newTime.toString();
+    // let newPlayheadX = eventX;
+    // playhead.css({left: newPlayheadX});
 
     // TODO: Not needed?
     // let currentTime = $(videoElement).prop('currentTime');
@@ -119,8 +124,6 @@ if (document.querySelector('#play-view')) {
     // if(timelinePosition.left + timeline.width() >= eventX){
     //   progressBar.css({width: timelinePosition.left + eventX});
     // }
-
-    videoElement.currentTime = newTime.toString();
   }
 
   function toMmSs(seconds){
@@ -132,8 +135,12 @@ if (document.querySelector('#play-view')) {
   $(document).ready(function() {
     // Initialization
     /////////////////////////////////////////////////////////////////////////////////////////////////
+    playerPadding = parseInt($('#player-container').css('padding-left'), 10);
     playheadRadius = $('#playhead').height() / 2;
     recordingId = $('#play-view').data('initial-recording-id');
+
+    console.log(playerPadding);
+    console.log(playheadRadius);
 
     if(recordingId != null){
       loadVideo();

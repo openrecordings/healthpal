@@ -11,16 +11,16 @@
     #search-and-select{
       background-color: #fee;
       height: 100%;
+      padding: 15px;
+      box-sizing: border-box;
       overflow: scroll;
       #search{
         box-sizing: border-box;
-        padding: 15px;
         border-bottom: 1px solid #bbb;
       }
       #select{
         .recording-list-item{
           box-sizing: border-box;
-          padding: 15px;
           border-bottom: 1px solid #bbb;
         }
       }
@@ -38,14 +38,14 @@
       flex-direction: column;
       justify-content: space-between;
       height: 100%;
+      padding: 15px;
+      box-sizing: border-box;
       #header{
         background-color: #fcc;
-        padding: 15px;
       }
       #notes{
         flex-grow: 1;
         background-color: #eef;
-        padding: 15px;
         border-bottom: 1px solid #bbb;
         overflow: scroll;
       }
@@ -60,7 +60,6 @@
 
       #player{
         background-color: #ddf;
-        padding: 15px;
         #timeline-container{
           position: relative;
           width: 100%;
@@ -91,7 +90,6 @@
           background-color: orange;
         }
         #buttons-container{
-          padding-top: 15px;
           .player-button{
             display: inline-block;
           }
