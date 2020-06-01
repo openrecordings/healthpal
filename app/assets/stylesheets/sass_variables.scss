@@ -2,10 +2,19 @@
 $max-mobile-width: 800px;
 
 // Colors
-$logo-dark: rgb(74, 164, 156);
-$logo-light: rgb(187, 189, 191);
-$logo-dark-semi: rgba(74, 164, 156, 0.3);
-$logo-light-semi: rgba(187, 189, 191, 0.3);
+// $logo-dark: rgb(74, 164, 156);
+// $logo-light: rgb(187, 189, 191);
+// $logo-dark-semi: rgba(74, 164, 156, 0.3);
+// $logo-light-semi: rgba(187, 189, 191, 0.3);
+
+// White text
+$color-1: rgb(39, 94, 89);
+$color-2: rgb(54, 125, 119);
+$color-3: rgb(73, 165, 157);
+
+// Black text
+$color-4: rgb(149, 181, 179);
+$color-5: rgb(188, 190, 192);
 
 // Playback timeline dimensions
 $timeline-container-height: 50px;
