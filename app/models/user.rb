@@ -27,6 +27,7 @@ class User < ApplicationRecord
     viewable << org_recordings if admin?
     viewable << Recording.all if root?
     viewable = viewable.uniq
+    viewable
   end
 
 	def viewable_users
@@ -38,17 +39,6 @@ class User < ApplicationRecord
   # NOTE: `active` is necessary or Share revocation doesn't work
   def recordings_shared_with
     Share.active.where(shared_with_user_id: self.id).map{|s| s.recording}
-  end
-
-	def regular_users
-		self.org.users.regular
-	end
-
-  def org_recordings
-		# self.org.recordings
-		recordings = []
-		regular_users.each{|u| recordings += u.recordings}
-		recordings
   end
 
   def has_ever_logged_in
