@@ -74,6 +74,8 @@
           #progress-bar{
             background-color: red;
             position: absolute;
+            top: calc((#{$timeline-container-height} / 2.0) - (#{$timeline-thickness}) / 2.0); 
+            height: $timeline-thickness;
           }
           #playhead{
             background-color: blue;

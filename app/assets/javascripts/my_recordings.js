@@ -83,13 +83,11 @@ if (document.querySelector('#play-view')) {
   }
   
   function skipToTime(newTime){
-    console.log('to time');
     let videoElement = document.getElementById('video-element');
     videoElement.currentTime = newTime.toString();
   }
 
   function skipToEventPosition(event) {
-    console.log('to event');
     let playhead = $('#playhead');
     let videoElement = document.getElementById('video-element');
     let duration = $(videoElement).prop('duration');
@@ -103,7 +101,6 @@ if (document.querySelector('#play-view')) {
   }
 
   function setUiToTime(newTime, animate=true) {
-    console.log('set ui');
     let videoElement = document.getElementById('video-element');
     let duration = $(videoElement).prop('duration');
     if (newTime < 0) { newTime = 0 };
