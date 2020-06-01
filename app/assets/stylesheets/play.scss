@@ -81,7 +81,7 @@
             border-bottom-left-radius: $playhead-radius;
           }
           #playhead{
-            background-color: $color-1;
+            background-color: $color-3;
             position: absolute;
             width: calc(#{$playhead-radius} * 2.0);
             height: calc(#{$playhead-radius} * 2.0);
