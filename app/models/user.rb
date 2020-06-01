@@ -31,7 +31,7 @@ class User < ApplicationRecord
   end
 
 	def viewable_users
-		viewable = regular_users if admin?
+		viewable = org.users.regular if admin?
 		viewable = User.all if root?
 		viewable
 	end

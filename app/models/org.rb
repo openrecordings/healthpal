@@ -6,8 +6,4 @@ class Org < ApplicationRecord
     recordings.select{|r| r.user.role == 'user'}
   end
 
-	def regular_users
-		self.org.users.regular
-	end
-
 end
