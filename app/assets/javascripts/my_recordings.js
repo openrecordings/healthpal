@@ -112,7 +112,6 @@ if (document.querySelector('#play-view')) {
     let PxPerSec = timelineWidth / duration;
     let animationDuration = '0';
     if(animate){ animationDuration = newTime - lastTime; }
-    console.log(animationDuration);
     lastTime = newTime;
     playhead.css('transition-duration', `${animationDuration}s`);
     let newPlayheadPx = PxPerSec * newTime - playheadRadius;

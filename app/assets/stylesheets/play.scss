@@ -28,7 +28,7 @@
   }
 
   #right{
-    background-color: red;
+    // background-color: red;
     flex-grow: 1;
     overflow: hidden;
     transition-duration: 300ms;
@@ -57,14 +57,14 @@
       //   - Move onto the buttons
 
       #player{
-        background-color: #ddf;
+        // background-color: #ddf;
         #timeline-container{
+          // background-color: yellow;
           position: relative;
           width: 100%;
           height: $timeline-container-height;
-          background-color: yellow;
           #timeline{
-            background-color: green;
+            background-color: $logo-light;
             width: 100%;
             height: $timeline-thickness;
             position: absolute;
@@ -72,14 +72,14 @@
             border-radius: $timeline-thickness;
           }
           #progress-bar{
-            background-color: red;
+            background-color: $logo-dark-semi;
             position: absolute;
             top: calc((#{$timeline-container-height} / 2.0) - (#{$timeline-thickness}) / 2.0); 
             height: $timeline-thickness;
             pointer-events: none;
           }
           #playhead{
-            background-color: blue;
+            background-color: $logo-dark;
             position: absolute;
             width: calc(#{$playhead-radius} * 2.0);
             height: calc(#{$playhead-radius} * 2.0);
@@ -89,7 +89,7 @@
           }
         }
         #time{
-          background-color: orange;
+          // background-color: orange;
         }
         #buttons-container{
           .player-button{
