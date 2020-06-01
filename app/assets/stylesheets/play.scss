@@ -11,16 +11,16 @@
     #search-and-select{
       background-color: #fee;
       height: 100%;
+      padding: 15px;
+      box-sizing: border-box;
       overflow: scroll;
       #search{
         box-sizing: border-box;
-        padding: 15px;
         border-bottom: 1px solid #bbb;
       }
       #select{
         .recording-list-item{
           box-sizing: border-box;
-          padding: 15px;
           border-bottom: 1px solid #bbb;
         }
       }
@@ -28,45 +28,74 @@
   }
 
   #right{
+    background-color: red;
     flex-grow: 1;
     overflow: hidden;
     transition-duration: 300ms;
     height: 100%;
-    #header{
-      color: green;
-    }
-    #notes{
-      background-color: #eef;
+    #player-container{
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
       padding: 15px;
-      border-bottom: 1px solid #bbb;
-      overflow: scroll;
-    }
-    #transport{
-      background-color: #ddf;
-      padding: 15px;
+      box-sizing: border-box;
+      #header{
+        background-color: #fcc;
+      }
+      #notes{
+        flex-grow: 1;
+        background-color: #eef;
+        border-bottom: 1px solid #bbb;
+        overflow: scroll;
+      }
+
+      // TODO:
+      //   - Playhead starts and ends with edge tangent to timeline end
+      //   - Updated JS to poisition the playhead correctly after doing the above
+      //   - Get the progress bar working 
+      //   - Get dragging working 
+      //   - Get the times in the right place
+      //   - Move onto the buttons
+
+      #player{
+        background-color: #ddf;
+        #timeline-container{
+          position: relative;
+          width: 100%;
+          height: $timeline-container-height;
+          background-color: yellow;
+          #timeline{
+            background-color: green;
+            width: 100%;
+            height: $timeline-thickness;
+            position: absolute;
+            top: calc((#{$timeline-container-height} / 2.0) - (#{$timeline-thickness}) / 2.0); 
+            border-radius: $timeline-thickness;
+          }
+          #progress-bar{
+            background-color: red;
+            position: absolute;
+          }
+          #playhead{
+            background-color: blue;
+            position: absolute;
+            width: calc(#{$playhead-radius} * 2.0);
+            height: calc(#{$playhead-radius} * 2.0);
+            border-radius: $playhead-radius;
+            top: calc((#{$timeline-container-height} / 2.0) - #{$playhead-radius}); 
+          }
+        }
+        #time{
+          background-color: orange;
+        }
+        #buttons-container{
+          .player-button{
+            display: inline-block;
+          }
+        }
+      }
     }
   }
 
 }
-
-//   #right{
-//     // flex-grow: 0;
-//     flex-grow: 1;
-//     overflow: hidden;
-//     transition-duration: 300ms;
-//     #playback{
-//       height: 100%;
-//       #notes{
-//         background-color: #eef;
-//         padding: 15px;
-//         border-bottom: 1px solid #bbb;
-//         overflow: scroll;
-//       }
-//       #transport{
-//         background-color: #ddf;
-//         padding: 15px;
-//       }
-//     }
-//   }
-
-// }

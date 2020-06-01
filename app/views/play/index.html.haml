@@ -1,5 +1,5 @@
 #play-view{'data-initial-recording-id': @recording&.id}
-  #left.hidden
+  #left
     #search-and-select
       #search
         = render 'search'
@@ -7,46 +7,46 @@
         - @recordings.each do |recording|
           = render 'recording_list_item', recording: recording
   #right
-    #playback
-      #video-container
+    #video-container.hidden
+    #player-container
       #header
         Current recording:
         %span#current-recording-title
         #show-select < Select a different recording
       #notes
         Notes
-    #player
-      #controls-container
-        #timeline.track
+      #player
+        #timeline-container
+          #timeline.track
           #progress-bar
           #playhead.track
-          #time
-            #current-time
-              00:00
-            #duration
-              00:00
+        #time
+          %span#current-time
+            00:00
+          %span#duration
+            00:00
         #buttons-container
           #rewind-button.player-button.track
             = inline_svg('skip_to_start.svg', class: 'svg')
-            %span.button-label= t(:rewind)
+            -# %span.button-label= t(:rewind)
           #back-button.player-button.track
             = inline_svg('step_back.svg', class: 'svg')
-            %span.button-label= t(:back_10_sec )
+            -# %span.button-label= t(:back_10_sec )
           #play-pause-button.player-button.track
             = inline_svg('play.svg', class: 'svg')
             = inline_svg('pause.svg', class: 'svg')
             .full-center
               %span#play-label.absolute.play-pause-label
-                %span.button-label= t(:play)
+                -# %span.button-label= t(:play)
               %span#pause-label.invisible.absolute.play-pause-label
-                %span.button-label= t(:pause)
+                -# %span.button-label= t(:pause)
           #forward-button.player-button.track
             = inline_svg('step_forward.svg', class: 'svg')
-            %span.button-label= t(:forward_10_sec)
+            -# %span.button-label= t(:forward_10_sec)
           #mute-button.player-button.track
             = inline_svg('volume_off.svg', class: 'svg')
             = inline_svg('volume_max.svg', class: 'svg')
             %span#mute-label
-              %span.button-label= t(:mute)
+              -# %span.button-label= t(:mute)
             %span#unmute-label.hidden
-              %span.button-label= t(:unmute)
+              -# %span.button-label= t(:unmute)
