@@ -7,7 +7,7 @@ task create_dummy_users: :environment do
       role: 'admin',
       active: true,
       first_name: 'Adminuser',
-      last_name: 'Org1',
+      last_name: org_name,
       onboarded: true,
       org: org
     )
@@ -18,7 +18,7 @@ task create_dummy_users: :environment do
       role: 'user',
       active: true,
       first_name: 'Reguser',
-      last_name: 'Org1',
+      last_name: org_name,
       onboarded: true,
       org: org
     )
