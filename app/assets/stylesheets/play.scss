@@ -76,6 +76,7 @@
             position: absolute;
             top: calc((#{$timeline-container-height} / 2.0) - (#{$timeline-thickness}) / 2.0); 
             height: $timeline-thickness;
+            pointer-events: none;
           }
           #playhead{
             background-color: blue;
