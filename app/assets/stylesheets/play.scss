@@ -51,8 +51,6 @@
       }
 
       // TODO:
-      //   - Playhead starts and ends with edge tangent to timeline end
-      //   - Updated JS to poisition the playhead correctly after doing the above
       //   - Get the progress bar working 
       //   - Get dragging working 
       //   - Get the times in the right place
@@ -84,6 +82,7 @@
             height: calc(#{$playhead-radius} * 2.0);
             border-radius: $playhead-radius;
             top: calc((#{$timeline-container-height} / 2.0) - #{$playhead-radius}); 
+            transition-timing-function: linear;
           }
         }
         #time{
