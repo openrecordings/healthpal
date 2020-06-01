@@ -13,10 +13,6 @@ class User < ApplicationRecord
 
   validates_presence_of :first_name, :last_name, :email, if: :has_ever_logged_in
 
-	def regular?
-		role == 'user'
-	end
-
   def admin?
     role == 'admin'
   end
@@ -34,7 +30,7 @@ class User < ApplicationRecord
   end
 
 	def viewable_users
-		viewable = org_users if admin?
+		viewable = regular_users if admin?
 		viewable = User.all if root?
 		viewable
 	end
@@ -44,7 +40,7 @@ class User < ApplicationRecord
     Share.active.where(shared_with_user_id: self.id).map{|s| s.recording}
   end
 
-	def org_users
+	def regular_users
 		self.org.users.regular
 	end
 

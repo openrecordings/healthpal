@@ -42,14 +42,19 @@ class AdminController < ApplicationController
 
   # Create and swtich to new user
   def create_registration
+    if current_user.root?
+      org_id = user_params[:org_id]
+    else
+      org_id = current_user.org.id
+    end
     @user = User.new(
       first_name: user_params[:first_name],
       last_name: user_params[:last_name],
       email: user_params[:email],
+      org_id: org_id,
       phone_number: user_params[:phone_number],
       password: user_params[:password],
       role: 'user',
-      org_id: current_user.org.id,
       requires_phone_confirmation: false
     )
     if @user.save
@@ -100,7 +105,7 @@ class AdminController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:email, :phone_number, :first_name, :last_name, :password, :password_2, :sharer_id)
+    params.require(:user).permit(:org_id, :email, :phone_number, :first_name, :last_name, :password, :password_2, :sharer_id)
   end
 
 end

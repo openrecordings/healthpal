@@ -1,6 +1,6 @@
 - menu_class = {horiz: 'menu-horiz', vert: 'menu-vert'}[orientation]
 - menu_class_selected = "#{menu_class}-selected"
-- if !current_user.regular?
+- if current_user.admin? || current_user.root?
     =link_to t(:user_management),
         admin_path,
     id: 'nav-user-management',

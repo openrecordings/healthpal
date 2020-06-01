@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
 
   # Allow devise_invitable to handle the role parameter when creating users
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:invite, keys: [:role])
+    devise_parameter_sanitizer.permit(:invite, keys: [:role, :org_id])
   end
 
   def set_cache_buster
@@ -46,7 +46,7 @@ class ApplicationController < ActionController::Base
 
   # Called from controllers/actions that exclude regular users.
   def verify_privileged
-    if current_user.regular?
+    if !(current_user.admin? || current_user.root?)
       flash[:error] = 'You are not authorized to view that page'
       redirect_to :root
     end
