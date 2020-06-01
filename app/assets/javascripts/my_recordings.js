@@ -98,8 +98,9 @@ if (document.querySelector('#play-view')) {
       let PxPerSec = timelineWidth / duration;
       let newPlayheadPx = PxPerSec * newTime - playheadRadius;
       if(newPlayheadPx < 0){ newPlayheadPx = 0 };
+      if(newPlayheadPx > timelineWidth - 2 * playheadRadius){ newPlayheadPx =  timelineWidth - 2 * playheadRadius };
       playhead.css({left: newPlayheadPx});
-      progressBar.css({width: newPx});
+      progressBar.css({width: newPlayheadPx});
     }
   }
 
