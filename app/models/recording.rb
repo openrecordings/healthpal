@@ -1,6 +1,5 @@
 class Recording < ApplicationRecord
   belongs_to :user
-  belongs_to :org
   has_many :utterances, -> {order 'index asc'}, dependent: :destroy
   has_many :user_fields
   has_many :messages, dependent: :destroy

@@ -33,6 +33,7 @@ class AdminController < ApplicationController
   def new_registration
     # Creating a new user to hold params, but we're only going to set the email now
     @user = User.new(email: params[:email])
+    @orgs = Org.all
   end
 
   # Set password for in-clinic user registration
@@ -43,7 +44,8 @@ class AdminController < ApplicationController
   # Create and swtich to new user
   def create_registration
     if current_user.root?
-      org_id = user_params[:org_id]
+      org_id = Org.find_by(user_params[:org_id]).id
+      # org_id = user_params[:org_id]
     else
       org_id = current_user.org.id
     end

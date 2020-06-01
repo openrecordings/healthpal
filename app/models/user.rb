@@ -4,10 +4,10 @@ class User < ApplicationRecord
   devise :invitable, :database_authenticatable, :registerable, :recoverable, :rememberable,
     :trackable, :validatable, :timeoutable
 
+	belongs_to :org, optional: true
   has_many :recordings
   has_many :shares
   has_many :visits, class_name: 'Ahoy::Visit'
-	belongs_to :org, optional: true
 
   scope :regular, ->() { where role: 'user' }
 
@@ -45,7 +45,10 @@ class User < ApplicationRecord
 	end
 
   def org_recordings
-		self.org.recordings
+		# self.org.recordings
+		recordings = []
+		regular_users.each{|u| recordings += u.recordings}
+		recordings
   end
 
   def has_ever_logged_in
