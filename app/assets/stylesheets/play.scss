@@ -64,7 +64,7 @@
           width: 100%;
           height: $timeline-container-height;
           #timeline{
-            background-color: $logo-light;
+            background-color: $color-5;
             width: 100%;
             height: $timeline-thickness;
             position: absolute;
@@ -72,20 +72,22 @@
             border-radius: $timeline-thickness;
           }
           #progress-bar{
-            background-color: $logo-dark-semi;
+            background-color: $color-2;
             position: absolute;
             top: calc((#{$timeline-container-height} / 2.0) - (#{$timeline-thickness}) / 2.0); 
             height: $timeline-thickness;
             pointer-events: none;
+            border-top-left-radius: $playhead-radius;
+            border-bottom-left-radius: $playhead-radius;
           }
           #playhead{
-            background-color: $logo-dark;
+            background-color: $color-1;
             position: absolute;
             width: calc(#{$playhead-radius} * 2.0);
             height: calc(#{$playhead-radius} * 2.0);
-            border-radius: $playhead-radius;
             top: calc((#{$timeline-container-height} / 2.0) - #{$playhead-radius}); 
             transition-timing-function: linear;
+            border-radius: $playhead-radius;
           }
         }
         #time{

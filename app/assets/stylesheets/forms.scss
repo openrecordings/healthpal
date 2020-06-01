@@ -60,11 +60,11 @@
   border-radius: 6px;
   &:hover{
     cursor: pointer;
-    background-color: $logo-light-semi;
-    border: 1px solid $logo-dark-semi;
+    background-color: $color-5;
+    border: 1px solid $color-2;
     color: rgba(62, 69, 88, 1.0);
   }
   &:active{
-    background-color: $logo-dark-semi;
+    background-color: $color-2;
   }
 }
