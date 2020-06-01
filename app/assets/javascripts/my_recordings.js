@@ -3,17 +3,18 @@ if (document.querySelector('#play-view')) {
   var playVolume = 1.0;
   var playerPadding = null;
   var playheadRadius = null;
+  var lastTime = 0.0;
 
   // Selection/playback pane visibility
   /////////////////////////////////////////////////////////////////////////////////////////////////
-  function showSelect(){
+  function showSelect() {
     $('#right').css('flex-grow', '0');
     $('#left').css('flex-grow', '1');
     $('#search-and-select').show();
     $('#right').hide();
   }
 
-  function showPlayback(){
+  function showPlayback() {
     $('#left').css('flex-grow', '0');
     $('#right').css('flex-grow', '1');
     $('#right').show();
@@ -22,13 +23,13 @@ if (document.querySelector('#play-view')) {
 
   // Replace/create the video element and load from src URL
   /////////////////////////////////////////////////////////////////////////////////////////////////
-  function loadVideo(){
-    if(recordingId == null){
+  function loadVideo() {
+    if (recordingId == null) {
       console.log('Called loadVideo() but recordingId is null!');
       return
     }
-    $.get(`/video_url/${recordingId}`, function(data){
-      if(data.url){
+    $.get(`/video_url/${recordingId}`, function (data) {
+      if (data.url) {
         $('#video-container').html(`
           <video id=video-element>
             <source src=${data.url} type="audio/mp3">
@@ -39,27 +40,27 @@ if (document.querySelector('#play-view')) {
         var videoElement = document.getElementById('video-element');
         videoElement.volume = playVolume;
         skipToTime(0);
-        
+
         // TODO
         // $('#spinner').show();
         // videoElement.oncanplay = function(){
         //   $('#spinner').hide();
         // }
 
-        videoElement.ondurationchange = function(){
+        videoElement.ondurationchange = function () {
           $('#duration').text(toMmSs(videoElement.duration));
         }
-        videoElement.ontimeupdate = function(){
+        videoElement.ontimeupdate = function () {
           let currentTime = videoElement.currentTime;
           $('#current-time').text(toMmSs(currentTime));
-          skipToTime(currentTime, false);
+          setUiToTime(currentTime);
 
           // !!! DISABLED TAG TABLE FUNCTIONS !!!
           // updateTableHighlighting(currentTime);
           // scrollTable();
 
         };
-        videoElement.onended = function(){
+        videoElement.onended = function () {
           $('#play-glyph, #pause-glyph, #play-label, #pause-label').toggleClass('invisible');
         }
       } else {
@@ -70,40 +71,23 @@ if (document.querySelector('#play-view')) {
 
   // Playback utilities
   /////////////////////////////////////////////////////////////////////////////////////////////////
-  function togglePlayPause(){
+  function togglePlayPause() {
     let videoElement = document.getElementById('video-element');
     if (videoElement.paused) {
-       videoElement.play();
-    }   
+      videoElement.play();
+    }
     else {
-       videoElement.pause();
+      videoElement.pause();
     }
     $('#play-glyph, #pause-glyph, #play-label, #pause-label').toggleClass('invisible');
   }
-
-  function skipToTime(newTime, updatePlayer = true){
+  
+  function skipToTime(newTime){
     let videoElement = document.getElementById('video-element');
-    let timeline = $('#timeline');
-    let playhead = $('#playhead');
-    let progressBar = $('#progress-bar');
-    let duration = $(videoElement).prop('duration');
-    if(newTime < 0){newTime = 0 };
-    if(newTime > duration){newTime = duration};
-    if(updatePlayer){
-      // Update is driven by UI event - move player time
-      videoElement.currentTime = newTime.toString();
-    } else {
-      // Update is driven by current play time - move playhead
-      let timelineWidth = timeline.width();
-      let PxPerSec = timelineWidth / duration;
-      let newPlayheadPx = PxPerSec * newTime - playheadRadius;
-      if(newPlayheadPx < 0){ newPlayheadPx = 0 };
-      playhead.css({left: newPlayheadPx});
-      progressBar.css({width: newPx});
-    }
+    videoElement.currentTime = newTime.toString();
   }
 
-  function skipToEventPosition(event){
+  function skipToEventPosition(event) {
     let playhead = $('#playhead');
     let videoElement = document.getElementById('video-element');
     let duration = $(videoElement).prop('duration');
@@ -112,74 +96,96 @@ if (document.querySelector('#play-view')) {
     let eventPx = event.pageX - playerPadding;
     let secPerTimelinePx = duration / timelineWidth;
     let newTime = secPerTimelinePx * eventPx;
-    videoElement.currentTime = newTime.toString();
+    skipToTime(newTime);
+    setUiToTime(newTime, false);
   }
 
-  function toMmSs(seconds){
+  function setUiToTime(newTime, animate=true) {
+    let videoElement = document.getElementById('video-element');
+    let duration = $(videoElement).prop('duration');
+    if (newTime < 0) { newTime = 0 };
+    if (newTime > duration) { newTime = duration };
+    let timeline = $('#timeline');
+    let playhead = $('#playhead');
+    let progressBar = $('#progress-bar');
+    let timelineWidth = timeline.width();
+    let PxPerSec = timelineWidth / duration;
+    let animationDuration = '0';
+    if(animate){ animationDuration = newTime - lastTime; }
+    lastTime = newTime;
+    playhead.css('transition-duration', `${animationDuration}s`);
+    let newPlayheadPx = PxPerSec * newTime - playheadRadius;
+    if (newPlayheadPx < 0) { newPlayheadPx = 0 };
+    if (newPlayheadPx > timelineWidth - 2 * playheadRadius) { newPlayheadPx = timelineWidth - 2 * playheadRadius };
+    playhead.css({ left: newPlayheadPx });
+    progressBar.css({ width: newPlayheadPx });
+  }
+
+  function toMmSs(seconds) {
     let mm = Math.floor(seconds / 60);
     let ss = parseInt(seconds - mm * 60);
-    return `${mm.toString().padStart(2,'0')}:${ss.toString().padStart(2,'0')}`
+    return `${mm.toString().padStart(2, '0')}:${ss.toString().padStart(2, '0')}`
   }
 
-  $(document).ready(function() {
+  $(document).ready(function () {
     // Initialization
     /////////////////////////////////////////////////////////////////////////////////////////////////
     playerPadding = parseInt($('#player-container').css('padding-left'), 10);
     playheadRadius = $('#playhead').width() / 2;
     recordingId = $('#play-view').data('initial-recording-id');
-    if(recordingId != null){
+    if (recordingId != null) {
       loadVideo();
       showPlayback();
     }
 
     // Listeners
     /////////////////////////////////////////////////////////////////////////////////////////////////
-    $('.recording-list-item').click(function(){
+    $('.recording-list-item').click(function () {
       recordingId = $(this).data('recording-id');
       loadVideo();
       showPlayback();
     })
 
-    $('#show-select').click(function(){
+    $('#show-select').click(function () {
       showSelect();
     })
 
-    $('#timeline').click(function(event){
+    $('#timeline').click(function (event) {
       skipToEventPosition(event);
     })
 
     $('#playhead').draggable({
       axis: 'x',
       eontainment: '#timeline',
-      drag: function(event, ui){
+      drag: function (event, ui) {
         skipToEventPosition(event);
       }
     });
 
-    $('#rewind-button').click(function(){
+    $('#rewind-button').click(function () {
       let videoElement = document.getElementById('video-element');
       skipToTime(0);
     })
 
-    $('#back-button').click(function(){
+    $('#back-button').click(function () {
       let videoElement = document.getElementById('video-element');
       skipToTime(videoElement.currentTime - 10);
     })
 
-    $('#play-pause-button').click(function(){
+    $('#play-pause-button').click(function () {
       togglePlayPause();
     })
 
-    $('#forward-button').click(function(){
+    $('#forward-button').click(function () {
       let videoElement = document.getElementById('video-element');
       skipToTime(videoElement.currentTime + 10);
     })
 
-    $('#mute-button').click(function(){
+    $('#mute-button').click(function () {
       let videoElement = document.getElementById('video-element');
       if (videoElement.volume > 0) {
         videoElement.volume = 0;
-      }   
+      }
       else {
         videoElement.volume = playVolume;
       }

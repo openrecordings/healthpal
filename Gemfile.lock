@@ -139,6 +139,7 @@ GEM
     ffi (1.11.1)
     font-awesome-rails (4.7.0.5)
       railties (>= 3.2, < 6.1)
+    gem-licenses (0.2.2)
     geocoder (1.5.1)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
@@ -326,6 +327,7 @@ DEPENDENCIES
   devise_invitable (~> 1.7.0)
   ffi (>= 1.9.24)
   font-awesome-rails
+  gem-licenses
   haml
   inline_svg
   interactive_editor

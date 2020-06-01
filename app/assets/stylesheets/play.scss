@@ -28,7 +28,7 @@
   }
 
   #right{
-    background-color: red;
+    // background-color: red;
     flex-grow: 1;
     overflow: hidden;
     transition-duration: 300ms;
@@ -51,22 +51,20 @@
       }
 
       // TODO:
-      //   - Playhead starts and ends with edge tangent to timeline end
-      //   - Updated JS to poisition the playhead correctly after doing the above
       //   - Get the progress bar working 
       //   - Get dragging working 
       //   - Get the times in the right place
       //   - Move onto the buttons
 
       #player{
-        background-color: #ddf;
+        // background-color: #ddf;
         #timeline-container{
+          // background-color: yellow;
           position: relative;
           width: 100%;
           height: $timeline-container-height;
-          background-color: yellow;
           #timeline{
-            background-color: green;
+            background-color: $color-5;
             width: 100%;
             height: $timeline-thickness;
             position: absolute;
@@ -74,20 +72,26 @@
             border-radius: $timeline-thickness;
           }
           #progress-bar{
-            background-color: red;
+            background-color: $color-2;
             position: absolute;
+            top: calc((#{$timeline-container-height} / 2.0) - (#{$timeline-thickness}) / 2.0); 
+            height: $timeline-thickness;
+            pointer-events: none;
+            border-top-left-radius: $playhead-radius;
+            border-bottom-left-radius: $playhead-radius;
           }
           #playhead{
-            background-color: blue;
+            background-color: $color-3;
             position: absolute;
             width: calc(#{$playhead-radius} * 2.0);
             height: calc(#{$playhead-radius} * 2.0);
-            border-radius: $playhead-radius;
             top: calc((#{$timeline-container-height} / 2.0) - #{$playhead-radius}); 
+            transition-timing-function: linear;
+            border-radius: $playhead-radius;
           }
         }
         #time{
-          background-color: orange;
+          // background-color: orange;
         }
         #buttons-container{
           .player-button{
