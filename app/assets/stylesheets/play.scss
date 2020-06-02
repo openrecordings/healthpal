@@ -50,12 +50,6 @@
         overflow: scroll;
       }
 
-      // TODO:
-      //   - Get the progress bar working 
-      //   - Get dragging working 
-      //   - Get the times in the right place
-      //   - Move onto the buttons
-
       #player{
         // background-color: #ddf;
         #timeline-container{
@@ -64,17 +58,17 @@
           width: 100%;
           height: $timeline-container-height;
           #timeline{
-            background-color: $color-5;
+            background-color: $color-6;
             width: 100%;
             height: $timeline-thickness;
             position: absolute;
-            top: calc((#{$timeline-container-height} / 2.0) - (#{$timeline-thickness}) / 2.0); 
+            top: $adjusted-timeline-top-offset;
             border-radius: $timeline-thickness;
           }
           #progress-bar{
-            background-color: $color-2;
+            background-color: $color-4;
             position: absolute;
-            top: calc((#{$timeline-container-height} / 2.0) - (#{$timeline-thickness}) / 2.0); 
+            top: $adjusted-timeline-top-offset;
             height: $timeline-thickness;
             pointer-events: none;
             border-top-left-radius: $playhead-radius;
@@ -85,17 +79,25 @@
             position: absolute;
             width: calc(#{$playhead-radius} * 2.0);
             height: calc(#{$playhead-radius} * 2.0);
-            top: calc((#{$timeline-container-height} / 2.0) - #{$playhead-radius}); 
+            top: calc((#{$adjusted-timeline-top-offset} + #{$timeline-thickness} / 2.0) - #{$playhead-radius}); 
             transition-timing-function: linear;
             border-radius: $playhead-radius;
           }
         }
         #time{
+          display: flex;
+          justify-content: space-between;
           // background-color: orange;
         }
-        #buttons-container{
+        #playback-button-container{
           .player-button{
+            height: $playback-button-container-height;
             display: inline-block;
+            .player-button-svg{
+              height: 37px;
+              width: 37px;
+              fill: $color-2;
+            }
           }
         }
       }
