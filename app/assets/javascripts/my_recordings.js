@@ -114,6 +114,7 @@ if (document.querySelector('#play-view')) {
     if(animate){ animationDuration = newTime - lastTime; }
     lastTime = newTime;
     playhead.css('transition-duration', `${animationDuration}s`);
+    progressBar.css('transition-duration', `${animationDuration}s`);
     let newPlayheadPx = PxPerSec * newTime - playheadRadius;
     if (newPlayheadPx < 0) { newPlayheadPx = 0 };
     if (newPlayheadPx > timelineWidth - 2 * playheadRadius) { newPlayheadPx = timelineWidth - 2 * playheadRadius };
