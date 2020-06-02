@@ -56,21 +56,24 @@
           // background-color: yellow;
           position: relative;
           width: 100%;
-          height: $timeline-container-height;
+          box-sizing: border-box;
+          margin-top: 20px;
+          margin-bottom: 45px;
           #timeline{
             background-color: $color-6;
             width: 100%;
             height: $timeline-thickness;
             position: absolute;
-            top: $adjusted-timeline-top-offset;
+            // top: calc(#{$playhead-radius} - #{$timeline-thickness} / 2);
+            top: calc(#{$playhead-radius} - #{$timeline-thickness} / 2);
             border-radius: $timeline-thickness;
           }
           #progress-bar{
             background-color: $color-4;
             position: absolute;
-            top: $adjusted-timeline-top-offset;
             height: $timeline-thickness;
             pointer-events: none;
+            top: calc(#{$playhead-radius} - #{$timeline-thickness} / 2);
             border-top-left-radius: $playhead-radius;
             border-bottom-left-radius: $playhead-radius;
           }
@@ -79,7 +82,7 @@
             position: absolute;
             width: calc(#{$playhead-radius} * 2.0);
             height: calc(#{$playhead-radius} * 2.0);
-            top: calc((#{$adjusted-timeline-top-offset} + #{$timeline-thickness} / 2.0) - #{$playhead-radius}); 
+            top: 0;
             transition-timing-function: linear;
             border-radius: $playhead-radius;
           }
