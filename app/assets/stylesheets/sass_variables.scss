@@ -12,11 +12,11 @@ $color-5: rgb(188, 190, 192);
 $color-6: rgb(212, 214, 217);
 
 // Playback timeline dimensions
-$timeline-container-height: 60px;
-$timeline-thickness: 8px;
+$timeline-container-height: 55px;
+$timeline-thickness: 6px;
 $timeline-top-offset-for-vertical-center: calc((#{$timeline-container-height} / 2.0) - (#{$timeline-thickness}) / 2.0);
 $adjusted-timeline-top-offset: calc(#{$timeline-top-offset-for-vertical-center} * 1.4); // Move timeline up from vertical center position
-$playhead-radius: 12px;
+$playhead-radius: 10px;
 
 // Button dimensions
 $playback-button-container-height: 60px;

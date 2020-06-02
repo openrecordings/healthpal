@@ -94,12 +94,17 @@
           justify-content: space-between;
           padding-top: 10px;
           .player-button{
+            background-color: red;
             height: $playback-button-container-height;
-            display: inline-block;
             .player-button-svg{
+              background-color: yellow;
               height: 37px;
               width: 37px;
               fill: $color-2;
+            }
+            .player-button-label{
+              background-color: pink;
+              font-size: 14px;
             }
           }
         }
