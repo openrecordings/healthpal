@@ -97,17 +97,24 @@
           justify-content: space-between;
           padding-top: 10px;
           .player-button{
-            background-color: red;
-            height: $playback-button-container-height;
+            // background-color: red;
+            width: $player-button-container-width;
+            height: $player-button-container-height;
+            &:hover{
+              cursor: pointer;
+            }
             .player-button-svg{
-              background-color: yellow;
-              height: 37px;
-              width: 37px;
+              // background-color: yellow;
+              margin-left: calc((#{$player-button-container-width} - #{$player-button-edge-length}) / 2);
+              height: $player-button-edge-length;
+              width: $player-button-edge-length;
               fill: $color-2;
             }
             .player-button-label{
-              background-color: pink;
-              font-size: 14px;
+              display: block;
+              // background-color: pink;
+              font-size: 13px;
+              text-align: center;
             }
           }
         }
