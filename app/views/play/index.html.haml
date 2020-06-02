@@ -33,8 +33,8 @@
             = inline_svg('step_back.svg', class: 'player-button-svg')
             -# %span.button-label= t(:back_10_sec )
           #play-pause-button.player-button.track
-            = inline_svg('play.svg', class: 'player-button-svg')
-            = inline_svg('pause.svg', class: 'player-button-svg')
+            = inline_svg('play.svg', id: 'play-glyph', class: 'player-button-svg')
+            = inline_svg('pause.svg', id: 'pause-glyph', class: 'player-button-svg hidden')
             .full-center
               %span#play-label.absolute.play-pause-label
                 -# %span.button-label= t(:play)
@@ -44,8 +44,8 @@
             = inline_svg('step_forward.svg', class: 'player-button-svg')
             -# %span.button-label= t(:forward_10_sec)
           #mute-button.player-button.track
-            = inline_svg('volume_off.svg', class: 'player-button-svg')
-            = inline_svg('volume_max.svg', class: 'player-button-svg')
+            = inline_svg('volume_off.svg', id: 'mute-glyph', class: 'player-button-svg')
+            = inline_svg('volume_max.svg', id: 'unmute-glyph', class: 'player-button-svg hidden')
             %span#mute-label
               -# %span.button-label= t(:mute)
             %span#unmute-label.hidden

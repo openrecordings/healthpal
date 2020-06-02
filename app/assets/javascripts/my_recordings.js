@@ -61,7 +61,7 @@ if (document.querySelector('#play-view')) {
 
         };
         videoElement.onended = function () {
-          $('#play-glyph, #pause-glyph, #play-label, #pause-label').toggleClass('invisible');
+          $('#play-glyph, #pause-glyph, #play-label, #pause-label').toggleClass('hidden');
         }
       } else {
         console.log(data.error)
@@ -79,7 +79,7 @@ if (document.querySelector('#play-view')) {
     else {
       videoElement.pause();
     }
-    $('#play-glyph, #pause-glyph, #play-label, #pause-label').toggleClass('invisible');
+    $('#play-glyph, #pause-glyph, #play-label, #pause-label').toggleClass('hidden');
   }
   
   function skipToTime(newTime){

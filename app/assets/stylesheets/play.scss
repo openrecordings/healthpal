@@ -90,6 +90,9 @@
           // background-color: orange;
         }
         #playback-button-container{
+          display: flex;
+          justify-content: space-between;
+          padding: 10px 15px 0 15px;
           .player-button{
             height: $playback-button-container-height;
             display: inline-block;
