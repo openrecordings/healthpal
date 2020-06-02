@@ -157,7 +157,7 @@ if (document.querySelector('#play-view')) {
 
     $('#playhead').draggable({
       axis: 'x',
-      eontainment: '#timeline',
+      containment: '#timeline',
       drag: function (event, ui) {
         skipToEventPosition(event);
       }
