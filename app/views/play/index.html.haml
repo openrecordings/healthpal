@@ -1,3 +1,4 @@
+#video-container.hidden
 #play-view{'data-initial-recording-id': @recording&.id}
   #left
     #search-and-select
@@ -7,7 +8,6 @@
         - @recordings.each do |recording|
           = render 'recording_list_item', recording: recording
   #right
-    #video-container.hidden
     #player-container
       #header
         Current recording:

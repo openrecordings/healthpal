@@ -112,6 +112,7 @@ if (document.querySelector('#play-view')) {
     let timelineWidth = timeline.width();
     let PxPerSec = timelineWidth / duration;
     let animationDuration = '0';
+    // A crude way to avoid async animations getting mucked up when skipping around in the recording
     if(Math.abs(timeDelta) < 1.0){ animationDuration = timeDelta };
     lastTime = newTime;
     playhead.css('transition-duration', `${animationDuration}s`);
