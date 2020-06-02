@@ -97,21 +97,22 @@ if (document.querySelector('#play-view')) {
     let secPerTimelinePx = duration / timelineWidth;
     let newTime = secPerTimelinePx * eventPx;
     skipToTime(newTime);
-    setUiToTime(newTime, false);
+    setUiToTime(newTime);
   }
 
-  function setUiToTime(newTime, animate=true) {
+  function setUiToTime(newTime) {
     let videoElement = document.getElementById('video-element');
     let duration = $(videoElement).prop('duration');
     if (newTime < 0) { newTime = 0 };
     if (newTime > duration) { newTime = duration };
+    let timeDelta = newTime - lastTime
     let timeline = $('#timeline');
     let playhead = $('#playhead');
     let progressBar = $('#progress-bar');
     let timelineWidth = timeline.width();
     let PxPerSec = timelineWidth / duration;
     let animationDuration = '0';
-    if(animate){ animationDuration = newTime - lastTime; }
+    if(Math.abs(timeDelta) < 1.0){ animationDuration = timeDelta };
     lastTime = newTime;
     playhead.css('transition-duration', `${animationDuration}s`);
     progressBar.css('transition-duration', `${animationDuration}s`);
