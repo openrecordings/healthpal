@@ -23,7 +23,7 @@ class User < ApplicationRecord
   def viewable_recordings
     viewable = recordings
     viewable << recordings_shared_with
-    viewable << org_recordings if admin?
+    # viewable << org_recordings if admin?
     viewable << Recording.all if root?
     viewable = viewable.uniq
   end
