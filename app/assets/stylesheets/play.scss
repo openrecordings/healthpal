@@ -4,12 +4,12 @@
   height: 100%;
 
   #left{
-    background-color: #fee;
+    // background-color: #fee;
     flex-grow: 1;
     overflow: hidden;
     transition-duration: 300ms;
     #search-and-select{
-      background-color: #fee;
+      // background-color: #fee;
       height: 100%;
       padding: 15px;
       box-sizing: border-box;
@@ -41,12 +41,12 @@
       padding: 15px;
       box-sizing: border-box;
       #header{
-        background-color: #fcc;
+        // background-color: #fcc;
       }
       #notes{
         flex-grow: 1;
-        background-color: #eef;
-        border-bottom: 1px solid #bbb;
+        // background-color: #eef;
+        // border-bottom: 1px solid #bbb;
         overflow: scroll;
       }
 
@@ -96,7 +96,7 @@
         #player-button-container{
           display: flex;
           justify-content: space-between;
-          max-width: 500px;
+          max-width: 350px;
           margin-left: auto;
           margin-right: auto;
           padding-top: 10px;
