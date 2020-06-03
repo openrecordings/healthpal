@@ -1,10 +1,9 @@
 body {
-  display: grid;
-  grid-template-areas: 'navbar'
-                       'content';
-  grid-template-rows: auto minmax(0, 1fr);
+  // background-color: pink;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   visibility: invisible;
-  height: 100vh;
   margin: 0;
   font-family: 'Lato', sans-serif;
   font-size: 18px;
@@ -19,7 +18,8 @@ body {
 }
 
 #content{
-  grid-area: content;
+  // background-color: yellowgreen;
+  flex-grow: 1;
   box-sizing: border-box;
 }
 

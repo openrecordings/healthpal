@@ -1,8 +1,7 @@
 #play-view{
+  // background-color: purple;
   display: flex;
   align-items: stretch; 
-  height: 100%;
-
   #left{
     // background-color: #fee;
     flex-grow: 1;
@@ -30,20 +29,19 @@
   #right{
     // background-color: red;
     flex-grow: 1;
-    overflow: hidden;
     transition-duration: 300ms;
-    height: 100%;
     #player-container{
       display: flex;
+      flex-grow: 1;
       flex-direction: column;
       justify-content: space-between;
-      height: 100%;
       padding: 15px;
       box-sizing: border-box;
       #header{
         // background-color: #fcc;
       }
       #notes{
+        height: 255px;
         flex-grow: 1;
         // background-color: #eef;
         // border-bottom: 1px solid #bbb;
@@ -103,7 +101,8 @@
           .player-button{
             width: $player-button-container-width;
             height: $player-button-container-height;
-            background-color: $color-7;
+            // background-color: $color-7;
+            border: 2px solid $color-7;
             border-radius: 3px;
             &:hover{
               cursor: pointer;

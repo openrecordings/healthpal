@@ -9,13 +9,10 @@
           = render 'recording_list_item', recording: recording
   #right
     #player-container
-      #header
-        (Header and user notes)
-        -# Current recording:
-        -# %span#current-recording-title
-        -# #show-select < Select a different recording
-      #notes
-        -# Notes
+      #header.full-center
+        (header container)
+      #notes.full-center
+        (user notes container)
       #player
         #timeline-container
           #timeline.track
