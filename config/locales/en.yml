@@ -23,10 +23,10 @@ en:
   cancel: Cancel
   notes: Notes
   rewind: Rewind
-  back_10_sec: Back 10 sec
+  back_10_sec: Back 10
   play: Play
   pause: Pause
-  forward_10_sec: Forward 10 sec
+  forward_10_sec: Fwd 10
   mute: Mute
   unmute: Unmute
   start_end: Start - End

@@ -9,8 +9,12 @@ $color-3: rgb(73, 165, 157);
 // Black text
 $color-4: rgb(149, 181, 179);
 $color-5: rgb(188, 190, 192);
+$color-6: rgb(212, 214, 217);
+$color-7: rgba(212, 214, 217, 0.4);
 
-// Playback timeline dimensions
-$timeline-container-height: 50px;
-$timeline-thickness: 8px;
-$playhead-radius: 12px;
+// Player
+$timeline-thickness: 6px;
+$playhead-radius: 10px;
+$player-button-container-height: 67px;
+$player-button-container-width: 60px;
+$player-button-edge-length: 37px;

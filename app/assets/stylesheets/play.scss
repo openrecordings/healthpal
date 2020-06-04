@@ -1,15 +1,14 @@
 #play-view{
+  // background-color: purple;
   display: flex;
   align-items: stretch; 
-  height: 100%;
-
   #left{
-    background-color: #fee;
+    // background-color: #fee;
     flex-grow: 1;
     overflow: hidden;
     transition-duration: 300ms;
     #search-and-select{
-      background-color: #fee;
+      // background-color: #fee;
       height: 100%;
       padding: 15px;
       box-sizing: border-box;
@@ -30,31 +29,24 @@
   #right{
     // background-color: red;
     flex-grow: 1;
-    overflow: hidden;
     transition-duration: 300ms;
-    height: 100%;
     #player-container{
       display: flex;
+      flex-grow: 1;
       flex-direction: column;
       justify-content: space-between;
-      height: 100%;
       padding: 15px;
       box-sizing: border-box;
       #header{
-        background-color: #fcc;
+        // background-color: #fcc;
       }
       #notes{
+        height: 255px;
         flex-grow: 1;
-        background-color: #eef;
-        border-bottom: 1px solid #bbb;
+        // background-color: #eef;
+        // border-bottom: 1px solid #bbb;
         overflow: scroll;
       }
-
-      // TODO:
-      //   - Get the progress bar working 
-      //   - Get dragging working 
-      //   - Get the times in the right place
-      //   - Move onto the buttons
 
       #player{
         // background-color: #ddf;
@@ -62,21 +54,24 @@
           // background-color: yellow;
           position: relative;
           width: 100%;
-          height: $timeline-container-height;
+          box-sizing: border-box;
+          margin-top: 20px;
+          margin-bottom: 50px;
           #timeline{
-            background-color: $color-5;
+            background-color: $color-6;
             width: 100%;
             height: $timeline-thickness;
             position: absolute;
-            top: calc((#{$timeline-container-height} / 2.0) - (#{$timeline-thickness}) / 2.0); 
+            // top: calc(#{$playhead-radius} - #{$timeline-thickness} / 2);
+            top: calc(#{$playhead-radius} - #{$timeline-thickness} / 2);
             border-radius: $timeline-thickness;
           }
           #progress-bar{
-            background-color: $color-2;
+            background-color: $color-4;
             position: absolute;
-            top: calc((#{$timeline-container-height} / 2.0) - (#{$timeline-thickness}) / 2.0); 
             height: $timeline-thickness;
             pointer-events: none;
+            top: calc(#{$playhead-radius} - #{$timeline-thickness} / 2);
             border-top-left-radius: $playhead-radius;
             border-bottom-left-radius: $playhead-radius;
           }
@@ -85,17 +80,44 @@
             position: absolute;
             width: calc(#{$playhead-radius} * 2.0);
             height: calc(#{$playhead-radius} * 2.0);
-            top: calc((#{$timeline-container-height} / 2.0) - #{$playhead-radius}); 
+            top: 0;
             transition-timing-function: linear;
             border-radius: $playhead-radius;
           }
         }
         #time{
-          // background-color: orange;
+          display: flex;
+          justify-content: space-between;
+          padding-bottom: 10px;
+          font-size: 14px;
         }
-        #buttons-container{
+        #player-button-container{
+          display: flex;
+          justify-content: space-between;
+          max-width: 350px;
+          margin-left: auto;
+          margin-right: auto;
+          padding-top: 10px;
           .player-button{
-            display: inline-block;
+            width: $player-button-container-width;
+            height: $player-button-container-height;
+            // background-color: $color-7;
+            border: 2px solid $color-7;
+            border-radius: 3px;
+            &:hover{
+              cursor: pointer;
+            }
+            .player-button-svg{
+              margin-left: calc((#{$player-button-container-width} - #{$player-button-edge-length}) / 2);
+              padding-top: 3px;
+              height: $player-button-edge-length;
+              width: $player-button-edge-length;
+              fill: $color-2;
+            }
+            .player-button-label{
+              font-size: 13px;
+              text-align: center;
+            }
           }
         }
       }

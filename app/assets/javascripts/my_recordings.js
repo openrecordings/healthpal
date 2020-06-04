@@ -61,7 +61,7 @@ if (document.querySelector('#play-view')) {
 
         };
         videoElement.onended = function () {
-          $('#play-glyph, #pause-glyph, #play-label, #pause-label').toggleClass('invisible');
+          $('#play-glyph, #pause-glyph, #play-label, #pause-label').toggleClass('hidden');
         }
       } else {
         console.log(data.error)
@@ -79,7 +79,7 @@ if (document.querySelector('#play-view')) {
     else {
       videoElement.pause();
     }
-    $('#play-glyph, #pause-glyph, #play-label, #pause-label').toggleClass('invisible');
+    $('#play-glyph, #pause-glyph, #play-label, #pause-label').toggleClass('hidden');
   }
   
   function skipToTime(newTime){
@@ -97,23 +97,26 @@ if (document.querySelector('#play-view')) {
     let secPerTimelinePx = duration / timelineWidth;
     let newTime = secPerTimelinePx * eventPx;
     skipToTime(newTime);
-    setUiToTime(newTime, false);
+    setUiToTime(newTime);
   }
 
-  function setUiToTime(newTime, animate=true) {
+  function setUiToTime(newTime) {
     let videoElement = document.getElementById('video-element');
     let duration = $(videoElement).prop('duration');
     if (newTime < 0) { newTime = 0 };
     if (newTime > duration) { newTime = duration };
+    let timeDelta = newTime - lastTime
     let timeline = $('#timeline');
     let playhead = $('#playhead');
     let progressBar = $('#progress-bar');
     let timelineWidth = timeline.width();
     let PxPerSec = timelineWidth / duration;
     let animationDuration = '0';
-    if(animate){ animationDuration = newTime - lastTime; }
+    // A crude way to avoid async animations getting mucked up when skipping around in the recording
+    if(Math.abs(timeDelta) < 1.0){ animationDuration = timeDelta };
     lastTime = newTime;
     playhead.css('transition-duration', `${animationDuration}s`);
+    progressBar.css('transition-duration', `${animationDuration}s`);
     let newPlayheadPx = PxPerSec * newTime - playheadRadius;
     if (newPlayheadPx < 0) { newPlayheadPx = 0 };
     if (newPlayheadPx > timelineWidth - 2 * playheadRadius) { newPlayheadPx = timelineWidth - 2 * playheadRadius };
@@ -156,7 +159,7 @@ if (document.querySelector('#play-view')) {
 
     $('#playhead').draggable({
       axis: 'x',
-      eontainment: '#timeline',
+      containment: '#timeline',
       drag: function (event, ui) {
         skipToEventPosition(event);
       }
