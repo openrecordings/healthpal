@@ -21,10 +21,18 @@ class User < ApplicationRecord
     role == 'root'
   end
 
-  def viewable_recordings
+	def viewable_visits
+		viewable = visits
+		viewable << org.regular_user_visits if admin?
+		viewable << Ahoy::Visit.all if root?
+		viewable = viewable.uniq
+		viewable
+	end
+
+	def viewable_recordings
     viewable = recordings
     viewable << recordings_shared_with
-    viewable << org_recordings if admin?
+    viewable << org.regular_user_recordings if admin?
     viewable << Recording.all if root?
     viewable = viewable.uniq
     viewable
@@ -38,7 +46,7 @@ class User < ApplicationRecord
 
   # NOTE: `active` is necessary or Share revocation doesn't work
   def recordings_shared_with
-    Share.active.where(shared_with_user_id: self.id).map{|s| s.recording}
+    Share.active.where(shared_with_user_id: self.id).map{|s| s.user.recordings}
   end
 
   def has_ever_logged_in

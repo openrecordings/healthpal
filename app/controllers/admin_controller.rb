@@ -47,7 +47,7 @@ class AdminController < ApplicationController
       first_name: user_params[:first_name],
       last_name: user_params[:last_name],
       email: user_params[:email],
-      org_id: user.root? ? user_params[:org_id] : current_user.org.id,
+      org_id: current_user.root? ? user_params[:org_id] : current_user.org.id,
       phone_number: user_params[:phone_number],
       password: user_params[:password],
       role: 'user',
