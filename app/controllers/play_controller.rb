@@ -42,7 +42,7 @@ class PlayController < ApplicationController
   #     redirect_to :root and return
   #   end
   # end
-  
+
   # AJAX endpoint for in-place editing of UserFields
   # TODO Handle bad params
   def user_field
@@ -65,7 +65,7 @@ class PlayController < ApplicationController
   def prepare_utterances(recording)
     return_utterances = []
     multi_utterance = nil
-    utterances = recording.utterances.order(:index) 
+    utterances = recording.utterances.order(:index)
     utterances.each do |utterance|
       if utterance.tags.any?
         utterance.tmp_tag_types = utterance.tag_types
@@ -74,7 +74,7 @@ class PlayController < ApplicationController
           multi_utterance.text += " #{utterance.text}"
           multi_utterance.ends_at = utterance.ends_at
           multi_utterance.links += utterance.links
-        else 
+        else
           return_utterances << multi_utterance unless multi_utterance.nil?
           multi_utterance = utterance
         end

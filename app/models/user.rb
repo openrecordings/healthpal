@@ -23,19 +23,19 @@ class User < ApplicationRecord
 
   def viewable_visits
     viewable = visits
-    viewable << org.regular_user_visits if admin?
-    viewable << Ahoy::Visit.all if root?
-    viewable = viewable.uniq
-    viewable
+		viewable += org.regular_user_visits if admin?
+    viewable += Ahoy::Visit.all if root?
+		viewable.flatten!
+		viewable.uniq
   end
 
   def viewable_recordings
     viewable = recordings
-    viewable << recordings_shared_with
-    viewable << org.regular_user_recordings if admin?
-    viewable << Recording.all if root?
-    viewable = viewable.uniq
-    viewable
+    viewable += recordings_shared_with
+    viewable += org.regular_user_recordings if admin?
+    viewable += Recording.all if root?
+		viewable.flatten!
+    viewable.uniq
   end
 
   def viewable_users
