@@ -1,6 +1,6 @@
 class InvitationsController < Devise::InvitationsController
 
-	# Raw Devise method extnded to handle SMS verification
+  # Raw Devise method extnded to handle SMS verification
   def update
     raw_invitation_token = update_resource_params[:invitation_token]
 
@@ -37,9 +37,9 @@ class InvitationsController < Devise::InvitationsController
       sign_in(resource_name, resource)
       respond_with resource, location: after_accept_path_for(resource)
     else
-			if resource.errors.any?
-			  flash.now[:notice] = resource.errors.full_messages.join('<br>'.html_safe)
-			end
+      if resource.errors.any?
+        flash.now[:notice] = resource.errors.full_messages.join('<br>'.html_safe)
+      end
       resource.invitation_token = raw_invitation_token
       respond_with_navigational(resource) { render :edit }
     end

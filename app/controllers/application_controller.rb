@@ -53,7 +53,7 @@ class ApplicationController < ActionController::Base
 
   # Called from controllers/actions that exclude regular users.
   def verify_privileged
-    if !current_user.privileged?
+    unless current_user.privileged?
       flash[:error] = 'You are not authorized to view that page'
       redirect_to :root
     end
