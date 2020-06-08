@@ -1,18 +1,11 @@
 #play-view{
-  background-color: purple;
-  // min-height: 100%;
   display: flex;
-  align-items: stretch;
   flex-grow: 1;
   #left{
-    background-color: #fee;
     flex-grow: 1;
-    // min-height: 100%;
     overflow: hidden;
     transition-duration: 300ms;
     #search-and-select{
-      // background-color: #fee;
-      // min-height: 100%;
       padding: 15px;
       box-sizing: border-box;
       overflow: scroll;
@@ -30,32 +23,25 @@
   }
 
   #right{
-    background-color: red;
+    display: flex;
     flex-grow: 1;
-    // height: 100%;
     transition-duration: 300ms;
     #player-container{
-      // background-color: blue;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      // min-height: 100%;
+      width: 100%;
       padding: 15px;
       box-sizing: border-box;
       #header{
-        background-color: #fcc;
       }
       #notes{
         flex-grow: 1;
-        background-color: #eef;
         // border-bottom: 1px solid #bbb;
-        // min-height: 100%;
         overflow: scroll;
       }
       #player{
-        background-color: #ddf;
         #timeline-container{
-          // background-color: yellow;
           position: relative;
           width: 100%;
           box-sizing: border-box;
@@ -105,8 +91,6 @@
           .player-button{
             width: $player-button-container-width;
             height: $player-button-container-height;
-            // background-color: $color-7;
-            border: 2px solid $color-7;
             border-radius: 3px;
             &:hover{
               cursor: pointer;
