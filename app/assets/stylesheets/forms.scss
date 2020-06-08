@@ -1,5 +1,6 @@
+@include logo;
+
 .centered-form-container{
-  @include logo;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

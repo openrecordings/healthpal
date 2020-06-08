@@ -31,9 +31,9 @@ if (document.querySelector('#play-view')) {
     $.get(`/video_url/${recordingId}`, function (data) {
       if (data.url) {
         $('#video-container').html(`
-          <video id=video-element>
+          <audio id=video-element>
             <source src=${data.url} type="audio/mp3">
-          </video>`
+          </audio>`
         );
 
         $('#current-recording-title').html(recordingId);
