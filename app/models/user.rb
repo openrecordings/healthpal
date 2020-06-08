@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :invitable, :database_authenticatable, :registerable, :recoverable, :rememberable,
     :trackable, :validatable, :timeoutable
 
-	belongs_to :org, optional: true
+  belongs_to :org, optional: true
   has_many :recordings
   has_many :shares
   has_many :visits, class_name: 'Ahoy::Visit'
@@ -21,12 +21,16 @@ class User < ApplicationRecord
     role == 'root'
   end
 
+	def privileged?
+    admin? || root?
+  end
+
   def viewable_visits
     viewable = visits
-		viewable += org.regular_user_visits if admin?
+    viewable += org.regular_user_visits if admin?
     viewable += Ahoy::Visit.all if root?
-		viewable.flatten!
-		viewable.uniq
+    viewable.flatten!
+    viewable.uniq
   end
 
   def viewable_recordings
@@ -34,7 +38,7 @@ class User < ApplicationRecord
     viewable += recordings_shared_with
     viewable += org.regular_user_recordings if admin?
     viewable += Recording.all if root?
-		viewable.flatten!
+    viewable.flatten!
     viewable.uniq
   end
 
