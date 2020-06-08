@@ -1,15 +1,18 @@
 #play-view{
-  // background-color: purple;
+  background-color: purple;
+  // min-height: 100%;
   display: flex;
-  align-items: stretch; 
+  align-items: stretch;
+  flex-grow: 1;
   #left{
-    // background-color: #fee;
+    background-color: #fee;
     flex-grow: 1;
+    // min-height: 100%;
     overflow: hidden;
     transition-duration: 300ms;
     #search-and-select{
       // background-color: #fee;
-      height: 100%;
+      // min-height: 100%;
       padding: 15px;
       box-sizing: border-box;
       overflow: scroll;
@@ -27,28 +30,30 @@
   }
 
   #right{
-    // background-color: red;
+    background-color: red;
     flex-grow: 1;
+    // height: 100%;
     transition-duration: 300ms;
     #player-container{
+      // background-color: blue;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      // min-height: 100%;
       padding: 15px;
       box-sizing: border-box;
       #header{
-        // background-color: #fcc;
+        background-color: #fcc;
       }
       #notes{
-        height: 255px;
         flex-grow: 1;
-        // background-color: #eef;
+        background-color: #eef;
         // border-bottom: 1px solid #bbb;
+        // min-height: 100%;
         overflow: scroll;
       }
-
       #player{
-        // background-color: #ddf;
+        background-color: #ddf;
         #timeline-container{
           // background-color: yellow;
           position: relative;

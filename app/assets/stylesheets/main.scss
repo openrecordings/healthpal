@@ -3,7 +3,7 @@ html{
 }
 
 body {
-  background-color: pink;
+  // background-color: pink;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -23,9 +23,12 @@ body {
 }
 
 #content{
-  // background-color: yellowgreen;
+  background-color: yellowgreen;
+  display: flex;
+  align-items: stretch;
   flex-grow: 1;
   box-sizing: border-box;
+  min-height: 100%;
 }
 
 #flash{
