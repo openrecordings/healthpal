@@ -21,7 +21,6 @@
       }
     }
   }
-
   #right{
     display: flex;
     flex-grow: 1;
@@ -52,7 +51,6 @@
             width: 100%;
             height: $timeline-thickness;
             position: absolute;
-            // top: calc(#{$playhead-radius} - #{$timeline-thickness} / 2);
             top: calc(#{$playhead-radius} - #{$timeline-thickness} / 2);
             border-radius: $timeline-thickness;
           }
@@ -87,7 +85,7 @@
           max-width: 350px;
           margin-left: auto;
           margin-right: auto;
-          padding-top: 10px;
+          // padding-top: 10px;
           .player-button{
             width: $player-button-container-width;
             height: $player-button-container-height;
