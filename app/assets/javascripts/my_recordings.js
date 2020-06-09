@@ -4,21 +4,22 @@ if (document.querySelector('#play-view')) {
   var playerPadding = null;
   var playheadRadius = null;
   var lastTime = 0.0;
+  var animationDuration = 300;
 
   // Selection/playback pane visibility
   /////////////////////////////////////////////////////////////////////////////////////////////////
-  function showSelect() {
-    $('#right').css('flex-grow', '0');
-    $('#left').css('flex-grow', '1');
-    $('#search-and-select').show();
-    $('#right').hide();
+  function showSelectOnly(){
+    $('#left').css({'transform': 'scaleX(1)'});
+    $('#left').css({'min-width': '100%'});
+    $('#right').css({'transform': 'scaleX(0)'});
+    $('#right').css({'min-width': '0'});
   }
 
-  function showPlayback() {
-    $('#left').css('flex-grow', '0');
-    $('#right').css('flex-grow', '1');
-    $('#right').show();
-    $('#search-and-select').hide();
+  function showPlaybackOnly(){
+    $('#left').css({'transform': 'scaleX(0)'});
+    $('#left').css({'min-width': '0'});
+    $('#right').css({'transform': 'scaleX(1)'});
+    $('#right').css({'min-width': '100%'});
   }
 
   // Replace/create the video element and load from src URL
@@ -138,7 +139,7 @@ if (document.querySelector('#play-view')) {
     recordingId = $('#play-view').data('initial-recording-id');
     if (recordingId != null) {
       loadVideo();
-      showPlayback();
+      showPlaybackOnly(0);
     }
 
     // Listeners
@@ -146,11 +147,11 @@ if (document.querySelector('#play-view')) {
     $('.recording-list-item').click(function () {
       recordingId = $(this).data('recording-id');
       loadVideo();
-      showPlayback();
+      showPlaybackOnly();
     })
 
     $('#show-select').click(function () {
-      showSelect();
+      showSelectOnly();
     })
 
     $('#timeline').click(function (event) {
@@ -194,5 +195,6 @@ if (document.querySelector('#play-view')) {
       }
       $('#mute-glyph, #unmute-glyph, #mute-label, #unmute-label').toggleClass('hidden');
     })
+    
   })
 }

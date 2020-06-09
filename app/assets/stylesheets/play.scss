@@ -3,20 +3,25 @@
   flex-grow: 1;
   #left{
     flex-grow: 1;
+    min-width: 100%;
     overflow: hidden;
+    transform-origin: top left;
     transition-duration: 300ms;
+    // transition-duration: 300ms;
     #search-and-select{
       padding: 15px;
       box-sizing: border-box;
-      overflow: scroll;
+      overflow: hidden;
       #search{
         box-sizing: border-box;
         border-bottom: 1px solid #bbb;
+      overflow: hidden;
       }
       #select{
         .recording-list-item{
           box-sizing: border-box;
           border-bottom: 1px solid #bbb;
+      overflow: hidden;
         }
       }
     }
@@ -24,6 +29,8 @@
   #right{
     display: flex;
     flex-grow: 1;
+    overflow: hidden;
+    transform-origin: top right;
     transition-duration: 300ms;
     #player-container{
       display: flex;
