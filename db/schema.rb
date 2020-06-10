@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_10_124605) do
+ActiveRecord::Schema.define(version: 2020_06_10_130131) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -139,6 +139,8 @@ ActiveRecord::Schema.define(version: 2020_06_10_124605) do
     t.boolean "is_processed", default: false
     t.bigint "ahoy_visit_id"
     t.datetime "next_appt_at"
+    t.string "title"
+    t.string "provider"
   end
 
   create_table "shares", force: :cascade do |t|
