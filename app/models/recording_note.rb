@@ -1,0 +1,2 @@
+class RecordingNote < ApplicationRecord
+end

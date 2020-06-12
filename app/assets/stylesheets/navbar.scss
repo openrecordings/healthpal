@@ -6,21 +6,25 @@
   color: #777;
   border-bottom: 3px solid white;
 }
+
 .menu-horiz-selected{
   @include menu-horiz;
   color: #222;
   border-bottom: 3px solid $color-3;
 }
+
 .menu-vert{
   @include menu-vert;
   color: #777;
   border-left: 3px solid white;
 }
+
 .menu-vert-selected{
   @include menu-vert;
   color: #222;
   border-left: 3px solid $color-3;
 }
+
 #mobile-menu-button{
   position:  absolute;
   right: 10px;
@@ -29,11 +33,12 @@
     cursor: pointer;
   }
 }
+
 #nav-container{
   @include logo; 
   width: 100%;
   #menu-container{
-    margin-top: 20px;
+    margin-top: 5px;
     #wide{
       display: flex;
       flex-flow: row nowrap;
@@ -52,7 +57,6 @@
         }
       }
     }
-
     #long{
       box-sizing: border-box;
       padding: 10px 13px 10px 13px;

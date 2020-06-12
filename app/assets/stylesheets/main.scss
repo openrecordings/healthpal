@@ -1,9 +1,13 @@
+html{
+  height: 100%;
+}
+
 body {
-  // background-color: pink;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   visibility: invisible;
+  min-height: 100%;
   margin: 0;
   font-family: 'Lato', sans-serif;
   font-size: 18px;
@@ -18,9 +22,11 @@ body {
 }
 
 #content{
-  // background-color: yellowgreen;
+  display: flex;
+  flex-direction: column;
   flex-grow: 1;
   box-sizing: border-box;
+  min-height: 100%;
 }
 
 #flash{
@@ -32,8 +38,6 @@ body {
   line-height: 46px;
   border-radius: 5px;
   text-align: center;
-  background-color: white;
-  color: white;
   #dismiss-flash{
     position: absolute;
     top: 0;

@@ -1,57 +1,53 @@
 #play-view{
-  // background-color: purple;
   display: flex;
-  align-items: stretch; 
+  flex-grow: 1;
   #left{
-    // background-color: #fee;
     flex-grow: 1;
+    min-width: 100%;
     overflow: hidden;
+    transform-origin: top left;
     transition-duration: 300ms;
+    // transition-duration: 300ms;
     #search-and-select{
-      // background-color: #fee;
-      height: 100%;
       padding: 15px;
       box-sizing: border-box;
-      overflow: scroll;
+      overflow: hidden;
       #search{
         box-sizing: border-box;
         border-bottom: 1px solid #bbb;
+      overflow: hidden;
       }
       #select{
         .recording-list-item{
           box-sizing: border-box;
           border-bottom: 1px solid #bbb;
+      overflow: hidden;
         }
       }
     }
   }
-
   #right{
-    // background-color: red;
+    display: flex;
     flex-grow: 1;
+    overflow: hidden;
+    transform-origin: top right;
     transition-duration: 300ms;
     #player-container{
       display: flex;
-      flex-grow: 1;
       flex-direction: column;
       justify-content: space-between;
+      width: 100%;
       padding: 15px;
       box-sizing: border-box;
       #header{
-        // background-color: #fcc;
       }
       #notes{
-        height: 255px;
         flex-grow: 1;
-        // background-color: #eef;
         // border-bottom: 1px solid #bbb;
         overflow: scroll;
       }
-
       #player{
-        // background-color: #ddf;
         #timeline-container{
-          // background-color: yellow;
           position: relative;
           width: 100%;
           box-sizing: border-box;
@@ -62,7 +58,6 @@
             width: 100%;
             height: $timeline-thickness;
             position: absolute;
-            // top: calc(#{$playhead-radius} - #{$timeline-thickness} / 2);
             top: calc(#{$playhead-radius} - #{$timeline-thickness} / 2);
             border-radius: $timeline-thickness;
           }
@@ -97,12 +92,10 @@
           max-width: 350px;
           margin-left: auto;
           margin-right: auto;
-          padding-top: 10px;
+          // padding-top: 10px;
           .player-button{
             width: $player-button-container-width;
             height: $player-button-container-height;
-            // background-color: $color-7;
-            border: 2px solid $color-7;
             border-radius: 3px;
             &:hover{
               cursor: pointer;
