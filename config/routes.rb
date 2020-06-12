@@ -30,7 +30,7 @@ Rails.application.routes.draw do
   post 'create_caregiver',           to: 'admin#create_caregiver'
 
   # Recording
-  get 'record',                      to: 'record#new' 
+  get 'record',                      to: 'record#new'
   get 'file_upload',                 to: 'record#file_upload',               as: 'file_upload'
   post 'upload',                     to: 'record#upload',                    as: 'upload'
   post 'upload_file',                to: 'record#upload_file',               as: 'upload_file'
@@ -62,5 +62,5 @@ Rails.application.routes.draw do
 
   # Analytics
   get 'analytics(/:id)',                   to: 'analytics#index',                  as: 'analytics'
-    
+
 end

@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :authenticate_user!
+  before_action :verify_org
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_cache_buster
   before_action :check_layout
@@ -22,7 +23,8 @@ class ApplicationController < ActionController::Base
 
   # Allow devise_invitable to handle the role parameter when creating users
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:invite, keys: [:role])
+    devise_parameter_sanitizer.permit(:invite, keys: [:role, :org_id])
+    devise_parameter_sanitizer.permit(:register, keys: [:role, :org_id])
   end
 
   def set_cache_buster
@@ -42,6 +44,11 @@ class ApplicationController < ActionController::Base
 
   def track_action
     ahoy.track 'Request', request.path_parameters
+  end
+
+  # Verify that the user has an Org when needed
+  def verify_org
+    # TODO
   end
 
   # Called from controllers/actions that exclude regular users.

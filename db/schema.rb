@@ -123,6 +123,12 @@ ActiveRecord::Schema.define(version: 2020_06_10_131346) do
     t.index ["recording_id"], name: "index_messages_on_recording_id"
   end
 
+  create_table "orgs", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "recording_notes", force: :cascade do |t|
     t.bigint "recording_id"
     t.string "text"
@@ -180,9 +186,8 @@ ActiveRecord::Schema.define(version: 2020_06_10_131346) do
     t.string "text"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "kind"
+    t.integer "type"
     t.integer "recording_id"
-    t.float "at"
   end
 
   create_table "users", id: :serial, force: :cascade do |t|
@@ -218,6 +223,7 @@ ActiveRecord::Schema.define(version: 2020_06_10_131346) do
     t.string "locale"
     t.boolean "email_notifications"
     t.boolean "sms_notifications"
+    t.integer "org_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["invitations_count"], name: "index_users_on_invitations_count"

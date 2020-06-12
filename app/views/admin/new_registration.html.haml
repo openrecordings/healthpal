@@ -17,6 +17,11 @@
         Email
       = f.email_field :email, class: 'form-input'
       .input-underscore
+    - if current_user.root?
+      .form-field-container.field-centered
+        .form-label.margin-top-20
+          Organization
+          = f.collection_select(:org_id, @orgs, :id, :name, {include_blank: true}, {class: 'form-input select-css'})
     -#.form-field-container.field-centered
     -#  .form-label
     -#    Mobile phone number

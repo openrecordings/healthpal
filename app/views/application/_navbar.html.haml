@@ -13,7 +13,7 @@
         %span#logo-health Health
         %span#logo-pal> PAL
         - if current_user&.privileged?
-          %span#logo-admin ADMIN
+          %span#logo-admin= current_user.role.upcase
       %span#mobile-menu-button.local-fa.fa.fa-bars
   - if user_signed_in?
     #menu-container

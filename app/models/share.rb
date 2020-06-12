@@ -8,5 +8,5 @@ class Share < ApplicationRecord
 
   # All active shares. Used by User#recordings_shared_with
   scope :active, ->() {where revoked_at: nil}
-  
+
 end

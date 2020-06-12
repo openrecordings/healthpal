@@ -1,9 +1,11 @@
 class User < ApplicationRecord
-  
+
   require 'twilio-ruby'
   devise :invitable, :database_authenticatable, :registerable, :recoverable, :rememberable,
     :trackable, :validatable, :timeoutable
 
+  belongs_to :org, optional: true
+  validates_presence_of :org, unless: :root?
   has_many :recordings
   has_many :shares
   has_many :visits, class_name: 'Ahoy::Visit'
@@ -20,23 +22,37 @@ class User < ApplicationRecord
     role == 'root'
   end
 
+  def privileged?
+    admin? || root?
+  end
+
+  def viewable_visits
+    viewable = visits
+    viewable += org.regular_user_visits if admin?
+    viewable += Ahoy::Visit.all if root?
+    viewable.flatten!
+    viewable.uniq
+  end
+
   def viewable_recordings
     viewable = recordings
-    viewable << recordings_shared_with
-    # viewable << org_recordings if admin?
-    viewable << Recording.all if root?
-    viewable = viewable.uniq
+    viewable += recordings_shared_with
+    viewable += org.regular_user_recordings if admin?
+    viewable += Recording.all if root?
+    viewable.flatten!
+    viewable.uniq
+  end
+
+  def viewable_users
+    viewable = org.users.regular if admin?
+    viewable = User.all if root?
+    viewable
   end
 
   # NOTE: `active` is necessary or Share revocation doesn't work
   def recordings_shared_with
-    Share.active.where(shared_with_user_id: self.id).map{|s| s.recording}
+    Share.active.where(shared_with_user_id: self.id).map{|s| s.user.recordings}
   end
-
-  def org_recordings
-    # user.org.recordings
-  end
-
 
   def has_ever_logged_in
     sign_in_count > 0
@@ -59,7 +75,7 @@ class User < ApplicationRecord
     end
   end
 
-	# https://github.com/plataformatec/devise#activejob-integration
+  # https://github.com/plataformatec/devise#activejob-integration
   def send_devise_notification(notification, *args)
     devise_mailer.send(notification, self, *args).deliver_later
   end
@@ -69,13 +85,8 @@ class User < ApplicationRecord
     super && active && (phone_confirmed_at || !requires_phone_confirmation)
   end
 
-  # DEPRECATED
-  def privileged?
-    ['admin', 'root'].include?(role)
-  end
-
   def can_access(recording)
-    privileged? || recordings_shared_with.include?(recording)
+    viewable_recordings.include?(recording)
   end
 
   def toggle_active

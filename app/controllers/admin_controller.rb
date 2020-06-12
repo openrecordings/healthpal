@@ -1,7 +1,7 @@
 class AdminController < ApplicationController
 
   #TODO Handle bad params
-  
+
   before_action :verify_privileged
 
   def index
@@ -33,6 +33,7 @@ class AdminController < ApplicationController
   def new_registration
     # Creating a new user to hold params, but we're only going to set the email now
     @user = User.new(email: params[:email])
+    @orgs = Org.all
   end
 
   # Set password for in-clinic user registration
@@ -46,6 +47,7 @@ class AdminController < ApplicationController
       first_name: user_params[:first_name],
       last_name: user_params[:last_name],
       email: user_params[:email],
+      org_id: current_user.root? ? user_params[:org_id] : current_user.org.id,
       phone_number: user_params[:phone_number],
       password: user_params[:password],
       role: 'user',
@@ -62,7 +64,7 @@ class AdminController < ApplicationController
 
   # Select an existing user to switch to
   def switch_user_select
-    @users = User.regular
+    @users = current_user.viewable_users
   end
 
   def switch_to_user
@@ -76,7 +78,7 @@ class AdminController < ApplicationController
   end
 
   def new_caregiver
-    @users = User.regular
+    @users = current_user.viewable_users
   end
 
   def create_caregiver
@@ -84,6 +86,7 @@ class AdminController < ApplicationController
       email: params['email'],
       role: 'user',
       active: true,
+      org_id: User.find_by(id: params['sharer_id']).org.id,
       first_name: params['first_name'],
       last_name: params['last_name'],
     )
@@ -98,7 +101,7 @@ class AdminController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:email, :phone_number, :first_name, :last_name, :password, :password_2, :sharer_id)
+    params.require(:user).permit(:org_id, :email, :phone_number, :first_name, :last_name, :password, :password_2, :sharer_id)
   end
 
 end
