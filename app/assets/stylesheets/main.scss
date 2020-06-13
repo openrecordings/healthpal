@@ -255,10 +255,7 @@ a {
   margin-top: 10px;
   height: 50px;
   width: 50px;
-  fill: #fff;
-  // &:hover{
-  //   fill: white;
-  // }
+  fill: white;
 }
 
 .medium-svg{
@@ -267,13 +264,12 @@ a {
 }
 
 .small-svg{
-  margin-top: 10px;
-  height: 20px;
-  width: 20px;
+  // As of now, matches .pill height
+  box-sizing:  border-box;
+  height: 34px;
+  line-height: 34px;
+  padding: 6px 0;
   fill: white;
-  &:hover{
-    fill: white;
-  }
 }
 
 .width-800{
@@ -336,5 +332,28 @@ a {
   }
   &:active{
     background-color: $color-4;
+  }
+}
+
+.pill{
+  box-sizing: border-box;
+  height: 34px;
+  line-height: 34px;
+  border-radius: 17px;
+  font-size: 17px;
+  padding: 0 15px;
+  background-color: $color-2;
+  color: white;
+  &:hover{
+    cursor: pointer;
+    background-color: $color-3;
+  }
+  &:active{
+    background-color: $color-4;
+  }
+  // For some reason, inline SVG moves pill text downward
+  .pill-text-with-svg{
+    display: inline-block;
+    transform: translateY(-12px);
   }
 }

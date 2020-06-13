@@ -10,9 +10,9 @@
   #right
     #player-container
       #header.full-center
-        #show-select.floating-button
-          %p.single-line Select a
-          %p.single-line recording
+        #show-select.pill
+          = inline_svg('arrow-left.svg', class: 'small-svg')
+          .pill-text-with-svg Select recording
       #notes.full-center
       #player
         #timeline-container
