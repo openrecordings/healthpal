@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_10_131346) do
+ActiveRecord::Schema.define(version: 2020_06_13_145004) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -180,14 +180,6 @@ ActiveRecord::Schema.define(version: 2020_06_10_131346) do
     t.integer "tag_type_id"
     t.index ["tag_type_id"], name: "index_tags_on_tag_type_id"
     t.index ["utterance_id"], name: "index_tags_on_utterance_id"
-  end
-
-  create_table "user_fields", force: :cascade do |t|
-    t.string "text"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "type"
-    t.integer "recording_id"
   end
 
   create_table "users", id: :serial, force: :cascade do |t|
