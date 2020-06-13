@@ -26,7 +26,7 @@ class Recording < ApplicationRecord
   ACUSIS_PERSON_ID = /\APERSON [A-Z]:/
 
   def build_utterances
-    # Destroy and existing utterances for self (user was warned)
+    # Destroy any existing utterances for self (user was warned)
     self.utterances.each {|u| u.destroy}
     # TODO: This breaks if the recording is longer than 99 minutes!
     utt = nil

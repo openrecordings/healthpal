@@ -53,19 +53,18 @@
   height: 50px;
   line-height: 50px;
   width: 302px;
+  background-color: $color-2;
   text-align: center;
   text-decoration: none;
   font-size: 18px;
-  color: #666;
-  border: 1px solid #ccc;
+  color: white;
+  border: none;
   border-radius: 6px;
   &:hover{
     cursor: pointer;
-    background-color: $color-5;
-    border: 1px solid $color-2;
-    color: rgba(62, 69, 88, 1.0);
+    background-color: $color-3;
   }
   &:active{
-    background-color: $color-2;
+    background-color: $color-4;
   }
 }
