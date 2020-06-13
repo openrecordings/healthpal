@@ -309,3 +309,32 @@ a {
   font-size: 20px !important;
   color: #666 !important;
 }
+
+.floating-button{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
+  height: 80px;
+  width: 80px;
+  background-color: $color-2;
+  box-shadow: 0 6px 16px 0 #999;
+  text-align: center;
+  text-decoration: none;
+  font-size: 14px;
+  color: white;
+  border: none;
+  border-radius: 40px;
+  p.single-line {
+    margin: 0;
+    padding: 0;
+    line-height: 20px;
+  }
+  &:hover{
+    cursor: pointer;
+    background-color: $color-3;
+  }
+  &:active{
+    background-color: $color-4;
+  }
+}
