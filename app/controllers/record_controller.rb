@@ -61,7 +61,7 @@ class RecordController < ApplicationController
   end
   
   def default_title
-    case Time.now.hour
+    case Time.now.in_time_zone(current_user.timezone).hour
     when 0..4
       'Nighttime Appointment'
     when 5..11
