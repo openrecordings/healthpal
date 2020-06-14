@@ -1,7 +1,9 @@
-.centered-form-container
+#new-registration-form.centered-form-container
   %p.form-title
     Enter information for new user
   = form_for(@user, url: set_password_path) do |f|
+    // timezone string will be replaced by JS onload. See user.js
+    = f.hidden_field :timezone, value: 'America/New_York'
     .form-field-container.field-centered
       .form-label.margin-top-20
         First name
@@ -17,15 +19,18 @@
         Email
       = f.email_field :email, class: 'form-input'
       .input-underscore
+
+    -#.form-field-container.field-centered
+    -#  .form-label
+    -#    Mobile phone number
+    -#  = f.text_field :phone_number, class: 'form-input phone-number'
+
     - if current_user.root?
       .form-field-container.field-centered
         .form-label.margin-top-20
           Organization
           = f.collection_select(:org_id, @orgs, :id, :name, {include_blank: true}, {class: 'form-input select-css'})
-    -#.form-field-container.field-centered
-    -#  .form-label
-    -#    Mobile phone number
-    -#  = f.text_field :phone_number, class: 'form-input phone-number'
+
     .form-field-container.field-centered
       .margin-top-20
         = f.submit 'Next', class: 'button'

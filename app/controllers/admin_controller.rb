@@ -50,6 +50,7 @@ class AdminController < ApplicationController
       org_id: current_user.root? ? user_params[:org_id] : current_user.org.id,
       phone_number: user_params[:phone_number],
       password: user_params[:password],
+      timezone: user_params[:timezone],
       role: 'user'
     )
     if @user.save
@@ -108,6 +109,7 @@ class AdminController < ApplicationController
       :password,
       :password_2,
       :sharer_id,
+      :timezone,
       :org_id,
     )
   end
