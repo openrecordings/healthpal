@@ -50,8 +50,7 @@ class AdminController < ApplicationController
       org_id: current_user.root? ? user_params[:org_id] : current_user.org.id,
       phone_number: user_params[:phone_number],
       password: user_params[:password],
-      role: 'user',
-      requires_phone_confirmation: false
+      role: 'user'
     )
     if @user.save
       sign_in @user
@@ -101,7 +100,16 @@ class AdminController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:org_id, :email, :phone_number, :first_name, :last_name, :password, :password_2, :sharer_id)
+    params.require(:user).permit(
+      :email,
+      :phone_number,
+      :first_name,
+      :last_name,
+      :password,
+      :password_2,
+      :sharer_id,
+      :org_id,
+    )
   end
 
 end

@@ -5,15 +5,17 @@ class User < ApplicationRecord
     :trackable, :validatable, :timeoutable
 
   belongs_to :org, optional: true
-  validates_presence_of :email, :role, :active, :first_name, :last_name, :onboarded, :timezone_offset
-  validates_presence_of :org, unless: :root?
   has_many :recordings
   has_many :shares
   has_many :visits, class_name: 'Ahoy::Visit'
 
   scope :regular, ->() { where role: 'user' }
 
-  validates_presence_of :first_name, :last_name, :email, if: :has_ever_logged_in
+  before_validation :set_defaults
+
+  validates_presence_of :email, :role, :active, :onboarded, :timezone_offset, :requires_phone_confirmation
+  validates_presence_of :first_name, :last_name, if: :has_ever_logged_in
+  validates_presence_of :org, unless: :root?
 
   def admin?
     role == 'admin'
@@ -107,6 +109,16 @@ class User < ApplicationRecord
 
   def name_and_email
     "#{first_name} #{last_name} (#{email})"
+  end
+
+  private
+
+  def set_defaults
+    puts 'here'
+    self.role = role ||= 'user'
+    self.onboarded = onboarded ||= false
+    self.requires_phone_confirmation = requires_phone_confirmation ||= false
+    self.timezone_offset ||= Time.zone.utc_offset / (60 * 60)
   end
 
 end

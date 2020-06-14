@@ -21,10 +21,16 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  # Allow devise_invitable to handle the role parameter when creating users
+  # Allow devise_invitable to handle the added parameters when creating users
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:invite, keys: [:role, :org_id])
-    devise_parameter_sanitizer.permit(:register, keys: [:role, :org_id])
+    keys = [
+      :role,
+      :timezone_offset,
+      :onboarded,
+      :requires_phone_confirmation,
+    ]
+    devise_parameter_sanitizer.permit(:invite, keys: keys)
+    devise_parameter_sanitizer.permit(:register, keys: keys)
   end
 
   def set_cache_buster
