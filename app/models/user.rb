@@ -13,7 +13,8 @@ class User < ApplicationRecord
 
   before_validation :set_defaults
 
-  validates_presence_of :email, :role, :active, :onboarded, :timezone_offset, :requires_phone_confirmation
+  validates :onboarded, :active, :requires_phone_confirmation, inclusion: [true, false] 
+  validates_presence_of :email, :role, :timezone
   validates_presence_of :first_name, :last_name, if: :has_ever_logged_in
   validates_presence_of :org, unless: :root?
 
@@ -114,11 +115,10 @@ class User < ApplicationRecord
   private
 
   def set_defaults
-    puts 'here'
-    self.role = role ||= 'user'
-    self.onboarded = onboarded ||= false
-    self.requires_phone_confirmation = requires_phone_confirmation ||= false
-    self.timezone_offset ||= Time.zone.utc_offset / (60 * 60)
+    self.role ||= 'user'
+    self.timezone ||= 'America/New_York'
+    self.onboarded = onboarded.nil? ? false : onboarded
+    self.requires_phone_confirmation = requires_phone_confirmation.nil? ? false : requires_phone_confirmation
   end
 
 end
