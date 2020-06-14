@@ -5,6 +5,7 @@ class User < ApplicationRecord
     :trackable, :validatable, :timeoutable
 
   belongs_to :org, optional: true
+  validates_presence_of :email, :role, :active, :first_name, :last_name, :onboarded, :timezone_offset
   validates_presence_of :org, unless: :root?
   has_many :recordings
   has_many :shares
