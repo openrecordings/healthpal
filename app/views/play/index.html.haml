@@ -2,17 +2,15 @@
 #play-view{'data-initial-recording-id': @recording&.id}
   #left
     #search-and-select
-      #search
-        = render 'search'
+      -# TODO
+      -# #search
+      -#   = render 'search'
       #select
         - @recordings.each do |recording|
           = render 'recording_list_item', recording: recording
   #right
     #player-container
       #header
-        #show-select.pill
-          = inline_svg('arrow-left.svg', class: 'small-svg')
-          .pill-text-with-svg Select a different recording
       #notes.full-center
       #player
         #timeline-container

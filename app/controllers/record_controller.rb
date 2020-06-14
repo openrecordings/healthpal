@@ -44,6 +44,7 @@ class RecordController < ApplicationController
       media_format: 'mp3',
     )
     recording.media_file.attach(io: File.open(filepath), filename: "#{sha1}.ogg")
+    recording.title = default_title
     `rm #{filepath}`  
     if recording.save!
       recording.transcribe
@@ -56,6 +57,21 @@ class RecordController < ApplicationController
       redirect_to :recordings
     else
       render js: "window.location = 'my_recordings'"
+    end
+  end
+  
+  def default_title
+    case Time.now.hour
+    when 0..4
+      'Nighttime Appointment'
+    when 5..11
+      'Morning Appointment'
+    when 12..16
+      'Afternoon Appointment'
+    when 17..19
+      'Evening Appointment'
+    when 20..24
+      'Nighttime Appointment'
     end
   end
 

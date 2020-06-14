@@ -10,7 +10,7 @@ class Recording < ApplicationRecord
   # TODO: Add old Acusis code back in after getting gcloud going?
   enum source: [:google, :aws]
 
-  # TODO: Validation
+  validates_presence_of :title
 
   scope :processed, -> {where(is_processed: true)}
 
