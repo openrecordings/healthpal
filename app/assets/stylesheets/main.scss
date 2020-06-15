@@ -274,7 +274,7 @@ a {
   height: 34px;
   line-height: 34px;
   padding: 6px 0;
-  fill: white;
+  fill: $color-2;
 }
 
 .width-800{
@@ -342,6 +342,7 @@ a {
 
 .pill{
   box-sizing: border-box;
+  width: auto;
   height: 34px;
   line-height: 34px;
   border-radius: 17px;
@@ -357,11 +358,12 @@ a {
   &:active{
     background-color: $color-4;
   }
-  // For some reason, inline SVG moves pill text downward
-  span.pill-text-with-svg{
-    display: inline-block;
-    transform: translateY(-12px);
-  }
+}
+
+// For some reason, inline SVG moves pill text downward
+span.text-with-svg{
+  display: inline-block;
+  transform: translateY(-11px);
 }
 
 .italic-note{

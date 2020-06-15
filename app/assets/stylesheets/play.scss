@@ -36,6 +36,9 @@
           padding-top: 15px;
           padding-bottom: 10px;
           border-bottom: 1px solid #bbb;
+          &:hover{
+            cursor: pointer;
+          }
           .recording-title{
             padding-bottom: 5px; 
           }
@@ -65,6 +68,12 @@
       padding: 15px;
       box-sizing: border-box;
       #header{
+        #show-select{
+          display: inline-block;
+          &:hover{
+            cursor: pointer;
+          }
+        }
       }
       #notes{
         flex-grow: 1;
