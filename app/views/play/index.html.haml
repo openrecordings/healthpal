@@ -7,13 +7,14 @@
       -# #search
       -#   = render 'search'
       #select
-        - 8.times do
-          - @recordings.each do |recording|
-            = render 'recording_list_item', recording: recording
+        - @recordings.each do |recording|
+          = render 'recording_list_item', recording: recording
   #right
     #player-container
       #header
-        #show-select foo
+        #show-select.pill
+          = inline_svg('arrow-left.svg', class: 'small-svg')
+          %span.pill-text-with-svg Select
       #notes.full-center
       #player
         #timeline-container

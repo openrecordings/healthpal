@@ -358,7 +358,7 @@ a {
     background-color: $color-4;
   }
   // For some reason, inline SVG moves pill text downward
-  .pill-text-with-svg{
+  span.pill-text-with-svg{
     display: inline-block;
     transform: translateY(-12px);
   }

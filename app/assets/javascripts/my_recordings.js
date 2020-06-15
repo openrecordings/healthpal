@@ -134,17 +134,17 @@ if (document.querySelector('#play-view')) {
   $(document).ready(function () {
     // Initialization
     /////////////////////////////////////////////////////////////////////////////////////////////////
+    recordingId = $('#play-view').data('initial-recording-id');
+    if (recordingId != null) {
+      loadVideo();
+      showPlaybackOnly(0);
+    }
 
     // Setting this to some fixed height after page load results in proper overfow scroll behavior
     $('#select').css('height', '100px');
 
     playerPadding = parseInt($('#player-container').css('padding-left'), 10);
     playheadRadius = $('#playhead').width() / 2;
-    recordingId = $('#play-view').data('initial-recording-id');
-    if (recordingId != null) {
-      loadVideo();
-      showPlaybackOnly(0);
-    }
 
     // Listeners
     /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -166,6 +166,7 @@ if (document.querySelector('#play-view')) {
       axis: 'x',
       containment: '#timeline',
       drag: function (event, ui) {
+        console.log('foo');
         skipToEventPosition(event);
       }
     });
