@@ -29,5 +29,4 @@ docker run -d \
 
 echo 
 echo "App is up and available at 127.0.0.1:3000"
-echo "Tailing Puma logs. Ctrl-C is safe"
 echo 

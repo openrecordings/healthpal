@@ -42,6 +42,7 @@ gem 'selenium-webdriver'
 gem 'rspec'
 gem 'browserstack-local'
 gem 'aws-ses', '~> 0.6.0', require: 'aws/ses'
+gem 'websocket-extensions', '>= 0.1.5'
 group :development do
   gem 'interactive_editor'
   gem 'listen', '~> 3.0.5'
