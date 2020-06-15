@@ -12,16 +12,33 @@
       padding: 15px;
       box-sizing: border-box;
       overflow: hidden;
-      #search{
-        box-sizing: border-box;
+      #select-header{
+        padding-bottom: 20px;
+        color: $color-3;
         border-bottom: 1px solid #bbb;
-      overflow: hidden;
       }
+      // TODO: Implement
+      // #search{
+      //   box-sizing: border-box;
+      //   border-bottom: 1px solid #bbb;
+      //   overflow: hidden;
+      // }
       #select{
         .recording-list-item{
+          display: flex;
+          flex-flow: row wrap;
+          justify-content: space-between;
           box-sizing: border-box;
           border-bottom: 1px solid #bbb;
-      overflow: hidden;
+          .recording-title{
+
+          }
+          .recording-date{
+            text-align: right;
+          }
+          .recording-provider{
+
+          }
         }
       }
     }

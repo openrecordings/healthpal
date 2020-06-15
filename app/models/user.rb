@@ -34,23 +34,28 @@ class User < ApplicationRecord
     viewable = visits
     viewable += org.regular_user_visits if admin?
     viewable += Ahoy::Visit.all if root?
-    viewable.flatten!
-    viewable.uniq
+    viewable.flatten.uniq
   end
 
+  # TODO: This needs to sort by recording owner, then by reverse chron to support
+  #       users who are both caregivers and have their own recordings
   def viewable_recordings
     viewable = recordings
     viewable += recordings_shared_with
     viewable += org.regular_user_recordings if admin?
     viewable += Recording.all if root?
-    viewable.flatten!
-    viewable.uniq
+    viewable.flatten.uniq.sort_by(&:created_at).reverse
   end
 
   def viewable_users
-    viewable = org.users.regular if admin?
-    viewable = User.all if root?
-    viewable
+    case role
+    when 'user'
+      [self]
+    when 'admin'
+      [self] + org.users.regular
+    when 'root'
+      User.all.to_a
+    end
   end
 
   # NOTE: `active` is necessary or Share revocation doesn't work

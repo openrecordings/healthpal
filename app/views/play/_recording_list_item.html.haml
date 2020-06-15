@@ -1,2 +1,5 @@
 .recording-list-item(data-recording-id="#{recording.id}")
-  %p= recording.title
+  .recording-title= recording.title
+  .recording-date
+    %div= minimal_date(recording.created_at)
+    %div= days_ago(recording.created_at)
