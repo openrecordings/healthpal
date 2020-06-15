@@ -4,26 +4,27 @@
   #left{
     flex-grow: 1;
     min-width: 100%;
-    overflow: hidden;
+    overflow: scroll;
     transform-origin: top left;
     transition-duration: 300ms;
     // transition-duration: 300ms;
     #search-and-select{
       padding: 15px;
       box-sizing: border-box;
-      overflow: hidden;
       #select-header{
         padding-bottom: 20px;
         font-size: 20px;
         color: $color-3;
         border-bottom: 1px solid #bbb;
       }
+
       // TODO: Implement
       // #search{
       //   box-sizing: border-box;
       //   border-bottom: 1px solid #bbb;
       //   overflow: hidden;
       // }
+
       #select{
         .recording-list-item{
           display: flex;
@@ -53,6 +54,7 @@
   #right{
     display: flex;
     flex-grow: 1;
+    max-height: 100%;
     overflow: hidden;
     transform-origin: top right;
     transition-duration: 300ms;

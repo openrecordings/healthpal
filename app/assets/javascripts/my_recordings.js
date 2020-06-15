@@ -134,6 +134,10 @@ if (document.querySelector('#play-view')) {
   $(document).ready(function () {
     // Initialization
     /////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // Setting this to some fixed height after page load results in proper overfow scroll behavior
+    $('#select').css('height', '100px');
+
     playerPadding = parseInt($('#player-container').css('padding-left'), 10);
     playheadRadius = $('#playhead').width() / 2;
     recordingId = $('#play-view').data('initial-recording-id');

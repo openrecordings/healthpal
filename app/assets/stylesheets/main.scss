@@ -22,12 +22,12 @@ body {
 }
 
 #content{
-  background-color: yellowgreen;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
   box-sizing: border-box;
   min-height: 100%;
+  max-height: 100%;
 }
 
 #flash{
