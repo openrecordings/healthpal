@@ -7,11 +7,13 @@
       -# #search
       -#   = render 'search'
       #select
-        - @recordings.each do |recording|
-          = render 'recording_list_item', recording: recording
+        - 6.times do
+          - @recordings.each do |recording|
+            = render 'recording_list_item', recording: recording
   #right
     #player-container
       #header
+        #show-select foo
       #notes.full-center
       #player
         #timeline-container

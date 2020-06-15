@@ -1,8 +1,8 @@
 .recording-list-item(data-recording-id="#{recording.id}")
   .recording-description
-    %div= recording.title
+    .recording-title= recording.title
     - if recording.provider
-      %div= "ith #{recording.provider}"
+      .recording-provider.italic-note= recording.provider
   .recording-date
-    %div= minimal_date(recording.created_at)
-    %div= days_ago(recording.created_at)
+    .recording-date= minimal_date(recording.created_at)
+    .recoording-days-ago.italic-note= days_ago(recording.created_at)
