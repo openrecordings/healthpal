@@ -29,7 +29,7 @@ gem 'twilio-ruby', '~> 5.21.1'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'jbuilder', '~> 2.9'
 gem 'pg', '~> 0.18'
-gem 'puma', '>= 3.12.4'
+gem 'puma', '>= 3.12.5'
 gem 'geocoder', '>= 1.6.1'
 gem 'uglifier', '>= 1.3.0'
 gem 'aws-sdk-rails'
