@@ -28,35 +28,8 @@ class PlayController < ApplicationController
     end
   end
 
-  # TODO: Make this AJAX and add the needed data to the video method
-  # def play
-  #   @recording = Recording.find_by(id: params[:id])
-  #   if(@recording && current_user.can_access(@recording))
-  #     @title = "#{@recording.user.full_name}, #{@recording.created_at.strftime('%-m/%-d/%-y')}"
-  #     @provider = UserField.find_by(recording: @recording, type: :provider) || UserField.new(recording: @recording, type: :provider)
-  #     @note = UserField.find_by(recording: @recording, type: :note) || UserField.new(recording: @recording, type: :note)
-  #     @utterances = prepare_utterances(@recording)
-  #     @view_id = @recording.is_video ? 'video-view' : (!!ENV['HIDE_TAGS'] ? 'audio-view-hide-tags' : 'audio-view')
-  #   else
-  #     flash.alert = 'An error ocurred while retriving the audio data. Please contact support.'
-  #     redirect_to :root and return
-  #   end
-  # end
-
-  # AJAX endpoint for in-place editing of UserFields
-  # TODO Handle bad params
-  def user_field
-    recording = Recording.find_by(id: params[:id])
-    type = params['type']
-    text = params['text']
-    existing_field = UserField.find_by(recording: recording, type: type)
-    field = existing_field || UserField.new(recording: recording, type: type)
-    field.text = text
-    if field.save
-      render json: {result: 'success'}
-    else
-      render json: {result: 'nope'}
-    end
+  # AJAX endpoint for getting info about a recording
+  def recording_metadata
   end
 
   private
