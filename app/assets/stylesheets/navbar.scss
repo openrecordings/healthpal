@@ -27,7 +27,7 @@
 
 #mobile-menu-button{
   position:  absolute;
-  right: 10px;
+  right: 0;
   height: 40px;
   width: 40px;
   padding-right: 10px;
@@ -53,11 +53,6 @@
       #menu-right{
         align-self: flex-end;
       }
-      #mobile-menu-button {
-        &:hover{
-          cursor: pointer;
-        }
-      }
     }
     #long{
       box-sizing: border-box;
@@ -66,7 +61,4 @@
       border-bottom: 1px solid #bbb;
     }
   }
-}
-
-#hamburger{
 }

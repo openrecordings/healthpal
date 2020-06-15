@@ -7,14 +7,16 @@
     overflow: scroll;
     transform-origin: top left;
     transition-duration: 300ms;
-    // transition-duration: 300ms;
     #search-and-select{
       padding: 15px;
       box-sizing: border-box;
       #select-header{
+        box-sizing: border-box;
+        padding-top: 10px;
         padding-bottom: 20px;
+        text-align: center;
         font-size: 20px;
-        color: $color-3;
+        color: $color-2;
         border-bottom: 1px solid #bbb;
       }
 
@@ -32,7 +34,7 @@
           justify-content: space-between;
           box-sizing: border-box;
           padding-top: 15px;
-          padding-bottom: 15px;
+          padding-bottom: 10px;
           border-bottom: 1px solid #bbb;
           .recording-title{
             padding-bottom: 5px; 
