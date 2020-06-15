@@ -14,7 +14,7 @@
         %span#logo-pal> PAL
         - if current_user&.privileged?
           %span#logo-admin= current_user.role.upcase
-      %span#mobile-menu-button.local-fa.fa.fa-bars
+      %span#mobile-menu-button= inline_svg('hamburger.svg', class: 'player-button-svg')
   - if user_signed_in?
     #menu-container
       #wide

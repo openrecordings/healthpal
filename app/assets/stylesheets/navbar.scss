@@ -28,6 +28,8 @@
 #mobile-menu-button{
   position:  absolute;
   right: 10px;
+  height: 40px;
+  width: 40px;
   padding-right: 10px;
   &:hover {
     cursor: pointer;
@@ -64,4 +66,7 @@
       border-bottom: 1px solid #bbb;
     }
   }
+}
+
+#hamburger{
 }
