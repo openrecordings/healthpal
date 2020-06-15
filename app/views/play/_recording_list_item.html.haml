@@ -1,5 +1,8 @@
 .recording-list-item(data-recording-id="#{recording.id}")
-  .recording-title= recording.title
+  .recording-description
+    %div= recording.title
+    - if recording.provider
+      %div= "ith #{recording.provider}"
   .recording-date
     %div= minimal_date(recording.created_at)
     %div= days_ago(recording.created_at)
