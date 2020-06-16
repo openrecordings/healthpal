@@ -68,26 +68,21 @@
       padding: 15px;
       box-sizing: border-box;
       #header{
+        border-bottom: 1px solid $color-4;
         display: flex;
         justify-content: space-between;
         color: $color-1;
         #header-left{
-          display: flex;
-          justify-content: flex-start;
-          #edit-icon{
-            display: inline-block;
-            box-sizing:  border-box;
-            padding-right: 5px;
+          padding-bottom: 5px;
+          #recording-title{
+            padding-bottom: 3px;
+            font-size: 18px;
+            font-weight: 600;
           }
-          #title-and-provider{
-            display: inline-block;
-            box-sizing:  border-box;
-            #recording-title{
-              padding-bottom: 7px;
-              font-size: 18px;
-              font-weight: 600;
-            }
+          #provider-and-edit-icon{
             #recording-provider{
+              display: inline-block;
+              transform: translateY(-6px);
               font-size: 16px;
               font-style: italic;
             }
@@ -101,6 +96,7 @@
             font-weight: 600;
           }
           #recording-days-ago{
+            transform: translateY(5px);
             font-size: 16px;
             font-style: italic;
           }
