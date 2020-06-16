@@ -277,6 +277,14 @@ a {
   fill: $color-2;
 }
 
+.edit-svg{
+  display: inline-block;
+  box-sizing:  border-box;
+  height: 30px;
+  line-height: 30px;
+  fill: $color-2;
+}
+
 .width-800{
   width: 800px;
 }

@@ -13,8 +13,11 @@
     #player-container
       #header
         #header-left
-          #recording-title
-          #recording-provider
+          #edit-icon
+            = inline_svg('edit.svg', class: 'edit-svg')
+          #title-and-provider
+            #recording-title
+            #recording-provider
         #header-right
           #recording-date
           #recording-days-ago

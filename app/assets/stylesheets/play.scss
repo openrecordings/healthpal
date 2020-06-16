@@ -72,21 +72,32 @@
         justify-content: space-between;
         color: $color-1;
         #header-left{
-          #recording-title{
-            padding-bottom: 7px;
-            font-size: 20px;
-            font-weight: 600;
+          display: flex;
+          justify-content: flex-start;
+          #edit-icon{
+            display: inline-block;
+            box-sizing:  border-box;
+            padding-right: 5px;
           }
-          #recording-provider{
-            font-size: 16px;
-            font-style: italic;
+          #title-and-provider{
+            display: inline-block;
+            box-sizing:  border-box;
+            #recording-title{
+              padding-bottom: 7px;
+              font-size: 18px;
+              font-weight: 600;
+            }
+            #recording-provider{
+              font-size: 16px;
+              font-style: italic;
+            }
           }
         }
         #header-right{
           text-align: right;
           #recording-date{
             padding-bottom: 5px;
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 600;
           }
           #recording-days-ago{
