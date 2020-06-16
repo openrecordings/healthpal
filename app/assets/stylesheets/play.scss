@@ -70,21 +70,28 @@
       #header{
         display: flex;
         justify-content: space-between;
+        color: $color-1;
         #header-left{
           #recording-title{
-
+            padding-bottom: 7px;
+            font-size: 20px;
+            font-weight: 600;
           }
           #recording-provider{
-
+            font-size: 16px;
+            font-style: italic;
           }
         }
         #header-right{
           text-align: right;
           #recording-date{
-
+            padding-bottom: 5px;
+            font-size: 20px;
+            font-weight: 600;
           }
           #recording-days-ago{
-
+            font-size: 16px;
+            font-style: italic;
           }
         }
       }
@@ -136,8 +143,9 @@
           display: flex;
           justify-content: space-between;
           max-width: 350px;
+          margin-right: auto;
+          margin-left: auto;
           margin-bottom: 15px;
-          // padding-top: 10px;
           .player-button{
             width: $player-button-container-width;
             height: $player-button-container-height;
