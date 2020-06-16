@@ -29,8 +29,9 @@ if (document.querySelector('#play-view')) {
       console.log('Called loadVideo() but recordingId is null!');
       return
     }
-    $.get(`/video_url/${recordingId}`, function (data) {
+    $.get(`/recording_metadata/${recordingId}`, function (data) {
       if (data.url) {
+        // NOTE: We actually use an audio element for now so that Safari iOS doesn't override the player UI
         $('#video-container').html(`
           <audio id=video-element>
             <source src=${data.url} type="audio/mp3">

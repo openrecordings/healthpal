@@ -13,11 +13,14 @@ class PlayController < ApplicationController
     @recordings = current_user.viewable_recordings
   end
 
-  def video_url
+  def recording_metadata
     recording = Recording.find_by(id: params[:id])
     if recording && current_user.viewable_recordings.include?(recording)
       render json: {
         url: helpers.url_for(recording.media_file),
+        title: recording.title,
+        provider: recording.provider,
+        notes: recording.recording_notes,
         status: 200
       }
     else
@@ -26,10 +29,6 @@ class PlayController < ApplicationController
         status: 401
       }
     end
-  end
-
-  # AJAX endpoint for getting info about a recording
-  def recording_metadata
   end
 
   private

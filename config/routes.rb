@@ -40,7 +40,7 @@ Rails.application.routes.draw do
 
   # Playback
   get 'play(/:id)',                  to: 'play#index',                       as: 'play'
-  get 'video_url/:id',               to: 'play#video_url',                   as: 'video_url'
+  get 'recording_metadata/:id',      to: 'play#recording_metadata',          as: 'recording_metadata'
 
   # Sharing
   resources :shares, controller: :share
