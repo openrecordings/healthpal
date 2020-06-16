@@ -12,9 +12,14 @@
   #right
     #player-container
       #header
-        #show-select
-          = inline_svg('arrow-left.svg', class: 'small-svg')
-          %span.text-with-svg Select
+        #header-left
+          #show-select
+            = inline_svg('arrow-left.svg', class: 'small-svg')
+            %span.text-with-svg Select
+          #recording-title
+          #recording-provider
+        #header-right
+          #recording-date
       #notes.full-center
       #player
         #timeline-container

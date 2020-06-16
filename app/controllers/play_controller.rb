@@ -20,6 +20,7 @@ class PlayController < ApplicationController
         url: helpers.url_for(recording.media_file),
         title: recording.title,
         provider: recording.provider,
+        date: recording.created_at,
         notes: recording.recording_notes,
         status: 200
       }

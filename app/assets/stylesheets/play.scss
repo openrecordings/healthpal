@@ -68,10 +68,25 @@
       padding: 15px;
       box-sizing: border-box;
       #header{
-        #show-select{
-          display: inline-block;
-          &:hover{
-            cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        #header-left{
+          #show-select{
+            display: inline-block;
+            &:hover{
+              cursor: pointer;
+            }
+          }
+          #recording-title{
+
+          }
+          #recording-provider{
+
+          }
+        }
+        #header-right{
+          #recording-date{
+
           }
         }
       }

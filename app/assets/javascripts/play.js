@@ -37,18 +37,17 @@ if (document.querySelector('#play-view')) {
             <source src=${data.url} type="audio/mp3">
           </audio>`
         );
-
-        $('#current-recording-title').html(recordingId);
-        var videoElement = document.getElementById('video-element');
-        videoElement.volume = playVolume;
-        skipToTime(0);
-
         // TODO
         // $('#spinner').show();
         // videoElement.oncanplay = function(){
         //   $('#spinner').hide();
         // }
-
+        $('#recording-title').text(data.title);
+        $('#recording-provider').text(data.provider);
+        $('#recording-date').text(data.date);
+        var videoElement = document.getElementById('video-element');
+        videoElement.volume = playVolume;
+        skipToTime(0);
         videoElement.ondurationchange = function () {
           $('#duration').text(toMmSs(videoElement.duration));
         }
@@ -56,11 +55,9 @@ if (document.querySelector('#play-view')) {
           let currentTime = videoElement.currentTime;
           $('#current-time').text(toMmSs(currentTime));
           setUiToTime(currentTime);
-
           // !!! DISABLED TAG TABLE FUNCTIONS !!!
           // updateTableHighlighting(currentTime);
           // scrollTable();
-
         };
         videoElement.onended = function () {
           $('#play-glyph, #pause-glyph, #play-label, #pause-label').toggleClass('hidden');
