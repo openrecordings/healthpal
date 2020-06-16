@@ -13,13 +13,11 @@
     #player-container
       #header
         #header-left
-          #show-select
-            = inline_svg('arrow-left.svg', class: 'small-svg')
-            %span.text-with-svg Select
           #recording-title
           #recording-provider
         #header-right
           #recording-date
+          #recording-days-ago
       #notes.full-center
       #player
         #timeline-container
@@ -51,3 +49,6 @@
             = inline_svg('volume_max.svg', id: 'unmute-glyph', class: 'player-button-svg hidden')
             #mute-label.player-button-label= t(:mute)
             #unmute-label.player-button-label.hidden= t(:unmute)
+      #show-select
+        = inline_svg('arrow-left.svg', class: 'small-svg')
+        %span.text-with-svg Select&nbsp;&nbsp;&nbsp;&nbsp;

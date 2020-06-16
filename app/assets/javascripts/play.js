@@ -45,6 +45,7 @@ if (document.querySelector('#play-view')) {
         $('#recording-title').text(data.title);
         $('#recording-provider').text(data.provider);
         $('#recording-date').text(data.date);
+        $('#recording-days-ago').text(data.days_ago);
         var videoElement = document.getElementById('video-element');
         videoElement.volume = playVolume;
         skipToTime(0);

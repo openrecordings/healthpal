@@ -71,12 +71,6 @@
         display: flex;
         justify-content: space-between;
         #header-left{
-          #show-select{
-            display: inline-block;
-            &:hover{
-              cursor: pointer;
-            }
-          }
           #recording-title{
 
           }
@@ -85,7 +79,11 @@
           }
         }
         #header-right{
+          text-align: right;
           #recording-date{
+
+          }
+          #recording-days-ago{
 
           }
         }
@@ -138,8 +136,7 @@
           display: flex;
           justify-content: space-between;
           max-width: 350px;
-          margin-left: auto;
-          margin-right: auto;
+          margin-bottom: 15px;
           // padding-top: 10px;
           .player-button{
             width: $player-button-container-width;
@@ -161,6 +158,17 @@
             }
           }
         }
+      }
+    }
+    #show-select{
+      width: 120px;
+      height: 30px;
+      margin-right: auto;
+      margin-left: auto;
+      text-align: center;
+      border-radius: 15px;;
+      &:hover{
+        cursor: pointer;
       }
     }
   }
