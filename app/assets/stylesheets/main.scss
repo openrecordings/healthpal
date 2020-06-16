@@ -126,8 +126,11 @@ a {
     box-sizing: border-box;
     min-width: 300px;
     width: 80%;
-    min-height: 300px;
     height: 60%;
+    min-width: 300px;
+    max-width: 600px;
+    min-height: 300px;
+    max-height: 600px;
     padding: 20px;
     border-radius: 4px;
     color: $color-2;
