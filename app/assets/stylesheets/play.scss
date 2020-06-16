@@ -71,9 +71,10 @@
         border-bottom: 1px solid $color-4;
         display: flex;
         justify-content: space-between;
+        padding-top: 7px;
+        padding-bottom: 8px;
         color: $color-1;
         #header-left{
-          padding-bottom: 5px;
           #recording-title{
             padding-bottom: 3px;
             font-size: 18px;

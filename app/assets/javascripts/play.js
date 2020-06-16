@@ -43,9 +43,10 @@ if (document.querySelector('#play-view')) {
         //   $('#spinner').hide();
         // }
         $('#recording-title').text(data.title);
-        $('#recording-provider').text(data.provider);
         $('#recording-date').text(data.date);
         $('#recording-days-ago').text(data.days_ago);
+        let provider = data.provider ? data.provider : "Add doctor's name";
+        $('#recording-provider').text(provider);
         var videoElement = document.getElementById('video-element');
         videoElement.volume = playVolume;
         skipToTime(0);

@@ -46,7 +46,12 @@
       flex-flow: row nowrap;
       justify-content: space-between;
       padding: 0 15px;
-      border-bottom: 1px solid #bbb;
+      @media screen and (min-width: $max-mobile-width) {
+        border-bottom: 1px solid #bbb;
+      }
+      @media screen and (max-width: $max-mobile-width) {
+        border-bottom: 1px solid white;
+      }
       #menu-left{
         align-self: flex-start;
       }
