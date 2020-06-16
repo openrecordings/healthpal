@@ -131,13 +131,15 @@ a {
     max-width: 600px;
     min-height: 300px;
     max-height: 600px;
-    padding: 20px;
+    padding: 30px;
     border-radius: 4px;
     color: $color-2;
-    box-shadow: 5px 5px 8px 2px black;
-    // box-shadow: -5px -5px 70px 6px rgba(0, 0, 0, 0.2), 
-    //             5px 5px 40px 6px rgba(0, 0, 0, 0.2);
     box-shadow: 5px 5px 40px 6px rgba(0, 0, 0, 0.35);
+    .overlay-form-header{
+      font-size: 18px;
+      font-weight: 600;
+      color: $color-1;
+    }
   }
 }
 

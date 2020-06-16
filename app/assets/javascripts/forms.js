@@ -6,6 +6,7 @@ if(document.querySelector('.form-input-container')) {
     })
 
     $('.form-input').focusin(function() {
+      console.log('foo');
       $(this).attr('placeholder', '');
       $(this).prev().css('visibility', 'visible');
     })

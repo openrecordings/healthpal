@@ -12,11 +12,11 @@
 }
 
 .field-centered{
-  width: 322px;
+  @include form-element-width;
 }
 
 .form-input-container{
-  width: 322px;
+  @include form-element-width;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -25,7 +25,7 @@
 
 .form-input{
   box-sizing: border-box;
-  width: 322px;
+  width: 100%;
   padding: 10px;
   border-style: initial;
   box-shadow: none;
@@ -34,7 +34,8 @@
 }
 
 .input-underscore {
-  width: 302px;
+  // width: 302px;
+  @include form-element-width;
   margin-left: 10px;
   border-top: 1px solid #888;
 }
