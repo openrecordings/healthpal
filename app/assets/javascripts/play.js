@@ -194,6 +194,11 @@ if (document.querySelector('#play-view')) {
       }
       $('#mute-glyph, #unmute-glyph, #mute-label, #unmute-label').toggleClass('hidden');
     })
+
+    $('#metadata-edit-icon').click( function(){
+      console.log('foo');
+      $('#metadata-overlay').css('visibility', 'visible');
+    })
     
   })
 }

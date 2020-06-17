@@ -1,6 +1,6 @@
 #video-container
 #play-view{'data-initial-recording-id': @recording&.id}
-  #metadata-overlay.overlay
+  #metadata-overlay.overlay.invisible
     .modal-form-container
       %form#metadata-form
         .form-title.margin-bottom-10 Edit recording details
@@ -25,7 +25,7 @@
       #header
         #header-left
           #recording-title
-          #provider-and-edit-icon
+          #metadata-edit-icon
             #recording-provider
             = inline_svg('edit.svg', class: 'edit-svg')
         #header-right
