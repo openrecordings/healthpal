@@ -108,6 +108,12 @@
       }
       #notes{
         flex-grow: 1;
+        display: flex;
+        border-bottom: 1px solid $color-4;
+        justify-content: space-between;
+        padding-top: 7px;
+        padding-bottom: 8px;
+        color: $color-1;
         overflow: scroll;
       }
       #player{

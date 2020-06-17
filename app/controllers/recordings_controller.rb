@@ -71,7 +71,7 @@ class RecordingsController < ApplicationController
       return recording
     else
       render json: {
-        error: 'Current user does not have permission to access that recording',
+        error: 'User does not have permission to access that recording',
         status: 401
       } and return nil
     end

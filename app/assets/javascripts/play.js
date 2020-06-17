@@ -36,8 +36,8 @@ if (document.querySelector('#play-view')) {
       console.log('Called loadVideo() but recordingId is null!');
       return;
     }
-    $.get(`/get_metadata/${recordingId}`, function (data) {
-      if (data.url) {
+    $.get(`/get_metadata/${recordingId}`, function(data) {
+      if(data) {
         // NOTE: We actually use an audio element for now so that Safari iOS doesn't override the player UI
         $('#video-container').html(`
           <audio id=video-element>
@@ -66,6 +66,7 @@ if (document.querySelector('#play-view')) {
           // updateTableHighlighting(currentTime);
           // scrollTable();
         };
+        loadNotes(recordingId);
         videoElement.onended = function () {
           $('#play-glyph, #pause-glyph, #play-label, #pause-label').toggleClass('hidden');
         }
@@ -73,6 +74,16 @@ if (document.querySelector('#play-view')) {
         console.log(data.error)
       }
     })
+  }
+
+  function loadNotes(id){
+    $.get(`get_notes/${id}`), function(data){
+      if(data){
+        
+      } else {
+        console.log(data.error)
+      }
+    };
   }
 
   // Playback utilities
