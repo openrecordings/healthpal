@@ -115,6 +115,10 @@
         padding-bottom: 8px;
         color: $color-1;
         overflow: scroll;
+        #no-notes-message{
+          display: inline-block;
+          text-align: center;
+        }
       }
       #player{
         #timeline-container{
@@ -185,15 +189,14 @@
         }
       }
     }
-    #show-select{
-      width: 120px;
-      height: 30px;
-      margin-right: auto;
-      margin-left: auto;
-      text-align: center;
-      border-radius: 15px;;
-      &:hover{
-        cursor: pointer;
+    #toolbar{
+      display: flex;
+      justify-content: space-between;
+      align-items: stretch;
+      div{
+        &:hover{
+          cursor: pointer;
+        }
       }
     }
   }

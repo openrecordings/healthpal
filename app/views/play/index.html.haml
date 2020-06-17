@@ -32,8 +32,9 @@
           #recording-date
           #recording-days-ago
 
-      #notes.full-center Your notes for this recording will appear here
-
+      #notes.full-center
+        #no-notes-message.full-center
+          Your notes for this recording will appear here
       #player
         #timeline-container
           #timeline.track
@@ -64,6 +65,10 @@
             = inline_svg('volume_max.svg', id: 'unmute-glyph', class: 'player-button-svg hidden')
             #mute-label.player-button-label= t(:mute)
             #unmute-label.player-button-label.hidden= t(:unmute)
-      #show-select
-        = inline_svg('arrow-left.svg', class: 'small-svg')
-        %span.text-with-svg Select&nbsp;&nbsp;&nbsp;&nbsp;
+      #toolbar
+        #show-select
+          = inline_svg('arrow-left.svg', class: 'small-svg')
+          %span.text-with-svg Select
+        #create-note
+          %span.text-with-svg New note
+          = inline_svg('plus.svg', class: 'small-svg')
