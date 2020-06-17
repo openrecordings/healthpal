@@ -91,18 +91,19 @@ if (document.querySelector('#play-view')) {
           $('#no-notes').hide();
           notesContainer.show();
           data.notes.forEach(function(note){
-            notesContainer.append(`
-              <div class='note' data-recording-id=${recordingId}, data-note-id=${note.id}>
-                ${note.text}
-              </div>`
-            )
+            notesContainer.append(noteHtml(note))
           });
-          $('#notes-index').text(data.notes.toString());
         }
       } else {
         console.log(data.error)
       }
     });
+
+    function noteHtml(note){
+      return `<div class='note' data-recording-id=${recordingId}, data-note-id=${note.id}>
+        ${note.text}
+      </div>`
+    }
   }
 
   // Playback utilities
