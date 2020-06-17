@@ -29,7 +29,7 @@ if (document.querySelector('#play-view')) {
       console.log('Called loadVideo() but recordingId is null!');
       return
     }
-    $.get(`/recording_metadata/${recordingId}`, function (data) {
+    $.get(`/get_metadata/${recordingId}`, function (data) {
       if (data.url) {
         // NOTE: We actually use an audio element for now so that Safari iOS doesn't override the player UI
         $('#video-container').html(`
@@ -196,9 +196,11 @@ if (document.querySelector('#play-view')) {
     })
 
     $('#metadata-edit-icon').click( function(){
-      console.log('foo');
+      $('#metadata-overlay').hide().fadeIn(200);
       $('#metadata-overlay').css('visibility', 'visible');
-    })
+    });
+
+
     
   })
 }

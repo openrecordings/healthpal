@@ -13,26 +13,6 @@ class PlayController < ApplicationController
     @recordings = current_user.viewable_recordings
   end
 
-  def recording_metadata
-    recording = Recording.find_by(id: params[:id])
-    if recording && current_user.viewable_recordings.include?(recording)
-      render json: {
-        url: helpers.url_for(recording.media_file),
-        title: recording.title,
-        provider: recording.provider,
-        date: helpers.minimal_date(recording.created_at),
-        days_ago: helpers.days_ago(recording.created_at),
-        notes: recording.recording_notes,
-        status: 200
-      }
-    else
-      render json: {
-        error: 'Current user does not have permission to access that recording',
-        status: 401
-      }
-    end
-  end
-
   private
 
   # NOTE: Disabled because tag table is currently disabled

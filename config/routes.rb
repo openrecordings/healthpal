@@ -38,9 +38,12 @@ Rails.application.routes.draw do
   get 'upload_transcript',           to: 'record#upload_transcript',         as: 'upload_transcript'
   post 'create_utterances',          to: 'record#create_utterances',         as: 'create_utterances'
 
+  # Recordings
+  get 'get_metadata/:id',            to: 'recordings#get_metadata',          as: 'get_metadata'
+  post 'update_metadata',            to: 'recordings#update_metadata',       as: 'update_metadata'
+
   # Playback
   get 'play(/:id)',                  to: 'play#index',                       as: 'play'
-  get 'recording_metadata/:id',      to: 'play#recording_metadata',          as: 'recording_metadata'
 
   # Sharing
   resources :shares, controller: :share
