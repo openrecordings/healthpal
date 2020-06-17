@@ -218,8 +218,17 @@ if (document.querySelector('#play-view')) {
         alert('Recording name is required');
         return;
       }
+      let selectDiv = $(`.recording-list-item[data-recording-id=${recordingId}]`)
+      let selectDivTitle = $(selectDiv).find('.recording-title');
       $('#recording-title').text(title);
-      if(provider.length > 0) $('#recording-provider').text(provider);
+      $(selectDivTitle).text(title);
+      if(provider.length > 0){
+        let selectDivProvider = $(selectDiv).find('.recording-provider');
+        $('#recording-provider').text(provider);
+        $(selectDivProvider).text(provider);
+      } else {
+        provider = null;
+      }
       $.post('/update_metadata', {id: recordingId, title: title, provider: provider});
       $('#metadata-cancel').click();
     });

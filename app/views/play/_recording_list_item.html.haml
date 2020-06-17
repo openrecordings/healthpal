@@ -2,7 +2,7 @@
   .recording-description
     .recording-title= recording.title
     - if recording.provider
-      .italic-note= recording.provider
+      .recording-provider.italic-note= recording.provider
   .recording-date
     .recording-date= minimal_date(recording.created_at)
     .recoording-days-ago.italic-note= days_ago(recording.created_at)
