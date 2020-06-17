@@ -22,7 +22,8 @@ form{
   align-items: flex-start;
   background-color: white;
   box-sizing: border-box;
-  max-width: 90%;
+  width: 85%;
+  max-width: 500px;
   max-height: 90%;
   padding: 30px;
   @media screen and (min-width: $max-mobile-width) {
@@ -35,6 +36,7 @@ form{
 
 .form-title{
   font-size: 24px;
+  padding-bottom: 20px;
 }
 
 .field-centered{
@@ -46,7 +48,9 @@ form{
   box-sizing: border-box;
   width: 100%;
   max-width: $form-input-max-width;
-  padding: 7px 0;
+  padding-left: 0;
+  padding-top: 7px;
+  padding-bottom: 4px;
   border-style: initial;
   box-shadow: none;
   color: #333;

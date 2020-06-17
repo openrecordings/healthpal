@@ -1,14 +1,15 @@
 #video-container
 #play-view{'data-initial-recording-id': @recording&.id}
-  #metadata-overlay.overlay.hidden
-    -# %form#metadata-form.overlay-form(style="padding:80px;background-color: red")
+  #metadata-overlay.overlay
     .modal-form-container
       %form#metadata-form
-        .form-title.margin-bottom-10 Edit appointment description
-        .form-field-container
-          = text_field_tag('edit-recording-title', nil, placeholder: @recording&.title, class: 'form-input')
-          .input-underscore
-          .form-label-below Appointment name
+        .form-title.margin-bottom-10 Edit recording details
+        .form-label Appointment name
+        = text_field_tag('edit-recording-title', nil, placeholder: 'Recording name', value: @recording&.title, class: 'form-input', data: {placeholder: 'Recording name'})
+        .input-underscore
+        .form-label Doctor's name
+        = text_field_tag('edit-recording-provider', nil, placeholder: "Doctor's name", class: 'form-input', data: {placeholder: "Doctor's name"})
+        .input-underscore
   #left
     #search-and-select
       #select-header Select a recording
