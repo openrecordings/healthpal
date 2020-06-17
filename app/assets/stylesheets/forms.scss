@@ -23,11 +23,11 @@ form{
   background-color: white;
   box-sizing: border-box;
   width: 85%;
-  max-width: 500px;
+  max-width: 450px;
   max-height: 90%;
   padding: 30px;
   @media screen and (min-width: $max-mobile-width) {
-    padding: 60px;
+    padding: 50px;
   }
   border-radius: 4px;
   color: $color-2;
@@ -80,7 +80,7 @@ form{
   color: #888;
 }
 
-.button{
+@mixin button{
   box-sizing: border-box;
   height: 45px;
   line-height: 45px;
@@ -100,6 +100,31 @@ form{
   }
   &:active{
     background-color: $color-4;
+  }
+}
+
+.button{
+  @include button;
+}
+
+@mixin small-button{
+  @include button;
+  width: 100px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 16px;
+}
+
+.save-cancel-buttons{
+  display: flex;
+  justify-content: flex-end;
+  .cancel{
+    @include small-button;
+    margin-right: 10px;
+    background-color: $color-4;
+  }
+  .save{
+    @include small-button;
   }
 }
 

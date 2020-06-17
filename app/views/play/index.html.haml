@@ -10,6 +10,10 @@
         .form-label Doctor's name
         = text_field_tag('edit-recording-provider', nil, placeholder: "Doctor's name", class: 'form-input', data: {placeholder: "Doctor's name"})
         .input-underscore
+        .save-cancel-buttons
+          #metadata-cancel.cancel Cancel
+          #metadata-save.save Save
+
   #left
     #search-and-select
       #select-header Select a recording
