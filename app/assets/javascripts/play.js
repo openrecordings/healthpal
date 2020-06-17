@@ -79,11 +79,16 @@ if (document.querySelector('#play-view')) {
 
   function loadNotes(){
     $.get(`/get_notes/${recordingId}`, function(data){
-      console.log('here');
       if(data){
-        console.log(data.notes);
-        if(data.notes.lenth > 0){
-          console.log('foo');
+        console.log('loading notes if any');
+        if(data.notes.length > 0){
+          console.log(`found ${data.notes.length} note(s)`);
+          $('#no-notes').hide();
+          $('#notes-index').show();
+          data.notes.forEach(function(note){
+            console.log(note.text);
+          });
+          $('#notes-index').text(data.notes.toString());
         }
       } else {
         console.log(data.error)

@@ -117,7 +117,8 @@
         padding-bottom: 8px;
         color: $color-1;
         overflow: scroll;
-        #no-notes-message{
+        #no-notes{
+          width: 100%;
           text-align: center;
         }
       }
