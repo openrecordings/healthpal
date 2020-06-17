@@ -30,6 +30,7 @@ if (document.querySelector('#play-view')) {
       return
     }
     $.get(`/recording_metadata/${recordingId}`, function (data) {
+      console.log(data);
       if (data.url) {
         // NOTE: We actually use an audio element for now so that Safari iOS doesn't override the player UI
         $('#video-container').html(`
@@ -37,11 +38,6 @@ if (document.querySelector('#play-view')) {
             <source src=${data.url} type="audio/mp3">
           </audio>`
         );
-        // TODO
-        // $('#spinner').show();
-        // videoElement.oncanplay = function(){
-        //   $('#spinner').hide();
-        // }
         $('#recording-title').text(data.title);
         $('#recording-date').text(data.date);
         $('#recording-days-ago').text(data.days_ago);
