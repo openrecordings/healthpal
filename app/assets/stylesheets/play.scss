@@ -75,15 +75,15 @@
         padding-bottom: 8px;
         color: $color-1;
         #header-left{
+          &:hover {
+            cursor: pointer;
+          }
           #recording-title{
             padding-bottom: 3px;
             font-size: 18px;
             font-weight: 600;
           }
           #metadata-edit-icon{
-            &:hover {
-              cursor: pointer;
-            }
             #recording-provider{
               display: inline-block;
               transform: translateY(-6px);

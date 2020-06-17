@@ -195,7 +195,7 @@ if (document.querySelector('#play-view')) {
       $('#mute-glyph, #unmute-glyph, #mute-label, #unmute-label').toggleClass('hidden');
     })
 
-    $('#metadata-edit-icon').click(function(){
+    $('#header-left').click(function(){
       $('#metadata-overlay').hide().fadeIn(200);
       $('#metadata-overlay').css('visibility', 'visible');
     });
@@ -203,8 +203,17 @@ if (document.querySelector('#play-view')) {
     $('#metadata-save').click(function(){
       let title = $('#edit-recording-title').val();
       let provider = $('#edit-recording-provider').val();
+      $('#recording-title').text(title);
+      if(!provider === '') $('#recording-provider').text(provider);
       $.post('/update_metadata', {id: recordingId, title: title, provider: provider});
+      $('#metadata-cancel').click();
     });
+
+    // Enter submits metadata form
+    $(document).keyup(function(e) {
+      let overlay = $('#metadata-overlay');
+      if(e.keyCode === 13 && isVisible(overlay)) $('#metadata-save').trigger('click');
+  });
 
 
     

@@ -3,6 +3,10 @@ $(document).ready(function() {
   document.body.height = window.innerHeight;
   document.getElementsByTagName('html').height = window.innerHeight;
 
+  isVisible = function(e) {
+    return $(e).css('visibility') === 'visible';
+  };
+
   $('.cancel').click( function(e){
     $(this).closest('.overlay').fadeOut(200).then(css('visibility', 'hidden'));
     // TODO: This will hide *all* form labels on page, fix

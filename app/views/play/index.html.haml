@@ -8,7 +8,7 @@
         = text_field_tag('edit-recording-title', nil, placeholder: 'Recording name', value: @recording&.title, class: 'form-input', data: {placeholder: 'Recording name'})
         .input-underscore
         .form-label Doctor's name
-        = text_field_tag('edit-recording-provider', nil, placeholder: "Doctor's name", class: 'form-input', data: {placeholder: "Doctor's name"})
+        = text_field_tag('edit-recording-provider', nil, placeholder: "Doctor's name", value: @recording&.provider, class: 'form-input', data: {placeholder: "Doctor's name"})
         .input-underscore
         .save-cancel-buttons
           #metadata-cancel.cancel Cancel
