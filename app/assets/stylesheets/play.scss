@@ -167,24 +167,64 @@
           margin-right: auto;
           margin-left: auto;
           margin-bottom: 15px;
-          .player-button{
+          @mixin player-button{
+            // border: 2px solid $color-7;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
             width: $player-button-container-width;
             height: $player-button-container-height;
             border-radius: 3px;
             &:hover{
               cursor: pointer;
             }
+            // Player button icons
+            // TODO: Brittle. Magic tanslate number centers left icon over label
+            //       Icon and label should have their own container div
             .player-button-svg{
-              margin-left: calc((#{$player-button-container-width} - #{$player-button-edge-length}) / 2);
-              padding-top: 3px;
+              padding: 3px, 0;
               height: $player-button-edge-length;
               width: $player-button-edge-length;
               fill: $color-2;
             }
+            .player-button-svg-left{
+              padding: 3px, 0;
+              height: $player-button-edge-length;
+              width: $player-button-edge-length;
+              fill: $color-2;
+              align-self: flex-start;
+              transform: translate(5px, 0);
+            }
+            .player-button-svg-right{
+              padding: 3px, 0;
+              height: $player-button-edge-length;
+              width: $player-button-edge-length;
+              fill: $color-2;
+              align-self: flex-end;
+            }
+            // Player button labels
+            // TODO: Brittle. Magic tanslate number centers right label under icon
             .player-button-label{
               font-size: 13px;
-              text-align: center;
             }
+            .player-button-label-left{
+              font-size: 13px;
+              align-self: flex-start;
+            }
+            .player-button-label-right{
+              font-size: 13px;
+              align-self: flex-end;
+              transform: translate(-5px, 0);
+            }
+
+          }
+          .player-button{
+            @include player-button;
+          }
+          .player-button-left, .player-button-right{
+            @include player-button;
+            width: 16%;
           }
         }
       }

@@ -46,9 +46,9 @@
           %span#duration
             00:00
         #player-button-container
-          #rewind-button.player-button.track
-            = inline_svg('skip_to_start.svg', class: 'player-button-svg')
-            .player-button-label= t(:rewind)
+          #rewind-button.player-button-left.track
+            = inline_svg('skip_to_start.svg', class: 'player-button-svg-left')
+            .player-button-label-left= t(:rewind)
           #back-button.player-button.track
             = inline_svg('step_back.svg', class: 'player-button-svg')
             .player-button-label= t(:back_10_sec )
@@ -60,11 +60,11 @@
           #forward-button.player-button.track
             = inline_svg('step_forward.svg', class: 'player-button-svg')
             .player-button-label= t(:forward_10_sec)
-          #mute-button.player-button.track
-            = inline_svg('volume_off.svg', id: 'mute-glyph', class: 'player-button-svg')
-            = inline_svg('volume_max.svg', id: 'unmute-glyph', class: 'player-button-svg hidden')
-            #mute-label.player-button-label= t(:mute)
-            #unmute-label.player-button-label.hidden= t(:unmute)
+          #mute-button.player-button-right.track
+            = inline_svg('volume_off.svg', id: 'mute-glyph', class: 'player-button-svg-right')
+            = inline_svg('volume_max.svg', id: 'unmute-glyph', class: 'player-button-svg-right hidden')
+            #mute-label.player-button-label-right= t(:mute)
+            #unmute-label.player-button-label-right.hidden= t(:unmute)
       #toolbar
         #show-select
           = inline_svg('arrow-left.svg', class: 'small-svg')
