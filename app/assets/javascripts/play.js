@@ -66,24 +66,29 @@ if (document.querySelector('#play-view')) {
           // updateTableHighlighting(currentTime);
           // scrollTable();
         };
-        loadNotes(recordingId);
+        // TODO: Fails if you fast-forward past the end while paused
         videoElement.onended = function () {
-          $('#play-glyph, #pause-glyph, #play-label, #pause-label').toggleClass('hidden');
-        }
+          togglePlayPauseButton();
+        };
+        loadNotes();
       } else {
         console.log(data.error)
       }
     })
   }
 
-  function loadNotes(id){
-    $.get(`get_notes/${id}`), function(data){
+  function loadNotes(){
+    $.get(`/get_notes/${recordingId}`, function(data){
+      console.log('here');
       if(data){
-        
+        console.log(data.notes);
+        if(data.notes.lenth > 0){
+          console.log('foo');
+        }
       } else {
         console.log(data.error)
       }
-    };
+    });
   }
 
   // Playback utilities
@@ -96,6 +101,10 @@ if (document.querySelector('#play-view')) {
     else {
       videoElement.pause();
     }
+    togglePlayPauseButton();
+  }
+
+  function togglePlayPauseButton(){
     $('#play-glyph, #pause-glyph, #play-label, #pause-label').toggleClass('hidden');
   }
   

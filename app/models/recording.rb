@@ -18,6 +18,10 @@ class Recording < ApplicationRecord
     TranscribeAwsJob.perform_later(self)
   end
 
+  def notes
+    recording_notes
+  end
+
   # Transcript upload (Acusis)
   #################################################################################################
   attr_accessor :transcript_txt_file

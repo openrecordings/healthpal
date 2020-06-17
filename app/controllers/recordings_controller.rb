@@ -1,10 +1,4 @@
 class RecordingsController < ApplicationController
-  before_action :only_admins, except: [:get_metadata, :update_metadata]
-
-  def index
-    @recordings = Recording.includes(:user)
-  end
-
   # AJAX GET a recording's metadata
   def get_metadata
     recording = fetch_recording(params[:id])
@@ -35,10 +29,13 @@ class RecordingsController < ApplicationController
 
   #AJAX GET a recording's notes
   def get_notes
+    puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+    puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+    puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
     recording = fetch_recording(params[:id])
     if recording
       render json: {
-        data: recording.notes,
+        notes: recording.notes,
         status: 200
       }
     end

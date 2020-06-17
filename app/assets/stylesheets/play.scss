@@ -109,6 +109,8 @@
       #notes{
         flex-grow: 1;
         display: flex;
+        justify-content: center;
+        align-items: center;
         border-bottom: 1px solid $color-4;
         justify-content: space-between;
         padding-top: 7px;
@@ -116,7 +118,6 @@
         color: $color-1;
         overflow: scroll;
         #no-notes-message{
-          display: inline-block;
           text-align: center;
         }
       }
