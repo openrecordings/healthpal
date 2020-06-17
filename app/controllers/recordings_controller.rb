@@ -30,7 +30,10 @@ class RecordingsController < ApplicationController
   def update_metadata
     recording = Recording.find_by(id: params[:id])
     if recording && current_user.viewable_recordings.include?(recording)
-      recording.update(params)
+      recording.update(
+        title: params[:title],
+        provider: params[:provider]
+      )
       render json: {status: 200}
     else
       render json: {

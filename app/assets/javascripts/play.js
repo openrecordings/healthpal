@@ -195,9 +195,15 @@ if (document.querySelector('#play-view')) {
       $('#mute-glyph, #unmute-glyph, #mute-label, #unmute-label').toggleClass('hidden');
     })
 
-    $('#metadata-edit-icon').click( function(){
+    $('#metadata-edit-icon').click(function(){
       $('#metadata-overlay').hide().fadeIn(200);
       $('#metadata-overlay').css('visibility', 'visible');
+    });
+
+    $('#metadata-save').click(function(){
+      let title = $('#edit-recording-title').val();
+      let provider = $('#edit-recording-provider').val();
+      $.post('/update_metadata', {id: recordingId, title: title, provider: provider});
     });
 
 
