@@ -40,7 +40,7 @@ class RecordingsController < ApplicationController
 
   #AJAX POST create or update a RecordingNote
   def upsert_note
-    recording = fetch_recording(params[:id])
+    recording = fetch_recording(params[:recording_id])
     if recording
       recording_note = Recording.note.find_by(params[:note_id])
       if recording_note
