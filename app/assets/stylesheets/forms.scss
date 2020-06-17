@@ -1,11 +1,3 @@
-form{
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  width: 80%;
-  max-width: $form-input-max-width;
-}
-
 // TODO: Deprecate
 .centered-form-container{
   // background-color: yellowgreen;
@@ -16,8 +8,32 @@ form{
   // width: 100%;
 }
 
+form{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  max-width: $form-input-max-width;
+}
+
+.modal-form-container{
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background-color: white;
+  box-sizing: border-box;
+  max-width: 90%;
+  max-height: 90%;
+  padding: 30px;
+  @media screen and (min-width: $max-mobile-width) {
+    padding: 60px;
+  }
+  border-radius: 4px;
+  color: $color-2;
+  box-shadow: 5px 5px 40px 6px rgba(0, 0, 0, 0.35);
+}
+
 .form-title{
-  text-align: center;
   font-size: 24px;
 }
 
