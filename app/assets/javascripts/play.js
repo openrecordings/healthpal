@@ -38,10 +38,11 @@ if (document.querySelector('#play-view')) {
           </audio>`
         );
         $('#recording-title').text(data.title);
+        $('#recording-provider').text(data.provider);
+        $('#edit-recording-title').val(data.title);
+        $('#edit-recording-provider').val(data.provider);
         $('#recording-date').text(data.date);
         $('#recording-days-ago').text(data.days_ago);
-        let provider = data.provider ? data.provider : "Add doctor's name";
-        $('#recording-provider').text(provider);
         var videoElement = document.getElementById('video-element');
         videoElement.volume = playVolume;
         skipToTime(0);
@@ -203,6 +204,10 @@ if (document.querySelector('#play-view')) {
     $('#metadata-save').click(function(){
       let title = $('#edit-recording-title').val();
       let provider = $('#edit-recording-provider').val();
+      if(title.length === 0){
+        alert('Recording name is required');
+        return;
+      }
       $('#recording-title').text(title);
       if(provider.length > 0) $('#recording-provider').text(provider);
       $.post('/update_metadata', {id: recordingId, title: title, provider: provider});

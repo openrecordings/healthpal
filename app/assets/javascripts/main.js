@@ -8,7 +8,8 @@ $(document).ready(function() {
   };
 
   $('.cancel').click( function(e){
-    $(this).closest('.overlay').fadeOut(200).then(css('visibility', 'hidden'));
+    $(this).closest('.overlay').fadeOut(200);
+    $(this).css('visibility', 'hidden');
     // TODO: This will hide *all* form labels on page, fix
     $('.form-label').css('visibility', 'hidden');
   });
