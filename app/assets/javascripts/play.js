@@ -204,7 +204,7 @@ if (document.querySelector('#play-view')) {
       let title = $('#edit-recording-title').val();
       let provider = $('#edit-recording-provider').val();
       $('#recording-title').text(title);
-      if(!provider === '') $('#recording-provider').text(provider);
+      if(provider.length > 0) $('#recording-provider').text(provider);
       $.post('/update_metadata', {id: recordingId, title: title, provider: provider});
       $('#metadata-cancel').click();
     });
