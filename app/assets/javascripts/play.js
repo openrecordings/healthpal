@@ -22,12 +22,19 @@ if (document.querySelector('#play-view')) {
     $('#right').css({'min-width': '100%'});
   }
 
+  function clearMetadataFields(){
+    $('#recording-title').text('');
+    $('#edit-recording-title').val('');
+    $('#recording-provider').text($('#edit-recording-provider').attr('placeholder'));
+    $('#edit-recording-provider').val('');
+  }
+
   // Replace/create the video element and load from src URL
   /////////////////////////////////////////////////////////////////////////////////////////////////
   function loadVideo() {
     if (recordingId == null) {
       console.log('Called loadVideo() but recordingId is null!');
-      return
+      return;
     }
     $.get(`/get_metadata/${recordingId}`, function (data) {
       if (data.url) {
@@ -38,9 +45,11 @@ if (document.querySelector('#play-view')) {
           </audio>`
         );
         $('#recording-title').text(data.title);
-        $('#recording-provider').text(data.provider);
         $('#edit-recording-title').val(data.title);
-        $('#edit-recording-provider').val(data.provider);
+        if(data.provider && data.provider.length > 0){
+          $('#recording-provider').text(data.provider);
+          $('#edit-recording-provider').val(data.provider);
+        }
         $('#recording-date').text(data.date);
         $('#recording-days-ago').text(data.days_ago);
         var videoElement = document.getElementById('video-element');
@@ -152,6 +161,7 @@ if (document.querySelector('#play-view')) {
 
     $('#show-select').click(function () {
       showSelectOnly();
+      clearMetadataFields();
     })
 
     $('#timeline').click(function (event) {
@@ -218,9 +228,6 @@ if (document.querySelector('#play-view')) {
     $(document).keyup(function(e) {
       let overlay = $('#metadata-overlay');
       if(e.keyCode === 13 && isVisible(overlay)) $('#metadata-save').trigger('click');
-  });
-
-
-    
+    });
   })
 }
