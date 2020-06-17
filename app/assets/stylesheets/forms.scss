@@ -2,7 +2,6 @@ form{
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: center;
   width: 80%;
   max-width: $form-input-max-width;
 }
@@ -31,7 +30,7 @@ form{
   box-sizing: border-box;
   width: 100%;
   max-width: $form-input-max-width;
-  padding: 5px 0;
+  padding: 7px 0;
   border-style: initial;
   box-shadow: none;
   color: #333;
@@ -41,7 +40,6 @@ form{
 .input-underscore {
   width: 100%;
   max-width: $form-input-max-width;
-  // max-width: calc(#{$form-input-max-width} - 5 * #{$form-input-padding});
   margin-bottom: 30px;
   border-top: 1px solid #888;
 }
@@ -49,7 +47,15 @@ form{
 .form-label{
   width: 100%;
   max-width: $form-input-max-width;
-  // max-width: calc(#{$form-input-max-width} - 5 * #{$form-input-padding});
+  font-size: $form-label-font-size;
+  color: #888;
+}
+
+// TODO: Translate is a hack to compensate for margin below underscore
+.form-label-below{
+  width: 100%;
+  transform: translate(0, -25px);
+  max-width: $form-input-max-width;
   font-size: $form-label-font-size;
   color: #888;
 }
@@ -59,7 +65,6 @@ form{
   height: 45px;
   line-height: 45px;
   margin-top: $form-label-font-size;
-  margin-bottom: 10px;
   width: 100%;
   max-width: $form-input-max-width;
   background-color: $color-2;
@@ -76,4 +81,10 @@ form{
   &:active{
     background-color: $color-4;
   }
+}
+
+.form-link{
+  padding-top: 15px;
+  text-align: left;
+  color: $color-2;
 }

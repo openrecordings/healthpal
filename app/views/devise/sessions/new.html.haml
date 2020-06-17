@@ -7,7 +7,7 @@
       %br
       %span#logo-health Health
       %span#logo-pal> PAL
-.full-center.margin-top-neg-40
+.full-center.margin-top-neg-100
   = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
     .form-label.invisible= t(:email_address)
     = f.email_field :email,
@@ -23,6 +23,5 @@
       class: 'form-input',
       data: {placeholder: t(:password)}
     .input-underscore
-    .margin-bottom-20
-      = f.submit t(:log_in), class: 'button' , id: 'login-button'
-      = link_to t(:forgot_password), new_user_password_path, class: 'color-2'
+    = f.submit t(:log_in), class: 'button' , id: 'login-button'
+    = link_to t(:forgot_password), new_user_password_path, class: 'form-link'

@@ -1,12 +1,12 @@
 #video-container
 #play-view{'data-initial-recording-id': @recording&.id}
-  #metadata-overlay.overlay.hidden
-    #metadata-form.overlay-form
-      .overlay-form-header Edit appointment description
+  #metadata-overlay.overlay
+    %form#metadata-form.overlay-form
+      .overlay-form-header.margin-bottom-20 Edit appointment description
       .form-field-container
-        .form-lable.invisible Appointment description
-        %input#edit-title.form-input
+        = text_field_tag('recording-title', nil, placeholder: @recording&.title, class: 'form-input')
         .input-underscore
+        .form-label-below Appointment name
   #left
     #search-and-select
       #select-header Select a recording
