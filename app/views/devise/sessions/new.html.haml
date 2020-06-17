@@ -1,4 +1,4 @@
-#logo-container.margin-bottom-60
+#logo-container.margin-bottom-20
   #logo-spans
     %span.image#icon= image_tag('open_recordings_icon.png', width: '50px')
     #logo-text-container
@@ -7,26 +7,22 @@
       %br
       %span#logo-health Health
       %span#logo-pal> PAL
-.centered-form-container
-  .form-input-container
-    = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-      .form-field-container.margin-bottom-30
-        .form-label.invisible= t(:email_address)
-        = f.email_field :email,
-          autofocus: true,
-          placeholder: t(:email_address),
-          class: 'form-input',
-          data: {placeholder: t(:email_address)}
-        .input-underscore
-      .form-field-container.margin-bottom-30
-        .form-label.invisible= t(:password)
-        = f.password_field :password,
-          autocomplete: 'off',
-          placeholder: t(:password),
-          class: 'form-input',
-          data: {placeholder: t(:password)}
-        .input-underscore
-      .form-field-container.margin-bottom-10
-        = f.submit t(:log_in), class: 'button' , id: 'login-button'
-      .form-field-container
-        = link_to t(:forgot_password), new_user_password_path, class: 'margin-left-10'
+.full-center.margin-top-neg-40
+  = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+    .form-label.invisible= t(:email_address)
+    = f.email_field :email,
+      autofocus: true,
+      placeholder: t(:email_address),
+      class: 'form-input',
+      data: {placeholder: t(:email_address)}
+    .input-underscore
+    .form-label.invisible= t(:password)
+    = f.password_field :password,
+      autocomplete: 'off',
+      placeholder: t(:password),
+      class: 'form-input',
+      data: {placeholder: t(:password)}
+    .input-underscore
+    .margin-bottom-20
+      = f.submit t(:log_in), class: 'button' , id: 'login-button'
+      = link_to t(:forgot_password), new_user_password_path, class: 'color-2'

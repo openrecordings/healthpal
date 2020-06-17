@@ -64,6 +64,10 @@ a {
   }
 }
 
+.color-2{
+  color: $color-2;
+}
+
 
 .center-block{
   display: block;
@@ -173,6 +177,10 @@ a {
   margin-top: 20px;
 }
 
+.margin-top-neg-40{
+  margin-top: -60px;
+}
+
 .margin-top-15{
   margin-top: 15px;
 }
@@ -247,7 +255,15 @@ a {
 
 .full-center{
   display: flex;
+  flex-grow: 1;
   justify-content: center;
+  align-items: center;
+}
+
+.horizontal-center{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
 }
 

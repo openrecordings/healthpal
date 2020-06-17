@@ -166,7 +166,6 @@ if (document.querySelector('#play-view')) {
       axis: 'x',
       containment: '#timeline',
       drag: function (event, ui) {
-        console.log('foo');
         skipToEventPosition(event);
       }
     });

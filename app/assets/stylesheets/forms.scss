@@ -1,9 +1,20 @@
-.centered-form-container{
+form{
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  width: 100%;
+  width: 80%;
+  max-width: $form-input-max-width;
+}
+
+// TODO: Deprecate
+.centered-form-container{
+  // background-color: yellowgreen;
+  // display: flex;
+  // flex-direction: column;
+  // justify-content: flex-start;
+  // align-items: center;
+  // width: 100%;
 }
 
 .form-title{
@@ -12,21 +23,15 @@
 }
 
 .field-centered{
-  @include form-element-width;
-}
-
-.form-input-container{
-  @include form-element-width;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
+  width: 100%;
+  max-width: $form-input-max-width;
 }
 
 .form-input{
   box-sizing: border-box;
   width: 100%;
-  padding: 10px;
+  max-width: $form-input-max-width;
+  padding: 5px 0;
   border-style: initial;
   box-shadow: none;
   color: #333;
@@ -34,24 +39,29 @@
 }
 
 .input-underscore {
-  // width: 302px;
-  @include form-element-width;
-  margin-left: 10px;
+  width: 100%;
+  max-width: $form-input-max-width;
+  // max-width: calc(#{$form-input-max-width} - 5 * #{$form-input-padding});
+  margin-bottom: 30px;
   border-top: 1px solid #888;
 }
 
 .form-label{
-  font-size: 14px;
-  padding: 0 0 0 10px;
+  width: 100%;
+  max-width: $form-input-max-width;
+  // max-width: calc(#{$form-input-max-width} - 5 * #{$form-input-padding});
+  font-size: $form-label-font-size;
   color: #888;
 }
 
 .button{
   box-sizing: border-box;
-  margin: 20px 0 10px 10px;
-  height: 50px;
-  line-height: 50px;
-  width: 302px;
+  height: 45px;
+  line-height: 45px;
+  margin-top: $form-label-font-size;
+  margin-bottom: 10px;
+  width: 100%;
+  max-width: $form-input-max-width;
   background-color: $color-2;
   text-align: center;
   text-decoration: none;
