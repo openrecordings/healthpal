@@ -5,7 +5,7 @@ class RecordingsController < ApplicationController
     @recordings = Recording.includes(:user)
   end
 
-  # AJAX GET
+  # AJAX GET a recording's metadata
   def get_metadata
     recording = fetch_recording(params[:id])
     if recording
@@ -21,7 +21,7 @@ class RecordingsController < ApplicationController
     end
   end
 
-  #AJAX POST
+  #AJAX POST an update to a recording's metadata
   def update_metadata
     recording = fetch_recording(params[:id])
     if recording
@@ -33,8 +33,30 @@ class RecordingsController < ApplicationController
     end
   end
 
-  #AJAX GET
+  #AJAX GET a recording's notes
   def get_notes
+    recording = fetch_recording(params[:id])
+    if recording
+      render json: {
+        data: recording.notes,
+        status: 200
+      }
+    end
+  end
+
+  #AJAX POST create or update a RecordingNote
+  def upsert_note
+    recording = fetch_recording(params[:id])
+    if recording
+      recording_note = Recording.note.find_by(params[:note_id])
+      if recording_note
+        recording_note.update(text: params[:text])
+        render json: {status: 200}
+      else
+        recording_note.create(recording: recording, text: params[:text])
+        render json: {status: 200}
+      end
+    end
   end
 
   private
