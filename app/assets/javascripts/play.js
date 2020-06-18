@@ -100,9 +100,18 @@ if (document.querySelector('#play-view')) {
     });
 
     function noteHtml(note){
-      return `<div class='note' data-recording-id=${recordingId}, data-note-id=${note.id}>
-        ${note.text}
-      </div>`
+      return `
+      <div class='note' data-recording-id=${recordingId}, data-note-id=${note.id}>
+        <div class='note-text'>
+          ${note.text}
+        </div>
+        <div class='note-controls'>
+          <div class='note-at'>
+            at ${toMmSs(note.at)}
+          </div>
+        </div>
+      </div>
+      `
     }
   }
 
