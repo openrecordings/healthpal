@@ -106,9 +106,15 @@ if (document.querySelector('#play-view')) {
           ${note.text}
         </div>
         <div class='note-controls'>
-          <div class='note-at'>
-            at ${toMmSs(note.at)}
-          </div>
+          <span class='play-at'>
+            Play at ${toMmSs(note.at)}
+          </span>
+          <span class='edit-note'>
+            edit
+          </span>
+          <span class='delete-note'>
+            delete
+          </span>
         </div>
       </div>
       `
