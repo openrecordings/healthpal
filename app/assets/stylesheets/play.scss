@@ -107,13 +107,34 @@
         }
       }
       #notes{
+        // background-color: green;
         flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: stretch;
         padding-top: 7px;
         padding-bottom: 8px;
         color: $color-1;
         overflow: scroll;
+        #notes-container{
+          // background-color: yellowgreen;
+          display: flex;
+          flex-direction: column;
+          flex-grow: 1;
+          #notes-header{
+            // background-color: pink;
+            font-size: 24px;
+            padding-top: 10px;
+          }
+          .note{
+            // background-color: yellow;
+            padding-top: 10px;
+          }
+        }
         #no-notes{
           width: 100%;
+          align-self: center;
           text-align: center;
         }
       }
@@ -163,7 +184,6 @@
           max-width: 350px;
           margin-right: auto;
           margin-left: auto;
-          margin-bottom: 15px;
           @mixin player-button{
             // border: 2px solid $color-7;
             display: flex;
