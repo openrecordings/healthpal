@@ -137,6 +137,7 @@
             margin-bottom: 20px;
             .note-text{
               flex-grow: 1;
+              pointer-events: none;
               padding: 10px;
               background-color: $color-9;
               border: 2px solid $color-8;
