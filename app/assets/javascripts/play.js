@@ -107,13 +107,28 @@ if (document.querySelector('#play-view')) {
         </div>
         <div class='note-controls'>
           <span class='play-at'>
-            Play at ${toMmSs(note.at)}
+            <svg width="17" height="17" fill="rgb(54, 125, 119)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+              <path id="play" d="M24.8175,16.86432,9.503,25.77667A1,1,0,0,1,8,24.91235V7.08765a1,1,0,0,1,1.503-.86432L24.8175,15.13568A1.00006,1.00006,0,0,1,24.8175,16.86432Z"/>
+            </svg>
+            <span>
+              Play at ${toMmSs(note.at)}
+            </span>
           </span>
           <span class='edit-note'>
-            edit
+            <svg width="17" height="17" fill="rgb(54, 125, 119)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+              <path id="play" d="M24.8175,16.86432,9.503,25.77667A1,1,0,0,1,8,24.91235V7.08765a1,1,0,0,1,1.503-.86432L24.8175,15.13568A1.00006,1.00006,0,0,1,24.8175,16.86432Z"/>
+            </svg>
+            <span>
+              Edit note
+            </span>
           </span>
           <span class='delete-note'>
-            delete
+            <svg width="17" height="17" fill="rgb(54, 125, 119)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+              <path id="play" d="M24.8175,16.86432,9.503,25.77667A1,1,0,0,1,8,24.91235V7.08765a1,1,0,0,1,1.503-.86432L24.8175,15.13568A1.00006,1.00006,0,0,1,24.8175,16.86432Z"/>
+            </svg>
+            <span>
+              Delete note
+            </span>
           </span>
         </div>
       </div>
