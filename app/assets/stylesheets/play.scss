@@ -68,7 +68,6 @@
       padding: 15px;
       box-sizing: border-box;
       #header{
-        border-bottom: 1px solid $color-4;
         display: flex;
         justify-content: space-between;
         padding-top: 7px;
@@ -113,15 +112,22 @@
         flex-direction: column;
         justify-content: center;
         align-items: stretch;
+        position: relative;
+        overflow: hidden;
         padding-top: 7px;
         padding-bottom: 8px;
         color: $color-1;
-        overflow: scroll;
         #notes-container{
           // background-color: yellowgreen;
           display: flex;
           flex-direction: column;
           flex-grow: 1;
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          overflow: auto;
           #notes-header{
             // background-color: pink;
             font-size: 24px;
