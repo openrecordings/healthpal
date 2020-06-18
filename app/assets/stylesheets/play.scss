@@ -105,6 +105,11 @@
           }
         }
       }
+      #notes-header{
+        // background-color: pink;
+        font-size: 24px;
+        padding: 10px 0;
+      }
       #notes{
         // background-color: green;
         flex-grow: 1;
@@ -128,13 +133,8 @@
           right: 0;
           bottom: 0;
           overflow: auto;
-          #notes-header{
-            // background-color: pink;
-            font-size: 24px;
-            padding-top: 10px;
-          }
           .note{
-            margin-top: 20px;
+            margin-bottom: 20px;
             .note-text{
               flex-grow: 1;
               padding: 10px;
