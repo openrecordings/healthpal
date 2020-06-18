@@ -78,25 +78,27 @@ if (document.querySelector('#play-view')) {
   }
 
   function loadNotes(){
+    let notesHeader = $('#notes-header');
+    let notesContainer = $('#notes-container');
+    let noNotes = $('#no-notes');
     $.get(`/get_notes/${recordingId}`, function(data){
-      if(data){
-        let notesContainer = $('#notes-container');
-        let noNotes = $('#no-notes');
+      if(data.error){
+        console.log(data.error);
+        return;
+      };
+      if(data.notes.length == 0){
+        notesHeader.hide();
         notesContainer.hide();
         noNotes.show();
         $('.note').remove();
-        console.log('loading notes if any');
-        if(data.notes.length > 0){
-          console.log(`found ${data.notes.length} note(s)`);
-          $('#no-notes').hide();
-          notesContainer.show();
-          data.notes.forEach(function(note){
-            notesContainer.append(noteHtml(note))
-          });
-        }
       } else {
-        console.log(data.error)
-      }
+        notesHeader.show();
+        notesContainer.show();
+        noNotes.hide();
+        data.notes.forEach(function(note){
+          notesContainer.append(noteHtml(note))
+        });
+      };
     });
 
     function noteHtml(note){
