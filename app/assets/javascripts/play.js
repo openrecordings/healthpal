@@ -103,7 +103,7 @@ if (document.querySelector('#play-view')) {
 
     function noteHtml(note){
       return `
-      <div class='note' data-note-id=${note.id}, data-at${note.at}>
+      <div class='note' data-note-id=${note.id}, data-note-at=${note.at}>
         <div class='note-text'>
           ${note.text}
         </div>
@@ -203,6 +203,14 @@ if (document.querySelector('#play-view')) {
     return `${mm.toString().padStart(2, '0')}:${ss.toString().padStart(2, '0')}`
   }
 
+  function playAt(seconds) {
+    let videoElement = document.getElementById('video-element');
+    skipToTime(seconds);
+    if (videoElement.paused) {
+      togglePlayPause();
+    }
+  }
+
   $(document).ready(function () {
     // Initialization
     /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -273,17 +281,15 @@ if (document.querySelector('#play-view')) {
       $('#mute-glyph, #unmute-glyph, #mute-label, #unmute-label').toggleClass('hidden');
     })
 
-    // Notes
+    // Notes: on document click because elements are injected
     $(document).on('click', '.play-at',function(){ 
-      console.log('play at');
+      playAt($(this).closest('.note').data('note-at'))
     });
 
     $(document).on('click', '.edit-note',function(){ 
-      console.log('edit note');
     });
 
     $(document).on('click', '.delete-note',function(){ 
-      console.log('delete note');
     });
 
     $('#header-left').click(function(){
