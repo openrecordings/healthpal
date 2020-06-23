@@ -81,6 +81,7 @@ if (document.querySelector('#play-view')) {
     let notesHeader = $('#notes-header');
     let notesContainer = $('#notes-container');
     let noNotes = $('#no-notes');
+    $('.note').remove();
     $.get(`/get_notes/${recordingId}`, function(data){
       if(data.error){
         console.log(data.error);
@@ -90,7 +91,6 @@ if (document.querySelector('#play-view')) {
         notesHeader.hide();
         notesContainer.hide();
         noNotes.show();
-        $('.note').remove();
       } else {
         notesHeader.show();
         notesContainer.show();
@@ -103,7 +103,7 @@ if (document.querySelector('#play-view')) {
 
     function noteHtml(note){
       return `
-      <div class='note' data-recording-id=${recordingId}, data-note-id=${note.id}>
+      <div class='note' data-note-id=${note.id}, data-at${note.at}>
         <div class='note-text'>
           ${note.text}
         </div>
@@ -273,6 +273,19 @@ if (document.querySelector('#play-view')) {
       $('#mute-glyph, #unmute-glyph, #mute-label, #unmute-label').toggleClass('hidden');
     })
 
+    // Notes
+    $(document).on('click', '.play-at',function(){ 
+      console.log('play at');
+    });
+
+    $(document).on('click', '.edit-note',function(){ 
+      console.log('edit note');
+    });
+
+    $(document).on('click', '.delete-note',function(){ 
+      console.log('delete note');
+    });
+
     $('#header-left').click(function(){
       $('#metadata-overlay').hide().fadeIn(200);
       $('#metadata-overlay').css('visibility', 'visible');
@@ -305,5 +318,6 @@ if (document.querySelector('#play-view')) {
       let overlay = $('#metadata-overlay');
       if(e.keyCode === 13 && isVisible(overlay)) $('#metadata-save').trigger('click');
     });
+
   })
 }
