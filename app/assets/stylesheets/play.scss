@@ -184,20 +184,20 @@
         }
       }
       #player-border{
-        z-index: 10;
+        z-index: 2;
         width: 5000px;
-        height: 2px;
+        height: 27px;
         margin: 0 -15px;
         overflow: hidden;
-        box-shadow: 0px -4px 3px rgba(50, 50, 50, 0.75);
+        box-shadow: 0px -10px 21px -13px rgba(0, 0, 0, 0.8);
       }
       #player{
+        z-index: 1;
         #timeline-container{
           position: relative;
           width: 100%;
           box-sizing: border-box;
-          margin-top: 20px;
-          margin-bottom: 50px;
+          margin-bottom: 30px;
           #timeline{
             background-color: $color-6;
             width: 100%;
