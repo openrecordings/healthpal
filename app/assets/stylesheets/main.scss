@@ -8,6 +8,7 @@ body {
   justify-content: space-between;
   visibility: invisible;
   min-height: 100%;
+  margin: 0;
   font-family: 'Lato', sans-serif;
   font-size: 18px;
   @media screen and (max-width: $max-mobile-width) {
