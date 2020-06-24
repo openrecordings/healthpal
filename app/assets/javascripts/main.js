@@ -7,14 +7,14 @@ $(document).ready(function() {
     return $(e).css('visibility') === 'visible';
   };
 
+  // TODO: This will hide *all* form labels on page, fix
   $('.cancel').click( function(e){
     $(this).closest('.overlay').fadeOut(200);
-    $(this).css('visibility', 'hidden');
-    // TODO: This will hide *all* form labels on page, fix
     $('.form-label').css('visibility', 'hidden');
   });
 
   // Escape cancels forms
+  // TODO: This will trigger the click handler for *all* .cancel elements on page, fix
   $(document).keyup(function(e) {
     if(e.keyCode === 27) $('.cancel').triggerHandler('click');
   });

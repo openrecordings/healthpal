@@ -1,5 +1,6 @@
 #video-container
 #play-view{'data-initial-recording-id': @recording&.id}
+
   #metadata-overlay.overlay.invisible
     .modal-form-container
       %form#metadata-form
@@ -13,6 +14,15 @@
         .save-cancel-buttons
           #metadata-cancel.cancel Cancel
           #metadata-save.save Save
+
+  #note-overlay.overlay.invisible
+    .modal-form-container
+      %form#note-form
+        .form-title.margin-bottom-10 Note at 
+        = text_area_tag('edit-note', nil, value: @recording&.title, placeholder: 'Enter your note here', class: 'form-input-area')
+        .save-cancel-buttons
+          #note-cancel.cancel Cancel
+          #note-save.save Save
 
   #left
     #search-and-select

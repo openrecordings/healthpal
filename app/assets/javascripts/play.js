@@ -228,6 +228,9 @@ if (document.querySelector('#play-view')) {
 
     // Listeners
     /////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // Select
+    //////////////////////
     $('.recording-list-item').click(function () {
       recordingId = $(this).data('recording-id');
       loadVideo();
@@ -239,6 +242,8 @@ if (document.querySelector('#play-view')) {
       clearMetadataFields();
     })
 
+    // Player
+    //////////////////////
     $('#timeline').click(function (event) {
       skipToEventPosition(event);
     })
@@ -281,7 +286,8 @@ if (document.querySelector('#play-view')) {
       $('#mute-glyph, #unmute-glyph, #mute-label, #unmute-label').toggleClass('hidden');
     })
 
-    // Notes: on document click because elements are injected
+    // Notes
+    //////////////////////
     $(document).on('click', '.play-at',function(){ 
       playAt($(this).closest('.note').data('note-at'))
     });
@@ -292,6 +298,8 @@ if (document.querySelector('#play-view')) {
     $(document).on('click', '.delete-note',function(){ 
     });
 
+    // Metadata
+    //////////////////////
     $('#header-left').click(function(){
       $('#metadata-overlay').hide().fadeIn(200);
       $('#metadata-overlay').css('visibility', 'visible');
@@ -319,7 +327,6 @@ if (document.querySelector('#play-view')) {
       $('#metadata-cancel').click();
     });
 
-    // Enter submits metadata form
     $(document).keyup(function(e) {
       let overlay = $('#metadata-overlay');
       if(e.keyCode === 13 && isVisible(overlay)) $('#metadata-save').trigger('click');
