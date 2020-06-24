@@ -65,6 +65,16 @@ a {
   }
 }
 
+textarea {
+  font-family: 'Lato', sans-serif;
+  resize: none;
+  padding: 10px;
+  height: 80px;
+  background-color: $color-9;
+  border: 2px solid $color-8;
+  border-radius: 3px;
+}
+
 .center-block{
   display: block;
   margin: 0 auto;

@@ -3,6 +3,8 @@ $(document).ready(function() {
   document.body.height = window.innerHeight;
   document.getElementsByTagName('html').height = window.innerHeight;
 
+  $('textarea').autoResize();
+
   isVisible = function(e) {
     return $(e).css('visibility') === 'visible';
   };
