@@ -293,6 +293,9 @@ if (document.querySelector('#play-view')) {
     });
 
     $(document).on('click', '.edit-note',function(){ 
+      console.log('here');
+      $('#note-overlay').hide().fadeIn(200);
+      $('#note-overlay').css('visibility', 'visible');
     });
 
     $(document).on('click', '.delete-note',function(){ 
