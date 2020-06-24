@@ -29,6 +29,9 @@ class AdminController < ApplicationController
     redirect_to :admin
   end
 
+  def new_org
+  end
+  
   # Start the workflow for doing an in-clinic user registration
   def new_registration
     # Creating a new user to hold params, but we're only going to set the email now

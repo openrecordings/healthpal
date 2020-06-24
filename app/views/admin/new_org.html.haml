@@ -1,0 +1,11 @@
+#new-org-form.centered-form-container
+  %p.form-title
+    Enter information for new organization
+  = form_with(url: new_org_path) do |f|
+    .form-field-container.field-centered
+      .form-label.margin-top-15
+        Organization name
+      = f.text_field :name, class: 'form-input'
+  .form-field-container.field-centered
+    .margin-top-15
+      = button_to 'Cancel', admin_path, class: 'button', method: :get
