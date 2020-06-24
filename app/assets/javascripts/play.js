@@ -293,7 +293,13 @@ if (document.querySelector('#play-view')) {
     });
 
     $(document).on('click', '.edit-note',function(){ 
-      console.log('here');
+      let note = $(this).closest('.note');
+      let noteAt = note.data('note-at');
+      let noteId = note.data('note-id');
+      let form = $('#note-form');
+      form.data('note-id', noteId);
+      form.data('note-at', noteAt);
+      $('#note-form-title').text(`Note at ${toMmSs(noteAt)}`);
       $('#note-overlay').hide().fadeIn(200);
       $('#note-overlay').css('visibility', 'visible');
     });
