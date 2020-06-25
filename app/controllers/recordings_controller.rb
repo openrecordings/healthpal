@@ -15,7 +15,7 @@ class RecordingsController < ApplicationController
     end
   end
 
-  #AJAX POST an update to a recording's metadata
+  # AJAX POST an update to a recording's metadata
   def update_metadata
     recording = fetch_recording(params[:id])
     if recording
@@ -27,7 +27,7 @@ class RecordingsController < ApplicationController
     end
   end
 
-  #AJAX GET a recording's notes
+  # AJAX GET a recording's notes
   def get_notes
     recording = fetch_recording(params[:id])
     if recording
@@ -38,17 +38,39 @@ class RecordingsController < ApplicationController
     end
   end
 
-  #AJAX POST create or update a RecordingNote
+  # AJAX POST create or update a RecordingNote
   def upsert_note
     recording = fetch_recording(params[:recording_id])
-    if recording
-      recording_note = Recording.note.find_by(params[:note_id])
-      if recording_note
-        recording_note.update(text: params[:text])
-        render json: {status: 200}
+  if recording
+      if params[:note_id]
+        note = Recording.note.find_by(params[:note_id])
       else
-        recording_note.create(recording: recording, text: params[:text])
-        render json: {status: 200}
+        note = Note.new(recording: recording) 
+      end
+      if note
+        note.text = params[:text]
+        if note.save
+          render json: {status: 200}
+        else
+          render json: {
+            error: 'Error upserting note',
+            status: 500
+          }
+        end
+    end
+  end
+
+  # AJAX delete a note
+  def delete_note
+    recording = fetch_recording(params[:recording_id])
+    if recording
+      if Note.find_by(:note_id).destroy
+          render json: {status: 200}
+      else
+          render json: {
+            error: 'Error deleting note',
+            status: 500
+          }
       end
     end
   end

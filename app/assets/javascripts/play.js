@@ -103,7 +103,7 @@ if (document.querySelector('#play-view')) {
 
     function noteHtml(note){
       return `
-      <div class='note' data-note-id=${note.id}, data-note-at=${note.at}>
+      <div class='note' data-recording-id=${recordingId}, data-note-id=${note.id}, data-note-at=${note.at}>
         <div class='note-text'>
           ${note.text}
         </div>
@@ -305,6 +305,10 @@ if (document.querySelector('#play-view')) {
     });
 
     $(document).on('click', '.delete-note',function(){ 
+      let note = $(this).closest('.note');
+      let noteId = note.data('note-id');
+      $(note).remove();
+      // TODO: Ajax delete note
     });
 
     // Metadata
@@ -334,11 +338,6 @@ if (document.querySelector('#play-view')) {
       }
       $.post('/update_metadata', {id: recordingId, title: title, provider: provider});
       $('#metadata-cancel').click();
-    });
-
-    $(document).keyup(function(e) {
-      let overlay = $('#metadata-overlay');
-      if(e.keyCode === 13 && isVisible(overlay)) $('#metadata-save').trigger('click');
     });
 
   })
