@@ -103,7 +103,7 @@ if (document.querySelector('#play-view')) {
 
     function noteHtml(note){
       return `
-      <div class='note' data-note-id=${note.id}, data-note-at=${note.at}>
+      <div class='note' data-recording-id=${recordingId}, data-note-id=${note.id}, data-note-at=${note.at}>
         <div class='note-text'>
           ${note.text}
         </div>
@@ -228,6 +228,9 @@ if (document.querySelector('#play-view')) {
 
     // Listeners
     /////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // Select
+    //////////////////////
     $('.recording-list-item').click(function () {
       recordingId = $(this).data('recording-id');
       loadVideo();
@@ -239,6 +242,8 @@ if (document.querySelector('#play-view')) {
       clearMetadataFields();
     })
 
+    // Player
+    //////////////////////
     $('#timeline').click(function (event) {
       skipToEventPosition(event);
     })
@@ -281,17 +286,33 @@ if (document.querySelector('#play-view')) {
       $('#mute-glyph, #unmute-glyph, #mute-label, #unmute-label').toggleClass('hidden');
     })
 
-    // Notes: on document click because elements are injected
+    // Notes
+    //////////////////////
     $(document).on('click', '.play-at',function(){ 
       playAt($(this).closest('.note').data('note-at'))
     });
 
     $(document).on('click', '.edit-note',function(){ 
+      let note = $(this).closest('.note');
+      let noteAt = note.data('note-at');
+      let noteId = note.data('note-id');
+      let form = $('#note-form');
+      form.data('note-id', noteId);
+      form.data('note-at', noteAt);
+      $('#note-form-title').text(`Note at ${toMmSs(noteAt)}`);
+      $('#note-overlay').hide().fadeIn(200);
+      $('#note-overlay').css('visibility', 'visible');
     });
 
     $(document).on('click', '.delete-note',function(){ 
+      let note = $(this).closest('.note');
+      let noteId = note.data('note-id');
+      $(note).remove();
+      // TODO: Ajax delete note
     });
 
+    // Metadata
+    //////////////////////
     $('#header-left').click(function(){
       $('#metadata-overlay').hide().fadeIn(200);
       $('#metadata-overlay').css('visibility', 'visible');
@@ -317,12 +338,6 @@ if (document.querySelector('#play-view')) {
       }
       $.post('/update_metadata', {id: recordingId, title: title, provider: provider});
       $('#metadata-cancel').click();
-    });
-
-    // Enter submits metadata form
-    $(document).keyup(function(e) {
-      let overlay = $('#metadata-overlay');
-      if(e.keyCode === 13 && isVisible(overlay)) $('#metadata-save').trigger('click');
     });
 
   })

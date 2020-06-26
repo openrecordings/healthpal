@@ -59,10 +59,24 @@ body {
 
 a {
   color: white;
-  font-size: 16px;
+  font-size: 18px;
   &:hover{
     color: white;
   }
+}
+
+textarea, select:focus {
+  font-family: 'Lato', sans-serif;
+  font-size: 16px;
+  resize: none;
+  padding: 10px;
+  margin-bottom: 20px;
+  outline: none;
+  height: 80px;
+  background-color: $color-9;
+  border: 2px solid $color-8;
+  border-radius: 3px;
+  box-shadow: none;
 }
 
 .center-block{
