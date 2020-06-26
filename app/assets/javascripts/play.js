@@ -356,8 +356,14 @@ if (document.querySelector('#play-view')) {
     $(document).on('click', '.delete-note',function(){ 
       let note = $(this).closest('.note');
       let noteId = note.data('note-id');
-      $(note).remove();
-      // TODO: Ajax delete note
+      $(note).slideUp(150);
+      $(note).promise().done(function(){
+        $(note).remove();
+      })
+      $.post('/delete_note', {
+        id: recordingId,
+        note_id: noteId,
+      })
     });
 
   })

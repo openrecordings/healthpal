@@ -63,9 +63,9 @@ class RecordingsController < ApplicationController
 
   # AJAX delete a note
   def delete_note
-    recording = fetch_recording(params[:recording_id])
+    recording = fetch_recording(params[:id])
     if recording
-      if Note.find_by(:note_id).destroy
+      if RecordingNote.find_by(id: params[:note_id]).destroy
           render json: {status: 200}
       else
           render json: {
