@@ -41,7 +41,7 @@ class RecordingsController < ApplicationController
   # AJAX POST create or update a RecordingNote
   def upsert_note
     recording = fetch_recording(params[:recording_id])
-  if recording
+    if recording
       if params[:note_id]
         note = Recording.note.find_by(params[:note_id])
       else
@@ -57,6 +57,7 @@ class RecordingsController < ApplicationController
             status: 500
           }
         end
+      end
     end
   end
 

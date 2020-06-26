@@ -37,6 +37,7 @@ if (document.querySelector('#play-view')) {
       return;
     }
     $.get(`/get_metadata/${recordingId}`, function(data) {
+        console.log('foo');
       if(data) {
         // NOTE: We actually use an audio element for now so that Safari iOS doesn't override the player UI
         $('#video-container').html(`
