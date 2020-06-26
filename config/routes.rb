@@ -30,6 +30,8 @@ Rails.application.routes.draw do
   post 'create_caregiver',           to: 'admin#create_caregiver'
   get 'new_org',                     to: 'admin#new_org'
   post 'create_org',                 to: 'admin#create_org'
+  get 'new_admin',                   to: 'admin#new_admin'
+  post 'create_admin',               to: 'admin#create_admin'
 
   # Recording
   get 'record',                      to: 'record#new'

@@ -36,6 +36,23 @@ class AdminController < ApplicationController
     @org = Org.create(name: params['name'])
   end
 
+  def new_admin
+    @orgs = Org.all
+  end
+
+  def create_admin
+    @admin = User.new(
+      email: params['email'],
+      role: 'admin',
+      active: true,
+      org_id: params['org_id'],
+      first_name: params['first_name'],
+      last_name: params['last_name'],
+    )
+    @admin.password = params['password']
+    @admin.save
+  end
+
   # Start the workflow for doing an in-clinic user registration
   def new_registration
     # Creating a new user to hold params, but we're only going to set the email now
