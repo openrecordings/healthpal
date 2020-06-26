@@ -61,7 +61,9 @@ if (document.querySelector('#play-view')) {
         }
         videoElement.ontimeupdate = function () {
           let currentTime = videoElement.currentTime;
-          $('#current-time').text(toMmSs(currentTime));
+          let displayTime = toMmSs(currentTime);
+          $('#current-time').text(displayTime);
+          $('#create-note-text').text(`New note at ${displayTime}`);
           setUiToTime(currentTime);
           // !!! DISABLED TAG TABLE FUNCTIONS !!!
           // updateTableHighlighting(currentTime);
