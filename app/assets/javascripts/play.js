@@ -322,12 +322,21 @@ if (document.querySelector('#play-view')) {
       playAt($(this).closest('.note').data('note-at'))
     });
 
+    $(document).on('click', '#create-note',function(){ 
+      let noteAt = document.getElementById('video-element').currentTime;
+      let form = $('#note-form');
+      form.data('note-id', null);
+      form.data('note-at', noteAt);
+      $('#note-form-title').text(`New note at ${toMmSs(noteAt)}`);
+      $('#note-overlay').hide().fadeIn(200);
+      $('#note-overlay').css('visibility', 'visible');
+    });
+
     $(document).on('click', '.edit-note',function(){ 
       let note = $(this).closest('.note');
       let noteAt = note.data('note-at');
       let noteId = note.data('note-id');
       let text = note.find('.note-text').html();
-      console.log(text);
       let form = $('#note-form');
       form.data('note-id', noteId);
       form.data('note-at', noteAt);
@@ -337,20 +346,24 @@ if (document.querySelector('#play-view')) {
       $('#note-overlay').css('visibility', 'visible');
     });
 
-    $(document).on('click', '#note-save',function(){ 
+    $(document).on('click', '#note-save', function(){ 
       let form = $('#note-form');
       let noteId = form.data('note-id');
       let text = $('#edit-note').val();
-      let note = $(`.note[data-note-id=${noteId}]`);
       let noteAt = form.data('note-at');
-      note.find('.note-text').text(text);
+      if(noteId){
+        let note = $(`.note[data-note-id=${noteId}]`);
+        note.find('.note-text').text(text);
+      }
       $.post('/upsert_note', {
         id: recordingId,
         note_id: noteId,
         note_at: noteAt,
         text: text
+      }).done(function(){
+        $('#note-cancel').click();
+        loadNotes();
       });
-      $('#note-cancel').click();
     });
 
     $(document).on('click', '.delete-note',function(){ 

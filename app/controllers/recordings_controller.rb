@@ -42,7 +42,7 @@ class RecordingsController < ApplicationController
   def upsert_note
     recording = fetch_recording(params[:id])
     if recording
-      if params[:note_id]
+      if params[:note_id].present?
         note = RecordingNote.find_by(id: params[:note_id])
       else
         note = RecordingNote.new(recording: recording) 
