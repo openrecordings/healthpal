@@ -104,16 +104,14 @@ if (document.querySelector('#play-view')) {
 
     function noteHtml(note){
       return `
-      <div class='note' data-recording-id=${recordingId}, data-note-id=${note.id}, data-note-at=${note.at}>
-        <div class='note-text'>
-          ${note.text}
-        </div>
+      <div class='note' data-recording-id=${recordingId} data-note-id=${note.id} data-note-at=${note.at}>
+        <div class='note-text'>${note.text}</div>
         <div class='note-controls'>
           <span class='play-at'>
             <svg width="17" height="17" fill="rgb(54, 125, 119)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
               <path id="play" d="M24.8175,16.86432,9.503,25.77667A1,1,0,0,1,8,24.91235V7.08765a1,1,0,0,1,1.503-.86432L24.8175,15.13568A1.00006,1.00006,0,0,1,24.8175,16.86432Z"/>
             </svg>
-            <span>
+              <span>
               Play at ${toMmSs(note.at)}
             </span>
           </span>
@@ -326,22 +324,29 @@ if (document.querySelector('#play-view')) {
       let note = $(this).closest('.note');
       let noteAt = note.data('note-at');
       let noteId = note.data('note-id');
+      let text = note.find('.note-text').html();
+      console.log(text);
       let form = $('#note-form');
       form.data('note-id', noteId);
       form.data('note-at', noteAt);
+      $('#edit-note').text(text);
       $('#note-form-title').text(`Note at ${toMmSs(noteAt)}`);
       $('#note-overlay').hide().fadeIn(200);
       $('#note-overlay').css('visibility', 'visible');
     });
 
     $(document).on('click', '#note-save',function(){ 
-      console.log('here');
       let form = $('#note-form');
+      let noteId = form.data('note-id');
+      let text = $('#edit-note').val();
+      let note = $(`.note[data-note-id=${noteId}]`);
+      let noteAt = form.data('note-at');
+      note.find('.note-text').text(text);
       $.post('/upsert_note', {
         id: recordingId,
-        note_id: form.data('note-id'),
-        note_at: form.data('note-at'),
-        text: $('#edit-note').val()
+        note_id: noteId,
+        note_at: noteAt,
+        text: text
       });
       $('#note-cancel').click();
     });
