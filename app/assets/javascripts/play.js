@@ -1,4 +1,5 @@
 if (document.querySelector('#play-view')) {
+  // TODO: recordingId should not be global. Works now but will not scale. Each function should fetch it.
   var recordingId = null;
   var playVolume = 1.0;
   var playerPadding = null;
@@ -37,7 +38,6 @@ if (document.querySelector('#play-view')) {
       return;
     }
     $.get(`/get_metadata/${recordingId}`, function(data) {
-        console.log('foo');
       if(data) {
         // NOTE: We actually use an audio element for now so that Safari iOS doesn't override the player UI
         $('#video-container').html(`
@@ -287,31 +287,6 @@ if (document.querySelector('#play-view')) {
       $('#mute-glyph, #unmute-glyph, #mute-label, #unmute-label').toggleClass('hidden');
     })
 
-    // Notes
-    //////////////////////
-    $(document).on('click', '.play-at',function(){ 
-      playAt($(this).closest('.note').data('note-at'))
-    });
-
-    $(document).on('click', '.edit-note',function(){ 
-      let note = $(this).closest('.note');
-      let noteAt = note.data('note-at');
-      let noteId = note.data('note-id');
-      let form = $('#note-form');
-      form.data('note-id', noteId);
-      form.data('note-at', noteAt);
-      $('#note-form-title').text(`Note at ${toMmSs(noteAt)}`);
-      $('#note-overlay').hide().fadeIn(200);
-      $('#note-overlay').css('visibility', 'visible');
-    });
-
-    $(document).on('click', '.delete-note',function(){ 
-      let note = $(this).closest('.note');
-      let noteId = note.data('note-id');
-      $(note).remove();
-      // TODO: Ajax delete note
-    });
-
     // Metadata
     //////////////////////
     $('#header-left').click(function(){
@@ -339,6 +314,43 @@ if (document.querySelector('#play-view')) {
       }
       $.post('/update_metadata', {id: recordingId, title: title, provider: provider});
       $('#metadata-cancel').click();
+    });
+
+    // Notes
+    //////////////////////
+    $(document).on('click', '.play-at',function(){ 
+      playAt($(this).closest('.note').data('note-at'))
+    });
+
+    $(document).on('click', '.edit-note',function(){ 
+      let note = $(this).closest('.note');
+      let noteAt = note.data('note-at');
+      let noteId = note.data('note-id');
+      let form = $('#note-form');
+      form.data('note-id', noteId);
+      form.data('note-at', noteAt);
+      $('#note-form-title').text(`Note at ${toMmSs(noteAt)}`);
+      $('#note-overlay').hide().fadeIn(200);
+      $('#note-overlay').css('visibility', 'visible');
+    });
+
+    $(document).on('click', '#note-save',function(){ 
+      console.log('here');
+      let form = $('#note-form');
+      $.post('/upsert_note', {
+        id: recordingId,
+        note_id: form.data('note-id'),
+        note_at: form.data('note-at'),
+        text: $('#edit-note').val()
+      });
+      $('#note-cancel').click();
+    });
+
+    $(document).on('click', '.delete-note',function(){ 
+      let note = $(this).closest('.note');
+      let noteId = note.data('note-id');
+      $(note).remove();
+      // TODO: Ajax delete note
     });
 
   })

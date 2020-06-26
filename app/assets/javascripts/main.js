@@ -14,7 +14,7 @@ $(document).ready(function() {
 
   $('.phone-number').mask('(000) 000-0000');
 
-  $('.cancel').click(function(e){
+  $('.modal-cancel').click(function(e){
     let overlay = $(this).closest('.overlay');
     let formLabels = overlay.find('.form-label');
     $(overlay).fadeOut(200);

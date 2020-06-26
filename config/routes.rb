@@ -42,7 +42,7 @@ Rails.application.routes.draw do
   get 'get_metadata/:id',            to: 'recordings#get_metadata',          as: 'get_metadata'
   post 'update_metadata',            to: 'recordings#update_metadata',       as: 'update_metadata'
   get 'get_notes/:id',               to: 'recordings#get_notes',             as: 'get_notes'
-  post 'upsert_note',                to: 'recordings#update_note',           as: 'update_note'
+  post 'upsert_note',                to: 'recordings#upsert_note',           as: 'upsert_note'
 
   # Playback
   get 'play(/:id)',                  to: 'play#index',                       as: 'play'
