@@ -31,7 +31,11 @@ class AdminController < ApplicationController
 
   def new_org
   end
-  
+
+  def create_org
+    @org = Org.create(name: params['name'])
+  end
+
   # Start the workflow for doing an in-clinic user registration
   def new_registration
     # Creating a new user to hold params, but we're only going to set the email now

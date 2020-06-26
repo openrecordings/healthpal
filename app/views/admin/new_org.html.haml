@@ -1,11 +1,14 @@
 #new-org-form.centered-form-container
   %p.form-title
     Enter information for new organization
-  = form_with(url: new_org_path) do |f|
+  = form_with(url: create_org_path) do |f|
     .form-field-container.field-centered
-      .form-label.margin-top-15
+      .form-label.margin-top-20
         Organization name
       = f.text_field :name, class: 'form-input'
+    .form-field-container.field-centered
+      .margin-top-20
+        = f.submit 'Create organization', class: 'button'
   .form-field-container.field-centered
     .margin-top-15
       = button_to 'Cancel', admin_path, class: 'button', method: :get
