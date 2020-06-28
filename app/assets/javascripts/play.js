@@ -66,6 +66,7 @@ if (document.querySelector('#play-view')) {
           $('#current-time').text(displayTime);
           $('#create-note-text').text(`New note at ${displayTime}`);
           setUiToTime(currentTime);
+          if(currentTime == 0){currentNote = null};
           updateAutoScroll();
         };
         // TODO: Fails if you fast-forward past the end while paused
@@ -140,8 +141,8 @@ if (document.querySelector('#play-view')) {
 
     function notePinHtml(note){
       return `
-        <span class='note-pin'>
-          <svg width="17" height="17" fill="rgb(54, 125, 119)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+        <span class='note-pin' data-note-id=${note.id}>
+          <svg width="25" height="25" fill="rgb(54, 125, 119)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
             <path id="book-open-text" d="M25.99994,5h-6a4.99548,4.99548,0,0,0-4,2.00311,4.99548,4.99548,0,0,0-4-2.00311h-6a3.00335,3.00335,0,0,0-3,3V23a3,3,0,0,0,3,3h6a1.25185,1.25185,0,0,1,1.15454.77246A2.00011,2.00011,0,0,0,14.99634,28h2.00708a2.0004,2.0004,0,0,0,1.84241-1.22858A1.24982,1.24982,0,0,1,19.9989,26h6.001a3,3,0,0,0,3-3V8A3.00336,3.00336,0,0,0,25.99994,5Zm-11,19.00049h-.18359A2.99129,2.99129,0,0,0,11.99994,22h-6a1,1,0,0,1-1-1V8a1,1,0,0,1,1-1h6a3,3,0,0,1,3,3Zm12-3.00049a1,1,0,0,1-1,1h-6a2.99128,2.99128,0,0,0-2.81641,2.00049h-.18359V10a3,3,0,0,1,3-3h6a1,1,0,0,1,1,1Zm-14-3.5v1a.5.5,0,0,1-.5.5h-5a.5.5,0,0,1-.5-.5v-1a.5.5,0,0,1,.5-.5h5A.5.5,0,0,1,12.99994,17.5Zm0-4v1a.5.5,0,0,1-.5.5h-5a.5.5,0,0,1-.5-.5v-1a.5.5,0,0,1,.5-.5h5A.5.5,0,0,1,12.99994,13.5Zm0-4v1a.5.5,0,0,1-.5.5h-5a.5.5,0,0,1-.5-.5v-1a.5.5,0,0,1,.5-.5h5A.5.5,0,0,1,12.99994,9.5Zm12,0v1a.5.5,0,0,1-.5.5h-5a.5.5,0,0,1-.5-.5v-1a.5.5,0,0,1,.5-.5h5A.5.5,0,0,1,24.99994,9.5Zm-2,8v1a.5.5,0,0,1-.5.5h-3a.5.5,0,0,1-.5-.5v-1a.5.5,0,0,1,.5-.5h3A.5.5,0,0,1,22.99994,17.5Zm2-4v1a.5.5,0,0,1-.5.5h-5a.5.5,0,0,1-.5-.5v-1a.5.5,0,0,1,.5-.5h5A.5.5,0,0,1,24.99994,13.5Z"/>
           </svg>
         </span>
@@ -233,8 +234,13 @@ if (document.querySelector('#play-view')) {
         behavior: 'smooth',
         block: 'center'
       });
-      let staticColor = $(note).css('background-color');
-      $(note).find('.note-text').animate({backgroundColor: '#ffffed'}, 400).animate({backgroundColor: staticColor}, 400);
+      let notePin = $(`.note-pin[data-note-id="${$(note).data('note-id')}"]`);
+      let noteTextDiv = $(note).find('.note-text'); 
+      let textBackroundColor = noteTextDiv.css('background-color');
+      noteTextDiv.animate({backgroundColor: '#ffffed'}, 400).animate({backgroundColor: textBackroundColor}, 400);
+      notePin.find('svg').animate({backgroundColor: '#ffffd1'}, 400).animate({backgroundColor: 'white'}, 400);
+      console.log(notePin);
+      console.log(notePin.find('svg'));
     }
   }
 
