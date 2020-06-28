@@ -32,7 +32,7 @@ class RecordingsController < ApplicationController
     recording = fetch_recording(params[:id])
     if recording
       render json: {
-        notes: recording.notes,
+        notes: recording.notes.order(at: :asc, created_at: :desc),
         status: 200
       }
     end
