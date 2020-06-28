@@ -49,6 +49,7 @@ class RecordingsController < ApplicationController
       end
       if note
         note.text = params[:text]
+        note.at = params[:note_at]
         if note.save
           render json: {status: 200}
         else
