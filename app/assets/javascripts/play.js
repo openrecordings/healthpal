@@ -214,13 +214,14 @@ if (document.querySelector('#play-view')) {
     let currentTime = document.getElementById('video-element').currentTime;
     let notesBeforeNow = sortedNotes().filter(function(){return $(this).data('note-at') <= currentTime});
     let note = notesBeforeNow[notesBeforeNow.length - 1];
-    let foo = $(sortedNotes()[0]);
     if(note && note != currentNote){
       currentNote = note;
       note.scrollIntoView({
         behavior: 'smooth',
         block: 'center'
       });
+      let staticColor = $(note).css('background-color');
+      $(note).find('.note-text').animate({backgroundColor: '#ffffed'}, 400).animate({backgroundColor: staticColor}, 400);
     }
   }
 
