@@ -6,6 +6,7 @@ if (document.querySelector('#play-view')) {
   var playheadRadius = null;
   var lastTime = 0.0;
   var animationDuration = 300;
+  var currentNote = null;
 
   // Selection/playback pane visibility
   /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -65,9 +66,7 @@ if (document.querySelector('#play-view')) {
           $('#current-time').text(displayTime);
           $('#create-note-text').text(`New note at ${displayTime}`);
           setUiToTime(currentTime);
-          // !!! DISABLED TAG TABLE FUNCTIONS !!!
-          // updateTableHighlighting(currentTime);
-          // scrollTable();
+          updateAutoScroll();
         };
         // TODO: Fails if you fast-forward past the end while paused
         videoElement.onended = function () {
@@ -113,9 +112,7 @@ if (document.querySelector('#play-view')) {
             <svg width="17" height="17" fill="rgb(54, 125, 119)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
               <path id="play" d="M24.8175,16.86432,9.503,25.77667A1,1,0,0,1,8,24.91235V7.08765a1,1,0,0,1,1.503-.86432L24.8175,15.13568A1.00006,1.00006,0,0,1,24.8175,16.86432Z"/>
             </svg>
-              <span>
-              Play at ${toMmSs(note.at)}
-            </span>
+              <span>Play at ${toMmSs(note.at)}</span>
           </span>
           <span class='edit-note'>
             <svg width="17" height="17" fill="rgb(54, 125, 119)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
@@ -210,6 +207,35 @@ if (document.querySelector('#play-view')) {
     if (videoElement.paused) {
       togglePlayPause();
     }
+  }
+
+  // Autoscroll
+  function updateAutoScroll(){
+    let currentTime = document.getElementById('video-element').currentTime;
+    let notesBeforeNow = sortedNotes().filter(function(){return $(this).data('note-at') <= currentTime});
+    let note = notesBeforeNow[notesBeforeNow.length - 1];
+    let foo = $(sortedNotes()[0]);
+    if(note && note != currentNote){
+      currentNote = note;
+      note.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+      });
+    }
+  }
+
+  function sortedNotes(){
+    return $('.note').sort(function(a, b) {
+      if ($(a).data('note-at') > $(b).data('note-at')) {
+        return 1;
+      }
+      else if ($(a).data('note-at') < $(b).data('note-at')) {
+        return -1;
+      }
+      else {
+        return 0
+      }
+    });
   }
 
   $(document).ready(function () {
