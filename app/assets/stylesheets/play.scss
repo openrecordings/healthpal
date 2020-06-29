@@ -229,7 +229,10 @@
           }
           span.note-pin{
             position: absolute;
-            top: -22px;
+            top: -25px;
+            &:hover{
+              cursor: pointer;
+            }
           }
         }
         #time{
