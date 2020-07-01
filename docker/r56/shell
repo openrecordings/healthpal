@@ -1,2 +1,0 @@
-echo "Starting a bash shell in the orals-dev-app container"
-docker exec -it orals-dev-app /bin/bash
