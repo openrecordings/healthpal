@@ -38,28 +38,33 @@ if (document.querySelector('#play-view')) {
       console.log('Called loadVideo() but recordingId is null!');
       return;
     }
-    $.get(`/get_metadata/${recordingId}`, function (data) {
-      if (data) {
+    $.get(`/get_metadata/${recordingId}`).done(function (data) {
+      if (data.error) {
+        console.log(data.error);
+        return;
+      } else {
+        console.log('loading video');
         // NOTE: We actually use an audio element for now so that Safari iOS doesn't override the player UI
         $('#video-container').html(`
-          <audio id=video-element>
-            <source src=${data.url} type="audio/mp3">
-          </audio>`
+            <audio id=video-element>
+              <source src=${data.url} type="audio/mp3">
+            </audio>`
         );
         $('#recording-title').text(data.title);
         $('#edit-recording-title').val(data.title);
         if (data.provider && data.provider.length > 0) {
           $('#recording-provider').text(data.provider);
           $('#edit-recording-provider').val(data.provider);
-        }
+        };
         $('#recording-date').text(data.date);
         $('#recording-days-ago').text(data.days_ago);
-        var videoElement = document.getElementById('video-element');
+        let videoElement = document.getElementById('video-element');
         videoElement.volume = playVolume;
-        skipToTime(0);
         videoElement.ondurationchange = function () {
           $('#duration').text(toMmSs(videoElement.duration));
-        }
+          loadNotes();
+          skipToTime(0);
+        };
         videoElement.ontimeupdate = function () {
           let currentTime = videoElement.currentTime;
           let displayTime = toMmSs(currentTime);
@@ -73,14 +78,12 @@ if (document.querySelector('#play-view')) {
         videoElement.onended = function () {
           togglePlayPauseButton();
         };
-        loadNotes();
-      } else {
-        console.log(data.error)
       }
-    })
+    });
   }
 
   function loadNotes() {
+    console.log('loading notes');
     let notesHeader = $('#notes-header');
     let notesContainer = $('#notes-container');
     let noNotes = $('#no-notes');
@@ -105,8 +108,8 @@ if (document.querySelector('#play-view')) {
           timelineContainer.append(notePinHtml(note))
         });
       };
-    }).done(function(){
-      console.log('here');
+    }).done(function () {
+      // Postitions note pins via call to setUiToTime() at the current time
       $(window).resize();
     });
 
@@ -215,11 +218,12 @@ if (document.querySelector('#play-view')) {
     if (newPlayheadPx > timelineWidth - 2 * playheadRadius) { newPlayheadPx = timelineWidth - 2 * playheadRadius };
     playhead.css({ left: newPlayheadPx });
     progressBar.css({ width: newPlayheadPx });
-    $('.note').each(function(){
+    $('.note').each(function () {
       let notePin = $(`.note-pin[data-note-id="${$(this).data('note-id')}"]`);
       let pinLeftPx = $(this).data('note-at') * pxPerSec - playheadRadius - 2;
       if (pinLeftPx < 0) { pinLeftPx = 0 };
       if (pinLeftPx > timelineWidth - 2 * playheadRadius) { pinLeftPx = timelineWidth - 2 * playheadRadius };
+      console.log(pinLeftPx);
       notePin.css('left', pinLeftPx);
     });
   }
@@ -286,10 +290,13 @@ if (document.querySelector('#play-view')) {
     playerPadding = parseInt($('#player-container').css('padding-left'), 10);
     playheadRadius = $('#playhead').width() / 2;
 
-    $(window).resize(function(){
+    $(window).resize(function () {
+      console.log('called resize');
       if (recordingId != null) {
+        console.log('got recording ID');
         let videoElement = document.getElementById('video-element');
         if ($(videoElement).length > 0) {
+          console.log('got video element');
           setUiToTime(videoElement.currentTime);
         }
       }
@@ -302,6 +309,7 @@ if (document.querySelector('#play-view')) {
     //////////////////////
     $('.recording-list-item').click(function () {
       recordingId = $(this).data('recording-id');
+      console.log('calling loadVideo()');
       loadVideo();
       showPlaybackOnly();
     })
