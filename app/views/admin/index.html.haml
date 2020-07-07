@@ -5,7 +5,6 @@
   %p= button_to 'Switch to Existing User', switch_user_select_path, class: 'button', method: :get
   - if current_user.root?
     %p= button_to 'Create New Organization', new_org_path, class: 'button', method: :get
-    %p= button_to 'Create Admin Account', new_admin_path, class: 'button', method: :get
   %p.margin-top-40 Existing users
   - if current_user.root?
     %table
