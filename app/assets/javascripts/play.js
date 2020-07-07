@@ -43,7 +43,6 @@ if (document.querySelector('#play-view')) {
         console.log(data.error);
         return;
       } else {
-        console.log('loading video');
         // NOTE: We actually use an audio element for now so that Safari iOS doesn't override the player UI
         $('#video-container').html(`
             <audio id=video-element>
@@ -83,7 +82,6 @@ if (document.querySelector('#play-view')) {
   }
 
   function loadNotes() {
-    console.log('loading notes');
     let notesHeader = $('#notes-header');
     let notesContainer = $('#notes-container');
     let noNotes = $('#no-notes');
@@ -223,7 +221,6 @@ if (document.querySelector('#play-view')) {
       let pinLeftPx = $(this).data('note-at') * pxPerSec - playheadRadius - 2;
       if (pinLeftPx < 0) { pinLeftPx = 0 };
       if (pinLeftPx > timelineWidth - 2 * playheadRadius) { pinLeftPx = timelineWidth - 2 * playheadRadius };
-      console.log(pinLeftPx);
       notePin.css('left', pinLeftPx);
     });
   }
@@ -291,12 +288,9 @@ if (document.querySelector('#play-view')) {
     playheadRadius = $('#playhead').width() / 2;
 
     $(window).resize(function () {
-      console.log('called resize');
       if (recordingId != null) {
-        console.log('got recording ID');
         let videoElement = document.getElementById('video-element');
         if ($(videoElement).length > 0) {
-          console.log('got video element');
           setUiToTime(videoElement.currentTime);
         }
       }
@@ -309,7 +303,6 @@ if (document.querySelector('#play-view')) {
     //////////////////////
     $('.recording-list-item').click(function () {
       recordingId = $(this).data('recording-id');
-      console.log('calling loadVideo()');
       loadVideo();
       showPlaybackOnly();
     })
