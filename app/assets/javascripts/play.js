@@ -104,8 +104,10 @@ if (document.querySelector('#play-view')) {
           notesContainer.append(noteHtml(note))
           timelineContainer.append(notePinHtml(note))
         });
-        setUiToTime(0);
       };
+    }).done(function(){
+      console.log('here');
+      $(window).resize();
     });
 
     function noteHtml(note) {
