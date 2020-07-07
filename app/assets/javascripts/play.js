@@ -287,7 +287,7 @@ if (document.querySelector('#play-view')) {
     $(window).resize(function(){
       if (recordingId != null) {
         let videoElement = document.getElementById('video-element');
-        if (videoElement.length > 0) {
+        if ($(videoElement).length > 0) {
           setUiToTime(videoElement.currentTime);
         }
       }
