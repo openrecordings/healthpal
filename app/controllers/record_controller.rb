@@ -48,9 +48,9 @@ class RecordController < ApplicationController
     `rm #{filepath}`  
     if recording.save!
       recording.transcribe
-      flash.alert = 'Your recording is being processed. We will email you when it is ready.'
+      # flash.alert = 'Your recording is being processed. We will email you when it is ready.'
     else
-      flash.alert = recording.errors.full_messages
+      # flash.alert = recording.errors.full_messages
     end
     flash.keep(:alert)
     if is_file_upload

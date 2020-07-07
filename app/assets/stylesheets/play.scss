@@ -142,6 +142,7 @@
               background-color: $color-9;
               border: 2px solid $color-8;
               border-radius: 4px 4px 0 4px;
+              white-space: pre-wrap;
             }
             .note-controls{
               display: flex;
@@ -198,6 +199,7 @@
           position: relative;
           width: 100%;
           box-sizing: border-box;
+          margin-top: 15px;
           margin-bottom: 30px;
           #timeline{
             background-color: $color-6;
@@ -225,10 +227,19 @@
             transition-timing-function: linear;
             border-radius: $playhead-radius;
           }
+          span.note-pin{
+            position: absolute;
+            top: -25px;
+            left: 0;
+            &:hover{
+              cursor: pointer;
+            }
+          }
         }
         #time{
           display: flex;
           justify-content: space-between;
+          padding-top: 7px;
           padding-bottom: 10px;
           font-size: 14px;
         }

@@ -1,10 +1,12 @@
 if (document.querySelector('#play-view')) {
+  // TODO: recordingId should not be global. Works now but will not scale. Each function should fetch it.
   var recordingId = null;
   var playVolume = 1.0;
   var playerPadding = null;
   var playheadRadius = null;
   var lastTime = 0.0;
   var animationDuration = 300;
+  var currentNote = null;
 
   // Selection/playback pane visibility
   /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -60,11 +62,12 @@ if (document.querySelector('#play-view')) {
         }
         videoElement.ontimeupdate = function () {
           let currentTime = videoElement.currentTime;
-          $('#current-time').text(toMmSs(currentTime));
+          let displayTime = toMmSs(currentTime);
+          $('#current-time').text(displayTime);
+          $('#create-note-text').text(`New note at ${displayTime}`);
           setUiToTime(currentTime);
-          // !!! DISABLED TAG TABLE FUNCTIONS !!!
-          // updateTableHighlighting(currentTime);
-          // scrollTable();
+          if(currentTime == 0){currentNote = null};
+          updateAutoScroll();
         };
         // TODO: Fails if you fast-forward past the end while paused
         videoElement.onended = function () {
@@ -82,6 +85,7 @@ if (document.querySelector('#play-view')) {
     let notesContainer = $('#notes-container');
     let noNotes = $('#no-notes');
     $('.note').remove();
+    $('.note-pin').remove();
     $.get(`/get_notes/${recordingId}`, function(data){
       if(data.error){
         console.log(data.error);
@@ -95,26 +99,24 @@ if (document.querySelector('#play-view')) {
         notesHeader.show();
         notesContainer.show();
         noNotes.hide();
+        let timelineContainer = $('#timeline-container');
         data.notes.forEach(function(note){
           notesContainer.append(noteHtml(note))
+          timelineContainer.append(notePinHtml(note))
         });
       };
     });
 
     function noteHtml(note){
       return `
-      <div class='note' data-recording-id=${recordingId}, data-note-id=${note.id}, data-note-at=${note.at}>
-        <div class='note-text'>
-          ${note.text}
-        </div>
+      <div class='note' data-recording-id=${recordingId} data-note-id=${note.id} data-note-at=${note.at}>
+        <div class='note-text'>${note.text}</div>
         <div class='note-controls'>
           <span class='play-at'>
             <svg width="17" height="17" fill="rgb(54, 125, 119)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
               <path id="play" d="M24.8175,16.86432,9.503,25.77667A1,1,0,0,1,8,24.91235V7.08765a1,1,0,0,1,1.503-.86432L24.8175,15.13568A1.00006,1.00006,0,0,1,24.8175,16.86432Z"/>
             </svg>
-            <span>
-              Play at ${toMmSs(note.at)}
-            </span>
+              <span>Play at ${toMmSs(note.at)}</span>
           </span>
           <span class='edit-note'>
             <svg width="17" height="17" fill="rgb(54, 125, 119)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
@@ -136,10 +138,34 @@ if (document.querySelector('#play-view')) {
       </div>
       `
     }
+
+    function notePinHtml(note){
+      let videoElement = document.getElementById('video-element');
+      let duration = $(videoElement).prop('duration');
+      let timeline = $('#timeline');
+      let timelineWidth = timeline.width();
+      let pxPerSec = timelineWidth / duration;
+      // Magic number lines up icon over playhead
+      let pinLeftPx = note.at * pxPerSec - playheadRadius - 2;
+      if(pinLeftPx < 0){pinLeftPx = 0};
+      if (pinLeftPx > timelineWidth - 2 * playheadRadius) { pinLeftPx = timelineWidth - 2 * playheadRadius };
+      return `
+        <span class='note-pin' data-note-id=${note.id} style="left:${pinLeftPx}px;">
+          <svg width="25" height="25" fill="rgb(54, 125, 119)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+            <path id="book-open-text" d="M25.99994,5h-6a4.99548,4.99548,0,0,0-4,2.00311,4.99548,4.99548,0,0,0-4-2.00311h-6a3.00335,3.00335,0,0,0-3,3V23a3,3,0,0,0,3,3h6a1.25185,1.25185,0,0,1,1.15454.77246A2.00011,2.00011,0,0,0,14.99634,28h2.00708a2.0004,2.0004,0,0,0,1.84241-1.22858A1.24982,1.24982,0,0,1,19.9989,26h6.001a3,3,0,0,0,3-3V8A3.00336,3.00336,0,0,0,25.99994,5Zm-11,19.00049h-.18359A2.99129,2.99129,0,0,0,11.99994,22h-6a1,1,0,0,1-1-1V8a1,1,0,0,1,1-1h6a3,3,0,0,1,3,3Zm12-3.00049a1,1,0,0,1-1,1h-6a2.99128,2.99128,0,0,0-2.81641,2.00049h-.18359V10a3,3,0,0,1,3-3h6a1,1,0,0,1,1,1Zm-14-3.5v1a.5.5,0,0,1-.5.5h-5a.5.5,0,0,1-.5-.5v-1a.5.5,0,0,1,.5-.5h5A.5.5,0,0,1,12.99994,17.5Zm0-4v1a.5.5,0,0,1-.5.5h-5a.5.5,0,0,1-.5-.5v-1a.5.5,0,0,1,.5-.5h5A.5.5,0,0,1,12.99994,13.5Zm0-4v1a.5.5,0,0,1-.5.5h-5a.5.5,0,0,1-.5-.5v-1a.5.5,0,0,1,.5-.5h5A.5.5,0,0,1,12.99994,9.5Zm12,0v1a.5.5,0,0,1-.5.5h-5a.5.5,0,0,1-.5-.5v-1a.5.5,0,0,1,.5-.5h5A.5.5,0,0,1,24.99994,9.5Zm-2,8v1a.5.5,0,0,1-.5.5h-3a.5.5,0,0,1-.5-.5v-1a.5.5,0,0,1,.5-.5h3A.5.5,0,0,1,22.99994,17.5Zm2-4v1a.5.5,0,0,1-.5.5h-5a.5.5,0,0,1-.5-.5v-1a.5.5,0,0,1,.5-.5h5A.5.5,0,0,1,24.99994,13.5Z"/>
+          </svg>
+        </span>
+      `
+    }
   }
 
   // Playback utilities
   /////////////////////////////////////////////////////////////////////////////////////////////////
+  function pause(){
+    let videoElement = document.getElementById('video-element');
+    if(!videoElement.paused){togglePlayPause()};
+  }
+
   function togglePlayPause() {
     let videoElement = document.getElementById('video-element');
     if (videoElement.paused) {
@@ -183,14 +209,14 @@ if (document.querySelector('#play-view')) {
     let playhead = $('#playhead');
     let progressBar = $('#progress-bar');
     let timelineWidth = timeline.width();
-    let PxPerSec = timelineWidth / duration;
+    let pxPerSec = timelineWidth / duration;
     let animationDuration = '0';
     // A crude way to avoid async animations getting mucked up when skipping around in the recording
     if(Math.abs(timeDelta) < 1.0){ animationDuration = timeDelta };
     lastTime = newTime;
     playhead.css('transition-duration', `${animationDuration}s`);
     progressBar.css('transition-duration', `${animationDuration}s`);
-    let newPlayheadPx = PxPerSec * newTime - playheadRadius;
+    let newPlayheadPx = pxPerSec * newTime - playheadRadius;
     if (newPlayheadPx < 0) { newPlayheadPx = 0 };
     if (newPlayheadPx > timelineWidth - 2 * playheadRadius) { newPlayheadPx = timelineWidth - 2 * playheadRadius };
     playhead.css({ left: newPlayheadPx });
@@ -209,6 +235,41 @@ if (document.querySelector('#play-view')) {
     if (videoElement.paused) {
       togglePlayPause();
     }
+  }
+
+  // Autoscroll
+  function updateAutoScroll(){
+    let currentTime = document.getElementById('video-element').currentTime;
+    let notesBeforeNow = sortedNotes().filter(function(){return $(this).data('note-at') <= currentTime});
+    let note = notesBeforeNow[notesBeforeNow.length - 1];
+    if(note && note != currentNote){
+      currentNote = note;
+      note.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+      });
+      let notePin = $(`.note-pin[data-note-id="${$(note).data('note-id')}"]`);
+      let noteTextDiv = $(note).find('.note-text'); 
+      let textBackroundColor = noteTextDiv.css('background-color');
+      noteTextDiv.animate({backgroundColor: '#ffffed'}, 400).animate({backgroundColor: textBackroundColor}, 400);
+      notePin.find('svg').animate({backgroundColor: '#ffffd1'}, 400).animate({backgroundColor: 'white'}, 400);
+      console.log(notePin);
+      console.log(notePin.find('svg'));
+    }
+  }
+
+  function sortedNotes(){
+    return $('.note').sort(function(a, b) {
+      if ($(a).data('note-at') > $(b).data('note-at')) {
+        return 1;
+      }
+      else if ($(a).data('note-at') < $(b).data('note-at')) {
+        return -1;
+      }
+      else {
+        return 0
+      }
+    });
   }
 
   $(document).ready(function () {
@@ -286,31 +347,6 @@ if (document.querySelector('#play-view')) {
       $('#mute-glyph, #unmute-glyph, #mute-label, #unmute-label').toggleClass('hidden');
     })
 
-    // Notes
-    //////////////////////
-    $(document).on('click', '.play-at',function(){ 
-      playAt($(this).closest('.note').data('note-at'))
-    });
-
-    $(document).on('click', '.edit-note',function(){ 
-      let note = $(this).closest('.note');
-      let noteAt = note.data('note-at');
-      let noteId = note.data('note-id');
-      let form = $('#note-form');
-      form.data('note-id', noteId);
-      form.data('note-at', noteAt);
-      $('#note-form-title').text(`Note at ${toMmSs(noteAt)}`);
-      $('#note-overlay').hide().fadeIn(200);
-      $('#note-overlay').css('visibility', 'visible');
-    });
-
-    $(document).on('click', '.delete-note',function(){ 
-      let note = $(this).closest('.note');
-      let noteId = note.data('note-id');
-      $(note).remove();
-      // TODO: Ajax delete note
-    });
-
     // Metadata
     //////////////////////
     $('#header-left').click(function(){
@@ -338,6 +374,80 @@ if (document.querySelector('#play-view')) {
       }
       $.post('/update_metadata', {id: recordingId, title: title, provider: provider});
       $('#metadata-cancel').click();
+    });
+
+    // Notes
+    //////////////////////
+    $(document).on('click', '.note-pin',function(){ 
+      let note = $(`.note[data-note-id="${$(this).data('note-id')}"]`)[0];
+      console.log(note);
+      pause();
+      note.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+      });
+      skipToTime($(note).data('note-at'));
+    });
+
+    $(document).on('click', '.play-at',function(){ 
+      playAt($(this).closest('.note').data('note-at'))
+    });
+
+    $(document).on('click', '#create-note',function(){ 
+      let noteAt = document.getElementById('video-element').currentTime;
+      let form = $('#note-form');
+      form.data('note-id', null);
+      form.data('note-at', noteAt);
+      $('#note-form-title').text(`New note at ${toMmSs(noteAt)}`);
+      $('#note-overlay').hide().fadeIn(200);
+      $('#note-overlay').css('visibility', 'visible');
+    });
+
+    $(document).on('click', '.edit-note',function(){ 
+      let note = $(this).closest('.note');
+      let noteAt = note.data('note-at');
+      let noteId = note.data('note-id');
+      let text = note.find('.note-text').html();
+      let form = $('#note-form');
+      form.data('note-id', noteId);
+      form.data('note-at', noteAt);
+      $('#edit-note').text(text);
+      $('#note-form-title').text(`Note at ${toMmSs(noteAt)}`);
+      $('#note-overlay').hide().fadeIn(200);
+      $('#note-overlay').css('visibility', 'visible');
+    });
+
+    $(document).on('click', '#note-save', function(){ 
+      let form = $('#note-form');
+      let noteId = form.data('note-id');
+      let text = $('#edit-note').val();
+      let noteAt = form.data('note-at');
+      if(noteId){
+        let note = $(`.note[data-note-id=${noteId}]`);
+        note.find('.note-text').text(text);
+      }
+      $.post('/upsert_note', {
+        id: recordingId,
+        note_id: noteId,
+        note_at: noteAt,
+        text: text
+      }).done(function(){
+        $('#note-cancel').click();
+        loadNotes();
+      });
+    });
+
+    $(document).on('click', '.delete-note',function(){ 
+      let note = $(this).closest('.note');
+      let noteId = note.data('note-id');
+      $(note).slideUp(150);
+      $(note).promise().done(function(){
+        $(note).remove();
+      })
+      $.post('/delete_note', {
+        id: recordingId,
+        note_id: noteId,
+      })
     });
 
   })

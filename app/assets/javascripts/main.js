@@ -14,7 +14,7 @@ $(document).ready(function() {
 
   $('.phone-number').mask('(000) 000-0000');
 
-  $('.cancel').click(function(e){
+  $('.modal-cancel').click(function(e){
     let overlay = $(this).closest('.overlay');
     let formLabels = overlay.find('.form-label');
     $(overlay).fadeOut(200);
@@ -24,7 +24,7 @@ $(document).ready(function() {
   // Keyboard support for disposing and saving overlay forms
   $(document).keyup(function(e) {
     if(e.keyCode === 27) $('.modal-cancel:visible').trigger('click');
-    if(e.keyCode === 13) $('.modal-save:visible').trigger('click');
+    if(e.keyCode === 13) $('.modal-save.enter-submit:visible').trigger('click');
   });
   
 });

@@ -12,7 +12,7 @@
         .input-underscore
         .save-cancel-buttons
           #metadata-cancel.cancel.modal-cancel Cancel
-          #metadata-save.save.modal-save Save
+          #metadata-save.save.modal-save.enter-submit Save
 
   #note-overlay.overlay.invisible
     .modal-form-container
@@ -41,12 +41,10 @@
           #recording-date
           #recording-days-ago
 
-      #----------------------------------------------------------------
       #notes-header.hidden Your Notes
       #notes
         #no-notes Your notes for this recording will appear here
         #notes-container.hidden
-      #----------------------------------------------------------------
 
       #player-border
       #player
@@ -84,5 +82,5 @@
           = inline_svg('arrow-left.svg', class: 'small-svg')
           %span.text-with-svg Select
         #create-note
-          %span.text-with-svg New note
+          %span#create-note-text.text-with-svg New note at 00:00
           = inline_svg('plus.svg', class: 'small-svg')

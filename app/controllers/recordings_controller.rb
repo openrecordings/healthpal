@@ -32,7 +32,7 @@ class RecordingsController < ApplicationController
     recording = fetch_recording(params[:id])
     if recording
       render json: {
-        notes: recording.notes,
+        notes: recording.notes.order(at: :asc, created_at: :desc),
         status: 200
       }
     end
@@ -40,15 +40,16 @@ class RecordingsController < ApplicationController
 
   # AJAX POST create or update a RecordingNote
   def upsert_note
-    recording = fetch_recording(params[:recording_id])
-  if recording
-      if params[:note_id]
-        note = Recording.note.find_by(params[:note_id])
+    recording = fetch_recording(params[:id])
+    if recording
+      if params[:note_id].present?
+        note = RecordingNote.find_by(id: params[:note_id])
       else
-        note = Note.new(recording: recording) 
+        note = RecordingNote.new(recording: recording) 
       end
       if note
         note.text = params[:text]
+        note.at = params[:note_at]
         if note.save
           render json: {status: 200}
         else
@@ -57,14 +58,15 @@ class RecordingsController < ApplicationController
             status: 500
           }
         end
+      end
     end
   end
 
   # AJAX delete a note
   def delete_note
-    recording = fetch_recording(params[:recording_id])
+    recording = fetch_recording(params[:id])
     if recording
-      if Note.find_by(:note_id).destroy
+      if RecordingNote.find_by(id: params[:note_id]).destroy
           render json: {status: 200}
       else
           render json: {
