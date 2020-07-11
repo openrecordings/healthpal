@@ -30,10 +30,15 @@ class AdminController < ApplicationController
   end
 
   def new_org
+    @org = Org.new #Why?
   end
 
   def create_org
-    @org = Org.create(name: params['name'])
+    @org = Org.new(name: params['name'])
+
+    unless @org.save
+      flash.alert = @org.errors.full_messages #How to make error message show when we reload page?
+    end
   end
 
   # Start the workflow for doing an in-clinic user registration
