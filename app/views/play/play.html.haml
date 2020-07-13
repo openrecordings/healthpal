@@ -120,15 +120,13 @@
                   %td.tag-cell.hidden{'data-start-time': utterance.begins_at}
 
     #sidebar
+      #search-container
+        #filer-header
+          = t(:by_text)
+        %input#search-input.user-field-content
       #filter-container
         #filter-header
           = t(:filter)
-        #search-container
-          .user-field-content.no-input
-            = t(:by_text)
-          %input#search-input.user-field-content
-          .user-field-content.no-input
-            = t(:by_topics)
         #filters
           - TagType.all.order(:label).each do |tag_type|
             .filter-button{'data-tag-type-id': tag_type.id, class: "filter-#{tag_type.id}" }

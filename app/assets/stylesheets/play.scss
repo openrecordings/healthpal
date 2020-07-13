@@ -237,13 +237,27 @@
 @mixin sidebar{
   #sidebar {
     grid-area: sidebar;
-    #filter-container{
+    #search-container{
       display: flex;
       flex-direction: column;
       align-items: center;
       width: 340px;
       padding-bottom: 10px;
       margin: 0 auto;
+      border: 1px solid $background-very-light;
+      border-radius: 3px;
+      #search-input{
+        display: flex;
+        width: 190px;
+      }
+    }
+    #filter-container{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 340px;
+      padding-bottom: 10px;
+      margin: 25px auto;
       border: 1px solid $background-very-light;
       border-radius: 3px;
       #filter-header{
@@ -257,21 +271,6 @@
         font-size: 24px;
         color: #fff;
         border-radius: 3px;
-      }
-      #search-container{
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-items: left;
-        flex-wrap: wrap;
-        padding-top: 5px;
-        padding-left: 10px;
-        height: 70px;
-        width: 300px;
-        #search-input{
-          display: flex;
-          width: 190px;
-        }
       }
       #filter-by-topics{
         display: flex;

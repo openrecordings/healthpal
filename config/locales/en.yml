@@ -33,10 +33,10 @@ en:
   topics_discussed: Topics discussed
   links_to_external_information: Links to external information
   no_results: No results found for that topic
-  filter: Filter
+  filter: Choose topics to view
   by_text: by Text
   by_topics: by Topics
-  clear_all_filters: Clear all filters
+  clear_all_filters: View all topics
   want_to_share: Do you want to give someone else access to your recordings?
   out_of_here: No. Get me out of here!
   share_recordings: Share Recordings
