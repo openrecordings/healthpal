@@ -1,7 +1,7 @@
 #new-org-form.centered-form-container
   %p.form-title
     Enter information for new organization
-  = form_with(url: create_org_path) do |f|
+  = form_for(Org.new, url: create_org_path) do |f|
     .form-field-container.field-centered
       .form-label.margin-top-20
         Organization name

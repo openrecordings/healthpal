@@ -30,14 +30,17 @@ class AdminController < ApplicationController
   end
 
   def new_org
-    @org = Org.new #Why?
   end
 
   def create_org
-    @org = Org.new(name: params['name'])
+    @org = Org.new(org_params)
 
-    unless @org.save
-      flash.alert = @org.errors.full_messages #How to make error message show when we reload page?
+    if @org.save
+      flash.notice = "Org #{@org.name} saved"
+      redirect_to :root
+    else
+      flash.alert = @org.errors.full_messages
+      redirect_to new_org_path
     end
   end
 
@@ -123,6 +126,12 @@ class AdminController < ApplicationController
       :sharer_id,
       :timezone,
       :org_id,
+    )
+  end
+
+  def org_params
+    params.require(:org).permit(
+      :name,
     )
   end
 
