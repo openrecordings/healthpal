@@ -224,13 +224,13 @@
     .link{
       z-index: 10;
       display: inline-block;
-      padding: 0 10px 10px 10px;
+      padding: 0 15px 15px 15px;
       margin-right: 10px;
       font-size: 16px;
       color: white;
       background-color: $background-light;
       text-decoration: none;
-      border-radius: 3px;
+      border-radius: 30px;
       &:hover{
         cursor: pointer;
         background-color: $background-very-light;
