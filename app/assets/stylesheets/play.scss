@@ -169,6 +169,7 @@
 @mixin tag-table{
   #tag-table {
     grid-area: table;
+    position: relative;
     overflow-y: scroll;
     border-collapse: collapse;
     border-top: 1px solid $well-background;
@@ -222,13 +223,17 @@
     }
     .link{
       z-index: 10;
-      padding: 8px;
-      font-size: 18px;
-      color: $background-dark;
-      text-decoration: underline;
+      display: inline-block;
+      padding: 0 10px 10px 10px;
+      margin-right: 10px;
+      font-size: 16px;
+      color: white;
+      background-color: $background-light;
+      text-decoration: none;
+      border-radius: 3px;
       &:hover{
         cursor: pointer;
-        color: $background-light;
+        background-color: $background-very-light;
       }
     }
   }
