@@ -248,8 +248,28 @@
       border-radius: 3px;
       #search-input{
         display: flex;
-        width: 190px;
+        width: 220px;
+        margin: 20px 0 10px 0;
+        padding: 5px;
+        border-radius: 3px;
+        border-style: solid;
+        border: 1px solid $background-light;
+        line-height: 25px;
+        box-shadow: none;
+        font-size: 18px;
       }
+    }
+    #filter-header{
+      display: flex;
+      flex-direction: column;
+      align-self: left;
+      width: 322px;
+      padding: 10px;
+      margin-top: -1px;
+      background-color: $background-dark;
+      font-size: 20px;
+      color: #fff;
+      border-radius: 3px;
     }
     #filter-container{
       display: flex;
@@ -260,18 +280,6 @@
       margin: 25px auto;
       border: 1px solid $background-very-light;
       border-radius: 3px;
-      #filter-header{
-        display: flex;
-        flex-direction: column;
-        align-self: left;
-        width: 322px;
-        padding: 10px;
-        margin-top: -1px;
-        background-color: $background-dark;
-        font-size: 24px;
-        color: #fff;
-        border-radius: 3px;
-      }
       #filter-by-topics{
         display: flex;
         flex-direction: row;
@@ -324,6 +332,8 @@
       width: 200px;
       height: 30px;
       line-height: 15px;
+      margin-top: 10px;
+      margin-bottom: 10px;
       padding-left: 10px;
       padding-top: 14px;
       border-radius: 3px;

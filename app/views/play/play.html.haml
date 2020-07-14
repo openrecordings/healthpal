@@ -121,11 +121,11 @@
 
     #sidebar
       #search-container
-        #filer-header
-          = t(:by_text)
-        %input#search-input.user-field-content
-      #filter-container
         #filter-header
+          = t(:by_text)
+        %input#search-input
+      #filter-container
+        #filter-header.margin-bottom-20
           = t(:filter)
         #filters
           - TagType.all.order(:label).each do |tag_type|
