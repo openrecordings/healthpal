@@ -176,6 +176,19 @@ if(document.querySelector('#play-pause-button')) {
     autoScrollDisabled = false;
   })
 
+  $('.external-link').mouseover(function(){
+    let row = $(this).closest('.tag-row');
+    console.log('in');
+    row.removeClass('tag-row-hover');
+  })
+
+  $('.external-link').mouseout(function(){
+    let row = $(this).closest('.tag-row');
+    console.log('out');
+    row.addClass('tag-row-hover');
+  })
+
+
   // Playback control button listeners
   /////////////////////////////////////////////////////////////////////////////////////////////////
   $('#timeline').click(function(event){

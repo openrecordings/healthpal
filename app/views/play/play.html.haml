@@ -99,7 +99,7 @@
             %tr
               - if utterance.tmp_tag_types.any?
                 - tag_type_ids = utterance.tmp_tag_types.map{|t| t.id }
-                %tr.tag-row{'data-tag-type-ids': tag_type_ids,
+                %tr.tag-row.tag-row-hover{'data-tag-type-ids': tag_type_ids,
                   'data-text': utterance.text,
                   'data-start-time': utterance.begins_at,
                   'data-end-time': utterance.ends_at}
