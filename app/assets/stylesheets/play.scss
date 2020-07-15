@@ -286,6 +286,7 @@
         padding-top: 5px;;
       }
       .help-button{
+        position: relative;
         width: 24px;
         height: 24px;
         box-sizing: border-box;
@@ -293,6 +294,35 @@
         background-color: $background-light;
         color: white;
         border-radius: 12px;
+        .info-panel {
+          display: block;
+          position: absolute;
+          top: 15px;
+          right: -15px;
+          color: #333;
+          background: #FFFFFF;
+          padding: 15px;
+          border: 1px solid #DDDDDD;
+          margin-top: 20px;
+        }
+        .info-panel:before, .info-panel:after {
+          content: '';
+          display: block;
+          position: absolute;
+          bottom: 100%;
+          width: 0;
+          height: 0;
+        }
+        .info-panel:before {
+          right: 15px;
+          border: 11px solid transparent;
+          border-bottom-color: #ddd;
+        }
+        .info-panel:after {
+          right: 16px;
+          border: 10px solid transparent;
+          border-bottom-color: #fff;
+        }
       }
     }
     #filter-container{

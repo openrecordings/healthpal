@@ -129,7 +129,10 @@
       #filter-container
         .filter-header.margin-bottom-20
           .filter-header-text= t(:filter)
-          .help-button.full-center ?
+          .help-button.full-center
+            ?
+            .info-panel
+              This is helpful, if you really want to know the truth
         #filters
           - TagType.all.order(:label).each do |tag_type|
             .filter-button{'data-tag-type-id': tag_type.id, class: "filter-#{tag_type.id}" }
