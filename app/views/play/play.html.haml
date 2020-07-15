@@ -124,7 +124,14 @@
       #search-container
         .filter-header
           .filter-header-text= t(:by_text)
-          .help-button.full-center ?
+          .help-button.full-center
+            ?
+            -# .info-panel
+            -#   To highlight a point in your visit where a particular word or phrase
+            -#   was said, such as "prescription", type in the search field.
+            -#   %br
+            -#   %br
+            -#   To hide this help text, click on the X in the top-right corner.
         %input#search-input
       #filter-container
         .filter-header.margin-bottom-20
@@ -132,17 +139,9 @@
           .help-button.full-center
             ?
             .info-panel
-              This is helpful, if you really want to know the truth
-              This is helpful, if you really want to know the truth
-              This is helpful, if you really want to know the truth
-              This is helpful, if you really want to know the truth
-              This is helpful, if you really want to know the truth
-              This is helpful, if you really want to know the truth
-              This is helpful, if you really want to know the truth
-              This is helpful, if you really want to know the truth
-              This is helpful, if you really want to know the truth
-              This is helpful, if you really want to know the truth
-              This is helpful, if you really want to know the truth
+              If you want to highlight specific topics that came up during your visit,
+              click on one or more of the topic buttons. You can reset and view all topics by
+              clicking the bottom button at any time.
         #filters
           - TagType.all.order(:label).each do |tag_type|
             .filter-button{'data-tag-type-id': tag_type.id, class: "filter-#{tag_type.id}" }
@@ -152,3 +151,4 @@
               .filter-label= t(tag_type.label)
         #show-all-topics
           = t(:clear_all_filters)
+.overlay

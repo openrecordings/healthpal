@@ -96,7 +96,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 2;
+  z-index: 10;
 }
 
 .overlay {
@@ -255,3 +255,42 @@ body {
   color: #fff;
 }
 
+.help-button{
+  position: relative;
+  width: 24px;
+  height: 24px;
+  box-sizing: border-box;
+  padding-top: 3px;
+  background-color: $background-light;
+  color: white;
+  border-radius: 12px;
+}
+
+.info-panel {
+  display: block;
+  position: absolute;
+  z-index: 20;
+  width: 350px;
+  top: 20px;
+  right: -14px;
+  margin-top: 20px;
+  padding: 20px;
+  color: white;
+  font-size: 16px;
+  line-height: 20px;
+  background: $background-light;
+  border-radius: 3px;
+}
+.info-panel:before, .info-panel:after {
+  content: '';
+  display: block;
+  position: absolute;
+  bottom: 100%;
+  width: 0;
+  height: 0;
+}
+.info-panel:before {
+  right: 15px;
+  border: 11px solid transparent;
+  border-color: transparent transparent $background-light transparent;
+}
