@@ -259,12 +259,14 @@ body {
   position: relative;
   width: 24px;
   height: 24px;
-  z-index: 20;
   box-sizing: border-box;
   padding-top: 3px;
   background-color: $background-light;
   color: white;
   border-radius: 12px;
+  &:hover{
+    cursor: pointer;
+  }
 }
 
 .info-panel {
