@@ -122,12 +122,14 @@
 
     #sidebar
       #search-container
-        #filter-header
-          = t(:by_text)
+        .filter-header
+          .filter-header-text= t(:by_text)
+          .help-button.full-center ?
         %input#search-input
       #filter-container
-        #filter-header.margin-bottom-20
-          = t(:filter)
+        .filter-header.margin-bottom-20
+          .filter-header-text= t(:filter)
+          .help-button.full-center ?
         #filters
           - TagType.all.order(:label).each do |tag_type|
             .filter-button{'data-tag-type-id': tag_type.id, class: "filter-#{tag_type.id}" }

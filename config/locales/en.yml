@@ -31,10 +31,10 @@ en:
   unmute: Unmute
   start_end: Start - End
   topics_discussed: Topics discussed
-  links_to_external_information: Links to external information
+  links_to_external_information: Click on links for more information
   no_results: No results found for that topic
-  filter: Choose topics to view
-  by_text: Search visit text
+  filter: Select topics discussed during your visit
+  by_text: Search what was said during your visit
   by_topics: by Topics
   clear_all_filters: View all topics
   want_to_share: Do you want to give someone else access to your recordings?
