@@ -113,11 +113,6 @@ class TranscribeAwsJob < ApplicationJob
             ends_at: s['end_time'].to_i,
             text: segment_text
           )
-          # TODO Remove. This is only for demo purposes
-          Tag.create(
-            utterance: utterance,
-            tag_type_id: rand(1..4)
-          )
         end
       end
     end
