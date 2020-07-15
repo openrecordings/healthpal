@@ -297,13 +297,15 @@
         .info-panel {
           display: block;
           position: absolute;
+          width: 350px;
           top: 15px;
           right: -15px;
-          color: #333;
-          background: #FFFFFF;
-          padding: 15px;
-          border: 1px solid #DDDDDD;
           margin-top: 20px;
+          padding: 15px;
+          color: white;
+          font-size: 16px;
+          background: $background-light;
+          border-radius: 3px;
         }
         .info-panel:before, .info-panel:after {
           content: '';
@@ -316,12 +318,7 @@
         .info-panel:before {
           right: 15px;
           border: 11px solid transparent;
-          border-bottom-color: #ddd;
-        }
-        .info-panel:after {
-          right: 16px;
-          border: 10px solid transparent;
-          border-bottom-color: #fff;
+          border-color: transparent transparent $background-light transparent;
         }
       }
     }
