@@ -1,7 +1,7 @@
 desc "Load Linda's tags and links for usability testing"
 task linda_tags_and_links: :environment do
   # Set this based on the db ID of Lindas recording at the time
-  recording = Recording.find(1)
+  recording = Recording.find(9)
 
   @utterances.each_with_index do |u, i|
     # Crete the Utterance record
