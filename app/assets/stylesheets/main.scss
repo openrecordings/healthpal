@@ -212,7 +212,6 @@ body {
 .svg{
   height: 30px;
   width: 30px;
-  background-color: red;
 }
 
 .large-svg{
@@ -270,9 +269,10 @@ body {
 
 .info-panel {
   display: flex;
-  align-items: flex-start;
+  align-items: space-between;
   position: absolute;
   z-index: 20;
+  box-sizing: border-box;
   width: 350px;
   top: 15px;
   right: -14px;
@@ -283,8 +283,13 @@ body {
   line-height: 20px;
   background: $background-light;
   border-radius: 3px;
+  .info-text{
+    // background-color: blue;
+    width: 350px;
+  }
   .close-panel{
-    flex-grow: 0;
+    // background-color: yellowgreen;
+    width: 35px;
     transform: translate(5px, -5px);
   }
 }

@@ -126,14 +126,12 @@
           .filter-header-text= t(:by_text)
           .help-button.full-center
             ?
-            -# .info-panel
-            -#   To highlight a point in your visit where a particular word or phrase
-            -#   was said, such as "prescription", type in the search field.
-            -#   %br
-            -#   %br
-            -#   To hide this help text, click on the X in the top-right corner.
-            -#   %svg.close-panel#glyphicons-basic{width: '80px', height: '80px', :xmlns => "http://www.w3.org/2000/svg"}
-            -#     %path#menu-close{:d => "M25.83881,23.01038a.5.5,0,0,1,0,.70715l-2.12128,2.12134a.50011.50011,0,0,1-.70709,0L16,18.82837l-7.01044,7.0105a.50011.50011,0,0,1-.70709,0L6.16119,23.71753a.5.5,0,0,1,0-.70715L13.17163,16,6.16119,8.9895a.49982.49982,0,0,1,0-.707L8.28247,6.16113a.5.5,0,0,1,.70709,0L16,13.17163l7.01044-7.0105a.5.5,0,0,1,.70709,0l2.12128,2.12134a.49982.49982,0,0,1,0,.707L18.82843,16Z", :fill => "#ffffff"}
+            .info-panel
+              .info-text
+                To highlight a point in your visit where a particular word or phrase
+                was said, such as "prescription", type in the search field.
+              %svg.close-panel#glyphicons-basic{width: '50px', height: '50px', :xmlns => "http://www.w3.org/2000/svg"}
+                %path#menu-close{:d => "M25.83881,23.01038a.5.5,0,0,1,0,.70715l-2.12128,2.12134a.50011.50011,0,0,1-.70709,0L16,18.82837l-7.01044,7.0105a.50011.50011,0,0,1-.70709,0L6.16119,23.71753a.5.5,0,0,1,0-.70715L13.17163,16,6.16119,8.9895a.49982.49982,0,0,1,0-.707L8.28247,6.16113a.5.5,0,0,1,.70709,0L16,13.17163l7.01044-7.0105a.5.5,0,0,1,.70709,0l2.12128,2.12134a.49982.49982,0,0,1,0,.707L18.82843,16Z", :fill => "#ffffff"}
         %input#search-input
       #filter-container
         .filter-header.margin-bottom-20
@@ -141,10 +139,11 @@
           .help-button.full-center
             ?
             .info-panel
-              If you want to highlight specific topics that came up during your visit,
-              click on one or more of the topic buttons here. You can reset and view all topics by
-              clicking the bottom button at any time.
-              %svg.close-panel#glyphicons-basic{width: '80px', height: '80px', :viewbox => "0 40 28 28", :xmlns => "http://www.w3.org/2000/svg"}
+              .info-text
+                If you want to highlight specific topics that came up during your visit,
+                click on one or more of the topic buttons here. You can reset and view all topics by
+                clicking the bottom button at any time.
+              %svg.close-panel#glyphicons-basic{width: '50px', height: '50px', :xmlns => "http://www.w3.org/2000/svg"}
                 %path#menu-close{:d => "M25.83881,23.01038a.5.5,0,0,1,0,.70715l-2.12128,2.12134a.50011.50011,0,0,1-.70709,0L16,18.82837l-7.01044,7.0105a.50011.50011,0,0,1-.70709,0L6.16119,23.71753a.5.5,0,0,1,0-.70715L13.17163,16,6.16119,8.9895a.49982.49982,0,0,1,0-.707L8.28247,6.16113a.5.5,0,0,1,.70709,0L16,13.17163l7.01044-7.0105a.5.5,0,0,1,.70709,0l2.12128,2.12134a.49982.49982,0,0,1,0,.707L18.82843,16Z", :fill => "#ffffff"}
         #filters
           - TagType.all.order(:label).each do |tag_type|
@@ -155,4 +154,4 @@
               .filter-label= t(tag_type.label)
         #show-all-topics
           = t(:clear_all_filters)
-.overlay
+.overlay.hidden
