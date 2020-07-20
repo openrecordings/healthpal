@@ -29,10 +29,25 @@ class AdminController < ApplicationController
     redirect_to :admin
   end
 
+  def new_org
+  end
+
+  def create_org
+    @org = Org.new(org_params)
+
+    if @org.save
+      flash.notice = "Org #{@org.name} saved"
+      redirect_to :root
+    else
+      flash.alert = @org.errors.full_messages
+      redirect_to new_org_path
+    end
+  end
+
   # Start the workflow for doing an in-clinic user registration
   def new_registration
     # Creating a new user to hold params, but we're only going to set the email now
-    @user = User.new(email: params[:email])
+    @user = User.new()
     @orgs = Org.all
   end
 
@@ -111,6 +126,12 @@ class AdminController < ApplicationController
       :sharer_id,
       :timezone,
       :org_id,
+    )
+  end
+
+  def org_params
+    params.require(:org).permit(
+      :name,
     )
   end
 
