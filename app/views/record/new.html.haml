@@ -9,26 +9,28 @@
   #record-start-stop
     #record-start-button.record-button.track
       = inline_svg('mic.svg', class: 'record-svg')
-      .record-button-label= t(:start_recording)
-
-    #record-stop-button.button.hidden.track
-      %svg#glyphicons-basic.large-svg{:viewbox => "0 0 32 32", :xmlns => "http://www.w3.org/2000/svg"}
-        %path.svg-path#stop{:d => "M25,8V24a1,1,0,0,1-1,1H8a1,1,0,0,1-1-1V8A1,1,0,0,1,8,7H24A1,1,0,0,1,25,8Z"}
       .record-button-label
-        = t(:stop_recording)
+        = t(:start_recording)
 
-    #save-delete-container.button-container.hidden
-      #save-button.button.track
-        %svg#glyphicons-basic.large-svg{:viewbox => "0 0 32 32", :xmlns => "http://www.w3.org/2000/svg"}
-          %path#circle-check{:d => "M16,4A12,12,0,1,0,28,16,12.01312,12.01312,0,0,0,16,4Zm6.5697,8.40088-7.29217,8.62744a1,1,0,0,1-1.50623.02429L9.88147,16.741a.5.5,0,0,1,.00616-.67652l1.137-1.21508a.5.5,0,0,1,.63354-.0802l2.611,1.66149,6.57276-5.69458a.5.5,0,0,1,.67114.01465l1.01856.96424A.5.5,0,0,1,22.5697,12.40088Z"}
-        .record-button-label
-          = t(:save_recording)
+    #record-pause-button.record-button.track
+      = inline_svg('pause.svg', class: 'record-svg')
+      .record-button-label
+        = t(:pause_recording)
 
-      #delete-button.button.track
-        %svg#glyphicons-basic.large-svg{:viewbox => "0 0 32 32", :xmlns => "http://www.w3.org/2000/svg"}
-          %path#circle-remove{:d => "M16,4A12,12,0,1,0,28,16,12.01312,12.01312,0,0,0,16,4Zm5.30328,14.47485a.49991.49991,0,0,1,0,.707L19.182,21.30322a.5.5,0,0,1-.70716,0L16,18.82837l-2.47485,2.47485a.5.5,0,0,1-.70716,0l-2.12127-2.12134a.49991.49991,0,0,1,0-.707L13.17157,16l-2.47485-2.47485a.50007.50007,0,0,1,0-.70716L12.818,10.69666a.50018.50018,0,0,1,.70716,0L16,13.17151l2.47485-2.47485a.50018.50018,0,0,1,.70716,0L21.30328,12.818a.50007.50007,0,0,1,0,.70716L18.82843,16Z"}
-        .record-button-label
-          = t(:delete_recording)
+    #continue-button.record-button.track
+      = inline_svg('mic.svg', class: 'record-svg')
+      .record-button-label
+        = t(:continue_recording)
+
+    #save-button.record-button.track
+      = inline_svg('check.svg', class: 'record-svg')
+      .record-button-label
+        = t(:save_recording)
+
+    #delete-button.record-button.track
+      = inline_svg('x.svg', class: 'record-svg')
+      .record-button-label
+        = t(:delete_recording)
 
   #time-display
     00:00:00

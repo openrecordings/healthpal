@@ -220,19 +220,19 @@ if(window.location.pathname == '/record') {
         $('#record-container').addClass('recording-pulse');
         setTimeout(function(){
           $('#record-start-button').hide();
-          $('#record-stop-button').show();
+          $('#record-pause-button').show();
         }, 200)
         startTimer();
       }
     })
 
-    $('#record-stop-button').click(function(event){
+    $('#record-pause-button').click(function(event){
       recordingNow = false;
-      if(!($('#record-stop-button').hasClass('disabled'))){
+      if(!($('#record-pause-button').hasClass('disabled'))){
         mediaRecorder.stop();
         $('#record-container').removeClass('recording-pulse');
         setTimeout(function(){
-          $('#record-stop-button').hide();
+          $('#record-pause-button').hide();
           $('#save-delete-container').show();
         }, 200)
         stopTimer();
