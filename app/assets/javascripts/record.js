@@ -1,4 +1,4 @@
-if(window.location.pathname == '/record') {
+if (window.location.pathname == '/record') {
   // Audio
   var audioElement = document.querySelector('audio');
   var streamRecorder;
@@ -16,23 +16,66 @@ if(window.location.pathname == '/record') {
   var canvasStyle = window.getComputedStyle(canvas);
   var colorMonitoring = '#1c3e66';
   var colorRecording = 'red';
-  var baseRadius = 25;
+  var baseRadius = 15;
   var radiusAmplitudeMultiplier = 0.8;
   var radiusDeltaBetweenCircles = 7;
-  var circlesArray = [];
-  var animationDuration = 2000;
+  var currentCircles = [];
+  var circleLifetime = 3000;
   var animationTime = 0;
-  var delayedStartTime1 = 1 / 3 *animationDuration;
-  var delayedStartTime2 = 3 / 4 * animationDuration;
-  var animationTimeMultiplier = .06;
-  var animationFrameDuration = 10;
-  var lowOpacity = 0.2;
-  var medOpacity = 0.3;
-  var highOpacity = 0.4;
+  var interCircleInterval = 1 / 3 * circleLifetime;
+  var animationTimeMultiplier = .04;
+  var animationFrameDuration = 15;
+  var startOpacity = 0.4;
+  var endOpacity = 0.0;
 
   // Audio level measurement
   ////////////////////////////////////////////////////////////////////////////////////////////////
-  function monitorAmplitude(){
+  class AnimatedCircle {
+    constructor() {
+      this.startTime = now();
+    }
+    draw() {
+      var currentTime = now() - this.startTime;
+      var radius = baseRadius + animationTimeMultiplier * currentTime + radiusAmplitudeMultiplier * amplitude;
+      var opacity = startOpacity - ((startOpacity - endOpacity) * currentTime / circleLifetime);
+      if (opacity <= endOpacity) opacity = 0.0;
+      drawCircle(radius, opacity);
+    }
+  }
+
+  function drawCircle(radius, opacity) {
+    canvasContext.save();
+    canvasContext.beginPath();
+    canvasContext.arc(canvas.width / 2, canvas.height / 2, radius, 0, Math.PI * 2, false);
+    canvasContext.fillStyle = recordingNow ? colorRecording : colorMonitoring;
+    canvasContext.globalAlpha = opacity;
+    canvasContext.fill();
+    canvasContext.restore();
+  }
+
+  function animateMeter() {
+    drawCircles();
+    setInterval(function () {
+      if (currentCircles.length == 3) currentCircles.remove(0, 0);
+      currentCircles.push(new AnimatedCircle);
+    }, interCircleInterval);
+
+  }
+
+  function drawCircles() {
+    setInterval(function () {
+      clearCanvas();
+      drawCircle(baseRadius + radiusAmplitudeMultiplier * amplitude, startOpacity);
+      currentCircles.forEach(c => c.draw());
+    }, animationFrameDuration);
+  }
+
+  function clearCanvas() {
+    const context = canvas.getContext('2d');
+    context.clearRect(0, 0, canvas.width, canvas.height);
+  }
+
+  function monitorAmplitude() {
     window.AudioContext = window.AudioContext || window.webkitAudioContext;
     var audioContext = new AudioContext();
     var analyser = audioContext.createAnalyser();
@@ -43,7 +86,7 @@ if(window.location.pathname == '/record') {
     microphone.connect(analyser);
     analyser.connect(javascriptNode);
     javascriptNode.connect(audioContext.destination);
-    javascriptNode.onaudioprocess = function() {
+    javascriptNode.onaudioprocess = function () {
       var array = new Uint8Array(analyser.frequencyBinCount);
       analyser.getByteFrequencyData(array);
       var values = 0;
@@ -55,99 +98,41 @@ if(window.location.pathname == '/record') {
     }
   }
 
-  function animateMeter(){
-    var startTime = now();
-    setInterval(function(){
-      if(animationTime >= animationDuration){
-        animationTime = 0;
-        startTime = now();
-      } else {
-        animationTime = now() - startTime;
-      }
-      drawCircles();
-    }, animationFrameDuration);
-  }
-
-  function drawCircles(){
-    canvasContext.clearRect(0, 0, canvas.width, canvas.height);
-    // Outer animated circle
-    drawCircle({
-      baseRadius: baseRadius + 2 * radiusDeltaBetweenCircles,
-      baseOpacity: lowOpacity,
-      time: animationTime
-    });
-    // Middle animated circle
-    if(animationTime >= delayedStartTime1){
-      var myTime = animationTime - delayedStartTime1;
-      drawCircle({
-        baseOpacity: medOpacity,
-        time: myTime
-      });
-    }
-    // Inner animated circle
-    if(animationTime >= delayedStartTime2){
-      var myTime = animationTime - delayedStartTime2
-      drawCircle({
-        baseOpacity: highOpacity,
-        time: myTime
-      });
-    }
-    // Inner circle. Not animated.
-    drawCircle({
-      baseRadius: baseRadius,
-      baseOpacity: .6,
-      time: 0
-    });
-  }
-
-  function drawCircle({baseOpacity, time}){
-    var radius = baseRadius + animationTimeMultiplier * time + radiusAmplitudeMultiplier * amplitude;
-    var opacity = baseOpacity - baseOpacity * time / animationDuration;
-    opacity = opacity < 0 ? 0 : opacity;
-    canvasContext.save();
-    canvasContext.beginPath();
-    canvasContext.arc(canvas.width / 2, canvas.height / 2, radius, 0, Math.PI * 2, false);
-    canvasContext.fillStyle = recordingNow ? colorRecording : colorMonitoring;
-		canvasContext.globalAlpha = opacity;
-    canvasContext.fill();
-    canvasContext.restore();
-  }
-  
-  function setCanvasSize(){
+  function setCanvasSize() {
     canvas.width = parseInt(canvasStyle.getPropertyValue('width'), 10);
     canvas.height = parseInt(canvasStyle.getPropertyValue('height'), 10);
   }
 
-  function now(){
+  function now() {
     return new Date().getTime();
   }
 
-  $(window).resize(function() {
+  $(window).resize(function () {
     setCanvasSize();
   });
 
   // Timer
   //////////////////////////////////////////////////////////////////////////////////////////////////
   function formatTime(seconds) {
-      var h = Math.floor(seconds / 3600),
-          m = Math.floor(seconds / 60) % 60,
-          s = seconds % 60;
-      if(h < 10){h = "0" + h};
-      if(m < 10){m = "0" + m};
-      if(s < 10){s = "0" + s};
-      return `${h}:${m}:${s}`
+    var h = Math.floor(seconds / 3600),
+      m = Math.floor(seconds / 60) % 60,
+      s = seconds % 60;
+    if (h < 10) { h = "0" + h };
+    if (m < 10) { m = "0" + m };
+    if (s < 10) { s = "0" + s };
+    return `${h}:${m}:${s}`
   }
 
-  function startTimer(){
+  function startTimer() {
     timer = setInterval(clock, 1000);
   }
 
-  function stopTimer(){
+  function stopTimer() {
     clearInterval(timer);
     seconds = 0;
   }
 
-  function clock(){
+  function clock() {
     seconds++;
     $('#time-display').text(formatTime(seconds));
   }
@@ -157,7 +142,7 @@ if(window.location.pathname == '/record') {
   function handleError(error) {
     console.error('Error: ', error);
   }
-    
+
   // Check for getUserMedia browser support
   function hasGetUserMedia() {
     return !!(navigator.mediaDevices &&
@@ -171,7 +156,7 @@ if(window.location.pathname == '/record') {
   }
 
   function getStream() {
-    navigator.mediaDevices.getUserMedia({audio: true}).then(gotStream).then(monitorAmplitude).catch(handleError);
+    navigator.mediaDevices.getUserMedia({ audio: true }).then(gotStream).then(monitorAmplitude).catch(handleError);
   }
 
   // Recording. Started with https://stackoverflow.com/a/16784618
@@ -179,15 +164,15 @@ if(window.location.pathname == '/record') {
   function startRecording() {
     mediaRecorder = new MediaRecorder(recordStream);
     mediaRecorder.mimeType = 'audio/ogg';
-    mediaRecorder.ondataavailable = function(e) {
+    mediaRecorder.ondataavailable = function (e) {
       chunks.push(e.data);
     }
     mediaRecorder.start();
   }
 
   // As of now the callback is not being used because we are doing a redirect on the server
-  function uploadAudio(){
-    var blob = new Blob(chunks, {'type': 'audio/ogg'});
+  function uploadAudio() {
+    var blob = new Blob(chunks, { 'type': 'audio/ogg' });
     $.ajax({
       type: 'POST',
       url: '/upload',
@@ -197,8 +182,8 @@ if(window.location.pathname == '/record') {
     })
   }
 
-  function resetRecord(){
-    setTimeout(function(){
+  function resetRecord() {
+    setTimeout(function () {
       $('#save-delete-container').hide();
       $('#record-start-button').show();
       $('#time-display').text('00:00:00');
@@ -207,18 +192,18 @@ if(window.location.pathname == '/record') {
 
   // onload
   //////////////////////////////////////////////////////////////////////////////////////////////////
-  $(document).ready(function() {
+  $(document).ready(function () {
     $('#record-audio').prop('muted', true);
     setCanvasSize();
     animateMeter();
     navigator.mediaDevices.enumerateDevices().then(getStream).catch(handleError);
 
-    $('#record-start-button').click(function(event){
+    $('#record-start-button').click(function (event) {
       recordingNow = true;
-      if(!($('#record-start-button').hasClass('disabled'))){
+      if (!($('#record-start-button').hasClass('disabled'))) {
         startRecording();
         $('#record-container').addClass('recording-pulse');
-        setTimeout(function(){
+        setTimeout(function () {
           $('#record-start-button').hide();
           $('#record-pause-button').show();
         }, 200)
@@ -226,12 +211,12 @@ if(window.location.pathname == '/record') {
       }
     })
 
-    $('#record-pause-button').click(function(event){
+    $('#record-pause-button').click(function (event) {
       recordingNow = false;
-      if(!($('#record-pause-button').hasClass('disabled'))){
+      if (!($('#record-pause-button').hasClass('disabled'))) {
         mediaRecorder.stop();
         $('#record-container').removeClass('recording-pulse');
-        setTimeout(function(){
+        setTimeout(function () {
           $('#record-pause-button').hide();
           $('#save-delete-container').show();
         }, 200)
@@ -239,15 +224,15 @@ if(window.location.pathname == '/record') {
       }
     })
 
-    $('#save-button').click(function(){
+    $('#save-button').click(function () {
       $('#overlay').show();
       resetRecord();
       uploadAudio();
     })
 
-    $('#delete-button').click(function(){
+    $('#delete-button').click(function () {
       var confirmation = confirm("Are you sure that you want to delete this recording? (Can't undo)");
-      if(confirmation){
+      if (confirmation) {
         resetRecord();
       }
     })
