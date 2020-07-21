@@ -27,21 +27,31 @@
   border-radius: 200px;
 }
 
-#meter-label{
-  display: block;
-  width: 140px;
-  height: 30px;
-  margin: 0 auto;
-  padding-top: 10px;
-	background-color: white;
+.record-button{
+  display: inline-block;
+  box-sizing: border-box;
+  width: 190px;
+  height: 60px;
+  background-color: $color-2;
   text-align: center;
-  color: #ccc;
-	border-top-left-radius: 3px;
-	border-top-right-radius: 3px;
+  text-decoration: none;
+  font-size: 18px;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  &:hover{
+    cursor: pointer;
+    background-color: $color-3;
+  }
+  &:active{
+    background-color: $color-4;
+  }
 }
 
 .record-button-label{
-  margin-top: -30px;
+  display: inline-block;
+  box-sizing: border-box;
+  transform: translate(-3px, -3px);
 }
 
 #time-display{
