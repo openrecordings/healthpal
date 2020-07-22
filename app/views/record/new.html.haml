@@ -3,35 +3,36 @@
   #loader-container
     %h3#upload-text= t(:uploading_recording)
     #loader
-#record-container
+
+#record-container.invisible
   %canvas#audio-meter
 
   #buttons-and-time
+    #time-display
+      00:00:00
+
     #record-buttons-container
-      -# #record-start-button.record-button.track
-      -#   = inline_svg('mic.svg', class: 'record-svg')
-      -#   .record-button-label
-      -#     = t(:start_recording)
+      #record-start-button.record-button.track
+        = inline_svg('mic.svg', class: 'record-svg')
+        .record-button-label
+          = t(:start_recording)
 
-      -# #record-pause-button.record-button.track
-      -#   = inline_svg('pause.svg', class: 'record-svg')
-      -#   .record-button-label
-      -#     = t(:pause_recording)
+      #record-pause-button.record-button-hidden.track
+        = inline_svg('pause.svg', class: 'record-svg')
+        .record-button-label
+          = t(:pause_recording)
 
-      #continue-button.record-button.track
+      #continue-button.record-button-hidden.track
         = inline_svg('mic.svg', class: 'record-svg')
         .record-button-label
           = t(:continue_recording)
 
-      #save-button.record-button.track
+      #save-button.record-button-hidden.track
         = inline_svg('check.svg', class: 'record-svg')
         .record-button-label
           = t(:save_recording)
 
-      #delete-button.record-button.track
+      #delete-button.record-button-hidden.track
         = inline_svg('x.svg', class: 'record-svg')
         .record-button-label
           = t(:delete_recording)
-
-    #time-display
-      00:00:00

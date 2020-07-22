@@ -23,9 +23,22 @@
   align-items: stretch;
 
   #audio-meter{
-    // background-color: blue;
+    // background-color: yellowgreen;
+    flex-grow: 1;
     min-height: 330px;
     width: 100%;
+  }
+
+  @mixin record-button-base{
+    flex-direction: column;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 100px;
+    padding: 10px;
+    background-color: $color-2;
+    font-size: 16px;
+    color: white;
+    border-radius: 4px;
   }
 
   #buttons-and-time{
@@ -39,17 +52,16 @@
       justify-content: space-evenly;
       align-items: center;
       width: 100%;
+      padding-bottom: 30px;
       .record-button{
+        @include record-button-base;
         display: flex;
-        flex-direction: column;
-        justify-content: center;
-        box-sizing: border-box;
-        width: 100px;
-        padding: 10px;
-        background-color: $color-2;
-        font-size: 16px;
-        color: white;
-        border-radius: 4px;
+      }
+      .record-button-hidden{
+        @include record-button-base;
+        display: none;
+      }
+      .record-button, .record-button-hidden{
         .record-svg{
           // background-color: red;
           display: block;
@@ -73,7 +85,7 @@
     }
 
     #time-display{
-      padding: 15px 0;
+      padding-bottom: 30px;
       text-align: center;
       font-family: monospace;
       font-size: 30px;

@@ -198,6 +198,8 @@ if (window.location.pathname == '/record') {
     animateMeter();
     navigator.mediaDevices.enumerateDevices().then(getStream).catch(handleError);
 
+    $('#record-container').removeClass('invisible');
+
     $('#record-start-button').click(function (event) {
       recordingNow = true;
       if (!($('#record-start-button').hasClass('disabled'))) {
