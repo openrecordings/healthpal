@@ -9,6 +9,13 @@
       .form-field-container.field-centered
         .form-label Role for new user. CAUTION: Admins can access ALL recordings
         = f.select :role, {'User': 'user', 'Admin': 'admin'}, {}, {class: 'select-css'}
+    - if current_user.root?
+      %p
+        .form-field-container.field-centered
+          .form-label Role for new user. CAUTION: Admins can access ALL recordings
+          = f.collection_select(:org_id, Org.all, :id, :name, {}, {class: 'form-input select-css'})
+    - else
+      = f.hidden_field :org_id, value: current_user.org_id
     %p.margin-top-40
       .form-field-container.field-centered
         = f.submit 'Send Invitation', class: 'button'
