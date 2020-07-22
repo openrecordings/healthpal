@@ -71,6 +71,7 @@ form{
 }
 
 @mixin button{
+  display: block;
   box-sizing: border-box;
   height: 45px;
   line-height: 45px;
@@ -86,6 +87,7 @@ form{
   border-radius: 4px;
   &:hover{
     cursor: pointer;
+    color: white;
     background-color: $color-3;
   }
   &:active{
