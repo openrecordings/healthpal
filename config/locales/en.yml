@@ -62,10 +62,13 @@ en:
   new_password_confirmation: New password confirmation
   update: Update
   back: Back
-  confirmation_code: You should have received a text message with a four-digit confirmation code at your phone number ending in
-  enter_confirmation_code: Enter your confirmation code and choose a password for HealthPal
-  choose_password: Choose a password for HealthPal
+  confirmation_code_header: You should have received a text message with a six-digit confirmation code at your phone number ending in
+  confirmation_code: Confirmation code
+  enter_confirmation_code: Enter your confirmation code and choose a password for HealthPAL
+  choose_password: Choose a password for HealthPAL
   password: Password
+  confirm_password: Confirm password
+  submit: Submit
   log_in: Log in
   forgot_password: I forgot my password
   name_placeholder: Full Name

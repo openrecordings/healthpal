@@ -1,38 +1,68 @@
-.centered-form-container
-  .title.text-center
+#logo-container.margin-bottom-20
+  #logo-spans
+    %span.image#icon= image_tag('open_recordings_icon.png', width: '50px')
+    #logo-text-container
+      %span#logo-open Open
+      %span#logo-recordings> Recordings
+      %br
+      %span#logo-health Health
+      %span#logo-pal> PAL
+.share-form.centered-form-container
+  .pad-left-30.pad-right-30.margin-bottom-30
     - if resource.requires_phone_confirmation
-      = t(:confirmation_code)
+      = t(:confirmation_code_header)
       = resource.phone_number[-4..-1]
+      %p= t(:enter_confirmation_code)
       -# TODO
-      -# %br
       -# = link_to 'click here to generate a new code', root_path
-      %br
-      %br
-      = t(:enter_confirmation_code)
     - else
       = t(:choose_password)
-    %br
-    %br
-  = form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => { :method => :put } do |f|
+  = form_for resource, as: resource_name, url: invitation_path(resource_name), html: { :method => :put } do |f|
     = f.hidden_field :invitation_token
     - if f.object.class.require_password_on_accepting
       - if resource.requires_phone_confirmation
-        .form-field-container
-          .form-label Four-digit confirmation code
-          = f.text_field :phone_token, value: nil, class: 'form-input'
-      - unless resource.first_name
-        .form-field-container
-          .form-label First name
-          = f.text_field :first_name, class: 'form-input'
-      - unless resource.last_name
-        .form-field-container
-          .form-label Last name
-          = f.text_field :last_name, class: 'form-input'
-      .form-field-container
-        .form-label Password
-        = f.password_field :password, class: 'form-input'
-      .form-field-container
-        .form-label Password confirmation
-        = f.password_field :password_confirmation, class: 'form-input'
-      .form-field-container.full-center
-        = f.submit 'Submit', class: 'button'
+        .form-label.invisible= t(:confirmation_code)
+        = f.text_field :phone_token,
+          value: nil,
+          autofocus: true,
+          class: 'form-input',
+          placeholder: t(:confirmation_code),
+          data: {placeholder: t(:confirmation_code)}
+        .input-underscore-tight
+
+      - if :first_name
+        .form-label= t(:first_name)
+      - else
+        .form-label.invisible= t(:first_name)
+      = f.text_field :first_name,
+        class: 'form-input',
+        autofocus: !resource.requires_phone_confirmation,
+        placeholder: t(:first_name),
+        data: {placeholder: t(:first_name)}
+      .input-underscore-tight
+
+      - if :last_name
+        .form-label= t(:last_name)
+      - else
+        .form-label.invisible= t(:last_name)
+      = f.text_field :last_name,
+        class: 'form-input',
+        placeholder: t(:last_name),
+        data: {placeholder: t(:last_name)}
+      .input-underscore-tight
+
+      .form-label.invisible= t(:password)
+      = f.password_field :password,
+        class: 'form-input',
+        placeholder: t(:password),
+        data: {placeholder: t(:password)}
+      .input-underscore-tight
+
+      .form-label.invisible= t(:confirm_passowrd)
+      = f.password_field :password_confirmation,
+        class: 'form-input',
+        placeholder: t(:confirm_password),
+        data: {placeholder: t(:confirm_password)}
+      .input-underscore
+
+      = f.submit t(:submit), class: 'button'

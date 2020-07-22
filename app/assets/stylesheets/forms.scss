@@ -54,6 +54,13 @@ form{
   border-top: 1px solid #888;
 }
 
+.input-underscore-tight {
+  width: 100%;
+  max-width: $form-input-max-width;
+  margin-bottom: 20px;
+  border-top: 1px solid #888;
+}
+
 .form-label{
   width: 100%;
   max-width: $form-input-max-width;

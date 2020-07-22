@@ -68,7 +68,8 @@ class User < ApplicationRecord
   end
 
   def send_sms_token
-    new_phone_token = Array.new(4){rand(10)}.join
+    new_phone_token = Array.new(6){rand(10)}.join
+    self.phone_token = phone_token
     self.update(phone_token: new_phone_token)
     client = Twilio::REST::Client.new(
       Orals::Application.credentials.twilio[:account_sid],
@@ -77,7 +78,7 @@ class User < ApplicationRecord
       client.api.account.messages.create(
         from: Orals::Application.credentials.twilio[:from_phone_number],
         to: "+1#{phone_number}",
-        body: "Here is your HealthPAL access code: #{new_phone_token}"
+        body: "This is your HealthPAL confirmation code: #{new_phone_token}"
       )
     rescue => e
       logger.error ([e.message]+e.backtrace).join($/)

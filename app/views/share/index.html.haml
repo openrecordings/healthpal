@@ -1,25 +1,42 @@
 .share-form.centered-form-container
-  -# #open-share-form-title.form-title.margin-bottom-10
-  -#   = t(:share_recordings)
-  -# = submit_tag t(:add_share), class: 'button', id: 'open-share-form'
-  #new-share-form.form-input-container
-    .share-header.pad-30.margin-top-20
-      = t(:share_who)
-    = form_tag url: shares_path do
-      .form-field-container.field-centered
-        .form-label.invisible= t(:first_name)
-        = text_field :first_name, nil, class: 'form-input', placeholder: t(:first_name)
-      .form-field-container.field-centered
-        .form-label.invisible= t(:last_name)
-        = text_field :first_name, nil, class: 'form-input', placeholder: t(:last_name)
-      .form-field-container.field-centered
-        .form-label.invisible= t(:phone_number)
-        = text_field :phone_number, nil, class: 'form-input phone-number', placeholder: t(:phone_number)
-      .form-field-container.field-centered
-        .form-label.invisible= t(:email_address)
-        = email_field :email, nil, class: 'form-input', placeholder: t(:email_address)
-      .form-field-container.field-centered.margin-top-40
-        = submit_tag 'Share with this person', class: 'button', id: 'new-share-submit'
+  .share-header.pad-30.margin-top-20
+    = t(:share_who)
+  = form_tag url: shares_path do
+
+    .form-label.invisible= t(:first_name)
+    = text_field :first_name,
+      nil,
+      autofocus: true,
+      class: 'form-input',
+      placeholder: t(:first_name),
+      data: {placeholder: t(:first_name)}
+    .input-underscore-tight
+
+    .form-label.invisible= t(:last_name)
+    = text_field :last_name,
+      nil,
+      class: 'form-input',
+      placeholder: t(:last_name),
+      data: {placeholder: t(:last_name)}
+    .input-underscore-tight
+
+    .form-label.invisible= t(:email_address)
+    = email_field :email,
+      nil,
+      class: 'form-input',
+      placeholder: t(:email_address),
+      data: {placeholder: t(:email)}
+    .input-underscore-tight
+
+    .form-label.invisible= t(:phone_number)
+    = text_field :phone_number,
+      nil,
+      class: 'form-input phone-number',
+      placeholder: t(:phone_number),
+      data: {placeholder: t(:phone_number)}
+    .input-underscore
+
+    = submit_tag 'Share with this person', class: 'button', id: 'new-share-submit'
 
   - if @shares.any?
     -# TODO: Figure out overflow problem and remove %br

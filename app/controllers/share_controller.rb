@@ -64,6 +64,7 @@ class ShareController < ApplicationController
 
   def invite_and_share!(first_name, last_name, phone_number, email)
     if user = User.create(
+      org: current_user.org,
       first_name: first_name,
       last_name: last_name,
       phone_number: phone_number,
@@ -72,10 +73,10 @@ class ShareController < ApplicationController
       active: true,
       role: 'user',
       requires_phone_confirmation: true)
-      user.invite!
-      user.send_sms_token
-      Share.create(user: current_user, shared_with_user_id: user.id)
-      return true
+        user.invite!
+        user.send_sms_token
+        Share.create(user: current_user, shared_with_user_id: user.id)
+        return true
     end
     false
   end
