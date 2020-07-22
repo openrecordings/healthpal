@@ -1,5 +1,4 @@
 if (document.querySelector('#play-view')) {
-  // TODO: recordingId should not be global. Works now but will not scale. Each function should fetch it.
   var recordingId = null;
   var playVolume = 1.0;
   var playerPadding = null;
@@ -239,7 +238,6 @@ if (document.querySelector('#play-view')) {
     }
   }
 
-  // Autoscroll
   function updateAutoScroll() {
     let currentTime = document.getElementById('video-element').currentTime;
     let notesBeforeNow = sortedNotes().filter(function () { return $(this).data('note-at') <= currentTime });
@@ -448,9 +446,11 @@ if (document.querySelector('#play-view')) {
     $(document).on('click', '.delete-note', function () {
       let note = $(this).closest('.note');
       let noteId = note.data('note-id');
+      let notePin = $(`.note-pin[data-note-id="${noteId}"]`)[0];
       $(note).slideUp(150);
       $(note).promise().done(function () {
         $(note).remove();
+        $(notePin).remove();
       })
       $.post('/delete_note', {
         id: recordingId,
