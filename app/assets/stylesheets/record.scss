@@ -34,11 +34,12 @@
   }
 
   .record-button{
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     box-sizing: border-box;
-    width: 190px;
-    height: 50px;
-    margin-bottom: 15px;
+    width: 100px;
+    padding: 10px;
     background-color: $color-2;
     text-decoration: none;
     font-size: 16px;
@@ -46,11 +47,16 @@
     border: none;
     border-radius: 4px;
     .record-svg{
-      display: inline-block;
+      // background-color: red;
+      display: block;
+      width: 30px;
+      margin: 0 auto;
       box-sizing:  border-box;
-      margin-top: 10px;
-      height: 25px;
       fill: white;
+    }
+    .record-button-label{
+      padding-top: 7px;
+      text-align: center;
     }
     &:hover{
       cursor: pointer;
@@ -62,22 +68,10 @@
   }
 
   #record-buttons-container{
-    // background-color: yellowgreen;
     display: flex;
-    flex-direction: column;
+    justify-content: space-evenly;
     align-items: center;
-  }
-
-  #record-decision-container{
-    // background-color: yellowgreen;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .record-button-label{
-    display: inline-block;
-    box-sizing: border-box;
+    width: 100%;
   }
 
 }
