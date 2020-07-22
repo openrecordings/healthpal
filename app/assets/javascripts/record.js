@@ -247,7 +247,7 @@ if (window.location.pathname == '/record') {
     })
 
     $('#save-button').click(function () {
-      $('#overlay').show();
+      $('#overlay').addClass('visible');
       mediaRecorder.stop();
       uploadAudio();
     })

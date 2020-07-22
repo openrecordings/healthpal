@@ -1,8 +1,9 @@
 %audio#record-audio{autoplay: true}
-#overlay.overlay.hidden
+#overlay.overlay.invisible
   #loader-container
+    #sized-loader-box
+      #loader
     %h3#upload-text= t(:uploading_recording)
-    #loader
 
 #record-container.invisible
   %canvas#audio-meter
