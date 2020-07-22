@@ -1,5 +1,6 @@
-.centered-form-container
-  .form-title
+#proceed-form.centered-form-container
+  #proceed-header.pad-30.margin-top-40.margin-bottom-40
     = t(:want_to_share)
-  = link_to t(:yes), shares_path(confirmed: true), class: 'button margin-top-20'
-  = link_to t(:out_of_here), root_path, class: 'button margin-top-20'
+  #proceed-buttons
+    = button_to t(:affirm), shares_path(confirmed: true), class: 'button margin-top-20'
+    = button_to t(:out_of_here), root_path, class: 'button margin-top-20'

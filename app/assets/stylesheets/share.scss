@@ -1,0 +1,13 @@
+#proceed-form{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  #proceed-header{
+    font-size: 20px;
+  }
+  #proceed-buttons{
+    // background-color: yellowgreen;
+    width: 250px;
+  }
+}
