@@ -7,7 +7,6 @@ if (window.location.pathname == '/record') {
   var chunks = [];
   var timer = null;
   var seconds = 0;
-  var recordingNow = false;
 
   // Metering
   var amplitude = 0;
@@ -47,7 +46,7 @@ if (window.location.pathname == '/record') {
     canvasContext.save();
     canvasContext.beginPath();
     canvasContext.arc(canvas.width / 2, canvas.height / 2, radius, 0, Math.PI * 2, false);
-    canvasContext.fillStyle = recordingNow ? colorRecording : colorMonitoring;
+    canvasContext.fillStyle = recordingNow() ? colorRecording : colorMonitoring;
     canvasContext.globalAlpha = opacity;
     canvasContext.fill();
     canvasContext.restore();
@@ -127,6 +126,10 @@ if (window.location.pathname == '/record') {
     timer = setInterval(clock, 1000);
   }
 
+  function pauseTimer() {
+    clearInterval(timer);
+  }
+
   function stopTimer() {
     clearInterval(timer);
     seconds = 0;
@@ -166,8 +169,14 @@ if (window.location.pathname == '/record') {
     mediaRecorder.mimeType = 'audio/ogg';
     mediaRecorder.ondataavailable = function (e) {
       chunks.push(e.data);
+      console.log(chunks.length);
+      console.log('foo');
     }
     mediaRecorder.start();
+  }
+
+  function recordingNow() {
+    return mediaRecorder && mediaRecorder.state == 'recording';
   }
 
   // As of now the callback is not being used because we are doing a redirect on the server
@@ -190,6 +199,19 @@ if (window.location.pathname == '/record') {
     }, 500)
   }
 
+  // Display is `none` initially, so ensure that display is `flex` when showing
+  // Subsequent calls set display redundantly, but this keeps things simple
+  jQuery.fn.showButton = function () {
+    var elements = $(this[0])
+    elements.css('display', 'flex');
+    elements.show();
+    return this;
+  };
+
+  function hideAllButtons() {
+    $('.record-button, .record-button-hidden').hide();
+  }
+
   // onload
   //////////////////////////////////////////////////////////////////////////////////////////////////
   $(document).ready(function () {
@@ -201,34 +223,32 @@ if (window.location.pathname == '/record') {
     $('#record-container').removeClass('invisible');
 
     $('#record-start-button').click(function (event) {
-      recordingNow = true;
-      if (!($('#record-start-button').hasClass('disabled'))) {
-        startRecording();
-        $('#record-container').addClass('recording-pulse');
-        setTimeout(function () {
-          $('#record-start-button').hide();
-          $('#record-pause-button').show();
-        }, 200)
-        startTimer();
-      }
+      startRecording();
+      startTimer();
+      $('.record-button').hide();
+      $('#record-pause-button').show();
     })
 
     $('#record-pause-button').click(function (event) {
-      recordingNow = false;
-      if (!($('#record-pause-button').hasClass('disabled'))) {
-        mediaRecorder.stop();
-        $('#record-container').removeClass('recording-pulse');
-        setTimeout(function () {
-          $('#record-pause-button').hide();
-          $('#save-delete-container').show();
-        }, 200)
-        stopTimer();
-      }
+      // TODO: Call pause instead when it's supported better
+      mediaRecorder.stop();
+      hideAllButtons();
+      // $('#continue-button').show();
+      $('#save-button').show();
+      $('#delete-button').show();
+      pauseTimer();
+    })
+
+    $('#continue-button').click(function () {
+      mediaRecorder.resume();
+      startTimer();
+      hideAllButtons();
+      $('#record-pause-button').show();
     })
 
     $('#save-button').click(function () {
       $('#overlay').show();
-      resetRecord();
+      mediaRecorder.stop();
       uploadAudio();
     })
 
