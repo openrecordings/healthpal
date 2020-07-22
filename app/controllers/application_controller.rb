@@ -24,6 +24,7 @@ class ApplicationController < ActionController::Base
   # Allow devise_invitable to handle the added parameters when creating users
   def configure_permitted_parameters
     keys = [
+      :org_id,
       :role,
       :timezone_offset,
       :onboarded,
