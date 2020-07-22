@@ -1,23 +1,23 @@
-.centered-form-container
+.share-form.centered-form-container
   -# #open-share-form-title.form-title.margin-bottom-10
   -#   = t(:share_recordings)
   -# = submit_tag t(:add_share), class: 'button', id: 'open-share-form'
   #new-share-form.form-input-container
-    .text-center.big-title.margin-bottom-40
+    .share-header.pad-30.margin-top-20
       = t(:share_who)
     = form_tag url: shares_path do
       .form-field-container.field-centered
-        .form-label.invisible(data-placeholder="#{t(:placeholder)}")
-          = t(:full_name)
-        = text_field :first_name, nil, class: 'form-input', placeholder: t(:placeholder)
+        .form-label.invisible= t(:first_name)
+        = text_field :first_name, nil, class: 'form-input', placeholder: t(:first_name)
       .form-field-container.field-centered
-        .form-label.invisible
-          = t(:phone_number)
-        = text_field :phone_number, nil, class: 'form-input phone-number', placeholder: 'Phone number'
+        .form-label.invisible= t(:last_name)
+        = text_field :first_name, nil, class: 'form-input', placeholder: t(:last_name)
       .form-field-container.field-centered
-        .form-label.invisible
-          = t(:email_address)
-        = email_field :email, nil, class: 'form-input', placeholder: 'Email address'
+        .form-label.invisible= t(:phone_number)
+        = text_field :phone_number, nil, class: 'form-input phone-number', placeholder: t(:phone_number)
+      .form-field-container.field-centered
+        .form-label.invisible= t(:email_address)
+        = email_field :email, nil, class: 'form-input', placeholder: t(:email_address)
       .form-field-container.field-centered.margin-top-40
         = submit_tag 'Share with this person', class: 'button', id: 'new-share-submit'
 
