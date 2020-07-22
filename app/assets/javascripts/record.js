@@ -169,8 +169,6 @@ if (window.location.pathname == '/record') {
     mediaRecorder.mimeType = 'audio/ogg';
     mediaRecorder.ondataavailable = function (e) {
       chunks.push(e.data);
-      console.log(chunks.length);
-      console.log('foo');
     }
     mediaRecorder.start();
   }
@@ -191,15 +189,7 @@ if (window.location.pathname == '/record') {
     })
   }
 
-  function resetRecord() {
-    setTimeout(function () {
-      $('#save-delete-container').hide();
-      $('#record-start-button').show();
-      $('#time-display').text('00:00:00');
-    }, 500)
-  }
-
-  // Display is `none` initially, so ensure that display is `flex` when showing
+  // Display is `none` initially, so set display to `flex` when showing
   // Subsequent calls set display redundantly, but this keeps things simple
   jQuery.fn.showButton = function () {
     var elements = $(this[0])
@@ -230,17 +220,16 @@ if (window.location.pathname == '/record') {
     })
 
     $('#record-pause-button').click(function (event) {
-      // TODO: Call pause instead when it's supported better
       mediaRecorder.stop();
       hideAllButtons();
-      // $('#continue-button').show();
+      $('#continue-button').show();
       $('#save-button').show();
       $('#delete-button').show();
       pauseTimer();
     })
 
     $('#continue-button').click(function () {
-      mediaRecorder.resume();
+      mediaRecorder.start();
       startTimer();
       hideAllButtons();
       $('#record-pause-button').show();
@@ -255,7 +244,7 @@ if (window.location.pathname == '/record') {
     $('#delete-button').click(function () {
       var confirmation = confirm("Are you sure that you want to delete this recording? (Can't undo)");
       if (confirmation) {
-        resetRecord();
+        location.reload();
       }
     })
   });

@@ -11,7 +11,7 @@ en:
   uploading_recording: Uploading recording. This could take a few minutes...
   audio_level: Audio level
   start_recording: Start recording
-  stop_recording: Stop recording
+  pause_recording: Pause recording
   continue_recording: Continue recording
   save_recording: Save recording
   delete_recording: Delete recording

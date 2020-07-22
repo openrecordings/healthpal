@@ -21,13 +21,12 @@
       #record-pause-button.record-button-hidden.track
         = inline_svg('pause.svg', class: 'record-svg')
         .record-button-label
-          = t(:stop_recording)
+          = t(:pause_recording)
 
-      -# Note: Resuming is disabled because support is poor "pause" actually stops
-      -# #continue-button.record-button-hidden.track
-      -#   = inline_svg('mic.svg', class: 'record-svg')
-      -#   .record-button-label
-      -#     = t(:continue_recording)
+      #continue-button.record-button-hidden.track
+        = inline_svg('mic.svg', class: 'record-svg')
+        .record-button-label
+          = t(:continue_recording)
 
       #save-button.record-button-hidden.track
         = inline_svg('check.svg', class: 'record-svg')
