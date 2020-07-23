@@ -2,22 +2,25 @@
   table{
     border-collapse: collapse;
     tr.header-row{
+      background-color: $color-1;
+      color: white;
       text-align: left;
     }
     th{
       padding: 10px;
       font-weight: normal;
-      background-color: white;
-      color: #fff;
     }
     tr.table-row:nth-child(even){
-      background-color: white;
+      background-color: $color-5;
     }
     tr.table-row:nth-child(odd){
-      background-color: white;
+      background-color: $color-6;
     }
     td{
       padding: 10px;
+    }
+    .table-link{
+      color: #3A70A6;
     }
   }
 }

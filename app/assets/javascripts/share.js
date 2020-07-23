@@ -18,6 +18,11 @@ function validateShareForm(firstName, lastName, email1, email2) {
   }
 }
 
+$('#reveal-share-form').click(function(){
+  $(this).hide();
+  $('#new-share-form-container').slideDown();
+})
+
 $(document).ready(function () {
 
   // AJAX post to create new share

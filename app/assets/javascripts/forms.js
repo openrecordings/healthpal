@@ -9,7 +9,6 @@ if (document.querySelector('form')) {
       .filter(function () { return $(this).val() == ''; })
       .filter(function () { return !$(this).attr('autofocus'); })
       .each(function () {
-        console.log(this);
         $(this).prev().css('visibility', 'hidden');
       });
 
