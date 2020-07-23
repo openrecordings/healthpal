@@ -1,7 +1,7 @@
 - if @shares.any?
   .horizontal-center.margin-bottom-40
-    .margin-top-40= t(:sharing_with)
-    .table-container
+    .margin-top-20.pad-30= t(:sharing_with)
+    .table-container.pad-15
       %table.margin-top-20
         %thead
           %tr.header-row
@@ -15,13 +15,13 @@
               %td= s.shared_with.email
               %td= link_to t(:stop_sharing), 'javascript:;', class: 'table-link revoke-share', data: {'share-id': s.id}
 - else
-  .horizontal-center.margin-top-40.margin-bottom-40 You are currently not sharing your recordings with anyone
+  .horizontal-center.pad-30 You are currently not sharing your recordings with anyone
 
 .horizontal-center
   #reveal-share-form.button Share with someone new
 #new-share-form-container.compressed.hidden
   .share-form.centered-form-container
-    .share-header.pad-30.margin-top-20
+    .share-header.pad-30
       = t(:share_who)
     = form_tag url: shares_path do
 
@@ -58,4 +58,4 @@
         data: {placeholder: t(:phone_number)}
       .input-underscore
 
-      = submit_tag 'Share with this person', class: 'button', id: 'new-share-submit'
+      .margin-bottom-30= submit_tag 'Share with this person', class: 'button', id: 'new-share-submit'

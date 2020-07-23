@@ -34,23 +34,27 @@ body {
 }
 
 #flash{
-  position: absolute;
-  width: 640px;
-  top: 14px;
-  left: 50%;
-  margin-left: -320px;
-  line-height: 46px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  position: relative;
+  z-index: 100;
+  margin: 15px;
+  padding: 10px 25px 10px 10px;
   border-radius: 5px;
-  text-align: center;
+  background-color: $color-10;
+  color: #333;
   #dismiss-flash{
     position: absolute;
-    top: 0;
-    left: 600px;
-    margin-top: 6px;
+    width: 25px;
+    height: 25px;
+    top: 3px;
+    right: 3px;
     svg{
-      fill: white;
+      fill: #555;
       &:hover{
-        fill: #9b8b56;
+        fill: #777;
         cursor: pointer;
       }
     }
@@ -209,6 +213,10 @@ textarea, select:focus {
 
 .margin-bottom-60{
   margin-bottom: 60px !important;
+}
+
+.pad-15{
+  padding: 15px;
 }
 
 .pad-30{

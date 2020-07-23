@@ -9,7 +9,7 @@ $(document).ready(function () {
     return $(e).css('visibility') === 'visible';
   };
   $('#dismiss-flash').click(function () {
-    $(this).parent().fadeOut();
+    $(this).parent().slideUp(100);
   })
 
   $('.phone-number').mask('(000) 000-0000');
