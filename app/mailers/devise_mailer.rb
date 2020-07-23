@@ -1,7 +1,7 @@
 class DeviseMailer < Devise::Mailer
   helper :application
 
-  default from: 'no-reply@audiohelthpal.com'
+  default from: 'will.haslett@dartmouth.edu'
 
   layout 'mailer'
 end
