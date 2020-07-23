@@ -79,7 +79,7 @@ class AdminController < ApplicationController
 
   # Select an existing user to switch to
   def switch_user_select
-    @users = current_user.viewable_users
+    @users = current_user.viewable_users.select{|u| u != current_user}
   end
 
   def switch_to_user

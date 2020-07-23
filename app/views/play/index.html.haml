@@ -24,11 +24,16 @@
           #note-save.save.modal-save Save
 
   #left
-    #search-and-select
-      #select-header Select a recording
-      #select
-        - @recordings.each do |recording|
-          = render 'recording_list_item', recording: recording
+    - if @recordings.any?
+      #search-and-select
+        #select-header Select a recording
+        #select
+          - @recordings.each do |recording|
+            = render 'recording_list_item', recording: recording
+    -else
+      #no-recordings
+        .pad-30 Your recordings will appear here
+        =link_to 'Make a recording now', record_path, class: 'button'
   #right
     #player-container
       #header

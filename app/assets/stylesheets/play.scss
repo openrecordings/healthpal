@@ -19,14 +19,6 @@
         color: $color-2;
         border-bottom: 1px solid #bbb;
       }
-
-      // TODO: Implement
-      // #search{
-      //   box-sizing: border-box;
-      //   border-bottom: 1px solid #bbb;
-      //   overflow: hidden;
-      // }
-
       #select{
         .recording-list-item{
           display: flex;
@@ -51,6 +43,14 @@
           }
         }
       }
+    }
+    #no-recordings{
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;  
+      align-items: center;
+      height: 100%;
+      padding-top: 80px;
     }
   }
   #right{
