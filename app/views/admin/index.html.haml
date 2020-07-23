@@ -7,58 +7,31 @@
     - if current_user.root?
       %p= button_to 'Create New Organization', new_org_path, class: 'button', method: :get
     %p.margin-top-40 Existing users
-    - if current_user.root?
-      %table
-        %tbody
-          - Org.all.each do |org|
-            %tr.table-row
-              %td= org.name
-              %table
-                %thead
-                  %tr
-                    %th Email
-                    %th Name
-                    %th Role
-                    %th Recordings
-                    %th Login count
-                    %th Last Login
-                    %th Login enabled
-                %tbody
-                  - org.users.each do |user|
-                    %tr.table-row
-                      %td= user.email
-                      %td= user.full_name
-                      %td= user.role.capitalize
-                      %td= user.recordings.any? ? user.recordings.length : 0
-                      %td= user.sign_in_count
-                      %td= format_date_time(user.current_sign_in_at || user.last_sign_in_at)
-                      - if current_user == user
-                        %td
-                      - else
-                        - link_text = user.active ? 'Yes' : 'No'
-                        %td= link_to link_text, toggle_active_path(user.id)
-    - else
-      %table
-        %thead
-          %tr.header-row
-            %th Email
-            %th Name
-            %th Role
-            %th Recordings
-            %th Login count
-            %th Last Login
-            %th Login enabled
-        %tbody
-          - current_user.viewable_users.each do |user|
-            %tr.table-row
-              %td= user.email
-              %td= user.full_name
-              %td= user.role.capitalize
-              %td= user.recordings.any? ? user.recordings.length : 0
-              %td= user.sign_in_count
-              %td= format_date_time(user.current_sign_in_at || user.last_sign_in_at)
-              - if current_user == user
-                %td
-              - else
-                - link_text = user.active ? 'Yes' : 'No'
-                %td= link_to link_text, toggle_active_path(user.id), class: 'table-link'
+    %table
+      %thead
+        %tr.header-row
+          - if current_user.root?
+            %th Org
+          %th Email
+          %th Name
+          %th Role
+          %th Recordings
+          %th Login count
+          %th Last Login
+          %th Login enabled
+      %tbody
+        - current_user.viewable_users.each do |user|
+          %tr.table-row
+            - if current_user.root?
+              %td= user.org&.name
+            %td= user.email
+            %td= user.full_name
+            %td= user.role.capitalize
+            %td= user.recordings.any? ? user.recordings.length : 0
+            %td= user.sign_in_count
+            %td= format_date_time(user.current_sign_in_at || user.last_sign_in_at)
+            - if current_user == user
+              %td
+            - else
+              - link_text = user.active ? 'Yes' : 'No'
+              %td= link_to link_text, toggle_active_path(user.id), class: 'table-link'

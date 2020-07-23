@@ -5,10 +5,8 @@ class TranscribeAwsJob < ApplicationJob
     @recording = recording
     @credentials = Rails.application.credentials
     transcode
-
-    # NOTE: Automated transcription off for now
-    # transcribe
-    # create_utterances
+    transcribe
+    create_utterances
 
     set_is_processed
 
