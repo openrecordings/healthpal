@@ -1,23 +1,25 @@
-.centered-form-container
-  %h3 Invite New User
-  = form_for resource, as: resource_name, url: invitation_path(resource_name), html: {method: :post} do |f|
-    - resource.class.invite_key_fields.each do |field|
-      .form-label New user's email address
-      .form-field-container.field-centered
-        = f.text_field field, class: 'form-input'
-    %p
-      .form-field-container.field-centered
-        .form-label Role for new user. CAUTION: Admins can access ALL recordings
-        = f.select :role, {'User': 'user', 'Admin': 'admin'}, {}, {class: 'select-css'}
-    - if current_user.root?
+.pad-30.horizontal-center
+  .centered-form-container
+    .form-title.margin-bottom-40 Invite New User
+    = form_for resource, as: resource_name, url: invitation_path(resource_name), html: {method: :post} do |f|
+      - resource.class.invite_key_fields.each do |field|
+        .form-label= t(:email_address)
+        = f.text_field field,
+          class: 'form-input',
+          autofocus: true,
+          class: 'form-input',
+          placeholder: t(:email_address),
+          data: {placeholder: t(:email_address)}
+        .input-underscore-tight
       %p
-        .form-field-container.field-centered
+        .form-label.margin-bottom-10 Role for new user. CAUTION: Admins can manage users and access all of your institution's recordings
+        = f.select :role, {'User': 'user', 'Admin': 'admin'}, {}, {class: 'select-css'}
+      - if current_user.root?
+        %p
           .form-label Role for new user. CAUTION: Admins can access ALL recordings
           = f.collection_select(:org_id, Org.all, :id, :name, {}, {class: 'form-input select-css'})
-    - else
-      = f.hidden_field :org_id, value: current_user.org_id
-    %p.margin-top-40
-      .form-field-container.field-centered
+      - else
+        = f.hidden_field :org_id, value: current_user.org_id
+      %p.margin-top-20
         = f.submit 'Send Invitation', class: 'button'
-  .form-field-container.field-centered
     = button_to 'Cancel', admin_path, class: 'button', method: :get

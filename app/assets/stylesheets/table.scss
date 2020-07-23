@@ -11,10 +11,10 @@
       font-weight: normal;
     }
     tr.table-row:nth-child(even){
-      background-color: $color-5;
+      background-color: #f3f3f3;
     }
     tr.table-row:nth-child(odd){
-      background-color: $color-6;
+      background-color: #fafafa;
     }
     td{
       padding: 10px;
