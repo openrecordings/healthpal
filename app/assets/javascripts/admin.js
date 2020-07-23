@@ -5,10 +5,4 @@ $(document).ready(function () {
 			window.location.assign('/');
 		})
 	}
-
-	if (document.querySelector('#switch-user-form')) {
-		$('#user_id').change(function () {
-			$(this).blur();
-		})
-	}
 })

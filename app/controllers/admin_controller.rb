@@ -93,7 +93,7 @@ class AdminController < ApplicationController
   end
 
   def new_caregiver
-    @users = current_user.viewable_users
+    @users = current_user.viewable_users.select{|u| u != current_user}
   end
 
   def create_caregiver
@@ -111,6 +111,8 @@ class AdminController < ApplicationController
       user_id: params['sharer_id'],
       shared_with_user_id: @user.id,
     )
+    flash.notice = 'Caregiver account created'
+    redirect_to :root
   end
 
   private

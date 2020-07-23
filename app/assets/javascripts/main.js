@@ -34,4 +34,9 @@ $(document).ready(function () {
     return this.push.apply(this, rest);
   };
 
+  // Custom select fields aren't blurring on change like they should
+  $('select').change(function(){
+    $(this).blur();
+  })
+
 });

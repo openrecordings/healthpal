@@ -1,35 +1,50 @@
-#new-caregiver-form.centered-form-container
-  %p.form-title
-    Enter information for new caregiver account
-  = form_with(url: create_caregiver_path) do |f|
-    .form-field-container.field-centered
-      .form-label.margin-top-15
+.pad-30.horizontal-center
+  #new-caregiver-form.centered-form-container
+    %p.form-title
+      Enter information for new caregiver account
+    = form_with(url: create_caregiver_path) do |f|
+      .form-label.margin-bottom-10
         Caregiver for
       - select_options = options_from_collection_for_select(@users, 'id', 'name_and_email')
-      = f.select(:sharer_id, select_options, {include_blank: true}, {class: 'form-input select-css'})
-    .form-field-container.field-centered
-      .form-label.margin-top-15
-        First name
-      = f.text_field :first_name, class: 'form-input'
-    .form-field-container.field-centered
-      .form-label.margin-top-15
-        Last name
-      = f.text_field :last_name, class: 'form-input'
-    .form-field-container.field-centered
-      .form-label.margin-top-15
-        Email
-      = f.email_field :email, class: 'form-input'
-    .form-field-container.field-centered
-      .form-label.margin-top-15
-        Password
-        = f.password_field :password, class: 'form-input password'
-    .form-field-container.field-centered
-      .form-label.margin-top-15
-        Confirm password
-        = f.password_field :password_2, class: 'form-input password-2'
-    .form-field-container.field-centered
+      = f.select(:sharer_id, select_options, {include_blank: true}, {class: 'form-input select-css margin-bottom-10'})
+
+      .form-label.invisible= t(:first_name)
+      = f.text_field :first_name,
+        class: 'form-input',
+        placeholder: t(:first_name),
+        data: {placeholder: t(:first_name)}
+      .input-underscore-tight
+
+      .form-label.invisible= t(:last_name)
+      = f.text_field :last_name,
+        class: 'form-input',
+        placeholder: t(:last_name),
+        data: {placeholder: t(:last_name)}
+      .input-underscore-tight
+
+      .form-label.invisible= t(:email_address)
+      = f.email_field :email,
+        class: 'form-input',
+        placeholder: t(:email_address),
+        data: {placeholder: t(:email)}
+      .input-underscore-tight
+
+      .form-label.invisible= t(:password)
+      = f.password_field :password,
+        class: 'form-input password',
+        placeholder: t(:password),
+        data: {placeholder: t(:password)}
+      .input-underscore-tight
+
+      .form-label.invisible= t(:confirm_password)
+      = f.password_field :password_2,
+        class: 'form-input password-2',
+        placeholder: t(:confirm_password),
+        data: {placeholder: t(:confirm_password)}
+      .input-underscore-tight
+
       .margin-top-15
         = f.submit 'Create caregiver', class: 'button'
-  .form-field-container.field-centered
+
     .margin-top-15
       = button_to 'Cancel', admin_path, class: 'button', method: :get
