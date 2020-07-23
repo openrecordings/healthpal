@@ -123,8 +123,11 @@ class User < ApplicationRecord
   def set_defaults
     self.role ||= 'user'
     self.timezone ||= 'America/New_York'
-    self.onboarded = onboarded.nil? ? false : onboarded
     self.requires_phone_confirmation = requires_phone_confirmation.nil? ? false : requires_phone_confirmation
+
+    # TODO: Default to not onboarded
+    self.onboarded = onboarded.nil? ? true : onboarded
+
   end
 
 end
