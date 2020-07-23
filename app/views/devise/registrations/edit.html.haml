@@ -1,24 +1,41 @@
-.centered-form-container
-  .form-title= t(:edit_login_info)
-  = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
-    .form-field-container
-      .form-label= t(:current_password)
-      = f.password_field :current_password, autofocus: true, autocomplete: 'off', size: 30, class: 'form-input'
-    .form-field-container
-      .form-label= t(:email_address)
-      = f.email_field :email, class: 'form-input'
-      
-    -# - if devise_mapping.confirmable? && resource.pending_reconfirmation?
-    -#   %div
-    -#     Currently waiting confirmation for: #{resource.unconfirmed_email}
+.pad-30.horizontal-center.margin-top-40
+  .centered-form-container
+    .form-title.margin-bottom-20= t(:edit_login_info)
+    = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+      .form-label.invisible= t(:current_password)
+      = f.password_field :current_password,
+        autofocus: true,
+        autocomplete: 'off',
+        size: 30,
+        class: 'form-input',
+        placeholder: t(:current_password),
+        data: {placeholder: t(:current_password)}
+      .input-underscore-tight
 
-    .form-field-container
-      .form-label= t(:new_password)
-      = f.password_field :password, autocomplete: 'off', class: 'form-input'
-    .form-field-container
-      .form-label= t(:new_password_confirmation)
-      = f.password_field :password_confirmation, autocomplete: 'off', class: 'form-input'
-    .actions.text-center.pad-top-20
-      = f.submit t(:update), class: 'button'
-      %div
-        = link_to t(:back), :back, class: 'text-link'
+      .form-label= t(:email_address)
+      = f.email_field :email,
+        class: 'form-input',
+        placeholder: t(:email_address),
+        data: {placeholder: t(:email_address)}
+      .input-underscore-tight
+
+      .form-label.invisible= t(:new_password)
+      = f.password_field :password,
+        autocomplete: 'off',
+        class: 'form-input',
+        placeholder: t(:new_password),
+        data: {placeholder: t(:new_password)}
+      .input-underscore-tight
+
+      .form-label.invisible= t(:new_password_confirmation)
+      = f.password_field :password_confirmation,
+        autocomplete: 'off',
+        class: 'form-input',
+        placeholder: t(:new_password_confirmation),
+        data: {placeholder: t(:new_password_confirmation)}
+      .input-underscore-tight
+
+      .actions.text-center.pad-top-20
+        = f.submit t(:update), class: 'button'
+        %div
+          = link_to t(:back), :back, class: 'text-link'
