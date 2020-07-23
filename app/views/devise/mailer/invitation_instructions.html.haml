@@ -1,28 +1,4 @@
 %p
-  Hello. This email is an invitation to create a HealthPal account. When you visit the address
-  below, you will be taken to the HealthPal website. There you will create a password, then
-  you will automatically be logged in to HealthPal. Your password must be at least eight characters
-  long. To use the application, log in using a fully-updated version of the Chrome browser, the
-  Edge browser, or the Firefox browser, as described below.
-
-%p
-  Copy/Paste this URL into the address bar of your HealthPal-compatibile browser: 
-  %div{style: 'padding: 0px 0 0 30px; font-weight: bold;'}
-    = accept_invitation_url(@resource, :invitation_token => @token)
-
-%p
-  To use this experimental version of HealthPal, follow these steps: 1) Use the application on a
-  laptop computer, not on a tablet or a phone. 2) Use either the Edge browser (Windows 10), the
-  Chrome browser (Mac or Windows), or the Firefox browser (Mac or Windows).
-
-%p
-  Links for updating and installing browsers:
-  %div{style: 'padding: 0px 0 0 30px'}
-    To install Chrome:  https://support.google.com/chrome/answer/95346
-    %br
-    To update Chrome:  https://support.google.com/chrome/answer/95414
-    %br
-    %br
-    To install Firefox:  https://www.mozilla.org/en-US/firefox/
-    %br
-    To update Firefox:  https://support.mozilla.org/en-US/kb/update-firefox-latest-version
+  Hello! You have been invited to create an account at test.audiohealthpal.com.
+  = link_to 'Click here', accept_invitation_url(@resource, invitation_token: @token)
+  To choose a password and begin using HealthPAL.
