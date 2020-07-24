@@ -4,7 +4,11 @@ class PlayController < ApplicationController
   def index
     # TODO: Handle bad data
     # TODO: Restrict admin users again?
-    if current_user.privileged?
+    
+    # TODO: Delete temp conditional
+    # if current_user.privileged?
+    if current_user.privileged? && current_user.email != 'ma.admin@audiohealthpal.com'
+
       @users = User.joins(:recordings).order(:email).uniq
     else
       # All users who are currently sharing with current_user
