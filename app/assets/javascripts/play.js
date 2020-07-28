@@ -57,6 +57,7 @@ if (document.querySelector('#play-view')) {
         $('#recording-date').text(data.date);
         $('#recording-days-ago').text(data.days_ago);
         let videoElement = document.getElementById('video-element');
+        videoElement.load();
         videoElement.volume = playVolume;
         videoElement.ondurationchange = function () {
           $('#duration').text(toMmSs(videoElement.duration));
