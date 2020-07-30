@@ -2,7 +2,6 @@
   %h3
     = "Upload transcript for #{@recording.user.email}, recorded #{format_date_time @recording.created_at}"
     %br
-    = "Filename: #{@recording.file_name}"
   = form_tag({action: :create_utterances}, multipart: true) do
     = hidden_field_tag :recording_id, @recording.id
     %p

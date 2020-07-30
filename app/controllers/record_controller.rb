@@ -29,6 +29,13 @@ class RecordController < ApplicationController
     end
   end
 
+  def create_utterances
+    recording = Recording.find(params[:recording_id])
+    recording.transcript_txt_file = params[:file]
+    recording.build_utterances
+    redirect_to :admin
+  end
+
   private
 
   def handle_blob(blob, user, is_file_upload=false)
