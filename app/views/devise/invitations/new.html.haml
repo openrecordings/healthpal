@@ -16,7 +16,7 @@
         = f.select :role, {'User': 'user', 'Admin': 'admin'}, {}, {class: 'select-css'}
       - if current_user.root?
         %p
-          .form-label Role for new user. CAUTION: Admins can access ALL recordings
+          .form-label Organization for new user
           = f.collection_select(:org_id, Org.all, :id, :name, {}, {class: 'form-input select-css'})
       - else
         = f.hidden_field :org_id, value: current_user.org_id
