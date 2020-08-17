@@ -22,7 +22,7 @@
 
       .form-label= t(:email)
       = f.email_field :email,
-        class: 'form-input',
+        class: 'form-input email-input',
         placeholder: t(:email_address),
         data: {placeholder: t(:email_address)}
       .input-underscore
@@ -34,7 +34,7 @@
 
       - if current_user.root?
         .form-label Organization
-        = f.collection_select(:org_id, @orgs, :id, :name, {include_blank: true}, {class: 'form-input select-css'})
+        = f.collection_select(:org_id, @orgs, :id, :name, {include_blank: true}, {class: 'margin-bottom-20 select-css'})
 
-      = f.submit 'Next', class: 'button'
+      = f.submit 'Next', class: 'button margin-bottom-20'
       = button_to 'Cancel', admin_path, class: 'button', method: :get
