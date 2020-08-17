@@ -5,7 +5,7 @@ if (document.querySelector('form')) {
       $(this).prev().css('visibility', 'visible');
     });
 
-    $('input:text, .email-input')
+    $('input:text, .email-input, .password-input')
       .filter(function () { return $(this).val() == ''; })
       .filter(function () { return !$(this).attr('autofocus'); })
       .each(function () {

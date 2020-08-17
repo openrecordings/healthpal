@@ -60,6 +60,7 @@ en:
   current_password: Current password (required)
   new_password: New password
   new_password_confirmation: New password confirmation
+  new_user_password: Password for new user
   update: Update
   back: Back
   confirmation_code_header: You should have received a text message with a six-digit confirmation code at your phone number ending in
