@@ -1,39 +1,40 @@
-#new-registration-form.centered-form-container
-  %p.form-title
-    Enter information for new user
-  = form_for(@user, url: set_password_path) do |f|
-    // timezone string will be replaced by JS onload. See user.js
-    = f.hidden_field :timezone, value: 'America/New_York'
-    .form-field-container.field-centered
-      .form-label.margin-top-20
-        First name
-      = f.text_field :first_name, class: 'form-input'
-      .input-underscore
-    .form-field-container.field-centered
-      .form-label.margin-top-20
-        Last name
-      = f.text_field :last_name, class: 'form-input'
-      .input-underscore
-    .form-field-container.field-centered
-      .form-label.margin-top-20
-        Email
-      = f.email_field :email, class: 'form-input'
+.pad-30.horizontal-center
+  #new-registration-form.centered-form-container
+    %p.form-title
+      Enter information for new user
+    = form_for(@user, url: set_password_path) do |f|
+      // timezone string will be replaced by JS onload. See user.js
+      = f.hidden_field :timezone, value: 'America/New_York'
+      .form-label= t(:first_name)
+      = f.text_field :first_name,
+        class: 'form-input',
+        autofocus: true,
+        placeholder: t(:first_name),
+        data: {placeholder: t(:first_name)}
       .input-underscore
 
-    -#.form-field-container.field-centered
-    -#  .form-label
-    -#    Mobile phone number
-    -#  = f.text_field :phone_number, class: 'form-input phone-number'
+      .form-label= t(:last_name)
+      = f.text_field :last_name,
+        class: 'form-input',
+        placeholder: t(:last_name),
+        data: {placeholder: t(:last_name)}
+      .input-underscore
 
-    - if current_user.root?
-      .form-field-container.field-centered
-        .form-label.margin-top-20
-          Organization
-          = f.collection_select(:org_id, @orgs, :id, :name, {include_blank: true}, {class: 'form-input select-css'})
+      .form-label= t(:email)
+      = f.email_field :email,
+        class: 'form-input',
+        placeholder: t(:email_address),
+        data: {placeholder: t(:email_address)}
+      .input-underscore
 
-    .form-field-container.field-centered
-      .margin-top-20
-        = f.submit 'Next', class: 'button'
-  .form-field-container.field-centered
-    .margin-top-20
+      -#.form-field-container.field-centered
+      -#  .form-label
+      -#    Mobile phone number
+      -#  = f.text_field :phone_number, class: 'form-input phone-number'
+
+      - if current_user.root?
+        .form-label Organization
+        = f.collection_select(:org_id, @orgs, :id, :name, {include_blank: true}, {class: 'form-input select-css'})
+
+      = f.submit 'Next', class: 'button'
       = button_to 'Cancel', admin_path, class: 'button', method: :get
