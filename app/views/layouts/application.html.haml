@@ -8,9 +8,9 @@
     %title= app_display_name
     = csrf_meta_tags
     = stylesheet_link_tag "application", :media => "all"
-  %body
+  %body.hidden
     = render 'navbar' unless @hide_navbar
     #content
       = render 'flash'
       = yield
-  = javascript_include_tag 'application'
+      = javascript_include_tag 'application'
