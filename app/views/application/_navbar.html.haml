@@ -14,6 +14,8 @@
         %span#logo-pal> PAL
         - if current_user&.privileged?
           %span#logo-admin= current_user.role.upcase
+        - if current_user&.privileged? && !!current_user.org
+          %span#logo-org= current_user.org.name
       %span#mobile-menu-button= inline_svg('hamburger.svg')
   - if user_signed_in?
     #menu-container
