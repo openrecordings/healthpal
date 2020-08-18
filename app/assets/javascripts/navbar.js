@@ -30,8 +30,8 @@ if (document.querySelector('#menu-container')) {
     var privileged = $('#nav-container').data('privileged') == true;
     if (privileged) {
       var mediaQueries = {
-        'small': window.matchMedia("(max-width: 910px)"),
-        'medium': window.matchMedia("(max-width: 1340px)"),
+        'small': window.matchMedia("(max-width: 850px)"),
+        'medium': window.matchMedia("(max-width: 1150px)"),
       }
     } else {
       var mediaQueries = {
