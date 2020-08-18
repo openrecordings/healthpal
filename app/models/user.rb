@@ -126,7 +126,8 @@ class User < ApplicationRecord
     self.requires_phone_confirmation = requires_phone_confirmation.nil? ? false : requires_phone_confirmation
 
     # TODO: Default to not onboarded
-    self.onboarded = onboarded.nil? ? true : onboarded
+    self.onboarded = true
+    # self.onboarded = onboarded.nil? ? true : onboarded
 
   end
 
