@@ -15,9 +15,9 @@ if (window.location.pathname == '/record') {
   var canvasStyle = window.getComputedStyle(canvas);
   var colorMonitoring = '#1c3e66';
   var colorRecording = 'red';
-  var baseRadius = 15;
-  var radiusAmplitudeMultiplier = 0.8;
-  var radiusDeltaBetweenCircles = 7;
+  var baseRadius = 10;
+  var radiusAmplitudeMultiplier = 0.7;
+  var radiusDeltaBetweenCircles = 6;
   var currentCircles = [];
   var circleLifetime = 3000;
   var animationTime = 0;
