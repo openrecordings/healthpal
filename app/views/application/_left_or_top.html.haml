@@ -5,10 +5,13 @@
         admin_path,
     id: 'nav-user-management',
         class: "menu-item-#{position} #{current_path_in?(admin_path) ? menu_class_selected : menu_class}"
-    =link_to t(:manage_recordings),
-        manage_recordings_path,
-        id: 'nav-manage-recordings',
-        class: "menu-item-#{position} #{current_path_in?(manage_recordings_path) ? menu_class_selected : menu_class}"
+
+    -# Disabled for R56
+    -# =link_to t(:manage_recordings),
+    -#     manage_recordings_path,
+    -#     id: 'nav-manage-recordings',
+    -#     class: "menu-item-#{position} #{current_path_in?(manage_recordings_path) ? menu_class_selected : menu_class}"
+
     =link_to t(:analytics),
         analytics_path,
         id: 'nav-analytics',

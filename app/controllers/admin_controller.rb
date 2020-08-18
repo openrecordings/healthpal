@@ -11,7 +11,10 @@ class AdminController < ApplicationController
   end
 
   def manage_recordings
-    @recordings = Recording.all.order('created_at desc')
+    # Redirecting to root for R56 to close this as a security risk
+    redirect_to :root
+
+    # @recordings = Recording.all.order('created_at desc')
   end
 
   def create_tag
