@@ -41,7 +41,7 @@ class ApplicationController < ActionController::Base
   end
 
   def check_layout
-    @hide_navbar = true if ['devise/sessions'].include? request.parameters['controller']
+    @hide_navbar = true if ['devise/sessions', 'devise/passwords', 'invitations'].include? request.parameters['controller']
   end
 
   def set_locale(&action)

@@ -48,6 +48,7 @@ en:
   last_name: Last name
   phone_number: Mobile phone number
   email_address: Email address
+  enter_email_address: Enter your email address
   re_enter_email: Re-enter email address
   sharing_with: You are sharing your recordings with these people
   name: Name
@@ -66,7 +67,7 @@ en:
   confirmation_code_header: You should have received a text message with a six-digit confirmation code at your phone number ending in
   confirmation_code: Confirmation code
   enter_confirmation_code: Enter your confirmation code and choose a password for HealthPAL
-  choose_password: Choose a password for HealthPAL
+  choose_password: Setup your new HealthPAL account
   password: Password
   confirm_password: Confirm password
   submit: Submit
