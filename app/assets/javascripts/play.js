@@ -73,9 +73,9 @@ if (document.querySelector('#play-view')) {
           if (currentTime == 0) { currentNote = null };
           updateAutoScroll();
         };
-        // TODO: Fails if you fast-forward past the end while paused
         videoElement.onended = function () {
-          togglePlayPauseButton();
+          $('#pause-glyph, #pause-label').hide();
+          $('#play-glyph, #play-label').show();
         };
       }
     });
