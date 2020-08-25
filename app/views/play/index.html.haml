@@ -3,37 +3,35 @@
   #metadata-overlay.overlay.invisible
     .modal-form-container
       %form#metadata-form
-        .form-title.margin-bottom-10 Edit recording details
-        .form-label Appointment name
-        = text_field_tag('edit-recording-title', nil, value: @recording&.title, placeholder: 'Recording name', class: 'form-input', data: {placeholder: 'Recording name'})
+        .form-title.margin-bottom-10= t(:edit_recording_details)
+        .form-label= t(:recording_name)
+        = text_field_tag('edit-recording-title', nil, value: @recording&.title, placeholder: t(:recording_name), class: 'form-input', data: {placeholder: t(:recording_name)})
         .input-underscore
-        .form-label Doctor's name
-        = text_field_tag('edit-recording-provider', nil, value: @recording&.provider, placeholder: "Doctor's name", class: 'form-input', data: {placeholder: "Doctor's name"})
+        .form-label= t(:doctors_name)
+        = text_field_tag('edit-recording-provider', nil, value: @recording&.provider, placeholder: t(:doctors_name), class: 'form-input', data: {placeholder: t(:doctors_name)})
         .input-underscore
         .save-cancel-buttons
-          #metadata-cancel.cancel.modal-cancel Cancel
-          #metadata-save.save.modal-save.enter-submit Save
-
+          #metadata-cancel.cancel.modal-cancel= t(:cancel)
+          #metadata-save.save.modal-save.enter-submit= t(:save)
   #note-overlay.overlay.invisible
     .modal-form-container
       %form#note-form
         #note-form-title.form-title.margin-bottom-10
-        = text_area_tag('edit-note', nil, value: @recording&.title, placeholder: 'Enter your note here', class: 'form-input-area')
+        = text_area_tag('edit-note', nil, value: @recording&.title, placeholder: t(:enter_note_here), class: 'form-input-area')
         .save-cancel-buttons
-          #note-cancel.cancel.modal-cancel Cancel
-          #note-save.save.modal-save Save
-
+          #note-cancel.cancel.modal-cancel= t(:cancel)
+          #note-save.save.modal-save= t(:save)
   #left
     - if @recordings.any?
       #search-and-select
-        #select-header Select a recording
+        #select-header= t(:select_a_recording)
         #select
           - @recordings.each do |recording|
             = render 'recording_list_item', recording: recording
     -else
       #no-recordings
-        .pad-30 Your recordings will appear here
-        =link_to 'Make a recording now', record_path, class: 'button'
+        .pad-30= t(:recordings_appear_here)
+        =link_to (:make_recording_now), record_path, class: 'button'
   #right
     #player-container
       #header
@@ -46,9 +44,9 @@
           #recording-date
           #recording-days-ago
 
-      #notes-header.hidden Your Notes
+      #notes-header.hidden= t(:your_notes)
       #notes
-        #no-notes Your notes for this recording will appear here
+        #no-notes= t(:notes_appear_here)
         #notes-container.hidden
 
       #player-border
@@ -87,5 +85,6 @@
           = inline_svg('arrow-left.svg', class: 'small-svg')
           %span.text-with-svg Select
         #create-note
-          %span#create-note-text.text-with-svg New note at 00:00
+          %span#create-note-text.text-with-svg= t(:new_note_at)
+          %span#create-note-time.text-with-svg 00:00
           = inline_svg('plus.svg', class: 'small-svg')

@@ -9,7 +9,7 @@
     edit_user_registration_path,
     id: 'nav-account',
     class: "menu-item-#{position} #{current_path_in?(edit_user_registration_path) ? menu_class_selected : menu_class}"
-=link_to "Sign out #{current_user.email}",
+=link_to "#{t(:sign_out)} #{current_user.email}",
     destroy_user_session_path,
     method: :delete,
     id: 'nav-signout',

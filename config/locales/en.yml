@@ -78,3 +78,13 @@ en:
   affirm: "Yes"
   send_reset_instructions: Send me reset password instructions
   back_to_login_screen: Back to login screen
+  edit_recording_details: Edit recording details
+  recording_name: Recording name
+  doctors_name: Doctor's name
+  enter_note_here: Enter your note here
+  select_a_recording: Select a recording
+  recordings_appear_here: Your recordings will appear here
+  make_recording_now: Make a recording now
+  your_notes: Your notes
+  notes_appear_here: Your notes for this recording will appear here
+  new_note_at: New note at

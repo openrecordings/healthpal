@@ -68,7 +68,7 @@ if (document.querySelector('#play-view')) {
           let currentTime = videoElement.currentTime;
           let displayTime = toMmSs(currentTime);
           $('#current-time').text(displayTime);
-          $('#create-note-text').text(`New note at ${displayTime}`);
+          $('#create-note-time').text(displayTime);
           setUiToTime(currentTime);
           if (currentTime == 0) { currentNote = null };
           updateAutoScroll();
