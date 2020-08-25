@@ -73,5 +73,8 @@ en:
   submit: Submit
   log_in: Log in
   forgot_password: I forgot my password
+  forgot_your_password: Forgot your password?
   name_placeholder: Full Name
   affirm: "Yes"
+  send_reset_instructions: Send me reset password instructions
+  back_to_login_screen: Back to login screen

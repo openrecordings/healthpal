@@ -9,7 +9,7 @@
       %span#logo-pal> PAL
 .full-center.margin-top-neg-100
   = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
-    %p.form-title Forgot your password?
+    %p.form-title= t(:forgot_your_password)
     .form-label= t(:enter_email_address)
     = f.email_field :email,
       autofocus: true,
@@ -17,5 +17,5 @@
       class: 'form-input email-input',
       data: {placeholder: t(:enter_email_address)}
     .input-underscore-tight
-    = f.submit "Send me reset password instructions", class: 'button'
-    .margin-top-20= link_to 'Back to sign-in screen', new_user_session_path, class: 'form-link'
+    = f.submit t(:send_reset_instructions), class: 'button'
+    .margin-top-20= link_to t(:back_to_login_screen), new_user_session_path, class: 'form-link'
