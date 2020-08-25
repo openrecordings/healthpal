@@ -15,10 +15,10 @@
               %td= s.shared_with.email
               %td= link_to t(:stop_sharing), 'javascript:;', class: 'table-link revoke-share', data: {'share-id': s.id}
 - else
-  .horizontal-center.pad-30 You are currently not sharing your recordings with anyone
+  .horizontal-center.pad-30= t(:not_sharing_recordings)
 
 .horizontal-center
-  #reveal-share-form.button Share with someone new
+  #reveal-share-form.button= t(:share_someone_new)
 #new-share-form-container.compressed.hidden
   .share-form.centered-form-container
     .share-header.pad-30
@@ -28,7 +28,6 @@
       .form-label.invisible= t(:first_name)
       = text_field :first_name,
         nil,
-        autofocus: true,
         class: 'form-input',
         placeholder: t(:first_name),
         data: {placeholder: t(:first_name)}
@@ -58,4 +57,4 @@
         data: {placeholder: t(:phone_number)}
       .input-underscore
 
-      .margin-bottom-30= submit_tag 'Share with this person', class: 'button', id: 'new-share-submit'
+      .margin-bottom-30= submit_tag t(:share_this_person), class: 'button', id: 'new-share-submit'
