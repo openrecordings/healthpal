@@ -73,9 +73,11 @@ if (document.querySelector('#play-view')) {
           if (currentTime == 0) { currentNote = null };
           updateAutoScroll();
         };
+        // Can't simply togglePlayPause() because we may have been playing or not when
+        // onended was triggered (can fast-forward to end while paused)
         videoElement.onended = function () {
-          $('#pause-glyph, #pause-label').hide();
-          $('#play-glyph, #play-label').show();
+          $('#pause-glyph, #pause-label').addClass('hidden');
+          $('#play-glyph, #play-label').removeClass('hidden');
         };
       }
     });
