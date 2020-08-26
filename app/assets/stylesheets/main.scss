@@ -433,3 +433,9 @@ span.text-with-svg{
   font-size: 14px;
   font-style: italic;
 }
+
+.responsive-font-size{
+  @media screen and (max-width: $max-mobile-width) {
+    font-size: 15px;
+  }
+}

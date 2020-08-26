@@ -1,8 +1,14 @@
 @mixin menu-horiz{
   display: inline-block;
-  padding: 0 13px;
   text-decoration: none;
-  line-height: 40px;
+  @media screen and (min-width: $max-mobile-width) {
+    padding: 0 13px;
+    line-height: 40px;
+  }
+  @media screen and (max-width: $max-mobile-width) {
+    padding: 10px 10px 0 10px;
+    line-height: 30px;
+  }
 }
 
 @mixin menu-vert{
