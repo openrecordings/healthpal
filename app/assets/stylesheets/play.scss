@@ -313,8 +313,10 @@
     }
     #toolbar{
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: stretch;
+      background-color: $color-7;
+      border-radius: 3px;
       div{
         &:hover{
           cursor: pointer;

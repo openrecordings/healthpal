@@ -308,7 +308,7 @@ if (document.querySelector('#play-view')) {
       showPlaybackOnly();
     })
 
-    $('#show-select').click(function () {
+    $('#toolbar, #show-select').click(function () {
       showSelectOnly();
       clearMetadataFields();
     })
