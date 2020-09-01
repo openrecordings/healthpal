@@ -184,6 +184,12 @@
           align-self: center;
           text-align: center;
         }
+        #create-note{
+          width: 100%;
+          transform: translateY(110px);
+          align-self: flex-end;
+          text-align: center;
+        }
       }
       #player-border{
         z-index: 2;
@@ -316,7 +322,7 @@
       justify-content: center;
       align-items: stretch;
       background-color: $color-7;
-      border-radius: 3px;
+      border-radius: 5px;
       div{
         &:hover{
           cursor: pointer;
