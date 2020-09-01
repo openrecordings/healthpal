@@ -111,7 +111,6 @@
         padding: 10px 0;
       }
       #notes{
-        // background-color: green;
         flex-grow: 1;
         display: flex;
         flex-direction: column;
@@ -123,7 +122,6 @@
         padding-bottom: 8px;
         color: $color-1;
         #notes-container{
-          // background-color: yellowgreen;
           display: flex;
           flex-direction: column;
           flex-grow: 1;
@@ -131,7 +129,6 @@
           top: 0;
           left: 0;
           right: 0;
-          bottom: 0;
           overflow: auto;
           .note{
             margin-bottom: 20px;
@@ -185,9 +182,9 @@
           text-align: center;
         }
         #create-note{
+          position: absolute;
+          bottom: 0;
           width: 100%;
-          transform: translateY(110px);
-          align-self: flex-end;
           text-align: center;
         }
       }
