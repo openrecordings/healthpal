@@ -1,9 +1,13 @@
 # HealthPAL
 
+This repository contains the source code for the HealthPAL appliction. HealthPAL is a responsive, Dockerized Ruby on Rails application that supports the creation and use of audio/video recordings made during provider/patient encounters.
+It is designed to support patients in managing their own health by surfacing important discussion points that occur during clinical encounters, providing trustworthy links to information about important topics discussed during a visit,
+and providing patients with the ability to share access to their visit recordings with a trusted caregiver.
+
 ## Installation
 Docker is the only prerequisite
 
-1. Clone the repo. The Git history is polluted with media files, so it's 396MB for now.
+1. Clone the repo
 
     ```
     git clone https://github.com/willhaslett/orals.git
