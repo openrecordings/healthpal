@@ -1,6 +1,6 @@
 # HealthPAL
 
-This repository contains the source code for the HealthPAL appliction. HealthPAL is a responsive, Dockerized Ruby on Rails application that supports the creation and use of audio/video recordings made during provider/patient encounters.
+This repository contains the source code for the HealthPAL appliction. HealthPAL is a responsive, Dockerized Ruby on Rails application that supports the creation and use of audio/video recordings made during clinical encounters.
 It is designed to support patients in managing their own health by surfacing important discussion points that occur during clinical encounters, providing trustworthy links to information about important topics discussed during a visit,
 and providing patients with the ability to share access to their visit recordings with a trusted caregiver.
 
@@ -10,10 +10,10 @@ Docker is the only prerequisite
 1. Clone the repo
 
     ```
-    git clone https://github.com/willhaslett/orals.git
+    git clone https://github.com/openrecordings/healthpal.git
     cd orals
     ```
-1. Acquire the app's decryption key and place it in the config folder.
+1. Create the app's required secrets using Rails' encrypted secrets scheme, or, if you are installing an existing instance of the app, obtain your app's `master.key`
 
     ```
     echo [the-key] > config/master.key
@@ -57,8 +57,4 @@ Docker is the only prerequisite
 1. Navigate to 127.0.0.1:3000 in your browser. After a short delay, the login screen will appear.
 A general purpose admin account for the application is created during installation. Log in with the
 credentials below. **Never put sensitive data such as Protected Health Information in this application on
-your local laptop.** The credentials for the auto-created account are:
-    ```
-    dev.user@example.com
-    not-secure
-    ```
+your local laptop.** See `seeds.rb` for the creation of a root user.
