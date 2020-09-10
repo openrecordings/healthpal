@@ -55,6 +55,4 @@ Docker is the only prerequisite
     ```
 
 1. Navigate to 127.0.0.1:3000 in your browser. After a short delay, the login screen will appear.
-A general purpose admin account for the application is created during installation. Log in with the
-credentials below. **Never put sensitive data such as Protected Health Information in this application on
-your local laptop.** See `seeds.rb` for the creation of a root user.
+A general purpose admin account for the application is created during installation (see `seeds.rb`).
