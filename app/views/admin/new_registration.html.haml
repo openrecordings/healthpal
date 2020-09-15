@@ -27,10 +27,11 @@
         data: {placeholder: t(:email_address)}
       .input-underscore
 
-      -#.form-field-container.field-centered
-      -#  .form-label
-      -#    Mobile phone number
-      -#  = f.text_field :phone_number, class: 'form-input phone-number'
+      .form-label= t(:phone_number)
+      = f.text_field :phone_number,
+        class: 'form-input phone-number',
+        placeholder: t(:phone_number)
+      .input-underscore
 
       - if current_user.root?
         .form-label Organization
