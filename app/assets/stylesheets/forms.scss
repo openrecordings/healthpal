@@ -92,6 +92,7 @@ form{
   color: white;
   border: none;
   border-radius: 4px;
+  user-select: none;
   &:hover{
     cursor: pointer;
     color: white;

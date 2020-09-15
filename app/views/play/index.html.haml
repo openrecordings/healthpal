@@ -48,13 +48,13 @@
       #notes
         #no-notes= t(:notes_appear_here)
         #notes-container.hidden
-        #create-note
-          %span#create-note-text.text-with-svg= t(:new_note_at)
-          %span#create-note-time.text-with-svg 00:00
-          = inline_svg('plus.svg', class: 'small-svg')
 
       #player-border
       #player
+        #create-note
+          = inline_svg('plus.svg', class: 'small-svg')
+          %span#create-note-text.text-with-svg= t(:new_note_at)
+          %span#create-note-time.text-with-svg 00:00
         #timeline-container
           #timeline.track
           #progress-bar

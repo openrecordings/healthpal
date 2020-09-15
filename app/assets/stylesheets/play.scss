@@ -117,7 +117,7 @@
         justify-content: center;
         align-items: stretch;
         position: relative;
-        overflow: hidden;
+        overflow: scroll;
         padding-top: 7px;
         padding-bottom: 8px;
         color: $color-1;
@@ -181,28 +181,31 @@
           align-self: center;
           text-align: center;
         }
-        #create-note{
-          position: absolute;
-          bottom: 0;
-          width: 100%;
-          text-align: center;
-        }
       }
       #player-border{
         z-index: 2;
         width: 5000px;
-        height: 27px;
+        height: 17px;
         margin: 0 -15px;
         overflow: hidden;
-        box-shadow: 0px -10px 21px -13px rgba(0, 0, 0, 0.8);
+        box-shadow: 0px -10px 15px -8px rgba(0, 0, 0, 1.0);
       }
       #player{
         z-index: 1;
+        #create-note{
+          width: 100%;
+          text-align: center;
+          transform: translateY(-8px);
+          user-select: none;
+          &:hover{
+            cursor: pointer;
+          }
+        }
         #timeline-container{
           position: relative;
           width: 100%;
           box-sizing: border-box;
-          margin-top: 15px;
+          margin-top: 18px;
           margin-bottom: 30px;
           #timeline{
             background-color: $color-6;
@@ -242,7 +245,7 @@
         #time{
           display: flex;
           justify-content: space-between;
-          padding-top: 7px;
+          padding-top: 9px;
           padding-bottom: 10px;
           font-size: 14px;
         }
