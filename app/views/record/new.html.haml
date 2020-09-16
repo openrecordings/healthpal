@@ -1,7 +1,17 @@
 %audio#record-audio{autoplay: true}
 
-#no-media-recorder-support
-  Foo
+#no-media-recorder-support.overlay.invisible
+  .modal-form-container
+    #no-media-recorder-message
+      %p.title
+        It looks like your web browser doesn't support recording audio.
+      %p.margin-bottom-30
+        If you are using an iPhone or an iPad, or if you are using the Safari
+        browser on a macOS computer, you can change a setting in your
+        browser that will enable recording with this device. Go to the Help Screen
+        to see instructions on how to do this.
+      .button.margin-bottom-30= link_to 'Take me to the Help Screen', help_path, class: 'no-decoration'
+      .button= link_to 'Take me back to My Recordings', play_path, class: 'no-decoration'
 
 #overlay.overlay.invisible
   #loader-container

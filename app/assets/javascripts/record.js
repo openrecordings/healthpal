@@ -275,7 +275,7 @@ if (window.location.pathname == '/record') {
   } else {
     console.log('Browser does not support the MediaRecorder API');
     $(document).ready(function () {
-      $('#no-media-recorder-support').fadeIn();
-    }
+      $('#no-media-recorder-support').css('visibility', 'visible');
+    });
   }
 }
