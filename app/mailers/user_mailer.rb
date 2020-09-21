@@ -1,7 +1,4 @@
 class UserMailer < ApplicationMailer
-
-  default from: 'will.haslett@dartmouth.edu'
-
   def r01_recording_ready
     @recording = params[:message].recording
     mail(to: @recording.user.email, subject: 'Your HealthPal audio recording is ready')
@@ -21,5 +18,4 @@ class UserMailer < ApplicationMailer
     @recording = params[:message].recording
     mail(to: @recording.user.email, subject: 'Your next recorded visit is coming up')
   end
-
 end
