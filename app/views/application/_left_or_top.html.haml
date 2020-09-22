@@ -1,33 +1,34 @@
 - menu_class = {horiz: 'menu-horiz', vert: 'menu-vert'}[orientation]
 - menu_class_selected = "#{menu_class}-selected"
 - if current_user.privileged?
-    =link_to t(:user_management),
-    admin_path,
-    id: 'nav-user-management',
-    class: "responsive-font-size menu-item-#{position} #{current_path_in?(admin_path) ? menu_class_selected : menu_class}"
+  =link_to t(:user_management),
+  admin_path,
+  id: 'nav-user-management',
+  class: "responsive-font-size menu-item-#{position} #{current_path_in?(admin_path) ? menu_class_selected : menu_class}"
 
-    -# Disabled for R56
-    -# =link_to t(:manage_recordings),
-    -#     manage_recordings_path,
-    -#     id: 'nav-manage-recordings',
-    -#     class: "menu-item-#{position} #{current_path_in?(manage_recordings_path) ? menu_class_selected : menu_class}"
+  -# Disabled for R56
+  -# =link_to t(:manage_recordings),
+  -#     manage_recordings_path,
+  -#     id: 'nav-manage-recordings',
+  -#     class: "menu-item-#{position} #{current_path_in?(manage_recordings_path) ? menu_class_selected : menu_class}"
 
-    -# =link_to t(:analytics),
-    -#     analytics_path,
-    -#     id: 'nav-analytics',
-    -#     class: "menu-item-#{position} #{current_path_in?(analytics_path) ? menu_class_selected : menu_class}"
+  -# =link_to t(:analytics),
+  -#     analytics_path,
+  -#     id: 'nav-analytics',
+  -#     class: "menu-item-#{position} #{current_path_in?(analytics_path) ? menu_class_selected : menu_class}"
 
 =link_to "#{current_user.privileged? ? 'Recordings' : t(:recordings)}",
-    play_path,
-    id: 'nav-play',
-    class: "responsive-font-size menu-item-#{position} #{current_path_in?(play_path) ? menu_class_selected : menu_class}"
+  play_path,
+  id: 'nav-play',
+  class: "responsive-font-size menu-item-#{position} #{current_path_in?(play_path) ? menu_class_selected : menu_class}"
 
-=link_to "#{current_user.privileged? ? 'New Admin Recording' : t(:new_recording)}",
+- if current_user.can_record
+  =link_to "#{current_user.privileged? ? 'New Admin Recording' : t(:new_recording)}",
     record_path,
     id: 'nav-new-recording',
     class: "responsive-font-size menu-item-#{position} #{current_path_in?(record_path) ? menu_class_selected : menu_class}"
 
 - unless current_user.privileged?
-    =link_to t(:sharing), shares_path,
-        id: 'nav-share',
-        class: "responsive-font-size menu-item-#{position} #{current_path_in?([shares_path, no_shares_path]) ? menu_class_selected : menu_class}"
+  =link_to t(:sharing), shares_path,
+    id: 'nav-share',
+    class: "responsive-font-size menu-item-#{position} #{current_path_in?([shares_path, no_shares_path]) ? menu_class_selected : menu_class}"

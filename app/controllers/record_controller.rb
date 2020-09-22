@@ -1,5 +1,9 @@
 class RecordController < ApplicationController
 
+  def new
+    redirect_to :root unless current_user.can_record
+  end
+
   # In-app recordings, coming in as AJAX
   def upload
     handle_blob(request.body.read, current_user)
