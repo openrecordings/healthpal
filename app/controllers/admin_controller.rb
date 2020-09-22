@@ -26,6 +26,12 @@ class AdminController < ApplicationController
     redirect_to :admin
   end
 
+  def toggle_can_record
+    user = User.find(params[:id])
+    user.toggle_can_record
+    redirect_to :admin
+  end
+
   def toggle_otp
     user = User.find(params[:id])
     user.toggle_otp

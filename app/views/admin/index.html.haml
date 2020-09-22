@@ -19,6 +19,7 @@
           %th Login count
           %th Last Login
           %th Login enabled
+          %th Recording enabled
       %tbody
         - current_user.viewable_users.each do |user|
           %tr.table-row
@@ -35,3 +36,5 @@
             - else
               - link_text = user.active ? 'Yes' : 'No'
               %td= link_to link_text, toggle_active_path(user.id), class: 'table-link'
+            - link_text = user.can_record ? 'Yes' : 'No'
+            %td= link_to link_text, toggle_can_record_path(user.id), class: 'table-link'
