@@ -103,6 +103,10 @@ class User < ApplicationRecord
     self.update! active: !self.active
   end
 
+  def toggle_can_record
+    self.update! can_record: !self.can_record
+  end
+
   # Disables user login when appropriate. Called by Warden hook in config/initializers/devise.rb
   # TODO: Delete or create separate role for this
   def disable_after_first_session!
@@ -124,6 +128,7 @@ class User < ApplicationRecord
     self.role ||= 'user'
     self.timezone ||= 'America/New_York'
     self.requires_phone_confirmation = requires_phone_confirmation.nil? ? false : requires_phone_confirmation
+    self.can_record = can_record.nil? ? true : can_record
 
     # TODO: Default to not onboarded
     self.onboarded = true
