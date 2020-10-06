@@ -29,6 +29,7 @@ class ApplicationController < ActionController::Base
       :timezone_offset,
       :onboarded,
       :requires_phone_confirmation,
+      :created_as_caregiver
     ]
     devise_parameter_sanitizer.permit(:invite, keys: keys)
     devise_parameter_sanitizer.permit(:register, keys: keys)
