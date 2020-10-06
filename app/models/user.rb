@@ -131,9 +131,8 @@ class User < ApplicationRecord
     self.can_record = can_record.nil? ? true : can_record
 
     # TODO: Default to not onboarded
-    self.onboarded = true
     # self.onboarded = onboarded.nil? ? true : onboarded
-
+    self.onboarded = true
   end
 
 end
