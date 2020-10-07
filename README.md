@@ -4,6 +4,8 @@ This repository contains the source code for the HealthPAL appliction. HealthPAL
 It is designed to support patients in managing their own health by surfacing important discussion points that occur during clinical encounters, providing trustworthy links to information about important topics discussed during a visit,
 and providing patients with the ability to share access to their visit recordings with a trusted caregiver.
 
+![](.screenshot.png)
+
 ## Installation
 Docker is the only prerequisite
 
