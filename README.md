@@ -26,8 +26,6 @@ Docker is the only prerequisite
     ./dev-reset
     ```
 
-1. Coffee
-
 1. When the installation is complete, the last lines of output from the process should be:
 
     ```
