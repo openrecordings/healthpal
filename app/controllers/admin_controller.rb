@@ -1,7 +1,5 @@
 class AdminController < ApplicationController
 
-  #TODO Handle bad params
-
   before_action :verify_privileged
 
   def index
@@ -113,6 +111,7 @@ class AdminController < ApplicationController
       org_id: User.find_by(id: params['sharer_id']).org.id,
       first_name: params['first_name'],
       last_name: params['last_name'],
+      created_as_caregiver: true,
     )
     @user.password = params['password']
     @user.save

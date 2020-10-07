@@ -1,5 +1,7 @@
 class InvitationsController < Devise::InvitationsController
 
+  layout 'application'
+
   # Raw Devise method extnded to handle SMS verification
   def update
     raw_invitation_token = update_resource_params[:invitation_token]

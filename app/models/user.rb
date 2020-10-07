@@ -13,7 +13,7 @@ class User < ApplicationRecord
 
   before_validation :set_defaults
 
-  validates :onboarded, :active, :requires_phone_confirmation, inclusion: [true, false] 
+  validates :onboarded, :active, :requires_phone_confirmation, :created_as_caregiver, inclusion: [true, false] 
   validates_presence_of :email, :role, :timezone
   validates_presence_of :first_name, :last_name, if: :has_ever_logged_in
   validates_presence_of :org, unless: :root?
@@ -129,6 +129,7 @@ class User < ApplicationRecord
     self.timezone ||= 'America/New_York'
     self.requires_phone_confirmation = requires_phone_confirmation.nil? ? false : requires_phone_confirmation
     self.can_record = can_record.nil? ? true : can_record
+    self.created_as_caregiver = created_as_caregiver.nil? ? false : created_as_caregiver
 
     # TODO: Default to not onboarded
     # self.onboarded = onboarded.nil? ? true : onboarded
