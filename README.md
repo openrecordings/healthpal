@@ -1,8 +1,8 @@
 # HealthPAL
 
 This repository contains the source code for the HealthPAL appliction. HealthPAL is a responsive, Dockerized Ruby on Rails application that supports the creation and use of audio/video recordings made during clinical encounters.
-It is designed to support patients in managing their own health by surfacing important discussion points that occur during clinical encounters, providing trustworthy links to information about important topics discussed during a visit,
-and providing patients with the ability to share access to their visit recordings with a trusted caregiver.
+It is designed to support patients in managing their own health by surfacing important discussion points that occur during clinical encounters, by providing trustworthy links to information about important topics discussed during a visit,
+and by providing patients with the ability to share access to their visit recordings with a trusted caregiver.
 
 ![](.screenshot.png)
 
