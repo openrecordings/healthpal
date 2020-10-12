@@ -420,7 +420,7 @@ if (document.querySelector('#play-view')) {
       let form = $('#note-form');
       form.data('note-id', noteId);
       form.data('note-at', noteAt);
-      $('#edit-note').text(text);
+      $('#edit-note-text').val(text);
       $('#note-form-title').text(`Note at ${toMmSs(noteAt)}`);
       $('#note-overlay').hide().fadeIn(200);
       $('#note-overlay').css('visibility', 'visible');
@@ -429,7 +429,7 @@ if (document.querySelector('#play-view')) {
     $(document).on('click', '#note-save', function () {
       let form = $('#note-form');
       let noteId = form.data('note-id');
-      let text = $('#edit-note').val();
+      let text = $('#edit-note-text').val();
       let noteAt = form.data('note-at');
       if (noteId) {
         let note = $(`.note[data-note-id=${noteId}]`);
@@ -444,6 +444,10 @@ if (document.querySelector('#play-view')) {
         $('#note-cancel').click();
         loadNotes();
       });
+    });
+
+    $(document).on('click', '#note-cancel', function() {
+      $('#edit-note-text').val('');
     });
 
     $(document).on('click', '.delete-note', function () {

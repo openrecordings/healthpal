@@ -17,7 +17,7 @@
     .modal-form-container
       %form#note-form
         #note-form-title.form-title.margin-bottom-10
-        = text_area_tag('edit-note', nil, value: @recording&.title, placeholder: t(:enter_note_here), class: 'form-input-area')
+        = text_area_tag('edit-note-text', nil, value: nil, placeholder: t(:enter_note_here), class: 'form-input-area')
         .save-cancel-buttons
           #note-cancel.cancel.modal-cancel= t(:cancel)
           #note-save.save.modal-save= t(:save)
