@@ -16,6 +16,7 @@ class User < ApplicationRecord
   validates :onboarded, :active, :requires_phone_confirmation, :created_as_caregiver, inclusion: [true, false] 
   validates_presence_of :email, :role, :timezone
   validates_presence_of :org, unless: :root?
+  validates_presence_of :phone_number, if: :requires_phone_confirmation
 
   def admin?
     role == 'admin'

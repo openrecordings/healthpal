@@ -29,19 +29,11 @@
         data: {placeholder: t(:email)}
       .input-underscore-tight
 
-      .form-label.invisible= t(:password)
-      = f.password_field :password,
-        class: 'form-input password',
-        placeholder: t(:password),
-        data: {placeholder: t(:password)}
-      .input-underscore-tight
-
-      .form-label.invisible= t(:confirm_password)
-      = f.password_field :password_2,
-        class: 'form-input password-2',
-        placeholder: t(:confirm_password),
-        data: {placeholder: t(:confirm_password)}
-      .input-underscore-tight
+      .form-label= t(:phone_number)
+      = f.text_field :phone_number,
+        class: 'form-input phone-number',
+        placeholder: t(:phone_number)
+      .input-underscore
 
       .margin-top-15
         = f.submit 'Create caregiver', class: 'button'

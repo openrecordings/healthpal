@@ -112,15 +112,18 @@ class AdminController < ApplicationController
       org_id: User.find_by(id: params['sharer_id']).org.id,
       first_name: params['first_name'],
       last_name: params['last_name'],
+      phone_number: params['phone_number'] 
       created_as_caregiver: true,
+      requires_phone_confirmation: false,
+      can_record: false
     )
-    @user.password = params['password']
     @user.save
+    @user.invite!
     Share.create(
       user_id: params['sharer_id'],
       shared_with_user_id: @user.id,
     )
-    flash.notice = 'Caregiver account created'
+    flash.alert = 'Caregiver account created'
     redirect_to :root
   end
 
