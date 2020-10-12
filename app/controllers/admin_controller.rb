@@ -69,6 +69,7 @@ class AdminController < ApplicationController
       first_name: user_params[:first_name],
       last_name: user_params[:last_name],
       email: user_params[:email],
+      # Only root can choose an org for a new account
       org_id: current_user.root? ? user_params[:org_id] : current_user.org.id,
       phone_number: user_params[:phone_number],
       password: user_params[:password],
