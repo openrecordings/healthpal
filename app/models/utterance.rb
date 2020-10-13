@@ -5,7 +5,7 @@
 class Utterance < ApplicationRecord
   belongs_to :recording
   has_many :tags, dependent: :destroy
-  has_many :links
+  has_many :links, dependent: :destroy
 
   validates_presence_of :recording
 
