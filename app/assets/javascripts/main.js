@@ -3,11 +3,6 @@ $(document).ready(function () {
   document.body.height = window.innerHeight;
   document.getElementsByTagName('html').height = window.innerHeight;
 
-  // Initialize tablesorter
-  $(function() {
-    $('.tablesorter').tablesorter();
-  });
-
   $('textarea').autoResize();
 
   isVisible = function (e) {
