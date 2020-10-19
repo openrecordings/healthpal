@@ -1,0 +1,43 @@
+#intro-overlay {
+  padding: 5%;
+  box-sizing: border-box;
+  // https://usefulangle.com/post/142/css-video-aspect-ratio
+  #intro-video-container {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%;
+    height: 0px;
+    #intro-video {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+    }
+  }
+}
+
+#intro-text-overlay {
+  flex-direction: column;
+  background-color: #000;
+  opacity: 1;
+}
+
+#never-watch {
+  background: none;
+  color: $color-2;
+  text-align: left;
+  text-decoration: underline;
+}
+
+.intro-text-title {
+  font-size: 30px;
+}
+
+.health{
+  color: $color-3;
+}
+
+.pal {
+  color: $color-5;
+}

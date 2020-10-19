@@ -26,7 +26,7 @@ if(document.querySelector('#intro-video')) {
   /////////////////////////////////////////////////////////////////////////////////////////////////
   $('#watch-now').click(function(){
     let videoElement = document.getElementById('intro-video');
-    $('#intro-text-container').hide();
+    $('#intro-text-overlay').hide();
     $('#dismiss-video').css('visibility', 'visible');
     videoElement.play();
   })
