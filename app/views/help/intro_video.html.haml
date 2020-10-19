@@ -1,19 +1,17 @@
 .overlay#intro-overlay
-  .overlay-video.full-center
-    = video_tag 'intro_video.mp4', controls: true, id: 'intro-video'
+  .overlay-video
+    = video_tag 'intro_video.mp4', controls: true, id: 'intro-video', size: '704x396'
     #dismiss-video.large-svg.hidden.invisible
       %svg#glyphicons-basic{:viewbox => "0 0 32 32", :xmlns => "http://www.w3.org/2000/svg"}
         %path#menu-close{:d => "M25.83881,23.01038a.5.5,0,0,1,0,.70715l-2.12128,2.12134a.50011.50011,0,0,1-.70709,0L16,18.82837l-7.01044,7.0105a.50011.50011,0,0,1-.70709,0L6.16119,23.71753a.5.5,0,0,1,0-.70715L13.17163,16,6.16119,8.9895a.49982.49982,0,0,1,0-.707L8.28247,6.16113a.5.5,0,0,1,.70709,0L16,13.17163l7.01044-7.0105a.5.5,0,0,1,.70709,0l2.12128,2.12134a.49982.49982,0,0,1,0,.707L18.82843,16Z", :fill => "#ffffff"}
-  / TODO: Do this right
-  .overlay-video{style: 'margin-top: 300px;'}
-    .full-center.huge
+  #intro-text-container
+    %div
       %span.blue-text Welcome to&nbsp;
       %span#logo-health Health
       %span#logo-pal> PAL
-    .full-center.form-field-container.margin-top-40
+    %div
       = link_to t(:watch_now), 'javascript:;', class: 'button', id: 'watch-now'
-    .full-center.form-field-container.margin-top-40
+    %div
       = link_to t(:watch_later), 'javascript:;', class: 'button', id: 'watch-later'
-    .full-center
-      .field-centered.text-left.margin-top-40.smaller
-        = link_to t(:dont_ask_again), 'javascript:;', id: 'never-watch'
+    %div
+      = link_to t(:dont_ask_again), 'javascript:;', id: 'never-watch'
