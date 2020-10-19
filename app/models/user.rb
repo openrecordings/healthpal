@@ -141,8 +141,7 @@ class User < ApplicationRecord
     self.created_as_caregiver = created_as_caregiver.nil? ? false : created_as_caregiver
 
     # TODO: Default to not onboarded
-    # self.onboarded = onboarded.nil? ? true : onboarded
-    self.onboarded = true
+    self.onboarded = onboarded.nil? ? false : onboarded
   end
 
 end
