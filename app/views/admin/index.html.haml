@@ -7,7 +7,7 @@
     - if current_user.root?
       %p= button_to 'Create New Organization', new_org_path, class: 'button', method: :get
     %p.margin-top-40 Existing users
-    %table
+    %table#user-table
       %thead
         %tr.header-row
           - if current_user.root?
