@@ -34,10 +34,18 @@
   font-size: 30px;
 }
 
-.health{
+.health {
   color: $color-3;
 }
 
 .pal {
   color: $color-5;
+}
+
+.help-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: -100px;
 }
