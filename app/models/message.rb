@@ -3,7 +3,6 @@ class Message < ApplicationRecord
   belongs_to :recording
 
   # Called by Cron once per minute
-  # TODO: Enable
   def self.send_due_messages
     send_now = Message.
       where('deliver_at < ?', DateTime.now).
