@@ -48,7 +48,7 @@ class TranscribeAwsJob < ApplicationJob
     Message.create(
       recording: @recording,
       mailer_method: 'r56_reminder_1', 
-      deliver_at: (DateTime.now + 1.day).change({hour: 11, min: 0, sec: 0}),
+      deliver_at: (DateTime.now.in_time_zone + 1.day).change({hour: 11, min: 0, sec: 0}),
       deliver: true,
       to_email: true
     )
@@ -58,7 +58,7 @@ class TranscribeAwsJob < ApplicationJob
     Message.create(
       recording: @recording,
       mailer_method: 'r56_reminder_2', 
-      deliver_at: (DateTime.now + 8.days).change({hour: 11, min: 0, sec: 0}),
+      deliver_at: (DateTime.now.in_time_zone + 8.days).change({hour: 11, min: 0, sec: 0}),
       deliver: true,
       to_email: true
     )
@@ -68,7 +68,7 @@ class TranscribeAwsJob < ApplicationJob
     Message.create(
       recording: @recording,
       mailer_method: 'r56_reminder_3', 
-      deliver_at: (DateTime.now + 1000.days).change({hour: 11, min: 0, sec: 0}),
+      deliver_at: (DateTime.now.in_time_zone + 1000.days).change({hour: 11, min: 0, sec: 0}),
       deliver: true,
       to_email: true
     )
