@@ -77,7 +77,7 @@ class User < ApplicationRecord
       'with you an audio recording of their recent doctor’s visit that they want you to '\
       "hear. \n\n You will receive an email with a special link to audiohealthpal.com. "\
       'When you click on that link, enter this code to confirm your identity and set up '\
-      "your account: #{new_phone_token} "
+      "your account: #{new_phone_token}"
     self.phone_token = phone_token
     self.update(phone_token: new_phone_token)
     client = Twilio::REST::Client.new(
@@ -87,7 +87,7 @@ class User < ApplicationRecord
       client.api.account.messages.create(
         from: Orals::Application.credentials.twilio[:from_phone_number],
         to: "+1#{phone_number}",
-        body: "This is your HealthPAL confirmation code: #{new_phone_token}"
+        body: sms_text
       )
     rescue => e
       logger.error ([e.message]+e.backtrace).join($/)
