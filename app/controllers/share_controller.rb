@@ -72,6 +72,7 @@ class ShareController < ApplicationController
       email: email,
       active: true,
       role: 'user',
+      created_as_caregiver: true,
       requires_phone_confirmation: true)
         user.invite!
         user.send_sms_token

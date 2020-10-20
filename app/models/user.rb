@@ -77,7 +77,7 @@ class User < ApplicationRecord
       'with you an audio recording of their recent doctor’s visit that they want you to '\
       "hear. \n\n You will receive an email with a special link to audiohealthpal.com. "\
       'When you click on that link, enter this code to confirm your identity and set up '\
-      "your account: #{new_phone_token}"
+    "your account: #{new_phone_token}"
     self.phone_token = phone_token
     self.update(phone_token: new_phone_token)
     client = Twilio::REST::Client.new(
@@ -139,8 +139,6 @@ class User < ApplicationRecord
     self.requires_phone_confirmation = requires_phone_confirmation.nil? ? false : requires_phone_confirmation
     self.can_record = can_record.nil? ? true : can_record
     self.created_as_caregiver = created_as_caregiver.nil? ? false : created_as_caregiver
-
-    # TODO: Default to not onboarded
     self.onboarded = onboarded.nil? ? false : onboarded
   end
 
