@@ -16,6 +16,11 @@ class UserMailer < ApplicationMailer
 
   def r56_reminder_2
     @recording = params[:message].recording
+    mail(to: @recording.user.email, subject: 'A reminder to check out your recording')
+  end
+
+  def r56_reminder_3
+    @recording = params[:message].recording
     mail(to: @recording.user.email, subject: 'Your next recorded visit is coming up')
   end
 end
