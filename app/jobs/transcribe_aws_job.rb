@@ -5,8 +5,8 @@ class TranscribeAwsJob < ApplicationJob
     @recording = recording
     @credentials = Rails.application.credentials
     transcode
-    transcribe
-    create_utterances
+    # transcribe
+    # create_utterances
 
     set_is_processed
 
@@ -17,7 +17,8 @@ class TranscribeAwsJob < ApplicationJob
     # R56 messages
     ######################################
     # r56_recording_ready_message
-    # r56_reminder_1
+    r56_reminder_1
+    r56_reminder_2
   end
 
   private
@@ -46,7 +47,17 @@ class TranscribeAwsJob < ApplicationJob
     Message.create(
       recording: @recording,
       mailer_method: 'r56_reminder_1', 
-      deliver_at: Time.now + 3.minutes,
+      deliver_at: Time.now,
+      deliver: true,
+      to_email: true
+    )
+  end
+
+  def r56_reminder_2
+    Message.create(
+      recording: @recording,
+      mailer_method: 'r56_reminder_2', 
+      deliver_at: Time.now + 60.seconds,
       deliver: true,
       to_email: true
     )
