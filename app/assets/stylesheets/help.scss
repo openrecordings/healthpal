@@ -19,7 +19,7 @@
 
 #intro-text-overlay {
   flex-direction: column;
-  background-color: #000;
+  background-color: white;
   opacity: 1;
 }
 
@@ -32,6 +32,10 @@
 
 .intro-text-title {
   font-size: 30px;
+}
+
+.welcome-to{
+  color: $color-1;
 }
 
 .health {
