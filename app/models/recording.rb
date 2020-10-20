@@ -15,7 +15,8 @@ class Recording < ApplicationRecord
   scope :processed, -> {where(is_processed: true)}
 
   def transcribe
-    TranscribeAwsJob.perform_later(self)
+    # TRANSCRIPTION DISABLED FOR R56
+    # TranscribeAwsJob.perform_later(self)
   end
 
   def notes

@@ -1,6 +1,6 @@
 Devise.setup do |config|
   config.mailer = 'DeviseMailer'
-  config.mailer_sender = 'no-reply@audiohealthpal.com'
+  config.mailer_sender = 'susan.m.tarczewski@dartmouth.edu'
   require 'devise/orm/active_record'
   config.case_insensitive_keys = [:email]
   config.strip_whitespace_keys = [:email]
