@@ -58,7 +58,7 @@ class TranscribeAwsJob < ApplicationJob
     Message.create(
       recording: @recording,
       mailer_method: 'r56_reminder_2', 
-      deliver_at: (DateTime.now.in_time_zone + 8.days).change({hour: 11, min: 0, sec: 0}),
+      deliver_at: (DateTime.now.in_time_zone + 7.days).change({hour: 11, min: 0, sec: 0}),
       deliver: true,
       to_email: true
     )
