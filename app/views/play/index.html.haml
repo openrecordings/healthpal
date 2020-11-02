@@ -29,7 +29,13 @@
         #select
           - @recordings_by_user.each do |user_and_recordings|
             - user = user_and_recordings[:user]
-            .recording-owner= "#{user&.first_name.titlecase} #{user&.last_name.titlecase}"
+            - if user.first_name && user.last_name
+              - user_name = "#{user.first_name.titlecase} #{user&.last_name.titlecase}"
+            - elsif user.email
+              - user_name = user.email
+            - else
+              - user_name = 'No user name found!'
+            .recording-owner= user_name
             - user_and_recordings[:recordings].each do |recording|
               = render 'recording_list_item', recording: recording
     -else
