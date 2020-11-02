@@ -55,15 +55,11 @@ class User < ApplicationRecord
     recordings_by_user = []
     users = recordings.map{|r| r.user}.uniq
     users.each do |user|
-      puts '-------------------'
-      puts user.email
       recordings_by_user << {
         user: user,
         recordings: recordings.select{|r| r.user == user}
       }
     end
-      puts '-------------------'
-      puts recordings_by_user
     return recordings_by_user
   end
 
