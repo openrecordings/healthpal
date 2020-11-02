@@ -23,14 +23,15 @@
           #note-save.save.modal-save= t(:save)
   #left
 
-    = debug @recordings_by_user
-
-    - if @recordings.any?
+    - if @recordings_by_user.any?
       #search-and-select
         #select-header= t(:select_a_recording)
         #select
-          - @recordings.each do |recording|
-            = render 'recording_list_item', recording: recording
+          - @recordings_by_user.each do |user_and_recordings|
+            - user = user_and_recordings[:user]
+            .recording-owner= "#{user&.first_name.titlecase} #{user&.last_name.titlecase}"
+            - user_and_recordings[:recordings].each do |recording|
+              = render 'recording_list_item', recording: recording
     -else
       #no-recordings
         .pad-30= t(:recordings_appear_here)

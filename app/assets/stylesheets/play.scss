@@ -13,13 +13,18 @@
       #select-header{
         box-sizing: border-box;
         padding-top: 10px;
-        padding-bottom: 20px;
         text-align: center;
         font-size: 20px;
         color: $color-2;
-        border-bottom: 1px solid #bbb;
       }
       #select{
+        .recording-owner{
+          box-sizing: border-box;
+          padding-top: 40px;
+          padding-bottom: 10px;
+          border-bottom: 1px solid #bbb;
+          font-weight: bold;
+        }
         .recording-list-item{
           display: flex;
           flex-flow: row wrap;
