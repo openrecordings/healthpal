@@ -41,14 +41,30 @@ class User < ApplicationRecord
     viewable.flatten.uniq
   end
 
-  # TODO: This needs to sort by recording owner, then by reverse chron to support
-  #       users who are both caregivers and have their own recordings
   def viewable_recordings
     viewable = recordings
     viewable += recordings_shared_with
     viewable += org.recordings if admin?
     viewable += Recording.all if root?
     viewable.flatten.uniq.sort_by(&:created_at).reverse
+  end
+
+  def viewable_recordings_by_user
+    recordings = viewable_recordings
+    return [] unless recordings.any?
+    recordings_by_user = []
+    users = recordings.map{|r| r.user}.uniq
+    users.each do |user|
+      puts '-------------------'
+      puts user.email
+      recordings_by_user << {
+        user: user,
+        recordings: recordings.select{|r| r.user == user}
+      }
+    end
+      puts '-------------------'
+      puts recordings_by_user
+    return recordings_by_user
   end
 
   def viewable_users

@@ -22,6 +22,9 @@
           #note-cancel.cancel.modal-cancel= t(:cancel)
           #note-save.save.modal-save= t(:save)
   #left
+
+    = debug @recordings_by_user
+
     - if @recordings.any?
       #search-and-select
         #select-header= t(:select_a_recording)

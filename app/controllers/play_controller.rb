@@ -11,6 +11,7 @@ class PlayController < ApplicationController
   def index
     @recording = Recording.find_by(id: params[:id])
     @recordings = current_user.viewable_recordings
+    @recordings_by_user = current_user.viewable_recordings_by_user
   end
 
   private
