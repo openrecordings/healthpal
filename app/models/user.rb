@@ -91,15 +91,7 @@ class User < ApplicationRecord
     sign_in_count > 0
   end
 
-  def send_sms_token
-    new_phone_token = Array.new(6){rand(10)}.join
-    sms_text = 'Hello! A family member or friend (or patient first name) would like to share '\
-      'with you an audio recording of their recent doctor’s visit that they want you to '\
-      "hear. \n\nYou will receive an email with a special link to audiohealthpal.com. "\
-      'When you click on that link, enter this code to confirm your identity and set up '\
-      "your account: #{new_phone_token}"
-    self.phone_token = phone_token
-    self.update(phone_token: new_phone_token)
+  def send_sms(sms_text)
     client = Twilio::REST::Client.new(
       Orals::Application.credentials.twilio[:account_sid],
       Orals::Application.credentials.twilio[:auth_token])
@@ -113,6 +105,19 @@ class User < ApplicationRecord
       logger.error ([e.message]+e.backtrace).join($/)
     end
   end
+
+  def send_sms_token
+    new_phone_token = Array.new(6){rand(10)}.join
+    sms_text = 'Hello! A family member or friend would like to share '\
+      'with you an audio recording of their recent doctor’s visit that they want you to '\
+      "hear. \n\nYou will receive an email with a special link to audiohealthpal.com. "\
+      'When you click on that link, enter this code to confirm your identity and set up '\
+      "your account: #{new_phone_token}"
+    self.phone_token = phone_token
+    self.update(phone_token: new_phone_token)
+    send_sms(sms_text)
+  end
+
 
   # https://github.com/plataformatec/devise#activejob-integration
   def send_devise_notification(notification, *args)
