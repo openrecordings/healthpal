@@ -35,7 +35,8 @@
               - user_name = user.email
             - else
               - user_name = 'No user name found!'
-            .recording-owner= user_name
+            - unless user == current_user && @recordings_by_user.length == 1
+              .recording-owner= user_name
             - user_and_recordings[:recordings].each do |recording|
               = render 'recording_list_item', recording: recording
     -else
