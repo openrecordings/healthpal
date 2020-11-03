@@ -6,4 +6,5 @@ class MessageJob < ActiveJob::Base
     message.update(delivered_at: Time.now)
   end
 
+
 end

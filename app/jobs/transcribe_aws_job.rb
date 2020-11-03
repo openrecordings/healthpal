@@ -50,7 +50,8 @@ class TranscribeAwsJob < ApplicationJob
       mailer_method: 'r56_reminder_1', 
       deliver_at: (DateTime.now.in_time_zone + 1.day).change({hour: 11, min: 0, sec: 0}),
       deliver: true,
-      to_email: true
+      to_email: true,
+      to_sms: true
     )
   end
 
@@ -60,7 +61,8 @@ class TranscribeAwsJob < ApplicationJob
       mailer_method: 'r56_reminder_2', 
       deliver_at: (DateTime.now.in_time_zone + 7.days).change({hour: 11, min: 0, sec: 0}),
       deliver: true,
-      to_email: true
+      to_email: true,
+      to_sms: true
     )
   end
 
@@ -70,7 +72,8 @@ class TranscribeAwsJob < ApplicationJob
       mailer_method: 'r56_reminder_3', 
       deliver_at: (DateTime.now.in_time_zone + 1000.days).change({hour: 11, min: 0, sec: 0}),
       deliver: true,
-      to_email: true
+      to_email: true,
+      to_sms: true
     )
   end
 
