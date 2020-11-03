@@ -51,6 +51,17 @@ class AdminController < ApplicationController
     end
   end
 
+  # AJAX POST to update contact_email_address
+  def update_contact_email_address
+    org = Org.find_by(id: params[:id])
+    if org
+      org.update(
+        contact_email_address: params[:contact_email_address]
+      )
+      render json: {status: 200}
+    end
+  end
+
   # Start the workflow for doing an in-clinic user registration
   def new_registration
     # Creating a new user to hold params, but we're only going to set the email now

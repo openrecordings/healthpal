@@ -1,7 +1,20 @@
-.pad-30
+#admin-index.pad-30
   - if current_user.org
     %p
-      %div= "Contact email address: #{current_user.org.contact_email_address}"
+      %div
+        Contact email address:
+        #contact-email-address-display= current_user.org.contact_email_address
+        #open-email-address-editor Edit
+        #update-contact-email-address.hidden{'data': {'org-id': current_user.org.id}}
+          .form-field-container
+            = email_field_tag :contact_email_address,
+              autofocus: true,
+              placeholder: current_user.org.contact_email_address,
+              class: 'form-input',
+              id: 'contact-email-address-value'
+          %p#update-contact-email-address Save
+          %p#cancel-edit-contact-email-address Cancel
+
   .table-container
     %p= button_to 'Invite New User by Email', new_user_invitation_path, class: 'button', method: :get
     %p= button_to 'Create and Switch to New User Now', new_registration_path, class: 'button', method: :get
