@@ -1,12 +1,9 @@
 class AdminController < ApplicationController
-
   before_action :verify_privileged
 
-  def index
-  end
+  def index; end
 
-  def users
-  end
+  def users; end
 
   def manage_recordings
     # Redirecting to root for R56 to close this as a security risk
@@ -15,8 +12,7 @@ class AdminController < ApplicationController
     # @recordings = Recording.all.order('created_at desc')
   end
 
-  def create_tag
-  end
+  def create_tag; end
 
   def toggle_active
     user = User.find(params[:id])
@@ -36,8 +32,7 @@ class AdminController < ApplicationController
     redirect_to :admin
   end
 
-  def new_org
-  end
+  def new_org; end
 
   def create_org
     @org = Org.new(org_params)
@@ -53,19 +48,22 @@ class AdminController < ApplicationController
 
   # AJAX POST to update contact_email_address
   def update_contact_email_address
+    puts '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
+    puts params
+    puts '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
     org = Org.find_by(id: params[:id])
     if org
       org.update(
         contact_email_address: params[:contact_email_address]
       )
-      render json: {status: 200}
+      render json: { status: 200 }
     end
   end
 
   # Start the workflow for doing an in-clinic user registration
   def new_registration
     # Creating a new user to hold params, but we're only going to set the email now
-    @user = User.new()
+    @user = User.new
     @orgs = Org.all
   end
 
@@ -98,7 +96,7 @@ class AdminController < ApplicationController
 
   # Select an existing user to switch to
   def switch_user_select
-    @users = current_user.viewable_users.select{|u| u != current_user}
+    @users = current_user.viewable_users.select { |u| u != current_user }
   end
 
   def switch_to_user
@@ -112,7 +110,7 @@ class AdminController < ApplicationController
   end
 
   def new_caregiver
-    @users = current_user.viewable_users.select{|u| u != current_user}
+    @users = current_user.viewable_users.select { |u| u != current_user }
   end
 
   def create_caregiver
@@ -132,7 +130,7 @@ class AdminController < ApplicationController
     @user.invite!
     Share.create(
       user_id: params['sharer_id'],
-      shared_with_user_id: @user.id,
+      shared_with_user_id: @user.id
     )
     flash.alert = 'Caregiver account created'
     redirect_to :root
@@ -150,15 +148,14 @@ class AdminController < ApplicationController
       :password_2,
       :sharer_id,
       :timezone,
-      :org_id,
+      :org_id
     )
   end
 
   def org_params
     params.require(:org).permit(
       :name,
-      :contact_email_address,
+      :contact_email_address
     )
   end
-
 end
