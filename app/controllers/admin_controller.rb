@@ -43,7 +43,7 @@ class AdminController < ApplicationController
     @org = Org.new(org_params)
 
     if @org.save
-      flash.notice = "Org #{@org.name} saved"
+      flash.notice = "Organization #{@org.name} has been created"
       redirect_to :root
     else
       flash.alert = @org.errors.full_messages
@@ -146,6 +146,7 @@ class AdminController < ApplicationController
   def org_params
     params.require(:org).permit(
       :name,
+      :contact_email_address,
     )
   end
 

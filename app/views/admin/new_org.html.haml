@@ -7,6 +7,10 @@
         Organization name
       = f.text_field :name, class: 'form-input'
     .form-field-container.field-centered
+      .form-label.margin-top-20
+        Contact email address
+      = f.email_field :contact_email_address, class: 'form-input'
+    .form-field-container.field-centered
       .margin-top-20
         = f.submit 'Create organization', class: 'button'
   .form-field-container.field-centered
