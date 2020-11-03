@@ -5,49 +5,18 @@ class TranscribeAwsJob < ApplicationJob
     @recording = recording
     @credentials = Rails.application.credentials
     transcode
-    # transcribe
-    # create_utterances
-
     set_is_processed
-
-    # R01 messages
-    ######################################
-    # r01_recording_ready_message
-
-    # R56 messages
-    ######################################
-    # r56_recording_ready_message
-    r56_reminder_1
-    r56_reminder_2
-    r56_reminder_3
+    reminder_1
+    reminder_2
+    reminder_3
   end
 
   private
 
-  def r01_recording_ready_message
+  def reminder_1
     Message.create(
       recording: @recording,
-      mailer_method: 'r01_recording_ready', 
-      deliver_at: Time.now,
-      deliver: true,
-      to_email: true
-    )
-  end
-
-  def r56_recording_ready_message
-    Message.create(
-      recording: @recording,
-      mailer_method: 'r56_recording_ready', 
-      deliver_at: Time.now,
-      deliver: true,
-      to_email: true
-    )
-  end
-
-  def r56_reminder_1
-    Message.create(
-      recording: @recording,
-      mailer_method: 'r56_reminder_1', 
+      mailer_method: 'reminder_1', 
       deliver_at: (DateTime.now.in_time_zone + 1.day).change({hour: 11, min: 0, sec: 0}),
       deliver: true,
       to_email: true,
@@ -55,10 +24,10 @@ class TranscribeAwsJob < ApplicationJob
     )
   end
 
-  def r56_reminder_2
+  def reminder_2
     Message.create(
       recording: @recording,
-      mailer_method: 'r56_reminder_2', 
+      mailer_method: 'reminder_2', 
       deliver_at: (DateTime.now.in_time_zone + 7.days).change({hour: 11, min: 0, sec: 0}),
       deliver: true,
       to_email: true,
@@ -66,10 +35,10 @@ class TranscribeAwsJob < ApplicationJob
     )
   end
 
-  def r56_reminder_3
+  def reminder_3
     Message.create(
       recording: @recording,
-      mailer_method: 'r56_reminder_3', 
+      mailer_method: 'reminder_3', 
       deliver_at: (DateTime.now.in_time_zone + 1000.days).change({hour: 11, min: 0, sec: 0}),
       deliver: true,
       to_email: true,
