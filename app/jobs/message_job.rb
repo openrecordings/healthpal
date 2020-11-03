@@ -2,15 +2,32 @@ class MessageJob < ActiveJob::Base
   queue_as :message_jobs
 
   def perform(message)
-    if message.to_email
+    unless !!message.delivered_at
+      send_email(message) if message.to_email
+      send_sms(message) if message.to_sms
+      # TODO Don't update if it didn't work
+      message.update(delivered_at: Time.now)
+    end
+  end
+
+  private
+
+  def send_email(message)
+    begin
       UserMailer.with(message:  message).send(message.mailer_method).deliver_now 
+    rescue => exception
+      puts 'EMAIL DELIVERY FAILED'
     end
-    if message.to_sms
-      user = message.recording.user
-      sms_text = "#{I18n.t("
-    end
-    message.update(delivered_at: Time.now)
   end
 
 
+  def send_sms(message)
+    user = message.recording.user
+    sms_text = user.send(message.sms_text_function)
+    begin
+      user.send_sms(sms_text)
+    rescue => exception
+      puts 'SMS DELIVERY FAILED'
+    end
+  end
 end

@@ -17,7 +17,8 @@ class TranscribeAwsJob < ApplicationJob
     Message.create(
       recording: @recording,
       mailer_method: 'reminder_1', 
-      deliver_at: (DateTime.now.in_time_zone + 1.day).change({hour: 11, min: 0, sec: 0}),
+      # deliver_at: (DateTime.now.in_time_zone + 1.day).change({hour: 11, min: 0, sec: 0}),
+      deliver_at: (DateTime.now.in_time_zone).change({hour: 0, min: 0, sec: 2}),
       deliver: true,
       to_email: true,
       to_sms: true,

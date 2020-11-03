@@ -115,6 +115,7 @@ class User < ApplicationRecord
   end
 
   def reminder_1_text
+    "#{I18n.t(:hi)} #{first_name},\n\n#{I18n.t(:reminder_1_sms_1)}"
   end
 
   def reminder_2_text
@@ -122,7 +123,6 @@ class User < ApplicationRecord
 
   def reminder_3_text
   end
-
 
   # https://github.com/plataformatec/devise#activejob-integration
   def send_devise_notification(notification, *args)
