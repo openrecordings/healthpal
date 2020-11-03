@@ -114,6 +114,15 @@ class User < ApplicationRecord
     send_sms(sms_text)
   end
 
+  def reminder_1_text
+  end
+
+  def reminder_2_text
+  end
+
+  def reminder_3_text
+  end
+
 
   # https://github.com/plataformatec/devise#activejob-integration
   def send_devise_notification(notification, *args)
