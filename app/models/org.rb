@@ -13,4 +13,8 @@ class Org < ApplicationRecord
     visits.select{|v| v.user.role == 'user'}
   end
 
+  def email_address
+    contact_email_address || User.find_by(role: 'root').email
+  end
+
 end
