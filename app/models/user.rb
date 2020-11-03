@@ -56,9 +56,6 @@ class User < ApplicationRecord
     users = recordings.map{|r| r.user}.uniq
     if users.select{|u| !u.last_name.nil?}.length == users.length
       users = users.sort_by{|u| u.last_name.downcase}
-      puts '---------------------------'
-      puts ap users
-      puts '---------------------------'
     end
     users.each do |user|
       user_recordings = {
