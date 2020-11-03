@@ -54,11 +54,22 @@ class User < ApplicationRecord
     return [] unless recordings.any?
     recordings_by_user = []
     users = recordings.map{|r| r.user}.uniq
+    if users.select{|u| !u.last_name.nil?}.length == users.length
+      users = users.sort_by{|u| u.last_name.downcase}
+      puts '---------------------------'
+      puts ap users
+      puts '---------------------------'
+    end
     users.each do |user|
-      recordings_by_user << {
+      user_recordings = {
         user: user,
         recordings: recordings.select{|r| r.user == user}
       }
+      if user == self
+        recordings_by_user.insert(0, user_recordings)
+      else
+        recordings_by_user << user_recordings
+      end
     end
     return recordings_by_user
   end
