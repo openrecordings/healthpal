@@ -48,9 +48,6 @@ class AdminController < ApplicationController
 
   # AJAX POST to update contact_email_address
   def update_contact_email_address
-    puts '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
-    puts params
-    puts '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
     org = Org.find_by(id: params[:id])
     if org
       org.update(

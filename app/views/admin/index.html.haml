@@ -1,16 +1,4 @@
 #admin-index.pad-30
-  - if current_user.org
-    - current_email_address = current_user.org.contact_email_address
-    %p
-      %div
-        Contact email address:
-        #contact-email-address-display= current_email_address
-        #open-email-address-editor Edit
-        #contact-email-address-editor.hidden{'data-org-id': current_user.org.id}
-          = email_field_tag('contact_email_address', current_email_address, autofocus: true, placeholder: current_email_address, id: 'contact-email-address-value')
-          #update-contact-email-address Save
-          #cancel-edit-contact-email-address Cancel
-
   .table-container
     %p= button_to 'Invite New User by Email', new_user_invitation_path, class: 'button', method: :get
     %p= button_to 'Create and Switch to New User Now', new_registration_path, class: 'button', method: :get
@@ -18,6 +6,16 @@
     %p= button_to 'Switch to Existing User', switch_user_select_path, class: 'button', method: :get
     - if current_user.root?
       %p= button_to 'Create New Organization', new_org_path, class: 'button', method: :get
+    - if current_user.org
+      - current_email_address = current_user.org.contact_email_address
+      .margin-top-40{style: 'background-color:yellow'}
+        Contact email address:
+        %span#contact-email-address-display= current_email_address
+        %span#open-email-address-editor Edit
+        #contact-email-address-editor.invisible{'data-org-id': current_user.org.id}
+          %span= email_field_tag('contact_email_address', current_email_address, autofocus: true, placeholder: current_email_address, id: 'contact-email-address-value')
+          %span#update-contact-email-address Save
+          %span#cancel-edit-contact-email-address Cancel
     %p.margin-top-40 Existing users
     %table#user-table
       %thead

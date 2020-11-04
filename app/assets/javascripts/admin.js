@@ -16,22 +16,18 @@ if (document.querySelector('#admin-index')) {
 		function hideEditor() {
 			$('#contact-email-address-display').show();
 			$('#open-email-address-editor').show();
-			$('#contact-email-address-editor').hide();
+			$('#contact-email-address-editor').css('visibility', 'hidden');
 		}
 
 		$('#open-email-address-editor').click(function () {
-			console.log('open');
 			$('#contact-email-address-display').hide();
 			$('#open-email-address-editor').hide();
-			$('#contact-email-address-editor').show();
+			$('#contact-email-address-editor').css('visibility', 'visible');
 		})
 
 		$('#update-contact-email-address').click(function () {
-			console.log('update');
 			var orgId = $('#contact-email-address-editor').data('org-id');
 			var contactEmailAddress = $('#contact-email-address-value').val();
-			console.log(orgId);
-			console.log(contactEmailAddress);
 			$.post('/update_contact_email_address', {
 				id: orgId,
 				contact_email_address: contactEmailAddress
@@ -41,7 +37,6 @@ if (document.querySelector('#admin-index')) {
 		})
 
 		$('#cancel-edit-contact-email-address').click(function () {
-			console.log('cancel');
 			hideEditor();
 		})
 	})
