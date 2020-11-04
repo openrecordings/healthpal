@@ -115,7 +115,7 @@ class User < ApplicationRecord
   end
 
   def reminder_1_text
-    "#{I18n.t(:hi)} #{first_name},\n\n#{I18n.t(:reminder_1_sms_1)}"
+    "#{I18n.t(:hi)} #{first_name},\n\n#{I18n.t(:reminder_sms_1a)} #{org&.contact_email_address}\n\n#{I18n.t(:reminder_sms_1b)}"
   end
 
   def reminder_2_text
