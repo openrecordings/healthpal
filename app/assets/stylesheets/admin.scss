@@ -1,18 +1,29 @@
+#contact-email-address-display{
+  display: inline-block;
+  margin-left: 10px;
+}
+
+#open-email-address-editor{
+  display: inline-block;
+    margin-left: 10px;
+}
+
 #contact-email-address-editor {
   display: inline-block;
   #update-contact-email-address {
     background-color: forestgreen;
-    margin: 30px;
+    margin-left: 10px;
   }
   #cancel-edit-contact-email-address {
     background-color: orange;
-    margin: 30px;
+    margin-left: 10px;
   }
   #contact-email-address-value {
+    width: 240px;
     box-shadow: none;
     border: 1px solid #555;
-    margin: 10px;
-    padding: 10px;
+    margin-left: 10px;
+    padding: 7px;
     border-radius: 3px;
     font-size: 16px;
   }

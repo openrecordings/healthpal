@@ -8,10 +8,10 @@
       %p= button_to 'Create New Organization', new_org_path, class: 'button', method: :get
     - if current_user.org
       - current_email_address = current_user.org.contact_email_address
-      .margin-top-40{style: 'background-color:yellow'}
+      .margin-top-40
         Contact email address:
-        %span#contact-email-address-display= current_email_address
-        %span#open-email-address-editor Edit
+        #contact-email-address-display= current_email_address
+        #open-email-address-editor Edit
         #contact-email-address-editor.invisible{'data-org-id': current_user.org.id}
           %span= email_field_tag('contact_email_address', current_email_address, autofocus: true, placeholder: current_email_address, id: 'contact-email-address-value')
           %span#update-contact-email-address Save
