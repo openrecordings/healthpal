@@ -119,9 +119,11 @@ class User < ApplicationRecord
   end
 
   def reminder_2_text
+    "#{I18n.t(:hi)} #{first_name},\n\n#{I18n.t(:reminder_sms_2a)} #{org&.contact_email_address}\n\n#{I18n.t(:reminder_sms_2b)}"
   end
 
   def reminder_3_text
+    "#{I18n.t(:hi)} #{first_name},\n\n#{I18n.t(:reminder_sms_3a)} #{org&.contact_email_address}\n\n#{I18n.t(:reminder_sms_3b)}"
   end
 
   # https://github.com/plataformatec/devise#activejob-integration
