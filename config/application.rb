@@ -27,7 +27,12 @@ module Orals
     # Dockerize logs
     logger = ActiveSupport::Logger.new(STDOUT)
     logger.formatter = config.log_formatter
-    config.log_tags = [:subdomain, :uuid]
+    config.log_tags = %i[subdomain uuid]
     config.logger = ActiveSupport::TaggedLogging.new(logger)
+
+    # Start sending due messages every 5 minutes, unless we are in a console
+    config.after_initialize do
+      SendDueMessagesJob.perform_later unless defined?(Rails::Console)
+    end
   end
 end
