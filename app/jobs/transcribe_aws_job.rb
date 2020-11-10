@@ -52,7 +52,7 @@ class TranscribeAwsJob < ApplicationJob
 
   def transcode
     @recording.media_file.open do |file|
-      `ffmpeg -i #{file.path} -af "dynaudnorm" -ac 1 -ar 48000 #{file.path}.mp3`
+      `ffmpeg -i #{file.path} -af "loudnorm" -ac 1 -ar 48000 #{file.path}.mp3`
       @recording.media_file.attach(io: File.open("#{file.path}.mp3"), filename: "#{@recording.sha1}.mp3")
     end
   end

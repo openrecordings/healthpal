@@ -187,22 +187,6 @@ if (window.location.pathname == '/record') {
       return mediaRecorder && mediaRecorder.state == 'recording';
     }
 
-    function myAjaxRequest() {
-      $.ajax({
-        url: "<%= my_ruby_on_rails_controller_url_here %>",
-        datatype: "json",
-        type: "GET",
-        success: function (json) {
-          document.getElementById("factureload" + json.hashed_id).innerHTML = "<a href='" + json.address + "'><img class='pdficonstyling' src='/assets/pdf4.svg' alt='pdf icon' /> facture_" + json.numfacture + "</a>";
-        },
-        error: function () {
-          setTimeout(() => {
-            myAjaxRequest()
-          }, 5000) // if there was an error, wait 5 seconds and re-run the function
-        }
-      })
-    }
-
     // The success callback is not being used because we are doing a redirect on the server
     // Errors will result in retries every second
     function uploadAudio() {
