@@ -30,9 +30,11 @@ module Orals
     config.log_tags = %i[subdomain uuid]
     config.logger = ActiveSupport::TaggedLogging.new(logger)
 
-    # Start sending due messages every 5 minutes, unless we are in a console
+    # Start sending due messages every 5 minutes, only when starting a server
     config.after_initialize do
-      SendDueMessagesJob.perform_later unless defined?(Rails::Console)
+      unless defined?(Rails::Console) || File.basename($0) == 'rake'
+        SendDueMessagesJob.perform_later
+      end
     end
   end
 end
