@@ -17,7 +17,7 @@ if (window.location.pathname == '/record') {
     var colorMonitoring = '#1c3e66';
     var colorRecording = 'red';
     var baseRadius = 10;
-    var radiusAmplitudeMultiplier = 0.7;
+    var radiusAmplitudeMultiplier = 1.5;
     var radiusDeltaBetweenCircles = 6;
     var currentCircles = [];
     var circleLifetime = 3000;
