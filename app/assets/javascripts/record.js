@@ -160,7 +160,16 @@ if (window.location.pathname == '/record') {
     }
 
     function getStream() {
-      navigator.mediaDevices.getUserMedia({ audio: true }).then(gotStream).then(monitorAmplitude).catch(handleError);
+      var userMediaConstraints = {
+        audio: {
+          sampleRate: 48000,
+          channelCount: { ideal: 1 },
+          echoCancellation: false,
+          noiseSuppression: false,
+          autoGainControl: false,
+        }
+      }
+      navigator.mediaDevices.getUserMedia(userMediaConstraints).then(gotStream).then(monitorAmplitude).catch(handleError);
     }
 
     // Recording. Started with https://stackoverflow.com/a/16784618
