@@ -12,17 +12,16 @@
 }
 
 #contact-email-address {
-      font-size: 14px;
+  font-size: 16px;
   #contact-email-address-display {
     display: inline-block;
     margin-left: 10px;
-      font-size: 14px;
+    font-size: 16px;
   }
   #open-email-address-editor {
     display: inline-block;
     transform: translate(-10px, 4px);
     margin-left: 10px;
-      font-size: 14px;
   }
   #contact-email-address-editor {
     display: inline-block;
@@ -30,12 +29,10 @@
       display: inline-block;
       transform: translate(-10px, 7px);
       margin-left: 10px;
-      font-size: 14px;
     }
     #cancel-edit-contact-email-address {
       display: inline-block;
       transform: translate(-10px, 7px);
-      font-size: 14px;
     }
     #contact-email-address-value {
       width: 240px;
@@ -44,7 +41,7 @@
       margin-left: 1px;
       padding: 7px;
       border-radius: 3px;
-      font-size: 14px;
+      font-size: 16px;
     }
   }
   .contact-email-svg {
@@ -53,6 +50,5 @@
     height: 30px;
     line-height: 30px;
     fill: $color-2;
-      font-size: 14px;
   }
 }
