@@ -4,7 +4,13 @@ if (document.querySelector('#admin-index')) {
 
 		// Initialize tablesorter
 		$(function () {
-			$('#user-table').tablesorter();
+			$('#user-table').tablesorter({
+				theme: 'default',
+				cssIcon: 'tablesorter-icon',
+				initialized: function (table) {
+					$(this).find('thead .tablesorter-header-inner').append('<i class="tablesorter-icon"></i>');
+				}
+			});
 		});
 
 		if (document.querySelector('#new-caregiver-form, #switch-user-form')) {

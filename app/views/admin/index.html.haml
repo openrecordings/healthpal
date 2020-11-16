@@ -19,7 +19,7 @@
           %span#cancel-edit-contact-email-address= inline_svg('x.svg', class: 'contact-email-svg')
     %table#user-table
       %thead
-        %tr.header-row
+        %tr
           - if current_user.root?
             %th Org
           %th Email
