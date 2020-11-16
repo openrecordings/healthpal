@@ -3,8 +3,9 @@
     #buttons-container {
       display: flex;
       flex-wrap: wrap;
-      .admin-button {
-        margin-right: 15px;
+      .admin-button-container {
+        margin-right: 10px;
+        padding: 5px;
       }
     }
   }
