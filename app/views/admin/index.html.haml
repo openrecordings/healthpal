@@ -1,14 +1,15 @@
 #admin-index.pad-30
   .table-container
-    %p= button_to 'Invite New User by Email', new_user_invitation_path, class: 'button', method: :get
-    %p= button_to 'Create and Switch to New User Now', new_registration_path, class: 'button', method: :get
-    %p= button_to 'Create Caregiver Account', new_caregiver_path, class: 'button', method: :get
-    %p= button_to 'Switch to Existing User', switch_user_select_path, class: 'button', method: :get
-    - if current_user.root?
-      %p= button_to 'Create New Organization', new_org_path, class: 'button', method: :get
+    #buttons-container
+      .admin-button= button_to 'Invite New User by Email', new_user_invitation_path, class: 'button', method: :get
+      .admin-button= button_to 'Create and Switch to New User Now', new_registration_path, class: 'button', method: :get
+      .admin-button= button_to 'Create Caregiver Account', new_caregiver_path, class: 'button', method: :get
+      .admin-button= button_to 'Switch to Existing User', switch_user_select_path, class: 'button', method: :get
+      - if current_user.root?
+        .admin-button= button_to 'Create New Organization', new_org_path, class: 'button', method: :get
     - if current_user.org
       - current_email_address = current_user.org.contact_email_address
-      #contact-email-address.margin-top-40
+      #contact-email-address.margin-top-20.margin-bottom-20
         Contact email address:
         #contact-email-address-display= current_email_address
         #open-email-address-editor= inline_svg('edit.svg', class: 'contact-email-svg')
@@ -16,7 +17,6 @@
           %span= email_field_tag('contact_email_address', current_email_address, autofocus: true, placeholder: current_email_address, id: 'contact-email-address-value')
           %span#update-contact-email-address= inline_svg('check.svg', class: 'contact-email-svg')
           %span#cancel-edit-contact-email-address= inline_svg('x.svg', class: 'contact-email-svg')
-    %p.margin-top-40 Existing users
     %table#user-table
       %thead
         %tr.header-row
