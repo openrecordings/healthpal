@@ -1,25 +1,28 @@
 #admin-index {
-  .table-container {
-    #buttons-container {
-      display: flex;
-      flex-wrap: wrap;
-      .admin-button-container {
-        margin-right: 10px;
-        padding: 5px;
-      }
+  padding: 0 30px 30px 30px;
+  #buttons-container {
+    display: flex;
+    flex-wrap: wrap;
+    padding-bottom: 20px;
+    .admin-button-container {
+      margin-right: 10px;
+      padding: 5px;
     }
   }
 }
 
 #contact-email-address {
+      font-size: 14px;
   #contact-email-address-display {
     display: inline-block;
     margin-left: 10px;
+      font-size: 14px;
   }
   #open-email-address-editor {
     display: inline-block;
     transform: translate(-10px, 4px);
     margin-left: 10px;
+      font-size: 14px;
   }
   #contact-email-address-editor {
     display: inline-block;
@@ -27,10 +30,12 @@
       display: inline-block;
       transform: translate(-10px, 7px);
       margin-left: 10px;
+      font-size: 14px;
     }
     #cancel-edit-contact-email-address {
       display: inline-block;
       transform: translate(-10px, 7px);
+      font-size: 14px;
     }
     #contact-email-address-value {
       width: 240px;
@@ -39,7 +44,7 @@
       margin-left: 1px;
       padding: 7px;
       border-radius: 3px;
-      font-size: 18px;
+      font-size: 14px;
     }
   }
   .contact-email-svg {
@@ -48,5 +53,6 @@
     height: 30px;
     line-height: 30px;
     fill: $color-2;
+      font-size: 14px;
   }
 }
