@@ -17,7 +17,7 @@
     - if current_user.root?
       .admin-button-container= button_to 'Create New Organization', new_org_path, class: 'admin-button', method: :get
   .table-container
-    %table#user-table
+    %table#user-table.tablesorter-custom
       %thead
         %tr
           - if current_user.root?

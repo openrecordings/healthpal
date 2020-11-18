@@ -54,25 +54,25 @@ $processingIcon        : url('data:image/gif;base64,R0lGODlhFAAUAKEAAO7u7lpaWgAA
 
 /* zebra striping */
 @mixin allRows {
-	background-color: $bodyBackground;
-	color: $bodyTextColor;
+  background-color: $bodyBackground;
+  color: $bodyTextColor;
 }
 @mixin evenRows {
-	background-color: lighten($headerBackground, 40%);
-	color: $bodyTextColor;
+  background-color: lighten($headerBackground, 40%);
+  color: $bodyTextColor;
 }
 @mixin oddRows {
-	background-color: lighten($headerBackground, 20%);
+  background-color: lighten($headerBackground, 20%);
 }
 
 /* hovered rows */
 @mixin oddHovered {
-	background-color: desaturate($headerBackground, 60%);
-	color: $bodyTextColor;
+  background-color: desaturate($headerBackground, 60%);
+  color: $bodyTextColor;
 }
 @mixin evenHovered {
-	background-color: lighten( desaturate($headerBackground, 60%), 10% );
-	color: $bodyTextColor;
+  background-color: lighten( desaturate($headerBackground, 60%), 10% );
+  color: $bodyTextColor;
 }
 
 /* Columns widget */
@@ -85,10 +85,10 @@ $tertiaryEven  : lighten( $secondaryEven, 5% );
 
 /* Filter widget transition */
 @mixin filterWidgetTransition {
-	-webkit-transition: line-height $filterTransitionTime ease;
-	-moz-transition: line-height $filterTransitionTime ease;
-	-o-transition: line-height $filterTransitionTime ease;
-	transition: line-height $filterTransitionTime ease;
+  -webkit-transition: line-height $filterTransitionTime ease;
+  -moz-transition: line-height $filterTransitionTime ease;
+  -o-transition: line-height $filterTransitionTime ease;
+  transition: line-height $filterTransitionTime ease;
 }
 
 /*** Arrows ***/
@@ -106,222 +106,222 @@ $sortDescWhite : url(data:image/gif;base64,R0lGODlhFQAEAIAAAP///////yH5BAEAAAEAL
 
 /* automatically choose the correct arrow/text color */
 @function set-lightness($a, $b) {
-	@if (lightness($headerBackground) >= 50) {
-		@return $a;
-	} @else {
-		@return $b;
-	}
+  @if (lightness($headerBackground) >= 50) {
+    @return $a;
+  } @else {
+    @return $b;
+  }
 }
 @mixin headerText {
-	color: set-lightness($headerTextColor, lighten($headerTextColor, 90%));
+  color: set-lightness($headerTextColor, lighten($headerTextColor, 90%));
 }
 
 @mixin unsorted {
-	background-image: set-lightness($unsortedBlack, $unsortedWhite);
+  background-image: set-lightness($unsortedBlack, $unsortedWhite);
 }
 @mixin sortAsc {
-	background-image: set-lightness($sortAscBlack, $sortAscWhite);
+  background-image: set-lightness($sortAscBlack, $sortAscWhite);
 }
 @mixin sortDesc {
-	background-image: set-lightness($sortDescBlack, $sortDescWhite);
+  background-image: set-lightness($sortDescBlack, $sortDescWhite);
 }
 
 /* variable theme name - requires less.js 1.3+;
    or just replace (!".#{$theme}") with the contents of $theme
  */
 .#{$theme} {
-	font: $tableBodyFont;
-	background-color: $borderAndBackground;
-	margin: 10px 0 15px;
-	width: 100%;
-	text-align: left;
-	border-spacing: 0;
-	border: $overallBorder;
-	border-width: 1px 0 0 1px;
+  font: $tableBodyFont;
+  background-color: $borderAndBackground;
+  margin: 10px 0 15px;
+  width: 100%;
+  text-align: left;
+  border-spacing: 0;
+  border: $overallBorder;
+  border-width: 1px 0 0 1px;
 
-	th, td {
-		border: $overallBorder;
-		border-width: 0 1px 1px 0;
-	}
+  th, td {
+    border: $overallBorder;
+    border-width: 0 1px 1px 0;
+  }
 
-	/* style th's outside of the thead */
-	th, thead td {
-		font: $tableHeaderFont;
-		font-weight: bold;
-		background-color: $headerBackground;
-		@include headerText;
-		border-collapse: collapse;
-		padding: $overallPadding;
-	}
+  /* style th's outside of the thead */
+  th, thead td {
+    font: $tableHeaderFont;
+    font-weight: bold;
+    background-color: $headerBackground;
+    @include headerText;
+    border-collapse: collapse;
+    padding: $overallPadding;
+  }
 
-	tbody td, tfoot th, tfoot td {
-		padding: $overallPadding;
-		vertical-align: top;
-	}
+  tbody td, tfoot th, tfoot td {
+    padding: $overallPadding;
+    vertical-align: top;
+  }
 
-	/* style header */
-	.tablesorter-header {
-		@include unsorted;
-		background-repeat: no-repeat;
-		background-position: $arrowPosition;
-		padding: $headerPadding;
-		cursor: pointer;
-	}
+  /* style header */
+  .tablesorter-header {
+    @include unsorted;
+    background-repeat: no-repeat;
+    background-position: $arrowPosition;
+    padding: $headerPadding;
+    cursor: pointer;
+  }
 
-	.tablesorter-header.sorter-false {
-		background-image: none;
-		cursor: default;
-		padding: $overallPadding;
-	}
+  .tablesorter-header.sorter-false {
+    background-image: none;
+    cursor: default;
+    padding: $overallPadding;
+  }
 
-	.tablesorter-headerAsc {
-		background-color: $headerAsc;
-		@include sortAsc;
-	}
+  .tablesorter-headerAsc {
+    background-color: $headerAsc;
+    @include sortAsc;
+  }
 
-	.tablesorter-headerDesc {
-		background-color: $headerDesc;
-		@include sortDesc;
-	}
+  .tablesorter-headerDesc {
+    background-color: $headerDesc;
+    @include sortDesc;
+  }
 
-	/* tfoot */
-	tfoot .tablesorter-headerAsc,
-	tfoot .tablesorter-headerDesc {
-		/* remove sort arrows from footer */
-		background-image: none;
-	}
+  /* tfoot */
+  tfoot .tablesorter-headerAsc,
+  tfoot .tablesorter-headerDesc {
+    /* remove sort arrows from footer */
+    background-image: none;
+  }
 
-	/* optional disabled input styling */
-	.disabled {
-		opacity: 0.5;
-		filter: alpha(opacity=50);
-		cursor: not-allowed;
-	}
+  /* optional disabled input styling */
+  .disabled {
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+    cursor: not-allowed;
+  }
 
-	/* body */
-	tbody {
+  /* body */
+  tbody {
 
-		td {
-			@include allRows;
-			padding: $overallPadding;
-			vertical-align: top;
-		}
+    td {
+      @include allRows;
+      padding: $overallPadding;
+      vertical-align: top;
+    }
 
-		/* Zebra Widget - row alternating colors */
-		tr.odd > td {
-			@include oddRows;
-		}
-		tr.even > td {
-			@include evenRows;
-		}
+    /* Zebra Widget - row alternating colors */
+    tr.odd > td {
+      @include oddRows;
+    }
+    tr.even > td {
+      @include evenRows;
+    }
 
-	}
+  }
 
-	/* hovered row colors
-	   you'll need to add additional lines for
-	   rows with more than 2 child rows
-	*/
-	tbody > tr.hover td,
-	tbody > tr:hover td,
-	tbody > tr:hover + tr.tablesorter-childRow > td,
-	tbody > tr:hover + tr.tablesorter-childRow + tr.tablesorter-childRow > td,
-	tbody > tr.even.hover > td,
-	tbody > tr.even:hover > td,
-	tbody > tr.even:hover + tr.tablesorter-childRow > td,
-	tbody > tr.even:hover + tr.tablesorter-childRow + tr.tablesorter-childRow > td {
-		@include evenHovered;
-	}
-	tbody > tr.odd.hover > td,
-	tbody > tr.odd:hover > td,
-	tbody > tr.odd:hover + tr.tablesorter-childRow > td,
-	tbody > tr.odd:hover + tr.tablesorter-childRow + tr.tablesorter-childRow > td {
-		@include oddHovered;
-	}
+  /* hovered row colors
+     you'll need to add additional lines for
+     rows with more than 2 child rows
+  */
+  tbody > tr.hover td,
+  tbody > tr:hover td,
+  tbody > tr:hover + tr.tablesorter-childRow > td,
+  tbody > tr:hover + tr.tablesorter-childRow + tr.tablesorter-childRow > td,
+  tbody > tr.even.hover > td,
+  tbody > tr.even:hover > td,
+  tbody > tr.even:hover + tr.tablesorter-childRow > td,
+  tbody > tr.even:hover + tr.tablesorter-childRow + tr.tablesorter-childRow > td {
+    @include evenHovered;
+  }
+  tbody > tr.odd.hover > td,
+  tbody > tr.odd:hover > td,
+  tbody > tr.odd:hover + tr.tablesorter-childRow > td,
+  tbody > tr.odd:hover + tr.tablesorter-childRow + tr.tablesorter-childRow > td {
+    @include oddHovered;
+  }
 
-	/* table processing indicator - indeterminate spinner */
-	.tablesorter-processing {
-		background-image: $processingIcon;
-		background-position: center center;
-		background-repeat: no-repeat;
-	}
+  /* table processing indicator - indeterminate spinner */
+  .tablesorter-processing {
+    background-image: $processingIcon;
+    background-position: center center;
+    background-repeat: no-repeat;
+  }
 
-	/* Column Widget - column sort colors */
-	tr.odd td.primary {
-		background-color: $primaryOdd;
-	}
-	td.primary, tr.even td.primary {
-		background-color: $primaryEven;
-	}
-	tr.odd td.secondary {
-		background-color: $secondaryOdd;
-	}
-	td.secondary, tr.even td.secondary {
-		background-color: $secondaryEven;
-	}
-	tr.odd td.tertiary {
-		background-color: $tertiaryOdd;
-	}
-	td.tertiary, tr.even td.tertiary {
-		background-color: $tertiaryEven;
-	}
+  /* Column Widget - column sort colors */
+  tr.odd td.primary {
+    background-color: $primaryOdd;
+  }
+  td.primary, tr.even td.primary {
+    background-color: $primaryEven;
+  }
+  tr.odd td.secondary {
+    background-color: $secondaryOdd;
+  }
+  td.secondary, tr.even td.secondary {
+    background-color: $secondaryEven;
+  }
+  tr.odd td.tertiary {
+    background-color: $tertiaryOdd;
+  }
+  td.tertiary, tr.even td.tertiary {
+    background-color: $tertiaryEven;
+  }
 
-	/* caption (non-theme matching) */
-	caption {
-		background-color: $captionBackground ;
-	}
+  /* caption (non-theme matching) */
+  caption {
+    background-color: $captionBackground ;
+  }
 
-	/* filter widget */
-	.tablesorter-filter-row input,
-	.tablesorter-filter-row select {
-		width: 98%;
-		height: auto;
-		margin: 0;
-		padding: $overallPadding;
-		color: $filterElementTextColor;
-		background-color: $filterElementBkgd;
-		border: $filterElementBorder;
-		-webkit-box-sizing: border-box;
-		-moz-box-sizing: border-box;
-		box-sizing: border-box;
-		@include filterWidgetTransition;
-	}
-	.tablesorter-filter-row {
-		background-color: $filterCellBackground;
-	}
-	.tablesorter-filter-row td {
-		text-align: center;
-		background-color: $filterCellBackground;
-		line-height: normal;
-		text-align: center; /* center the input */
-		@include filterWidgetTransition;
-	}
-	/* hidden filter row */
-	.tablesorter-filter-row.hideme td {
-		padding: $filterRowHiddenHeight / 2;
-		margin: 0;
-		line-height: 0;
-		cursor: pointer;
-	}
-	.tablesorter-filter-row.hideme * {
-		height: 1px;
-		min-height: 0;
-		border: 0;
-		padding: 0;
-		margin: 0;
-		/* don't use visibility: hidden because it disables tabbing */
-		opacity: 0;
-		filter: alpha(opacity=0);
-	}
-	/* rows hidden by filtering (needed for child rows) */
-	.filtered {
-		display: none;
-	}
+  /* filter widget */
+  .tablesorter-filter-row input,
+  .tablesorter-filter-row select {
+    width: 98%;
+    height: auto;
+    margin: 0;
+    padding: $overallPadding;
+    color: $filterElementTextColor;
+    background-color: $filterElementBkgd;
+    border: $filterElementBorder;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    @include filterWidgetTransition;
+  }
+  .tablesorter-filter-row {
+    background-color: $filterCellBackground;
+  }
+  .tablesorter-filter-row td {
+    text-align: center;
+    background-color: $filterCellBackground;
+    line-height: normal;
+    text-align: center; /* center the input */
+    @include filterWidgetTransition;
+  }
+  /* hidden filter row */
+  .tablesorter-filter-row.hideme td {
+    padding: $filterRowHiddenHeight / 2;
+    margin: 0;
+    line-height: 0;
+    cursor: pointer;
+  }
+  .tablesorter-filter-row.hideme * {
+    height: 1px;
+    min-height: 0;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    /* don't use visibility: hidden because it disables tabbing */
+    opacity: 0;
+    filter: alpha(opacity=0);
+  }
+  /* rows hidden by filtering (needed for child rows) */
+  .filtered {
+    display: none;
+  }
 
-	/* ajax error row */
-	.tablesorter-errorRow td {
-		text-align: center;
-		cursor: pointer;
-		background-color: $errorBackground;
-	}
+  /* ajax error row */
+  .tablesorter-errorRow td {
+    text-align: center;
+    cursor: pointer;
+    background-color: $errorBackground;
+  }
 
 }
