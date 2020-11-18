@@ -1,5 +1,16 @@
 if (document.querySelector('#admin-index')) {
 	$(document).ready(function () {
+		// Initialize tablesorter
+		$(function () {
+			$('#user-table').tablesorter({
+				theme: 'tablesorter-custom',
+				// cssIcon: 'tablesorter-icon',
+				// initialized: function (table) {
+				// 	$(this).find('thead .tablesorter-header-inner').append('<i class="tablesorter-icon"></i>');
+				// }
+			});
+		});
+
 		if (document.querySelector('#new-caregiver-form, #switch-user-form')) {
 			document.body.addEventListener('ajax:success', function (event) {
 				window.location.assign('/');

@@ -22,10 +22,10 @@
         %tr
           - if current_user.root?
             %th Org
-          %th Email
           %th Name
-          %th Role
           %th Recordings
+          %th Email
+          %th Role
           %th Last Login
       %tbody
         - current_user.viewable_users.each do |user|
@@ -34,8 +34,8 @@
           %tr{'data-is-admin': is_admin, class: "table-row #{is_admin ? 'hidden' : ''}"}
             - if current_user.root?
               %td= user.org&.name
-            %td= user.email
             %td= user.full_name
-            %td= user.role.capitalize
             %td= user.recordings.any? ? user.recordings.length : 0
+            %td= user.email
+            %td= user.role.capitalize
             %td= format_date_time(user.current_sign_in_at || user.last_sign_in_at)
