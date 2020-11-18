@@ -3,6 +3,7 @@
   #buttons-container {
     display: flex;
     flex-wrap: wrap;
+    padding-top: 30px;
     padding-bottom: 20px;
     .admin-button-container {
       margin-right: 10px;
@@ -10,7 +11,6 @@
     }
   }
 }
-
 #contact-email-address {
   font-size: 16px;
   #contact-email-address-display {

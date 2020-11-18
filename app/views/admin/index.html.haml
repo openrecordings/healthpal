@@ -15,7 +15,7 @@
     .admin-button-container= button_to 'Create Caregiver Account', new_caregiver_path, class: 'admin-button', method: :get
     .admin-button-container= button_to 'Switch to Existing User', switch_user_select_path, class: 'admin-button', method: :get
     - if current_user.root?
-      .admin-button= button_to 'Create New Organization', new_org_path, class: 'button', method: :get
+      .admin-button-container= button_to 'Create New Organization', new_org_path, class: 'admin-button', method: :get
   .table-container
     %table#user-table
       %thead
