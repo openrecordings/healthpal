@@ -4,10 +4,6 @@ if (document.querySelector('#admin-index')) {
 		$(function () {
 			$('#user-table').tablesorter({
 				theme: 'tablesorter-custom',
-				// cssIcon: 'tablesorter-icon',
-				// initialized: function (table) {
-				// 	$(this).find('thead .tablesorter-header-inner').append('<i class="tablesorter-icon"></i>');
-				// }
 			});
 		});
 

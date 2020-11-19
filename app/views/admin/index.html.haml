@@ -23,10 +23,10 @@
           - if current_user.root?
             %th Org
           %th Name
-          %th Recordings
           %th Email
-          %th Role
+          %th Logins
           %th Last Login
+          %th Recordings (number of clicks on play)
       %tbody
         - current_user.viewable_users.each do |user|
           %tr.table-row.hidden
@@ -35,7 +35,12 @@
             - if current_user.root?
               %td= user.org&.name
             %td= user.full_name
-            %td= user.recordings.any? ? user.recordings.length : 0
             %td= user.email
-            %td= user.role.capitalize
+            %td= user.sign_in_count
             %td= format_date_time(user.current_sign_in_at || user.last_sign_in_at)
+            %td
+              - if user.recordings.any?
+                - user.recordings.each do |recording|
+                  .recordings
+                    %span= "#{format_date_time(recording.created_at)}"
+                    %span= "(#{recording.play_clicks.count})"

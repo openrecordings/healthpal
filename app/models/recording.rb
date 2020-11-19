@@ -22,6 +22,11 @@ class Recording < ApplicationRecord
     recording_notes
   end
 
+  # An array of Ahoy events that logged the play button being clicked for self
+  def play_clicks
+    [1, 2, 3]
+  end
+
   # Transcript upload (Acusis)
   #################################################################################################
   attr_accessor :transcript_txt_file
