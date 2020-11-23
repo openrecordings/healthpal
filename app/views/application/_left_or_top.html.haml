@@ -1,7 +1,7 @@
 - menu_class = {horiz: 'menu-horiz', vert: 'menu-vert'}[orientation]
 - menu_class_selected = "#{menu_class}-selected"
 - if current_user.privileged?
-  =link_to t(:user_management),
+  =link_to t(:admin),
   admin_path,
   id: 'nav-user-management',
   class: "responsive-font-size menu-item-#{position} #{current_path_in?(admin_path) ? menu_class_selected : menu_class}"

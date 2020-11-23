@@ -1,23 +1,19 @@
 if (document.querySelector('#admin-index')) {
+
+	function hideEditor() {
+		$('#contact-email-address-display').show();
+		$('#open-email-address-editor').show();
+		$('#contact-email-address-editor').css('visibility', 'hidden');
+	}
+
 	$(document).ready(function () {
-		// Initialize tablesorter
-		$(function () {
-			$('#user-table').tablesorter({
-				theme: 'tablesorter-custom',
-			});
+		$('#user-table').tablesorter({
+			theme: 'tablesorter-custom',
 		});
 
-		if (document.querySelector('#new-caregiver-form, #switch-user-form')) {
-			document.body.addEventListener('ajax:success', function (event) {
-				window.location.assign('/');
-			})
-		}
-
-		function hideEditor() {
-			$('#contact-email-address-display').show();
-			$('#open-email-address-editor').show();
-			$('#contact-email-address-editor').css('visibility', 'hidden');
-		}
+		$('.recording').click(function(){
+			window.location.assign(`/play/${$(this).data('recording-id')}`);
+		})
 
 		$('#open-email-address-editor').click(function () {
 			$('#contact-email-address-display').hide();
@@ -39,6 +35,12 @@ if (document.querySelector('#admin-index')) {
 		$('#cancel-edit-contact-email-address').click(function () {
 			hideEditor();
 		})
+
+		if (document.querySelector('#new-caregiver-form, #switch-user-form')) {
+			document.body.addEventListener('ajax:success', function (event) {
+				window.location.assign('/');
+			})
+		}
 	})
 
 }

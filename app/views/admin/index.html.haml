@@ -40,7 +40,7 @@
             %td= format_date_time(user.current_sign_in_at || user.last_sign_in_at)
             %td
               - if user.recordings.any?
-                - user.recordings.each do |recording|
-                  .recordings
-                    %span= "#{format_date_time(recording.created_at)}"
-                    %span= "(#{recording.play_clicks.count})"
+                - user.recordings.order(created_at: :desc).each do |recording|
+                  .recording{'data-recording-id': recording.id}
+                    %div= "#{format_date_time(recording.created_at)}"
+                    %div= "(#{recording.play_clicks.count})"
