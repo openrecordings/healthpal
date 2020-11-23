@@ -31,12 +31,12 @@ $processingIcon: url("data:image/gif;base64,R0lGODlhFAAUAKEAAO7u7lpaWgAAAAAAACH/
 	background-color: lighten($headerBackground, 20%);
 }
 @mixin oddHovered {
-	background-color: desaturate($headerBackground, 60%);
-	color: $bodyTextColor;
+	// background-color: desaturate($headerBackground, 60%);
+	// color: $bodyTextColor;
 }
 @mixin evenHovered {
-	background-color: lighten(desaturate($headerBackground, 60%), 10%);
-	color: $bodyTextColor;
+	// background-color: lighten(desaturate($headerBackground, 60%), 10%);
+	// color: $bodyTextColor;
 }
 
 $arrowPosition: right 5px center;

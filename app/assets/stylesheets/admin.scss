@@ -11,12 +11,12 @@
     }
   }
   .recording {
-    display: flex;
-    justify-content: space-between;
-    max-width: 170px;
     padding-bottom: 5px;
-    .recording{
-      display: flex;
+    text-decoration: underline;
+    color: $color-2;
+    &:hover{
+      cursor: pointer;
+      color: $color-3;
     }
   }
 }

@@ -42,5 +42,6 @@
               - if user.recordings.any?
                 - user.recordings.order(created_at: :desc).each do |recording|
                   .recording{'data-recording-id': recording.id}
-                    %div= "#{format_date_time(recording.created_at)}"
-                    %div= "(#{recording.play_clicks.count})"
+                    %span= "#{format_date_time(recording.created_at)}"
+                    %span &nbsp;
+                    %span= "(#{recording.play_clicks.count})"
