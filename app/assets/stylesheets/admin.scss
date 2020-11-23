@@ -1,25 +1,35 @@
-#admin-index {
-  #buttons-container {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
+#admin-index-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  #admin-index {
+    width: 100%;
     max-width: 1200px;
-    padding-top: 30px;
-    padding-bottom: 20px;
-    .admin-button-container {
-      margin-right: 10px;
-      padding: 5px;
+    #buttons-container {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      width: 100%;
+      padding-top: 30px;
+      .admin-button-container {
+        padding-bottom: 15px;
+        &:not(:last-child) {
+          margin-right: 20px;
+        }
+      }
     }
-  }
-  #admin-table-container {
-    #user-table {
-      .recording {
-        padding-bottom: 5px;
-        text-decoration: underline;
-        color: $color-2;
-        &:hover {
-          cursor: pointer;
-          color: $color-3;
+    #admin-table-container {
+      #user-table {
+        .recording {
+          padding-bottom: 5px;
+          text-decoration: underline;
+          color: $color-2;
+          &:hover {
+            cursor: pointer;
+            color: $color-3;
+          }
         }
       }
     }
