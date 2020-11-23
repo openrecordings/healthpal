@@ -1,6 +1,6 @@
 $theme: tablesorter-custom;
 
-$overallPadding: 7px;
+$overallPadding: 5px;
 
 $headerPadding: 8px 20px 6px 4px;
 $headerBackground: $color-1;
@@ -8,7 +8,7 @@ $headerTextColor: #000;
 $headerAsc: none;
 $headerDesc: none;
 
-$bodyBackground: #fff;
+$bodyBackground: #efefef;
 $bodyTextColor: #000;
 
 $borderAndBackground: #cdcdcd;
@@ -16,13 +16,6 @@ $overallBorder: $color-1 1px solid;
 
 $captionBackground: #fff;
 $errorBackground: #e6bf99;
-
-$filterCellBackground: #eee;
-$filterElementTextColor: #333;
-$filterElementBkgd: #fff;
-$filterElementBorder: 1px solid #bbb;
-$filterTransitionTime: 0.1s;
-$filterRowHiddenHeight: 4px;
 
 $processingIcon: url("data:image/gif;base64,R0lGODlhFAAUAKEAAO7u7lpaWgAAAAAAACH/C05FVFNDQVBFMi4wAwEAAAAh+QQBCgACACwAAAAAFAAUAAACQZRvoIDtu1wLQUAlqKTVxqwhXIiBnDg6Y4eyx4lKW5XK7wrLeK3vbq8J2W4T4e1nMhpWrZCTt3xKZ8kgsggdJmUFACH5BAEKAAIALAcAAAALAAcAAAIUVB6ii7jajgCAuUmtovxtXnmdUAAAIfkEAQoAAgAsDQACAAcACwAAAhRUIpmHy/3gUVQAQO9NetuugCFWAAAh+QQBCgACACwNAAcABwALAAACE5QVcZjKbVo6ck2AF95m5/6BSwEAIfkEAQoAAgAsBwANAAsABwAAAhOUH3kr6QaAcSrGWe1VQl+mMUIBACH5BAEKAAIALAIADQALAAcAAAIUlICmh7ncTAgqijkruDiv7n2YUAAAIfkEAQoAAgAsAAAHAAcACwAAAhQUIGmHyedehIoqFXLKfPOAaZdWAAAh+QQFCgACACwAAAIABwALAAACFJQFcJiXb15zLYRl7cla8OtlGGgUADs=");
 
@@ -136,7 +129,7 @@ $sortDescWhite: url(data:image/gif;base64,R0lGODlhFQAEAIAAAP///////yH5BAEAAAEALA
 	tbody {
 		td {
 			@include allRows;
-			padding: $overallPadding;
+			padding: 13px 5px 13px 5px;
 			vertical-align: top;
 		}
 	}
