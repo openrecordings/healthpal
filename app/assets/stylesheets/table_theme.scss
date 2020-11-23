@@ -12,7 +12,7 @@ $bodyBackground: #efefef;
 $bodyTextColor: #000;
 
 $borderAndBackground: #fafafa;
-$overallBorder: $color-1 1px solid;
+$overallBorder: $color-3 1px solid;
 
 $captionBackground: #fff;
 $errorBackground: #e6bf99;
@@ -71,13 +71,14 @@ $sortDescWhite: url(data:image/gif;base64,R0lGODlhFQAEAIAAAP///////yH5BAEAAAEALA
 .#{$theme} {
 	background-color: $borderAndBackground;
 	margin: 10px 0 15px;
-	width: 100%;
+	width: 1200px;
 	text-align: left;
 	border-spacing: 0;
 	border-bottom: $overallBorder;
 	border-width: 1px 0 0 1px;
 	th,
 	td {
+		font-weight: normal;
 		border-bottom: $overallBorder;
 		border-width: 0 1px 1px 0;
 	}

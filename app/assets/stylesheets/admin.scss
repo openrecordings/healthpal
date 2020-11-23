@@ -1,8 +1,9 @@
 #admin-index {
-  padding: 0 30px 30px 30px;
   #buttons-container {
     display: flex;
+    justify-content: space-between;
     flex-wrap: wrap;
+    max-width: 1200px;
     padding-top: 30px;
     padding-bottom: 20px;
     .admin-button-container {
@@ -10,18 +11,23 @@
       padding: 5px;
     }
   }
-  .recording {
-    padding-bottom: 5px;
-    text-decoration: underline;
-    color: $color-2;
-    &:hover{
-      cursor: pointer;
-      color: $color-3;
+  #admin-table-container {
+    #user-table {
+      .recording {
+        padding-bottom: 5px;
+        text-decoration: underline;
+        color: $color-2;
+        &:hover {
+          cursor: pointer;
+          color: $color-3;
+        }
+      }
     }
   }
 }
 
 #contact-email-address {
+  padding: 15px 0 0 25px;
   font-size: 16px;
   #contact-email-address-display {
     display: inline-block;
