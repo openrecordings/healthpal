@@ -27,7 +27,8 @@
             %th Email
             %th Logins
             %th Last Login
-            %th Recordings (number of clicks on play)
+            %th Recordings
+            %th User clicks on Play
         %tbody
           - current_user.viewable_users.each do |user|
             %tr.table-row.hidden
@@ -46,3 +47,4 @@
                       %span= "#{format_date_time(recording.created_at)}"
                       %span &nbsp;
                       %span= "(#{recording.play_clicks.count})"
+              %td= user.total_clicks_on_play
