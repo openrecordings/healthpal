@@ -84,7 +84,7 @@ class User < ApplicationRecord
   end
 
   def total_clicks_on_play
-    4
+    events.where(name: '$click').select{|e| e.properties['id'] == 'play-pause-button'}.count
   end
 
   # NOTE: `active` is necessary or Share revocation doesn't work
