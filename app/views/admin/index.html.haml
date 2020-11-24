@@ -1,50 +1,48 @@
-#admin-index.pad-30
-  .table-container
-    %p= button_to 'Invite New User by Email', new_user_invitation_path, class: 'button', method: :get
-    %p= button_to 'Create and Switch to New User Now', new_registration_path, class: 'button', method: :get
-    %p= button_to 'Create Caregiver Account', new_caregiver_path, class: 'button', method: :get
-    %p= button_to 'Switch to Existing User', switch_user_select_path, class: 'button', method: :get
-    - if current_user.root?
-      %p= button_to 'Create New Organization', new_org_path, class: 'button', method: :get
-    - if current_user.org
-      - current_email_address = current_user.org.contact_email_address
-      #contact-email-address.margin-top-40
-        Contact email address:
-        #contact-email-address-display= current_email_address
-        #open-email-address-editor= inline_svg('edit.svg', class: 'contact-email-svg')
-        #contact-email-address-editor.invisible{'data-org-id': current_user.org.id}
-          %span= email_field_tag('contact_email_address', current_email_address, autofocus: true, placeholder: current_email_address, id: 'contact-email-address-value')
-          %span#update-contact-email-address= inline_svg('check.svg', class: 'contact-email-svg')
-          %span#cancel-edit-contact-email-address= inline_svg('x.svg', class: 'contact-email-svg')
-    %p.margin-top-40 Existing users
-    %table#user-table
-      %thead
-        %tr.header-row
-          - if current_user.root?
-            %th Org
-          %th Email
-          %th Name
-          %th Role
-          %th Recordings
-          %th Login count
-          %th Last Login
-          %th Login enabled
-          %th Recording enabled
-      %tbody
-        - current_user.viewable_users.each do |user|
-          %tr.table-row
+- if current_user.org
+  - current_email_address = current_user.org.contact_email_address
+  #contact-email-address
+    Contact:
+    #contact-email-address-display= current_email_address
+    #open-email-address-editor= inline_svg('edit.svg', class: 'contact-email-svg')
+    #contact-email-address-editor.invisible{'data-org-id': current_user.org.id}
+      %span= email_field_tag('contact_email_address', current_email_address, autofocus: true, placeholder: current_email_address, id: 'contact-email-address-value')
+      %span#update-contact-email-address= inline_svg('check.svg', class: 'contact-email-svg')
+      %span#cancel-edit-contact-email-address= inline_svg('x.svg', class: 'contact-email-svg')
+#admin-index-container.horizontal-center
+  #admin-index
+    #buttons-container
+      .admin-button-container= button_to 'Invite New User by Email', new_user_invitation_path, class: 'admin-button', method: :get
+      .admin-button-container= button_to 'Create and Switch to New User Now', new_registration_path, class: 'admin-button', method: :get
+      .admin-button-container= button_to 'Create Caregiver Account', new_caregiver_path, class: 'admin-button', method: :get
+      .admin-button-container= button_to 'Switch to Existing User', switch_user_select_path, class: 'admin-button', method: :get
+      - if current_user.root?
+        .admin-button-container= button_to 'Create New Organization', new_org_path, class: 'admin-button', method: :get
+    #admin-table-container
+      %table#user-table.tablesorter-custom
+        %thead
+          %tr
             - if current_user.root?
-              %td= user.org&.name
-            %td= user.email
-            %td= user.full_name
-            %td= user.role.capitalize
-            %td= user.recordings.any? ? user.recordings.length : 0
-            %td= user.sign_in_count
-            %td= format_date_time(user.current_sign_in_at || user.last_sign_in_at)
-            - if current_user == user
+              %th Org
+            %th Name
+            %th Email
+            %th Logins
+            %th Last Login
+            %th Recordings
+            %th User clicks on play/pause button
+        %tbody
+          - current_user.viewable_users.each do |user|
+            %tr.table-row.hidden
+            - is_admin = user.privileged?
+            %tr{'data-is-admin': is_admin, class: "table-row #{is_admin ? 'hidden' : ''}"}
+              - if current_user.root?
+                %td= user.org&.name
+              %td= user.full_name
+              %td= user.email
+              %td= user.sign_in_count
+              %td= format_date_time(user.current_sign_in_at || user.last_sign_in_at)
               %td
-            - else
-              - link_text = user.active ? 'Yes' : 'No'
-              %td= link_to link_text, toggle_active_path(user.id), class: 'table-link'
-            - link_text = user.can_record ? 'Yes' : 'No'
-            %td= link_to link_text, toggle_can_record_path(user.id), class: 'table-link'
+                - if user.recordings.any?
+                  - user.recordings.order(created_at: :desc).each do |recording|
+                    .recording{'data-recording-id': recording.id}
+                      %span= "#{format_date_time(recording.created_at)}"
+              %td= user.total_clicks_on_play

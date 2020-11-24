@@ -7,6 +7,7 @@
       text-align: left;
     }
     th{
+      font-size: 16px;
       padding: 10px;
       font-weight: normal;
     }
@@ -18,9 +19,21 @@
     }
     td{
       padding: 10px;
+      font-size: 16px;
     }
     .table-link{
       color: #3A70A6;
     }
   }
+}
+
+.tablesorter-header {
+  display: table-cell !important;
+  vertical-align: middle !important;
+  background-position: left center !important;
+  padding-left: 20px;
+}
+
+.tablesorter-header-inner{
+  padding-left: 15px;
 }

@@ -3,7 +3,6 @@
 @import 'jquery-ui.min';
 @import 'jquery-ui.structure.min';
 @import 'jquery-ui.theme.min';
-@import 'theme.grey.min.css';
 
 // Local
 @import 'sass_variables';
@@ -20,6 +19,7 @@
 @import 'select';
 @import 'help';
 @import 'admin';
+@import 'table_theme';
 
 @font-face {
   font-family: 'Glyphicons Halflings';

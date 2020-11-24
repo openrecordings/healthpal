@@ -1,15 +1,54 @@
+#admin-index-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  #admin-index {
+    width: 100%;
+    max-width: 1300px;
+    #buttons-container {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      width: 100%;
+      padding-top: 30px;
+      .admin-button-container {
+        padding-bottom: 15px;
+        &:not(:last-child) {
+          margin-right: 20px;
+        }
+      }
+    }
+    #admin-table-container {
+      #user-table {
+        .recording {
+          padding-bottom: 5px;
+          text-decoration: underline;
+          color: $color-2;
+          &:hover {
+            cursor: pointer;
+            color: $color-3;
+          }
+        }
+      }
+    }
+  }
+}
+
 #contact-email-address {
+  padding: 15px 0 0 25px;
+  font-size: 16px;
   #contact-email-address-display {
     display: inline-block;
     margin-left: 10px;
+    font-size: 16px;
   }
-
   #open-email-address-editor {
     display: inline-block;
     transform: translate(-10px, 4px);
     margin-left: 10px;
   }
-
   #contact-email-address-editor {
     display: inline-block;
     #update-contact-email-address {
@@ -28,10 +67,9 @@
       margin-left: 1px;
       padding: 7px;
       border-radius: 3px;
-      font-size: 18px;
+      font-size: 16px;
     }
   }
-
   .contact-email-svg {
     display: inline-block;
     box-sizing: border-box;
