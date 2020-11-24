@@ -1,0 +1,103 @@
+es:
+  admin: Foo
+  manage_recordings: Manage Recordings
+  analytics: Analytics
+  new_recording: New Recording
+  recordings: My Recordings
+  sharing: Sharing
+  help: Help
+  account: Account
+  sign_out: Sign out
+  uploading_recording: Uploading recording. This could take a few minutes...
+  audio_level: Audio level
+  start_recording: Start recording
+  pause_recording: Pause recording
+  continue_recording: Continue recording
+  save_recording: Save recording
+  delete_recording: Delete recording
+  medication: Medication
+  medical_condition: Medical condition
+  tests_and_imaging: Tests and imaging
+  treatments_and_procedures: Treatments and procedures 
+  provider: Provider
+  save: Save
+  cancel: Cancel
+  notes: Notes
+  rewind: Rewind
+  back_10_sec: Back 10
+  play: Play
+  pause: Pause
+  forward_10_sec: Fwd 10
+  mute: Mute
+  unmute: Unmute
+  start_end: Start - End
+  topics_discussed: Topics discussed
+  links_to_external_information: Links to external information
+  no_results: No results found for that topic
+  filter: Filter
+  by_text: by Text
+  by_topics: by Topics
+  clear_all_filters: Clear all filters
+  want_to_share: Do you want to give someone else access to your recordings?
+  out_of_here: No. Get me out of here!
+  share_recordings: Share Recordings
+  add_share: Add a person to share with
+  share_who: Who do you want to share your recordings with?
+  all_fields_required: All fields are required
+  first_name: First name
+  last_name: Last name
+  phone_number: Mobile phone number
+  email_address: Email address
+  enter_email_address: Enter your email address
+  re_enter_email: Re-enter email address
+  sharing_with: You are sharing your recordings with these people
+  name: Name
+  stop_sharing: stop sharing with this person
+  watch_intro_video: Watch the introduction video
+  download_manual: View or download the user manual
+  watch_now: Watch the introductory video now
+  watch_later: Watch later
+  dont_ask_again: Don't ask me again
+  edit_login_info: Edit Login Information
+  current_password: Current password (required)
+  new_password: New password
+  new_password_confirmation: New password confirmation
+  new_user_password: Password for new user
+  update: Update
+  back: Back
+  confirmation_code_header: You should have received a text message with a six-digit confirmation code at your phone number ending in
+  confirmation_code: Confirmation code
+  enter_confirmation_code: Enter your confirmation code and choose a password for HealthPAL
+  choose_password: Setup your new HealthPAL account
+  password: Password
+  confirm_password: Confirm password
+  submit: Submit
+  log_in: Log in
+  forgot_password: I forgot my password
+  forgot_your_password: Forgot your password?
+  name_placeholder: Full Name
+  affirm: "Yes"
+  send_reset_instructions: Send me reset password instructions
+  back_to_login_screen: Back to login screen
+  edit_recording_details: Edit recording details
+  recording_name: Recording name
+  doctors_name: Doctor's name
+  enter_note_here: Enter your note here
+  select_a_recording: Select a recording
+  recordings_appear_here: Your recordings will appear here
+  make_recording_now: Make a recording now
+  your_notes: Your notes
+  notes_appear_here: Your notes for this recording will appear here
+  new_note_at: New note at
+  not_sharing_recordings: You are not sharing any recordings
+  share_someone_new: Share with someone new
+  share_this_person: Share with this person
+  select_a_recording: Select a recording
+  share_invite_sms: "Hello! A family member or friend would like to share with you an audio recording of their recent doctor’s visit that they want you to hear. \n\nYou will receive an email with a special link to audiohealthpal.com. When you click on that link, enter this code to confirm your identity and set up your account: "
+  hi: Hi
+  reminder_sms_1a: "Thank you again for participating in the AUDIO Trial. Please click on this link to review your recording now (you will have to enter your email address and password):\n\nhttps://audiohealthpal.com (Click on the link)\n\nListening back to your recording is a key part of making the project a success.\n\nListening to the recording from your visit can:\n● Remind you of changes to your treatment\n● Hear advice from your doctor and things recommended for you to do\n● Realize things you forgot to mention\n\nYou may also want to share your recording with a family member or friend to keep them up to date with your care.\n\nPlease contact us with any questions at"
+  reminder_sms_1b: "Thanks again for taking part in the project!"
+  reminder_sms_2a: "Thank you again for participating in the AUDIO Trial. If you have not already listened to your visit recording, please click on this link to review your recording now (you will have to enter your email address and password):\n\nhttps://audiohealthpal.com (Click on the link)\n\nListening back to your recording is a key part of making the project a success.\n\nListening to the recording from your visit can:\n● Remind you of changes to your treatment\n● Hear advice from your doctor and things recommended for you to do\n● Realize things you forgot to mention\n\nYou may also want to share your recording with a family member or friend to keep them up to date with your care.\n\nPlease contact us with any questions at"
+  reminder_sms_2b: "Thanks again for taking part in the project!"
+  reminder_sms_3a: "Thank you again for participating in the AUDIO Trial. If you have not already listened to your visit recording, please click on this link to review your recording now (you will have to enter your email address and password):\n\nhttps://audiohealthpal.com (Click on the link)\n\nListening back to your recording is a key part of making the project a success.\n\nListening to the recording from your visit can:\n● Identify things that have changed in your health or life that your doctor should know\n● Discuss things you forgot to mention in your last visit\n\nYou may also want to share your recording with a family member or friend to keep them up to date with your care.\n\nPlease contact us with any questions at"
+  reminder_sms_3b: "Thanks again for taking part in the project!"

@@ -7,10 +7,17 @@ class ApplicationController < ActionController::Base
   before_action :check_layout
   around_action :set_locale
   after_action :track_action
+  around_action :set_locale
+
+  # Use the default locale unless current_user has one specified in their db record
+  def set_locale(&action)
+    locale = current_user.try(:locale) || I18n.default_locale
+    I18n.with_locale(locale, &action)
+  end
 
   # Used in a before_filter in individual controllers for authorization.
   def only_admins
-    redirect_to root_url unless current_user and current_user.privileged?
+    redirect_to root_url unless current_user && current_user.privileged?
   end
 
   def current_path_in?(paths)
@@ -23,26 +30,28 @@ class ApplicationController < ActionController::Base
 
   # Allow devise_invitable to handle the added parameters when creating users
   def configure_permitted_parameters
-    keys = [
-      :org_id,
-      :role,
-      :timezone_offset,
-      :onboarded,
-      :requires_phone_confirmation,
-      :created_as_caregiver
+    keys = %i[
+      org_id
+      role
+      timezone_offset
+      onboarded
+      requires_phone_confirmation
+      created_as_caregiver
     ]
     devise_parameter_sanitizer.permit(:invite, keys: keys)
     devise_parameter_sanitizer.permit(:register, keys: keys)
   end
 
   def set_cache_buster
-    response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
-    response.headers["Pragma"] = "no-cache"
-    response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
+    response.headers['Cache-Control'] = 'no-cache, no-store, max-age=0, must-revalidate'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = 'Fri, 01 Jan 1990 00:00:00 GMT'
   end
 
   def check_layout
-    @hide_navbar = true if ['devise/sessions', 'devise/passwords', 'invitations'].include? request.parameters['controller']
+    if ['devise/sessions', 'devise/passwords', 'invitations'].include? request.parameters['controller']
+      @hide_navbar = true
+    end
   end
 
   def set_locale(&action)
@@ -66,5 +75,4 @@ class ApplicationController < ActionController::Base
       redirect_to :root
     end
   end
-
 end

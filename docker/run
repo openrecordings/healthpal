@@ -16,9 +16,6 @@ sleep 3
 echo "Checking for the oarls_dev database"
 # Will hold the string "t" if the database exists
 db_exists=`docker exec orals-dev-db sh -c "psql -U postgres -c \"select exists(SELECT datname FROM pg_catalog.pg_database WHERE lower(datname) = lower('orals_dev'));\" | sed -n 3p"`
-echo "------------------"
-echo $db_exists
-echo "------------------"
 if [ "$db_exists" = " f" ]; then
   echo "Database not found. Creating it."
   docker exec orals-dev-db sh -c "createdb -U postgres orals_dev"
