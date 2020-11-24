@@ -1,9 +1,9 @@
 es:
-  admin: Foo
+  admin: Admin
   manage_recordings: Manage Recordings
   analytics: Analytics
   new_recording: New Recording
-  recordings: My Recordings
+  recordings: Bar
   sharing: Sharing
   help: Help
   account: Account

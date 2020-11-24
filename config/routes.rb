@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   resources :links
   resources :utterances
 
+  get 'toggle_locale',                 to: 'home#toggle_locale',                 as: 'toggle_locale'
+
   post 'destroy_tags/:id',             to: 'tags#destroy_for_utterance',         as: 'destroy_tags'
   post 'destroy_links/:id',            to: 'links#destroy_for_utterance',        as: 'destroy_links'
 

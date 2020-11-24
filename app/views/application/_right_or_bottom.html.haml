@@ -9,6 +9,12 @@
     edit_user_registration_path,
     id: 'nav-account',
     class: "responsive-font-size menu-item-#{position} #{current_path_in?(edit_user_registration_path) ? menu_class_selected : menu_class}"
+- locale_strings = {'en': 'Español', 'es': 'English'}
+- locale_link_text = !!current_user.locale ? locale_strings[current_user.locale.to_sym] : 'Español'
+=link_to locale_link_text,
+    '#',
+    id: 'toggle-locale',
+    class: "responsive-font-size menu-item-#{position} #{current_path_in?(edit_user_registration_path) ? menu_class_selected : menu_class}"
 =link_to "#{t(:sign_out)} #{current_user.email}",
     destroy_user_session_path,
     method: :delete,
