@@ -5,7 +5,7 @@ es:
   new_recording: New Recording
   recordings: Bar
   sharing: Sharing
-  help: Help
+  help: Ayuda
   account: Account
   sign_out: Sign out
   uploading_recording: Uploading recording. This could take a few minutes...
@@ -47,7 +47,7 @@ es:
   first_name: First name
   last_name: Last name
   phone_number: Mobile phone number
-  email_address: Email address
+  email_address: Correo electrónico
   enter_email_address: Enter your email address
   re_enter_email: Re-enter email address
   sharing_with: You are sharing your recordings with these people

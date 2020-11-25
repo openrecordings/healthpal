@@ -9,10 +9,31 @@ class ApplicationController < ActionController::Base
   after_action :track_action
   around_action :set_locale
 
-  # Use the default locale unless current_user has one specified in their db record
+  skip_before_action :authenticate_user!, only: [:set_locale_cookie]
+
   def set_locale(&action)
-    locale = current_user.try(:locale) || I18n.default_locale
-    I18n.with_locale(locale, &action)
+    # nil until set either as user attribute or via the signin page
+    locale = cookies[:locale]
+    if current_user
+      # Check a logged-in user's locale attribute. Changing the attribute is
+      # done via AJAX then reload, so this works when changing the attribute
+      locale = current_user.try(:locale) || cookies[:locale]
+      cookies[:locale] = locale
+    # Set the locale cookie via AJAX on public pages (have JS reload the page arterwards (await))
+    elsif params[:action] == 'set_locale_cookie'
+      # Set the locale cookie via a public page
+      if I18n.available_locales.include?(params[:locale].to_sym)
+        locale = params[:locale].to_sym
+        cookies[:locale] = {value: locale}
+      else
+      end
+    end
+    I18n.with_locale(locale || I18n.default_locale, &action)
+  end
+
+  # Dummy action so that locale cookie can be set with params[:locale]
+  def set_locale_cookie
+    render json: { status: 400 }
   end
 
   # Used in a before_filter in individual controllers for authorization.
@@ -54,18 +75,16 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def set_locale(&action)
-    locale = current_user.try(:locale) || I18n.default_locale
-    I18n.with_locale(locale, &action)
-  end
-
   def track_action
     ahoy.track 'Request', request.path_parameters
   end
 
   # Verify that the user has an Org when needed
   def verify_org
-    # TODO
+    # unless !!!current_user || current_user.root? || !!current_user.org
+    #   flash[:error] = 'You are not authorized to view that page'
+    #   redirect_to :root
+    # end
   end
 
   # Called from controllers/actions that exclude regular users.

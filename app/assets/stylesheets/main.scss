@@ -1,20 +1,16 @@
-html{
+html {
   height: 100%;
 }
 
 body {
-  padding:
-    env(safe-area-inset-top)
-    env(safe-area-inset-right)
-    env(safe-area-inset-bottom)
-    env(safe-area-inset-left);
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   visibility: invisible;
   min-height: 100%;
   margin: 0;
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   font-size: 18px;
   @media screen and (max-width: $max-mobile-width) {
     font-size: 16px;
@@ -26,7 +22,7 @@ body {
   outline: none;
 }
 
-#content{
+#content {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
@@ -38,7 +34,7 @@ body {
   }
 }
 
-#flash{
+#flash {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -50,15 +46,15 @@ body {
   border-radius: 5px;
   background-color: $color-10;
   color: #333;
-  #dismiss-flash{
+  #dismiss-flash {
     position: absolute;
     width: 25px;
     height: 25px;
     top: 3px;
     right: 3px;
-    svg{
+    svg {
       fill: #555;
-      &:hover{
+      &:hover {
         fill: #777;
         cursor: pointer;
       }
@@ -69,13 +65,13 @@ body {
 a {
   color: white;
   font-size: 18px;
-  &:hover{
+  &:hover {
     color: $color-1;
   }
 }
 
 textarea {
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   font-size: 16px;
   resize: none;
   padding: 10px;
@@ -88,35 +84,35 @@ textarea {
   box-shadow: none;
 }
 
-.center-block{
+.center-block {
   display: block;
   margin: 0 auto;
   text-align: center;
 }
 
-.center-inline{
+.center-inline {
   display: inline-block;
   margin: 0 auto;
   text-align: center;
 }
 
-.float-left{
+.float-left {
   float: left;
 }
 
-.float-right{
+.float-right {
   float: right;
 }
 
-#loader-container{
+#loader-container {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  #sized-loader-box{
+  #sized-loader-box {
     // background-color: yellowgreen;
     min-height: 330px;
-    #loader{
+    #loader {
       margin-top: 105px;
       @media screen and (min-width: $max-mobile-width) {
         margin-top: 133px;
@@ -129,17 +125,21 @@ textarea {
       animation: spin 2s linear infinite;
     }
   }
-	#upload-text{
+  #upload-text {
     padding: 30px;
   }
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
-.overlay{
+.overlay {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -154,213 +154,212 @@ textarea {
   background-color: rgba(0, 0, 0, 0.92);
 }
 
-#dismiss-video{
+#dismiss-video {
   position: absolute;
   top: 0;
   right: 0;
   margin-top: -2px;
-  &:hover{
+  &:hover {
     cursor: pointer;
   }
 }
 
-
-.margin-top-150{
+.margin-top-150 {
   margin-top: 150px;
 }
 
-.margin-top-100{
+.margin-top-100 {
   margin-top: 100px;
 }
 
-.margin-top-40{
+.margin-top-40 {
   margin-top: 40px;
 }
 
-.margin-top-20{
+.margin-top-20 {
   margin-top: 20px;
 }
 
-.margin-top-neg-40{
+.margin-top-neg-40 {
   margin-top: -60px;
 }
 
-.margin-top-neg-100{
+.margin-top-neg-100 {
   margin-top: -100px;
 }
 
-.margin-top-15{
+.margin-top-15 {
   margin-top: 15px;
 }
 
-.margin-left-10{
+.margin-left-10 {
   margin-left: 10px;
 }
 
-.margin-bottom-5{
+.margin-bottom-5 {
   margin-bottom: 5px !important;
 }
 
-.margin-bottom-10{
+.margin-bottom-10 {
   margin-bottom: 10px !important;
 }
 
-.margin-bottom-20{
+.margin-bottom-20 {
   margin-bottom: 20px !important;
 }
 
-.margin-bottom-30{
+.margin-bottom-30 {
   margin-bottom: 30px !important;
 }
 
-.margin-bottom-40{
+.margin-bottom-40 {
   margin-bottom: 40px !important;
 }
 
-.margin-bottom-60{
+.margin-bottom-60 {
   margin-bottom: 60px !important;
 }
 
-.pad-15{
+.pad-15 {
   padding: 15px;
 }
 
-.pad-30{
+.pad-30 {
   padding: 30px;
 }
 
-.pad-left-30{
+.pad-left-30 {
   padding-left: 30px;
 }
 
-.pad-left-40{
+.pad-left-40 {
   padding-left: 40px;
 }
 
-.pad-right-30{
+.pad-right-30 {
   padding-right: 30px;
 }
 
-.padding-top-60{
+.padding-top-60 {
   padding-top: 60px;
 }
 
-.title{
+.title {
   font-size: 20px;
 }
 
-.big-title{
+.big-title {
   font-size: 30px;
 }
 
-.huge{
+.huge {
   font-size: 40px;
 }
 
-.smaller{
+.smaller {
   font-size: 14px;
 }
 
-.hidden{
+.hidden {
   display: none;
 }
 
-.invisible{
+.invisible {
   visibility: hidden;
 }
 
-.visible{
+.visible {
   visibility: visible;
 }
 
-.absolute{
+.absolute {
   position: absolute;
 }
 
-.text-left{
+.text-left {
   text-align: left;
 }
 
-.text-center{
+.text-center {
   text-align: center;
 }
 
-.full-center{
+.full-center {
   display: flex;
   flex-grow: 1;
   justify-content: center;
   align-items: center;
 }
 
-.horizontal-center{
+.horizontal-center {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
 }
 
-.highlighted-row{
-  background-color: white;
-};
-
-.even-row{
+.highlighted-row {
   background-color: white;
 }
 
-.odd-row{
+.even-row {
   background-color: white;
 }
 
-.svg{
+.odd-row {
+  background-color: white;
+}
+
+.svg {
   height: 30px;
   width: 30px;
 }
 
-.large-svg{
+.large-svg {
   margin-top: 10px;
   height: 50px;
   width: 50px;
   fill: white;
 }
 
-.medium-svg{
+.medium-svg {
   height: 25px;
   width: 25px;
 }
 
-.small-svg{
+.small-svg {
   // As of now, matches .pill height
-  box-sizing:  border-box;
+  box-sizing: border-box;
   height: 34px;
   line-height: 34px;
   padding: 6px 0;
   fill: $color-2;
 }
 
-.dismiss-video-svg{
+.dismiss-video-svg {
   margin: 5px;
   height: 30px;
   width: 30px;
   fill: #aaa;
 }
 
-.edit-svg{
+.edit-svg {
   display: inline-block;
-  box-sizing:  border-box;
+  box-sizing: border-box;
   height: 25px;
   line-height: 25px;
   fill: $color-2;
 }
 
-.width-800{
+.width-800 {
   width: 800px;
 }
 
-.blue-text{
+.blue-text {
   color: white;
 }
 
-.table-heading-format{
+.table-heading-format {
   opacity: 0;
   padding: 10px;
   font-weight: normal;
@@ -368,25 +367,25 @@ textarea {
   color: #fff;
 }
 
-.user-icon{
+.user-icon {
   font-size: 20px;
   line-height: 20px;
 }
 
 // importants are needed or fa ignores this
-.local-fa{
+.local-fa {
   margin-right: 10px !important;
   padding-bottom: 13px !important;
   font-size: 28px !important;
   color: #666 !important;
 }
 
-.local-fa-small{
+.local-fa-small {
   font-size: 20px !important;
   color: #666 !important;
 }
 
-.floating-button{
+.floating-button {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -406,16 +405,16 @@ textarea {
     padding: 0;
     line-height: 20px;
   }
-  &:hover{
+  &:hover {
     cursor: pointer;
     background-color: $color-3;
   }
-  &:active{
+  &:active {
     background-color: $color-4;
   }
 }
 
-.pill{
+.pill {
   box-sizing: border-box;
   width: auto;
   height: 34px;
@@ -426,33 +425,49 @@ textarea {
   background-color: $color-2;
   color: white;
   text-align: center;
-  &:hover{
+  &:hover {
     cursor: pointer;
     background-color: $color-3;
   }
-  &:active{
+  &:active {
     background-color: $color-4;
   }
 }
 
 // For some reason, inline SVG moves pill text downward
-span.text-with-svg{
+span.text-with-svg {
   display: inline-block;
   transform: translateY(-11px);
   color: $color-2;
 }
 
-.italic-note{
+.italic-note {
   font-size: 14px;
   font-style: italic;
 }
 
-.responsive-font-size{
+.responsive-font-size {
   @media screen and (max-width: $max-mobile-width) {
     font-size: 15px;
   }
 }
 
-.no-decoration{
+.no-decoration {
   text-decoration: none;
+}
+
+#toggle-locale-signin {
+  position: absolute;
+  @media screen and (max-width: $max-mobile-width) {
+    top: 20px;
+    right: 20px;
+  }
+  @media screen and (min-width: $max-mobile-width) {
+    top: 30px;
+    right: 30px;
+  }
+  &:hover{
+    cursor: pointer;
+    color: $color-2;
+  }
 }

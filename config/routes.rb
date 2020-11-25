@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :utterances
 
   get 'toggle_locale',                 to: 'home#toggle_locale',                 as: 'toggle_locale'
+  post 'set_locale_cookie',            to: 'application#set_locale_cookie',      as: 'set_locale_cookie'
 
   post 'destroy_tags/:id',             to: 'tags#destroy_for_utterance',         as: 'destroy_tags'
   post 'destroy_links/:id',            to: 'links#destroy_for_utterance',        as: 'destroy_links'

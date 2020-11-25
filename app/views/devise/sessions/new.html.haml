@@ -7,6 +7,7 @@
       %br
       %span#logo-health Health
       %span#logo-pal> PAL
+#toggle-locale-signin.responsive-font-size= {en: 'Español', es: 'English'}[I18n.locale]
 .full-center.margin-top-neg-100
   = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
     .form-label.invisible= t(:email_address)
