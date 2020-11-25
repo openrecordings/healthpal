@@ -2,11 +2,11 @@ es:
   admin: Admin
   manage_recordings: Manage Recordings
   analytics: Analytics
-  new_recording: New Recording
-  recordings: Bar
-  sharing: Sharing
+  new_recording: Nueva grabación
+  recordings: Mis grabaciones
+  sharing: Compartir
   help: Ayuda
-  account: Account
+  account: Cuenta
   sign_out: Sign out
   uploading_recording: Uploading recording. This could take a few minutes...
   audio_level: Audio level
@@ -48,7 +48,7 @@ es:
   last_name: Last name
   phone_number: Mobile phone number
   email_address: Correo electrónico
-  enter_email_address: Enter your email address
+  enter_email_address: Ingrese su correo electrónico
   re_enter_email: Re-enter email address
   sharing_with: You are sharing your recordings with these people
   name: Name
@@ -69,15 +69,15 @@ es:
   confirmation_code: Confirmation code
   enter_confirmation_code: Enter your confirmation code and choose a password for HealthPAL
   choose_password: Setup your new HealthPAL account
-  password: Password
+  password: Contraseña
   confirm_password: Confirm password
   submit: Submit
-  log_in: Log in
-  forgot_password: I forgot my password
-  forgot_your_password: Forgot your password?
+  log_in: Iniciar sesión
+  forgot_password: Olvidé mi contraseña
+  forgot_your_password: ¿Olvidó su contraseña?
   name_placeholder: Full Name
   affirm: "Yes"
-  send_reset_instructions: Send me reset password instructions
+  send_reset_instructions: Enviarme instrucciones para reestablecer mi contraseña
   back_to_login_screen: Back to login screen
   edit_recording_details: Edit recording details
   recording_name: Recording name
@@ -101,3 +101,10 @@ es:
   reminder_sms_2b: "Thanks again for taking part in the project!"
   reminder_sms_3a: "Thank you again for participating in the AUDIO Trial. If you have not already listened to your visit recording, please click on this link to review your recording now (you will have to enter your email address and password):\n\nhttps://audiohealthpal.com (Click on the link)\n\nListening back to your recording is a key part of making the project a success.\n\nListening to the recording from your visit can:\n● Identify things that have changed in your health or life that your doctor should know\n● Discuss things you forgot to mention in your last visit\n\nYou may also want to share your recording with a family member or friend to keep them up to date with your care.\n\nPlease contact us with any questions at"
   reminder_sms_3b: "Thanks again for taking part in the project!"
+  nighttime_appointment: Cita nocturna 
+  morning_appointment: Cita matutina 
+  afternoon_appointment: Cita de la tarde 
+  evening_appointment: Cita nocturna 
+  today: Hoy
+  yesterday: Ayer
+  days_ago: "Hace # días"

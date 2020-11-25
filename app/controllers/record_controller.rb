@@ -67,15 +67,15 @@ class RecordController < ApplicationController
   def default_title
     case Time.now.in_time_zone(current_user.timezone).hour
     when 0..4
-      'Nighttime Appointment'
+      t(:nighttime_appointment)
     when 5..11
-      'Morning Appointment'
+      t(:morning_appointment)
     when 12..16
-      'Afternoon Appointment'
+      t(:afternoon_appointment)
     when 17..19
-      'Evening Appointment'
+      t(:evening_appointment)
     when 20..24
-      'Nighttime Appointment'
+      t(:nighttime_appointment)
     end
   end
 

@@ -42,11 +42,11 @@ module ApplicationHelper
     days = (DateTime.now.to_date - date_time.to_date).to_i
     case days
     when 0
-      'Today'
+      t(:today)
     when 1
-      'Yesterday'
+      t(:yesterday)
     else
-      "#{days} days ago"
+      t(:days_ago).gsub('#', days.to_s)
     end
   end
 

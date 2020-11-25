@@ -1,15 +1,13 @@
 !!! 5
-%html(lang="en")
+%html(lang="#{I18n.locale.to_s}")
   %head
     %meta(charset="utf-8")
     %meta(http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1")
     %meta(name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, viewport-fit=cover")
-
     %title= app_display_name
     = csrf_meta_tags
     = stylesheet_link_tag "application", :media => "all"
   %body{class: "#{@hide_navbar ? '' : 'invisible'}", 'data-locale': I18n.locale.to_s}
-    = I18n.locale.to_s
     = render 'navbar' unless @hide_navbar
     #content
       = render 'flash'
