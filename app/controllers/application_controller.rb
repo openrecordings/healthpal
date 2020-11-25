@@ -13,23 +13,12 @@ class ApplicationController < ActionController::Base
 
   # The complexity here arises from the need to be able to set the locale while not signed in
   def set_locale(&action)
-    # nil until set either as user attribute or via the signin page
+    # nil until set by user toggling locale the first time
     locale = cookies.encrypted[:locale]
-    if current_user
-      # Check a logged-in user's locale attribute. Changing the attribute is
-      # done via AJAX then reload, so this works when changing the attribute
-      # The cookie takes preceence so that a locale choice on the sign-in page is respected
-      # End by making sure that current_user.locale and the cookie value are in sync
-      locale = cookies.encrypted[:locale] || current_user.try(:locale)
-      cookies.encrypted[:locale] = locale
-      current_user.update(locale: locale) unless current_user.locale == locale
-    # Set the locale cookie via AJAX on public pages (have JS reload the page arterwards (await))
-    elsif params[:action] == 'set_locale_cookie'
-      # Set the locale cookie via a public page
+    if params[:action] == 'set_locale_cookie'
       if I18n.available_locales.include?(params[:locale].to_sym)
         locale = params[:locale].to_sym
-        cookies.encrypted[:locale] = {value: locale}
-      else
+        cookies.encrypted[:locale] = { value: locale }
       end
     end
     I18n.with_locale(locale || I18n.default_locale, &action)

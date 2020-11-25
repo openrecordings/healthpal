@@ -456,18 +456,21 @@ span.text-with-svg {
   text-decoration: none;
 }
 
-#toggle-locale-signin {
+#toggle-locale {
   position: absolute;
+  text-decoration: underline;
+  &:hover {
+    cursor: pointer;
+    color: $color-2;
+  }
   @media screen and (max-width: $max-mobile-width) {
-    top: 20px;
-    right: 20px;
+    top: 51px;
+    left: 210px;
+    font-size: 14px;
   }
   @media screen and (min-width: $max-mobile-width) {
     top: 30px;
     right: 30px;
-  }
-  &:hover{
-    cursor: pointer;
-    color: $color-2;
+    font-size: 16px;
   }
 }

@@ -5,20 +5,10 @@ if (document.querySelector('#new-registration-form')) {
 }
 
 $(document).ready(function () {
-  // Setting persisted user preference for locale
-  $('#toggle-locale').click(function () {
-    $.ajax({
-      async: false,
-      type: 'GET',
-      url: '/toggle_locale'
-    })
-    location.reload();
-  })
-
-  // Setting locale for next request (for unauthenticated pages)
+  // Setting locale for next request and user preference in db
   // Works because we have only two languages at present
   // Update if > 2 languages
-  $('#toggle-locale-signin').click(function () {
+  $('#toggle-locale').click(function () {
     const newLocale = $('body').data('locale') == 'en' ? 'es' : 'en';
     console.log('foo');
     $.ajax({
