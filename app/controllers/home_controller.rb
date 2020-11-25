@@ -13,9 +13,12 @@ class HomeController < ApplicationController
   # nil -> es
   # en  -> es
   # es  -> en
+  # Also set the locale in the cookie so that it's in sync after session termination
   def toggle_locale
-    new_locale = [nil, 'en'].include?(current_user.locale) ? 'es' : 'en'
+    current_locale = cookies.encrypted[:locale] || current_user.locale
+    new_locale = [nil, 'en'].include?(current_locale) ? 'es' : 'en'
     current_user.update locale: new_locale
+    cookies.encrypted[:locale] = {value: new_locale}
     render json: {status: 200} 
   end
 
