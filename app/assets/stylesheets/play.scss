@@ -211,7 +211,7 @@
           position: relative;
           width: 100%;
           box-sizing: border-box;
-          margin-top: 18px;
+          margin-top: 15px;
           margin-bottom: 30px;
           #timeline{
             background-color: $color-6;
@@ -269,6 +269,7 @@
             align-items: center;
             width: $player-button-container-width;
             height: $player-button-container-height;
+            text-align: center;
             border-radius: 3px;
             &:hover{
               cursor: pointer;
@@ -277,7 +278,6 @@
             // TODO: Brittle. Magic tanslate number centers left icon over label
             //       Icon and label should have their own container div
             .player-button-svg{
-              padding: 3px, 0;
               height: $player-button-edge-length;
               width: $player-button-edge-length;
               fill: $color-2;
