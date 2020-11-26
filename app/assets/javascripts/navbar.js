@@ -37,7 +37,7 @@ if (document.querySelector('#menu-container')) {
       var mediaQueries = {
         // Full menu collapse disabled. Always showing left side of horizontal items
         'small': window.matchMedia("(max-width: 0px)"),
-        'medium': window.matchMedia("(max-width: 840px)"),
+        'medium': window.matchMedia("(max-width: 700px)"),
       }
     }
     setMenuType(mediaQueries.small);
