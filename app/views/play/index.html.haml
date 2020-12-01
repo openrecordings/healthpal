@@ -17,6 +17,8 @@
     .modal-form-container
       %form#note-form
         #note-form-title.form-title.margin-bottom-10
+          = t(:new_note_at)
+          %span#note-time
         = text_area_tag('edit-note-text', nil, value: nil, placeholder: t(:enter_note_here), class: 'form-input-area')
         .save-cancel-buttons
           #note-cancel.cancel.modal-cancel= t(:cancel)
