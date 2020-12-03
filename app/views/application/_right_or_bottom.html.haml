@@ -1,5 +1,7 @@
 - menu_class = {horiz: 'menu-horiz', vert: 'menu-vert'}[orientation]
 - menu_class_selected = "#{menu_class}-selected"
+- locale_strings = {en: 'Español', es: 'English'}
+- locale_link_text = !!cookies.encrypted[:locale] ? locale_strings[cookies.encrypted[:locale].to_sym] : 'Español'
 
 =link_to t(:help),
     help_path,
@@ -9,8 +11,6 @@
     edit_user_registration_path,
     id: 'nav-account',
     class: "responsive-font-size menu-item-#{position} #{current_path_in?(edit_user_registration_path) ? menu_class_selected : menu_class}"
-- locale_strings = {en: 'Español', es: 'English'}
-- locale_link_text = !!cookies.encrypted[:locale] ? locale_strings[cookies.encrypted[:locale].to_sym] : 'Español'
 =link_to "#{t(:sign_out)} #{current_user.email}",
     destroy_user_session_path,
     method: :delete,
