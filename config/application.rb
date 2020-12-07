@@ -16,6 +16,11 @@ module Orals
     config.active_job.queue_adapter = :delayed_job
     config.active_storage.service = :amazon
 
+    # For R56 version only
+    if Rails.env == 'hp_r56' 
+      config.redcap_api_key = '44F9F3CDA4A65970787CC2A99BE2957B'
+    end
+
     # Hostname for the current environment
     config.hosts << Rails.application.credentials[Rails.env.to_sym][:host]
 
