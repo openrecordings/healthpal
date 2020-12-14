@@ -121,9 +121,9 @@ if (document.querySelector('#play-view')) {
           'deleteNote': 'Delete note',
         },
         'es': {
-          'playAt': 'play_at',
-          'editNote': 'edit_note',
-          'deleteNote': 'delete_note',
+          'playAt': 'Reproducir en',
+          'editNote': 'Editar nota',
+          'deleteNote': 'Borrar nota',
         },
       }[locale][string]
     }
