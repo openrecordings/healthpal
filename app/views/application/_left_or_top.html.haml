@@ -1,21 +1,16 @@
 - menu_class = {horiz: 'menu-horiz', vert: 'menu-vert'}[orientation]
 - menu_class_selected = "#{menu_class}-selected"
+
 - if current_user.privileged?
   =link_to t(:admin),
   admin_path,
   id: 'nav-user-management',
   class: "responsive-font-size menu-item-#{position} #{current_path_in?(admin_path) ? menu_class_selected : menu_class}"
 
-  -# Disabled for R56
-  -# =link_to t(:manage_recordings),
-  -#     manage_recordings_path,
-  -#     id: 'nav-manage-recordings',
-  -#     class: "menu-item-#{position} #{current_path_in?(manage_recordings_path) ? menu_class_selected : menu_class}"
-
-  -# =link_to t(:analytics),
-  -#     analytics_path,
-  -#     id: 'nav-analytics',
-  -#     class: "menu-item-#{position} #{current_path_in?(analytics_path) ? menu_class_selected : menu_class}"
+  =link_to 'Reports',
+  admin_path,
+  id: 'nav-user-management',
+  class: "responsive-font-size menu-item-#{position} #{current_path_in?(admin_path) ? menu_class_selected : menu_class}"
 
 =link_to "#{current_user.privileged? ? 'Recordings' : t(:recordings)}",
   play_path,
