@@ -36,6 +36,9 @@ Rails.application.routes.draw do
   post 'create_org',                   to: 'admin#create_org',                   as: 'create_org'
   post 'update_contact_email_address', to: 'admin#update_contact_email_address', as: 'update_contact_email_addres'
 
+  # Reports (Admin)
+  get 'dashboard',                     to: 'reports#dashboard',                  as: 'dashboard'
+
   # Recording
   get 'record',                        to: 'record#new'
   get 'file_upload',                   to: 'record#file_upload',                 as: 'file_upload'
