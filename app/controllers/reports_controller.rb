@@ -14,6 +14,6 @@ class ReportsController < ApplicationController
         format: 'json',
         type: 'flat'
       }
-    )
+    ).body
   end
 end
