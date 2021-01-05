@@ -1,7 +1,7 @@
 - if current_user.org
   - current_email_address = current_user.org.contact_email_address
   #contact-email-address
-    Contact:
+    Contact email address:
     #contact-email-address-display= current_email_address
     #open-email-address-editor= inline_svg('edit.svg', class: 'contact-email-svg')
     #contact-email-address-editor.invisible{'data-org-id': current_user.org.id}
