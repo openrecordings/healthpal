@@ -1,6 +1,10 @@
 class ReportsController < ApplicationController
   def dashboard
-    @records = JSON.parse(get_records)
+    all_site_records = JSON.parse(get_records)
+    @records = case current_user.role
+    when 'root'
+      all_site_records
+    when 'admin'
   end
 
   private

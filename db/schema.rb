@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_03_185037) do
+ActiveRecord::Schema.define(version: 2021_01_05_173310) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,6 +78,23 @@ ActiveRecord::Schema.define(version: 2020_11_03_185037) do
     t.index ["visit_token"], name: "index_ahoy_visits_on_visit_token", unique: true
   end
 
+  create_table "annotations", force: :cascade do |t|
+    t.bigint "recording_id"
+    t.integer "begin_offset"
+    t.integer "end_offset"
+    t.float "score"
+    t.string "text"
+    t.string "category"
+    t.string "kind"
+    t.json "traits"
+    t.json "sub_annotations"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.float "start_time"
+    t.float "end_time"
+    t.index ["recording_id"], name: "index_annotations_on_recording_id"
+  end
+
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer "priority", default: 0, null: false
     t.integer "attempts", default: 0, null: false
@@ -129,6 +146,7 @@ ActiveRecord::Schema.define(version: 2020_11_03_185037) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "contact_email_address"
+    t.string "research_participant_id_prefix"
   end
 
   create_table "recording_notes", force: :cascade do |t|
@@ -145,7 +163,6 @@ ActiveRecord::Schema.define(version: 2020_11_03_185037) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "duration"
-    t.json "json"
     t.boolean "is_video"
     t.string "aws_bucket_name"
     t.string "aws_public_url"
@@ -158,6 +175,8 @@ ActiveRecord::Schema.define(version: 2020_11_03_185037) do
     t.datetime "next_appt_at"
     t.string "title"
     t.string "provider"
+    t.json "transcript_json"
+    t.json "annotation_json"
   end
 
   create_table "shares", force: :cascade do |t|
@@ -182,6 +201,27 @@ ActiveRecord::Schema.define(version: 2020_11_03_185037) do
     t.integer "tag_type_id"
     t.index ["tag_type_id"], name: "index_tags_on_tag_type_id"
     t.index ["utterance_id"], name: "index_tags_on_utterance_id"
+  end
+
+  create_table "transcript_items", force: :cascade do |t|
+    t.bigint "recording_id"
+    t.float "start_time"
+    t.float "end_time"
+    t.string "kind"
+    t.string "content"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "begin_offset"
+    t.integer "end_offset"
+    t.index ["recording_id"], name: "index_transcript_items_on_recording_id"
+  end
+
+  create_table "transcripts", force: :cascade do |t|
+    t.bigint "recording_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.json "json"
+    t.index ["recording_id"], name: "index_transcripts_on_recording_id"
   end
 
   create_table "users", id: :serial, force: :cascade do |t|
