@@ -1,6 +1,6 @@
 class ReportsController < ApplicationController
   def dashboard
-    @records = get_records
+    @records = JSON.parse(get_records)
   end
 
   private
