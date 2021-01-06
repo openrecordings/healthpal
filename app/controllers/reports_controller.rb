@@ -18,21 +18,25 @@ class ReportsController < ApplicationController
   # data were coming in from somewhere else external
   # TODO: Error handling
   def get_study_data_all_orgs
-    JSON.parse(HTTParty.post(
-      Rails.application.config.redcap_api_url,
-      body: {
-        token: Rails.application.config.redcap_api_key,
-        content: 'record',
-        format: 'json',
-        type: 'flat'
-      }
-    ).body)
+    records_array = JSON.parse(HTTParty.post(
+        Rails.application.config.redcap_api_url,
+        body: {
+          token: Rails.application.config.redcap_api_key,
+          content: 'record',
+          format: 'json',
+          type: 'flat'
+        }
+      ).body
+    )
+    return records_array.map{|record| OpenStruct.new(record)}
   end
 
   # REDCap records for a specific Org
   # NOTE: This is brittle in that it will include any mis-assigned IDs in REDCap
   def get_study_data_for_org(org)
-    get_study_data_all_orgs.select{|record| record[ID_VARIABLE].start_with?(org.research_participant_id_prefix)}
+    get_study_data_all_orgs.select do |record|
+      record.send(ID_VARIABLE).start_with?(org.research_participant_id_prefix)
+    end
   end
 
 end
