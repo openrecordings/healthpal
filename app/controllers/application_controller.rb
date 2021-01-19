@@ -14,8 +14,28 @@ class ApplicationController < ActionController::Base
     {
       controller: 'devise/sessions',    
       rails_action: 'create',
-      link_action: 'login-submit'
-    }
+      link_action: 'login-submit',
+    },
+    {
+      controller: 'devise/passwords',    
+      rails_action: 'new',
+      link_action: 'forgot-my-password',
+    },
+    {
+      controller: 'devise/passwords',    
+      rails_action: 'create',
+      link_action: 'send-password-reset-email',
+    },
+    {
+      controller: 'play',    
+      rails_action: 'index',
+      link_action: 'list-recordings',
+    },
+    {
+      controller: 'record',    
+      rails_action: 'new',
+      link_action: 'show-new-recording-page',
+    },
   ].freeze
 
   # The complexity here arises from the need to be able to set the locale while not signed in
