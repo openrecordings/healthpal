@@ -5,10 +5,20 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_cache_buster
   before_action :check_layout
+  before_action :log_request
   around_action :set_locale
   around_action :set_locale
 
   skip_before_action :authenticate_user!, only: [:set_locale_cookie]
+
+  # Logs certain user actions which cannot be captured via AJAX because they result in a full page request
+  LOGGED_ROUTES = [
+    {
+      controller: 'devise/sessions',    
+      rails_action: 'new',
+      link_action: 'login-submit'
+    }
+  ].freeze
 
   # The complexity here arises from the need to be able to set the locale while not signed in
   def set_locale(&action)

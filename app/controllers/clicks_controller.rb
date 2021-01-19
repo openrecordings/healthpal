@@ -3,9 +3,6 @@ class ClicksController < ApplicationController
   # AJAX endpoint for creating a Cick record
   # One or both of user_id, recording_id may be null depending on the click context
   def create
-    puts '----------------------------'
-    puts ap click_params
-    puts '----------------------------'
     Click.create!(
       user_id: current_user&.id,
       recording_id: click_params[:recording_id],
