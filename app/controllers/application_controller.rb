@@ -8,8 +8,6 @@ class ApplicationController < ActionController::Base
   around_action :set_locale
   around_action :set_locale
 
-  after_action :log_request
-
   skip_before_action :authenticate_user!, only: [:set_locale_cookie]
 
   # The complexity here arises from the need to be able to set the locale while not signed in
@@ -26,6 +24,8 @@ class ApplicationController < ActionController::Base
   end
 
   # Dummy action so that locale cookie can be set with params[:locale]
+  #
+  # NOTE: Bypasses auth! Do not extend this method to do ANYTHING else!
   def set_locale_cookie
     render json: { status: 400 }
   end
@@ -67,10 +67,6 @@ class ApplicationController < ActionController::Base
     if ['devise/sessions', 'devise/passwords', 'invitations'].include? request.parameters['controller']
       @hide_navbar = true
     end
-  end
-
-  def log_request
-    # TODO
   end
 
   # Verify that the user has an Org when needed
