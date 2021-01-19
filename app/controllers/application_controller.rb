@@ -1,13 +1,11 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :authenticate_user!
-  before_action :verify_org
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_cache_buster
   before_action :check_layout
-  before_action :log_request
   around_action :set_locale
-  around_action :set_locale
+  after_action :log_request
 
   skip_before_action :authenticate_user!, only: [:set_locale_cookie]
 
@@ -15,7 +13,7 @@ class ApplicationController < ActionController::Base
   LOGGED_ROUTES = [
     {
       controller: 'devise/sessions',    
-      rails_action: 'new',
+      rails_action: 'create',
       link_action: 'login-submit'
     }
   ].freeze
@@ -79,14 +77,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # Verify that the user has an Org when needed
-  def verify_org
-    # unless !!!current_user || current_user.root? || !!current_user.org
-    #   flash[:error] = 'You are not authorized to view that page'
-    #   redirect_to :root
-    # end
-  end
-
   # Called from controllers/actions that exclude regular users.
   def verify_privileged
     unless current_user.privileged?
@@ -94,4 +84,21 @@ class ApplicationController < ActionController::Base
       redirect_to :root
     end
   end
+
+  # For specified routes, create a Click record for the incoming request
+  def log_request
+    puts '-----------------------------'
+    puts ap request.parameters
+    puts '-----------------------------'
+
+    route = LOGGED_ROUTES.find{|r| r[:controller] == request.parameters['controller'] && r[:rails_action] == request.parameters['action']}
+    if route
+      Click.create(
+        user: current_user,
+        client_ip_address: request.remote_ip,
+        action: route[:link_action],
+      )
+    end
+  end
+
 end
