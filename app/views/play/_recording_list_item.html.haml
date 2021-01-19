@@ -1,4 +1,4 @@
-.recording-list-item(data-recording-id="#{recording.id}")
+.recording-list-item.log(id="select-recording-#{recording.id}" data-recording-id="#{recording.id}")
   .recording-description
     .recording-title= recording.title
     - if recording.provider

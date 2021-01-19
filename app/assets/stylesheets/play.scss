@@ -27,6 +27,7 @@
           font-weight: bold;
         }
         .recording-list-item{
+          z-index: 100;
           display: flex;
           flex-flow: row wrap;
           justify-content: space-between;
