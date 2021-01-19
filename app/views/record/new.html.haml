@@ -23,27 +23,27 @@
       00:00:00
 
     #record-buttons-container
-      #record-start-button.record-button.track
+      #record-start-button.record-button.log
         = inline_svg('mic.svg', class: 'record-svg')
         .record-button-label
           = t(:start_recording)
 
-      #record-pause-button.record-button-hidden.track
+      #record-pause-button.record-button-hidden.log
         = inline_svg('pause.svg', class: 'record-svg')
         .record-button-label
           = t(:pause_recording)
 
-      #continue-button.record-button-hidden.track
+      #continue-button.record-button-hidden.log
         = inline_svg('mic.svg', class: 'record-svg')
         .record-button-label
           = t(:continue_recording)
 
-      #save-button.record-button-hidden.track
+      #save-button.record-button-hidden.log
         = inline_svg('check.svg', class: 'record-svg')
         .record-button-label
           = t(:save_recording)
 
-      #delete-button.record-button-hidden.track
+      #delete-button.record-button-hidden.log
         = inline_svg('x.svg', class: 'record-svg')
         .record-button-label
           = t(:delete_recording)

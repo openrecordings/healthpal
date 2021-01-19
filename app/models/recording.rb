@@ -4,7 +4,6 @@ class Recording < ApplicationRecord
   has_many :recording_notes, dependent: :destroy
   has_many :messages, dependent: :destroy
   has_one_attached :media_file
-  visitable :ahoy_visit
 
   # Add all supported transcription services here
   # TODO: Add old Acusis code back in after getting gcloud going?

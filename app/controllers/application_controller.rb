@@ -6,8 +6,9 @@ class ApplicationController < ActionController::Base
   before_action :set_cache_buster
   before_action :check_layout
   around_action :set_locale
-  after_action :track_action
   around_action :set_locale
+
+  after_action :log_request
 
   skip_before_action :authenticate_user!, only: [:set_locale_cookie]
 
@@ -68,8 +69,8 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def track_action
-    ahoy.track 'Request', request.path_parameters
+  def log_request
+    # TODO
   end
 
   # Verify that the user has an Org when needed
