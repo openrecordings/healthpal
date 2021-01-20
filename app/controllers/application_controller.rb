@@ -107,10 +107,6 @@ class ApplicationController < ActionController::Base
 
   # For specified routes, create a Click record for the incoming request
   def log_request
-    puts '-----------------------------'
-    puts ap request.parameters
-    puts '-----------------------------'
-
     route = LOGGED_ROUTES.find{|r| r[:controller] == request.parameters['controller'] && r[:rails_action] == request.parameters['action']}
     if route
       Click.create(
