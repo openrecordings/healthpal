@@ -10,11 +10,12 @@ class ClicksController < ApplicationController
       client_ip_address: request.remote_ip,
       url_when_clicked: click_params[:url_when_clicked],
       player_state_when_clicked: click_params[:player_state_when_clicked],
+      ranges_played_since_load: click_params[:ranges_played_since_load] ? click_params[:ranges_played_since_load] : nil,
     )
     render json: {status: 200} 
   end
 
-  private
+private
 
   def click_params
     params.permit(
@@ -22,7 +23,7 @@ class ClicksController < ApplicationController
       :element_id,
       :url_when_clicked,
       :player_state_when_clicked,
-      :action,
+      :ranges_played_since_load,
     )
   end
 

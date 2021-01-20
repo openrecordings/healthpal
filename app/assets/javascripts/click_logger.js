@@ -13,7 +13,6 @@ function _recordingID() {
   return typeof recordingID === 'undefined' ? null : recordingId;
 }
 
-
 // If #video-element exists, and has been played since loaded, returns a JSON string representing the time ranges played
 function rangesPlayed() {
   let videoElement = document.getElementById('video-element');
@@ -49,7 +48,7 @@ $(document).ready(function () {
       element_id: this.id,
       url_when_clicked: window.location.href,
       player_state_when_clicked: playerState(),
-      time_ranges_played_since_load: rangesPlayed(),
+      ranges_played_since_load: rangesPlayed(),
     });
   });
 
@@ -63,7 +62,7 @@ $(document).ready(function () {
           element_id: this.id,
           url_when_clicked: window.location.href,
           player_state_when_clicked: playerState(),
-          time_ranges_played_since_load: rangesPlayed(),
+          ranges_played_since_load: rangesPlayed(),
         });
       }
     };
