@@ -7,6 +7,8 @@ if (document.querySelector('#play-view')) {
   var animationDuration = 300;
   var currentNote = null;
 
+  // TODO: rewrite the entire application with a declaritive UI
+
   // Selection/playback pane visibility
   /////////////////////////////////////////////////////////////////////////////////////////////////
   function showSelectOnly() {
@@ -130,7 +132,6 @@ if (document.querySelector('#play-view')) {
 
     function noteHtml(note) {
       var locale = document.documentElement.lang;
-      console.log(locale);
       return `
       <div class='note' data-recording-id=${recordingId} data-note-id=${note.id} data-note-at=${note.at}>
         <div class='note-text'>${note.text}</div>
@@ -376,7 +377,7 @@ if (document.querySelector('#play-view')) {
 
     // Metadata
     //////////////////////
-    $('#header-left').click(function () {
+    $('#edit-recording-metadata').click(function () {
       $('#metadata-overlay').hide().fadeIn(200);
       $('#metadata-overlay').css('visibility', 'visible');
     });
