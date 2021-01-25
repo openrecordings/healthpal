@@ -1,9 +1,9 @@
 // Get the current state of the media player if there is one
-function playerState() {
+function isPlaying() {
   let videoElement = document.getElementById('video-element');
   if (videoElement) {
     // When we get here, the video element has the *new* state, so return the opposite of the new state
-    return videoElement.paused ? 'paused' : 'playing';
+    return !videoElement.paused;
   } else {
     return null;
   }
@@ -36,18 +36,26 @@ function rangesPlayed() {
 }
 
 $(document).ready(function () {
-
   // Log all clicks on elements that have the .log class as Click records via AJAX
   $(document).on('click', '.log', async function () {
-    // This is an embarrasing hack to ensure that we "lose" the race with calls to togglePlayPause()
-    // Eliminating that race condition is too messy/involved at the time this logger is being written
-    await new Promise(r => setTimeout(r, 500));
+    var _isPlaying;
+
+    if (this.id == 'play-pause-button') {
+      // Toggling play/pause. Wait to lose the race condition with togglePlayPause(), then look at player state
+      // TODO: Eliminate race condition
+      await new Promise(r => setTimeout(r, 300));
+      _isPlaying = !isPlaying();
+    } else {
+      _isPlaying = isPlaying();
+    }
+
+    console.log(_isPlaying ? 'playing' : 'paused');
 
     $.post('/clicks', {
       recording_id: _recordingID(),
       element_id: this.id,
       url_when_clicked: window.location.href,
-      player_state_when_clicked: playerState(),
+      player_state_when_clicked: _isPlaying ? 'playing' : 'paused',
       ranges_played_since_load: rangesPlayed(),
     });
   });
