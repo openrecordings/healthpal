@@ -9,8 +9,8 @@ function isPlaying() {
   }
 }
 
-function _recordingID() {
-  return typeof recordingID === 'undefined' ? null : recordingId;
+function _recordingId() {
+  return typeof recordingId === 'undefined' ? null : recordingId;
 }
 
 // If #video-element exists, and has been played since loaded, returns a JSON string representing the time ranges played
@@ -52,7 +52,7 @@ $(document).ready(function () {
     console.log(_isPlaying ? 'playing' : 'paused');
 
     $.post('/clicks', {
-      recording_id: _recordingID(),
+      recording_id: _recordingId(),
       element_id: this.id,
       url_when_clicked: window.location.href,
       player_state_when_clicked: _isPlaying ? 'playing' : 'paused',
@@ -66,7 +66,7 @@ $(document).ready(function () {
       let videoElement = document.getElementById('video-element');
       if (videoElement) {
         $.post('/clicks', {
-          recording_id: _recordingID(),
+          recording_id: _recordingId(),
           element_id: this.id,
           url_when_clicked: window.location.href,
           player_state_when_clicked: playerState(),
