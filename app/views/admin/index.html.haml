@@ -28,7 +28,7 @@
             %th Logins
             %th Last Login
             %th Recordings
-            %th User clicks on play/pause button
+            %th Clicks on play/pause button
         %tbody
           - current_user.viewable_users.each do |user|
             %tr.table-row.hidden
@@ -45,4 +45,4 @@
                   - user.recordings.order(created_at: :desc).each do |recording|
                     .recording{'data-recording-id': recording.id}
                       %span= "#{format_date_time(recording.created_at)}"
-              %td= 'TODO'
+              %td= user.total_clicks_on_play
