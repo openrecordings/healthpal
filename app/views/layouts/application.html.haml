@@ -8,8 +8,7 @@
     = csrf_meta_tags
     = stylesheet_link_tag "application", :media => "all"
   %body{class: "#{@hide_navbar ? '' : 'invisible'}", 'data-locale': I18n.locale.to_s}
-    - i18n_users = ['will.haslett@gmail.com', 'mcmasel@gmail.com', 'polbarr@gmail.com', 'amera.utmb@gmail.com']
-    #toggle-locale= {en: 'Español', es: 'English'}[I18n.locale] if i18n_users.include?(current_user&.email)
+    #toggle-locale= {en: 'Español', es: 'English'}[I18n.locale]
     = render 'navbar' unless @hide_navbar
     #content
       = render 'flash'
