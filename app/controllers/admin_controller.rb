@@ -101,6 +101,7 @@ class AdminController < ApplicationController
     if user
       reset_session
       sign_in user
+      redirect_to :root
     else
       flash.now[:alert] = 'Could not find that user'
     end
