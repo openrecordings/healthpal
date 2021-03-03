@@ -1,0 +1,38 @@
+-# Leave the following line. foo is replaced by the latest commit hash upon Docker image build
+-# This way, you can always tell which commit is being served by lookoing at page source
+/ foo
+
+#nav-container
+  #logo-container
+    #logo-spans
+      %span.image#icon= image_tag('open_recordings_icon.png', width: '40px')
+      #logo-text-container
+        %span#logo-open Open
+        %span#logo-recordings> Recordings
+        %br
+        %span#logo-health Health
+        %span#logo-pal> PAL
+        - if current_user&.privileged?
+          %span#logo-admin ADMIN
+      %span#mobile-menu-button-container
+        %span#mobile-menu-button.hidden &#x22EE;
+  - if user_signed_in?
+    -# Element IDs are for Selenium testing
+    #menu-container
+      #navbar-left
+        - if current_user.privileged?
+          =link_to t(:user_management), admin_path, id: 'nav-user-management'
+          =link_to t(:manage_recordings), manage_recordings_path, id: 'nav-manage-recordings'
+          =link_to t(:analytics), analytics_path, id: 'nav-analytics'
+        =link_to t(:new_recording), record_path, id: 'nav-new-recording'
+        =link_to t(:recordings), my_recordings_path, id: 'nav-my-recordings'
+        =link_to t(:sharing), shares_path, id: 'nav-share'
+        -# Redundancy: order is opposite depending on whether or not we are floating the elements
+        #navbar-right-small.hidden
+          =link_to t(:help), help_path, id: 'nav-help'
+          =link_to "#{t(:account)} <span class='fa fa-cog' style='margin-right: 3px;'></span>".html_safe, edit_user_registration_path, id: 'nav-account'
+          =link_to "Sign out #{current_user.email}", destroy_user_session_path, method: :delete, id: 'nav-signout'
+      #navbar-right-big.hidden
+        =link_to "Sign out #{current_user.email}", destroy_user_session_path, method: :delete, id: 'nav-signout'
+        =link_to "#{t(:account)} <span class='fa fa-cog' style='margin-right: 3px;'></span>".html_safe, edit_user_registration_path, id: 'nav-account'
+        =link_to t(:help), help_path, id: 'nav-help'

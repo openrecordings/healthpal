@@ -2,7 +2,7 @@
   #new-caregiver-form.centered-form-container
     %p.form-title
       Enter information for new caregiver account
-    = form_with(url: create_caregiver_path) do |f|
+    = form_with(url: create_caregiver_path, local: true) do |f|
       .form-label.margin-bottom-10
         Caregiver for
       - select_options = options_from_collection_for_select(@users, 'id', 'name_and_email')
