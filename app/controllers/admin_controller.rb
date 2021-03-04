@@ -126,7 +126,6 @@ class AdminController < ApplicationController
     )
     @user.save
     @user.invite!
-    @user.send_sms_token
     Share.create(
       user_id: params['sharer_id'],
       shared_with_user_id: @user.id
