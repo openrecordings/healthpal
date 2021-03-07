@@ -5,8 +5,7 @@ $(document).ready(function () {
 
   $('textarea').autoResize();
 
-
-  $('input').focus(function (){
+  $('input:text').focus(function (){
     $(window).scrollTop($(this).position().top - 100); 
   })
 
