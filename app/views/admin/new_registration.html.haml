@@ -27,6 +27,8 @@
         data: {placeholder: t(:email_address)}
       .input-underscore
 
+      %div{style: 'height:200px;'}
+
       .form-label= t(:phone_number)
       = f.text_field :phone_number,
         class: 'form-input phone-number',
@@ -38,4 +40,4 @@
         = f.collection_select(:org_id, @orgs, :id, :name, {include_blank: true}, {class: 'margin-bottom-20 select-css'})
 
       = f.submit 'Next', class: 'button margin-bottom-20'
-      = button_to 'Cancel', admin_path, class: 'button', method: :get
+    = button_to 'Cancel', admin_path, class: 'button', method: :get

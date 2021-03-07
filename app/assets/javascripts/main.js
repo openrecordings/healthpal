@@ -5,6 +5,11 @@ $(document).ready(function () {
 
   $('textarea').autoResize();
 
+
+  $('input').focus(function (){
+    $(window).scrollTop($(this).position().top - 100); 
+  })
+
   isVisible = function (e) {
     return $(e).css('visibility') === 'visible';
   };
@@ -35,7 +40,7 @@ $(document).ready(function () {
   };
 
   // Custom select fields aren't blurring on change like they should
-  $('select').change(function(){
+  $('select').change(function () {
     $(this).blur();
   })
 
