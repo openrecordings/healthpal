@@ -12,7 +12,8 @@ if (document.querySelector('#admin-index')) {
 			theme: 'tablesorter-custom',
 		});
 
-		$('.recording').click(function(){
+		$('.admin-recording-link').click(function(){
+			console.log('yo');
 			window.location.assign(`/play/${$(this).data('recording-id')}`);
 		})
 

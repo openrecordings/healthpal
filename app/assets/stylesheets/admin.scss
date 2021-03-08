@@ -5,8 +5,8 @@
   padding: 0 25px 0 25px;
   max-width: 1300px;
   #user-table {
-    .recording {
-      padding-bottom: 5px;
+    .admin-recording-link {
+      padding-bottom: 10px;
       text-decoration: underline;
       color: $color-2;
       &:hover {
@@ -56,5 +56,9 @@
     height: 30px;
     line-height: 30px;
     fill: $color-2;
+    &:hover {
+      cursor: pointer;
+      fill: $color-3;
+    }
   }
 }
