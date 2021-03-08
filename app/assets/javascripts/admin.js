@@ -3,7 +3,8 @@ if (document.querySelector('#admin-index')) {
 	function hideEditor() {
 		$('#contact-email-address-display').show();
 		$('#open-email-address-editor').show();
-		$('#contact-email-address-editor').css('visibility', 'hidden');
+		// $('#contact-email-address-editor').css('visibility', 'hidden');
+		$('#contact-email-address-editor').hide();
 	}
 
 	$(document).ready(function () {
@@ -18,7 +19,7 @@ if (document.querySelector('#admin-index')) {
 		$('#open-email-address-editor').click(function () {
 			$('#contact-email-address-display').hide();
 			$('#open-email-address-editor').hide();
-			$('#contact-email-address-editor').css('visibility', 'visible');
+			$('#contact-email-address-editor').show();
 		})
 
 		$('#update-contact-email-address').click(function () {
