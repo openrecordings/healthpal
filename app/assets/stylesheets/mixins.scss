@@ -1,4 +1,4 @@
-@mixin menu-horiz{
+@mixin menu-horiz {
   display: inline-block;
   text-decoration: none;
   @media screen and (min-width: $max-mobile-width) {
@@ -11,72 +11,103 @@
   }
 }
 
-@mixin menu-vert{
+@mixin menu-vert {
   display: block;
   padding: 6px 8px;
   text-decoration: none;
 }
 
-@mixin logo{
-  #logo-container{
+@mixin logo {
+  #logo-container {
     width: 100%;
-    #logo-spans{
+    #logo-spans {
       display: flex;
       align-items: center;
-      #logo-open, #logo-recordings{
+      #logo-open,
+      #logo-recordings {
         display: inline-block;
         vertical-align: baseline;
       }
-      #logo-health, #logo-open{
+      #logo-health,
+      #logo-open {
         color: $color-3;
       }
-      #logo-pal, #logo-recordings{
+      #logo-pal,
+      #logo-recordings {
         color: $color-5;
-      }
-      #logo-admin{
-        margin-left: 10px;
-        color: red;
-        opacity: 0.7;
-      }
-      #logo-org{
-        font-size: 20px;
-        margin-left: 10px;
-        color: red;
-        opacity: 0.7;
       }
     }
     @media screen and (min-width: $max-mobile-width) {
-      #icon{
+      #icon {
         padding: 15px 15px 15px 25px;
         height: 55px;
         img {
           width: 50px;
         }
       }
-      #logo-health, #logo-pal, #logo-admin{
+      #logo-health,
+      #logo-pal {
         font-size: 42px;
         line-height: 42px;
       }
-      #logo-open, #logo-recordings{
+      #logo-open,
+      #logo-recordings {
         margin-top: 32px;
         font-size: 20px;
       }
+      #admin-text-container {
+        display: inline;
+        #logo-admin {
+          margin-left: 10px;
+          color: red;
+          opacity: 0.7;
+          font-size: 32px;
+          line-height: 42px;
+        }
+        #logo-org {
+          font-size: 20px;
+          margin-left: 10px;
+          color: red;
+          opacity: 0.7;
+          font-size: 24px;
+          line-height: 42px;
+        }
+      }
     }
     @media screen and (max-width: $max-mobile-width) {
-      #icon{
+      #icon {
         padding: 10px 10px 10px 15px;
         height: 45px;
         img {
           width: 40px;
         }
       }
-      #logo-health, #logo-pal, #logo-admin{
+      #logo-health,
+      #logo-pal {
         font-size: 28px;
         line-height: 32px;
       }
-      #logo-open, #logo-recordings{
+      #logo-open,
+      #logo-recordings {
         margin-top: 22px;
         font-size: 16px;
+      }
+      #admin-text-container {
+        display: block;
+        #logo-admin {
+          color: red;
+          opacity: 0.7;
+          font-size: 20px;
+          line-height: 32px;
+        }
+        #logo-org {
+          font-size: 20px;
+          margin-left: 4px;
+          color: red;
+          opacity: 0.7;
+          font-size: 18px;
+          line-height: 32px;
+        }
       }
     }
   }
