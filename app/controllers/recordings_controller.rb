@@ -10,6 +10,7 @@ class RecordingsController < ApplicationController
         date: helpers.minimal_date(recording.created_at),
         days_ago: helpers.days_ago(recording.created_at),
         notes: recording.recording_notes,
+        is_processed: recording.is_processed,
         status: 200
       }
     end

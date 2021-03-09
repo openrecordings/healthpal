@@ -100,3 +100,11 @@
         #show-select
           = inline_svg('arrow-left.svg', class: 'small-svg')
           %span.text-with-svg= t(:select_a_recording)
+    #recording-is-not-processed
+      .margin-top-150
+        .title.text-center Your recording will be ready in a few minutes
+        .margin-top-40.text-center= inline_svg('alert.svg', class: 'alert-svg')
+      #toolbar
+        #show-select
+          = inline_svg('arrow-left.svg', class: 'small-svg')
+          %span.text-with-svg= t(:select_a_recording)

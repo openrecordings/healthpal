@@ -1,24 +1,24 @@
-#play-view{
+#play-view {
   display: flex;
   flex-grow: 1;
-  #left{
+  #left {
     flex-grow: 1;
     min-width: 100%;
     overflow: scroll;
     transform-origin: top left;
     transition-duration: 300ms;
-    #search-and-select{
+    #search-and-select {
       padding: 15px;
       box-sizing: border-box;
-      #select-header{
+      #select-header {
         box-sizing: border-box;
         padding-top: 10px;
         text-align: center;
         font-size: 20px;
         color: $color-2;
       }
-      #select{
-        .recording-owner{
+      #select {
+        .recording-owner {
           box-sizing: border-box;
           padding-top: 40px;
           padding-bottom: 5px;
@@ -26,7 +26,7 @@
           font-size: 18px;
           font-weight: bold;
         }
-        .recording-list-item{
+        .recording-list-item {
           z-index: 100;
           display: flex;
           flex-flow: row wrap;
@@ -35,62 +35,62 @@
           padding-top: 15px;
           padding-bottom: 10px;
           border-bottom: 1px solid #bbb;
-          &:hover{
+          &:hover {
             cursor: pointer;
           }
-          .recording-title{
-            padding-bottom: 5px; 
+          .recording-title {
+            padding-bottom: 5px;
           }
-          .recording-date{
+          .recording-date {
             text-align: right;
-            padding-bottom: 5px; 
+            padding-bottom: 5px;
           }
-          .recording-days-ago{
+          .recording-days-ago {
             text-align: right;
           }
         }
       }
     }
-    #no-recordings{
+    #no-recordings {
       display: flex;
       flex-direction: column;
-      justify-content: flex-start;  
+      justify-content: flex-start;
       align-items: center;
       height: 100%;
       padding-top: 80px;
     }
   }
-  #right{
+  #right {
     display: flex;
     flex-grow: 1;
     max-height: 100%;
     overflow: hidden;
     transform-origin: top right;
     transition-duration: 300ms;
-    #player-container{
+    #player-container {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       width: 100%;
       padding: 15px;
       box-sizing: border-box;
-      #header{
+      #header {
         display: flex;
         justify-content: space-between;
         padding-top: 7px;
         padding-bottom: 8px;
         color: $color-1;
-        #edit-recording-metadata{
+        #edit-recording-metadata {
           &:hover {
             cursor: pointer;
           }
-          #recording-title{
+          #recording-title {
             padding-bottom: 3px;
             font-size: 18px;
             font-weight: 600;
           }
-          #metadata-edit-icon{
-            #recording-provider{
+          #metadata-edit-icon {
+            #recording-provider {
               display: inline-block;
               transform: translateY(-6px);
               font-size: 16px;
@@ -98,26 +98,26 @@
             }
           }
         }
-        #header-right{
+        #header-right {
           text-align: right;
-          #recording-date{
+          #recording-date {
             padding-bottom: 5px;
             font-size: 18px;
             font-weight: 600;
           }
-          #recording-days-ago{
+          #recording-days-ago {
             transform: translateY(5px);
             font-size: 16px;
             font-style: italic;
           }
         }
       }
-      #notes-header{
+      #notes-header {
         // background-color: pink;
         font-size: 24px;
         padding: 10px 0;
       }
-      #notes{
+      #notes {
         flex-grow: 1;
         display: flex;
         flex-direction: column;
@@ -128,7 +128,7 @@
         padding-top: 7px;
         padding-bottom: 8px;
         color: $color-1;
-        #notes-container{
+        #notes-container {
           display: flex;
           flex-direction: column;
           flex-grow: 1;
@@ -137,9 +137,9 @@
           left: 0;
           right: 0;
           overflow: auto;
-          .note{
+          .note {
             margin-bottom: 20px;
-            .note-text{
+            .note-text {
               flex-grow: 1;
               pointer-events: none;
               padding: 10px;
@@ -148,34 +148,34 @@
               border-radius: 4px 4px 0 4px;
               white-space: pre-wrap;
             }
-            .note-controls{
+            .note-controls {
               display: flex;
               justify-content: flex-end;
-              @mixin note-control{
+              @mixin note-control {
                 background-color: $color-9;
                 padding: 5px;
                 font-size: 13px;
                 border-left: 2px solid $color-8;
                 border-bottom: 2px solid $color-8;
                 color: $color-2;
-                &:hover{
+                &:hover {
                   cursor: pointer;
                   background-color: $color-7;
                 }
-                span{
+                span {
                   display: inline-block;
                   padding-right: 3px;
                   transform: translateY(-3px);
                 }
               }
-              .play-at{
+              .play-at {
                 @include note-control;
                 border-radius: 0 0 0 4px;
               }
-              .edit-note{
+              .edit-note {
                 @include note-control;
               }
-              .delete-note{
+              .delete-note {
                 @include note-control;
                 border-right: 2px solid $color-8;
                 border-radius: 0 0 4px 0;
@@ -183,38 +183,38 @@
             }
           }
         }
-        #no-notes{
+        #no-notes {
           width: 100%;
           align-self: center;
           text-align: center;
         }
       }
-      #player-border{
+      #player-border {
         z-index: 2;
         width: 5000px;
         height: 17px;
         margin: 0 -15px;
         overflow: hidden;
-        box-shadow: 0px -10px 15px -8px rgba(0, 0, 0, 1.0);
+        box-shadow: 0px -10px 15px -8px rgba(0, 0, 0, 1);
       }
-      #player{
+      #player {
         z-index: 1;
-        #create-note{
+        #create-note {
           width: 100%;
           text-align: center;
           transform: translateY(-8px);
           user-select: none;
-          &:hover{
+          &:hover {
             cursor: pointer;
           }
         }
-        #timeline-container{
+        #timeline-container {
           position: relative;
           width: 100%;
           box-sizing: border-box;
           margin-top: 15px;
           margin-bottom: 30px;
-          #timeline{
+          #timeline {
             background-color: $color-6;
             width: 100%;
             height: $timeline-thickness;
@@ -222,7 +222,7 @@
             top: calc(#{$playhead-radius} - #{$timeline-thickness} / 2);
             border-radius: $timeline-thickness;
           }
-          #progress-bar{
+          #progress-bar {
             background-color: $color-4;
             position: absolute;
             height: $timeline-thickness;
@@ -231,38 +231,38 @@
             border-top-left-radius: $playhead-radius;
             border-bottom-left-radius: $playhead-radius;
           }
-          #playhead{
+          #playhead {
             background-color: $color-3;
             position: absolute;
-            width: calc(#{$playhead-radius} * 2.0);
-            height: calc(#{$playhead-radius} * 2.0);
+            width: calc(#{$playhead-radius} * 2);
+            height: calc(#{$playhead-radius} * 2);
             top: 0;
             transition-timing-function: linear;
             border-radius: $playhead-radius;
           }
-          span.note-pin{
+          span.note-pin {
             position: absolute;
             top: -25px;
             left: 0;
-            &:hover{
+            &:hover {
               cursor: pointer;
             }
           }
         }
-        #time{
+        #time {
           display: flex;
           justify-content: space-between;
           padding-top: 9px;
           padding-bottom: 10px;
           font-size: 14px;
         }
-        #player-button-container{
+        #player-button-container {
           display: flex;
           justify-content: space-between;
           max-width: 350px;
           margin-right: auto;
           margin-left: auto;
-          @mixin player-button{
+          @mixin player-button {
             // border: 2px solid $color-7;
             display: flex;
             flex-direction: column;
@@ -272,18 +272,18 @@
             height: $player-button-container-height;
             text-align: center;
             border-radius: 3px;
-            &:hover{
+            &:hover {
               cursor: pointer;
             }
             // Player button icons
             // TODO: Brittle. Magic tanslate number centers left icon over label
             //       Icon and label should have their own container div
-            .player-button-svg{
+            .player-button-svg {
               height: $player-button-edge-length;
               width: $player-button-edge-length;
               fill: $color-2;
             }
-            .player-button-svg-left{
+            .player-button-svg-left {
               padding: 3px, 0;
               height: $player-button-edge-length;
               width: $player-button-edge-length;
@@ -291,7 +291,7 @@
               align-self: flex-start;
               transform: translate(5px, 0);
             }
-            .player-button-svg-right{
+            .player-button-svg-right {
               padding: 3px, 0;
               height: $player-button-edge-length;
               width: $player-button-edge-length;
@@ -300,42 +300,61 @@
             }
             // Player button labels
             // TODO: Brittle. Magic tanslate number centers right label under icon
-            .player-button-label{
+            .player-button-label {
               font-size: 13px;
             }
-            .player-button-label-left{
+            .player-button-label-left {
               font-size: 13px;
               align-self: flex-start;
             }
-            .player-button-label-right{
+            .player-button-label-right {
               font-size: 13px;
               align-self: flex-end;
               transform: translate(-5px, 0);
             }
-
           }
-          .player-button{
+          .player-button {
             @include player-button;
           }
-          .player-button-left, .player-button-right{
+          .player-button-left,
+          .player-button-right {
             @include player-button;
             width: 16%;
           }
         }
       }
+      #toolbar {
+        display: flex;
+        justify-content: center;
+        align-items: stretch;
+        background-color: $color-7;
+        border-radius: 5px;
+        div {
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
     }
-    #toolbar{
+    #recording-is-not-processed {
       display: flex;
-      justify-content: center;
-      align-items: stretch;
-      background-color: $color-7;
-      border-radius: 5px;
-      div{
-        &:hover{
-          cursor: pointer;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 100%;
+      padding: 15px;
+      box-sizing: border-box;
+      #toolbar {
+        display: flex;
+        justify-content: center;
+        align-items: stretch;
+        background-color: $color-7;
+        border-radius: 5px;
+        div {
+          &:hover {
+            cursor: pointer;
+          }
         }
       }
     }
   }
-
 }

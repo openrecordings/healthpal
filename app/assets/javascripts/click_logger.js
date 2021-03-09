@@ -49,8 +49,6 @@ $(document).ready(function () {
       _isPlaying = isPlaying();
     }
 
-    console.log(_isPlaying ? 'playing' : 'paused');
-
     $.post('/clicks', {
       recording_id: _recordingId(),
       element_id: this.id,
