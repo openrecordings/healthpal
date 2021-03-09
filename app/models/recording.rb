@@ -23,7 +23,10 @@ class Recording < ApplicationRecord
   end
 
   def total_clicks_on_play
-    self.clicks.where(element_id: 'play-pause-button').count
+    self.clicks.where(
+      element_id: 'play-pause-button',
+      user_id: user.id,
+    ).count
   end
 
 end
