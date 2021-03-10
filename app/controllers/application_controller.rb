@@ -1,15 +1,42 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :authenticate_user!
-  before_action :verify_org
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_cache_buster
   before_action :check_layout
   around_action :set_locale
-  after_action :track_action
-  around_action :set_locale
+  after_action :log_request
 
   skip_before_action :authenticate_user!, only: [:set_locale_cookie]
+
+  # Logs certain user actions which cannot be captured via AJAX because they result in a full page request
+  LOGGED_ROUTES = [
+    {
+      controller: 'devise/sessions',    
+      rails_action: 'create',
+      link_action: 'login-submit',
+    },
+    {
+      controller: 'devise/passwords',    
+      rails_action: 'new',
+      link_action: 'forgot-my-password',
+    },
+    {
+      controller: 'devise/passwords',    
+      rails_action: 'create',
+      link_action: 'send-password-reset-email',
+    },
+    {
+      controller: 'play',    
+      rails_action: 'index',
+      link_action: 'list-recordings',
+    },
+    {
+      controller: 'record',    
+      rails_action: 'new',
+      link_action: 'show-new-recording-page',
+    },
+  ].freeze
 
   # The complexity here arises from the need to be able to set the locale while not signed in
   def set_locale(&action)
@@ -25,6 +52,8 @@ class ApplicationController < ActionController::Base
   end
 
   # Dummy action so that locale cookie can be set with params[:locale]
+  #
+  # NOTE: Bypasses auth! Do not extend this method to do ANYTHING else!
   def set_locale_cookie
     render json: { status: 400 }
   end
@@ -68,18 +97,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def track_action
-    ahoy.track 'Request', request.path_parameters
-  end
-
-  # Verify that the user has an Org when needed
-  def verify_org
-    # unless !!!current_user || current_user.root? || !!current_user.org
-    #   flash[:error] = 'You are not authorized to view that page'
-    #   redirect_to :root
-    # end
-  end
-
   # Called from controllers/actions that exclude regular users.
   def verify_privileged
     unless current_user.privileged?
@@ -87,4 +104,17 @@ class ApplicationController < ActionController::Base
       redirect_to :root
     end
   end
+
+  # For specified routes, create a Click record for the incoming request
+  def log_request
+    route = LOGGED_ROUTES.find{|r| r[:controller] == request.parameters['controller'] && r[:rails_action] == request.parameters['action']}
+    if route
+      Click.create(
+        user: current_user,
+        client_ip_address: request.remote_ip,
+        action: route[:link_action],
+      )
+    end
+  end
+
 end

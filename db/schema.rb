@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_05_173310) do
+ActiveRecord::Schema.define(version: 2021_01_20_150700) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -93,6 +93,19 @@ ActiveRecord::Schema.define(version: 2021_01_05_173310) do
     t.float "start_time"
     t.float "end_time"
     t.index ["recording_id"], name: "index_annotations_on_recording_id"
+  end
+
+  create_table "clicks", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "recording_id"
+    t.string "element_id"
+    t.string "client_ip_address"
+    t.string "url_when_clicked"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "action"
+    t.string "player_state_when_clicked"
+    t.json "ranges_played_since_load"
   end
 
   create_table "delayed_jobs", force: :cascade do |t|

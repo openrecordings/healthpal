@@ -29,9 +29,6 @@ body {
   box-sizing: border-box;
   min-height: 100%;
   max-height: 100%;
-  @media screen and (min-width: $max-mobile-width) {
-    // padding: 15px;
-  }
 }
 
 #flash {
@@ -260,6 +257,10 @@ textarea {
   font-size: 14px;
 }
 
+.medium {
+  font-size: 16px;
+}
+
 .hidden {
   display: none;
 }
@@ -320,6 +321,13 @@ textarea {
   height: 50px;
   width: 50px;
   fill: white;
+}
+
+.alert-svg {
+  margin-top: 10px;
+  height: 80px;
+  width: 80px;
+  fill: $color-2;
 }
 
 .medium-svg {
@@ -473,4 +481,8 @@ span.text-with-svg {
     right: 30px;
     font-size: 16px;
   }
+}
+
+.overflow-scroll{
+  overflow: scroll !important;
 }

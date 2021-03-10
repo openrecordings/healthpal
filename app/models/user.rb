@@ -8,7 +8,7 @@ class User < ApplicationRecord
   has_many :recordings
   has_many :shares
   has_many :visits, class_name: 'Ahoy::Visit'
-  has_many :events, through: :visits
+  has_many :clicks
 
   scope :regular, ->() { where role: 'user' }
 
@@ -84,7 +84,7 @@ class User < ApplicationRecord
   end
 
   def total_clicks_on_play
-    events.where(name: '$click').select{|e| e.properties['id'] == 'play-pause-button'}.count
+    clicks.where(element_id: 'play-pause-button').count
   end
 
   # NOTE: `active` is necessary or Share revocation doesn't work

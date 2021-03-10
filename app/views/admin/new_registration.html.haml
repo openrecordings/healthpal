@@ -38,4 +38,7 @@
         = f.collection_select(:org_id, @orgs, :id, :name, {include_blank: true}, {class: 'margin-bottom-20 select-css'})
 
       = f.submit 'Next', class: 'button margin-bottom-20'
-      = button_to 'Cancel', admin_path, class: 'button', method: :get
+
+    = button_to 'Cancel', admin_path, class: 'button', method: :get
+   
+    %div{style: 'height:200px'}

@@ -2,7 +2,7 @@
   #switch-user-form.centered-form-container
     %p.form-title.text-center
       Select a user to switch to
-    = form_with(url: switch_to_user_path) do |f|
+    = form_with(url: switch_to_user_path, local: true) do |f|
       - select_options = options_from_collection_for_select(@users, 'id', 'name_and_email')
       .margin-top-20= f.select(:user_id, select_options, {include_blank: true}, {class: 'form-input select-css'})
       .margin-top-40= f.submit 'Submit', class: 'button'

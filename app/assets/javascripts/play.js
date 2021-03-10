@@ -7,6 +7,8 @@ if (document.querySelector('#play-view')) {
   var animationDuration = 300;
   var currentNote = null;
 
+  // TODO: rewrite the entire application with a declaritive UI
+
   // Selection/playback pane visibility
   /////////////////////////////////////////////////////////////////////////////////////////////////
   function showSelectOnly() {
@@ -30,6 +32,16 @@ if (document.querySelector('#play-view')) {
     $('#edit-recording-provider').val('');
   }
 
+  function showPlayer() {
+    $('#recording-is-not-processed').hide();
+    $('#player-container').show();
+  }
+
+  function hidePlayer() {
+    $('#player-container').hide();
+    $('#recording-is-not-processed').show();
+  }
+
   // Replace/create the video element and load from src URL
   /////////////////////////////////////////////////////////////////////////////////////////////////
   function loadVideo() {
@@ -42,43 +54,48 @@ if (document.querySelector('#play-view')) {
         console.log(data.error);
         return;
       } else {
-        // NOTE: We actually use an audio element for now so that Safari iOS doesn't override the player UI
-        $('#video-container').html(`
+        if (data.is_processed) {
+          // NOTE: We actually use an audio element for now so that Safari iOS doesn't override the player UI
+          $('#video-container').html(`
             <audio id=video-element>
               <source src=${data.url} type="audio/mp3">
             </audio>`
-        );
-        $('#recording-title').text(data.title);
-        $('#edit-recording-title').val(data.title);
-        if (data.provider && data.provider.length > 0) {
-          $('#recording-provider').text(data.provider);
-          $('#edit-recording-provider').val(data.provider);
-        };
-        $('#recording-date').text(data.date);
-        $('#recording-days-ago').text(data.days_ago);
-        let videoElement = document.getElementById('video-element');
-        videoElement.load();
-        videoElement.volume = playVolume;
-        videoElement.ondurationchange = function () {
-          $('#duration').text(toMmSs(videoElement.duration));
-          loadNotes();
-          skipToTime(0);
-        };
-        videoElement.ontimeupdate = function () {
-          let currentTime = videoElement.currentTime;
-          let displayTime = toMmSs(currentTime);
-          $('#current-time').text(displayTime);
-          $('#create-note-time').text(displayTime);
-          setUiToTime(currentTime);
-          if (currentTime == 0) { currentNote = null };
-          updateAutoScroll();
-        };
-        // Can't simply togglePlayPause() because we may have been playing or not when
-        // onended was triggered (can fast-forward to end while paused)
-        videoElement.onended = function () {
-          $('#pause-glyph, #pause-label').addClass('hidden');
-          $('#play-glyph, #play-label').removeClass('hidden');
-        };
+          );
+          $('#recording-title').text(data.title);
+          $('#edit-recording-title').val(data.title);
+          if (data.provider && data.provider.length > 0) {
+            $('#recording-provider').text(data.provider);
+            $('#edit-recording-provider').val(data.provider);
+          };
+          $('#recording-date').text(data.date);
+          $('#recording-days-ago').text(data.days_ago);
+          let videoElement = document.getElementById('video-element');
+          videoElement.load();
+          videoElement.volume = playVolume;
+          videoElement.ondurationchange = function () {
+            $('#duration').text(toMmSs(videoElement.duration));
+            loadNotes();
+            skipToTime(0);
+          };
+          videoElement.ontimeupdate = function () {
+            let currentTime = videoElement.currentTime;
+            let displayTime = toMmSs(currentTime);
+            $('#current-time').text(displayTime);
+            $('#create-note-time').text(displayTime);
+            setUiToTime(currentTime);
+            if (currentTime == 0) { currentNote = null };
+            updateAutoScroll();
+          };
+          // Can't simply togglePlayPause() because we may have been playing or not when
+          // onended was triggered (can fast-forward to end while paused)
+          videoElement.onended = function () {
+            $('#pause-glyph, #pause-label').addClass('hidden');
+            $('#play-glyph, #play-label').removeClass('hidden');
+          };
+          showPlayer();
+        } else {
+          hidePlayer();
+        }
       }
     });
   }
@@ -130,7 +147,6 @@ if (document.querySelector('#play-view')) {
 
     function noteHtml(note) {
       var locale = document.documentElement.lang;
-      console.log(locale);
       return `
       <div class='note' data-recording-id=${recordingId} data-note-id=${note.id} data-note-at=${note.at}>
         <div class='note-text'>${note.text}</div>
@@ -376,7 +392,7 @@ if (document.querySelector('#play-view')) {
 
     // Metadata
     //////////////////////
-    $('#header-left').click(function () {
+    $('#edit-recording-metadata').click(function () {
       $('#metadata-overlay').hide().fadeIn(200);
       $('#metadata-overlay').css('visibility', 'visible');
     });
@@ -463,7 +479,7 @@ if (document.querySelector('#play-view')) {
       });
     });
 
-    $(document).on('click', '#note-cancel', function() {
+    $(document).on('click', '#note-cancel', function () {
       $('#edit-note-text').val('');
     });
 
