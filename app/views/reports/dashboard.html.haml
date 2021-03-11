@@ -1,4 +1,4 @@
 -# #dashboard{"data-chart" => @chart_data}
 -# = (ap @records).html_safe
-- @records.each do |record|
+- @redcap_records.each do |record|
   %div= ap(record).html_safe

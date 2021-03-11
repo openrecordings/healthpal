@@ -4,16 +4,25 @@ class ReportsController < ApplicationController
   ID_VARIABLE = 'pt_id'.freeze
 
   def dashboard
-    @records = case current_user.role
+    redcap_records = case current_user.role
                when 'root'
                  get_study_data_all_orgs
                when 'admin'
                  # get_study_data_for_org(current_user.org)
                  get_study_data_all_orgs
                end
+    @redcap_records = filter_redcap_records(redcap_records)
+    # @redcap_records = redcap_records
   end
 
   private
+
+  # Keeps only the needed properties of the REDCap JSON objects from the "report" API call
+  def filter_redcap_records(records)
+    kept_keys = ['pt_id', 'redcap_event_name']
+    records.select {|record| record['redcap_event_name'].include?('participant_regist_arm_')}
+    records.map {|record| record.select {|key, value| kept_keys.include?(key)}}
+  end
 
   # This is the call to the REDCap API. This is the method that you would rewrite if your study
   # data were coming in from somewhere else external. Returns an Array of OpenStructs
