@@ -1,6 +1,4 @@
 class Org < ApplicationRecord
-  # Participant foreign keys are denormalized because every Participant belongs to and Org,
-  # but only some Participants belong to a User
   has_one :participant
   has_many :users
   has_many :recordings, through: :users

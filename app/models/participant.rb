@@ -3,4 +3,6 @@ class Participant < ApplicationRecord
   # but only some Participants belong to a User
   belongs_to :org
   belongs_to :user, optional: true
+
+  validates_uniqueness_of :redcap_id
 end

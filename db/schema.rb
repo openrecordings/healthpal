@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_14_160751) do
+ActiveRecord::Schema.define(version: 2021_03_14_173007) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -169,6 +169,7 @@ ActiveRecord::Schema.define(version: 2021_03_14_160751) do
     t.datetime "registered_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "redcap_id"
     t.index ["org_id"], name: "index_participants_on_org_id"
     t.index ["user_id"], name: "index_participants_on_user_id"
   end
