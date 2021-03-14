@@ -5,6 +5,7 @@ class User < ApplicationRecord
     :trackable, :validatable, :timeoutable
 
   belongs_to :org, optional: true
+  has_one :participant
   has_many :recordings
   has_many :shares
   has_many :visits, class_name: 'Ahoy::Visit'
