@@ -6,6 +6,6 @@ class Participant < ApplicationRecord
 
   validates_uniqueness_of :redcap_id
 
-  enum group: {intervention: 1, control: 2}
+  groups = {1 => 'intervention', 2 => 'control'}
 
 end
