@@ -5,4 +5,7 @@ class Participant < ApplicationRecord
   belongs_to :user, optional: true
 
   validates_uniqueness_of :redcap_id
+
+  enum group: {intervention: 1, control: 2}
+
 end
