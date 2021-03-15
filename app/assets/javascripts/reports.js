@@ -35,7 +35,7 @@ $(document).ready(function () {
           aspectRatio: 1.5,
           title: {
             display: true,
-            text: 'Participant Accrual',
+            text: orgName,
             fontSize: '22'
           },
           legend: {
