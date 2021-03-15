@@ -1,3 +1,13 @@
-// Place all the styles related to the Reports controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: https://sass-lang.com/
+#reports-page {
+  #charts {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    padding: 20px;
+    .chart-container {
+      flex: 1 1 33%;
+      max-width: 650px;
+    }
+  }
+}
