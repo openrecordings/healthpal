@@ -1,5 +1,5 @@
 class Org < ApplicationRecord
-  has_one :participant
+  has_many :participants
   has_many :users
   has_many :recordings, through: :users
   has_many :visits, through: :users

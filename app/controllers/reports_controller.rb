@@ -3,7 +3,26 @@ class ReportsController < ApplicationController
 
   ID_VARIABLE = 'pt_id'.freeze
 
+  DAY_ZERO = DateTime.parse('2020-10-18')
+
   def dashboard
+    @recruitment_data = []
+    [
+      Org.find(1),
+      Org.find(2),
+      Org.find(3),
+    ].each do |org| 
+      pts = org.participants.order(:registered_at).to_a.map{|pt| pt.attributes}
+      @n = pts.count
+      org_data = {'org_name': org.name, 'n': @n, 'participants': pts}
+      xs = [DAY_ZERO].concat(pts.map{|pt| pt['registered_at']})
+      ys = [0].concat((1..@n).to_a)
+      chart_data = []
+      (0..(@n)).each{|i| chart_data << {x: xs[i].strftime('%F'), y: ys[i]}} 
+      org_data['chart_data'] = chart_data
+      @recruitment_data << org_data
+    end
+    @recruitment_data = @recruitment_data.to_json
   end
 
 end
