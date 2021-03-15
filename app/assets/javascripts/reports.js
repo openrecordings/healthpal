@@ -49,6 +49,7 @@ $(document).ready(function () {
               },
               display: true,
               ticks: {
+                max: Date(),
                 fontSize: '13'
               }
             }],
