@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_29_133150) do
+ActiveRecord::Schema.define(version: 2021_03_16_010955) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,6 +78,44 @@ ActiveRecord::Schema.define(version: 2020_02_29_133150) do
     t.index ["visit_token"], name: "index_ahoy_visits_on_visit_token", unique: true
   end
 
+  create_table "annotation_relations", force: :cascade do |t|
+    t.float "score"
+    t.string "kind"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "annotation_id"
+    t.integer "related_annotation_id"
+    t.index ["annotation_id"], name: "index_annotation_relations_on_annotation_id"
+  end
+
+  create_table "annotation_traits", force: :cascade do |t|
+    t.string "name"
+    t.float "score"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "annotation_id", null: false
+    t.index ["annotation_id"], name: "index_annotation_traits_on_annotation_id"
+  end
+
+  create_table "annotations", force: :cascade do |t|
+    t.bigint "recording_id"
+    t.integer "begin_offset"
+    t.integer "end_offset"
+    t.float "score"
+    t.string "text"
+    t.string "category"
+    t.string "kind"
+    t.json "traits"
+    t.json "sub_annotations"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.float "start_time"
+    t.float "end_time"
+    t.integer "aws_id"
+    t.boolean "top"
+    t.index ["recording_id"], name: "index_annotations_on_recording_id"
+  end
+
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer "priority", default: 0, null: false
     t.integer "attempts", default: 0, null: false
@@ -119,8 +157,25 @@ ActiveRecord::Schema.define(version: 2020_02_29_133150) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "mailer_method"
+    t.string "sms_text_function"
     t.index ["message_template_id"], name: "index_messages_on_message_template_id"
     t.index ["recording_id"], name: "index_messages_on_recording_id"
+  end
+
+  create_table "orgs", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "contact_email_address"
+  end
+
+  create_table "recording_notes", force: :cascade do |t|
+    t.bigint "recording_id"
+    t.string "text"
+    t.float "at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["recording_id"], name: "index_recording_notes_on_recording_id"
   end
 
   create_table "recordings", id: :serial, force: :cascade do |t|
@@ -128,7 +183,6 @@ ActiveRecord::Schema.define(version: 2020_02_29_133150) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "duration"
-    t.json "json"
     t.boolean "is_video"
     t.string "aws_bucket_name"
     t.string "aws_public_url"
@@ -139,6 +193,10 @@ ActiveRecord::Schema.define(version: 2020_02_29_133150) do
     t.boolean "is_processed", default: false
     t.bigint "ahoy_visit_id"
     t.datetime "next_appt_at"
+    t.string "title"
+    t.string "provider"
+    t.json "transcript_json"
+    t.json "annotation_json"
   end
 
   create_table "shares", force: :cascade do |t|
@@ -165,12 +223,17 @@ ActiveRecord::Schema.define(version: 2020_02_29_133150) do
     t.index ["utterance_id"], name: "index_tags_on_utterance_id"
   end
 
-  create_table "user_fields", force: :cascade do |t|
-    t.string "text"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "type"
-    t.integer "recording_id"
+  create_table "transcript_items", force: :cascade do |t|
+    t.bigint "recording_id"
+    t.float "start_time"
+    t.float "end_time"
+    t.string "kind"
+    t.string "content"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "begin_offset"
+    t.integer "end_offset"
+    t.index ["recording_id"], name: "index_transcript_items_on_recording_id"
   end
 
   create_table "users", id: :serial, force: :cascade do |t|
@@ -206,6 +269,10 @@ ActiveRecord::Schema.define(version: 2020_02_29_133150) do
     t.string "locale"
     t.boolean "email_notifications"
     t.boolean "sms_notifications"
+    t.integer "org_id"
+    t.string "timezone"
+    t.boolean "can_record"
+    t.boolean "created_as_caregiver"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["invitations_count"], name: "index_users_on_invitations_count"
@@ -225,5 +292,6 @@ ActiveRecord::Schema.define(version: 2020_02_29_133150) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "annotation_traits", "annotations"
   add_foreign_key "tags", "tag_types"
 end
