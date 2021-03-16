@@ -1,5 +1,9 @@
 class RecordController < ApplicationController
 
+  def new
+    redirect_to :root unless current_user.can_record
+  end
+
   # In-app recordings, coming in as AJAX
   def upload
     handle_blob(request.body.read, current_user)
@@ -29,13 +33,6 @@ class RecordController < ApplicationController
     end
   end
 
-  def create_utterances
-    recording = Recording.find(params[:recording_id])
-    recording.transcript_txt_file = params[:file]
-    recording.build_utterances
-    redirect_to :admin
-  end
-
   private
 
   def handle_blob(blob, user, is_file_upload=false)
@@ -51,10 +48,13 @@ class RecordController < ApplicationController
       media_format: 'mp3',
     )
     recording.media_file.attach(io: File.open(filepath), filename: "#{sha1}.ogg")
+    recording.title = default_title
     `rm #{filepath}`  
     if recording.save!
-      recording.transcribe
-      flash.alert = 'Your recording is being processed. We will email you when it is ready.'
+      # TRANSCRIBE AND ANNOTATE
+      #########################
+      recording.process!
+      #########################
     else
       flash.alert = recording.errors.full_messages
     end
@@ -62,7 +62,22 @@ class RecordController < ApplicationController
     if is_file_upload
       redirect_to :recordings
     else
-      render js: "window.location = '#{my_recordings_path(current_user.id)}'"
+      render js: "window.location = 'recordings'"
+    end
+  end
+  
+  def default_title
+    case Time.now.in_time_zone(current_user.timezone).hour
+    when 0..4
+      t(:nighttime_appointment)
+    when 5..11
+      t(:morning_appointment)
+    when 12..16
+      t(:afternoon_appointment)
+    when 17..19
+      t(:evening_appointment)
+    when 20..24
+      t(:nighttime_appointment)
     end
   end
 
@@ -75,3 +90,4 @@ class RecordController < ApplicationController
   end
 
 end
+

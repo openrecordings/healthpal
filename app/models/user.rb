@@ -10,6 +10,8 @@ class User < ApplicationRecord
 
   scope :regular, ->() { where role: 'user' }
 
+  before_validation :set_defaults
+
   validates_presence_of :first_name, :last_name, :email, if: :has_ever_logged_in
 
   def has_ever_logged_in
@@ -76,6 +78,17 @@ class User < ApplicationRecord
 
   def name_and_email
     "#{first_name} #{last_name} (#{email})"
+  end
+
+  private
+
+  def set_defaults
+    self.role ||= 'user'
+    self.timezone ||= 'America/New_York'
+    self.requires_phone_confirmation = requires_phone_confirmation.nil? ? false : requires_phone_confirmation
+    self.can_record = can_record.nil? ? true : can_record
+    self.created_as_caregiver = created_as_caregiver.nil? ? false : created_as_caregiver
+    self.onboarded = onboarded.nil? ? false : onboarded
   end
 
 end

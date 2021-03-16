@@ -9,13 +9,24 @@ Bundler.require(*Rails.groups)
 
 module Orals
   class Application < Rails::Application
+    config.encoding = 'utf-8'
+
     config.load_defaults '6.0'
     config.time_zone = 'Eastern Time (US & Canada)'
     config.active_job.queue_adapter = :delayed_job
     config.active_storage.service = :amazon
 
+    # For R56 version only
+    if Rails.env == 'hp_r56' || Rails.env == 'development'
+      config.redcap_api_url = 'https://redcap.dartmouth.edu/api/'
+      config.redcap_api_key = '44F9F3CDA4A65970787CC2A99BE2957B'
+    end
+
     # Hostname for the current environment
-    config.hosts << Rails.application.credentials[:host]
+    config.hosts << Rails.application.credentials[Rails.env.to_sym][:host]
+
+    # Tmp for iPhone dev on Will's machine
+    config.hosts << 'wh-2.local'
 
     ENV['AWS_ACCESS_KEY_ID'] = Rails.application.credentials.aws[:access_key_id]
     ENV['AWS_SECRET_ACCESS_KEY'] = Rails.application.credentials.aws[:secret_access_key]
@@ -24,7 +35,9 @@ module Orals
     # Dockerize logs
     logger = ActiveSupport::Logger.new(STDOUT)
     logger.formatter = config.log_formatter
-    config.log_tags = [:subdomain, :uuid]
+    config.log_tags = %i[subdomain uuid]
     config.logger = ActiveSupport::TaggedLogging.new(logger)
+
   end
 end
+
