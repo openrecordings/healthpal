@@ -1,4 +1,4 @@
-class RecordingStoredAsFile < ActiveRecord::Migration[5.2]
+class RecordingStoredAsFile < ActiveRecord::Migration[6.0]
   def change
     add_column :recordings, :file_name, :string
     remove_column :recordings, :encrypted_audio

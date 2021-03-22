@@ -132,18 +132,11 @@ ActiveRecord::Schema.define(version: 2021_03_16_010955) do
   end
 
   create_table "links", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.string "label"
     t.string "url"
     t.integer "utterance_id"
-  end
-
-  create_table "message_templates", force: :cascade do |t|
-    t.integer "trigger"
-    t.string "offset_duration"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "messages", force: :cascade do |t|
@@ -203,8 +196,8 @@ ActiveRecord::Schema.define(version: 2021_03_16_010955) do
     t.bigint "user_id"
     t.string "shared_with_user_id"
     t.datetime "revoked_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_shares_on_user_id"
   end
 
@@ -234,6 +227,14 @@ ActiveRecord::Schema.define(version: 2021_03_16_010955) do
     t.integer "begin_offset"
     t.integer "end_offset"
     t.index ["recording_id"], name: "index_transcript_items_on_recording_id"
+  end
+
+  create_table "user_fields", force: :cascade do |t|
+    t.string "text"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "type"
+    t.integer "recording_id"
   end
 
   create_table "users", id: :serial, force: :cascade do |t|

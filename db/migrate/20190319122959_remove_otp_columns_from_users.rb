@@ -1,4 +1,4 @@
-class RemoveOtpColumnsFromUsers < ActiveRecord::Migration[5.2]
+class RemoveOtpColumnsFromUsers < ActiveRecord::Migration[6.0]
   def change
     remove_column :users, :otp_auth_secret
     remove_column :users, :otp_recovery_secret

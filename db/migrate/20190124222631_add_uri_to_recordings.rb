@@ -1,4 +1,4 @@
-class AddUriToRecordings < ActiveRecord::Migration[5.2]
+class AddUriToRecordings < ActiveRecord::Migration[6.0]
   def change
     add_column :recordings, :uri, :string
   end

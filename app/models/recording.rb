@@ -56,7 +56,6 @@ class Recording < ApplicationRecord
                              .transcription_job_status
       transcription_complete = %w[FAILED COMPLETED].include?(job_status)
       sleep(1)
-      puts "!!!! #{job_status}"
     end
     # TODO: Handle failure
     update aws_transcription_uri: transcribe_client.get_medical_transcription_job({ medical_transcription_job_name: job_name })

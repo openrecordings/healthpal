@@ -1,4 +1,4 @@
-class UserPhoneNumberToString < ActiveRecord::Migration[5.2]
+class UserPhoneNumberToString < ActiveRecord::Migration[6.0]
   def change
     change_column :users, :phone_number, :string
   end

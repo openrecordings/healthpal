@@ -1,4 +1,4 @@
-class AddVideoBooleanToRecordings < ActiveRecord::Migration[5.2]
+class AddVideoBooleanToRecordings < ActiveRecord::Migration[6.0]
   def change
     add_column :recordings, :video, :boolean
   end
