@@ -3,7 +3,6 @@ class Recording < ApplicationRecord
   has_many :annotations, dependent: :destroy
   has_many :transcript_items, dependent: :destroy
   has_many :utterances, -> {order 'index asc'}, dependent: :destroy
-  has_many :recording_notes, dependent: :destroy
   has_many :messages, dependent: :destroy
   has_one_attached :media_file
   visitable :ahoy_visit
@@ -62,6 +61,15 @@ class Recording < ApplicationRecord
                                             .medical_transcription_job.transcript.transcript_file_uri
     response_json =  s3_client.get_object(bucket: bucket_name, key: "medical/#{job_name}.json").body.read
     self.update transcript_json: response_json
+    self.update speakers: JSON.parse(transcript_json)['results']['speaker_labels']['speakers']
+    JSON.parse(transcript_json)['results']['speaker_labels']['segments']&.each do |transcript_segment|
+      TranscriptSegment.create(
+        recording: self,
+        start_time: transcript_segment['start_time'],
+        end_time: transcript_segment['end_time'],
+        speaker_label: transcript_segment['speaker_label'],
+      )
+    end
     transcript = ''
     JSON.parse(transcript_json)['results']['items']&.each do |transcript_item|
       content = transcript_item['alternatives'][0]['content'] + ' '
