@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_16_010955) do
+ActiveRecord::Schema.define(version: 2021_03_22_185940) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -227,6 +227,16 @@ ActiveRecord::Schema.define(version: 2021_03_16_010955) do
     t.integer "begin_offset"
     t.integer "end_offset"
     t.index ["recording_id"], name: "index_transcript_items_on_recording_id"
+  end
+
+  create_table "transcript_segments", force: :cascade do |t|
+    t.bigint "recording_id"
+    t.float "start_time"
+    t.float "end_time"
+    t.string "speaker_label"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["recording_id"], name: "index_transcript_segments_on_recording_id"
   end
 
   create_table "user_fields", force: :cascade do |t|

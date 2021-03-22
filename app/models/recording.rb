@@ -85,6 +85,34 @@ class Recording < ApplicationRecord
     transcript_items.map{|transcript_item| transcript_item.content}.reduce(:+)
   end
 
+  def annotate
+    return unless self.transcript_items.any?
+    transcript = transcript_string
+    comprehend_client = Aws::ComprehendMedical::Client.new(region: Rails.application.credentials.aws[:region])
+    # TODO: Error handling
+    aws_annotations = comprehend_client.detect_entities_v2('text': self.transcript_string).entities
+    self.update annotation_json: aws_annotations.to_json
+
+    aws_annotations.each do |annotation|
+      create_annotation(annotation, true)
+      curr_annotation = Annotation.find_by(aws_id: annotation.id)
+
+      unless annotation.attributes.blank?
+        annotation.attributes.each do |attribute|
+          create_annotation(attribute, false)
+          sub_annotation = Annotation.find_by(aws_id: attribute.id)
+
+          AnnotationRelation.create(
+            annotation: curr_annotation,
+            score: attribute.relationship_score,
+            kind: attribute.relationship_type,
+            related_annotation_id: sub_annotation.id
+          )
+        end
+      end
+    end
+  end
+
   def create_annotation(annotation, top_level)
     start_time = transcript_items.find{|i| i.begin_offset >= annotation.begin_offset}.start_time
     end_time = transcript_items.reverse.find{|i| i.end_offset <= annotation.end_offset}.end_time
@@ -116,34 +144,6 @@ class Recording < ApplicationRecord
           score: t.score,
           name: t.name
         )
-      end
-    end
-  end
-
-  def annotate
-    return unless self.transcript_items.any?
-    transcript = transcript_string
-    comprehend_client = Aws::ComprehendMedical::Client.new(region: Rails.application.credentials.aws[:region])
-    # TODO: Error handling
-    aws_annotations = comprehend_client.detect_entities_v2('text': self.transcript_string).entities
-    self.update annotation_json: aws_annotations.to_json
-
-    aws_annotations.each do |annotation|
-      create_annotation(annotation, true)
-      curr_annotation = Annotation.find_by(aws_id: annotation.id)
-
-      unless annotation.attributes.blank?
-        annotation.attributes.each do |attribute|
-          create_annotation(attribute, false)
-          sub_annotation = Annotation.find_by(aws_id: attribute.id)
-
-          AnnotationRelation.create(
-            annotation: curr_annotation,
-            score: attribute.relationship_score,
-            kind: attribute.relationship_type,
-            related_annotation_id: sub_annotation.id
-          )
-        end
       end
     end
   end

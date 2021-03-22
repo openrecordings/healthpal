@@ -90,34 +90,34 @@
           %th= t(:start_end)
           %th= t(:topics_discussed)
           %th= t(:links_to_external_information)
-      %tbody
-        %tr#empty-result-message.hidden
-          %td{align: 'center', colspan: 3}
-            = t(:no_results)
-        - debug @utterances
-        - @utterances.each do |utterance|
-          %tr
-            - if utterance.tmp_tag_types.any?
-              - tag_type_ids = utterance.tmp_tag_types.map{|t| t.id }
-              %tr.tag-row.tag-row-hover{'data-tag-type-ids': tag_type_ids,
-                'data-text': utterance.text,
-                'data-start-time': utterance.begins_at,
-                'data-end-time': utterance.ends_at}
-                %td.tag-cell.click-to-seek.track{'data-start-time': utterance.begins_at}= "#{mm_ss(utterance.begins_at)} - #{mm_ss(utterance.ends_at)}"
-                %td.tag-cell.click-to-seek.track{'data-start-time': utterance.begins_at}
-                  - utterance.tmp_tag_types.each do |tag_type|
-                    .tag{class: "filter-#{tag_type.id}"}= t(tag_type.label)
-                %td.tag-cell.click-to-seek.track{'data-start-time': utterance.begins_at}
-                  - utterance.links.each do |link|
-                    %a.link.external-link{href: link.url, target: '_blank'}
-                      =link.label
-                      %svg#glyphicons-basic.small-svg{:viewbox => "0 0 28 28", :xmlns => "http://www.w3.org/2000/svg"}
-                        %path#square-new-window{fill: 'white', stroke: 'white', :d => "M24,15.57251l3,3V23.5A3.50424,3.50424,0,0,1,23.5,27H8.5A3.50424,3.50424,0,0,1,5,23.5V8.5A3.50424,3.50424,0,0,1,8.5,5h4.92755l3,3H8.5a.50641.50641,0,0,0-.5.5v15a.50641.50641,0,0,0,.5.5h15a.50641.50641,0,0,0,.5-.5ZM19.81952,8.56372,12.8844,17.75a.49989.49989,0,0,0,.04547.65479l.66534.66528a.49983.49983,0,0,0,.65479.04553l9.18628-6.93518,2.12579,2.12585a.5.5,0,0,0,.84741-.27526l1.48273-9.35108a.50006.50006,0,0,0-.57214-.57214L17.969,5.59058a.5.5,0,0,0-.27526.84741Z"}
-            - else
-              %tr.hidden
-                %td.tag-cell.hidden{'data-start-time': utterance.begins_at}
-                %td.tag-cell.hidden{'data-start-time': utterance.begins_at}
-                %td.tag-cell.hidden{'data-start-time': utterance.begins_at}
+      -# %tbody
+      -#   %tr#empty-result-message.hidden
+      -#     %td{align: 'center', colspan: 3}
+      -#       = t(:no_results)
+      -#   - debug @utterances
+      -#   - @recording.annotations.each do |annotation|
+      -#     %tr
+      -#       - if annotation.tmp_tag_types.any?
+      -#         - tag_type_ids = annotation.tmp_tag_types.map{|t| t.id }
+      -#         %tr.tag-row.tag-row-hover{'data-tag-type-ids': tag_type_ids,
+      -#           'data-text': annotation.text,
+      -#           'data-start-time': annotation.begins_at,
+      -#           'data-end-time': annotation.ends_at}
+      -#           %td.tag-cell.click-to-seek.track{'data-start-time': annotation.begins_at}= "#{mm_ss(annotation.begins_at)} - #{mm_ss(annotation.ends_at)}"
+      -#           %td.tag-cell.click-to-seek.track{'data-start-time': annotation.begins_at}
+      -#             - annotation.tmp_tag_types.each do |tag_type|
+      -#               .tag{class: "filter-#{tag_type.id}"}= t(tag_type.label)
+      -#           %td.tag-cell.click-to-seek.track{'data-start-time': annotation.begins_at}
+      -#             - annotation.links.each do |link|
+      -#               %a.link.external-link{href: link.url, target: '_blank'}
+      -#                 =link.label
+      -#                 %svg#glyphicons-basic.small-svg{:viewbox => "0 0 28 28", :xmlns => "http://www.w3.org/2000/svg"}
+      -#                   %path#square-new-window{fill: 'white', stroke: 'white', :d => "M24,15.57251l3,3V23.5A3.50424,3.50424,0,0,1,23.5,27H8.5A3.50424,3.50424,0,0,1,5,23.5V8.5A3.50424,3.50424,0,0,1,8.5,5h4.92755l3,3H8.5a.50641.50641,0,0,0-.5.5v15a.50641.50641,0,0,0,.5.5h15a.50641.50641,0,0,0,.5-.5ZM19.81952,8.56372,12.8844,17.75a.49989.49989,0,0,0,.04547.65479l.66534.66528a.49983.49983,0,0,0,.65479.04553l9.18628-6.93518,2.12579,2.12585a.5.5,0,0,0,.84741-.27526l1.48273-9.35108a.50006.50006,0,0,0-.57214-.57214L17.969,5.59058a.5.5,0,0,0-.27526.84741Z"}
+      -#       - else
+      -#         %tr.hidden
+      -#           %td.tag-cell.hidden{'data-start-time': annotation.begins_at}
+      -#           %td.tag-cell.hidden{'data-start-time': annotation.begins_at}
+      -#           %td.tag-cell.hidden{'data-start-time': annotation.begins_at}
 
   #sidebar
     #search-container
