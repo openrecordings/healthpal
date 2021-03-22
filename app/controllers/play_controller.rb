@@ -24,7 +24,8 @@ class PlayController < ApplicationController
       @provider = UserField.find_by(recording: @recording, type: :provider) || UserField.new(recording: @recording, type: :provider)
       @note = UserField.find_by(recording: @recording, type: :note) || UserField.new(recording: @recording, type: :note)
       @utterances = prepare_utterances(@recording)
-      @view_id = @recording.is_video ? 'video-view' : (!!ENV['HIDE_TAGS'] ? 'audio-view-hide-tags' : 'audio-view')
+      # @view_id = @recording.is_video ? 'video-view' : (!!ENV['HIDE_TAGS'] ? 'audio-view-hide-tags' : 'audio-view')
+      @view_id = 'audio-view'
     else
       flash.alert = 'An error ocurred while retriving the audio data. Please contact support.'
       redirect_to :root and return

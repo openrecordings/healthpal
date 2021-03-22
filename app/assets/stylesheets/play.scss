@@ -174,6 +174,7 @@
 
 @mixin tag-table{
   #tag-table {
+    background-color: aqua;
     grid-area: table;
     position: relative;
     overflow-y: scroll;
