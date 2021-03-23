@@ -121,14 +121,13 @@ class Recording < ApplicationRecord
   def create_annotation(annotation, is_top_level=true)
     start_time = transcript_items.find{|i| i.begin_offset >= annotation.begin_offset}.start_time
     end_time = transcript_items.find{|i| i.end_offset >= annotation.end_offset}.end_time
+    transcript_segment = transcript_segments.find{|segment| segment.end_time >= end_time}
     if Annotation.exists?(aws_id: annotation.id)
       curr_annotation = Annotation.find_by(aws_id: annotation.id)
-      if curr_annotation.top == false && is_top_level
-        curr_annotation.update_attribute(:top, is_top_level)
-      end
+      curr_annotation.update_attribute(:top, is_top_level) if !curr_annotation.top && is_top_level
     else
       Annotation.create(
-        recording: self,
+        transcript_segment: transcript_segment,
         category: annotation.category,
         begin_offset: annotation.begin_offset,
         end_offset: annotation.end_offset,
@@ -141,7 +140,6 @@ class Recording < ApplicationRecord
       )
     end
     curr_annotation = Annotation.find_by(aws_id: annotation.id)
-
     unless annotation.traits.blank?
       annotation.traits.each do |t|
         AnnotationTrait.create(

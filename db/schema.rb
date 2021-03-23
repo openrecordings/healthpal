@@ -98,7 +98,7 @@ ActiveRecord::Schema.define(version: 2021_03_23_120128) do
   end
 
   create_table "annotations", force: :cascade do |t|
-    t.bigint "transcript_segment_it"
+    t.bigint "transcript_segment_id"
     t.integer "begin_offset"
     t.integer "end_offset"
     t.float "score"
@@ -113,7 +113,7 @@ ActiveRecord::Schema.define(version: 2021_03_23_120128) do
     t.float "end_time"
     t.integer "aws_id"
     t.boolean "top"
-    t.index ["transcript_segment_it"], name: "index_annotations_on_transcript_segment_it"
+    t.index ["transcript_segment_id"], name: "index_annotations_on_transcript_segment_id"
   end
 
   create_table "delayed_jobs", force: :cascade do |t|
