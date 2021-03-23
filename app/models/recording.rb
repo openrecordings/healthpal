@@ -107,12 +107,14 @@ class Recording < ApplicationRecord
         annotation.attributes.each do |attribute|
           create_annotation(attribute, false)
           sub_annotation = Annotation.find_by(aws_id: attribute.id)
-          AnnotationRelation.create(
-            annotation: curr_annotation,
-            score: attribute.relationship_score,
-            kind: attribute.relationship_type,
-            related_annotation_id: sub_annotation.id
-          )
+          if sub_annotation
+            AnnotationRelation.create(
+              annotation: curr_annotation,
+              score: attribute.relationship_score,
+              kind: attribute.relationship_type,
+              related_annotation_id: sub_annotation.id
+            )
+          end
         end
       end
     end
@@ -125,7 +127,7 @@ class Recording < ApplicationRecord
     if Annotation.exists?(aws_id: annotation.id)
       curr_annotation = Annotation.find_by(aws_id: annotation.id)
       curr_annotation.update_attribute(:top, is_top_level) if !curr_annotation.top && is_top_level
-    else
+    elsif !['PROTECTED_HEALTH_INFORMATION', 'ANATOMY'].include?(annotation.category)
       Annotation.create(
         transcript_segment: transcript_segment,
         category: annotation.category,

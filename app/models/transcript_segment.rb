@@ -6,8 +6,25 @@ class TranscriptSegment < ApplicationRecord
 
   default_scope { order(:id) }
 
+  # Thse are used when merging segements in PlayController#prepare_segments
+  attr_accessor :tmp_annotation_categories
+  attr_accessor :tmp_text
+
   def text
     transcript_items.map{|transcript_item| transcript_item.content}.reduce(:+)
+  end
+  
+  def annotation_categories
+    categories = []
+    self.annotations.each do |annotation|
+      categories << annotation.category
+    end
+    categories.uniq
+  end
+
+  def links
+    []
+    #TODO
   end
 
   private

@@ -1,6 +1,5 @@
 class PlayController < ApplicationController
 
-  # json.first['alternatives'].first['words'].first['start_time']['seconds']
   def index
     # TODO: Handle bad data
     # TODO: Restrict admin users again?
@@ -24,6 +23,7 @@ class PlayController < ApplicationController
       @provider = UserField.find_by(recording: @recording, type: :provider) || UserField.new(recording: @recording, type: :provider)
       @note = UserField.find_by(recording: @recording, type: :note) || UserField.new(recording: @recording, type: :note)
       @view_id = 'audio-view'
+      @segments = prepare_segments(@recording)
     else
       flash.alert = 'An error ocurred while retriving the audio data. Please contact support.'
       redirect_to :root and return
@@ -48,28 +48,30 @@ class PlayController < ApplicationController
 
   private
 
-  # Merges contiguous utterances that have the same tag(s)
-  def prepare_utterances(recording)
-    return_utterances = []
-    multi_utterance = nil
-    utterances = recording.utterances.order(:index) 
-    utterances.each do |utterance|
-      if utterance.tags.any?
-        utterance.tmp_tag_types = utterance.tag_types
-        multi_utterance = utterance if multi_utterance.nil?
-        if utterance.tmp_tag_types == multi_utterance.tmp_tag_types
-          multi_utterance.text += " #{utterance.text}"
-          multi_utterance.ends_at = utterance.ends_at
-          multi_utterance.links += utterance.links
-        else 
-          return_utterances << multi_utterance unless multi_utterance.nil?
-          multi_utterance = utterance
+  # Merges contiguous TranscriptSegments that have the same Annotation categories
+  def prepare_segments(recording)
+    return_segments = []
+    multi_segment = nil
+    segments = recording.transcript_segments
+    recording.transcript_segments.each do |segment|
+      if segment.annotations.any?
+        segment.tmp_annotation_categories = segment.annotation_categories
+        if multi_segment.nil?
+          multi_segment = segment
+          segment.tmp_text = segment.text
         end
-        puts return_utterances.map{|u| u.id}
+        if segment.tmp_annotation_categories == multi_segment.tmp_annotation_categories
+          multi_segment.tmp_text += " #{segment.text}"
+          multi_segment.end_time = segment.end_time
+          # multi_segment.links += segment.links
+        else 
+          return_segments << multi_segment unless multi_segment.nil?
+          multi_segment = segment
+          segment.tmp_text = segment.text
+        end
       end
     end
-    return_utterances << multi_utterance unless multi_utterance.nil?
-    return_utterances
+    return_segments << multi_segment unless multi_segment.nil?
   end
-
+  return_segments
 end
