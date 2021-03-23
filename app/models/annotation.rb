@@ -1,6 +1,6 @@
 # A top-level annotation reord from AWS Comprehend Medical
 class Annotation < ApplicationRecord
-  belongs_to :recording
+  belongs_to :transcript_segment
   has_many :annotation_relations, dependent: :destroy
   has_many :annotation_traits, dependent: :destroy
 

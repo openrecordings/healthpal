@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_22_190930) do
+ActiveRecord::Schema.define(version: 2021_03_23_120128) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -98,7 +98,7 @@ ActiveRecord::Schema.define(version: 2021_03_22_190930) do
   end
 
   create_table "annotations", force: :cascade do |t|
-    t.bigint "recording_id"
+    t.bigint "transcript_segment_it"
     t.integer "begin_offset"
     t.integer "end_offset"
     t.float "score"
@@ -113,7 +113,7 @@ ActiveRecord::Schema.define(version: 2021_03_22_190930) do
     t.float "end_time"
     t.integer "aws_id"
     t.boolean "top"
-    t.index ["recording_id"], name: "index_annotations_on_recording_id"
+    t.index ["transcript_segment_it"], name: "index_annotations_on_transcript_segment_it"
   end
 
   create_table "delayed_jobs", force: :cascade do |t|

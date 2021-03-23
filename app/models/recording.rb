@@ -1,6 +1,5 @@
 class Recording < ApplicationRecord
   belongs_to :user
-  has_many :annotations, dependent: :destroy
   has_many :transcript_items, dependent: :destroy
   has_many :transcript_segments, dependent: :destroy
   has_many :utterances, -> {order 'index asc'}, dependent: :destroy
