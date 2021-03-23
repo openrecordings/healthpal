@@ -2,6 +2,7 @@ class Recording < ApplicationRecord
   belongs_to :user
   has_many :annotations, dependent: :destroy
   has_many :transcript_items, dependent: :destroy
+  has_many :transcript_segments, dependent: :destroy
   has_many :utterances, -> {order 'index asc'}, dependent: :destroy
   has_many :messages, dependent: :destroy
   has_one_attached :media_file
@@ -100,16 +101,13 @@ class Recording < ApplicationRecord
     # TODO: Error handling
     aws_annotations = comprehend_client.detect_entities_v2('text': self.transcript_string).entities
     self.update annotation_json: aws_annotations.to_json
-
     aws_annotations.each do |annotation|
-      create_annotation(annotation, true)
+      create_annotation(annotation)
       curr_annotation = Annotation.find_by(aws_id: annotation.id)
-
       unless annotation.attributes.blank?
         annotation.attributes.each do |attribute|
           create_annotation(attribute, false)
           sub_annotation = Annotation.find_by(aws_id: attribute.id)
-
           AnnotationRelation.create(
             annotation: curr_annotation,
             score: attribute.relationship_score,
@@ -121,13 +119,13 @@ class Recording < ApplicationRecord
     end
   end
 
-  def create_annotation(annotation, top_level)
+  def create_annotation(annotation, is_top_level=true)
     start_time = transcript_items.find{|i| i.begin_offset >= annotation.begin_offset}.start_time
-    end_time = transcript_items.reverse.find{|i| i.end_offset <= annotation.end_offset}.end_time
+    end_time = transcript_items.find{|i| i.end_offset >= annotation.end_offset}.end_time
     if Annotation.exists?(aws_id: annotation.id)
       curr_annotation = Annotation.find_by(aws_id: annotation.id)
-      if curr_annotation.top == false && top_level
-        curr_annotation.update_attribute(:top, top_level)
+      if curr_annotation.top == false && is_top_level
+        curr_annotation.update_attribute(:top, is_top_level)
       end
     else
       Annotation.create(
@@ -140,7 +138,7 @@ class Recording < ApplicationRecord
         aws_id: annotation.id,
         start_time: start_time,
         end_time: end_time,
-        top: top_level,
+        top: is_top_level,
       )
     end
     curr_annotation = Annotation.find_by(aws_id: annotation.id)
