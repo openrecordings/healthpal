@@ -174,7 +174,7 @@
 
 @mixin tag-table{
   #tag-table {
-    background-color: aqua;
+    background-color: #ddd;
     grid-area: table;
     position: relative;
     overflow-y: scroll;
@@ -368,9 +368,9 @@
 #audio-view {
   display: grid;
   grid-template-areas: 'head head'
-                       'player sidebar'
-                       'table sidebar';
-  grid-template-rows: auto auto minmax(0, 1fr);
+                       'table sidebar'
+                       'player sidebar';
+  grid-template-rows: auto minmax(0, 1fr) auto;
   grid-template-columns: 3fr 1fr;
   min-height: 0;
   height: 100%;
