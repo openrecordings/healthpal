@@ -4,6 +4,7 @@ class Recording < ApplicationRecord
   has_many :transcript_segments, dependent: :destroy
   has_many :utterances, -> {order 'index asc'}, dependent: :destroy
   has_many :messages, dependent: :destroy
+  has_many :annotations, through: :transcript_segments
   has_one_attached :media_file
   visitable :ahoy_visit
 
@@ -135,6 +136,7 @@ class Recording < ApplicationRecord
         end_offset: annotation.end_offset,
         text: annotation.text,
         kind: annotation.type,
+        score: annotation.score,
         aws_id: annotation.id,
         start_time: start_time,
         end_time: end_time,
@@ -144,11 +146,17 @@ class Recording < ApplicationRecord
     curr_annotation = Annotation.find_by(aws_id: annotation.id)
     unless annotation.traits.blank?
       annotation.traits.each do |t|
-        AnnotationTrait.create(
-          annotation: curr_annotation,
-          score: t.score,
-          name: t.name
-        )
+        if t.name == "SYMPTOM"
+          curr_annotation.update_attribute(:category, t.name)
+          curr_annotation.update_attribute(:score, t.score)
+        else
+          AnnotationTrait.create(
+            annotation: curr_annotation,
+            score: t.score,
+            name: t.name
+          )
+        end
+
       end
     end
   end
