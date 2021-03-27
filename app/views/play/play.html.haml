@@ -152,8 +152,10 @@
                 .filter-label= t(tag_type.label)
               - concepts.each do |concept|
                 .concept-container
-                  = concept
-                  %br
+                  .concept-label
+                    = concept.titleize
+                  .concept-link
+                    Learn More
       #show-all-topics
         = t(:clear_all_filters)
 .overlay.hidden
