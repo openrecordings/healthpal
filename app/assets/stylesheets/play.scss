@@ -269,6 +269,7 @@
 
 @mixin sidebar {
   #sidebar {
+    background-color: aqua;
     grid-area: sidebar;
     display: flex;
     flex-direction: column;
@@ -317,10 +318,10 @@
       flex-direction: column;
       align-items: center;
       width: 340px;
-      padding-bottom: 10px;
-      margin: 25px auto;
+      margin: 25px auto 0 auto;
       border: 1px solid $background-very-light;
-        overflow-y: scroll;
+      overflow-x: hidden;
+      overflow-y: scroll;
       #filters {
         flex-shrink: 2;
         display: flex;
