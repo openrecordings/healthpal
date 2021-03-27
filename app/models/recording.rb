@@ -2,6 +2,7 @@ class Recording < ApplicationRecord
   belongs_to :user
   has_many :transcript_items, dependent: :destroy
   has_many :transcript_segments, dependent: :destroy
+  has_many :annotations, through: :transcript_segments
   has_many :utterances, -> {order 'index asc'}, dependent: :destroy
   has_many :messages, dependent: :destroy
   has_one_attached :media_file
@@ -121,10 +122,15 @@ class Recording < ApplicationRecord
   end
 
   def create_annotation(annotation, is_top_level=true)
+    puts ap annotation
     start_time = transcript_items.find{|i| i.begin_offset >= annotation.begin_offset}.start_time
     end_time = transcript_items.find{|i| i.end_offset >= annotation.end_offset}.end_time
     transcript_segment = transcript_segments.find{|segment| segment.end_time >= end_time}
     if Annotation.exists?(aws_id: annotation.id)
+      puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1'
+      puts 'Skipping annotation'
+      puts ap annotation
+      puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1'
       curr_annotation = Annotation.find_by(aws_id: annotation.id)
       curr_annotation.update_attribute(:top, is_top_level) if !curr_annotation.top && is_top_level
     elsif !['PROTECTED_HEALTH_INFORMATION', 'ANATOMY'].include?(annotation.category)

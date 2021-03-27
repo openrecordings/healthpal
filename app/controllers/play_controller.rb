@@ -18,12 +18,17 @@ class PlayController < ApplicationController
 
   def play
     @recording = Recording.find_by(id: params[:id])
+    filepath =  "#{Rails.root}/tmp/foo.json"
+    File.open(filepath, 'wb') do |disk_file|
+      disk_file.write(@recording.annotation_json)
+    end
     if(@recording && current_user.can_access(@recording))
       @title = "#{@recording.user.full_name}, #{@recording.created_at.strftime('%-m/%-d/%-y')}"
       @provider = UserField.find_by(recording: @recording, type: :provider) || UserField.new(recording: @recording, type: :provider)
       @note = UserField.find_by(recording: @recording, type: :note) || UserField.new(recording: @recording, type: :note)
       @view_id = 'audio-view'
       @segments = prepare_segments(@recording)
+      @grouped_annotations = grouped_annotations(@recording)
     else
       flash.alert = 'An error ocurred while retriving the audio data. Please contact support.'
       redirect_to :root and return
@@ -73,5 +78,14 @@ class PlayController < ApplicationController
     end
     return_segments << multi_segment unless multi_segment.nil?
   end
-  return_segments
+
+  def grouped_annotations(recording)
+    groups = {}
+    annotations = recording.annotations
+    TagType.all.order(:label).each do |tag_type|
+      groups[tag_type] = annotations.select{|a| a.category == tag_type.label}.map{|a| a.text.downcase}.uniq
+    end
+    groups
+  end
+
 end
