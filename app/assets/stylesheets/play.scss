@@ -328,48 +328,58 @@
         justify-content: flex-start;
         overflow-y: scroll;
         .filter {
+          display: flex;
+          flex-direction: column;
           padding-bottom: 15px;
-          .filter-button {
+          .category-container {
             display: flex;
-            flex-direction: row;
-            justify-items: left;
             align-items: center;
-            width: 300px;
-            height: 50px;
-            margin-bottom: 10px;
-            padding-left: 10px;
-            border-radius: 5px;
-            &:hover {
-              cursor: pointer;
+            .expand-category {
+              background-color: aqua;
             }
-            .filter-check {
+            .filter-button {
               display: flex;
-              justify-content: center;
-              align-content: left;
+              justify-items: left;
               align-items: center;
-              height: 24px;
-              width: 40px;
-              padding: -5px;
-              border-radius: 12px;
-              background-color: $background-light;
-              font-size: 16px;
-              fill: #fff;
-            }
-            .filter-label {
-              display: flex;
-              justify-content: center;
-              align-content: left;
+              width: 300px;
+              height: 50px;
+              margin-bottom: 10px;
               padding-left: 10px;
+              border-radius: 5px;
+              &:hover {
+                cursor: pointer;
+              }
+              .filter-check {
+                display: flex;
+                justify-content: center;
+                align-content: left;
+                align-items: center;
+                height: 24px;
+                width: 40px;
+                padding: -5px;
+                border-radius: 12px;
+                background-color: $background-light;
+                font-size: 16px;
+                fill: #fff;
+              }
+              .filter-label {
+                display: flex;
+                justify-content: center;
+                align-content: left;
+                padding-left: 10px;
+              }
             }
           }
-          .concept-container {
-            display: flex;
-            justify-content: space-between;
-            padding: 15px 0 0 40px;
-            .concept-label {
-            }
-            .concept-link {
-              padding-right: 10px;
+          .concepts-container {
+            .concept-container {
+              display: flex;
+              justify-content: space-between;
+              padding: 15px 0 0 40px;
+              .concept-label {
+              }
+              .concept-link {
+                padding-right: 10px;
+              }
             }
           }
         }

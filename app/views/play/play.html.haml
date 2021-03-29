@@ -142,14 +142,17 @@
             %svg.close-panel#glyphicons-basic{width: '50px', height: '50px', :xmlns => "http://www.w3.org/2000/svg"}
               %path#menu-close{:d => "M25.83881,23.01038a.5.5,0,0,1,0,.70715l-2.12128,2.12134a.50011.50011,0,0,1-.70709,0L16,18.82837l-7.01044,7.0105a.50011.50011,0,0,1-.70709,0L6.16119,23.71753a.5.5,0,0,1,0-.70715L13.17163,16,6.16119,8.9895a.49982.49982,0,0,1,0-.707L8.28247,6.16113a.5.5,0,0,1,.70709,0L16,13.17163l7.01044-7.0105a.5.5,0,0,1,.70709,0l2.12128,2.12134a.49982.49982,0,0,1,0,.707L18.82843,16Z", :fill => "#ffffff"}
       #filters
-        - 2.times do 
-          - @grouped_annotations.each_pair do |tag_type, concepts|
-            .filter
+        - @grouped_annotations.each_pair do |tag_type, concepts|
+          .filter
+            .category-container
+              .expand-category
+                foo
               .filter-button{'data-tag-type-id': tag_type.id, class: "filter-#{tag_type.id}" }
                 .filter-check
                   %svg.check-glyph.svg.hidden{:viewbox => "0 0 28 28", :xmlns => "http://www.w3.org/2000/svg"}
                     %path#check{:d => "M27.37592,9.70459l-14.151,15.97693a.99985.99985,0,0,1-1.47558.02356L4.59711,18.1322a.99992.99992,0,0,1-.05384-1.31128L5.495,15.63123a.99994.99994,0,0,1,1.22808-.26966L12,18,24.79724,7.09863a.99991.99991,0,0,1,1.35553.0542l1.1817,1.18164A1,1,0,0,1,27.37592,9.70459Z"}
                 .filter-label= t(tag_type.label)
+            .concepts-container
               - concepts.each do |concept|
                 .concept-container
                   .concept-label
