@@ -363,12 +363,13 @@
                 height: 20px;
                 width: 20px;
                 border-radius: 5px;
-                background-color: white;
-                border: 1px solid $background-light;
                 font-size: 14px;
                 fill: $background-light;
                 padding-right: 2px;
                 padding-bottom: 3px;
+                background-color: white;
+                box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2);
+                border: 1px solid rgba(0,0,0,0.1);
               }
               .filter-label {
                 display: flex;
@@ -379,12 +380,12 @@
                 background-color: white;
                 border: 1px solid $background-light;
                 border-radius: 15px;
-                .filter-circle{
+                .filter-circle {
                   width: 20px;
                   height: 20px;
                   border-radius: 10px;
                 }
-                .filter-label-text{
+                .filter-label-text {
                   padding-left: 10px;
                   height: 20px;
                   line-height: 22px;
