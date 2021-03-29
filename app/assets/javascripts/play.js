@@ -135,10 +135,10 @@ if(document.querySelector('#play-pause-button')) {
     let conceptsContainer = $(this).closest('.filter').find('.concepts-container');
     if ($(this).hasClass('rotate-z-90')) {
       $(this).removeClass('rotate-z-90');
-      conceptsContainer.slideUp();
+      conceptsContainer.slideUp('200');
     } else {
       $(this).addClass('rotate-z-90');
-      conceptsContainer.slideDown();
+      conceptsContainer.slideDown('200');
     }
   })
 
