@@ -254,6 +254,10 @@ if(document.querySelector('#play-pause-button')) {
     updateVisibleRows();
   })
 
+  $('.concept-check').click(function(){
+    $(this).find('.check-glyph').toggleClass('hidden');
+  })
+
   $('.filter-button').click(function(){
     $(this).toggleClass('filter-on');
     $(this).find('.check-glyph').toggleClass('hidden');
