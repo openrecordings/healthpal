@@ -1,24 +1,25 @@
 body {
   display: grid;
-  grid-template-areas: 'navbar'
-                       'content';
+  grid-template-areas:
+    "navbar"
+    "content";
   grid-template-rows: auto minmax(0, 1fr);
   visibility: invisible;
   height: 100vh;
   margin: 0;
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   font-size: 18px;
   background-color: $well-background;
   color: #333;
 }
 
-#content{
+#content {
   grid-area: content;
   box-sizing: border-box;
   padding: 20px;
 }
 
-#flash{
+#flash {
   position: absolute;
   width: 640px;
   top: 14px;
@@ -29,14 +30,14 @@ body {
   text-align: center;
   background-color: $notification-color;
   color: $notification-text-color;
-  #dismiss-flash{
+  #dismiss-flash {
     position: absolute;
     top: 0;
     left: 600px;
     margin-top: 6px;
-    svg{
+    svg {
       fill: $notification-text-color;
-      &:hover{
+      &:hover {
         fill: #9b8b56;
         cursor: pointer;
       }
@@ -44,33 +45,32 @@ body {
   }
 }
 
-
-.center-block{
+.center-block {
   display: block;
   margin: 0 auto;
   text-align: center;
 }
 
-.center-inline{
+.center-inline {
   display: inline-block;
   margin: 0 auto;
   text-align: center;
 }
 
-.float-left{
+.float-left {
   float: left;
 }
 
-.float-right{
+.float-right {
   float: right;
 }
 
-#loader-container{
+#loader-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  #loader{
+  #loader {
     border: 16px solid #f3f3f3;
     border-top: 16px solid #3498db;
     border-radius: 50%;
@@ -78,17 +78,21 @@ body {
     height: 120px;
     animation: spin 2s linear infinite;
   }
-	#upload-text{
-		margin-top: 350px;
+  #upload-text {
+    margin-top: 350px;
   }
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
-@mixin overlay{
+@mixin overlay {
   position: fixed;
   width: 100%;
   height: 100%;
@@ -101,10 +105,10 @@ body {
 
 .overlay {
   @include overlay;
-  background-color: rgba(0,0,0,0.7);
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
-.overlay-video{
+.overlay-video {
   @include overlay;
 }
 
@@ -113,108 +117,108 @@ body {
   background-color: black;
 }
 
-#dismiss-video{
+#dismiss-video {
   position: absolute;
   top: 0;
   right: 0;
   margin-top: -2px;
-  &:hover{
+  &:hover {
     cursor: pointer;
   }
 }
 
-.margin-top-neg-100{
+.margin-top-neg-100 {
   margin-top: -100px;
 }
 
-.margin-top-100{
+.margin-top-100 {
   margin-top: 100px;
 }
 
-.margin-top-40{
+.margin-top-40 {
   margin-top: 40px;
 }
 
-.margin-top-20{
+.margin-top-20 {
   margin-top: 20px;
 }
 
-.margin-top-15{
+.margin-top-15 {
   margin-top: 15px;
 }
 
-.margin-bottom-10{
+.margin-bottom-10 {
   margin-bottom: 10px !important;
 }
 
-.margin-bottom-15{
+.margin-bottom-15 {
   margin-bottom: 15px !important;
 }
 
-.margin-bottom-20{
+.margin-bottom-20 {
   margin-bottom: 20px !important;
 }
 
-.pad-left-40{
+.pad-left-40 {
   padding-left: 40px;
 }
 
-.title{
+.title {
   font-size: 20px;
 }
 
-.huge{
+.huge {
   font-size: 40px;
 }
 
-.smaller{
+.smaller {
   font-size: 14px;
 }
 
-.hidden{
+.hidden {
   display: none;
 }
 
-.invisible{
+.invisible {
   visibility: hidden;
 }
 
-.absolute{
+.absolute {
   position: absolute;
 }
 
-.text-left{
+.text-left {
   text-align: left;
 }
 
-.text-center{
+.text-center {
   text-align: center;
 }
 
-.full-center{
+.full-center {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.highlighted-row{
+.highlighted-row {
   background-color: $light-highlight;
-};
-
-.even-row{
-  background-color: $table-row-dark
 }
 
-.odd-row{
-  background-color: $table-row-light
+.even-row {
+  background-color: $table-row-dark;
 }
 
-.svg{
+.odd-row {
+  background-color: $table-row-light;
+}
+
+.svg {
   height: 30px;
   width: 30px;
 }
 
-.large-svg{
+.large-svg {
   margin-top: 10px;
   height: 50px;
   width: 50px;
@@ -224,30 +228,30 @@ body {
   // }
 }
 
-.medium-svg{
+.medium-svg {
   height: 25px;
   width: 25px;
 }
 
-.small-svg{
+.small-svg {
   margin-top: 10px;
   height: 20px;
   width: 20px;
   fill: $background-dark;
-  &:hover{
+  &:hover {
     fill: $background-light;
   }
 }
 
-.width-800{
+.width-800 {
   width: 800px;
 }
 
-.blue-text{
+.blue-text {
   color: $background-dark;
 }
 
-.table-heading-format{
+.table-heading-format {
   opacity: 0;
   padding: 10px;
   font-weight: normal;
@@ -255,7 +259,7 @@ body {
   color: #fff;
 }
 
-.help-button{
+.help-button {
   position: relative;
   width: 24px;
   height: 24px;
@@ -264,7 +268,7 @@ body {
   background-color: $background-light;
   color: white;
   border-radius: 12px;
-  &:hover{
+  &:hover {
     cursor: pointer;
   }
 }
@@ -285,18 +289,18 @@ body {
   line-height: 20px;
   background: $background-light;
   border-radius: 3px;
-  .info-text{
+  .info-text {
     // background-color: blue;
     width: 350px;
   }
-  .close-panel{
+  .close-panel {
     // background-color: yellowgreen;
     width: 35px;
     transform: translate(5px, -5px);
   }
 }
 .info-panel:before {
-  content: '';
+  content: "";
   display: block;
   position: absolute;
   bottom: 100%;
@@ -305,4 +309,8 @@ body {
   right: 15px;
   border: 11px solid transparent;
   border-color: transparent transparent $background-light transparent;
+}
+
+.rotate-z-90 {
+  transform: rotateZ(90deg);
 }

@@ -335,14 +335,21 @@
             display: flex;
             align-items: center;
             .expand-category {
-              background-color: aqua;
+              // background-color: aqua;
+              .expand-svg {
+                height: 25px;
+                width: 25px;
+                fill: $background-dark;
+                &:hover {
+                  fill: $background-light;
+                  cursor: pointer;
+                }
+              }
             }
             .filter-button {
               display: flex;
               justify-items: left;
               align-items: center;
-              width: 300px;
-              height: 50px;
               margin-bottom: 10px;
               padding-left: 10px;
               border-radius: 5px;

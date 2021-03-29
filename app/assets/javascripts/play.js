@@ -131,6 +131,11 @@ if(document.querySelector('#play-pause-button')) {
     }
   }
 
+  $('.expand-svg').click(function(){
+    $(this).toggleClass('rotate-z-90');
+  })
+
+
   // Time display, row highlighting
   /////////////////////////////////////////////////////////////////////////////////////////////////
   function toMmSs(seconds){
