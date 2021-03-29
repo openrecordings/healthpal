@@ -132,9 +132,15 @@ if(document.querySelector('#play-pause-button')) {
   }
 
   $('.expand-svg').click(function(){
-    $(this).toggleClass('rotate-z-90');
+    let conceptsContainer = $(this).closest('.filter').find('.concepts-container');
+    if ($(this).hasClass('rotate-z-90')) {
+      $(this).removeClass('rotate-z-90');
+      conceptsContainer.slideUp();
+    } else {
+      $(this).addClass('rotate-z-90');
+      conceptsContainer.slideDown();
+    }
   })
-
 
   // Time display, row highlighting
   /////////////////////////////////////////////////////////////////////////////////////////////////

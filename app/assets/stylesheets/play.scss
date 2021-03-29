@@ -312,7 +312,7 @@
       }
     }
     #filter-container {
-      flex-shrink: 2;
+      flex-grow: 2;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -322,7 +322,7 @@
       overflow-x: hidden;
       overflow-y: scroll;
       #filters {
-        flex-shrink: 2;
+        flex-grow: 2;
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
