@@ -7,7 +7,6 @@ class PlayController < ApplicationController
     # TODO: Delete temp conditional
     # if current_user.privileged?
     if current_user.privileged? && current_user.email != 'ma.admin@audiohealthpal.com'
-
       @users = User.joins(:recordings).order(:email).uniq
     else
       # All users who are currently sharing with current_user
@@ -61,18 +60,19 @@ class PlayController < ApplicationController
     recording.transcript_segments.each do |segment|
       if segment.annotations.any?
         segment.tmp_annotation_categories = segment.annotation_categories
+        segment.tmp_annotation_concepts = segment.annotations.map{|a| a.text.downcase}
+        segment.tmp_text = segment.text
         if multi_segment.nil?
           multi_segment = segment
-          segment.tmp_text = segment.text
-        end
-        if segment.tmp_annotation_categories == multi_segment.tmp_annotation_categories
-          multi_segment.tmp_text += " #{segment.text}"
-          multi_segment.end_time = segment.end_time
-          # multi_segment.links += segment.links
-        else 
-          return_segments << multi_segment unless multi_segment.nil?
-          multi_segment = segment
-          segment.tmp_text = segment.text
+        else
+          if segment.tmp_annotation_categories == multi_segment.tmp_annotation_categories
+            multi_segment.tmp_text += " #{segment.tmp_text}"
+            multi_segment.tmp_annotation_concepts += segment.tmp_annotation_concepts
+            multi_segment.end_time = segment.end_time
+          else 
+            return_segments << multi_segment unless multi_segment.nil?
+            multi_segment = segment
+          end
         end
       end
     end

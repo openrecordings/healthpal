@@ -98,6 +98,7 @@
             - if segment.tmp_annotation_categories.any?
               - tag_types = segment.tmp_annotation_categories.map{|c| TagType.find_by(label: c)}
               %tr.tag-row.tag-row-hover{'data-tag-type-ids': tag_types.map{|t| t.id},
+                'data-annotation-concepts': segment.tmp_annotation_concepts,
                 'data-text': segment.tmp_text,
                 'data-start-time': segment.start_time,
                 'data-end-time': segment.end_time}
