@@ -255,21 +255,51 @@ if(document.querySelector('#play-pause-button')) {
   })
 
   $('.concept-filter').click(function(){
-    $(this).find('.check-glyph').toggleClass('hidden');
+    let categoryButton = $(this).closest('.filter').find('.filter-button');
+    let categoryGlyph = $(this).closest('.filter').find('.filter-check').find('.check-glyph');
+    let siblingConceptFilters = $(this).closest('.filter').find('.concept-filter').not($(this));
+    let conceptGlyph = $(this).find('.concept-glyph')
+    let siblingConceptGlyphs = $(this).closest('.filter').find('.concept-glyph').not(conceptGlyph);
+    // Concept was already filtered when clicked
+    if ($(this).hasClass('concept-filter-on')) {
+      console.log('concept filter was on');
+      $(this).removeClass('concept-filter-on');
+      conceptGlyph.addClass('hidden');
+      // No other concepts are currently filtered for this category
+      if (!siblingConceptFilters.hasClass('concept-filter-on')) {
+        // Turn off filter for entire category
+        categoryButton.trigger('click');
+      } 
+    // Turning on filter for concept
+    } else {
+      console.log('concept filter was off');
+      $(this).addClass('concept-filter-on');
+      conceptGlyph.removeClass('hidden');
+      // No other concepts are currently filtered for this category
+      if (!siblingConceptFilters.hasClass('concept-filter-on')) {
+        // Turn on filter for category, but no other concepts
+        console.log('bar');
+        categoryButton.addClass('filter-on');
+        categoryGlyph.removeClass('hidden');
+      } 
+    }
+    updateVisibleRows();
   })
 
   $('.filter-button').click(function(){
-    let categoryCheck = $(this).find('.check-glyph');
-    let conceptChecks = $(this).closest('.filter').find('.concept-glyph');
-    console.log(conceptChecks);
+    let categoryGlyph = $(this).find('.check-glyph');
+    let conceptGlyphs = $(this).closest('.filter').find('.concept-glyph');
+    let conceptFilters = $(this).closest('.filter').find('.concept-filter');
     if ($(this).hasClass('filter-on')) {
       $(this).removeClass('filter-on');
-      categoryCheck.addClass('hidden');
-      conceptChecks.addClass('hidden');
+      conceptFilters.removeClass('concept-filter-on');
+      categoryGlyph.addClass('hidden');
+      conceptGlyphs.addClass('hidden');
     } else {
       $(this).addClass('filter-on');
-      categoryCheck.removeClass('hidden');
-      conceptChecks.removeClass('hidden');
+      conceptFilters.addClass('concept-filter-on');
+      categoryGlyph.removeClass('hidden');
+      conceptGlyphs.removeClass('hidden');
     }
     updateVisibleRows();
   })
