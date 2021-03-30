@@ -285,6 +285,22 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    .filter-header {
+      width: 400px;
+      margin: auto;
+      height: 24px;
+      font-size: 24px;
+      font-weight: 600;
+      color: $background-light;
+      padding-bottom: 5px;
+    }
+    .filter-sub-header {
+      width: 400px;
+      margin: 0 auto 5px auto;
+      font-size: 16px;
+      color: $background-light;
+      font-style: italic;
+    }
     #search-container {
       display: flex;
       flex-direction: column;
@@ -296,7 +312,7 @@
       #search-input {
         display: flex;
         width: 400px;
-        margin: 20px 0 10px 0;
+        margin: 0 0 30px 0;
         padding: 5px;
         border-radius: 5px;
         border-style: solid;
@@ -306,32 +322,15 @@
         font-size: 18px;
       }
     }
-    .filter-header {
-      display: flex;
-      justify-content: space-between;
-      width: 400px;
-      height: 24px;
-      padding: 10px;
-      margin-top: -1px;
-      background-color: $background-dark;
-      font-size: 16px;
-      color: #fff;
-      border-top-left-radius: 5px;
-      border-top-right-radius: 5px;
-      .filter-header-text {
-        box-sizing: border-box;
-        padding-top: 5px;
-      }
-    }
     #filter-container {
-      font-size: 16px;
-      flex-grow: 2;
       display: flex;
       flex-direction: column;
+      flex-grow: 2;
       width: 400px;
-      margin: 25px auto 0 auto;
+      margin: 0 auto 0 auto;
       overflow-x: hidden;
       overflow-y: scroll;
+      font-size: 16px;
       #filters {
         flex-grow: 2;
         display: flex;
@@ -351,9 +350,9 @@
               .expand-svg {
                 height: 25px;
                 width: 25px;
-                fill: $background-dark;
+                fill: $background-light;
                 &:hover {
-                  fill: $background-light;
+                  fill: $background-very-light;
                   cursor: pointer;
                 }
               }

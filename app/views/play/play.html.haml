@@ -119,35 +119,19 @@
                 %td.tag-cell.hidden{'data-start-time': segment.start_time}
 
   #sidebar
+    .filter-header Search
+    .filter-sub-header Enter a word mentioned during your clinic visit and find it in the audio recording
     #search-container
-      .filter-header
-        .filter-header-text= t(:by_text)
-        .help-button.full-center
-          .info-panel.invisible
-            .info-text
-              To highlight a point in your visit where a particular word or phrase
-              was said, such as "prescription", type in the search field.
-            %svg.close-panel#glyphicons-basic{width: '50px', height: '50px', :xmlns => "http://www.w3.org/2000/svg"}
-              %path#menu-close{:d => "M25.83881,23.01038a.5.5,0,0,1,0,.70715l-2.12128,2.12134a.50011.50011,0,0,1-.70709,0L16,18.82837l-7.01044,7.0105a.50011.50011,0,0,1-.70709,0L6.16119,23.71753a.5.5,0,0,1,0-.70715L13.17163,16,6.16119,8.9895a.49982.49982,0,0,1,0-.707L8.28247,6.16113a.5.5,0,0,1,.70709,0L16,13.17163l7.01044-7.0105a.5.5,0,0,1,.70709,0l2.12128,2.12134a.49982.49982,0,0,1,0,.707L18.82843,16Z", :fill => "#ffffff"}
       %input#search-input
+    .filter-header Medical Topic
+    .filter-sub-header Select the medical information that you want to find from your clinic visit
     #filter-container
-      .filter-header.margin-bottom-20
-        .filter-header-text= t(:filter)
-        .help-button.full-center
-          ?
-          .info-panel.invisible
-            .info-text
-              If you want to highlight specific topics that came up during your visit,
-              click on one or more of the topic buttons here. You can reset and view all topics by
-              clicking the bottom button at any time.
-            %svg.close-panel#glyphicons-basic{width: '50px', height: '50px', :xmlns => "http://www.w3.org/2000/svg"}
-              %path#menu-close{:d => "M25.83881,23.01038a.5.5,0,0,1,0,.70715l-2.12128,2.12134a.50011.50011,0,0,1-.70709,0L16,18.82837l-7.01044,7.0105a.50011.50011,0,0,1-.70709,0L6.16119,23.71753a.5.5,0,0,1,0-.70715L13.17163,16,6.16119,8.9895a.49982.49982,0,0,1,0-.707L8.28247,6.16113a.5.5,0,0,1,.70709,0L16,13.17163l7.01044-7.0105a.5.5,0,0,1,.70709,0l2.12128,2.12134a.49982.49982,0,0,1,0,.707L18.82843,16Z", :fill => "#ffffff"}
       #filters
         - @grouped_annotations.each_pair do |tag_type, concepts|
           .filter
             .category-container
               .expand-category
-                = inline_svg('glyphicons-basic-175-play.svg', class: 'expand-svg')
+                = inline_svg('glyphicons-basic-175-play.svg', class: 'expand-svg rotate-z-90')
               .filter-button{'data-tag-type-id': tag_type.id}
                 .filter-check
                   %svg.check-glyph.svg.hidden{:viewbox => "0 0 28 28", :xmlns => "http://www.w3.org/2000/svg"}

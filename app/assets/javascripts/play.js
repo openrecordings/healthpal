@@ -112,33 +112,26 @@ if (document.querySelector('#play-pause-button')) {
     });
     // Test all tag rows against filters and query string
     $('.tag-row').each(function () {
-      console.log($(this).data('start-time'));
       let rowTagTypeIds = $(this).data('tag-type-ids');
       if (!tagTypeIdsShown.length || $.arrayIntersect(rowTagTypeIds, tagTypeIdsShown).length) {
         // Category check passed
-        console.log('category check passed');
         let rowConcepts = $(this).data('annotation-concepts');
         if (!conceptsShown.length || $.arrayIntersect(rowConcepts, conceptsShown).length) {
           // Concept check passed
-          console.log('concept check passed');
           let rowText = $(this).data('text').toLowerCase();
           if (rowText.includes(queryString) || !queryString) {
             // Search string check passed
-            console.log('search text passed');
             $(this).show();
           } else {
             // Search string check did not pass
-            console.log('search text did not pass');
             $(this).hide();
           }
         } else {
           // Concept check did not pass
-          console.log('concept check did not pass');
           $(this).hide();
         }
       } else {
         // Category check did not pass
-        console.log('category check did not pass');
         $(this).hide();
       }
     })
