@@ -328,7 +328,6 @@
       flex-grow: 2;
       display: flex;
       flex-direction: column;
-      align-items: stretch;
       width: 400px;
       margin: 25px auto 0 auto;
       overflow-x: hidden;
@@ -340,13 +339,13 @@
         justify-content: flex-start;
         overflow-y: scroll;
         .filter {
-          flex-grow: 2;
           display: flex;
           flex-direction: column;
-          padding-bottom: 15px;
+          margin-bottom: 25px;
           .category-container {
             display: flex;
             align-items: center;
+            margin-bottom: 5px;
             .expand-category {
               transform: translateY(3px);
               .expand-svg {
@@ -397,7 +396,7 @@
             .concept-container {
               display: flex;
               justify-content: space-between;
-              padding: 15px 0 0 70px;
+              padding: 10px 0 0 70px;
               .concept-check {
                 @include checkbox;
                 &:hover {
@@ -406,12 +405,12 @@
               }
               .concept-label {
                 flex-grow: 2;
-                line-height: 24px;
+                line-height: 26px;
                 padding-left: 10px;
               }
               .concept-link {
                 padding-right: 10px;
-                line-height: 24px;
+                line-height: 26px;
               }
             }
           }
