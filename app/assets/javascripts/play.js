@@ -248,19 +248,29 @@ if(document.querySelector('#play-pause-button')) {
     event.stopPropagation();
   })
 
-  // Sidebar listeneers
+  // Sidebar listeners
   /////////////////////////////////////////////////////////////////////////////////////////////////
   $('#search-input').keyup(function(event){
     updateVisibleRows();
   })
 
-  $('.concept-check').click(function(){
+  $('.concept-filter').click(function(){
     $(this).find('.check-glyph').toggleClass('hidden');
   })
 
   $('.filter-button').click(function(){
-    $(this).toggleClass('filter-on');
-    $(this).find('.check-glyph').toggleClass('hidden');
+    let categoryCheck = $(this).find('.check-glyph');
+    let conceptChecks = $(this).closest('.filter').find('.concept-glyph');
+    console.log(conceptChecks);
+    if ($(this).hasClass('filter-on')) {
+      $(this).removeClass('filter-on');
+      categoryCheck.addClass('hidden');
+      conceptChecks.addClass('hidden');
+    } else {
+      $(this).addClass('filter-on');
+      categoryCheck.removeClass('hidden');
+      conceptChecks.removeClass('hidden');
+    }
     updateVisibleRows();
   })
 

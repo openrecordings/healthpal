@@ -379,6 +379,7 @@
                 background-color: white;
                 border: 1px solid $background-light;
                 border-radius: 15px;
+                user-select: none;
                 .filter-circle {
                   width: 20px;
                   height: 20px;
@@ -397,16 +398,24 @@
               display: flex;
               justify-content: space-between;
               padding: 10px 0 0 70px;
-              .concept-check {
-                @include checkbox;
-                &:hover {
-                  cursor: pointer;
+              .concept-filter {
+                display: flex;
+                justify-content: space-between;
+                .concept-check {
+                  @include checkbox;
+                  &:hover {
+                    cursor: pointer;
+                  }
                 }
-              }
-              .concept-label {
-                flex-grow: 2;
-                line-height: 26px;
-                padding-left: 10px;
+                .concept-label {
+                  flex-grow: 2;
+                  line-height: 26px;
+                  padding-left: 10px;
+                  user-select: none;
+                  &:hover {
+                    cursor: pointer;
+                  }
+                }
               }
               .concept-link {
                 padding-right: 10px;
