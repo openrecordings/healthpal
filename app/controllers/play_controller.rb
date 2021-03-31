@@ -86,6 +86,8 @@ class PlayController < ApplicationController
     TagType.all.order(:label).each do |tag_type|
       groups[tag_type] = annotations.select{|a| a.category == tag_type.label}.map{|a| [a.text.downcase, a.medline_summary, a.medline_url]}.uniq
     end
+    # This insanity puts categories with no annotations last in the "list" (hash)
+    groups = Hash[ groups.sort_by { |key, val| [1000 - val.length, key] } ]
     groups
   end
 
