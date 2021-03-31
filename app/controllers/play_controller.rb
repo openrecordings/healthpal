@@ -84,7 +84,7 @@ class PlayController < ApplicationController
     groups = {}
     annotations = recording.annotations
     TagType.all.order(:label).each do |tag_type|
-      groups[tag_type] = annotations.select{|a| a.category == tag_type.label}.map{|a| a.text.downcase}.uniq
+      groups[tag_type] = annotations.select{|a| a.category == tag_type.label}.map{|a| [a.text.downcase, a.medline_summary, a.medline_url]}.uniq
     end
     groups
   end

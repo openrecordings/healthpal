@@ -119,7 +119,7 @@
     .filter-sub-header Select the medical information that you want to find from your clinic visit
     #filter-container
       #filters
-        - @grouped_annotations.each_pair do |tag_type, concepts|
+        - @grouped_annotations.each_pair do |tag_type, annotation_fields|
           .filter
             .category-container
               .expand-category
@@ -132,15 +132,15 @@
                   .filter-circle{class: "filter-#{tag_type.id}"}
                   .filter-label-text= t(tag_type.label)
             .concepts-container
-              - concepts.each do |concept|
+              - annotation_fields.each do |fields|
                 .concept-container
-                  .concept-filter{'data-concept-text': concept}
+                  .concept-filter{'data-concept-text': fields[0]}
                     .concept-check
                       %svg.concept-glyph.check-glyph.svg.hidden{:viewbox => "0 0 28 28", :xmlns => "http://www.w3.org/2000/svg"}
                         %path#check{:d => "M27.37592,9.70459l-14.151,15.97693a.99985.99985,0,0,1-1.47558.02356L4.59711,18.1322a.99992.99992,0,0,1-.05384-1.31128L5.495,15.63123a.99994.99994,0,0,1,1.22808-.26966L12,18,24.79724,7.09863a.99991.99991,0,0,1,1.35553.0542l1.1817,1.18164A1,1,0,0,1,27.37592,9.70459Z"}
                     .concept-label
-                      = concept.titleize
-                  .concept-link
-                    Learn More
+                      = fields[0].titleize
+                  - if fields[1]
+                    = link_to 'Learn More', fields[2], class: 'concept-link'
       #show-all-topics Clear
 .overlay.hidden
