@@ -12,6 +12,8 @@ class Recording < ApplicationRecord
 
   scope :processed, -> {where(is_processed: true)}
 
+  MEDLINE_SEARCH_TEMPLATE = 'https://wsearch.nlm.nih.gov/ws/query?db=healthTopics&term=!!!&rettype=brief'
+
   def notes
     recording_notes
   end
@@ -127,13 +129,27 @@ class Recording < ApplicationRecord
     end_time = transcript_items.find{|i| i.end_offset >= annotation.end_offset}.end_time
     transcript_segment = transcript_segments.find{|segment| segment.end_time >= end_time}
     if Annotation.exists?(aws_id: annotation.id)
-      puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1'
-      puts 'Skipping annotation'
-      puts ap annotation
-      puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1'
       curr_annotation = Annotation.find_by(aws_id: annotation.id)
       curr_annotation.update_attribute(:top, is_top_level) if !curr_annotation.top && is_top_level
     elsif !['PROTECTED_HEALTH_INFORMATION', 'ANATOMY'].include?(annotation.category)
+      begin
+        puts '-----------------'
+        api_call_url = MEDLINE_SEARCH_TEMPLATE.gsub('!!!', annotation.text.downcase)
+        puts api_call_url
+        medline_xml = HTTParty.get(api_call_url).body
+        puts '---------'
+        puts medline_xml
+        medline_hash = Hash.from_xml(medline_xml)
+        puts '---------'
+        puts medline_hash
+        medline_summary = ActionView::Base.full_sanitizer.sanitize(medline_hash['nlmSearchResult']['list']['document'][0]['content'][2])
+        medline_url = ActionView::Base.full_sanitizer.sanitize(medline_hash['nlmSearchResult']['list']['document'][0]['url'])
+      rescue => exception
+        puts '!!!!!!!!!!!!!!!!!!!1'
+        puts exception.to_s
+        medline_summary = nil
+        medline_url = nil
+      end
       Annotation.create(
         transcript_segment: transcript_segment,
         category: annotation.category,
@@ -145,9 +161,11 @@ class Recording < ApplicationRecord
         start_time: start_time,
         end_time: end_time,
         top: is_top_level,
+        medline_summary: medline_summary,
+        medline_url: medline_url,
       )
+      curr_annotation = Annotation.find_by(aws_id: annotation.id)
     end
-    curr_annotation = Annotation.find_by(aws_id: annotation.id)
     unless annotation.traits.blank?
       annotation.traits.each do |t|
         AnnotationTrait.create(

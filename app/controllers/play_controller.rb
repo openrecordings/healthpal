@@ -77,6 +77,7 @@ class PlayController < ApplicationController
       end
     end
     return_segments << multi_segment unless multi_segment.nil?
+    return_segments
   end
 
   def grouped_annotations(recording)
