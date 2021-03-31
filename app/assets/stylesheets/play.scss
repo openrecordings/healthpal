@@ -251,14 +251,25 @@
         cursor: pointer;
       }
     }
-    .tag {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      width: 300px;
-      height: 40px;
-      padding-left: 10px;
-      border-radius: 5px;
+    .annotation-list {
+      min-height: 100%;
+      .tag-container {
+        display: flex;
+        justify-content: flex-start;
+        .tag {
+          line-height: 40px;
+          flex-direction: column;
+          justify-content: center;
+          padding-left: 10px;
+          .category{
+            color: $background-light;
+            font-weight: 600;
+          }
+          .concept{
+            color: $background-light;
+          }
+        }
+      }
     }
     .link {
       z-index: 10;
@@ -393,11 +404,6 @@
                 border: 1px solid $background-light;
                 border-radius: 15px;
                 user-select: none;
-                .filter-circle {
-                  width: 20px;
-                  height: 20px;
-                  border-radius: 10px;
-                }
                 .filter-label-text {
                   padding-left: 10px;
                   height: 20px;
@@ -508,4 +514,10 @@
   @include controls;
   @include tag-table;
   @include sidebar;
+}
+
+.filter-circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
 }

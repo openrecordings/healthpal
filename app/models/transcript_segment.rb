@@ -9,7 +9,7 @@ class TranscriptSegment < ApplicationRecord
   # Thse are used when merging segements in PlayController#prepare_segments
   attr_accessor :tmp_text
   attr_accessor :tmp_annotation_categories
-  attr_accessor :tmp_annotation_concepts
+  attr_accessor :tmp_annotations
 
   def text
     transcript_items.map{|transcript_item| transcript_item.content}.reduce(:+)

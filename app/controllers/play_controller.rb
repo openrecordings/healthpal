@@ -60,14 +60,14 @@ class PlayController < ApplicationController
     recording.transcript_segments.each do |segment|
       if segment.annotations.any?
         segment.tmp_annotation_categories = segment.annotation_categories
-        segment.tmp_annotation_concepts = segment.annotations.map{|a| a.text.downcase}
+        segment.tmp_annotations = segment.annotations
         segment.tmp_text = segment.text
         if multi_segment.nil?
           multi_segment = segment
         else
           if segment.tmp_annotation_categories == multi_segment.tmp_annotation_categories
             multi_segment.tmp_text += " #{segment.tmp_text}"
-            multi_segment.tmp_annotation_concepts += segment.tmp_annotation_concepts
+            multi_segment.tmp_annotations += segment.tmp_annotations
             multi_segment.end_time = segment.end_time
           else 
             return_segments << multi_segment unless multi_segment.nil?
