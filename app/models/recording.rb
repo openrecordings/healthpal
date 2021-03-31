@@ -133,19 +133,12 @@ class Recording < ApplicationRecord
       curr_annotation.update_attribute(:top, is_top_level) if !curr_annotation.top && is_top_level
     elsif !['PROTECTED_HEALTH_INFORMATION', 'ANATOMY'].include?(annotation.category)
       begin
-        puts '-----------------'
         api_call_url = MEDLINE_SEARCH_TEMPLATE.gsub('!!!', annotation.text.downcase)
-        puts api_call_url
         medline_xml = HTTParty.get(api_call_url).body
-        puts '---------'
-        puts medline_xml
         medline_hash = Hash.from_xml(medline_xml)
-        puts '---------'
-        puts medline_hash
         medline_summary = ActionView::Base.full_sanitizer.sanitize(medline_hash['nlmSearchResult']['list']['document'][0]['content'][2])
         medline_url = ActionView::Base.full_sanitizer.sanitize(medline_hash['nlmSearchResult']['list']['document'][0]['url'])
       rescue => exception
-        puts '!!!!!!!!!!!!!!!!!!!1'
         puts exception.to_s
         medline_summary = nil
         medline_url = nil

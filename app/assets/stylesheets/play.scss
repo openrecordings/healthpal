@@ -446,6 +446,10 @@
                 line-height: 26px;
                 color: $background-light;
                 text-decoration: underline;
+                &:hover{
+                  cursor: pointer;
+                  color: $background-very-light;
+                }
               }
             }
           }
@@ -585,7 +589,7 @@
     border-top-left-radius: 5px;
     #summary-title-text {
       // background-color: #ddd;
-      font-size: 40px;
+      font-size: 36px;
       color: white;
     }
   }
@@ -623,4 +627,8 @@
       }
     }
   }
+}
+
+.plain-link{
+  text-decoration: none;
 }

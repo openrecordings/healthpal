@@ -29,6 +29,19 @@ if (document.querySelector('#play-pause-button')) {
     $('#play-glyph, #pause-glyph, #play-label, #pause-label').toggleClass('invisible');
   }
 
+  // Concept summary
+  /////////////////////////////////////////////////////////////////////////////////////////////////
+  $('.concept-link').click(function(){
+    $('#summary-title-text').text($(this).data('title'));
+    $('#summary').text($(this).data('summary'));
+    $('#concept-link-text').attr('href', $(this).data('url'));
+    $('.summary-overlay').css('visibility', 'visible');
+  })
+
+  $('#close-summary').click(function(){
+    $('.summary-overlay').css('visibility', 'hidden');
+  })
+
   // Playback control
   /////////////////////////////////////////////////////////////////////////////////////////////////
   function loadAudio() {

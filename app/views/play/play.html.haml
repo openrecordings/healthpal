@@ -1,14 +1,14 @@
 -# Conditional ID to handle different grid layouts between audio and video
 .invisible{id: @view_id}
 
-  .summary-overlay
+  .summary-overlay.invisible
     #summary-container
       #close-summary= fa_icon 'close'
-      #summary-title
-        #summary-title-text
+      #summary-title 
+        #summary-title-text 
       #summary
       #concept-link
-        #concept-link-text Visit medlineplus.gov to learn more
+        %a#concept-link-text.plain-link Visit medlineplus.gov to learn more
 
   #video-container
     - if @recording.is_video?
@@ -150,6 +150,6 @@
                     .concept-label
                       = fields[0].titleize
                   - if fields[1]
-                    = link_to 'Learn More', fields[2], class: 'concept-link'
+                    .concept-link{'data-title': fields[0].titleize, 'data-summary': fields[1], 'data-url': fields[2]} Learn More
       #show-all-topics Clear
 .overlay.hidden
