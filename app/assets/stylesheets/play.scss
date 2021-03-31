@@ -261,11 +261,11 @@
           flex-direction: column;
           justify-content: center;
           padding-left: 10px;
-          .category{
+          .category {
             color: $background-light;
             font-weight: 600;
           }
-          .concept{
+          .concept {
             color: $background-light;
           }
         }
@@ -307,7 +307,7 @@
     }
     .filter-sub-header {
       width: 400px;
-      margin: 0 auto 5px auto;
+      margin: 0 auto 10px auto;
       font-size: 16px;
       color: $background-light;
       font-style: italic;
@@ -520,4 +520,28 @@
   width: 20px;
   height: 20px;
   border-radius: 10px;
+}
+
+.time-link-container {
+  display: flex;
+  align-items: center;
+  .time-link {
+    color: $background-light;
+    font-weight: 600;
+    text-decoration: underline;
+  }
+  .big-play-button {
+    box-sizing: border-box;
+    height: 38px;
+    width: 38px;
+    padding-top: 2px;
+    padding-left: 2px;
+    line-height: 38px;
+    text-align: center;
+    margin-left: 30px;
+    border-radius: 19px;
+    background-color: $background-light;
+    color: white;
+    font-size: 20px;
+  }
 }

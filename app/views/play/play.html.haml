@@ -101,7 +101,9 @@
                 'data-text': segment.tmp_text,
                 'data-start-time': segment.start_time,
                 'data-end-time': segment.end_time}
-                %td.tag-cell.click-to-seek.track{'data-start-time': segment.start_time}= "#{mm_ss(segment.start_time)} - #{mm_ss(segment.end_time)}"
+                %td.tag-cell.click-to-seek.track.time-link-container{'data-start-time': segment.start_time}
+                  .time-link= "#{mm_ss(segment.start_time)} - #{mm_ss(segment.end_time)}"
+                  .big-play-button= fa_icon 'play'
                 %td.tag-cell.click-to-seek.track{'data-start-time': segment.start_time}
                   .annotation-list
                     - tag_types.each do |tag_type|

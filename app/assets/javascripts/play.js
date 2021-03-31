@@ -278,8 +278,9 @@ if (document.querySelector('#play-pause-button')) {
   })
 
   $('#close-icon').click(function(){
-    $('#search-input').val('');
+    $('#search-input').val(null);
     $('#close-icon').hide();
+    updateVisibleRows();
   })
 
   $('.concept-filter').click(function () {
