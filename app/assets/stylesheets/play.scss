@@ -70,7 +70,7 @@
       width: 100%;
       padding-top: 13px;
       #title {
-        color: $background-dark;
+        color: $background-light;
         font-size: 26px;
       }
     }
@@ -444,6 +444,8 @@
               .concept-link {
                 padding-right: 10px;
                 line-height: 26px;
+                color: $background-light;
+                text-decoration: underline;
               }
             }
           }
@@ -547,6 +549,6 @@
   }
 }
 
-.mirror-horiz{
+.mirror-horiz {
   transform: scale(-1, 1);
 }
