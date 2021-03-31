@@ -33,7 +33,7 @@ if (document.querySelector('#play-pause-button')) {
   /////////////////////////////////////////////////////////////////////////////////////////////////
   $('.concept-link').click(function(){
     $('#summary-title-text').text($(this).data('title'));
-    $('#summary').text($(this).data('summary'));
+    $('#summary').html($(this).data('summary'));
     $('#concept-link-text').attr('href', $(this).data('url'));
     $('.summary-overlay').css('visibility', 'visible');
   })

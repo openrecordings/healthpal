@@ -134,10 +134,12 @@ class Recording < ApplicationRecord
     elsif !['PROTECTED_HEALTH_INFORMATION', 'ANATOMY'].include?(annotation.category)
       begin
         api_call_url = MEDLINE_SEARCH_TEMPLATE.gsub('!!!', annotation.text.downcase)
-        medline_xml = HTTParty.get(api_call_url).body
-        medline_hash = Hash.from_xml(medline_xml)
-        medline_summary = ActionView::Base.full_sanitizer.sanitize(medline_hash['nlmSearchResult']['list']['document'][0]['content'][2])
-        medline_url = ActionView::Base.full_sanitizer.sanitize(medline_hash['nlmSearchResult']['list']['document'][0]['url'])
+        medline_hash = HTTParty.get(api_call_url).to_h
+        document_hash = medline_hash['nlmSearchResult']['list']['document'][0]
+        summary_string = document_hash['content'].find {|h| h['name'] == 'FullSummary'}['__content__']
+        url_string = document_hash['url']
+        medline_summary = summary_string
+        medline_url = url_string
       rescue => exception
         puts exception.to_s
         medline_summary = nil
@@ -168,5 +170,11 @@ class Recording < ApplicationRecord
         )
       end
     end
+  end
+
+  private
+
+  def sanitize(string)
+    ActionView::Base.full_sanitizer.sanitize(string)
   end
 end

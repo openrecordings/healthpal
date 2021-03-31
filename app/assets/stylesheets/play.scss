@@ -605,10 +605,14 @@
     justify-self: flex-start;
     align-self: center;
     flex-grow: 2;
+    max-height: 500px;
     box-sizing: border-box;
-    padding: 40px 40px 0 40px;
+    margin: 40px 40px 0 40px;
+    padding: 20px;
     line-height: 28px;
     color: #444;
+    overflow-y: scroll;
+    box-shadow: inset 0px 0px 10px 5px rgba(0, 0, 0, 0.1);
   }
   #concept-link {
     // background-color: lightskyblue;
