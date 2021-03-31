@@ -155,7 +155,7 @@ if (document.querySelector('#play-pause-button')) {
     }
   }
 
-  $('.expand-category').click(function () {
+  $('.category-has-annotations').click(function () {
     let conceptsContainer = $(this).closest('.filter').find('.concepts-container');
     let svg = $(this).find('.expand-svg');
     let label = $(this).find('.expand-label');
