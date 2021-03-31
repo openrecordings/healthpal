@@ -570,7 +570,7 @@
     color: white;
     &:hover {
       cursor: pointer;
-      color: #ddd;
+      color: $background-very-light;
     }
   }
   #summary-title {
@@ -595,6 +595,8 @@
     flex-grow: 2;
     box-sizing: border-box;
     padding: 40px 40px 0 40px;
+    line-height: 28px;
+    color: #444;
   }
   #concept-link {
     // background-color: lightskyblue;
@@ -604,7 +606,21 @@
     justify-content: center;
     height: 150px;
     #concept-link-text {
-      // background-color: #ddd;
+      box-sizing: border-box;
+      align-self: center;
+      height: 50px;
+      padding: 0 20px 0 20px;
+      margin-top: 15px;
+      text-align: center;
+      line-height: 50px;
+      border-radius: 25px;
+      font-size: 18px;
+      color: #fff;
+      background-color: $background-light;
+      &:hover {
+        cursor: pointer;
+        background-color: $background-very-light;
+      }
     }
   }
 }
