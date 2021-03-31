@@ -303,6 +303,7 @@
     }
     #search-container {
       display: flex;
+      position: relative;
       flex-direction: column;
       align-items: center;
       width: 400px;
@@ -311,7 +312,7 @@
       border-radius: 5px;
       #search-input {
         display: flex;
-        width: 400px;
+        width: 390px;
         margin: 0 0 30px 0;
         padding: 5px;
         border-radius: 5px;
@@ -320,6 +321,19 @@
         line-height: 25px;
         box-shadow: none;
         font-size: 18px;
+      }
+      #search-icon {
+        position: absolute;
+        color: $background-light;
+        top: 10px;
+        left: 10px;
+      }
+      #close-icon {
+        position: absolute;
+        color: $background-light;
+        top: 8px;
+        left: 374px;
+        font-size: 22px;
       }
     }
     #filter-container {

@@ -259,8 +259,27 @@ if (document.querySelector('#play-pause-button')) {
 
   // Sidebar listeners
   /////////////////////////////////////////////////////////////////////////////////////////////////
+  $('#search-input').focusin(function () {
+    $('#search-icon').hide()
+  })
+
+  $('#search-input').focusout(function () {
+    $('#search-icon').show()
+  })
+
   $('#search-input').keyup(function (event) {
+    let query = $(this).val();
+    if (query.length > 0) {
+      $('#close-icon').show();
+    } else {
+      $('#close-icon').hide();
+    }
     updateVisibleRows();
+  })
+
+  $('#close-icon').click(function(){
+    $('#search-input').val('');
+    $('#close-icon').hide();
   })
 
   $('.concept-filter').click(function () {
