@@ -376,15 +376,23 @@
             align-items: center;
             margin-bottom: 5px;
             .expand-category {
+              width: 100px;
               transform: translateY(3px);
+              &:hover {
+                cursor: pointer;
+                color: $background-very-light;
+                fill: $background-very-light;
+                color: $background-very-light;
+              }
+              color: $background-light;
+              fill: $background-light;
               .expand-svg {
                 height: 25px;
                 width: 25px;
-                fill: $background-light;
-                &:hover {
-                  fill: $background-very-light;
-                  cursor: pointer;
-                }
+              }
+              .expand-label {
+                display: inline-block;
+                transform: translateY(-8px);
               }
             }
             .filter-button {
@@ -446,7 +454,7 @@
                 line-height: 26px;
                 color: $background-light;
                 text-decoration: underline;
-                &:hover{
+                &:hover {
                   cursor: pointer;
                   color: $background-very-light;
                 }
@@ -629,6 +637,14 @@
   }
 }
 
-.plain-link{
+.plain-link {
   text-decoration: none;
+}
+
+.shift-left {
+  transform: translateX(-14px);
+}
+
+.shift-right {
+  transform: translateX(10px);
 }

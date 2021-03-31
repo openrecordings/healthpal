@@ -155,13 +155,17 @@ if (document.querySelector('#play-pause-button')) {
     }
   }
 
-  $('.expand-svg').click(function () {
+  $('.expand-category').click(function () {
     let conceptsContainer = $(this).closest('.filter').find('.concepts-container');
-    if ($(this).hasClass('rotate-z-90')) {
-      $(this).removeClass('rotate-z-90');
+    let svg = $(this).find('.expand-svg');
+    let label = $(this).find('.expand-label');
+    if (svg.hasClass('rotate-z-90')) {
+      svg.removeClass('rotate-z-90');
+      label.text('see more');
       conceptsContainer.slideUp('200');
     } else {
-      $(this).addClass('rotate-z-90');
+      svg.addClass('rotate-z-90');
+      label.text('see less');
       conceptsContainer.slideDown('200');
     }
   })

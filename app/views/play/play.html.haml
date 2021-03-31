@@ -3,12 +3,12 @@
 
   .summary-overlay.invisible
     #summary-container
-      #close-summary= fa_icon 'close'
+      #close-summary= fa_icon 'times'
       #summary-title 
         #summary-title-text 
       #summary
       #concept-link
-        %a#concept-link-text.plain-link Visit medlineplus.gov to learn more
+        %a#concept-link-text.plain-link{target: '_blank'} Visit medlineplus.gov to learn more
 
   #video-container
     - if @recording.is_video?
@@ -60,12 +60,12 @@
 
         #play-pause-button.player-button.track
           .centered-glyph
-            #pause-glyph.invisible= fa_icon 'pause'
-            #play-glyph= fa_icon 'play'
+            #pause-glyph.invisible.shift-right= fa_icon 'pause'
+            #play-glyph.shift-left= fa_icon 'play'
           .full-center
-            %span#play-label.absolute.play-pause-label
+            #play-label.absolute.play-pause-label
               %span.button-label= t(:play)
-            %span#pause-label.invisible.absolute.play-pause-label
+            #pause-label.invisible.absolute.play-pause-label
               %span.button-label= t(:pause)
 
         #forward-button.player-button.track
@@ -132,7 +132,8 @@
           .filter
             .category-container
               .expand-category
-                = inline_svg('glyphicons-basic-175-play.svg', class: 'expand-svg rotate-z-90')
+                = inline_svg('glyphicons-basic-175-play.svg', class: 'expand-svg')
+                .expand-label see more
               .filter-button{'data-tag-type-id': tag_type.id}
                 .filter-check
                   %svg.check-glyph.svg.hidden{:viewbox => "0 0 28 28", :xmlns => "http://www.w3.org/2000/svg"}
@@ -140,7 +141,7 @@
                 .filter-label
                   .filter-circle{class: "filter-#{tag_type.id}"}
                   .filter-label-text= t(tag_type.label)
-            .concepts-container
+            .concepts-container.hidden
               - annotation_fields.each do |fields|
                 .concept-container
                   .concept-filter{'data-concept-text': fields[0]}
