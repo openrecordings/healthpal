@@ -552,3 +552,59 @@
 .mirror-horiz {
   transform: scale(-1, 1);
 }
+
+#summary-container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background-color: white;
+  min-height: 600px;
+  width: 80%;
+  max-width: 700px;
+  border-radius: 5px;
+  #close-summary {
+    position: absolute;
+    top: 17px;
+    right: 17px;
+    font-size: 30px;
+    color: white;
+    &:hover {
+      cursor: pointer;
+      color: #ddd;
+    }
+  }
+  #summary-title {
+    background-color: $background-light;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    height: 100px;
+    // padding: 20px 0 0 20px;
+    padding-left: 40px;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    #summary-title-text {
+      // background-color: #ddd;
+      font-size: 40px;
+      color: white;
+    }
+  }
+  #summary {
+    justify-self: flex-start;
+    align-self: center;
+    flex-grow: 2;
+    box-sizing: border-box;
+    padding: 40px 40px 0 40px;
+  }
+  #concept-link {
+    // background-color: lightskyblue;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 150px;
+    #concept-link-text {
+      // background-color: #ddd;
+    }
+  }
+}

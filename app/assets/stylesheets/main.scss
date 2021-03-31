@@ -108,6 +108,14 @@ body {
   background-color: rgba(0, 0, 0, 0.7);
 }
 
+.summary-overlay {
+  @include overlay;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .overlay-video {
   @include overlay;
 }
