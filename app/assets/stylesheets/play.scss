@@ -138,15 +138,17 @@
         font-size: 14px;
         color: #ddd;
         .centered-glyph {
+          font-family: FontAwesome;
           display: flex;
           justify-content: center;
           align-items: center;
-          width: 50px;
-          height: 50px;
+          width: 60px;
+          height: 60px;
           margin-top: -1px;
           margin-bottom: 2px;
-          font-size: 24px;
+          font-size: 30px;
           fill: #fff;
+          color: white;
         }
         #rewind-button {
           grid-area: rewind-button;
@@ -176,7 +178,6 @@
           margin-right: 15px;
           margin-bottom: 5px;
           overflow-x: visible;
-          background-color: $background-very-light;
           border-radius: 25px;
           .button-label {
             display: inline-block;
@@ -362,7 +363,10 @@
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
+        padding: 10px;
         overflow-y: scroll;
+        // box-shadow: inset 0px 0px 10px 5px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
         .filter {
           display: flex;
           flex-direction: column;
@@ -447,17 +451,13 @@
       }
     }
     #show-all-topics {
-      display: flex;
-      justify-content: center;
-      width: 200px;
-      height: 30px;
-      line-height: 15px;
-      margin-top: 10px;
-      margin-bottom: 10px;
-      padding-left: 10px;
-      padding-top: 14px;
-      border-radius: 5px;
-      border-radius: 5px;
+      align-self: center;
+      width: 150px;
+      height: 50px;
+      margin-top: 15px;
+      text-align: center;
+      line-height: 50px;
+      border-radius: 25px;
       font-size: 18px;
       color: #fff;
       background-color: $background-light;
@@ -545,4 +545,8 @@
     color: white;
     font-size: 20px;
   }
+}
+
+.mirror-horiz{
+  transform: scale(-1, 1);
 }
