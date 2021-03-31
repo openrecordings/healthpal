@@ -93,31 +93,30 @@
           %td{align: 'center', colspan: 3}
             = t(:no_results)
         - @segments.each do |segment|
-          %tr
-            - if segment.tmp_annotation_categories.any?
-              - tag_types = segment.tmp_annotation_categories.map{|c| TagType.find_by(label: c)}
-              %tr.tag-row.tag-row-hover{'data-tag-type-ids': tag_types.map{|t| t.id},
-                'data-annotation-concepts': segment.tmp_annotations.map{|a| a.text},
-                'data-text': segment.tmp_text,
-                'data-start-time': segment.start_time,
-                'data-end-time': segment.end_time}
-                %td.tag-cell.click-to-seek.track.time-link-container{'data-start-time': segment.start_time}
-                  .time-link= "#{mm_ss(segment.start_time)} - #{mm_ss(segment.end_time)}"
-                  .big-play-button= fa_icon 'play'
-                %td.tag-cell.click-to-seek.track{'data-start-time': segment.start_time}
-                  .annotation-list
-                    - tag_types.each do |tag_type|
-                      .tag-container
-                        .filter-circle.margin-top-8{class: "filter-#{tag_type.id}"}
-                        .tag
-                          %span.category= "#{tag_type.label.titleize}:"
-                          - concepts = segment.tmp_annotations.select{|a| a.category == tag_type.label}.map{|a| a.text.downcase}.uniq
-                          - concepts.each do |concept|
-                            %span.concept= "#{concept.titleize}#{concept == concepts.last ? '' : ', '}"
-            - else
-              %tr.hidden
-                %td.tag-cell.hidden{'data-start-time': segment.start_time}
-                %td.tag-cell.hidden{'data-start-time': segment.start_time}
+          - if segment.tmp_annotation_categories.any?
+            - tag_types = segment.tmp_annotation_categories.map{|c| TagType.find_by(label: c)}
+            %tr.tag-row.tag-row-hover{'data-tag-type-ids': tag_types.map{|t| t.id},
+              'data-annotation-concepts': segment.tmp_annotations.map{|a| a.text},
+              'data-text': segment.tmp_text,
+              'data-start-time': segment.start_time,
+              'data-end-time': segment.end_time}
+              %td.tag-cell.click-to-seek.track.time-link-container{'data-start-time': segment.start_time}
+                .time-link= "#{mm_ss(segment.start_time)} - #{mm_ss(segment.end_time)}"
+                .big-play-button= fa_icon 'play'
+              %td.tag-cell.click-to-seek.track{'data-start-time': segment.start_time}
+                .annotation-list
+                  - tag_types.each do |tag_type|
+                    .tag-container
+                      .filter-circle.margin-top-8{class: "filter-#{tag_type.id}"}
+                      .tag
+                        %span.category= "#{tag_type.label.titleize}:"
+                        - concepts = segment.tmp_annotations.select{|a| a.category == tag_type.label}.map{|a| a.text.downcase}.uniq
+                        - concepts.each do |concept|
+                          %span.concept= "#{concept.titleize}#{concept == concepts.last ? '' : ', '}"
+          - else
+            %tr.hidden
+              %td.tag-cell.hidden{'data-start-time': segment.start_time}
+              %td.tag-cell.hidden{'data-start-time': segment.start_time}
 
   #sidebar
     .filter-header Search

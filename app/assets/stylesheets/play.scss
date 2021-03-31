@@ -80,7 +80,7 @@
 @mixin controls {
   #player {
     grid-area: player;
-    background-color: $background-dark;
+    background-color: $background-light;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
     #controls-container {
@@ -92,37 +92,36 @@
       #timeline {
         grid-area: timeline;
         align-self: center;
-        height: 20px;
+        height: 16px;
         margin: 0 20px 0 20px;
-        border-radius: 10px;
-        background-color: inherit;
-        box-shadow: inset 0 0 8px #000;
+        border-radius: 8px;
+        background-color: #bbc8da;
+        // box-shadow: inset 0 0 8px #000;
         #progress-bar {
           position: absolute;
           height: 16px;
-          margin: 2px 0 0 2px;
-          border-radius: 10px;
-          background-color: $background-light;
+          border-radius: 8px;
+          background-color: $background-very-light;
         }
         #playhead {
-          background-color: #ddd;
-          margin-top: -2px;
-          width: 24px;
-          height: 24px;
+          background-color: #eee;
+          margin-top: -9px;
+          width: 34px;
+          height: 34px;
           border-radius: 50%;
-          box-shadow: 0 0 4px #000;
+          // box-shadow: 0 0 4px #000;
         }
         #time {
-          margin-top: 30px;
+          margin-top: 15px;
           height: 25px;
           width: 100%;
           #current-time {
             display: inline-block;
-            color: #ddd;
+            color: white;
           }
           #duration {
             display: inline-block;
-            color: #ddd;
+            color: white;
             float: right;
           }
         }
@@ -177,13 +176,14 @@
           margin-right: 15px;
           margin-bottom: 5px;
           overflow-x: visible;
-          background-color: $background-light;
+          background-color: $background-very-light;
           border-radius: 25px;
           .button-label {
             display: inline-block;
             margin-left: -2px;
             padding-top: 7px;
             font-size: 16px;
+            color: white;
           }
         }
       }
@@ -224,8 +224,9 @@
       thead th {
         position: sticky;
         top: 0;
-        background: $background-dark;
-        color: #ddd;
+        background: $background-light;
+        color: white;
+        height: 30px;
         text-align: left;
         padding-left: 15px;
         padding-top: 10px;
@@ -247,7 +248,7 @@
     }
     .tag-row-hover {
       &:hover {
-        background: $dark-highlight;
+        background: $highlight-hover;
         cursor: pointer;
       }
     }
@@ -523,14 +524,14 @@
 }
 
 .time-link-container {
-  display: flex;
-  align-items: center;
   .time-link {
+    display: inline-block;
     color: $background-light;
     font-weight: 600;
     text-decoration: underline;
   }
   .big-play-button {
+    display: inline-block;
     box-sizing: border-box;
     height: 38px;
     width: 38px;
