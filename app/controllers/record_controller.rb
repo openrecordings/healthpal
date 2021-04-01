@@ -17,7 +17,8 @@ class RecordController < ApplicationController
 
   # Admin-uploaded recordings
   def upload_file
-    handle_blob(recording_params[:file].read, User.find_by(id: recording_params[:user]), true)
+    handle_blob(recording_params[:file].read, current_user, true)
+    # handle_blob(recording_params[:file].read, User.find_by(id: recording_params[:user]), true)
   end
 
   # For manually uploading a transcription from a file. Currently supports Acusis format
@@ -49,7 +50,7 @@ class RecordController < ApplicationController
     )
     recording.media_file.attach(io: File.open(filepath), filename: "#{sha1}.ogg")
     recording.title = default_title
-    `rm #{filepath}`  
+    `rm #{filepath}`
     if recording.save!
       # TRANSCRIBE AND ANNOTATE
       #########################
@@ -65,7 +66,7 @@ class RecordController < ApplicationController
       render js: "window.location = 'recordings'"
     end
   end
-  
+
   def default_title
     case Time.now.in_time_zone(current_user.timezone).hour
     when 0..4
@@ -90,4 +91,3 @@ class RecordController < ApplicationController
   end
 
 end
-

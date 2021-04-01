@@ -103,18 +103,20 @@ class Recording < ApplicationRecord
     self.update annotation_json: aws_annotations.to_json
     aws_annotations.each do |annotation|
       create_annotation(annotation)
-      curr_annotation = Annotation.find_by(aws_id: annotation.id)
-      unless annotation.attributes.blank?
-        annotation.attributes.each do |attribute|
-          create_annotation(attribute, false)
-          sub_annotation = Annotation.find_by(aws_id: attribute.id)
-          if sub_annotation
-            AnnotationRelation.create(
-              annotation: curr_annotation,
-              score: attribute.relationship_score,
-              kind: attribute.relationship_type,
-              related_annotation_id: sub_annotation.id
-            )
+      curr_annotation = annotations.all.find{|a| a.aws_id == annotation.id}
+      if curr_annotation
+        unless annotation.attributes.blank?
+          annotation.attributes.each do |attribute|
+            create_annotation(attribute, false)
+            sub_annotation = annotations.all.find{|a| a.aws_id == attribute.id}
+            if sub_annotation
+              AnnotationRelation.create(
+                annotation: curr_annotation,
+                score: attribute.relationship_score,
+                kind: attribute.relationship_type,
+                related_annotation_id: sub_annotation.id
+              )
+            end
           end
         end
       end
@@ -125,8 +127,8 @@ class Recording < ApplicationRecord
     start_time = transcript_items.find{|i| i.begin_offset >= annotation.begin_offset}.start_time
     end_time = transcript_items.find{|i| i.end_offset >= annotation.end_offset}.end_time
     transcript_segment = transcript_segments.find{|segment| segment.end_time >= end_time}
-    if Annotation.exists?(aws_id: annotation.id)
-      curr_annotation = Annotation.find_by(aws_id: annotation.id)
+    curr_annotation = annotations.all.find{|a| a.aws_id == annotation.id}
+    if curr_annotation
       curr_annotation.update_attribute(:top, is_top_level) if !curr_annotation.top && is_top_level
     elsif !['PROTECTED_HEALTH_INFORMATION', 'ANATOMY'].include?(annotation.category)
       Annotation.create(
@@ -143,21 +145,29 @@ class Recording < ApplicationRecord
         top: is_top_level,
       )
     end
-    curr_annotation = Annotation.find_by(aws_id: annotation.id)
-    unless annotation.traits.blank?
-      annotation.traits.each do |t|
-        if t.name == "SYMPTOM"
-          curr_annotation.update_attribute(:category, t.name)
-          curr_annotation.update_attribute(:score, t.score)
-        else
-          AnnotationTrait.create(
-            annotation: curr_annotation,
-            score: t.score,
-            name: t.name
-          )
-        end
 
+    curr_annotation = annotations.all.find{|a| a.aws_id == annotation.id}
+    if curr_annotation
+      unless annotation.traits.blank?
+        annotation.traits.each do |t|
+          if t.name == "SYMPTOM"
+            curr_annotation.update_attribute(:category, t.name)
+            curr_annotation.update_attribute(:score, t.score)
+          else
+            AnnotationTrait.create(
+              annotation: curr_annotation,
+              score: t.score,
+              name: t.name
+            )
+          end
+        end
       end
+    end
+  end
+
+  def destroy_annotations
+    transcript_segments.each do |t|
+      t.annotations.destroy_all
     end
   end
 end
