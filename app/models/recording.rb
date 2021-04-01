@@ -2,6 +2,7 @@ class Recording < ApplicationRecord
   belongs_to :user
   has_many :transcript_items, dependent: :destroy
   has_many :transcript_segments, dependent: :destroy
+  has_many :annotations, through: :transcript_segments
   has_many :utterances, -> {order 'index asc'}, dependent: :destroy
   has_many :messages, dependent: :destroy
   has_many :annotations, through: :transcript_segments
@@ -11,6 +12,8 @@ class Recording < ApplicationRecord
   validates_presence_of :title
 
   scope :processed, -> {where(is_processed: true)}
+
+  MEDLINE_SEARCH_TEMPLATE = 'https://wsearch.nlm.nih.gov/ws/query?db=healthTopics&term=!!!&rettype=brief'
 
   def notes
     recording_notes
@@ -131,6 +134,19 @@ class Recording < ApplicationRecord
     if curr_annotation
       curr_annotation.update_attribute(:top, is_top_level) if !curr_annotation.top && is_top_level
     elsif !['PROTECTED_HEALTH_INFORMATION', 'ANATOMY'].include?(annotation.category)
+      begin
+        api_call_url = MEDLINE_SEARCH_TEMPLATE.gsub('!!!', annotation.text.downcase)
+        medline_hash = HTTParty.get(api_call_url).to_h
+        document_hash = medline_hash['nlmSearchResult']['list']['document'][0]
+        summary_string = document_hash['content'].find {|h| h['name'] == 'FullSummary'}['__content__']
+        url_string = document_hash['url']
+        medline_summary = summary_string
+        medline_url = url_string
+      rescue => exception
+        puts exception.to_s
+        medline_summary = nil
+        medline_url = nil
+      end
       Annotation.create(
         transcript_segment: transcript_segment,
         category: annotation.category,
@@ -143,10 +159,12 @@ class Recording < ApplicationRecord
         start_time: start_time,
         end_time: end_time,
         top: is_top_level,
+        medline_summary: medline_summary,
+        medline_url: medline_url,
       )
+      curr_annotation = annotations.all.find{|a| a.aws_id == annotation.id}
     end
 
-    curr_annotation = annotations.all.find{|a| a.aws_id == annotation.id}
     if curr_annotation
       unless annotation.traits.blank?
         annotation.traits.each do |t|
@@ -169,5 +187,11 @@ class Recording < ApplicationRecord
     transcript_segments.each do |t|
       t.annotations.destroy_all
     end
+  end
+
+  private
+
+  def sanitize(string)
+    ActionView::Base.full_sanitizer.sanitize(string)
   end
 end

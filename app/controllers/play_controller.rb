@@ -7,7 +7,6 @@ class PlayController < ApplicationController
     # TODO: Delete temp conditional
     # if current_user.privileged?
     if current_user.privileged? && current_user.email != 'ma.admin@audiohealthpal.com'
-
       @users = User.joins(:recordings).order(:email).uniq
     else
       # All users who are currently sharing with current_user
@@ -18,12 +17,17 @@ class PlayController < ApplicationController
 
   def play
     @recording = Recording.find_by(id: params[:id])
+    filepath =  "#{Rails.root}/tmp/foo.json"
+    File.open(filepath, 'wb') do |disk_file|
+      disk_file.write(@recording.annotation_json)
+    end
     if(@recording && current_user.can_access(@recording))
       @title = "#{@recording.user.full_name}, #{@recording.created_at.strftime('%-m/%-d/%-y')}"
       @provider = UserField.find_by(recording: @recording, type: :provider) || UserField.new(recording: @recording, type: :provider)
       @note = UserField.find_by(recording: @recording, type: :note) || UserField.new(recording: @recording, type: :note)
       @view_id = 'audio-view'
       @segments = prepare_segments(@recording)
+      @grouped_annotations = grouped_annotations(@recording)
     else
       flash.alert = 'An error ocurred while retriving the audio data. Please contact support.'
       redirect_to :root and return
@@ -56,22 +60,35 @@ class PlayController < ApplicationController
     recording.transcript_segments.each do |segment|
       if segment.annotations.any?
         segment.tmp_annotation_categories = segment.annotation_categories
+        segment.tmp_annotations = segment.annotations
+        segment.tmp_text = segment.text
         if multi_segment.nil?
           multi_segment = segment
-          segment.tmp_text = segment.text
-        end
-        if segment.tmp_annotation_categories == multi_segment.tmp_annotation_categories
-          multi_segment.tmp_text += " #{segment.text}"
-          multi_segment.end_time = segment.end_time
-          # multi_segment.links += segment.links
-        else 
-          return_segments << multi_segment unless multi_segment.nil?
-          multi_segment = segment
-          segment.tmp_text = segment.text
+        else
+          if segment.tmp_annotation_categories == multi_segment.tmp_annotation_categories
+            multi_segment.tmp_text += " #{segment.tmp_text}"
+            multi_segment.tmp_annotations += segment.tmp_annotations
+            multi_segment.end_time = segment.end_time
+          else 
+            return_segments << multi_segment unless multi_segment.nil?
+            multi_segment = segment
+          end
         end
       end
     end
     return_segments << multi_segment unless multi_segment.nil?
+    return_segments
   end
-  return_segments
+
+  def grouped_annotations(recording)
+    groups = {}
+    annotations = recording.annotations
+    TagType.all.order(:label).each do |tag_type|
+      groups[tag_type] = annotations.select{|a| a.category == tag_type.label}.map{|a| [a.text.downcase, a.medline_summary, a.medline_url]}.uniq
+    end
+    # This insanity puts categories with no annotations last in the "list" (hash)
+    groups = Hash[ groups.sort_by { |key, val| [-1 * val.length, key] } ]
+    groups
+  end
+
 end

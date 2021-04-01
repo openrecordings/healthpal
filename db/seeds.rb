@@ -8,7 +8,7 @@ end
 Rails.application.credentials.seeded_users.each{|u| create_user(u)}
 
 # Create tag types
-tag_types = ['MEDICATION', 'MEDICAL_CONDITION', 'TEST_TREATMENT_PROCEDURE']
+tag_types = ['MEDICATION', 'MEDICAL_CONDITION', 'SYMPTOM', 'TEST_TREATMENT_PROCEDURE']
 tag_types.each { |tag_name|
   unless TagType.where(label: tag_name).first
     puts 'Adding tag type: ' + tag_name
