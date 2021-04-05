@@ -312,7 +312,7 @@ if (document.querySelector('#play-pause-button')) {
       // No other concepts are currently filtered for this category
       if (!siblingConceptFilters.hasClass('concept-filter-on')) {
         // Turn off filter for entire category
-        categoryButton.trigger('click');
+        categoryButton.find('.check-glyph').addClass('hidden');
       }
       // Turning on filter for concept
     } else {
