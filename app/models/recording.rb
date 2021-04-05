@@ -23,6 +23,21 @@ class Recording < ApplicationRecord
     ProcessRecordingJob.perform_later(self)
   end
 
+  def create_ready_email
+    Message.create(
+      recording: self,
+      deliver_at: DateTime.now() + 1.year, 
+      to_email: recording.user&.email,
+      mailer_method: 'r01_recording_ready',
+    )
+  end
+
+  def send_ready_email
+    message = messages.find{|m| m.mailer_method == 'r01_recording_ready'}
+    return unless message
+    MessageJob.perform(message)
+  end
+
   def transcode
     return unless media_file
     media_file.open do |file|
@@ -181,6 +196,7 @@ class Recording < ApplicationRecord
         end
       end
     end
+
   end
 
   def destroy_annotations
