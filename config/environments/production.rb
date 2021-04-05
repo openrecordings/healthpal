@@ -5,7 +5,7 @@ Rails.application.configure do
   # Staging and production:
   config.action_mailer.perform_deliveries = true
   config.action_mailer.delivery_method = :ses
-  config.action_mailer.default_url_options = {host: Rails.application.credentials[:host]}
+  config.action_mailer.default_url_options = {host: Rails.application.credentials[Rails.env.to_sym][:host]}
   config.action_mailer.raise_delivery_errors = true
 
   # Start vanilla Rails 6.0.0.RC1 production config
