@@ -659,5 +659,25 @@
 }
 
 .gray-background {
-  background-color: #aaa!important;
+  background-color: #aaa !important;
+}
+
+#editing-container {
+  display: flex;
+  flex-direction: column;
+  .edit-row {
+    display: flex;
+    padding: 6px 0 0 35px;
+    color: rgba(255, 0, 0, 0.7);
+    .edit-check {
+      @include checkbox;
+      background-color: rgba(255, 0, 0, 0.5);
+      margin-right: 8px;
+      transform: translateY(-3px);
+      &:hover {
+        background-color: rgba(255, 0, 0, 0.3);
+        cursor: pointer;
+      }
+    }
+  }
 }
