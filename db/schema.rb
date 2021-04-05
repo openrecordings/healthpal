@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_31_140053) do
+ActiveRecord::Schema.define(version: 2021_04_05_183235) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -193,6 +193,7 @@ ActiveRecord::Schema.define(version: 2021_03_31_140053) do
     t.json "transcript_json"
     t.json "annotation_json"
     t.integer "speakers"
+    t.boolean "user_can_access"
   end
 
   create_table "shares", force: :cascade do |t|
