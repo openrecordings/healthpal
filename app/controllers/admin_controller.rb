@@ -95,6 +95,18 @@ class AdminController < ApplicationController
     )
   end
 
+  # AJAX endpoint for setting whether or not a recording is visible by its owner
+  def set_user_can_access
+    recording = Recording.find(params[:id])
+    if recording.update(user_can_access: params[:make_visible] == true ? true : false)
+      flash.notice = 'Recording visibility updated'
+      flash.keep(:notice)
+      render json: {}
+    else
+      render json: {error: 'An error occured when updating recording visibility', status: 422}
+    end
+  end
+
   private
 
   def user_params

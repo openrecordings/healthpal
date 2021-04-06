@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   post 'switch_to_user',             to: 'admin#switch_to_user'
   get 'new_caregiver',               to: 'admin#new_caregiver'
   post 'create_caregiver',           to: 'admin#create_caregiver'
+  post 'set_user_can_access',        to: 'admin#set_user_can_access',        as: 'set_user_can_access'
 
   # Recording
   get 'record',                      to: 'record#new' 
