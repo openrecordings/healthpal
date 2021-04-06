@@ -47,7 +47,7 @@ if (document.querySelector('#play-pause-button')) {
 
   $('#audit-complete').click(function () {
     if (!$(this).hasClass('disabled-link')) {
-      let confirmed = confirm('Click OK if you aresure that you want to mark this recording as audited and email the user');
+      let confirmed = confirm('Click OK if you are sure that you want to mark this recording as audited and email the user');
       if (confirmed) {
         $.post('/set_user_can_access', { id: $('#video-element').data('recording-id'), make_visible: confirmed }, function (json) {
           location.reload();
@@ -58,8 +58,16 @@ if (document.querySelector('#play-pause-button')) {
     }
   })
 
-  $('.deletable').click(function (event) {
+  $('.delete-annotation').click(function (event) {
+    let confirmed = confirm('Are you sure you want to delete this annotation?');
+    if (confirmed) {
+      $.post('/delete_annotation', {id: $(this).data('annotation-id')});
+    }
+  })
 
+  $('.delete-link').click(function (event) {
+    let confirmed = confirm('Are you sure you want to delete this link?');
+    $.post('/delete_link', {id: $(this).data('annotation-id')});
   })
 
   // Concept summary

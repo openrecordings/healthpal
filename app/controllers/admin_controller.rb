@@ -98,13 +98,25 @@ class AdminController < ApplicationController
   # AJAX endpoint for setting whether or not a recording is visible by its owner
   def set_user_can_access
     recording = Recording.find(params[:id])
-    if recording.update(user_can_access: params[:make_visible] == true ? true : false)
-      flash.notice = 'Recording visibility updated'
+    if recording.update(user_can_access: params[:make_visible] == 'true' ? true : false)
+      flash.notice = 'Recording marked as audited. Email sent to user.'
       flash.keep(:notice)
       render json: {}
     else
       render json: {error: 'An error occured when updating recording visibility', status: 422}
     end
+  end
+
+  # AJAX endpoint for deleting an Annotation
+  def delete_annotation
+    Annotation.find(params[:id]).destroy
+    render json: {}
+  end
+
+  # AJAX endpoint for setting medline_url for an Annotation to nil
+  def delete_link
+    Annotation.find(params[:id]).update(medline_url: nil)
+    render json: {}
   end
 
   private

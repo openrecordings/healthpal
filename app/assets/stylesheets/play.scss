@@ -711,12 +711,3 @@
     cursor: pointer;
   }
 }
-
-.disabled-link {
-  color: #333;
-  text-decoration: none !important;
-  &:hover {
-    color: #333;
-    cursor: not-allowed;
-  }
-}

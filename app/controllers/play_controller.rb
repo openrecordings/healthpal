@@ -84,7 +84,7 @@ class PlayController < ApplicationController
     groups = {}
     annotations = recording.annotations
     TagType.all.order(:label).each do |tag_type|
-      groups[tag_type] = annotations.select{|a| a.category == tag_type.label}.map{|a| [a.text.downcase, a.medline_summary, a.medline_url]}.uniq
+      groups[tag_type] = annotations.select{|a| a.category == tag_type.label}.map{|a| [a.text.downcase, a.medline_summary, a.medline_url, a.id]}.uniq
     end
     # This insanity puts categories with no annotations last in the "list" (hash)
     groups = Hash[ groups.sort_by { |key, val| [-1 * val.length, key] } ]
