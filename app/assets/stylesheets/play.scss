@@ -671,13 +671,35 @@
     color: rgba(255, 0, 0, 0.7);
     .edit-check {
       @include checkbox;
-      background-color: rgba(255, 0, 0, 0.5);
+      background-color: rgba(255, 0, 0, 0.7);
       margin-right: 8px;
       transform: translateY(-3px);
       &:hover {
-        background-color: rgba(255, 0, 0, 0.3);
+        background-color: rgba(255, 0, 0, 0.5);
         cursor: pointer;
       }
     }
   }
+}
+
+.deleteable {
+  visibility: hidden;
+  top: 0;
+  right: 0;
+  color: rgba(255, 0, 0, 0.7);
+  transform: translateY(-5px);
+  z-index: 200;
+  &:hover {
+    color: rgba(255, 0, 0, 0.5);
+    cursor: pointer;
+  }
+}
+
+.delete-annotation {
+  flex-grow: 2;
+  padding-left: 5px;
+}
+
+.delete-link {
+  padding-left: 0;
 }

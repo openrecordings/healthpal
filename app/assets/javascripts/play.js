@@ -29,6 +29,26 @@ if (document.querySelector('#play-pause-button')) {
     $('#play-glyph, #pause-glyph, #play-label, #pause-label').toggleClass('invisible');
   }
 
+  // Admin editing
+  /////////////////////////////////////////////////////////////////////////////////////////////////
+  function editingEnabled() {
+    return !$('#editing-glyph').hasClass('hidden');
+  }
+
+  $('#enable-editing').click(function() {
+    if(editingEnabled()) {
+      $('#editing-glyph').addClass('hidden');
+      $('.deleteable').css('visibility', 'hidden')
+    } else {
+      $('#editing-glyph').removeClass('hidden');
+      $('.deleteable').css('visibility', 'visible');
+    }
+  }) 
+
+  $('.deletable').click(function(event){
+    
+  })
+
   // Concept summary
   /////////////////////////////////////////////////////////////////////////////////////////////////
   $('.concept-link').click(function(){
