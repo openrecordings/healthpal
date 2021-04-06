@@ -703,3 +703,20 @@
 .delete-link {
   padding-left: -5px;
 }
+
+#audit-complete {
+  text-decoration: underline;
+  &:hover {
+    color: rgba(255, 0, 0, 0.5);
+    cursor: pointer;
+  }
+}
+
+.disabled-link {
+  color: #333;
+  text-decoration: none !important;
+  &:hover {
+    color: #333;
+    cursor: not-allowed;
+  }
+}
