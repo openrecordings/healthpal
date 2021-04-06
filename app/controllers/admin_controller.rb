@@ -107,15 +107,25 @@ class AdminController < ApplicationController
     end
   end
 
-  # AJAX endpoint for deleting an Annotation
+  # AJAX endpoint for deleting an Annotation and all notations for this recording in the same category with the
+  # same `text` atrribute
   def delete_annotation
-    Annotation.find(params[:id]).destroy
+    annotation = Annotation.find(params[:id])
+    category = annotation.category
+    text = annotation.text.titleize
+    annotation.transcript_segment.recording.annotations.each{|a| a.destroy if a.category == category && a.text.titleize == text}
+    flash.notice = 'Annotation deleted'
+    flash.keep(:notice)
     render json: {}
   end
 
   # AJAX endpoint for setting medline_url for an Annotation to nil
   def delete_link
-    Annotation.find(params[:id]).update(medline_url: nil)
+    Annotation.find(params[:id]).update(
+      medline_summary: nil,
+      medline_url: nil,
+    )
+    flash.notice = 'Link deleted'
     render json: {}
   end
 

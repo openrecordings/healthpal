@@ -81,14 +81,20 @@ class PlayController < ApplicationController
   end
 
   def grouped_annotations(recording)
-    groups = {}
+    groups_with_annotations = []
+    groups_without_annotations = []
     annotations = recording.annotations
     TagType.all.order(:label).each do |tag_type|
-      groups[tag_type] = annotations.select{|a| a.category == tag_type.label}.map{|a| [a.text.downcase, a.medline_summary, a.medline_url, a.id]}.uniq
+      annotations_for_type = annotations.select{|a| a.category == tag_type.label}.uniq {|a| a.text.titleize}.sort_by {|a| a.text.titleize}
+      if annotations_for_type.any?
+        groups_with_annotations << {tag_type => annotations_for_type}
+      else
+        groups_without_annotations << {tag_type => annotations_for_type}
+      end
     end
-    # This insanity puts categories with no annotations last in the "list" (hash)
-    groups = Hash[ groups.sort_by { |key, val| [-1 * val.length, key] } ]
-    groups
+    groups_with_annotations = groups_with_annotations.sort_by { |tag_type_hash| tag_type_hash.keys.first.label}
+    groups_without_annotations = groups_without_annotations.sort_by { |tag_type_hash| tag_type_hash.keys.first.label}
+    groups_with_annotations + groups_without_annotations
   end
 
 end
