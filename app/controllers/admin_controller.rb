@@ -99,6 +99,8 @@ class AdminController < ApplicationController
   def set_user_can_access
     recording = Recording.find(params[:id])
     if recording.update(user_can_access: params[:make_visible] == 'true' ? true : false)
+      recording.create_ready_email
+      recording.send_ready_email
       flash.notice = 'Recording marked as audited. Email sent to user.'
       flash.keep(:notice)
       render json: {}

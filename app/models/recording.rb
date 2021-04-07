@@ -27,7 +27,7 @@ class Recording < ApplicationRecord
     Message.create(
       recording: self,
       deliver_at: DateTime.now() + 1.year, 
-      to_email: recording.user&.email,
+      to_email: self.user&.email,
       mailer_method: 'r01_recording_ready',
     )
   end
@@ -35,7 +35,7 @@ class Recording < ApplicationRecord
   def send_ready_email
     message = messages.find{|m| m.mailer_method == 'r01_recording_ready'}
     return unless message
-    MessageJob.perform(message)
+    MessageJob.perform_later(message)
   end
 
   def transcode
