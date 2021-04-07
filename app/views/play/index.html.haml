@@ -14,7 +14,7 @@
               %th Provider
               %th Notes
           %tbody
-            - user.recordings.processed.order(created_at: :desc).each do |recording|
+            - user.recordings.audited.order(created_at: :desc).each do |recording|
               %tr
                 %td= link_to("Click to play -  #{format_date_time_friendly(recording.created_at)}", play_path(recording))
                 %td

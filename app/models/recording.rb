@@ -12,6 +12,7 @@ class Recording < ApplicationRecord
   validates_presence_of :title
 
   scope :processed, -> {where(is_processed: true)}
+  scope :audited, -> {where(user_can_access: true)}
 
   MEDLINE_SEARCH_TEMPLATE = 'https://wsearch.nlm.nih.gov/ws/query?db=healthTopics&term=!!!&rettype=brief'
 
