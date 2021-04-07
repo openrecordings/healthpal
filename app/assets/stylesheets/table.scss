@@ -9,6 +9,7 @@
       font-weight: normal;
       background-color: $background-dark;
       color: #fff;
+      text-align: left;
     }
     tr.table-row:nth-child(even){
       background-color: $table-row-dark
@@ -20,4 +21,9 @@
       padding: 10px;
     }
   }
+}
+
+.table-check{
+  text-align: center;
+  color: $background-dark;
 }

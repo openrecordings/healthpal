@@ -61,9 +61,9 @@ class RecordController < ApplicationController
     end
     flash.keep(:alert)
     if is_file_upload
-      redirect_to :recordings
+      redirect_to :root
     else
-      render js: "window.location = 'recordings'"
+      render js: "window.location = '/'"
     end
   end
 

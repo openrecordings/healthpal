@@ -1,25 +1,18 @@
 .table-container
-
-  -# TODO: Remove temp conditional
-  - if current_user.email != 'ma.admin@audiohealthpal.com'
-
-
-    %p= button_to 'Manually upload audio file', file_upload_path, class: 'button', method: :get
-    %br
-    %br
-    %table.table.table-striped.tablesorter{:"data-sort-column" => 0, :"data-sort-desc" => 1}
-      %thead
-        %tr
-          %th Recording created at
-          %th Database ID
-          %th Recorded By
-          %th Transcript
-          %th Tags
-      %tbody
-        - @recordings.all.each do |recording|
-          %tr.trecording-select
-            %td.recording-select{data: {href: play_path(recording.id)}}= link_to format_date_time_sort(recording.created_at), play_path(recording.id)
-            %td= recording.id
-            %td.recording-select{data: {href: play_path(recording.id)}}= recording.user.email
-            %td= link_to 'Upload/replace transcript', upload_transcript_path(id: recording.id)
-            %td= link_to('Manage tags and links', new_tag_path(id: recording.id)) if recording.utterances.any?
+  %table.table.table-striped.tablesorter{:"data-sort-column" => 0, :"data-sort-desc" => 1}
+    %thead
+      %tr
+        %th Recorded at (click to view)
+        %th Database ID
+        %th Recorded By
+        %th Audit complete
+    %tbody
+      - @recordings.all.each do |recording|
+        %tr.trecording-select
+          %td.recording-select{data: {href: play_path(recording.id)}}= link_to format_date_time_sort(recording.created_at), play_path(recording.id)
+          %td= recording.id
+          %td.recording-select{data: {href: play_path(recording.id)}}= recording.user.email
+          - if recording.user_can_access
+            %td.table-check= fa_icon 'check'
+          -else
+            %td
