@@ -61,17 +61,17 @@ if (document.querySelector('#play-pause-button')) {
   $('.delete-annotation').click(function (event) {
     let confirmed = confirm('Are you sure you want to delete this annotation?');
     if (confirmed) {
-      $.post('/delete_annotation', {id: $(this).data('annotation-id')}, function (json) {
-          location.reload();
+      $.post('/delete_annotation', { id: $(this).data('annotation-id') }, function (json) {
+        location.reload();
       });
     }
   })
 
   $('.delete-link').click(function (event) {
     let confirmed = confirm('Are you sure you want to delete this link?');
-      $.post('/delete_link', {id: $(this).data('annotation-id')}, function (json) {
-          location.reload();
-      });
+    $.post('/delete_link', { id: $(this).data('annotation-id') }, function (json) {
+      location.reload();
+    });
   })
 
   // Concept summary
@@ -200,17 +200,18 @@ if (document.querySelector('#play-pause-button')) {
     }
   }
 
-  $('.category-has-annotations').click(function () {
+  $('.expand-category').click(function () {
+    console.log('category-has-annotation');
     let conceptsContainer = $(this).closest('.filter').find('.concepts-container');
     let svg = $(this).find('.expand-svg');
-    let label = $(this).find('.expand-label');
+    let filterLabel = $(this).find('.expand-label');
     if (svg.hasClass('rotate-z-90')) {
       svg.removeClass('rotate-z-90');
-      label.text('see more');
+      filterLabel.text('see more');
       conceptsContainer.slideUp('200');
     } else {
       svg.addClass('rotate-z-90');
-      label.text('see less');
+      filterLabel.text('see less');
       conceptsContainer.slideDown('200');
     }
   })
@@ -360,7 +361,7 @@ if (document.querySelector('#play-pause-button')) {
         categoryButton.removeClass('filter-on');
         categoryButton.find('.check-glyph').addClass('hidden');
       }
-    // Concept was not filtered when clicked. Turn on filter for concept
+      // Concept was not filtered when clicked. Turn on filter for concept
     } else {
       $(this).addClass('concept-filter-on');
       conceptGlyph.removeClass('hidden');
@@ -374,20 +375,32 @@ if (document.querySelector('#play-pause-button')) {
     updateVisibleRows();
   })
 
+  // Turn a whole-category filter on or off and expand/collapse its detail view appropriately
   $('.filter-button').click(function () {
+    console.log('filter-button');
+    let filter = $(this).closest('.filter');
+    let conceptsContainer = filter.find('.concepts-container');
     let categoryGlyph = $(this).find('.check-glyph');
-    let conceptGlyphs = $(this).closest('.filter').find('.concept-glyph');
-    let conceptFilters = $(this).closest('.filter').find('.concept-filter');
+    let conceptGlyphs = filter.find('.concept-glyph');
+    let conceptFilters = filter.find('.concept-filter');
+    let svg = filter.find('.expand-svg');
+    let filterLabel = filter.find('.expand-label');
     if ($(this).hasClass('filter-on')) {
       $(this).removeClass('filter-on');
       conceptFilters.removeClass('concept-filter-on');
       categoryGlyph.addClass('hidden');
       conceptGlyphs.addClass('hidden');
+      svg.removeClass('rotate-z-90');
+      filterLabel.text('see more');
+      conceptsContainer.slideUp('200');
     } else {
       $(this).addClass('filter-on');
       conceptFilters.addClass('concept-filter-on');
       categoryGlyph.removeClass('hidden');
       conceptGlyphs.removeClass('hidden');
+      svg.addClass('rotate-z-90');
+      filterLabel.text('see less');
+      conceptsContainer.slideDown('200');
     }
     updateVisibleRows();
   })
