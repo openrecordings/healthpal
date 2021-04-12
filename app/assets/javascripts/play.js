@@ -350,16 +350,17 @@ if (document.querySelector('#play-pause-button')) {
     let categoryGlyph = $(this).closest('.filter').find('.filter-check').find('.check-glyph');
     let siblingConceptFilters = $(this).closest('.filter').find('.concept-filter').not($(this));
     let conceptGlyph = $(this).find('.concept-glyph')
-    // Concept was already filtered when clicked
+    // Concept was already filtered when clicked. Turn of filter for concept
     if ($(this).hasClass('concept-filter-on')) {
       $(this).removeClass('concept-filter-on');
       conceptGlyph.addClass('hidden');
       // No other concepts are currently filtered for this category
       if (!siblingConceptFilters.hasClass('concept-filter-on')) {
         // Turn off filter for entire category
+        categoryButton.removeClass('filter-on');
         categoryButton.find('.check-glyph').addClass('hidden');
       }
-      // Turning on filter for concept
+    // Concept was not filtered when clicked. Turn on filter for concept
     } else {
       $(this).addClass('concept-filter-on');
       conceptGlyph.removeClass('hidden');
