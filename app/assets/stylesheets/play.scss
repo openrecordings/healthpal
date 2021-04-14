@@ -1,13 +1,5 @@
-// #audio-view-hide-tags {
-//   display: grid;
-//   grid-template-areas:
-//     "head"
-//     "player";
-//   grid-template-rows: auto auto;
-//   @include header;
-//   @include controls;
-// }
-
+// Used in more than one section
+//////////////////////////////////////////////////////////////////////////////////////////////////
 @mixin checkbox {
   display: flex;
   justify-content: center;
@@ -24,8 +16,6 @@
   border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-// Used in more than one section
-//////////////////////////////////////////////////////////////////////////////////////////////////
 .user-field-container {
   display: flex;
   margin-bottom: 13px;
@@ -528,6 +518,19 @@
   @include controls;
   @include tag-table;
   @include sidebar;
+}
+
+#audio-view-hide-tags {
+  display: grid;
+  grid-template-areas:
+    "head"
+    "player";
+  grid-template-rows: auto auto;
+  @include header;
+  @include controls;
+  padding-top: 50px;
+  margin: 0 auto 0 auto;
+  max-width: 1100px;
 }
 
 .filter-circle {

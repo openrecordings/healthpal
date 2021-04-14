@@ -25,7 +25,7 @@ class PlayController < ApplicationController
       @title = "#{@recording.user.full_name}, #{@recording.created_at.strftime('%-m/%-d/%-y')}"
       @provider = UserField.find_by(recording: @recording, type: :provider) || UserField.new(recording: @recording, type: :provider)
       @note = UserField.find_by(recording: @recording, type: :note) || UserField.new(recording: @recording, type: :note)
-      @view_id = 'audio-view'
+      @view_id = (current_user.privileged? || current_user.can_view_tags) ? 'audio-view' : 'audio-view-hide-tags'
       @segments = prepare_segments(@recording)
       @grouped_annotations = grouped_annotations(@recording)
     else

@@ -94,86 +94,86 @@
             %span.button-label= t(:mute)
           %span#unmute-label.hidden
             %span.button-label= t(:unmute)
+  - if current_user.can_view_tags
+    #tag-table
+      %table
+        %thead
+          %tr#header-row
+            %th= t(:start_end)
+            %th Listen to the medical topic discussed from your visit
+        %tbody
+          %tr#empty-result-message.hidden
+            %td{align: 'center', colspan: 3}
+              = t(:no_results)
+          - @segments.each do |segment|
+            - if segment.tmp_annotation_categories.any?
+              - tag_types = segment.tmp_annotation_categories.map{|c| TagType.find_by(label: c)}
+              %tr.tag-row.tag-row-hover{'data-tag-type-ids': tag_types.map{|t| t.id},
+                'data-annotation-concepts': segment.tmp_annotations.map{|a| a.text},
+                'data-text': segment.tmp_text,
+                'data-start-time': segment.start_time,
+                'data-end-time': segment.end_time}
+                %td.tag-cell.click-to-seek.track.time-link-container{'data-start-time': segment.start_time}
+                  .time-link= "#{mm_ss(segment.start_time)} - #{mm_ss(segment.end_time)}"
+                  .big-play-button= fa_icon 'play'
+                %td.tag-cell.click-to-seek.track{'data-start-time': segment.start_time}
+                  .annotation-list
+                    - tag_types.each do |tag_type|
+                      .tag-container
+                        .filter-circle.margin-top-8{class: "filter-#{tag_type.id}"}
+                        .tag
+                          %span.category= "#{tag_type.label.titleize}:"
+                          - concepts = segment.tmp_annotations.select{|a| a.category == tag_type.label}.map{|a| a.text.downcase}.uniq
+                          - concepts.each do |concept|
+                            %span.concept= "#{concept.titleize}#{concept == concepts.last ? '' : ', '}"
+            - else
+              %tr.hidden
+                %td.tag-cell.hidden{'data-start-time': segment.start_time}
+                %td.tag-cell.hidden{'data-start-time': segment.start_time}
 
-  #tag-table
-    %table
-      %thead
-        %tr#header-row
-          %th= t(:start_end)
-          %th Listen to the medical topic discussed from your visit
-      %tbody
-        %tr#empty-result-message.hidden
-          %td{align: 'center', colspan: 3}
-            = t(:no_results)
-        - @segments.each do |segment|
-          - if segment.tmp_annotation_categories.any?
-            - tag_types = segment.tmp_annotation_categories.map{|c| TagType.find_by(label: c)}
-            %tr.tag-row.tag-row-hover{'data-tag-type-ids': tag_types.map{|t| t.id},
-              'data-annotation-concepts': segment.tmp_annotations.map{|a| a.text},
-              'data-text': segment.tmp_text,
-              'data-start-time': segment.start_time,
-              'data-end-time': segment.end_time}
-              %td.tag-cell.click-to-seek.track.time-link-container{'data-start-time': segment.start_time}
-                .time-link= "#{mm_ss(segment.start_time)} - #{mm_ss(segment.end_time)}"
-                .big-play-button= fa_icon 'play'
-              %td.tag-cell.click-to-seek.track{'data-start-time': segment.start_time}
-                .annotation-list
-                  - tag_types.each do |tag_type|
-                    .tag-container
-                      .filter-circle.margin-top-8{class: "filter-#{tag_type.id}"}
-                      .tag
-                        %span.category= "#{tag_type.label.titleize}:"
-                        - concepts = segment.tmp_annotations.select{|a| a.category == tag_type.label}.map{|a| a.text.downcase}.uniq
-                        - concepts.each do |concept|
-                          %span.concept= "#{concept.titleize}#{concept == concepts.last ? '' : ', '}"
-          - else
-            %tr.hidden
-              %td.tag-cell.hidden{'data-start-time': segment.start_time}
-              %td.tag-cell.hidden{'data-start-time': segment.start_time}
-
-  #sidebar
-    -# .filter-header Search
-    -# .filter-sub-header Enter a word mentioned during your clinic visit and find it in the audio recording
-    -# #search-container
-    -#   %input#search-input
-    -#     = fa_icon 'search', id: 'search-icon'
-    -#     = fa_icon 'times-circle', id: 'close-icon', class: 'hidden'
-    .filter-header Medical Topic
-    .filter-sub-header Select the medical information that you want to find from your clinic visit
-    #filter-container
-      #filters
-        - @grouped_annotations.each do |tag_type_hash|
-          - tag_type = tag_type_hash.keys.first
-          - annotations = tag_type_hash[tag_type]
-          - annotation_texts = []
-          .filter
-            .category-container{class: "#{annotations.any? ? 'category-has-annotations': nil}"}
-              .expand-category{class: "#{annotations.any? ? nil : 'grayout'}"}
-                = inline_svg('glyphicons-basic-175-play.svg', class: 'expand-svg')
-                .expand-label= annotations.any? ? 'see more' : 'none'
-              .filter-button{'data-tag-type-id': tag_type.id}
-                .filter-check{class: "#{annotations.any? ? nil : 'grayout'}"}
-                  %svg.check-glyph.svg.hidden{:viewbox => "0 0 28 28", :xmlns => "http://www.w3.org/2000/svg"}
-                    %path#check{:d => "M27.37592,9.70459l-14.151,15.97693a.99985.99985,0,0,1-1.47558.02356L4.59711,18.1322a.99992.99992,0,0,1-.05384-1.31128L5.495,15.63123a.99994.99994,0,0,1,1.22808-.26966L12,18,24.79724,7.09863a.99991.99991,0,0,1,1.35553.0542l1.1817,1.18164A1,1,0,0,1,27.37592,9.70459Z"}
-                .filter-label{class: "#{annotations.any? ? nil : 'grayout'}"}
-                  .filter-circle{class: "#{annotations.any? ? ('filter-' + tag_type.id.to_s) : 'gray-background'}"}
-                  .filter-label-text= t(tag_type.label)
-            .concepts-container.hidden
-              - annotations.each do |annotation|
-                - unless annotation_texts.include?(annotation.text)
-                  - annotation_texts << annotation.text
-                  .concept-container
-                    .concept-filter{'data-concept-text': annotation.text}
-                      .concept-check
-                        %svg.concept-glyph.check-glyph.svg.hidden{:viewbox => "0 0 28 28", :xmlns => "http://www.w3.org/2000/svg"}
-                          %path#check{:d => "M27.37592,9.70459l-14.151,15.97693a.99985.99985,0,0,1-1.47558.02356L4.59711,18.1322a.99992.99992,0,0,1-.05384-1.31128L5.495,15.63123a.99994.99994,0,0,1,1.22808-.26966L12,18,24.79724,7.09863a.99991.99991,0,0,1,1.35553.0542l1.1817,1.18164A1,1,0,0,1,27.37592,9.70459Z"}
-                      .concept-label
-                        = annotation.text.titleize
-                    - if current_user.privileged?
-                      .deleteable.delete-annotation{'data-annotation-id': annotation.id}= fa_icon 'times-circle'
-                    - if annotation.medline_url
-                      .concept-link{'data-title': annotation.text.titleize, 'data-summary': annotation.medline_summary, 'data-url': annotation.medline_url} Learn More
+    #sidebar
+      -# .filter-header Search
+      -# .filter-sub-header Enter a word mentioned during your clinic visit and find it in the audio recording
+      -# #search-container
+      -#   %input#search-input
+      -#     = fa_icon 'search', id: 'search-icon'
+      -#     = fa_icon 'times-circle', id: 'close-icon', class: 'hidden'
+      .filter-header Medical Topic
+      .filter-sub-header Select the medical information that you want to find from your clinic visit
+      #filter-container
+        #filters
+          - @grouped_annotations.each do |tag_type_hash|
+            - tag_type = tag_type_hash.keys.first
+            - annotations = tag_type_hash[tag_type]
+            - annotation_texts = []
+            .filter
+              .category-container{class: "#{annotations.any? ? 'category-has-annotations': nil}"}
+                .expand-category{class: "#{annotations.any? ? nil : 'grayout'}"}
+                  = inline_svg('glyphicons-basic-175-play.svg', class: 'expand-svg')
+                  .expand-label= annotations.any? ? 'see more' : 'none'
+                .filter-button{'data-tag-type-id': tag_type.id}
+                  .filter-check{class: "#{annotations.any? ? nil : 'grayout'}"}
+                    %svg.check-glyph.svg.hidden{:viewbox => "0 0 28 28", :xmlns => "http://www.w3.org/2000/svg"}
+                      %path#check{:d => "M27.37592,9.70459l-14.151,15.97693a.99985.99985,0,0,1-1.47558.02356L4.59711,18.1322a.99992.99992,0,0,1-.05384-1.31128L5.495,15.63123a.99994.99994,0,0,1,1.22808-.26966L12,18,24.79724,7.09863a.99991.99991,0,0,1,1.35553.0542l1.1817,1.18164A1,1,0,0,1,27.37592,9.70459Z"}
+                  .filter-label{class: "#{annotations.any? ? nil : 'grayout'}"}
+                    .filter-circle{class: "#{annotations.any? ? ('filter-' + tag_type.id.to_s) : 'gray-background'}"}
+                    .filter-label-text= t(tag_type.label)
+              .concepts-container.hidden
+                - annotations.each do |annotation|
+                  - unless annotation_texts.include?(annotation.text)
+                    - annotation_texts << annotation.text
+                    .concept-container
+                      .concept-filter{'data-concept-text': annotation.text}
+                        .concept-check
+                          %svg.concept-glyph.check-glyph.svg.hidden{:viewbox => "0 0 28 28", :xmlns => "http://www.w3.org/2000/svg"}
+                            %path#check{:d => "M27.37592,9.70459l-14.151,15.97693a.99985.99985,0,0,1-1.47558.02356L4.59711,18.1322a.99992.99992,0,0,1-.05384-1.31128L5.495,15.63123a.99994.99994,0,0,1,1.22808-.26966L12,18,24.79724,7.09863a.99991.99991,0,0,1,1.35553.0542l1.1817,1.18164A1,1,0,0,1,27.37592,9.70459Z"}
+                        .concept-label
+                          = annotation.text.titleize
                       - if current_user.privileged?
-                        .deleteable.delete-link{'data-annotation-id': annotation.id}= fa_icon 'times-circle'
-      #show-all-topics Clear
+                        .deleteable.delete-annotation{'data-annotation-id': annotation.id}= fa_icon 'times-circle'
+                      - if annotation.medline_url
+                        .concept-link{'data-title': annotation.text.titleize, 'data-summary': annotation.medline_summary, 'data-url': annotation.medline_url} Learn More
+                        - if current_user.privileged?
+                          .deleteable.delete-link{'data-annotation-id': annotation.id}= fa_icon 'times-circle'
+        #show-all-topics Clear
 .overlay.hidden
