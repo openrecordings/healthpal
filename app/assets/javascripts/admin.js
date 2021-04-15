@@ -1,7 +1,14 @@
-$(document).ready(function() {
-	if(document.querySelector('#new-caregiver-form, #switch-user-form')) {
-		document.body.addEventListener('ajax:success', function(event) {
-			window.location.assign('/');    
-		})
+if (document.querySelector('#admin-table')) {
+
+	function setUserCanAccess(element, newValue) {
+		let userId = $(element).data('user-id');
+		console.log(userId);
+		console.log(newValue);
 	}
-})
+
+	$(document).ready(function () {
+		$('.user-can-access-true').click(((event) => setUserCanAccess(event.target, true)));
+		$('.user-can-access-false').click(((event) => setUserCanAccess(event.target, false)));
+	})
+
+}
