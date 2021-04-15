@@ -133,7 +133,19 @@ class AdminController < ApplicationController
 
   # AJAX endpoint for setting can_view_tags for a user
   def set_can_view_tags
-    User.find_by(id: params[:id].to_s)&.update can_view_tags: params[:value] == 'true' ? true : false
+    puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+    puts ap User.find_by(id: params[:id].to_i)
+    User.find_by(id: params[:id].to_i).update can_view_tags: params[:value] == 'true' ? true : false, can_view_tags_editable: false
+    puts '#################################'
+    render json: {}
+  end 
+
+  # AJAX endpoint for setting can_view_tags_editable for a user
+  def set_can_view_tags_editable
+    puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+    puts ap User.find_by(id: params[:id].to_i)
+    User.find_by(id: params[:id].to_i).update can_view_tags_editable: params[:value] == 'true' ? true : false
+    puts '#################################'
     render json: {}
   end 
 

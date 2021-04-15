@@ -49,8 +49,11 @@
                 %path#check{:d => "M27.37592,9.70459l-14.151,15.97693a.99985.99985,0,0,1-1.47558.02356L4.59711,18.1322a.99992.99992,0,0,1-.05384-1.31128L5.495,15.63123a.99994.99994,0,0,1,1.22808-.26966L12,18,24.79724,7.09863a.99991.99991,0,0,1,1.35553.0542l1.1817,1.18164A1,1,0,0,1,27.37592,9.70459Z"}
             Enable annotation/link deletion
           .edit-row
-            - if !@recording.user_can_access
+            - if !@recording.user_can_access && !@recording.user.can_view_tags.nil?
               #audit-complete Mark as audited and send email to user
+            - if @recording.user.can_view_tags.nil?
+              #audit-premature User must be assigned to a study arm before audit can be marked complete
+
       -#########################################################################################
 
   #player

@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   post 'create_caregiver',           to: 'admin#create_caregiver'
   post 'set_user_can_access',        to: 'admin#set_user_can_access',        as: 'set_user_can_access'
   post 'set_can_view_tags',          to: 'admin#set_can_view_tags',          as: 'set_can_view_tags'
+  post 'set_can_view_tags_editable', to: 'admin#set_can_view_tags_editable', as: 'set_can_view_tags_editable'
   post 'delete_annotation',          to: 'admin#delete_annotation',          as: 'delete_annotation'
   post 'delete_link',                to: 'admin#delete_link',                as: 'delete_link'
 

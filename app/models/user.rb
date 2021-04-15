@@ -89,7 +89,6 @@ class User < ApplicationRecord
     self.can_record = can_record.nil? ? true : can_record
     self.created_as_caregiver = created_as_caregiver.nil? ? false : created_as_caregiver
     self.onboarded = onboarded.nil? ? false : onboarded
-    self.can_view_tags_editable = true
   end
 
 end

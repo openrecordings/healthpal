@@ -339,3 +339,13 @@ body {
 .red {
   color:rgba(255, 0, 0, 0.7);
 }
+
+.link-style{
+  color: #551a8b;
+  font-size: 14px;
+  padding: 5px 0 0 8px;
+  text-decoration: underline;
+  &:hover {
+    cursor: pointer;
+  }
+}
