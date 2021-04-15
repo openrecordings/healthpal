@@ -27,9 +27,9 @@
               %input.set-can-view-tags{type: 'radio', id: rand_id + 1, name: rand_id, 'data-user-id': user.id, 'data-new-value': 'false', checked: user.can_view_tags.nil? ? false : !user.can_view_tags, disabled: !user.can_view_tags_editable}
               %label{for: rand_id + 1} Player only
             - if !user.can_view_tags_editable
-              .set-can-view-tags-editable.link-style{'data-user-id': user.id, 'data-new-value': 'true'} unlock editing
+              .set-can-view-tags-editable.link-style{'data-user-id': user.id, 'data-new-value': 'true'} unlock
             - elsif !user.can_view_tags.nil?
-              .set-can-view-tags-editable.link-style{'data-user-id': user.id, 'data-new-value': 'false'} lock editing
+              .set-can-view-tags-editable.link-style{'data-user-id': user.id, 'data-new-value': 'false'} lock
           %td
             - user.recordings.each do |recording|
               %div
