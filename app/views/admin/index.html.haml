@@ -8,18 +8,28 @@
     %thead
       %tr
         %th User
+        %th Study arm
         %th Recordings
         %th Login count
         %th Last Login
     %tbody
       - User.order('email ASC').all.each do |user|
+        - rand_id = rand(1000000000000)
         %tr.table-row
           %td
             %div= user.full_name + (user.privileged? ? ' (admin)' : '')
             .admin-email-address= user.email
           %td
+            %div
+              %input.user-can-access-true{type: 'radio', id: rand_id, name: 'study-arm', 'data-user-id': user.id}
+              %label{for: rand_id} Full HealthPAL
+            %div
+              %input.user-can-access-false{type: 'radio', id: rand_id + 1, name: 'study-arm', 'data-user-id': user.id}
+              %label{for: rand_id + 1} Player only
+          %td
             - user.recordings.each do |recording|
               %div
                 %span= link_to recording.created_at.strftime('%m/%d/%Y %I:%M%p'), play_path(recording.id)
+                %span.red= recording.user_can_access ? '' : 'needs audit'
           %td= user.sign_in_count
           %td= format_date_time(user.current_sign_in_at || user.last_sign_in_at)
