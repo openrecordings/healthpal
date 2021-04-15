@@ -21,10 +21,10 @@
             .admin-email-address= user.email
           %td
             %div
-              %input.user-can-access-true{type: 'radio', id: rand_id, name: 'study-arm', 'data-user-id': user.id, checked: !!user.can_view_tags}
+              %input.user-can-access-true{type: 'radio', id: rand_id, name: rand_id, 'data-user-id': user.id, checked: !!user.can_view_tags}
               %label{for: rand_id} Full HealthPAL
             %div
-              %input.user-can-access-false{type: 'radio', id: rand_id + 1, name: 'study-arm', 'data-user-id': user.id}
+              %input.user-can-access-false{type: 'radio', id: rand_id + 1, name: rand_id, 'data-user-id': user.id, checked: !!!user.can_view_tags}
               %label{for: rand_id + 1} Player only
           %td
             - user.recordings.each do |recording|

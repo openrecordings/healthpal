@@ -2,8 +2,10 @@ if (document.querySelector('#admin-table')) {
 
 	function setUserCanAccess(element, newValue) {
 		let userId = $(element).data('user-id');
-		console.log(userId);
-		console.log(newValue);
+		$.post('/set_can_view_tags', { id: userId, value: newValue }, function (json) {
+		}).fail(function (error) {
+			console.log('Error setting tag visibility for user')
+		});
 	}
 
 	$(document).ready(function () {

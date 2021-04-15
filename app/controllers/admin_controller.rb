@@ -131,6 +131,13 @@ class AdminController < ApplicationController
     render json: {}
   end
 
+  # AJAX endpoint for setting can_view_tags for a user
+  def set_can_view_tags
+    User.find_by(id: params[:id].to_s)&.update can_view_tags: params[:value] == 'true' ? true : false
+    render json: {}
+  end 
+
+
   private
 
   def user_params
