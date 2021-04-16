@@ -9,6 +9,7 @@ class User < ApplicationRecord
   has_many :visits, class_name: 'Ahoy::Visit'
 
   scope :regular, ->() { where role: 'user' }
+  scope :visible, ->() { where.not hidden: true }
 
   before_validation :set_defaults
 
