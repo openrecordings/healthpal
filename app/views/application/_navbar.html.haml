@@ -24,8 +24,8 @@
           =link_to 'Admin', admin_path, id: 'nav-user-management'
           -# =link_to t(:manage_recordings), manage_recordings_path, id: 'nav-manage-recordings'
           -# =link_to t(:analytics), analytics_path, id: 'nav-analytics'
-        =link_to t(:new_recording), record_path, id: 'nav-new-recording'
         =link_to t(:recordings), my_recordings_path, id: 'nav-my-recordings'
+        =link_to current_user.privileged? ? 'New Admin Recording' : 'New Recording', record_path, id: 'nav-new-recording'
           - if !current_user.privileged?
           =link_to t(:sharing), shares_path, id: 'nav-share'
         -# Redundancy: order is opposite depending on whether or not we are floating the elements
