@@ -66,6 +66,7 @@ class AdminController < ApplicationController
   end
 
   def switch_to_user
+    puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
     user = User.find_by(id: params[:user_id])
     if user
       reset_session
@@ -73,6 +74,7 @@ class AdminController < ApplicationController
     else
       flash.now[:alert] = 'Could not find that user'
     end
+    redirect_to :root
   end
 
   def new_caregiver
@@ -133,19 +135,13 @@ class AdminController < ApplicationController
 
   # AJAX endpoint for setting can_view_tags for a user
   def set_can_view_tags
-    puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
-    puts ap User.find_by(id: params[:id].to_i)
     User.find_by(id: params[:id].to_i).update can_view_tags: params[:value] == 'true' ? true : false, can_view_tags_editable: false
-    puts '#################################'
     render json: {}
   end 
 
   # AJAX endpoint for setting can_view_tags_editable for a user
   def set_can_view_tags_editable
-    puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
-    puts ap User.find_by(id: params[:id].to_i)
     User.find_by(id: params[:id].to_i).update can_view_tags_editable: params[:value] == 'true' ? true : false
-    puts '#################################'
     render json: {}
   end 
 
