@@ -26,7 +26,8 @@
           -# =link_to t(:analytics), analytics_path, id: 'nav-analytics'
         =link_to t(:new_recording), record_path, id: 'nav-new-recording'
         =link_to t(:recordings), my_recordings_path, id: 'nav-my-recordings'
-        =link_to t(:sharing), shares_path, id: 'nav-share'
+        - if !current_user.privileged?
+          =link_to t(:sharing), shares_path, id: 'nav-share'
         -# Redundancy: order is opposite depending on whether or not we are floating the elements
         #navbar-right-small.hidden
           =link_to t(:help), help_path, id: 'nav-help'
