@@ -409,7 +409,10 @@ if (document.querySelector('#play-pause-button')) {
 
   $('#show-all-topics').click(function () {
     $('.tag-row').show();
+    $('.concept-filter').removeClass('concept-filter-on');
+    $('.concept-glyph').addClass('hidden');
     $('.check-glyph').addClass('hidden');
+    // $('.concepts-container').slideUp('200');
     $('#search-input').val('');
   })
 
