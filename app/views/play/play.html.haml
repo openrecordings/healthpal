@@ -97,7 +97,7 @@
             %span.button-label= t(:mute)
           %span#unmute-label.hidden
             %span.button-label= t(:unmute)
-  - if current_user.can_view_tags
+  - if current_user.can_view_tags || current_user.privileged?
     #tag-table
       %table
         %thead
