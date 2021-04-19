@@ -390,19 +390,11 @@ if (document.querySelector('#play-pause-button')) {
       conceptFilters.removeClass('concept-filter-on');
       categoryGlyph.addClass('hidden');
       conceptGlyphs.addClass('hidden');
-      svg.removeClass('rotate-z-90');
-      filterLabel.text('see more');
-      conceptsContainer.slideUp('200');
     } else {
       $(this).addClass('filter-on');
       conceptFilters.addClass('concept-filter-on');
       categoryGlyph.removeClass('hidden');
       conceptGlyphs.removeClass('hidden');
-
-      // Uncomment to auto-expand a category when its filter is turned on
-      // svg.addClass('rotate-z-90');
-      // filterLabel.text('see less');
-      // conceptsContainer.slideDown('200');
     }
     updateVisibleRows();
   })
@@ -412,7 +404,6 @@ if (document.querySelector('#play-pause-button')) {
     $('.concept-filter').removeClass('concept-filter-on');
     $('.concept-glyph').addClass('hidden');
     $('.check-glyph').addClass('hidden');
-    // $('.concepts-container').slideUp('200');
     $('#search-input').val('');
   })
 
