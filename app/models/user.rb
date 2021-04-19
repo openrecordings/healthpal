@@ -51,7 +51,7 @@ class User < ApplicationRecord
   end
 
   def root?
-    role == root
+    role == 'root'
   end
 
   def can_access(recording)

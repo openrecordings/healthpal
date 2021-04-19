@@ -13,7 +13,8 @@
         %th Login count
         %th Last Login
     %tbody
-      - User.visible.order('email ASC').each do |user|
+      - users = current_user.root? ? User.all : User.visible
+      - users.order('email ASC').each do |user|
         - rand_id = rand(1000000000000)
         %tr.table-row
           %td
