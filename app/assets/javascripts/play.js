@@ -398,9 +398,11 @@ if (document.querySelector('#play-pause-button')) {
       conceptFilters.addClass('concept-filter-on');
       categoryGlyph.removeClass('hidden');
       conceptGlyphs.removeClass('hidden');
-      svg.addClass('rotate-z-90');
-      filterLabel.text('see less');
-      conceptsContainer.slideDown('200');
+
+      // Uncomment to auto-expand a category when its filter is turned on
+      // svg.addClass('rotate-z-90');
+      // filterLabel.text('see less');
+      // conceptsContainer.slideDown('200');
     }
     updateVisibleRows();
   })
