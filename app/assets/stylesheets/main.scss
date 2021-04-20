@@ -127,7 +127,7 @@ body {
   z-index: 10;
 }
 
-#intro-video{
+#intro-video, #admin-intro-video, #admin-intro-video-no-tags{
   width: 90%;
   object-fit: cover;
 }
@@ -360,4 +360,10 @@ body {
   &:hover {
     cursor: pointer;
   }
+}
+
+#reload-message{
+  width: 800px;
+  margin: 300px auto 0 auto;
+  font-size: 28px;
 }

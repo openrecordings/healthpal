@@ -1,7 +1,25 @@
 if (document.querySelector('#admin-table')) {
 
-	$(document).ready(function () {
+	var videoElement;
 
+	// Dismiss video
+	/////////////////////////////////////////////////////////////////////////////////////////////////
+	$('#dismiss-video').click(function () {
+		videoElement.pause();
+		$('#intro-overlay').hide();
+		$('#admin-intro-video').hide();
+		$('#admin-intro-video-no-tags').hide();
+	})
+
+	$('.overlay-video').mouseover(function () {
+		$('#dismiss-video').show();
+	})
+
+	$('.overlay-video').mouseout(function () {
+		$('#dismiss-video').hide();
+	})
+
+	$(document).ready(function () {
 		$('.user-can-access-true').click(((event) => setUserCanViewTags(event.target, true)));
 		$('.user-can-access-false').click(((event) => setUserCanViewTags(event.target, false)));
 
@@ -24,8 +42,30 @@ if (document.querySelector('#admin-table')) {
 			$.post('/set_can_view_tags_editable', { id: userId, value: newValue }, function (json) {
 				location.reload();
 			}).fail(function (error) {
-			  console.log('Error setting editability of tag visibility for user');
+				console.log('Error setting editability of tag visibility for user');
 			});
+		})
+
+		// Admin page: full version of video
+		/////////////////////////////////////////////////////////////////////////////////////////////////
+		$('#admin-play-intro-video').click(function () {
+			videoElement = document.getElementById('admin-intro-video');
+			$(videoElement).show();
+			$('#intro-overlay').show();
+			$('#admin-table').hide();
+			$('#reload-message').show();
+			videoElement.play();
+		})
+
+		// Admin page: no-tags version of video
+		/////////////////////////////////////////////////////////////////////////////////////////////////
+		$('#admin-play-intro-video-no-tags').click(function () {
+			videoElement = document.getElementById('admin-intro-video-no-tags');
+			$(videoElement).show();
+			$('#intro-overlay').show();
+			$('#admin-table').hide();
+			$('#reload-message').show();
+			videoElement.play();
 		})
 
 	})
