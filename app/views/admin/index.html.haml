@@ -10,8 +10,8 @@
   %p= button_to 'Invite New User by Email', new_user_invitation_path, class: 'button', method: :get
   %p= button_to 'Create and Switch to New User Now', new_registration_path, class: 'button', method: :get
   %p= button_to 'Switch to Existing User', switch_user_select_path, class: 'button', method: :get
-  %p#admin-play-intro-video.button Play intro video: Full HealthPAL
-  %p#admin-play-intro-video-no-tags.button Play intro video: Player only
+  %p#admin-play-intro-video.button Play intro video: Annotate version
+  %p#admin-play-intro-video-no-tags.button Play intro video: Simple version
   %p.margin-top-40 Existing users
   %table
     %thead
@@ -36,14 +36,14 @@
               name: rand_id, 'data-user-id': user.id, 'data-new-value': 'true',
               checked: user.can_view_tags.nil? ? false : user.can_view_tags,
               disabled: user.can_view_tags_editable.nil? ? false : !user.can_view_tags_editable}
-              %label{for: rand_id} Full HealthPAL
+              %label{for: rand_id} Annotated
             %div
               %input.set-can-view-tags{type: 'radio',
               id: rand_id + 1,
               name: rand_id, 'data-user-id': user.id, 'data-new-value': 'false',
               checked: user.can_view_tags.nil? ? false : !user.can_view_tags,
               disabled: user.can_view_tags_editable.nil? ? false : !user.can_view_tags_editable}
-              %label{for: rand_id + 1} Player only
+              %label{for: rand_id + 1} Simple
             - if user.can_view_tags_editable == false
               .set-can-view-tags-editable.link-style{'data-user-id': user.id, 'data-new-value': 'true'} unlock
             - elsif user.can_view_tags_editable
