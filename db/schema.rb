@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_16_134057) do
+ActiveRecord::Schema.define(version: 2021_04_20_054655) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -230,6 +230,7 @@ ActiveRecord::Schema.define(version: 2021_04_16_134057) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "begin_offset"
     t.integer "end_offset"
+    t.integer "count"
     t.index ["recording_id"], name: "index_transcript_items_on_recording_id"
   end
 
