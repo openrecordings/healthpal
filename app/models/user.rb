@@ -78,7 +78,7 @@ class User < ApplicationRecord
     when 'user'
       [self]
     when 'admin'
-      [self] + org.users
+      User.all.to_a
     when 'root'
       User.all.to_a
     end
