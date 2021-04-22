@@ -34,38 +34,6 @@ class RecordController < ApplicationController
     end
   end
 
-
-  def test_lo(blob, user, is_file_upload=false)
-    sha1 = Digest::SHA1.hexdigest(blob)
-    filepath =  "#{Rails.root}/tmp/#{sha1}.ogg"
-    File.open(filepath, 'wb') do |disk_file|
-      disk_file.write(blob)
-    end
-    recording = Recording.new(
-      user: user,
-      sha1: sha1,
-      is_video: false,
-      media_format: 'mp3',
-    )
-    recording.media_file.attach(io: File.open(filepath), filename: "#{sha1}.ogg")
-    recording.title = "test_lo"
-    `rm #{filepath}`
-    if recording.save!
-      # TRANSCRIBE AND ANNOTATE
-      #########################
-      recording.process!
-      #########################
-    else
-      flash.alert = recording.errors.full_messages
-    end
-    flash.keep(:alert)
-    if is_file_upload
-      redirect_to :root
-    else
-      render js: "window.location = '/'"
-    end
-  end
-
   private
 
   def handle_blob(blob, user, is_file_upload=false)
