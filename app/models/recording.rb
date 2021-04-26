@@ -5,7 +5,6 @@ class Recording < ApplicationRecord
   has_many :annotations, through: :transcript_segments
   has_many :utterances, -> {order 'index asc'}, dependent: :destroy
   has_many :messages, dependent: :destroy
-  has_many :annotations, through: :transcript_segments
   has_one_attached :media_file
   visitable :ahoy_visit
 
@@ -14,7 +13,8 @@ class Recording < ApplicationRecord
   scope :processed, -> {where(is_processed: true)}
   scope :audited, -> {where(user_can_access: true)}
 
-  MEDLINE_SEARCH_TEMPLATE = 'https://wsearch.nlm.nih.gov/ws/query?db=healthTopics&term=!!!&rettype=brief'
+  GENERAL_SEARCH_TEMPLATE = 'https://wsearch.nlm.nih.gov/ws/query?db=healthTopics&term=!!!&rettype=brief'
+  MEDICATION_SEARCH_TEMPLATE = 'https://connect.medlineplus.gov/service?mainSearchCriteria.v.cs=2.16.840.1.113883.6.69&mainSearchCriteria.v.dn=!!!&informationRecipient.languageCode.c=en&knowledgeResponseType=application/json'
 
   def notes
     recording_notes
@@ -143,6 +143,8 @@ class Recording < ApplicationRecord
   end
 
   def create_annotation(annotation, is_top_level=true)
+    return unless annotation.category == 'MEDICATION' 
+
     start_time = transcript_items.find{|i| i.begin_offset >= annotation.begin_offset}.start_time
     end_time = transcript_items.find{|i| i.end_offset >= annotation.end_offset}.end_time
     transcript_segment = transcript_segments.find{|segment| segment.end_time >= end_time}
@@ -151,15 +153,28 @@ class Recording < ApplicationRecord
       curr_annotation.update_attribute(:top, is_top_level) if !curr_annotation.top && is_top_level
     elsif !['PROTECTED_HEALTH_INFORMATION', 'ANATOMY'].include?(annotation.category)
       begin
-        api_call_url = MEDLINE_SEARCH_TEMPLATE.gsub('!!!', annotation.text.downcase)
-        medline_hash = HTTParty.get(api_call_url).to_h
-        document_hash = medline_hash['nlmSearchResult']['list']['document'][0]
-        summary_string = document_hash['content'].find {|h| h['name'] == 'FullSummary'}['__content__']
-        url_string = document_hash['url']
-        medline_summary = summary_string
-        medline_url = url_string
+        if annotation.category == 'MEDICATION'
+          puts '-----'
+          api_call_url = MEDICATION_SEARCH_TEMPLATE.gsub('!!!', annotation.text.downcase)
+          medline_hash = HTTParty.get(api_call_url).to_h
+          puts 'medline_hash:'
+          puts ap medline_hash
+          document_hash = medline_hash['feed']['entry'][0]
+          puts 'document_hash:'
+          puts ap document_hash
+          medline_summary = document_hash['summary']['_value']
+          puts ap medline_summary
+          medline_url = document_hash['link'][0]['href']
+          puts ap medline_url
+        else
+          api_call_url = GENERAL_SEARCH_TEMPLATE.gsub('!!!', annotation.text.downcase)
+          medline_hash = HTTParty.get(api_call_url).to_h
+          document_hash = medline_hash['nlmSearchResult']['list']['document'][0]
+          medline_summary = document_hash['content'].find {|h| h['name'] == 'FullSummary'}['__content__']
+          medline_url = document_hash['url']
+        end
       rescue => exception
-        puts exception.to_s
+        puts "!!!ANNOTATION ERROR: #{exception.to_s}"
         medline_summary = nil
         medline_url = nil
       end
