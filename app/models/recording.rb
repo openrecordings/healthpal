@@ -143,8 +143,6 @@ class Recording < ApplicationRecord
   end
 
   def create_annotation(annotation, is_top_level=true)
-    return unless annotation.category == 'MEDICATION' 
-
     start_time = transcript_items.find{|i| i.begin_offset >= annotation.begin_offset}.start_time
     end_time = transcript_items.find{|i| i.end_offset >= annotation.end_offset}.end_time
     transcript_segment = transcript_segments.find{|segment| segment.end_time >= end_time}
@@ -154,18 +152,11 @@ class Recording < ApplicationRecord
     elsif !['PROTECTED_HEALTH_INFORMATION', 'ANATOMY'].include?(annotation.category)
       begin
         if annotation.category == 'MEDICATION'
-          puts '-----'
           api_call_url = MEDICATION_SEARCH_TEMPLATE.gsub('!!!', annotation.text.downcase)
           medline_hash = HTTParty.get(api_call_url).to_h
-          puts 'medline_hash:'
-          puts ap medline_hash
           document_hash = medline_hash['feed']['entry'][0]
-          puts 'document_hash:'
-          puts ap document_hash
           medline_summary = document_hash['summary']['_value']
-          puts ap medline_summary
           medline_url = document_hash['link'][0]['href']
-          puts ap medline_url
         else
           api_call_url = GENERAL_SEARCH_TEMPLATE.gsub('!!!', annotation.text.downcase)
           medline_hash = HTTParty.get(api_call_url).to_h
