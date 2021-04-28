@@ -27,7 +27,7 @@ class Recording < ApplicationRecord
   def create_ready_email
     Message.create(
       recording: self,
-      deliver_at: DateTime.now() + 1.year, 
+      deliver_at: DateTime.now() + 1.year,
       to_email: self.user&.email,
       mailer_method: 'r01_recording_ready',
     )
@@ -82,6 +82,11 @@ class Recording < ApplicationRecord
     response_json =  s3_client.get_object(bucket: bucket_name, key: "medical/#{job_name}.json").body.read
     self.update transcript_json: response_json
     self.update speakers: JSON.parse(transcript_json)['results']['speaker_labels']['speakers']
+    create_transcript_items
+  end
+
+  def create_transcript_items
+    byte_limit = 20000
     JSON.parse(transcript_json)['results']['speaker_labels']['segments']&.each do |transcript_segment|
       TranscriptSegment.create(
         recording: self,
@@ -90,14 +95,27 @@ class Recording < ApplicationRecord
         speaker_label: transcript_segment['speaker_label'],
       )
     end
+
     transcript = ''
+    transcript_chunk = 1
     JSON.parse(transcript_json)['results']['items']&.each do |transcript_item|
       content = transcript_item['alternatives'][0]['content'] + ' '
       current_transcript_length = transcript.length
-      begin_offset = current_transcript_length
-      end_offset = begin_offset + content.length
+      transcript << content
+
+      if transcript.bytesize / byte_limit > 0
+        transcript_chunk += 1
+        transcript = content
+        begin_offset = 0
+        end_offset = transcript.length
+      else
+        begin_offset = current_transcript_length
+        end_offset = begin_offset + content.length
+      end
+
       TranscriptItem.create(
         recording: self,
+        transcript_chunk: transcript_chunk,
         start_time: transcript_item['start_time'],
         end_time: transcript_item['end_time'],
         content: content,
@@ -105,7 +123,6 @@ class Recording < ApplicationRecord
         begin_offset: begin_offset,
         end_offset: end_offset
       )
-      transcript << content
     end
   end
 
@@ -113,43 +130,55 @@ class Recording < ApplicationRecord
     transcript_items.map{|transcript_item| transcript_item.content}.reduce(:+)
   end
 
+  def sub_transcript_string(transcript_chunk)
+    transcript_items.select{|t| t.transcript_chunk == transcript_chunk}.map{|transcript_item| transcript_item.content}.reduce(:+)
+  end
+
   def annotate
-    return unless self.transcript_items.any?
-    transcript = transcript_string
-    comprehend_client = Aws::ComprehendMedical::Client.new(region: Rails.application.credentials.aws[:region])
-    # TODO: Error handling
-    aws_annotations = comprehend_client.detect_entities_v2('text': self.transcript_string).entities
-    self.update annotation_json: aws_annotations.to_json
-    aws_annotations.each do |annotation|
-      create_annotation(annotation)
-      curr_annotation = annotations.all.find{|a| a.aws_id == annotation.id}
-      if curr_annotation
-        unless annotation.attributes.blank?
-          annotation.attributes.each do |attribute|
-            create_annotation(attribute, false)
-            sub_annotation = annotations.all.find{|a| a.aws_id == attribute.id}
-            if sub_annotation
-              AnnotationRelation.create(
-                annotation: curr_annotation,
-                score: attribute.relationship_score,
-                kind: attribute.relationship_type,
-                related_annotation_id: sub_annotation.id
-              )
+    transcript_chunk = 1
+    current_transcript_items = self.transcript_items.select{|t| t.transcript_chunk == transcript_chunk}
+    while current_transcript_items.any?
+      transcript = sub_transcript_string(transcript_chunk)
+
+      comprehend_client = Aws::ComprehendMedical::Client.new(region: Rails.application.credentials.aws[:region])
+      # TODO: Error handling
+      aws_annotations = comprehend_client.detect_entities_v2('text': transcript).entities
+      self.update_attribute(:annotation_json, self.annotation_json << aws_annotations.to_json)
+      aws_annotations.each do |annotation|
+        create_annotation(annotation, transcript_chunk)
+        curr_annotation = annotations.all.find{|a| a.aws_id == "#{transcript_chunk}#{annotation.id}".to_i}
+        if curr_annotation
+          unless annotation.attributes.blank?
+            annotation.attributes.each do |attribute|
+              create_annotation(attribute, transcript_chunk, false)
+              sub_annotation = annotations.all.find{|a| a.aws_id == "#{transcript_chunk}#{attribute.id}".to_i}
+              if sub_annotation
+                AnnotationRelation.create(
+                  annotation: curr_annotation,
+                  score: attribute.relationship_score,
+                  kind: attribute.relationship_type,
+                  related_annotation_id: sub_annotation.id
+                )
+              end
             end
           end
         end
       end
+
+      transcript_chunk += 1
+      current_transcript_items = self.transcript_items.select{|t| t.transcript_chunk == transcript_chunk}
     end
   end
 
-  def create_annotation(annotation, is_top_level=true)
-    start_time = transcript_items.find{|i| i.begin_offset >= annotation.begin_offset}.start_time
-    end_time = transcript_items.find{|i| i.end_offset >= annotation.end_offset}.end_time
+  def create_annotation(annotation, transcript_chunk, is_top_level=true)
+    start_time = transcript_items.select{|t| t.transcript_chunk == transcript_chunk}.find{|i| i.begin_offset >= annotation.begin_offset}.start_time
+    end_time = transcript_items.select{|t| t.transcript_chunk == transcript_chunk}.find{|i| i.end_offset >= annotation.end_offset}.end_time
     transcript_segment = transcript_segments.find{|segment| segment.end_time >= end_time}
-    curr_annotation = annotations.all.find{|a| a.aws_id == annotation.id}
+    curr_annotation = annotations.all.find{|a| a.aws_id == "#{transcript_chunk}#{annotation.id}".to_i}
+
     if curr_annotation
       curr_annotation.update_attribute(:top, is_top_level) if !curr_annotation.top && is_top_level
-    elsif !['PROTECTED_HEALTH_INFORMATION', 'ANATOMY'].include?(annotation.category)
+    elsif !['PROTECTED_HEALTH_INFORMATION', 'ANATOMY', 'TIME_EXPRESSION'].include?(annotation.category)
       begin
         if annotation.category == 'MEDICATION'
           api_call_url = MEDICATION_SEARCH_TEMPLATE.gsub('!!!', annotation.text.downcase)
@@ -177,14 +206,14 @@ class Recording < ApplicationRecord
         text: annotation.text,
         kind: annotation.type,
         score: annotation.score,
-        aws_id: annotation.id,
+        aws_id: "#{transcript_chunk}#{annotation.id}".to_i,
         start_time: start_time,
         end_time: end_time,
         top: is_top_level,
         medline_summary: medline_summary,
         medline_url: medline_url,
       )
-      curr_annotation = annotations.all.find{|a| a.aws_id == annotation.id}
+      curr_annotation = annotations.all.find{|a| a.aws_id == "#{transcript_chunk}#{annotation.id}".to_i}
     end
 
     if curr_annotation
