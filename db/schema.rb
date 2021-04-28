@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_20_054655) do
+ActiveRecord::Schema.define(version: 2021_04_28_035706) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -191,7 +191,7 @@ ActiveRecord::Schema.define(version: 2021_04_20_054655) do
     t.string "title"
     t.string "provider"
     t.json "transcript_json"
-    t.json "annotation_json"
+    t.json "annotation_json", default: [], array: true
     t.integer "speakers"
     t.boolean "user_can_access"
   end
@@ -230,7 +230,7 @@ ActiveRecord::Schema.define(version: 2021_04_20_054655) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "begin_offset"
     t.integer "end_offset"
-    t.integer "count"
+    t.integer "transcript_chunk"
     t.index ["recording_id"], name: "index_transcript_items_on_recording_id"
   end
 
