@@ -69,9 +69,11 @@ if (document.querySelector('#play-pause-button')) {
 
   $('.delete-link').click(function (event) {
     let confirmed = confirm('Are you sure you want to delete this link?');
-    $.post('/delete_link', { id: $(this).data('annotation-id') }, function (json) {
-      location.reload();
-    });
+    if (confirmed) {
+      $.post('/delete_link', { id: $(this).data('annotation-id') }, function (json) {
+        location.reload();
+      });
+    }
   })
 
   // Concept summary
