@@ -9,7 +9,7 @@
         "logDriver": "awslogs",
         "secretOptions": null,
         "options": {
-          "awslogs-group": "/ecs/hp-r56",
+          "awslogs-group": "/ecs/hp-als",
           "awslogs-region": "us-east-1",
           "awslogs-stream-prefix": "ecs"
         }
@@ -63,7 +63,7 @@
         "logDriver": "awslogs",
         "secretOptions": null,
         "options": {
-          "awslogs-group": "/ecs/hp-r56",
+          "awslogs-group": "/ecs/hp-als",
           "awslogs-region": "us-east-1",
           "awslogs-stream-prefix": "ecs"
         }
@@ -87,7 +87,7 @@
       "environment": [
         {
           "name": "RAILS_ENV",
-          "value": "hp_r56"
+          "value": "hp-als"
         }
       ],
       "resourceRequirements": null,
@@ -101,7 +101,7 @@
       "memoryReservation": null,
       "volumesFrom": [],
       "stopTimeout": null,
-      "image": "482647302978.dkr.ecr.us-east-1.amazonaws.com/hp-r56",
+      "image": "482647302978.dkr.ecr.us-east-1.amazonaws.com/hp-als",
       "startTimeout": null,
       "firelensConfiguration": null,
       "dependsOn": null,
@@ -118,7 +118,7 @@
       "dockerLabels": null,
       "systemControls": null,
       "privileged": null,
-      "name": "hp-r56-app"
+      "name": "hp-als-app"
     },
     {
       "dnsSearchDomains": null,
@@ -127,7 +127,7 @@
         "logDriver": "awslogs",
         "secretOptions": null,
         "options": {
-          "awslogs-group": "/ecs/hp-r56",
+          "awslogs-group": "/ecs/hp-als",
           "awslogs-region": "us-east-1",
           "awslogs-stream-prefix": "ecs"
         }
@@ -143,7 +143,7 @@
       "environment": [
         {
           "name": "RAILS_ENV",
-          "value": "hp_r56"
+          "value": "hp-als"
         }
       ],
       "resourceRequirements": null,
@@ -157,7 +157,7 @@
       "memoryReservation": null,
       "volumesFrom": [],
       "stopTimeout": null,
-      "image": "482647302978.dkr.ecr.us-east-1.amazonaws.com/hp-r56",
+      "image": "482647302978.dkr.ecr.us-east-1.amazonaws.com/hp-als",
       "startTimeout": null,
       "firelensConfiguration": null,
       "dependsOn": null,
@@ -174,7 +174,7 @@
       "dockerLabels": null,
       "systemControls": null,
       "privileged": null,
-      "name": "hp-r56-jobs"
+      "name": "hp-als-jobs"
     }
   ],
   "placementConstraints": [],
@@ -184,8 +184,8 @@
     "EC2",
     "FARGATE"
   ],
-  "taskDefinitionArn": "arn:aws:ecs:us-east-1:482647302978:task-definition/hp-r56:5",
-  "family": "hp-r56",
+  "taskDefinitionArn": "arn:aws:ecs:us-east-1:482647302978:task-definition/hp-als:1",
+  "family": "hp-als",
   "requiresAttributes": [
     {
       "targetId": null,
