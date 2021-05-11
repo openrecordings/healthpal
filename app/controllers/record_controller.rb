@@ -51,7 +51,7 @@ class RecordController < ApplicationController
     recording.title = default_title
     `rm #{filepath}`  
     if recording.save!
-      recording.transcribe
+      # recording.transcribe
       # flash.alert = 'Your recording is being processed. We will email you when it is ready.'
     else
       flash.alert = recording.errors.full_messages

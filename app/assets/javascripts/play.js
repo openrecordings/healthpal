@@ -57,9 +57,9 @@ if (document.querySelector('#play-view')) {
         if (data.is_processed) {
           // NOTE: We actually use an audio element for now so that Safari iOS doesn't override the player UI
           $('#video-container').html(`
-            <audio id=video-element>
+            <video id=video-element>
               <source src=${data.url} type="audio/mp3">
-            </audio>`
+            </video>`
           );
           $('#recording-title').text(data.title);
           $('#edit-recording-title').val(data.title);
