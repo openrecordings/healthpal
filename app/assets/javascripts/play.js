@@ -130,20 +130,20 @@ if (document.querySelector('#play-view')) {
   //     $(window).resize();
   //   });
 
-    // function i18n(locale, string) {
-    //   return {
-    //     'en': {
-    //       'playAt': 'Play at',
-    //       'editNote': 'Edit note',
-    //       'deleteNote': 'Delete note',
-    //     },
-    //     'es': {
-    //       'playAt': 'Reproducir en',
-    //       'editNote': 'Editar nota',
-    //       'deleteNote': 'Borrar nota',
-    //     },
-    //   }[locale][string]
-    // }
+  // function i18n(locale, string) {
+  //   return {
+  //     'en': {
+  //       'playAt': 'Play at',
+  //       'editNote': 'Edit note',
+  //       'deleteNote': 'Delete note',
+  //     },
+  //     'es': {
+  //       'playAt': 'Reproducir en',
+  //       'editNote': 'Editar nota',
+  //       'deleteNote': 'Borrar nota',
+  //     },
+  //   }[locale][string]
+  // }
 
   //   function noteHtml(note) {
   //     var locale = document.documentElement.lang;
@@ -344,6 +344,8 @@ if (document.querySelector('#play-view')) {
     $('#toolbar, #show-select').click(function () {
       showSelectOnly();
       clearMetadataFields();
+      skipToTime(0.0);
+      pause();
     })
 
     // Player
