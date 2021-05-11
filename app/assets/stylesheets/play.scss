@@ -61,19 +61,36 @@
     }
   }
   #right {
+    // background-color: bisque;
     display: flex;
+    flex-direction: column;
+    align-items: stretch;
     flex-grow: 1;
-    max-height: 100%;
+    // max-height: 100%;
+    height: 1fr;
+    max-height: 1fr;
     overflow: hidden;
     transform-origin: top right;
     transition-duration: 300ms;
     #player-container {
+      // background-color: aqua;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      width: 100%;
+      justify-content: space-evenly;
+      align-content: stretch;
+      height: 100%;
       padding: 15px;
       box-sizing: border-box;
+      #video-container {
+        // background-color: #bbb;
+        display: flex;
+        align-items: stretch;
+        align-content: stretch;
+        #video-element {
+          object-fit: contain;
+          overflow: hidden;
+        }
+      }
       #header {
         display: flex;
         justify-content: space-between;
@@ -111,103 +128,6 @@
             font-style: italic;
           }
         }
-      }
-      #notes-header {
-        // background-color: pink;
-        font-size: 24px;
-        padding: 10px 0;
-      }
-      #notes {
-        flex-grow: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: stretch;
-        position: relative;
-        overflow: scroll;
-        padding-top: 7px;
-        padding-bottom: 8px;
-        color: $color-1;
-        #notes-container {
-          display: flex;
-          flex-direction: column;
-          flex-grow: 1;
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          overflow: auto;
-          .note {
-            margin-bottom: 20px;
-            .note-text {
-              flex-grow: 1;
-              pointer-events: none;
-              padding: 10px;
-              background-color: $color-9;
-              border: 2px solid $color-8;
-              border-radius: 4px 4px 0 4px;
-              white-space: pre-wrap;
-            }
-            .note-controls {
-              display: flex;
-              justify-content: flex-end;
-              @mixin note-control {
-                background-color: $color-9;
-                padding: 5px;
-                font-size: 13px;
-                border-left: 2px solid $color-8;
-                border-bottom: 2px solid $color-8;
-                color: $color-2;
-                &:hover {
-                  cursor: pointer;
-                  background-color: $color-7;
-                }
-                span {
-                  display: inline-block;
-                  padding-right: 3px;
-                  transform: translateY(-3px);
-                }
-              }
-              .play-at {
-                @include note-control;
-                border-radius: 0 0 0 4px;
-              }
-              .edit-note {
-                @include note-control;
-              }
-              .delete-note {
-                @include note-control;
-                border-right: 2px solid $color-8;
-                border-radius: 0 0 4px 0;
-              }
-            }
-          }
-        }
-        #no-notes {
-          width: 100%;
-          align-self: center;
-          text-align: center;
-        }
-      }
-      #video-container{
-        // background-color: #bbb;
-        flex-grow: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: stretch;
-        position: relative;
-        overflow: scroll;
-        margin: 25px;
-        color: $color-1;
-      }
-      #player-border {
-        z-index: 2;
-        width: 5000px;
-        height: 17px;
-        margin: 0 -15px;
-        overflow: hidden;
-        // box-shadow: 0px -10px 15px -8px rgba(0, 0, 0, 1);
       }
       #player {
         z-index: 1;
