@@ -76,9 +76,9 @@
       // background-color: aqua;
       display: flex;
       flex-direction: column;
-      justify-content: space-evenly;
+      justify-content: flex-start;
       align-content: stretch;
-      height: 100%;
+      // height: 100%;
       padding: 15px;
       box-sizing: border-box;
       #video-container {
