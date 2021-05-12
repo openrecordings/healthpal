@@ -12,12 +12,13 @@ class RecordController < ApplicationController
   # View for manually uploading an existing file
   def file_upload
     @recording = Recording.new
-    @users = User.regular.map {|u| [u.email, u.id]}
+    @users = User.all.map {|u| [u.email, u.id]}
   end
 
   # Admin-uploaded recordings
   def upload_file
     handle_blob(recording_params[:file].read, current_user, true)
+    redirect_to root 
     # handle_blob(recording_params[:file].read, User.find_by(id: recording_params[:user]), true)
   end
 
