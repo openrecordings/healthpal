@@ -18,6 +18,8 @@ class RecordController < ApplicationController
   # Admin-uploaded recordings
   def upload_file
     handle_blob(recording_params[:file].read, User.find_by(id: recording_params[:user]), true)
+    flash.notice = 'Recording uploaded'
+    reirect_to :root
   end
 
   # For manually uploading a transcription from a file. Currently supports Acusis format
