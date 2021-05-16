@@ -19,7 +19,7 @@ class RecordController < ApplicationController
   def upload_file
     handle_blob(recording_params[:file].read, User.find_by(id: recording_params[:user]), true)
     flash.notice = 'Recording uploaded'
-    reirect_to :root
+    redirect_to :root
   end
 
   # For manually uploading a transcription from a file. Currently supports Acusis format
@@ -48,6 +48,7 @@ class RecordController < ApplicationController
       sha1: sha1,
       is_video: false,
       media_format: 'mp3',
+      is_process: true,
     )
     recording.media_file.attach(io: File.open(filepath), filename: "#{sha1}.ogg")
     recording.title = default_title
