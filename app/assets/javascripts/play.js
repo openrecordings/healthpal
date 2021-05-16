@@ -89,7 +89,7 @@ if (document.querySelector('#play-view')) {
             $('#create-note-time').text(displayTime);
             setUiToTime(currentTime);
             if (currentTime == 0) { currentNote = null };
-            updateAutoScroll();
+            // updateAutoScroll();
           };
           // Can't simply togglePlayPause() because we may have been playing or not when
           // onended was triggered (can fast-forward to end while paused)
