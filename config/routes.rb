@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   post 'destroy_links/:id',            to: 'links#destroy_for_utterance',        as: 'destroy_links'
 
   # Admin
-  get 'admin',                         to: 'admin#index'
+  get 'admin',                         to: 'admin#index',                        as: 'admin'
   get 'manage_recordings',             to: 'admin#manage_recordings',            as: 'manage_recordings'
   get 'tag_recording/:id',             to: 'admin#tag_recording',                as: 'tag_recording'
   get 'users',                         to: 'admin#users'
