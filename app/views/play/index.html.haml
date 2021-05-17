@@ -1,17 +1,17 @@
 #play-view{'data-initial-recording-id': @recording&.id}
-  -# #metadata-overlay.overlay.invisible
-  -#   .modal-form-container
-  -#     %form#metadata-form
-  -#       .form-title.margin-bottom-10= t(:edit_recording_details)
-  -#       .form-label= t(:recording_name)
-  -#       = text_field_tag('edit-recording-title', nil, value: @recording&.title, placeholder: t(:recording_name), class: 'form-input', data: {placeholder: t(:recording_name)})
-  -#       .input-underscore
-  -#       .form-label= t(:doctors_name)
-  -#       = text_field_tag('edit-recording-provider', nil, value: @recording&.provider, placeholder: t(:doctors_name), class: 'form-input', data: {placeholder: t(:doctors_name)})
-  -#       .input-underscore
-  -#       .save-cancel-buttons
-  -#         #metadata-cancel.cancel.modal-cancel= t(:cancel)
-  -#         #metadata-save.save.modal-save.enter-submit= t(:save)
+  #metadata-overlay.overlay.invisible
+    .modal-form-container
+      %form#metadata-form
+        .form-title.margin-bottom-10= t(:edit_recording_details)
+        .form-label= t(:recording_name)
+        = text_field_tag('edit-recording-title', nil, value: @recording&.title, placeholder: t(:recording_name), class: 'form-input', data: {placeholder: t(:recording_name)})
+        .input-underscore
+        .form-label= t(:doctors_name)
+        = text_field_tag('edit-recording-provider', nil, value: @recording&.provider, placeholder: t(:doctors_name), class: 'form-input', data: {placeholder: t(:doctors_name)})
+        .input-underscore
+        .save-cancel-buttons
+          #metadata-cancel.cancel.modal-cancel= t(:cancel)
+          #metadata-save.save.modal-save.enter-submit= t(:save)
   -# #note-overlay.overlay.invisible
   -#   .modal-form-container
   -#     %form#note-form
@@ -45,15 +45,15 @@
         =link_to t(:make_recording_now), record_path, class: 'button'
   #right
     #player-container
-      -# #header
-      -#   #edit-recording-metadata.log
-      -#     #recording-title
-      -#     #metadata-edit-icon
-      -#       #recording-provider
-      -#       = inline_svg('edit.svg', class: 'edit-svg')
-      -#   #header-right
-      -#     #recording-date
-      -#     #recording-days-ago
+      #header
+        #edit-recording-metadata.log
+          #recording-title
+          #metadata-edit-icon
+            #recording-provider
+            = inline_svg('edit.svg', class: 'edit-svg')
+        #header-right
+          #recording-date
+          #recording-days-ago
       -# #notes-header.hidden= t(:your_notes)
       -# #notes
       -#   #no-notes= t(:notes_appear_here)
