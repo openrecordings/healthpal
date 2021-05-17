@@ -42,7 +42,8 @@
     -else
       #no-recordings
         .pad-30= t(:recordings_appear_here)
-        =link_to t(:make_recording_now), record_path, class: 'button'
+        - if current_user.can_record
+          =link_to t(:make_recording_now), record_path, class: 'button'
   #right
     #player-container
       #header
