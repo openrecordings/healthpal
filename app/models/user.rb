@@ -48,7 +48,7 @@ class User < ApplicationRecord
     viewable += recordings_shared_with
     viewable += org.recordings if admin?
     viewable += Recording.all if root?
-    viewable.flatten.uniq.sort_by(&:created_at).reverse
+    viewable.flatten.uniq.sort_by(&:created_at)
   end
 
   def viewable_recordings_by_user
