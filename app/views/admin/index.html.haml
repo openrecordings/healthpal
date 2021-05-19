@@ -56,7 +56,8 @@
               - messages = recording.messages
               - if messages.any? && recording.user_can_access
                 - messages.each do |message|
-                  .pad-left-20= "email sent: #{message.delivered_at.nil? ? 'delivery pending' : format_date_time(message.delivered_at)}" 
+                  - if message.delivered_at
+                    .pad-left-20= "email sent: #{format_date_time(message.delivered_at)}" 
                 .pad-left-20= link_to 'resend ready email', resend_recording_ready_email_path(id: recording.id)
           %td= user.sign_in_count
           %td= format_date_time(user.current_sign_in_at || user.last_sign_in_at)
