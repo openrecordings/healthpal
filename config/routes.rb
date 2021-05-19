@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   post 'destroy_links/:id',         to: 'links#destroy_for_utterance',      as: 'destroy_links'
 
   # Admin
-  get 'admin',                       to: 'admin#index'
+  get 'admin',                       to: 'admin#index',                      as: 'admin'
   get 'manage_recordings',           to: 'admin#manage_recordings',          as: 'manage_recordings'
   get 'tag_recording/:id',           to: 'admin#tag_recording',              as: 'tag_recording'
   get 'users',                       to: 'admin#users'
@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   get 'new_caregiver',               to: 'admin#new_caregiver'
   post 'create_caregiver',           to: 'admin#create_caregiver'
   post 'set_user_can_access',        to: 'admin#set_user_can_access',        as: 'set_user_can_access'
+  get 'resend_recording_ready_email',to: 'admin#resend_recording_ready_email',as: 'resend_recording_ready_email'
   post 'set_can_view_tags',          to: 'admin#set_can_view_tags',          as: 'set_can_view_tags'
   post 'set_can_view_tags_editable', to: 'admin#set_can_view_tags_editable', as: 'set_can_view_tags_editable'
   post 'delete_annotation',          to: 'admin#delete_annotation',          as: 'delete_annotation'

@@ -97,6 +97,13 @@ class AdminController < ApplicationController
     )
   end
 
+  def resend_recording_ready_email
+    recording = Recording.find(params[:id])
+    recording.create_ready_email
+    recording.send_ready_email
+    redirect_to :admin 
+  end
+
   # AJAX endpoint for setting whether or not a recording is visible by its owner
   def set_user_can_access
     recording = Recording.find(params[:id])
