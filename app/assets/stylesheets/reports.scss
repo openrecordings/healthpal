@@ -11,11 +11,12 @@
       padding: 15px;
     }
   }
-  #tables {
+  .tables {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     align-items: flex-start;
+    margin-left: 30px;
     padding: 20px;
   }
 }
