@@ -1,9 +1,30 @@
 #reports-page{"data-recruitment" => @report.recruitment_chart_data}
-  #charts
-    .chart-container
-      %canvas#chart-1
-    .chart-container
-      %canvas#chart-2
-    .chart-container
-      %canvas#chart-3
-  %p= debug @report.site_enrollment_by_period
+  -# #charts
+  -#   .chart-container
+  -#     %canvas#chart-1
+  -#   .chart-container
+  -#     %canvas#chart-2
+  -#   .chart-container
+  -#     %canvas#chart-3
+  #tables.table-container
+    %table
+      %thead
+        %tr.header-row
+          %th Period
+          %th DHMC
+          %th UTMB
+          %th VUMC
+          %th Total
+      %tbody
+        %tr.table-row
+          %td Date First Participant Enrolled
+          - @report.sites.each do |site| 
+            - enrollments = @report.enrollments_by_site[site]
+            %td= format_date(DateTime.parse(enrollments.first.enrollment_date))
+          %td
+        %tr.table-row
+          %td Date Last Participant Enrolled
+          - @report.sites.each do |site| 
+            - enrollments = @report.enrollments_by_site[site]
+            %td= format_date(DateTime.parse(enrollments.last.enrollment_date))
+          %td

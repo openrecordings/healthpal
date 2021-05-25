@@ -27,6 +27,15 @@ class Report
     @site_enrollment_by_period = site_enrollment_by_period
   end
 
+  attr_accessor :sites
+
+  def enrollments_by_site
+    enrollments = {}
+    @sites.each {|site| enrollments[site] = @enrollments.select { |r| r.site == site }}
+    enrollments
+  end
+
+
   def recruitment_chart_data
     site_names = {
       'DH' => 'Dartmouth',
@@ -45,9 +54,6 @@ class Report
       ys = (1..n).to_a
       site_chart_data = []
       (1..n).each { |i| site_chart_data << { x: xs[i - 1], y: ys[i - 1] } }
-      puts '!!!!!!!!!!!!!!!!!!!!!'
-      puts ap site_chart_data
-      puts '!!!!!!!!!!!!!!!!!!!!!'
       org_data['chart_data'] = site_chart_data
       chart_data << org_data
     end

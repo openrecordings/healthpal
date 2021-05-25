@@ -11,4 +11,11 @@
       padding: 15px;
     }
   }
+  #tables {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    padding: 20px;
+  }
 }
