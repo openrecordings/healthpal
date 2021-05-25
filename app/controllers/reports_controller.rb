@@ -27,7 +27,7 @@ class Report
     @site_enrollment_by_period = site_enrollment_by_period
   end
 
-  attr_accessor :sites
+  attr_accessor :sites, :enrollments
 
   def enrollments_by_site
     enrollments = {}
