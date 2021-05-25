@@ -18,8 +18,8 @@ module Orals
 
     # For R56 version only
     if Rails.env == 'hp_r56' || Rails.env == 'development'
-      config.redcap_api_url = 'https://redcap.dartmouth.edu/api/'
-      config.redcap_api_key = '44F9F3CDA4A65970787CC2A99BE2957B'
+      config.redcap_api_url = Rails.application.credentials[Rails.env.to_sym][:redcap_api_url]
+      config.redcap_api_key = Rails.application.credentials[Rails.env.to_sym][:redcap_api_key]
     end
 
     # Hostname for the current environment
