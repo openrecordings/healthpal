@@ -7,6 +7,53 @@ class ReportsController < ApplicationController
 end
 
 class Report
+  def initialize
+    @sites = %w[DH UT VU].freeze
+    @csv_rows = CSV.parse(HTTParty.post(
+      Rails.application.config.redcap_api_url,
+      body: {
+        token: Rails.application.config.redcap_api_key,
+        content: 'report',
+        report_id: '4085',
+        format: 'csv',
+        raw_or_label: 'raw',
+        raw_or_label_headers: 'raw',
+        export_checkbox_label: 'true'
+      }
+    ).body)
+    @row = Struct.new(*@csv_rows.shift.map { |name| name.to_sym })
+    @records = clean_records(@csv_rows.map { |row| Record.new(@row.new(*row)) })
+    @enrollments = @records.select { |r| r.event_name.include? 'participant_regist_arm_' }.freeze
+    @site_enrollment_by_period = site_enrollment_by_period
+  end
+
+  def recruitment_chart_data
+    site_names = {
+      'DH' => 'Dartmouth',
+      'UT' => 'University of Texas',
+      'VU' => 'Vanderbilt University'
+    }
+    chart_data = []
+    @sites.each do |site|
+      enrollments = @enrollments.select { |r| r.site == site }
+      n = enrollments.count
+      org_data = {
+        'org_name': site_names[site],
+        'n': n
+      }
+      xs = enrollments.map { |r| r.enrollment_date }
+      ys = (1..n).to_a
+      site_chart_data = []
+      (1..n).each { |i| site_chart_data << { x: xs[i - 1], y: ys[i - 1] } }
+      puts '!!!!!!!!!!!!!!!!!!!!!'
+      puts ap site_chart_data
+      puts '!!!!!!!!!!!!!!!!!!!!!'
+      org_data['chart_data'] = site_chart_data
+      chart_data << org_data
+    end
+    chart_data.to_json
+  end
+
   class Record
     def initialize(row)
       @row = row
@@ -44,25 +91,4 @@ class Report
     end
     counts
   end
-
-  def initialize
-    @sites = %w[DH UT VU].freeze
-    @csv_rows = CSV.parse(HTTParty.post(
-      Rails.application.config.redcap_api_url,
-      body: {
-        token: Rails.application.config.redcap_api_key,
-        content: 'report',
-        report_id: '4085',
-        format: 'csv',
-        raw_or_label: 'raw',
-        raw_or_label_headers: 'raw',
-        export_checkbox_label: 'true'
-      }
-    ).body)
-    @row = Struct.new(*@csv_rows.shift.map { |name| name.to_sym })
-    @records = clean_records(@csv_rows.map { |row| Record.new(@row.new(*row)) })
-    @enrollments = @records.select { |r| r.event_name.include? 'participant_regist_arm_' }.freeze
-    @site_enrollment_by_period = site_enrollment_by_period
-  end
-
 end

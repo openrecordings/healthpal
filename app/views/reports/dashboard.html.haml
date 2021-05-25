@@ -1,9 +1,9 @@
-#reports-page{"data-recruitment" => @recruitment_data}
-  -# #charts
-  -#   .chart-container
-  -#     %canvas#chart-1
-  -#   .chart-container
-  -#     %canvas#chart-2
-  -#   .chart-container
-  -#     %canvas#chart-3
+#reports-page{"data-recruitment" => @report.recruitment_chart_data}
+  #charts
+    .chart-container
+      %canvas#chart-1
+    .chart-container
+      %canvas#chart-2
+    .chart-container
+      %canvas#chart-3
   %p= debug @report.site_enrollment_by_period

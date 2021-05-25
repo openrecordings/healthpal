@@ -1,7 +1,6 @@
 $(document).ready(function () {
   if ($('#reports-page').length) {
     var recruitmentData = $('#reports-page').data('recruitment');
-    console.log(recruitmentData);
     var orgData;
     var orgName;
     var chartData;
