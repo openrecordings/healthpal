@@ -1,3 +1,4 @@
+-  enrollments = site ? @report.enrollments_by_site[site] : @report.enrollments
 .table-container.pad-left-30.margin-top-40
   .sub-table-title= site ? @report.site_names[site] : 'All Sites'
   %table
@@ -12,7 +13,7 @@
         %td Enrolled
         %td
         %td
-        %td
+        %td 100
       %tr.table-row
         %td
           .pad-left-20 Consent in person
@@ -44,7 +45,7 @@
         %td Discontinued - Follow-up Continued
         %td
         %td
-        %td
+        %td 100
       %tr.table-row
         %td Personal Reason
         %td
@@ -64,7 +65,7 @@
         %td Discontinued from Study
         %td
         %td
-        %td
+        %td 100
       %tr.table-row
         %td Lost to follow-up
         %td

@@ -30,16 +30,16 @@ class Report
       'UT' => 'University of Texas',
       'VU' => 'Vanderbilt University'
     }
+    @enrollments_by_site = site_enrollments
   end
 
-  attr_accessor :sites, :enrollments, :site_names
+  attr_accessor :sites, :enrollments, :enrollments_by_site, :site_names
 
-  def enrollments_by_site
+  def site_enrollments
     enrollments = {}
     @sites.each {|site| enrollments[site] = @enrollments.select { |r| r.site == site }}
     enrollments
   end
-
 
   def recruitment_chart_data
     chart_data = []
