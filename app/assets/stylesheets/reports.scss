@@ -11,17 +11,13 @@
       padding: 15px;
     }
   }
-  .tables {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    align-items: flex-start;
+  .tables-container {
     margin-left: 30px;
-    padding: 20px;
   }
 
   .table-title {
     user-select: none;
+    margin-bottom: -10px;
     &:hover {
       cursor: pointer;
     }
@@ -30,5 +26,9 @@
   .expand-collapse {
     width: 20px;
     transform: translateY(4px);
+  }
+
+  .sub-table-title{
+    font-style: italic;
   }
 }
