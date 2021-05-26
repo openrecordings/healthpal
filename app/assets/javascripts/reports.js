@@ -2,8 +2,8 @@ $(document).ready(function () {
   if ($('#reports-page').length) {
 
     $('.table-title').click(function () {
-      let table = $(this).closest('.table-type-container').find('.expandable');
-      let icons = $(this).closest('.table-type-container').find('.expand-icon');
+      let table = $(this).closest('.table-type-container').find('.expandable').first();
+      let icons = $(this).closest('.table-type-container').find('.expand-icon').slice(0, 2);
       table.toggleClass('hidden');
       icons.toggleClass('hidden');
     })

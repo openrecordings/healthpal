@@ -25,9 +25,14 @@ class Report
     @records = clean_records(@csv_rows.map { |row| Record.new(@row.new(*row)) })
     @enrollments = @records.select { |r| r.event_name.include? 'participant_regist_arm_' }.freeze
     @site_enrollment_by_period = site_enrollment_by_period
+    @site_names = {
+      'DH' => 'Dartmouth',
+      'UT' => 'University of Texas',
+      'VU' => 'Vanderbilt University'
+    }
   end
 
-  attr_accessor :sites, :enrollments
+  attr_accessor :sites, :enrollments, :site_names
 
   def enrollments_by_site
     enrollments = {}
@@ -37,17 +42,12 @@ class Report
 
 
   def recruitment_chart_data
-    site_names = {
-      'DH' => 'Dartmouth',
-      'UT' => 'University of Texas',
-      'VU' => 'Vanderbilt University'
-    }
     chart_data = []
     @sites.each do |site|
       enrollments = @enrollments.select { |r| r.site == site }
       n = enrollments.count
       org_data = {
-        'org_name': site_names[site],
+        'org_name': @site_names[site],
         'n': n
       }
       xs = enrollments.map { |r| r.enrollment_date }

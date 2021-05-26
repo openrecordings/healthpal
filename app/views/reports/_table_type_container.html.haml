@@ -1,0 +1,6 @@
+.table-type-container.margin-top-20
+  .table-title.title
+    %span.expand-icon= image_tag('triangle-collapsed.svg', class: 'expand-collapse')
+    %span.expand-icon.hidden= image_tag('triangle-expanded.svg', class: 'expand-collapse')
+    = title
+  = yield

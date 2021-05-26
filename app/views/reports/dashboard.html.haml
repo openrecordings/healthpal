@@ -1,92 +1,10 @@
 #reports-page{"data-recruitment" => @report.recruitment_chart_data}
-  #charts
-    .chart-container
-      %canvas#chart-1
-    .chart-container
-      %canvas#chart-2
-    .chart-container
-      %canvas#chart-3
-  .tables-container.margin-bottom-40
-    .table-type-container
-      .table-title.title
-        %span.expand-icon= image_tag('triangle-collapsed.svg', class: 'expand-collapse')
-        %span.expand-icon.hidden= image_tag('triangle-expanded.svg', class: 'expand-collapse')
-        Site Enrollment By Period 
+  = render partial: 'charts'
+  .tables-container
+    = render layout: 'table_type_container', locals: {title: 'Site Enrollment by Period'} do
+      .tables.expandable.hidden= render partial: 'site_enrollment', locals: {report: @report}
+    = render layout: 'table_type_container', locals: {title: 'Participant Enrollment Status by Site'} do
       .tables.expandable.hidden
-        .table-container.pad-left-30
-        .table-container.pad-left-30.margin-top-40
-          .sub-table-title Foo
-          %table
-            %thead
-              %tr.header-row
-                %th Period
-                %th DHMC
-                %th UTMB
-                %th VUMC
-                %th Total
-            %tbody
-              %tr.table-row
-                %td Date First Participant Enrolled
-                - @report.sites.each do |site| 
-                  - enrollments = @report.enrollments_by_site[site]
-                  %td= format_date(DateTime.parse(enrollments.first.enrollment_date))
-                %td
-              %tr.table-row
-                %td Date Last Participant Enrolled
-                - @report.sites.each do |site| 
-                  - enrollments = @report.enrollments_by_site[site]
-                  %td= format_date(DateTime.parse(enrollments.last.enrollment_date))
-                %td
-              - @report.site_enrollment_by_period.each_pair do |month, counts|
-                - total = 0
-                %tr.table-row
-                  %td= month 
-                  - counts.each_pair do |site, count|
-                    - total += count
-                    %td= count
-                  %td= total
-              %tr.table-row
-                %td Total (%)
-                - @report.sites.each do |site| 
-                  - site_enrollments = @report.enrollments_by_site[site].count
-                  - percent = (site_enrollments * 100 / @report.enrollments.count).round
-                  %td= "#{site_enrollments} (#{percent})" 
-                %td= @report.enrollments.count
-        .table-container.pad-left-30.margin-top-40
-          .sub-table-title Foo
-          %table
-            %thead
-              %tr.header-row
-                %th Period
-                %th DHMC
-                %th UTMB
-                %th VUMC
-                %th Total
-            %tbody
-              %tr.table-row
-                %td Date First Participant Enrolled
-                - @report.sites.each do |site| 
-                  - enrollments = @report.enrollments_by_site[site]
-                  %td= format_date(DateTime.parse(enrollments.first.enrollment_date))
-                %td
-              %tr.table-row
-                %td Date Last Participant Enrolled
-                - @report.sites.each do |site| 
-                  - enrollments = @report.enrollments_by_site[site]
-                  %td= format_date(DateTime.parse(enrollments.last.enrollment_date))
-                %td
-              - @report.site_enrollment_by_period.each_pair do |month, counts|
-                - total = 0
-                %tr.table-row
-                  %td= month 
-                  - counts.each_pair do |site, count|
-                    - total += count
-                    %td= count
-                  %td= total
-              %tr.table-row
-                %td Total (%)
-                - @report.sites.each do |site| 
-                  - site_enrollments = @report.enrollments_by_site[site].count
-                  - percent = (site_enrollments * 100 / @report.enrollments.count).round
-                  %td= "#{site_enrollments} (#{percent})" 
-                %td= @report.enrollments.count
+        = render partial: 'enrollment_status', locals: {report: @report, site: nil}
+        - @report.sites.each do |site|
+          = render partial: 'enrollment_status', locals: {report: @report, site: site}
