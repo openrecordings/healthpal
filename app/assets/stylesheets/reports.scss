@@ -19,4 +19,16 @@
     margin-left: 30px;
     padding: 20px;
   }
+
+  .table-title {
+    user-select: none;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .expand-collapse {
+    width: 20px;
+    transform: translateY(4px);
+  }
 }

@@ -1,15 +1,18 @@
 #reports-page{"data-recruitment" => @report.recruitment_chart_data}
-  #charts
-    .chart-container
-      %canvas#chart-1
-    .chart-container
-      %canvas#chart-2
-    .chart-container
-      %canvas#chart-3
+  -# #charts
+  -#   .chart-container
+  -#     %canvas#chart-1
+  -#   .chart-container
+  -#     %canvas#chart-2
+  -#   .chart-container
+  -#     %canvas#chart-3
   .tables
     .table-container
-      .title.margin-bottom-10 Site Enrollment By Period 
-      %table
+      .table-title.title.margin-bottom-10
+        %span.expand-icon= image_tag('triangle-collapsed.svg', class: 'expand-collapse')
+        %span.expand-icon.hidden= image_tag('triangle-expanded.svg', class: 'expand-collapse')
+        Site Enrollment By Period 
+      %table.expandable.hidden
         %thead
           %tr.header-row
             %th Period

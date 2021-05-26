@@ -1,5 +1,13 @@
 $(document).ready(function () {
   if ($('#reports-page').length) {
+
+    $('.table-title').click(function () {
+      let table = $(this).closest('.table-container').find('.expandable');
+      let icons = $(this).closest('.table-container').find('.expand-icon');
+      table.toggleClass('hidden');
+      icons.toggleClass('hidden');
+    })
+
     var recruitmentData = $('#reports-page').data('recruitment');
     var orgData;
     var orgName;
