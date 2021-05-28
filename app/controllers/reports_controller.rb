@@ -24,16 +24,21 @@ class Report
     @row = Struct.new(*@csv_rows.shift.map { |name| name.to_sym })
     @records = clean_records(@csv_rows.map { |row| Record.new(@row.new(*row)) })
     @enrollments = @records.select { |r| r.event_name.include? 'participant_regist_arm_' }.freeze
-    @site_enrollment_by_period = site_enrollment_by_period
+    @site_enrollment_by_period = _site_enrollment_by_period
     @site_names = {
       'DH' => 'Dartmouth',
       'UT' => 'University of Texas',
       'VU' => 'Vanderbilt University'
     }
     @enrollments_by_site = site_enrollments
+    @use_metrics = _use_metrics
   end
 
-  attr_accessor :sites, :enrollments, :enrollments_by_site, :site_names
+  attr_accessor :sites, :enrollments, :enrollments_by_site, :site_names, :use_metrics
+
+  def _use_metrics
+    Recording.user_recordings
+  end
 
   def site_enrollments
     enrollments = {}
@@ -84,7 +89,7 @@ class Report
     records.select { |r| @sites.include? r.site }
   end
 
-  def site_enrollment_by_period
+  def _site_enrollment_by_period
     by_month = @enrollments.group_by { |r| Date.parse(r.enrollment_date).strftime('%B %Y') }
     months = by_month.keys
     counts = {}
