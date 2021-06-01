@@ -19,14 +19,15 @@
       %tr.table-row
         %td
           .pad-left-20 Consent in person
-        %td
-        %td
-        %td
+        %td= enrollments['in_person_intervention']
+        %td= enrollments['in_person_usual_care']
+        %td= sprintf('%.1f', enrollments['in_person_percent'])
       %tr.table-row
         %td
           .pad-left-20 eConsent
-        %td
-        %td
+        %td= enrollments['econsent_intervention']
+        %td= enrollments['econsent_usual_care']
+        %td= sprintf('%.1f', enrollments['econsent_percent'])
         %td
       %tr.table-row
         %td Active

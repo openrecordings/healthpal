@@ -51,12 +51,24 @@ class Report
 
   def _enrollment_status
     statuses = {}
-    enrollments = _site_enrollments 
+    enrollments = _site_enrollments
     enrollments['all'] = @enrollments
     enrollments.each_pair do |site, _enrollments|
       statuses[site] = {}
-      statuses[site]['enrolled_intervention'] = _enrollments.select{|e| e.study_arm == '1'}.count
-      statuses[site]['enrolled_usual_care'] = _enrollments.select{|e| e.study_arm == '2'}.count
+      _intervention = _enrollments.select { |e| e.study_arm == '1' }
+      _usual_care = _enrollments.select { |e| e.study_arm == '2' }
+      statuses[site]['enrolled_intervention'] = _intervention.count
+      statuses[site]['enrolled_usual_care'] = _usual_care.count
+      statuses[site]['in_person_intervention'] = _intervention.select do |e|
+        e.econsent == '0'
+      end.count
+      statuses[site]['in_person_usual_care'] = _usual_care.select { |e| e.econsent == '0' }.count
+      statuses[site]['in_person_percent'] =
+        (statuses[site]['in_person_intervention'] + statuses[site]['in_person_usual_care']) / _enrollments.count.to_f * 100.0
+      statuses[site]['econsent_intervention'] = _intervention.select { |e| e.econsent == '1' }.count
+      statuses[site]['econsent_usual_care'] = _usual_care.select { |e| e.econsent == '1' }.count
+      statuses[site]['econsent_percent'] =
+        (statuses[site]['econsent_intervention'] + statuses[site]['econsent_usual_care']) / _enrollments.count.to_f * 100.0
     end
     statuses
   end
@@ -101,6 +113,10 @@ class Report
 
     def study_arm
       row.pt_study_arm
+    end
+
+    def econsent
+      row.pt_econsent
     end
   end
 
