@@ -30,23 +30,38 @@ class Report
       'UT' => 'University of Texas',
       'VU' => 'Vanderbilt University'
     }
-    @enrollments_by_site = site_enrollments
+    @enrollments_by_site = _site_enrollments
     @use_metrics = _use_metrics
+    @recruitment_chart_data = _recruitment_chart_data
+    @enrollment_status = _enrollment_status
   end
 
-  attr_accessor :sites, :enrollments, :enrollments_by_site, :site_names, :use_metrics
+  attr_accessor :sites, :enrollments, :enrollments_by_site, :site_names, :use_metrics,
+                :site_enrollment_by_period, :enrollment_status, :recruitment_chart_data
 
   def _use_metrics
     Recording.user_recordings
   end
 
-  def site_enrollments
+  def _site_enrollments
     enrollments = {}
-    @sites.each {|site| enrollments[site] = @enrollments.select { |r| r.site == site }}
+    @sites.each { |site| enrollments[site] = @enrollments.select { |r| r.site == site } }
     enrollments
   end
 
-  def recruitment_chart_data
+  def _enrollment_status
+    statuses = {}
+    enrollments = _site_enrollments 
+    enrollments['all'] = @enrollments
+    enrollments.each_pair do |site, _enrollments|
+      statuses[site] = {}
+      statuses[site]['enrolled_intervention'] = _enrollments.select{|e| e.study_arm == '1'}.count
+      statuses[site]['enrolled_usual_care'] = _enrollments.select{|e| e.study_arm == '2'}.count
+    end
+    statuses
+  end
+
+  def _recruitment_chart_data
     chart_data = []
     @sites.each do |site|
       enrollments = @enrollments.select { |r| r.site == site }
@@ -82,6 +97,10 @@ class Report
 
     def event_name
       row.redcap_event_name
+    end
+
+    def study_arm
+      row.pt_study_arm
     end
   end
 

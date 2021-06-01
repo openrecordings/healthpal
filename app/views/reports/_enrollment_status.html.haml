@@ -1,6 +1,8 @@
--  enrollments = site ? @report.enrollments_by_site[site] : @report.enrollments
+- enrollments = @report.enrollment_status[site]
+-# = debug site
+-# = debug enrollments
 .table-container.pad-left-30.margin-top-40
-  .sub-table-title= site ? @report.site_names[site] : 'All Sites'
+  .sub-table-title= site == 'all' ? 'All Sites' : @report.site_names[site]
   %table
     %thead
       %tr.header-row
@@ -11,8 +13,8 @@
     %tbody
       %tr.table-row
         %td Enrolled
-        %td
-        %td
+        %td= enrollments['enrolled_intervention']
+        %td= enrollments['enrolled_usual_care']
         %td 100
       %tr.table-row
         %td

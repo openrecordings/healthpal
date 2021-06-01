@@ -20,7 +20,7 @@
           - enrollments = @report.enrollments_by_site[site]
           %td= format_date(DateTime.parse(enrollments.last.enrollment_date))
         %td
-      - @report.site_enrollment_by_period.each_pair do |month, counts|
+      - report.site_enrollment_by_period.each_pair do |month, counts|
         - total = 0
         %tr.table-row
           %td= month 
