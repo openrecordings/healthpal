@@ -24,6 +24,7 @@ class Report
     @row = Struct.new(*@csv_rows.shift.map { |name| name.to_sym })
     @records = clean_records(@csv_rows.map { |row| Record.new(@row.new(*row)) })
     @enrollments = @records.select { |r| r.event_name.include? 'participant_regist_arm_' }.freeze
+    @t2_avs = @records.select { |r| r.event_name.include? 't2_surveys_arm_' }.freeze
     @site_enrollment_by_period = _site_enrollment_by_period
     @site_names = {
       'DH' => 'Dartmouth',
@@ -57,6 +58,7 @@ class Report
       statuses[site] = {}
       _intervention = _enrollments.select { |e| e.study_arm == '1' }
       _usual_care = _enrollments.select { |e| e.study_arm == '2' }
+
       statuses[site]['enrolled_intervention'] = _intervention.count
       statuses[site]['enrolled_usual_care'] = _usual_care.count
       statuses[site]['in_person_intervention'] = _intervention.select do |e|
