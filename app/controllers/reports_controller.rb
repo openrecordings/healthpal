@@ -22,7 +22,7 @@ class Report
       }
     ).body)
     @row = Struct.new(*@csv_rows.shift.map { |name| name.to_sym })
-    @records = clean_records(@csv_rows.map { |row| Record.new(@row.new(*row)) })
+    @records = clean_records(@csv_rows.map { |row| Participant.new(@row.new(*row)) })
     @enrollments = @records.select { |r| r.event_name.include? 'participant_regist_arm_' }.freeze
     @t2_avs = @records.select { |r| r.event_name.include? 't2_surveys_arm_' }.freeze
     @site_enrollment_by_period = _site_enrollment_by_period
@@ -31,7 +31,7 @@ class Report
       'UT' => 'University of Texas',
       'VU' => 'Vanderbilt University'
     }
-    @enrollments_by_site = _site_enrollments
+    @enrollments_by_site = _records_by_site(@enrollments)
     @use_metrics = _use_metrics
     @recruitment_chart_data = _recruitment_chart_data
     @enrollment_status = _enrollment_status
@@ -44,23 +44,28 @@ class Report
     Recording.user_recordings
   end
 
-  def _site_enrollments
-    enrollments = {}
-    @sites.each { |site| enrollments[site] = @enrollments.select { |r| r.site == site } }
-    enrollments
+  def _records_by_site(_records)
+    by_site = {}
+    @sites.each { |site| by_site[site] = _records.select { |r| r.site == site } }
+    by_site
   end
 
   def _enrollment_status
     statuses = {}
     enrollments = _site_enrollments
     enrollments['all'] = @enrollments
+    avs_records = @records.select{|r| r.event_name.include? 't2_surveys_arm_'}
+    avs_by_site = _records_by_site(avs_records)
     enrollments.each_pair do |site, _enrollments|
       statuses[site] = {}
       _intervention = _enrollments.select { |e| e.study_arm == '1' }
       _usual_care = _enrollments.select { |e| e.study_arm == '2' }
 
+      # Number enrolled
       statuses[site]['enrolled_intervention'] = _intervention.count
       statuses[site]['enrolled_usual_care'] = _usual_care.count
+
+      # eConsent
       statuses[site]['in_person_intervention'] = _intervention.select do |e|
         e.econsent == '0'
       end.count
@@ -71,6 +76,10 @@ class Report
       statuses[site]['econsent_usual_care'] = _usual_care.select { |e| e.econsent == '1' }.count
       statuses[site]['econsent_percent'] =
         (statuses[site]['econsent_intervention'] + statuses[site]['econsent_usual_care']) / _enrollments.count.to_f * 100.0
+
+      # Completion status
+      avs_s = site == 'all' ? avs_records : avs_by_site[site]
+      # statusues[site]['completed'] = avs_s.select{|avs| av }
     end
     statuses
   end
@@ -94,7 +103,7 @@ class Report
     chart_data.to_json
   end
 
-  class Record
+  class Participant
     def initialize(row)
       @row = row
     end
