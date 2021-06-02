@@ -46,6 +46,7 @@ class Report
       @rows = all_rows.select { |r| r.pt_id == pt_id }.freeze
       @enrollment = @rows.find { |r| r.redcap_event_name.include? 'participant_regist_arm_' }.freeze
       @t2_avs = @rows.find { |r| r.redcap_event_name.include? 't2_surveys_arm_' }.freeze
+      @demographics = @rows.find { |r| r.pt_gender.present? }.freeze
       @withdraw = @rows.find { |r| r.pt_withdraw_level.present? }.freeze
     end
 
@@ -71,6 +72,10 @@ class Report
       return false if @t2_avs.nil?
 
       @t2_avs.t2_after_visit_summary_questions_both_arms_complete == '2'
+    end
+
+    def active?
+      !completed? && !treatment_withdraw? && !study_withdraw?
     end
 
     def treatment_withdraw?
@@ -162,6 +167,10 @@ class Report
       statuses[site]['completed_usual_care'] = usual_care.select { |pt| pt.completed? }.count
       statuses[site]['completed_percent'] =
         (statuses[site]['completed_intervention'] + statuses[site]['completed_usual_care']) / @participants.count.to_f * 100.0
+      statuses[site]['active_intervention'] = intervention.select { |pt| pt.active? }.count
+      statuses[site]['active_usual_care'] = usual_care.select { |pt| pt.active? }.count
+      statuses[site]['active_percent'] =
+        (statuses[site]['active_intervention'] + statuses[site]['active_usual_care']) / @participants.count.to_f * 100.0
     end
     statuses
   end

@@ -31,9 +31,9 @@
         %td
       %tr.table-row
         %td Active
-        %td
-        %td
-        %td
+        %td= enrollments['active_intervention']
+        %td= enrollments['active_usual_care']
+        %td= sprintf('%.1f', enrollments['active_percent'])
       %tr.table-row
         %td Completed
         %td= enrollments['completed_intervention']
