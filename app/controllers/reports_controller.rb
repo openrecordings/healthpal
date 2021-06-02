@@ -51,9 +51,10 @@ class Report
       @t2_avs = @rows.find { |r| r.redcap_event_name.include? 't2_surveys_arm_' }.freeze
       @demographics = @rows.find { |r| r.pt_gender.present? }.freeze
       @withdraw = @rows.find { |r| r.pt_withdraw_level.present? }.freeze
+      @use = @rows.find { |r| r.pt_recording_use.present? }.freeze
     end
 
-    attr_accessor :pt_id, :demographics
+    attr_accessor :pt_id, :demographics, :use
 
     def site
       @pt_id[0..1]
@@ -185,8 +186,8 @@ class Report
     n = all.count
     ages = {
       all: all.select { |d| !d.nil? }.map { |d| d.pt_age.to_i },
-      intervention: intervention.select { |d| !d.nil? }.map { |d| d.pt_age.to_i },
-      usual_care: usual_care.select { |d| !d.nil? }.map { |d| d.pt_age.to_i }
+      intervention: intervention.reject { |d| d.nil? }.map { |d| d.pt_age.to_i },
+      usual_care: usual_care.reject { |d| d.nil? }.map { |d| d.pt_age.to_i }
     }
     {
       enrolled: {
@@ -273,12 +274,12 @@ class Report
         median: {
           all: _median(ages[:all]),
           intervention: _median(ages[:intervention]),
-          usual_care: _median(ages[:usual_care]),
+          usual_care: _median(ages[:usual_care])
         },
         stdev: {
           all: _standard_deviation(ages[:all]),
           intervention: _standard_deviation(ages[:intervention]),
-          usual_care: _standard_deviation(ages[:usual_care]),
+          usual_care: _standard_deviation(ages[:usual_care])
         },
         min: {
           all: ages[:all].min,
@@ -292,6 +293,10 @@ class Report
         }
       }
     }
+  end
+
+  def _use
+    use_pts = @participants.reject { |pt| pt.use.nil? }
   end
 
   def _median(array)

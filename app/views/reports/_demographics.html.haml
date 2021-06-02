@@ -1,7 +1,7 @@
 - d = @report.demographics
 - d_missing = @report.demographics_missing
 .table-container.pad-left-30.margin-top-40
-  .smaller.margin-bottom-10.red= "Missing demographics for #{d_missing.count} participants: #{d_missing.map{|p| p.pt_id}.join(', ')} "
+  .smaller.margin-bottom-10.red= "Missing demographics for #{d_missing.count} participants: #{d_missing.map{|p| p.pt_id}.join(', ')} " if d_missing.any?
   %table
     %thead
       %tr.header-row
