@@ -326,6 +326,7 @@ DEPENDENCIES
   concurrent-ruby
   daemons
   delayed_job_active_record
+  descriptive_statistics
   devise (>= 4.7.1)
   devise_invitable (~> 1.7.0)
   ffi (>= 1.9.24)

@@ -183,6 +183,11 @@ class Report
     usual_care = @participants.select { |pt| pt.study_arm == '2' }.map(&:demographics)
     all = @participants.map(&:demographics)
     n = all.count
+    ages = {
+      all: all.select { |d| !d.nil? }.map { |d| d.pt_age.to_i },
+      intervention: intervention.select { |d| !d.nil? }.map { |d| d.pt_age.to_i },
+      usual_care: usual_care.select { |d| !d.nil? }.map { |d| d.pt_age.to_i }
+    }
     {
       enrolled: {
         n: "#{n} (100%)",
@@ -190,11 +195,6 @@ class Report
         usual_care: usual_care.count.to_s
       },
       gender: {
-        # male: {
-        #   n: all,
-        #   intervention: intervention.count,
-        #   usual_care: usual_care.count,
-        # },
         male: {
           n: all.count { |d| d&.pt_gender == '2' },
           intervention: intervention.count { |d| d&.pt_gender == '2' },
@@ -210,13 +210,104 @@ class Report
           intervention: intervention.count { |d| d&.pt_gender == '3' },
           usual_care: usual_care.count { |d| d&.pt_gender == '3' }
         }
+      },
+      ethnicity: {
+        hispanic: {
+          n: all.count { |d| d&.pt_hispanic == '1' },
+          intervention: intervention.count { |d| d&.pt_hispanic == '1' },
+          usual_care: usual_care.count { |d| d&.pt_hispanic == '1' }
+        },
+        not_hispanic: {
+          n: all.count { |d| d&.pt_hispanic == '2' },
+          intervention: intervention.count { |d| d&.pt_hispanic == '2' },
+          usual_care: usual_care.count { |d| d&.pt_hispanic == '2' }
+        }
+      },
+      race: {
+        american_indian: {
+          n: all.count { |d| d&.pt_ethnicity == '1' },
+          intervention: intervention.count { |d| d&.pt_ethnicity == '1' },
+          usual_care: usual_care.count { |d| d&.pt_ethnicity == '1' }
+        },
+        asian: {
+          n: all.count { |d| d&.pt_ethnicity == '2' },
+          intervention: intervention.count { |d| d&.pt_ethnicity == '2' },
+          usual_care: usual_care.count { |d| d&.pt_ethnicity == '2' }
+        },
+        black: {
+          n: all.count { |d| d&.pt_ethnicity == '3' },
+          intervention: intervention.count { |d| d&.pt_ethnicity == '3' },
+          usual_care: usual_care.count { |d| d&.pt_ethnicity == '3' }
+        },
+        hawaiian: {
+          n: all.count { |d| d&.pt_ethnicity == '4' },
+          intervention: intervention.count { |d| d&.pt_ethnicity == '4' },
+          usual_care: usual_care.count { |d| d&.pt_ethnicity == '4' }
+        },
+        white: {
+          n: all.count { |d| d&.pt_ethnicity == '5' },
+          intervention: intervention.count { |d| d&.pt_ethnicity == '5' },
+          usual_care: usual_care.count { |d| d&.pt_ethnicity == '5' }
+        },
+        more_than_one: {
+          n: all.count { |d| d&.pt_ethnicity == '6' },
+          intervention: intervention.count { |d| d&.pt_ethnicity == '6' },
+          usual_care: usual_care.count { |d| d&.pt_ethnicity == '6' }
+        },
+        other: {
+          n: all.count { |d| d&.pt_ethnicity == '7' },
+          intervention: intervention.count { |d| d&.pt_ethnicity == '7' },
+          usual_care: usual_care.count { |d| d&.pt_ethnicity == '7' }
+        }
+      },
+      age: {
+        mean: {
+          all: (ages[:all].reduce { |sum, age| sum + age }.to_f / ages[:all].count).to_i,
+          intervention: (ages[:intervention].reduce do |sum, age|
+                           sum + age
+                         end.to_f / ages[:intervention].count).to_i,
+          usual_care: (ages[:usual_care].reduce do |sum, age|
+                         sum + age
+                       end.to_f / ages[:usual_care].count).to_i
+        },
+        median: {
+          all: _median(ages[:all]),
+          intervention: _median(ages[:intervention]),
+          usual_care: _median(ages[:usual_care]),
+        },
+        stdev: {
+          all: _standard_deviation(ages[:all]),
+          intervention: _standard_deviation(ages[:intervention]),
+          usual_care: _standard_deviation(ages[:usual_care]),
+        },
+        min: {
+          all: ages[:all].min,
+          intervention: ages[:intervention].min,
+          usual_care: ages[:usual_care].min
+        },
+        max: {
+          all: ages[:all].max,
+          intervention: ages[:intervention].max,
+          usual_care: ages[:usual_care].max
+        }
       }
     }
   end
-end
 
-# : {
-#   n:,
-#   intervention:,
-#   usual_care:,
-# },
+  def _median(array)
+    return nil if array.empty?
+
+    sorted = array.sort
+    len = sorted.length
+    (sorted[(len - 1) / 2] + sorted[len / 2]) / 2.0
+  end
+
+  def _standard_deviation(array)
+    return nil if array.empty?
+
+    mean = array.sum / array.length.to_f
+    sum = array.reduce(0) { |accum, i| accum + (i - mean)**2 }
+    variance = sum / (array.length - 1).to_f
+    Math.sqrt(variance).round(1)
+  end
+end

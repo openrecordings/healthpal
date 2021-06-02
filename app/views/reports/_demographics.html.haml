@@ -15,18 +15,18 @@
         %td= d[:enrolled][:n]
         %td= d[:enrolled][:intervention]
         %td= d[:enrolled][:usual_care]
-      %tr
+      %tr.table-row
         %td.shaded{rowspan: 3} Gender
         %td Male
         %td= d[:gender][:male][:n]
         %td= d[:gender][:male][:intervention]
         %td= d[:gender][:male][:usual_care]
-      %tr
+      %tr.table-row
         %td Female
         %td= d[:gender][:female][:n]
         %td= d[:gender][:female][:intervention]
         %td= d[:gender][:female][:usual_care]
-      %tr
+      %tr.table-row
         %td Other
         %td= d[:gender][:other][:n]
         %td= d[:gender][:other][:intervention]
@@ -37,93 +37,93 @@
         %td
         %td
         %td
-      %tr
+      %tr.table-row
         %td.shaded{rowspan: 3} Ethnicity
         %td Hispanic or Latino
-        %td 
-        %td 
-        %td 
-      %tr
+        %td= d[:ethnicity][:hispanic][:n]
+        %td= d[:ethnicity][:hispanic][:intervention]
+        %td= d[:ethnicity][:hispanic][:usual_care]
+      %tr.table-row
         %td Not Hispanic or Latino
-        %td 
-        %td 
-        %td 
-      %tr
+        %td= d[:ethnicity][:not_hispanic][:n]
+        %td= d[:ethnicity][:not_hispanic][:intervention]
+        %td= d[:ethnicity][:not_hispanic][:usual_care]
+      %tr.table-row
         %td Unknown or not reported
-        %td 
-        %td 
-        %td 
+        %td 0
+        %td 0 
+        %td 0 
       %tr.light-header-row
         %td
         %td
         %td
         %td
         %td
-      %tr
+      %tr.table-row
         %td.shaded{rowspan: 7} Race
         %td American Indian / Alaska Native
-        %td 
-        %td 
-        %td 
-      %tr
+        %td= d[:race][:american_indian][:n]
+        %td= d[:race][:american_indian][:intervention]
+        %td= d[:race][:american_indian][:usual_care]
+      %tr.table-row
         %td Asian
-        %td 
-        %td 
-        %td 
-      %tr
+        %td= d[:race][:asian][:n]
+        %td= d[:race][:asian][:intervention]
+        %td= d[:race][:asian][:usual_care]
+      %tr.table-row
         %td Black or African American
-        %td 
-        %td 
-        %td 
-      %tr
+        %td= d[:race][:black][:n]
+        %td= d[:race][:black][:intervention]
+        %td= d[:race][:black][:usual_care]
+      %tr.table-row
         %td Native Hawaiian or other Pacific Islander 
-        %td 
-        %td 
-        %td 
-      %tr
+        %td= d[:race][:hawaiian][:n]
+        %td= d[:race][:hawaiian][:intervention]
+        %td= d[:race][:hawaiian][:usual_care]
+      %tr.table-row
         %td White
-        %td 
-        %td 
-        %td 
-      %tr
+        %td= d[:race][:white][:n]
+        %td= d[:race][:white][:intervention]
+        %td= d[:race][:white][:usual_care]
+      %tr.table-row
         %td More than one race
-        %td 
-        %td 
-        %td 
-      %tr
-        %td Unknown or not reported 
-        %td 
-        %td 
-        %td 
+        %td= d[:race][:more_than_one][:n]
+        %td= d[:race][:more_than_one][:intervention]
+        %td= d[:race][:more_than_one][:usual_care]
+      %tr.table-row
+        %td Other
+        %td= d[:race][:other][:n]
+        %td= d[:race][:other][:intervention]
+        %td= d[:race][:other][:usual_care]
       %tr.light-header-row
         %td
         %td
         %td
         %td
         %td
-      %tr
+      %tr.table-row
         %td.shaded{rowspan: 5} Age
         %td Mean
-        %td 
-        %td 
-        %td 
-      %tr
+        %td= d[:age][:mean][:all]
+        %td= d[:age][:mean][:intervention]
+        %td= d[:age][:mean][:usual_care]
+      %tr.table-row
         %td Median
-        %td 
-        %td 
-        %td 
-      %tr
+        %td= d[:age][:median][:all]
+        %td= d[:age][:median][:intervention]
+        %td= d[:age][:median][:usual_care]
+      %tr.table-row
         %td Standard deviation 
-        %td 
-        %td 
-        %td 
-      %tr
+        %td= d[:age][:stdev][:all]
+        %td= d[:age][:stdev][:intervention]
+        %td= d[:age][:stdev][:usual_care]
+      %tr.table-row
         %td Minimum 
-        %td 
-        %td 
-        %td 
-      %tr
+        %td= d[:age][:min][:all]
+        %td= d[:age][:min][:intervention]
+        %td= d[:age][:min][:usual_care]
+      %tr.table-row
         %td Maximum
-        %td 
-        %td 
-        %td 
+        %td= d[:age][:max][:all]
+        %td= d[:age][:max][:intervention]
+        %td= d[:age][:max][:usual_care]
