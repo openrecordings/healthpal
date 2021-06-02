@@ -9,6 +9,11 @@ end
 class Report
   def initialize
     @sites = %w[DH UT VU].freeze
+    @site_names = {
+      'DH' => 'Dartmouth',
+      'UT' => 'University of Texas',
+      'VU' => 'Vanderbilt University'
+    }
     @csv_rows = CSV.parse(HTTParty.post(
       Rails.application.config.redcap_api_url,
       body: {
@@ -21,79 +26,74 @@ class Report
         export_checkbox_label: 'true'
       }
     ).body)
-    @row = Struct.new(*@csv_rows.shift.map { |name| name.to_sym })
-    @records = clean_records(@csv_rows.map { |row| Participant.new(@row.new(*row)) })
-    @enrollments = @records.select { |r| r.event_name.include? 'participant_regist_arm_' }.freeze
-    @t2_avs = @records.select { |r| r.event_name.include? 't2_surveys_arm_' }.freeze
-    @site_enrollment_by_period = _site_enrollment_by_period
-    @site_names = {
-      'DH' => 'Dartmouth',
-      'UT' => 'University of Texas',
-      'VU' => 'Vanderbilt University'
-    }
-    @enrollments_by_site = _records_by_site(@enrollments)
-    @use_metrics = _use_metrics
+    _row = Struct.new(*@csv_rows.shift.map { |name| name.to_sym })
+    @all_rows = @csv_rows.map { |row| _row.new(*row) }
+    @participants = _participants
+    @participants_by_site = _participants_by_site(@participants)
+
+    # Report types
     @recruitment_chart_data = _recruitment_chart_data
+    @site_enrollment_by_period = _site_enrollment_by_period
     @enrollment_status = _enrollment_status
   end
 
-  attr_accessor :sites, :enrollments, :enrollments_by_site, :site_names, :use_metrics,
+  attr_accessor :sites, :participants, :participants_by_site, :site_names,
                 :site_enrollment_by_period, :enrollment_status, :recruitment_chart_data
 
-  def _use_metrics
-    Recording.user_recordings
-  end
-
-  def _records_by_site(_records)
-    by_site = {}
-    @sites.each { |site| by_site[site] = _records.select { |r| r.site == site } }
-    by_site
-  end
-
-  def _enrollment_status
-    statuses = {}
-    enrollments = _site_enrollments
-    enrollments['all'] = @enrollments
-    avs_records = @records.select{|r| r.event_name.include? 't2_surveys_arm_'}
-    avs_by_site = _records_by_site(avs_records)
-    enrollments.each_pair do |site, _enrollments|
-      statuses[site] = {}
-      _intervention = _enrollments.select { |e| e.study_arm == '1' }
-      _usual_care = _enrollments.select { |e| e.study_arm == '2' }
-
-      # Number enrolled
-      statuses[site]['enrolled_intervention'] = _intervention.count
-      statuses[site]['enrolled_usual_care'] = _usual_care.count
-
-      # eConsent
-      statuses[site]['in_person_intervention'] = _intervention.select do |e|
-        e.econsent == '0'
-      end.count
-      statuses[site]['in_person_usual_care'] = _usual_care.select { |e| e.econsent == '0' }.count
-      statuses[site]['in_person_percent'] =
-        (statuses[site]['in_person_intervention'] + statuses[site]['in_person_usual_care']) / _enrollments.count.to_f * 100.0
-      statuses[site]['econsent_intervention'] = _intervention.select { |e| e.econsent == '1' }.count
-      statuses[site]['econsent_usual_care'] = _usual_care.select { |e| e.econsent == '1' }.count
-      statuses[site]['econsent_percent'] =
-        (statuses[site]['econsent_intervention'] + statuses[site]['econsent_usual_care']) / _enrollments.count.to_f * 100.0
-
-      # Completion status
-      avs_s = site == 'all' ? avs_records : avs_by_site[site]
-      # statusues[site]['completed'] = avs_s.select{|avs| av }
+  class Participant
+    def initialize(all_rows, pt_id)
+      @pt_id = pt_id
+      @rows = all_rows.select { |r| r.pt_id == pt_id }
+      @enrollment = @rows.find { |r| r.redcap_event_name.include? 'participant_regist_arm_' }
+      @t2_avs = @rows.find { |r| r.redcap_event_name.include? 't2_surveys_arm_' }.freeze
     end
-    statuses
+
+    attr_accessor :pt_id
+
+    def site
+      @pt_id[0..1]
+    end
+
+    def enrollment_date
+      @enrollment&.pt_enroll_date
+    end
+
+    def completed?
+      return false if @t2_avs.nil?
+
+      @t2_avs.to_after_visit_summary_questions_both_arms_complete == 2
+    end
+
+    def study_arm
+      @enrollment&.pt_study_arm
+    end
+
+    def econsent
+      @enrollment&.pt_econsent
+    end
+  end
+
+  def _participants
+    valid_rows = @all_rows.select { |row| @site_names.include? row.pt_id[0..1] }
+    valid_rows.map { |r| r.pt_id }.uniq.map { |pt_id| Participant.new(@all_rows, pt_id) }
+  end
+
+  def _participants_by_site(participants)
+    by_site = {}
+    @sites.each { |site| by_site[site] = participants.select { |p| p.site == site } }
+    by_site
   end
 
   def _recruitment_chart_data
     chart_data = []
     @sites.each do |site|
-      enrollments = @enrollments.select { |r| r.site == site }
-      n = enrollments.count
+      participants = @participants_by_site[site]
+      n = participants.count
       org_data = {
         'org_name': @site_names[site],
         'n': n
       }
-      xs = enrollments.map { |r| r.enrollment_date }
+      xs = participants.map { |r| r.enrollment_date }
       ys = (1..n).to_a
       site_chart_data = []
       (1..n).each { |i| site_chart_data << { x: xs[i - 1], y: ys[i - 1] } }
@@ -103,40 +103,8 @@ class Report
     chart_data.to_json
   end
 
-  class Participant
-    def initialize(row)
-      @row = row
-    end
-
-    attr_accessor :row
-
-    def site
-      row.pt_id[0..1]
-    end
-
-    def enrollment_date
-      row.pt_enroll_date
-    end
-
-    def event_name
-      row.redcap_event_name
-    end
-
-    def study_arm
-      row.pt_study_arm
-    end
-
-    def econsent
-      row.pt_econsent
-    end
-  end
-
-  def clean_records(records)
-    records.select { |r| @sites.include? r.site }
-  end
-
   def _site_enrollment_by_period
-    by_month = @enrollments.group_by { |r| Date.parse(r.enrollment_date).strftime('%B %Y') }
+    by_month = @participants.group_by { |r| Date.parse(r.enrollment_date).strftime('%B %Y') }
     months = by_month.keys
     counts = {}
     months.each do |month|
@@ -147,5 +115,37 @@ class Report
       counts[month] = month_counts
     end
     counts
+  end
+
+  def _enrollment_status
+    statuses = {}
+    participants = @participants_by_site
+    participants['all'] = @participants
+    participants.each_pair do |site, pts|
+      statuses[site] = {}
+      intervention = pts.select { |pt| pt.study_arm == '1' }
+      usual_care = pts.select { |pt| pt.study_arm == '2' }
+
+      # Number enrolled
+      statuses[site]['enrolled_intervention'] = intervention.count
+      statuses[site]['enrolled_usual_care'] = usual_care.count
+
+      # eConsent
+      statuses[site]['in_person_intervention'] = intervention.select do |e|
+        e.econsent == '0'
+      end.count
+      statuses[site]['in_person_usual_care'] = usual_care.select { |pt| pt.econsent == '0' }.count
+      statuses[site]['in_person_percent'] =
+        (statuses[site]['in_person_intervention'] + statuses[site]['in_person_usual_care']) / participants.count.to_f * 100.0
+      statuses[site]['econsent_intervention'] = intervention.select { |pt| pt.econsent == '1' }.count
+      statuses[site]['econsent_usual_care'] = usual_care.select { |pt| pt.econsent == '1' }.count
+      statuses[site]['econsent_percent'] =
+        (statuses[site]['econsent_intervention'] + statuses[site]['econsent_usual_care']) / participants.count.to_f * 100.0
+
+      # Completion status
+      # avs_s = site == 'all' ? avs_records : avs_by_site[site]
+      # statusues[site]['completed'] = avs_s.select{|avs| av }
+    end
+    statuses
   end
 end
