@@ -1,34 +1,36 @@
--# - demographics = @report.demographics
+- d = @report.demographics
+- d_missing = @report.demographics_missing
 .table-container.pad-left-30.margin-top-40
+  .smaller.margin-bottom-10.red= "Missing demographics for #{d_missing.count} participants: #{d_missing.map{|p| p.pt_id}.join(', ')} "
   %table
     %thead
       %tr.header-row
         %th.text-center{colspan: 2} Characteristics
         %th N (%)
-        %th Intevention
+        %th Intervention
         %th Usual Care
     %tbody
       %tr.table-row
         %td.shaded.text-right{colspan: 2} Total Enrolled
-        %td 
-        %td 
-        %td 
+        %td= d[:enrolled][:n]
+        %td= d[:enrolled][:intervention]
+        %td= d[:enrolled][:usual_care]
       %tr
         %td.shaded{rowspan: 3} Gender
         %td Male
-        %td 
-        %td 
-        %td 
+        %td= d[:gender][:male][:n]
+        %td= d[:gender][:male][:intervention]
+        %td= d[:gender][:male][:usual_care]
       %tr
         %td Female
-        %td 
-        %td 
-        %td 
+        %td= d[:gender][:female][:n]
+        %td= d[:gender][:female][:intervention]
+        %td= d[:gender][:female][:usual_care]
       %tr
         %td Other
-        %td 
-        %td 
-        %td 
+        %td= d[:gender][:other][:n]
+        %td= d[:gender][:other][:intervention]
+        %td= d[:gender][:other][:usual_care]
       %tr.light-header-row
         %td
         %td

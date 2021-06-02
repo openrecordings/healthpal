@@ -35,10 +35,13 @@ class Report
     @recruitment_chart_data = _recruitment_chart_data
     @site_enrollment_by_period = _site_enrollment_by_period
     @enrollment_status = _enrollment_status
+    @demographics = _demographics
+    @demographics_missing = @participants.select { |p| p.demographics.nil? }
   end
 
   attr_accessor :sites, :participants, :participants_by_site, :site_names,
-                :site_enrollment_by_period, :enrollment_status, :recruitment_chart_data
+                :site_enrollment_by_period, :enrollment_status, :recruitment_chart_data,
+                :demographics, :demographics_missing
 
   class Participant
     def initialize(all_rows, pt_id)
@@ -50,7 +53,7 @@ class Report
       @withdraw = @rows.find { |r| r.pt_withdraw_level.present? }.freeze
     end
 
-    attr_accessor :pt_id
+    attr_accessor :pt_id, :demographics
 
     def site
       @pt_id[0..1]
@@ -174,4 +177,46 @@ class Report
     end
     statuses
   end
+
+  def _demographics
+    intervention = @participants.select { |pt| pt.study_arm == '1' }.map(&:demographics)
+    usual_care = @participants.select { |pt| pt.study_arm == '2' }.map(&:demographics)
+    all = @participants.map(&:demographics)
+    n = all.count
+    {
+      enrolled: {
+        n: "#{n} (100%)",
+        intervention: intervention.count.to_s,
+        usual_care: usual_care.count.to_s
+      },
+      gender: {
+        # male: {
+        #   n: all,
+        #   intervention: intervention.count,
+        #   usual_care: usual_care.count,
+        # },
+        male: {
+          n: all.count { |d| d&.pt_gender == '2' },
+          intervention: intervention.count { |d| d&.pt_gender == '2' },
+          usual_care: usual_care.count { |d| d&.pt_gender == '2' }
+        },
+        female: {
+          n: all.count { |d| d&.pt_gender == '1' },
+          intervention: intervention.count { |d| d&.pt_gender == '1' },
+          usual_care: usual_care.count { |d| d&.pt_gender == '1' }
+        },
+        other: {
+          n: all.count { |d| d&.pt_gender == '3' },
+          intervention: intervention.count { |d| d&.pt_gender == '3' },
+          usual_care: usual_care.count { |d| d&.pt_gender == '3' }
+        }
+      }
+    }
+  end
 end
+
+# : {
+#   n:,
+#   intervention:,
+#   usual_care:,
+# },
