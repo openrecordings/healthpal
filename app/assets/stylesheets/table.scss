@@ -26,6 +26,10 @@
       padding: 10px;
       font-size: 16px;
     }
+    td.shaded{
+      background-color: $color-2;
+      color: white;
+    }
     .table-link{
       color: #3A70A6;
     }

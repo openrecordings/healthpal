@@ -3,8 +3,11 @@
   .tables-container
     -# = render layout: 'table_type_container', locals: {title: 'Site Enrollment by Period'} do
     -#   .tables.expandable.hidden= render partial: 'site_enrollment', locals: {report: @report}
-    = render layout: 'table_type_container', locals: {title: 'Participant Enrollment Status by Site'} do
+    -# = render layout: 'table_type_container', locals: {title: 'Participant Enrollment Status by Site'} do
+    -#   .tables.expandable.hidden
+    -#     = render partial: 'enrollment_status', locals: {report: @report, site: 'all'}
+    -#     - @report.sites.each do |site|
+    -#       = render partial: 'enrollment_status', locals: {report: @report, site: site}
+    = render layout: 'table_type_container', locals: {title: 'Participant Demographics'} do
       .tables.expandable
-        = render partial: 'enrollment_status', locals: {report: @report, site: 'all'}
-        - @report.sites.each do |site|
-          = render partial: 'enrollment_status', locals: {report: @report, site: site}
+        = render partial: 'demographics', locals: {report: @report}
