@@ -42,10 +42,11 @@ class Report
 
   class Participant
     def initialize(all_rows, pt_id)
-      @pt_id = pt_id
-      @rows = all_rows.select { |r| r.pt_id == pt_id }
-      @enrollment = @rows.find { |r| r.redcap_event_name.include? 'participant_regist_arm_' }
+      @pt_id = pt_id.freeze
+      @rows = all_rows.select { |r| r.pt_id == pt_id }.freeze
+      @enrollment = @rows.find { |r| r.redcap_event_name.include? 'participant_regist_arm_' }.freeze
       @t2_avs = @rows.find { |r| r.redcap_event_name.include? 't2_surveys_arm_' }.freeze
+      @withdraw = @rows.find { |r| r.pt_withdraw_level.present? }.freeze
     end
 
     attr_accessor :pt_id
@@ -58,18 +59,30 @@ class Report
       @enrollment&.pt_enroll_date
     end
 
-    def completed?
-      return false if @t2_avs.nil?
-
-      @t2_avs.t2_after_visit_summary_questions_both_arms_complete == '2'
-    end
-
     def study_arm
       @enrollment&.pt_study_arm
     end
 
     def econsent
       @enrollment&.pt_econsent
+    end
+
+    def completed?
+      return false if @t2_avs.nil?
+
+      @t2_avs.t2_after_visit_summary_questions_both_arms_complete == '2'
+    end
+
+    def treatment_withdraw?
+      return false if @withdraw.nil?
+
+      @withdraw.pt_withdraw_level == '1'
+    end
+
+    def study_withdraw?
+      return false if @withdraw.nil?
+
+      @withdraw.pt_withdraw_level != '1'
     end
   end
 
