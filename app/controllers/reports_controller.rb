@@ -61,7 +61,7 @@ class Report
     def completed?
       return false if @t2_avs.nil?
 
-      @t2_avs.to_after_visit_summary_questions_both_arms_complete == 2
+      @t2_avs.t2_after_visit_summary_questions_both_arms_complete == '2'
     end
 
     def study_arm
@@ -136,15 +136,19 @@ class Report
       end.count
       statuses[site]['in_person_usual_care'] = usual_care.select { |pt| pt.econsent == '0' }.count
       statuses[site]['in_person_percent'] =
-        (statuses[site]['in_person_intervention'] + statuses[site]['in_person_usual_care']) / participants.count.to_f * 100.0
-      statuses[site]['econsent_intervention'] = intervention.select { |pt| pt.econsent == '1' }.count
+        (statuses[site]['in_person_intervention'] + statuses[site]['in_person_usual_care']) / @participants.count.to_f * 100.0
+      statuses[site]['econsent_intervention'] = intervention.select do |pt|
+        pt.econsent == '1'
+      end.count
       statuses[site]['econsent_usual_care'] = usual_care.select { |pt| pt.econsent == '1' }.count
       statuses[site]['econsent_percent'] =
-        (statuses[site]['econsent_intervention'] + statuses[site]['econsent_usual_care']) / participants.count.to_f * 100.0
+        (statuses[site]['econsent_intervention'] + statuses[site]['econsent_usual_care']) / @participants.count.to_f * 100.0
 
       # Completion status
-      # avs_s = site == 'all' ? avs_records : avs_by_site[site]
-      # statusues[site]['completed'] = avs_s.select{|avs| av }
+      statuses[site]['completed_intervention'] = intervention.select { |pt| pt.completed? }.count
+      statuses[site]['completed_usual_care'] = usual_care.select { |pt| pt.completed? }.count
+      statuses[site]['completed_percent'] =
+        (statuses[site]['completed_intervention'] + statuses[site]['completed_usual_care']) / @participants.count.to_f * 100.0
     end
     statuses
   end

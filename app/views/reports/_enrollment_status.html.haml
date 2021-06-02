@@ -36,9 +36,9 @@
         %td
       %tr.table-row
         %td Completed
-        %td
-        %td
-        %td
+        %td= enrollments['completed_intervention']
+        %td= enrollments['completed_usual_care']
+        %td= sprintf('%.1f', enrollments['completed_percent'])
       %tr.light-header-row
         %td
         %td
