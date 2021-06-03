@@ -127,7 +127,9 @@ class Report
   end
 
   def _site_enrollment_by_period
-    by_month = @participants.group_by { |r| Date.parse(r.enrollment_date).strftime('%B %Y') }
+    by_month = @participants.sort_by do |r|
+                 r.enrollment_date
+               end.group_by { |r| Date.parse(r.enrollment_date).strftime('%B %Y') }
     months = by_month.keys
     counts = {}
     months.each do |month|
