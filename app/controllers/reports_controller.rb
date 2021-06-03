@@ -30,6 +30,7 @@ class Report
     @all_rows = @csv_rows.map { |row| _row.new(*row) }
     @participants = _participants
     @participants_by_site = _participants_by_site(@participants)
+    @n = @participants.count
 
     # Report types
     @recruitment_chart_data = _recruitment_chart_data
@@ -191,72 +192,72 @@ class Report
     }
     {
       enrolled: {
-        n: "#{n} (100%)",
+        n: "#{n} (100)",
         intervention: intervention.count.to_s,
         usual_care: usual_care.count.to_s
       },
       gender: {
         male: {
-          n: all.count { |d| d&.pt_gender == '2' },
+          n: _with_percent(all.count { |d| d&.pt_gender == '2' }),
           intervention: intervention.count { |d| d&.pt_gender == '2' },
           usual_care: usual_care.count { |d| d&.pt_gender == '2' }
         },
         female: {
-          n: all.count { |d| d&.pt_gender == '1' },
+          n: _with_percent(all.count { |d| d&.pt_gender == '1' }),
           intervention: intervention.count { |d| d&.pt_gender == '1' },
           usual_care: usual_care.count { |d| d&.pt_gender == '1' }
         },
         other: {
-          n: all.count { |d| d&.pt_gender == '3' },
+          n: _with_percent(all.count { |d| d&.pt_gender == '3' }),
           intervention: intervention.count { |d| d&.pt_gender == '3' },
           usual_care: usual_care.count { |d| d&.pt_gender == '3' }
         }
       },
       ethnicity: {
         hispanic: {
-          n: all.count { |d| d&.pt_hispanic == '1' },
+          n: _with_percent(all.count { |d| d&.pt_hispanic == '1' }),
           intervention: intervention.count { |d| d&.pt_hispanic == '1' },
           usual_care: usual_care.count { |d| d&.pt_hispanic == '1' }
         },
         not_hispanic: {
-          n: all.count { |d| d&.pt_hispanic == '2' },
+          n: _with_percent(all.count { |d| d&.pt_hispanic == '2' }),
           intervention: intervention.count { |d| d&.pt_hispanic == '2' },
           usual_care: usual_care.count { |d| d&.pt_hispanic == '2' }
         }
       },
       race: {
         american_indian: {
-          n: all.count { |d| d&.pt_ethnicity == '1' },
+          n: _with_percent(all.count { |d| d&.pt_ethnicity == '1' }),
           intervention: intervention.count { |d| d&.pt_ethnicity == '1' },
           usual_care: usual_care.count { |d| d&.pt_ethnicity == '1' }
         },
         asian: {
-          n: all.count { |d| d&.pt_ethnicity == '2' },
+          n: _with_percent(all.count { |d| d&.pt_ethnicity == '2' }),
           intervention: intervention.count { |d| d&.pt_ethnicity == '2' },
           usual_care: usual_care.count { |d| d&.pt_ethnicity == '2' }
         },
         black: {
-          n: all.count { |d| d&.pt_ethnicity == '3' },
+          n: _with_percent(all.count { |d| d&.pt_ethnicity == '3' }),
           intervention: intervention.count { |d| d&.pt_ethnicity == '3' },
           usual_care: usual_care.count { |d| d&.pt_ethnicity == '3' }
         },
         hawaiian: {
-          n: all.count { |d| d&.pt_ethnicity == '4' },
+          n: _with_percent(all.count { |d| d&.pt_ethnicity == '4' }),
           intervention: intervention.count { |d| d&.pt_ethnicity == '4' },
           usual_care: usual_care.count { |d| d&.pt_ethnicity == '4' }
         },
         white: {
-          n: all.count { |d| d&.pt_ethnicity == '5' },
+          n: _with_percent(all.count { |d| d&.pt_ethnicity == '5' }),
           intervention: intervention.count { |d| d&.pt_ethnicity == '5' },
           usual_care: usual_care.count { |d| d&.pt_ethnicity == '5' }
         },
         more_than_one: {
-          n: all.count { |d| d&.pt_ethnicity == '6' },
+          n: _with_percent(all.count { |d| d&.pt_ethnicity == '6' }),
           intervention: intervention.count { |d| d&.pt_ethnicity == '6' },
           usual_care: usual_care.count { |d| d&.pt_ethnicity == '6' }
         },
         other: {
-          n: all.count { |d| d&.pt_ethnicity == '7' },
+          n: _with_percent(all.count { |d| d&.pt_ethnicity == '7' }),
           intervention: intervention.count { |d| d&.pt_ethnicity == '7' },
           usual_care: usual_care.count { |d| d&.pt_ethnicity == '7' }
         }
@@ -293,6 +294,12 @@ class Report
         }
       }
     }
+  end
+
+  def _with_percent(count)
+    return count if count == 0
+
+    "#{count} (#{format('%.1f', count / @n.to_f * 100.0)})"
   end
 
   def _use
