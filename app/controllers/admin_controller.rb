@@ -34,7 +34,7 @@ class AdminController < ApplicationController
 
   def new_org; end
 
-  def create_org
+  def create_ore
     @org = Org.new(org_params)
 
     if @org.save
@@ -55,6 +55,24 @@ class AdminController < ApplicationController
       )
       render json: { status: 200 }
     end
+  end
+
+  # AJAX POST to update contact_email_address
+  def update_redcap_id
+    user = User.find_by(id: params[:id])
+    if user
+      participant = user.participant
+      if participant
+        participant.update(redcap_id: params[:redcap_id])
+      else
+        Participant.create(
+          user: user,
+          org: user.org,
+          redcap_id: params[:redcap_id]
+        )
+      end
+    end
+    render json: { status: 200 }
   end
 
   # Start the workflow for doing an in-clinic user registration

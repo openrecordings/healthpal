@@ -24,14 +24,15 @@
           - if current_user.root?
             %th Org
           %th Participant
+          %th REDCap ID
           %th Logins: last
           %th Recording: clicks on play
       %tbody
         - current_user.viewable_users.each do |user|
           - last_login_at =  format_date_time(user.current_sign_in_at || user.last_sign_in_at)
           - last_login_string = last_login_at.nil? ? '' : ": #{last_login_at}"
-          %tr.table-row.hidden
           - is_admin = user.privileged?
+          %tr.table-row.hidden
           %tr{'data-is-admin': is_admin, class: "table-row #{is_admin ? 'hidden' : ''}"}
             - if current_user.root?
               %td= user.org&.name
@@ -39,6 +40,7 @@
               =user.full_name
               %br
               %span.italic-note=user.email
+            %td= render partial: 'redcap_id', locals: {user: user}
             %td= "#{user.sign_in_count}#{last_login_string}" 
             %td
               - if user.recordings.any?

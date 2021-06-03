@@ -1,0 +1,8 @@
+- redcap_id = user.participant&.redcap_id
+.redcap-id
+  .redcap-id-display= redcap_id 
+  .open-redcap-id-editor= inline_svg('edit.svg', class: 'redcap-id-svg')
+  .redcap-id-editor.hidden{'data-user-id': user.id}
+    %span= text_field_tag("redcap_id_#{user.id}", redcap_id, autofocus: true, placeholder: redcap_id, class: 'redcap-id-value')
+    %span.update-redcap-id= inline_svg('check.svg', class: 'redcap-id-svg')
+    %span.cancel-edit-redcap-id= inline_svg('x.svg', class: 'redcap-id-svg')

@@ -62,3 +62,48 @@
     }
   }
 }
+
+.redcap-id {
+  font-size: 16px;
+  .redcap-id-display {
+    display: inline-block;
+    margin-left: 10px;
+    font-size: 16px;
+  }
+  .open-redcap-id-editor {
+    display: inline-block;
+    transform: translate(-10px, 4px);
+    margin-left: 10px;
+  }
+  .redcap-id-editor {
+    .update-redcap-id {
+      display: inline-block;
+      transform: translate(-10px, 5px);
+      margin-left: 10px;
+    }
+    .cancel-edit-redcap-id {
+      display: inline-block;
+      transform: translate(-10px, 5px);
+    }
+    .redcap-id-value {
+      width: 100px;
+      box-shadow: none;
+      border: 1px solid #555;
+      margin-left: 1px;
+      padding: 3px;
+      border-radius: 3px;
+      font-size: 16px;
+    }
+  }
+  .redcap-id-svg {
+    display: inline-block;
+    box-sizing: border-box;
+    height: 22px;
+    line-height: 22px;
+    fill: $color-2;
+    &:hover {
+      cursor: pointer;
+      fill: $color-3;
+    }
+  }
+}
