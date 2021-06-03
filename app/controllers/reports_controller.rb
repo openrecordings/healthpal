@@ -158,23 +158,23 @@ class Report
       end.count
       statuses[site]['in_person_usual_care'] = usual_care.select { |pt| pt.econsent == '0' }.count
       statuses[site]['in_person_percent'] =
-        (statuses[site]['in_person_intervention'] + statuses[site]['in_person_usual_care']) / @participants.count.to_f * 100.0
+        (statuses[site]['in_person_intervention'] + statuses[site]['in_person_usual_care']) / pts.count.to_f * 100.0
       statuses[site]['econsent_intervention'] = intervention.select do |pt|
         pt.econsent == '1'
       end.count
       statuses[site]['econsent_usual_care'] = usual_care.select { |pt| pt.econsent == '1' }.count
       statuses[site]['econsent_percent'] =
-        (statuses[site]['econsent_intervention'] + statuses[site]['econsent_usual_care']) / @participants.count.to_f * 100.0
+        (statuses[site]['econsent_intervention'] + statuses[site]['econsent_usual_care']) / pts.count.to_f * 100.0
 
       # Completion status
       statuses[site]['completed_intervention'] = intervention.select { |pt| pt.completed? }.count
       statuses[site]['completed_usual_care'] = usual_care.select { |pt| pt.completed? }.count
       statuses[site]['completed_percent'] =
-        (statuses[site]['completed_intervention'] + statuses[site]['completed_usual_care']) / @participants.count.to_f * 100.0
+        (statuses[site]['completed_intervention'] + statuses[site]['completed_usual_care']) / pts.count.to_f * 100.0
       statuses[site]['active_intervention'] = intervention.select { |pt| pt.active? }.count
       statuses[site]['active_usual_care'] = usual_care.select { |pt| pt.active? }.count
       statuses[site]['active_percent'] =
-        (statuses[site]['active_intervention'] + statuses[site]['active_usual_care']) / @participants.count.to_f * 100.0
+        (statuses[site]['active_intervention'] + statuses[site]['active_usual_care']) / pts.count.to_f * 100.0
     end
     statuses
   end
