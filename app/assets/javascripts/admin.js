@@ -62,7 +62,7 @@ if (document.querySelector('#admin-index')) {
 				id: userId,
 				redcap_id: redcapId
 			});
-			$('.redcap-id-display').text(redcapId);
+			$(container).find('.redcap-id-display').text(redcapId);
 			hideRedcapIdEditor(event.target);
 		})
 
