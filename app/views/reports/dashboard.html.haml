@@ -1,6 +1,6 @@
 #reports-page{"data-recruitment" => @report.recruitment_chart_data}
   = render partial: 'charts'
-  .tables-container
+  .tables-container.margin-bottom-40
     = render layout: 'table_type_container', locals: {title: 'Site Enrollment by Period'} do
       .tables.expandable.hidden= render partial: 'site_enrollment', locals: {report: @report}
     = render layout: 'table_type_container', locals: {title: 'Participant Enrollment Status by Site'} do
