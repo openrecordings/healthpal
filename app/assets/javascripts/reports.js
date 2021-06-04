@@ -9,15 +9,15 @@ $(document).ready(function () {
     })
 
     var recruitmentData = $('#reports-page').data('recruitment');
+    console.log(recruitmentData);
     var orgData;
     var orgName;
     var chartData;
     var chartConfig;
     var color = Chart.helpers.color;
     var gray = color(window.chartColors.gray).alpha(0.15).rgbString();
-    [1, 2, 3].forEach(function (orgId) {
+    [1, 2, 3, 4].forEach(function (orgId) {
       orgData = recruitmentData[orgId - 1];
-      console.log(orgData);
       orgName = orgData['org_name'];
       chartData = orgData['chart_data'];
       chartConfig = {
@@ -39,7 +39,7 @@ $(document).ready(function () {
         },
         options: {
           responsive: true,
-          aspectRatio: 1.5,
+          aspectRatio: 1.7,
           title: {
             display: true,
             text: orgName,
@@ -68,7 +68,7 @@ $(document).ready(function () {
                 fontSize: '20',
               },
               ticks: {
-                max: 30,
+                max: orgId == 1 ? 90 : 30,
                 fontSize: '16'
               }
 
@@ -80,8 +80,10 @@ $(document).ready(function () {
         window.chart1 = new Chart('chart-1', chartConfig);
       } else if (orgId == 2){
         window.chart2 = new Chart('chart-2', chartConfig);
-      } else {
+      } else if (orgId == 3){
         window.chart3 = new Chart('chart-3', chartConfig);
+      } else {
+        window.chart4 = new Chart('chart-4', chartConfig);
       }
     })
 

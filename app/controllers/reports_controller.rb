@@ -12,7 +12,8 @@ class Report
     @site_names = {
       'DH' => 'Dartmouth',
       'UT' => 'University of Texas',
-      'VU' => 'Vanderbilt University'
+      'VU' => 'Vanderbilt University',
+      'all' => 'All Sites'
     }
     @csv_rows = CSV.parse(HTTParty.post(
       Rails.application.config.redcap_api_url,
@@ -109,8 +110,8 @@ class Report
 
   def _recruitment_chart_data
     chart_data = []
-    @sites.each do |site|
-      participants = @participants_by_site[site]
+    ['all'].concat(@sites).each do |site|
+      participants = site == 'all' ? @participants.sort_by(&:enrollment_date) : @participants_by_site[site]
       n = participants.count
       org_data = {
         'org_name': @site_names[site],

@@ -1,13 +1,12 @@
 #reports-page {
-  #charts {
+  .charts {
     display: flex;
-    flex-wrap: wrap;
     justify-content: space-evenly;
     align-items: flex-start;
     padding: 20px;
     .chart-container {
-      flex: 1 1 27%;
-      max-width: 650px;
+      flex: 1 1 40%;
+      max-width: 600px;
       padding: 15px;
     }
   }
