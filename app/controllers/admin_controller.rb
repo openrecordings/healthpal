@@ -63,15 +63,21 @@ class AdminController < ApplicationController
     if user
       participant = user.participant
       if participant
-        participant.update(redcap_id: params[:redcap_id])
+        participant.update(redcap_id: params[:value])
       else
         Participant.create(
           user: user,
           org: user.org,
-          redcap_id: params[:redcap_id]
+          redcap_id: params[:value]
         )
       end
     end
+    render json: { status: 200 }
+  end
+
+  # AJAX POST to update phone_number
+  def update_phone_number
+    User.find_by(id: params[:id])&.update(phone_number: params[:value], sms_notifications: true)
     render json: { status: 200 }
   end
 

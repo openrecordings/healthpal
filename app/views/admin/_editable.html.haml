@@ -1,0 +1,7 @@
+.editable
+  .editable-display= value
+  .open-editable-editor= inline_svg('edit.svg', class: 'editable-svg')
+  .editable-editor.hidden{'data-post-path': post_path, 'data-user-id': user.id}
+    %span= text_field_tag("editable_#{post_path}_#{user.id}", value, autofocus: true, placeholder: value, class: "editable-value #{mask_class}")
+    %span.update-editable= inline_svg('check.svg', class: 'editable-svg')
+    %span.cancel-edit-editable= inline_svg('x.svg', class: 'editable-svg')

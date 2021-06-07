@@ -26,6 +26,7 @@
           - if current_user.root?
             %th Org
           %th Participant (*caregiver)
+          %th Phone number
           %th REDCap ID
           %th Logins: last (excluding initial visit)
           %th Recording: clicks on play
@@ -42,7 +43,8 @@
               = "#{user.full_name}#{user.created_as_caregiver ? '*' : ''}"
               %br
               %span.italic-note=user.email
-            %td= render partial: 'redcap_id', locals: {user: user}
+            %td= render partial: 'editable', locals: {value: user.phone_number, post_path: 'update_phone_number', user: user, mask_class: 'phone-number'}
+            %td= render partial: 'editable', locals: {value: user.participant&.redcap_id, post_path: 'update_redcap_id', user: user, mask_class: ''}
             %td= "#{user.corrected_sign_ins}#{last_login_string}" 
             %td
               - if user.recordings.any?

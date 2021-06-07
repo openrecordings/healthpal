@@ -6,11 +6,11 @@ if (document.querySelector('#admin-index')) {
 		$('#contact-email-address-editor').hide();
 	}
 
-	function hideRedcapIdEditor(element) {
-		var container = $(element).closest('.redcap-id');
-		$(container).find('.redcap-id-editor').hide();
-		$(container).find('.open-redcap-id-editor').show();
-		$(container).find('.redcap-id-display').show();
+	function hideEditableEditor(element) {
+		var container = $(element).closest('.editable');
+		$(container).find('.editable-editor').hide();
+		$(container).find('.open-editable-editor').show();
+		$(container).find('.editable-display').show();
 	}
 
 	$(document).ready(function () {
@@ -23,6 +23,14 @@ if (document.querySelector('#admin-index')) {
 			window.location.assign(`/play/${$(this).data('recording-id')}`);
 		})
 
+		if (document.querySelector('#new-caregiver-form, #switch-user-form')) {
+			document.body.addEventListener('ajax:success', function (event) {
+				window.location.assign('/');
+			})
+		}
+
+		// Admin email address
+		/////////////////////////////////////////////////////////////////////////////////
 		$('#open-email-address-editor').click(function () {
 			$('#contact-email-address-display').hide();
 			$('#open-email-address-editor').hide();
@@ -44,33 +52,31 @@ if (document.querySelector('#admin-index')) {
 			hideEditor();
 		})
 
-		$('.open-redcap-id-editor').click(function () {
+		// Generic editable field
+		/////////////////////////////////////////////////////////////////////////////////
+		$('.open-editable-editor').click(function () {
 			$(this).hide();
-			$(this).closest('.redcap-id').find('.redcap-id-display').hide();
-			$(this).closest('.redcap-id').find('.redcap-id-editor').show();
+			$(this).closest('.editable').find('.editable-display').hide();
+			$(this).closest('.editable').find('.editable-editor').show();
 		})
 
-		$('.cancel-edit-redcap-id').click(function (event) {
-			hideRedcapIdEditor(event.target);
+		$('.cancel-edit-editable').click(function (event) {
+			hideEditableEditor(event.target);
 		})
 
-		$('.update-redcap-id').click(function (event) {
-			var container = $(this).closest('.redcap-id');
-			var userId = $(container).find('.redcap-id-editor').data('user-id');
-			var redcapId = $(container).find('.redcap-id-value').val();
-			$.post('/update_redcap_id', {
+		$('.update-editable').click(function (event) {
+			var container = $(this).closest('.editable');
+			var editor = $(container).find('.editable-editor');
+			var userId = editor.data('user-id');
+			var postPath = `/${editor.data('post-path')}`;
+			var value = $(container).find('.editable-value').val();
+			$.post(postPath, {
 				id: userId,
-				redcap_id: redcapId
+				value: value
 			});
-			$(container).find('.redcap-id-display').text(redcapId);
-			hideRedcapIdEditor(event.target);
+			$(container).find('.editable-display').text(value);
+			hideEditableEditor(event.target);
 		})
-
-		if (document.querySelector('#new-caregiver-form, #switch-user-form')) {
-			document.body.addEventListener('ajax:success', function (event) {
-				window.location.assign('/');
-			})
-		}
 	})
 
 }

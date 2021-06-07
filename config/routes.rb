@@ -35,8 +35,9 @@ Rails.application.routes.draw do
   post 'create_caregiver',             to: 'admin#create_caregiver'
   get 'new_org',                       to: 'admin#new_org',                      as: 'new_org'
   post 'create_org',                   to: 'admin#create_org',                   as: 'create_org'
-  post 'update_contact_email_address', to: 'admin#update_contact_email_address', as: 'update_contact_email_addres'
-  post 'update_redcap_id',             to: 'admin#update_redcap_id',             as: 'update_redap_id'
+  post 'update_contact_email_address', to: 'admin#update_contact_email_address', as: 'update_contact_email_address'
+  post 'update_redcap_id',             to: 'admin#update_redcap_id',             as: 'update_redcap_id'
+  post 'update_phone_number',          to: 'admin#update_phone_number',          as: 'update_phone_number'
 
   # Reports (Admin)
   get 'dashboard',                     to: 'reports#dashboard',                  as: 'dashboard'
