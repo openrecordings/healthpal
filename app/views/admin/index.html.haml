@@ -9,6 +9,8 @@
         %span= email_field_tag('contact_email_address', current_email_address, autofocus: true, placeholder: current_email_address, id: 'contact-email-address-value')
         %span#update-contact-email-address= inline_svg('check.svg', class: 'contact-email-svg')
         %span#cancel-edit-contact-email-address= inline_svg('x.svg', class: 'contact-email-svg')
+  - else 
+    .margin-top-20 
   #admin-action-links
     .admin-link-container= link_to 'Invite New User by Email', new_user_invitation_path, class: 'form-link medium', method: :get
     .admin-link-container= link_to 'Create and Switch to New User Now', new_registration_path, class: 'form-link medium', method: :get
@@ -23,25 +25,25 @@
         %tr
           - if current_user.root?
             %th Org
-          %th Participant
+          %th Participant (*caregiver)
           %th REDCap ID
-          %th Logins: last
+          %th Logins: last (excluding initial visit)
           %th Recording: clicks on play
       %tbody
         - current_user.viewable_users.each do |user|
           - last_login_at =  format_date_time(user.current_sign_in_at || user.last_sign_in_at)
-          - last_login_string = last_login_at.nil? ? '' : ": #{last_login_at}"
           - is_admin = user.privileged?
+          - last_login_string = user.corrected_sign_ins == 0 ? '' : ": #{last_login_at}"
           %tr.table-row.hidden
           %tr{'data-is-admin': is_admin, class: "table-row #{is_admin ? 'hidden' : ''}"}
             - if current_user.root?
               %td= user.org&.name
             %td
-              =user.full_name
+              = "#{user.full_name}#{user.created_as_caregiver ? '*' : ''}"
               %br
               %span.italic-note=user.email
             %td= render partial: 'redcap_id', locals: {user: user}
-            %td= "#{user.sign_in_count}#{last_login_string}" 
+            %td= "#{user.corrected_sign_ins}#{last_login_string}" 
             %td
               - if user.recordings.any?
                 - user.recordings.order(created_at: :desc).each do |recording|

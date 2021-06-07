@@ -34,7 +34,7 @@ class AdminController < ApplicationController
 
   def new_org; end
 
-  def create_ore
+  def create_org
     @org = Org.new(org_params)
 
     if @org.save

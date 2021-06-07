@@ -1,8 +1,7 @@
 class User < ApplicationRecord
-
   require 'twilio-ruby'
   devise :invitable, :database_authenticatable, :registerable, :recoverable, :rememberable,
-    :trackable, :validatable, :timeoutable
+         :trackable, :validatable, :timeoutable
 
   belongs_to :org, optional: true
   has_one :participant
@@ -11,11 +10,12 @@ class User < ApplicationRecord
   has_many :visits, class_name: 'Ahoy::Visit'
   has_many :clicks
 
-  scope :regular, ->() { where role: 'user' }
+  scope :regular, -> { where role: 'user' }
 
   before_validation :set_defaults
 
-  validates :onboarded, :active, :requires_phone_confirmation, :created_as_caregiver, inclusion: [true, false] 
+  validates :onboarded, :active, :requires_phone_confirmation, :created_as_caregiver,
+            inclusion: [true, false]
   validates_presence_of :email, :role, :timezone
   validates_presence_of :org, unless: :root?
   validates_presence_of :phone_number, if: :requires_phone_confirmation
@@ -36,6 +36,12 @@ class User < ApplicationRecord
     created_as_caregiver
   end
 
+  def corrected_sign_ins
+    return 0 if sign_in_count.zero?
+
+    created_as_caregiver ? sign_in_count : sign_in_count - 1
+  end
+
   def viewable_visits
     viewable = visits
     viewable += org.regular_user_visits if admin?
@@ -54,15 +60,16 @@ class User < ApplicationRecord
   def viewable_recordings_by_user
     recordings = viewable_recordings
     return [] unless recordings.any?
+
     recordings_by_user = []
-    users = recordings.map{|r| r.user}.uniq
-    if users.select{|u| !u.last_name.nil?}.length == users.length
-      users = users.sort_by{|u| u.last_name.downcase}
+    users = recordings.map { |r| r.user }.uniq
+    if users.select { |u| !u.last_name.nil? }.length == users.length
+      users = users.sort_by { |u| u.last_name.downcase }
     end
     users.each do |user|
       user_recordings = {
         user: user,
-        recordings: recordings.select{|r| r.user == user}
+        recordings: recordings.select { |r| r.user == user }
       }
       if user == self
         recordings_by_user.insert(0, user_recordings)
@@ -70,7 +77,7 @@ class User < ApplicationRecord
         recordings_by_user << user_recordings
       end
     end
-    return recordings_by_user
+    recordings_by_user
   end
 
   def viewable_users
@@ -90,7 +97,7 @@ class User < ApplicationRecord
 
   # NOTE: `active` is necessary or Share revocation doesn't work
   def recordings_shared_with
-    Share.active.where(shared_with_user_id: self.id).map{|s| s.user.recordings}
+    Share.active.where(shared_with_user_id: id).map { |s| s.user.recordings }
   end
 
   def has_ever_logged_in
@@ -100,23 +107,24 @@ class User < ApplicationRecord
   def send_sms(sms_text)
     client = Twilio::REST::Client.new(
       Orals::Application.credentials.twilio[:account_sid],
-      Orals::Application.credentials.twilio[:auth_token])
+      Orals::Application.credentials.twilio[:auth_token]
+    )
     begin
       client.api.account.messages.create(
         from: Orals::Application.credentials.twilio[:from_phone_number],
         to: "+1#{phone_number}",
         body: sms_text
       )
-    rescue => e
-      logger.error ([e.message]+e.backtrace).join($/)
+    rescue StandardError => e
+      logger.error ([e.message] + e.backtrace).join($/)
     end
   end
 
   def send_sms_token
-    new_phone_token = Array.new(6){rand(10)}.join
+    new_phone_token = Array.new(6) { rand(10) }.join
     sms_text = "#{I18n.t(:share_invite_sms)} #{new_phone_token}"
     self.phone_token = phone_token
-    self.update(phone_token: new_phone_token)
+    update(phone_token: new_phone_token)
     send_sms(sms_text)
   end
 
@@ -147,11 +155,11 @@ class User < ApplicationRecord
   end
 
   def toggle_active
-    self.update! active: !self.active
+    update! active: !active
   end
 
   def toggle_can_record
-    self.update! can_record: !self.can_record
+    update! can_record: !can_record
   end
 
   # Disables user login when appropriate. Called by Warden hook in config/initializers/devise.rb
@@ -179,5 +187,4 @@ class User < ApplicationRecord
     self.created_as_caregiver = created_as_caregiver.nil? ? false : created_as_caregiver
     self.onboarded = onboarded.nil? ? false : onboarded
   end
-
 end
