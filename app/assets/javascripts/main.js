@@ -5,6 +5,8 @@ $(document).ready(function () {
 
   $('textarea').autoResize();
 
+  $('.datepicker').datepicker();
+
   $('input:text').focus(function (){
     $(window).scrollTop($(this).position().top - 100); 
   })
@@ -12,6 +14,7 @@ $(document).ready(function () {
   isVisible = function (e) {
     return $(e).css('visibility') === 'visible';
   };
+
   $('#dismiss-flash').click(function () {
     $(this).parent().slideUp(100);
   })

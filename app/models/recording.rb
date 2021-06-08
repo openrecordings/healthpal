@@ -34,4 +34,8 @@ class Recording < ApplicationRecord
       user_id: user.id
     ).count
   end
+
+  def followup_message
+    messages.find { |m| m.mailer_method == 'reminder_3' }
+  end
 end

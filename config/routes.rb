@@ -38,6 +38,7 @@ Rails.application.routes.draw do
   post 'update_contact_email_address', to: 'admin#update_contact_email_address', as: 'update_contact_email_address'
   post 'update_redcap_id',             to: 'admin#update_redcap_id',             as: 'update_redcap_id'
   post 'update_phone_number',          to: 'admin#update_phone_number',          as: 'update_phone_number'
+  post 'update_followup_message',      to: 'admin#update_followup_message',      as: 'update_followup_message'
 
   # Reports (Admin)
   get 'dashboard',                     to: 'reports#dashboard',                  as: 'dashboard'

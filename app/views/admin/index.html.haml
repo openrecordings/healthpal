@@ -25,16 +25,27 @@
         %tr
           - if current_user.root?
             %th Org
-          %th Participant (*caregiver)
+          %th
+            Participant
+            %br
+            (*caregiver)
           %th Phone number
           %th REDCap ID
-          %th Logins: last (excluding initial visit)
+          %td Follow-up apppointment date
+          %th
+            Logins: last
+            %br
+            (excluding initial visit)
           %th Recording: clicks on play
       %tbody
         - current_user.viewable_users.each do |user|
           - last_login_at =  format_date_time(user.current_sign_in_at || user.last_sign_in_at)
           - is_admin = user.privileged?
           - last_login_string = user.corrected_sign_ins == 0 ? '' : ": #{last_login_at}"
+          - followup_message = user.recordings.last&.followup_message
+          - followup_date = followup_message ? 3.days.after(followup_message.deliver_at) : nil
+          - show_followup_date = followup_date && (1.year.from_now - followup_date).to_i  > 0
+          - followup_date_editable = followup_date && followup_message.delivered_at.nil? 
           %tr.table-row.hidden
           %tr{'data-is-admin': is_admin, class: "table-row #{is_admin ? 'hidden' : ''}"}
             - if current_user.root?
@@ -43,8 +54,14 @@
               = "#{user.full_name}#{user.created_as_caregiver ? '*' : ''}"
               %br
               %span.italic-note=user.email
-            %td= render partial: 'editable', locals: {value: user.phone_number, post_path: 'update_phone_number', user: user, mask_class: 'phone-number'}
-            %td= render partial: 'editable', locals: {value: user.participant&.redcap_id, post_path: 'update_redcap_id', user: user, mask_class: ''}
+            %td= render partial: 'editable', locals: {value: user.phone_number, post_path: 'update_phone_number', user: user, input_class: 'phone-number'}
+            %td= render partial: 'editable', locals: {value: user.participant&.redcap_id, post_path: 'update_redcap_id', user: user, input_class: ''}
+            - if followup_date_editable
+              %td= render partial: 'editable', locals: {value: show_followup_date ? format_date(followup_date) : '', post_path: 'update_followup_message', user: user, input_class: 'datepicker'}
+            - elsif show_followup_date
+              %td = format_date(followup_date) 
+            - else 
+              %td
             %td= "#{user.corrected_sign_ins}#{last_login_string}" 
             %td
               - if user.recordings.any?

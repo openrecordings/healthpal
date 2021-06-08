@@ -57,7 +57,7 @@ class AdminController < ApplicationController
     end
   end
 
-  # AJAX POST to update contact_email_address
+  # AJAX POST to update the Participant's REDCap ID
   def update_redcap_id
     user = User.find_by(id: params[:id])
     if user
@@ -78,6 +78,16 @@ class AdminController < ApplicationController
   # AJAX POST to update phone_number
   def update_phone_number
     User.find_by(id: params[:id])&.update(phone_number: params[:value], sms_notifications: true)
+    render json: { status: 200 }
+  end
+
+  # AJAX POST to update phone_number
+  def update_followup_message
+    User.find_by(id: params[:id])&.recordings&.last&.followup_message
+      &.update(deliver_at: (DateTime.strptime(params[:value],
+                                              '%m/%d/%Y') - 3.days).change({ hour: 11,
+                                                                                          min: 0,
+                                                                                          sec: 0 }))
     render json: { status: 200 }
   end
 
