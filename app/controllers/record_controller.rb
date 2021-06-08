@@ -51,8 +51,8 @@ class RecordController < ApplicationController
     )
     recording.media_file.attach(io: File.open(filepath), filename: "#{sha1}.ogg")
     recording.title = default_title
-    `rm #{filepath}`
     if recording.save!
+      `rm #{filepath}`
       # TRANSCRIBE AND ANNOTATE
       #########################
       recording.process!
