@@ -1,9 +1,10 @@
 class HelpController < ApplicationController
-
   def index
+    @video = I18n.locale == :es ? 'intro_video_es.mp4' : 'intro_video.mp4'
   end
 
   def intro_video
+    @video = I18n.locale == :es ? 'intro_video_es.mp4' : 'intro_video.mp4'
   end
 
   def dont_onboard
@@ -20,5 +21,4 @@ class HelpController < ApplicationController
     @recording = Recording.find(params[:id])
     render layout: false
   end
-
 end

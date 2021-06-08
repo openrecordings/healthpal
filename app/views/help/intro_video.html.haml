@@ -1,6 +1,6 @@
 .overlay#intro-overlay
   #intro-video-container
-    = video_tag 'intro_video.mp4', controls: true, id: 'intro-video'
+    = video_tag @video, controls: true, id: 'intro-video'
     #dismiss-video
       = inline_svg('close_white.svg', class: 'dismiss-video-svg')
 .overlay#intro-text-overlay

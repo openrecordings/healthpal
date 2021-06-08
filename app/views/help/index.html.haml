@@ -1,8 +1,10 @@
 .overlay.invisible#intro-overlay
   #intro-video-container
-    = video_tag 'intro_video.mp4', controls: true, id: 'intro-video'
+    = video_tag @video, controls: true, id: 'intro-video'
     #dismiss-video
       = inline_svg('close_white.svg', class: 'dismiss-video-svg')
 .help-links.full-center
   .button.margin-bottom-20#play-intro-video= t(:watch_intro_video)
   .button#download-manual= t(:download_manual)
+
+= debug I18n.locale
