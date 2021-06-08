@@ -59,7 +59,8 @@
             - if followup_date_editable
               %td= render partial: 'editable', locals: {value: show_followup_date ? format_date(followup_date) : '', post_path: 'update_followup_message', user: user, input_class: 'datepicker'}
             - elsif show_followup_date
-              %td = format_date(followup_date) 
+              %td
+                .margin-top-10= format_date(followup_date) 
             - else 
               %td
             %td= "#{user.corrected_sign_ins}#{last_login_string}" 

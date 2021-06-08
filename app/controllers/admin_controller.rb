@@ -85,9 +85,9 @@ class AdminController < ApplicationController
   def update_followup_message
     User.find_by(id: params[:id])&.recordings&.last&.followup_message
       &.update(deliver_at: (DateTime.strptime(params[:value],
-                                              '%m/%d/%Y') - 3.days).change({ hour: 11,
-                                                                                          min: 0,
-                                                                                          sec: 0 }))
+                                              '%m/%d/%Y') - 3.days).change({ hour: 15,
+                                                                             min: 0,
+                                                                             sec: 0 }))
     render json: { status: 200 }
   end
 
