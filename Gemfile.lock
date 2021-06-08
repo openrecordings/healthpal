@@ -96,11 +96,6 @@ GEM
     aws-sdk-transcribeservice (1.55.0)
       aws-sdk-core (~> 3, >= 3.112.0)
       aws-sigv4 (~> 1.1)
-    aws-ses (0.7.1)
-      builder
-      mail (> 2.2.5)
-      mime-types
-      xml-simple
     aws-sessionstore-dynamodb (2.0.1)
       aws-sdk-dynamodb (~> 1)
       rack (~> 2)
@@ -320,7 +315,6 @@ GEM
     websocket-driver (0.7.1)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
-    xml-simple (1.1.8)
     zeitwerk (2.1.10)
 
 PLATFORMS
@@ -332,7 +326,6 @@ DEPENDENCIES
   aws-sdk-rails (~> 3.6.0)
   aws-sdk-s3 (~> 1.96.0)
   aws-sdk-transcribeservice (~> 1.55.0)
-  aws-ses (~> 0.7.1)
   bootsnap (>= 1.1.0)
   browserstack-local
   byebug (~> 11.1)
