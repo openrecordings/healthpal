@@ -51,8 +51,8 @@ class RecordController < ApplicationController
     )
     recording.media_file.attach(io: File.open(filepath), filename: "#{sha1}.ogg")
     recording.title = default_title
-    `rm #{filepath}`  
     if recording.save!
+      `rm #{filepath}`
       # recording.transcribe
       # flash.alert = 'Your recording is being processed. We will email you when it is ready.'
     else
