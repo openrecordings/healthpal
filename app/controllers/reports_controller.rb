@@ -2,12 +2,13 @@ class ReportsController < ApplicationController
   before_action :verify_privileged
 
   def dashboard
-    @report = Report.new
+    @report = Report.new(Participant.all)
   end
 end
 
 class Report
-  def initialize
+  def initialize(app_participants)
+    @app_pts = app_participants
     @sites = %w[DH UT VU].freeze
     @site_names = {
       'DH' => 'Dartmouth',
@@ -39,13 +40,14 @@ class Report
     @enrollment_status = _enrollment_status
     @demographics = _demographics
     @demographics_missing = @participants.select { |p| p.demographics.nil? }
+    @app_use = _app_use
   end
 
   attr_accessor :sites, :participants, :participants_by_site, :site_names,
                 :site_enrollment_by_period, :enrollment_status, :recruitment_chart_data,
-                :demographics, :demographics_missing
+                :demographics, :demographics_missing, :app_use, :app_pts
 
-  class Participant
+  class ReportParticipant
     def initialize(all_rows, pt_id)
       @pt_id = pt_id.freeze
       @rows = all_rows.select { |r| r.pt_id == pt_id }.freeze
@@ -99,7 +101,7 @@ class Report
 
   def _participants
     valid_rows = @all_rows.select { |row| @site_names.include? row.pt_id[0..1] }
-    valid_rows.map { |r| r.pt_id }.uniq.map { |pt_id| Participant.new(@all_rows, pt_id) }
+    valid_rows.map { |r| r.pt_id }.uniq.map { |pt_id| ReportParticipant.new(@all_rows, pt_id) }
   end
 
   def _participants_by_site(participants)
@@ -299,14 +301,23 @@ class Report
     }
   end
 
+  def _app_use
+    out = {}
+    redcap_pts = @participants.reject { |pt| pt.study_arm == '2' }
+    out[:pts] = redcap_pts.select do |pt|
+      _app_pt = @app_pts.find do |app_pt|
+        pt.pt_id == app_pt.redcap_id
+      end
+      _app_pt && _app_pt.user
+    end
+    out[:missing_app_pts] = redcap_pts - out[:pts]
+    out
+  end
+
   def _with_percent(count)
     return count if count == 0
 
     "#{count} (#{format('%.1f', count / @n.to_f * 100.0)})"
-  end
-
-  def _use
-    use_pts = @participants.reject { |pt| pt.use.nil? }
   end
 
   def _median(array)

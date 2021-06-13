@@ -1,4 +1,6 @@
+- missing_app_pts = @report.app_use[:missing_app_pts]
 .table-container.pad-left-30.margin-top-40
+  .smaller.margin-bottom-10.red= "No matching HealthPAL account found for #{missing_app_pts.count} participants: #{missing_app_pts.map{|p| p.pt_id}.join(', ')} " if missing_app_pts.any?
   %table
     %tbody
       %tr
@@ -18,6 +20,9 @@
         %th Login count
         %th Clicks on play/pause
     %tbody
-      - @report.participants.each do |pt|
+      - @report.app_use[:pts].each do |pt|
+        - app_pt = @report.app_pts.find{|_pt| _pt.redcap_id == pt.pt_id}
+        - user = app_pt.user
+        - recordings = user&.recordings
         %tr
-          %td= pt.study_arm
+          %td= "#{user&.id} #{pt.pt_id}"
