@@ -13,4 +13,4 @@
       .tables.expandable.hidden
         = render partial: 'demographics', locals: {report: @report}
     = render layout: 'table_type_container', locals: {title: 'App use'} do
-      .tables.expandable= render partial: 'app_use', locals: {report: @report}
+      .tables.expandable.hidden= render partial: 'app_use', locals: {report: @report}

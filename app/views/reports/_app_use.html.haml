@@ -1,3 +1,4 @@
+- pts = @report.app_use[:pts]
 - missing_app_pts = @report.app_use[:missing_app_pts]
 .table-container.pad-left-30.margin-top-40
   .smaller.margin-bottom-10.red= "No matching HealthPAL account found for #{missing_app_pts.count} participants: #{missing_app_pts.map{|p| p.pt_id}.join(', ')} " if missing_app_pts.any?
@@ -5,24 +6,34 @@
     %tbody
       %tr
         %td.text-right Participants in intevervention group
-        %td 3
+        %td= pts.count + missing_app_pts.count
       %tr
         %td.text-right Participants with no logins
-        %td 3
+        %td= pts.map{|pt| @report.app_pts.find{|_pt| _pt.redcap_id == pt.pt_id}.user}.select{|pt| pt.sign_in_count < 2}.count
       %tr
         %td.text-right Participants with no clicks on play/pause
-        %td 3
+        %td= pts.map{|pt| @report.app_pts.find{|_pt| _pt.redcap_id == pt.pt_id}.user}.select{|pt| pt.total_clicks_on_play == 0}.count
   .margin-bottom-20
   %table
     %thead
       %tr.header-row
-        %th Date of recroding
+        %th Participant
+        %th Recording dates
         %th Login count
-        %th Clicks on play/pause
+        %th Play/pause clicks
     %tbody
-      - @report.app_use[:pts].each do |pt|
+      - pts.each do |pt|
         - app_pt = @report.app_pts.find{|_pt| _pt.redcap_id == pt.pt_id}
         - user = app_pt.user
         - recordings = user&.recordings
-        %tr
-          %td= "#{user&.id} #{pt.pt_id}"
+        - date_string = ''
+        - recordings.each do |r|
+          - date_string << "#{format_date_leading(r.created_at)}#{r.created_at < DateTime.parse('2021-01-27') ? ' logging v1' : ''}<br/>".html_safe
+        %tr.table-row
+          %td= pt.pt_id
+          %td= date_string.html_safe
+          - logins = user.created_as_caregiver ? user.sign_in_count : user.sign_in_count - 1
+          %td{class: "#{logins == 0 ? 'highlight-red' : ''}"}= logins
+          - clicks_on_play = user.total_clicks_on_play
+          %td{class: "#{clicks_on_play == 0 ? 'highlight-red' : ''}"}= clicks_on_play
+.margin-bottom-40

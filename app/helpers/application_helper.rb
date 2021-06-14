@@ -3,9 +3,13 @@ module ApplicationHelper
     Orals::Application.credentials.app_display_name || 'Open Recordings'
   end
 
-  # Example: Mon, 09 Nov 2009 00:00:00 +0000 => 11/09/09 12:00 AM
+  # Example: Mon, 09 Nov 2009 00:00:00 +0000 => 11/9/9 12:00 AM
   def format_date(date_time)
     date_time.strftime('%-m/%-d/%Y') if date_time
+  end
+  # Example: Mon, 09 Nov 2009 00:00:00 +0000 => 11/09/09
+  def format_date_leading(date_time)
+    date_time.strftime('%m/%d/%Y') if date_time
   end
 
   # Example: Mon, 09 Nov 2009 00:00:00 +0000 => 11/09/09 12:00 AM
