@@ -55,9 +55,9 @@ es:
   stop_sharing: dejar de compartir con esta persona
   watch_intro_video: Mira el video de introducción 
   download_manual: Ver o descargar el manual de usuari 
-  watch_now: Watch the introductory video now
-  watch_later: Watch later
-  dont_ask_again: Don't ask me again
+  watch_now: Ver el video de introducción ahora
+  watch_later: Ver después
+  dont_ask_again: No vuelva a preguntar
   edit_login_info: Editar información de inicio de sesión
   current_password: Contraseña actual (requerida)
   new_password: Nueva contraseña
