@@ -6,7 +6,7 @@ class TranscriptSegment < ApplicationRecord
 
   default_scope { order(:id) }
 
-  # Thse are used when merging segements in PlayController#prepare_segments
+  # These are used when merging segements in PlayController#prepare_segments
   attr_accessor :tmp_text
   attr_accessor :tmp_annotation_categories
   attr_accessor :tmp_annotations
@@ -14,13 +14,9 @@ class TranscriptSegment < ApplicationRecord
   def text
     transcript_items.map{|transcript_item| transcript_item.content}.reduce(:+)
   end
-  
+
   def annotation_categories
-    categories = []
-    self.annotations.each do |annotation|
-      categories << annotation.category
-    end
-    categories.uniq
+    annotations.map(&:category).uniq
   end
 
   def links
@@ -32,6 +28,6 @@ class TranscriptSegment < ApplicationRecord
 
   # Ignores punctuation
   def transcript_items
-    recording.transcript_items.select{|item| item.kind == 'pronunciation' && item.start_time >= start_time && item.end_time <= end_time}
+    recording.transcript_items.where(kind: 'pronunciation').where('start_time >= ?', start_time).where('end_time <= ?', end_time)
   end
 end
