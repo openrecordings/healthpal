@@ -1,4 +1,6 @@
+- d_missing = @report.participants.select{|p| p.enrollment_date.nil?}
 .table-container.pad-left-30.margin-top-40
+  .smaller.margin-bottom-10.red= "Missing enrollment date for #{d_missing.count} participant#{d_missing.count > 1 ? 's' : ''}: #{d_missing.map{|p| p.pt_id}.join(', ')} " if d_missing.any?
   %table
     %thead
       %tr.header-row
@@ -18,7 +20,7 @@
         %td Date Last Participant Enrolled
         - @report.sites.each do |site| 
           - participants = @report.participants_by_site[site]
-          %td= format_date(DateTime.parse(participants.last.enrollment_date))
+          %td= format_date(DateTime.parse(participants.reject{|p| p.enrollment_date.nil?}.last.enrollment_date))
         %td
       - report.site_enrollment_by_period.each_pair do |month, counts|
         - total = 0

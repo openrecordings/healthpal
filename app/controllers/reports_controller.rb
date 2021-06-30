@@ -113,7 +113,8 @@ class Report
   def _recruitment_chart_data
     chart_data = []
     ['all'].concat(@sites).each do |site|
-      participants = site == 'all' ? @participants.sort_by(&:enrollment_date) : @participants_by_site[site]
+      participants = site == 'all' ? @participants.reject{|p| p.enrollment_date.nil?}.sort_by(&:enrollment_date) : @participants_by_site[site]
+      participants = participants.reject{|p| p.enrollment_date.nil?}
       n = participants.count
       org_data = {
         'org_name': @site_names[site],
@@ -130,7 +131,7 @@ class Report
   end
 
   def _site_enrollment_by_period
-    by_month = @participants.sort_by do |r|
+    by_month = @participants.reject{|p| p.enrollment_date.nil?}.sort_by do |r|
                  r.enrollment_date
                end.group_by { |r| Date.parse(r.enrollment_date).strftime('%B %Y') }
     months = by_month.keys
