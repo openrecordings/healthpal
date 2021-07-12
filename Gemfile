@@ -52,4 +52,5 @@ group :development do
   gem 'gem-licenses'
   gem 'byebug', '~> 11.1', platform: :mri
   gem 'byebug-dap'
+  gem 'yard'
 end
