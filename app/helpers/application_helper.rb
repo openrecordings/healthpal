@@ -1,4 +1,6 @@
 module ApplicationHelper
+
+  # Returns the configured app name or a default
   def app_display_name
     Orals::Application.credentials.app_display_name || 'Open Recordings'
   end
@@ -41,6 +43,8 @@ module ApplicationHelper
     date_time.strftime("%b %-d") if date_time
   end
 
+  # Returns a [String] representing how many days in the past the passed-in [DateTime] is
+  # 
   # Example: 23 days ago
   def days_ago(date_time)
     days = (DateTime.now.to_date - date_time.to_date).to_i
@@ -54,6 +58,11 @@ module ApplicationHelper
     end
   end
 
+  # Returns a mm:ss representation of a passed-in number of seconds.
+  #
+  # Optionally pass in a second number of seconds to return a range of mm:ss values
+  # @param [Float, Int] seconds
+  # @param [Float, Int] end_seconds
   def mm_ss(seconds, end_seconds = 0)
     mm = (seconds / 60).floor
     ss = "%02d" % (seconds % 60).to_i
