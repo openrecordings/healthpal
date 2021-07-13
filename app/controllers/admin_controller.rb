@@ -1,39 +1,38 @@
 class AdminController < ApplicationController
   before_action :verify_privileged
 
+  # The home page for he admin interface
   def index; end
 
-  def users; end
-
+  # A view that suuports manual creation of tags and links
+  #
+  # This disabled and currently redirecs to root
   def manage_recordings
     # Redirecting to root for R56 to close this as a security risk
     redirect_to :root
-
     # @recordings = Recording.all.order('created_at desc')
   end
 
-  def create_tag; end
-
+  # Toggles a [User]'s ability to log in
   def toggle_active
     user = User.find(params[:id])
     user.toggle_active
     redirect_to :admin
   end
 
+  # Toggles a [User]'s ability to make new [Recording]s
   def toggle_can_record
     user = User.find(params[:id])
     user.toggle_can_record
     redirect_to :admin
   end
 
-  def toggle_otp
-    user = User.find(params[:id])
-    user.toggle_otp
-    redirect_to :admin
+  # View for creating a new [Org]
+  def new_org;
+    redirect_to :admin unless current_user&.root?
   end
 
-  def new_org; end
-
+  # Creates a new [Org]
   def create_org
     @org = Org.new(org_params)
 
@@ -46,7 +45,7 @@ class AdminController < ApplicationController
     end
   end
 
-  # AJAX POST to update contact_email_address
+  # AJAX POST to update an [Org]'s contact_email_address
   def update_contact_email_address
     org = Org.find_by(id: params[:id])
     if org
@@ -57,7 +56,7 @@ class AdminController < ApplicationController
     end
   end
 
-  # AJAX POST to update the Participant's REDCap ID
+  # AJAX POST to update a [Participant]'s REDCap ID
   def update_redcap_id
     user = User.find_by(id: params[:id])
     if user
@@ -75,13 +74,13 @@ class AdminController < ApplicationController
     render json: { status: 200 }
   end
 
-  # AJAX POST to update phone_number
+  # AJAX POST to update a [User]'s phone_number
   def update_phone_number
     User.find_by(id: params[:id])&.update(phone_number: params[:value], sms_notifications: true)
     render json: { status: 200 }
   end
 
-  # AJAX POST to update phone_number
+  # AJAX POST to set the delivery date/time for a the 3rd (followup) message
   def update_followup_message
     User.find_by(id: params[:id])&.recordings&.last&.followup_message
       &.update(deliver_at: (DateTime.strptime(params[:value],
@@ -125,11 +124,12 @@ class AdminController < ApplicationController
     end
   end
 
-  # Select an existing user to switch to
+  # Select an existing [User] to switch to
   def switch_user_select
     @users = current_user.viewable_users.select { |u| u != current_user }
   end
 
+  # Kill the current session and sign in the passed-in [User]
   def switch_to_user
     user = User.find_by(id: params[:user_id])
     if user
@@ -141,10 +141,12 @@ class AdminController < ApplicationController
     end
   end
 
+  # View for creating a new caregiver [User]
   def new_caregiver
     @users = current_user.viewable_users.select { |u| u != current_user }
   end
 
+  # Creates a new caregive [User]
   def create_caregiver
     @user = User.new(
       email: params['email'],
@@ -170,6 +172,7 @@ class AdminController < ApplicationController
 
   private
 
+  # Legal params for a passed-in [User] object from a form
   def user_params
     params.require(:user).permit(
       :email,
@@ -184,6 +187,7 @@ class AdminController < ApplicationController
     )
   end
 
+  # Legal params for a passed-in [Org] object from a form
   def org_params
     params.require(:org).permit(
       :name,
