@@ -12,41 +12,41 @@ class ApplicationController < ActionController::Base
   # Logs certain user actions which cannot be captured via AJAX because they result in a full page request
   LOGGED_ROUTES = [
     {
-      controller: 'devise/sessions',    
+      controller: 'devise/sessions',
       rails_action: 'create',
-      link_action: 'login-submit',
+      link_action: 'login-submit'
     },
     {
-      controller: 'devise/passwords',    
+      controller: 'devise/passwords',
       rails_action: 'new',
-      link_action: 'forgot-my-password',
+      link_action: 'forgot-my-password'
     },
     {
-      controller: 'devise/passwords',    
+      controller: 'devise/passwords',
       rails_action: 'create',
-      link_action: 'send-password-reset-email',
+      link_action: 'send-password-reset-email'
     },
     {
-      controller: 'play',    
+      controller: 'play',
       rails_action: 'index',
-      link_action: 'list-recordings',
+      link_action: 'list-recordings'
     },
     {
-      controller: 'record',    
+      controller: 'record',
       rails_action: 'new',
-      link_action: 'show-new-recording-page',
-    },
+      link_action: 'show-new-recording-page'
+    }
   ].freeze
 
+  # Set the locale for hte current request
+  # 
   # The complexity here arises from the need to be able to set the locale while not signed in
   def set_locale(&action)
     # nil until set by user toggling locale the first time
     locale = cookies.encrypted[:locale]
-    if params[:action] == 'set_locale_cookie'
-      if I18n.available_locales.include?(params[:locale].to_sym)
-        locale = params[:locale].to_sym
-        cookies.encrypted[:locale] = { value: locale }
-      end
+    if params[:action] == 'set_locale_cookie' && I18n.available_locales.include?(params[:locale].to_sym)
+      locale = params[:locale].to_sym
+      cookies.encrypted[:locale] = { value: locale }
     end
     I18n.with_locale(locale || I18n.default_locale, &action)
   end
@@ -63,6 +63,9 @@ class ApplicationController < ActionController::Base
     redirect_to root_url unless current_user && current_user.privileged?
   end
 
+  # Helper method for views that need to check the current path against one or more other paths
+  # 
+  # @param [String, Array<String>] paths
   def current_path_in?(paths)
     paths = [paths] if paths.is_a?(String)
     paths.include?(request.path) ? true : false
@@ -85,36 +88,42 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:register, keys: keys)
   end
 
+  # Attempt to prevent browser caching. Helps mitigate back-button page renders after logout
   def set_cache_buster
     response.headers['Cache-Control'] = 'no-cache, no-store, max-age=0, must-revalidate'
     response.headers['Pragma'] = 'no-cache'
     response.headers['Expires'] = 'Fri, 01 Jan 1990 00:00:00 GMT'
   end
 
+  # Hides the navbar for certain routes
   def check_layout
-    if ['devise/sessions', 'devise/passwords', 'invitations'].include? request.parameters['controller']
+    if ['devise/sessions', 'devise/passwords',
+        'invitations'].include? request.parameters['controller']
       @hide_navbar = true
     end
   end
 
-  # Called from controllers/actions that exclude regular users.
+  # Checks to see if the current_user is an admin or root 
+  #
+  # Called from controllers/actions that exclude regular [User]s.
   def verify_privileged
-    unless current_user.privileged?
+    unless current_user&.privileged?
       flash[:error] = 'You are not authorized to view that page'
       redirect_to :root
     end
   end
 
-  # For specified routes, create a Click record for the incoming request
+  # For specified routes, create a [Click] record for the incoming request
   def log_request
-    route = LOGGED_ROUTES.find{|r| r[:controller] == request.parameters['controller'] && r[:rails_action] == request.parameters['action']}
+    route = LOGGED_ROUTES.find do |r|
+      r[:controller] == request.parameters['controller'] && r[:rails_action] == request.parameters['action']
+    end
     if route
       Click.create(
         user: current_user,
         client_ip_address: request.remote_ip,
-        action: route[:link_action],
+        action: route[:link_action]
       )
     end
   end
-
 end
