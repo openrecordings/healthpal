@@ -2,7 +2,7 @@ app/models/org.rb 68de714b1d5475644519f3f7d3c0ce9399f38dbc
 app/models/tag.rb 9b32f4680a335da96c7e76ceaef14278d2ef30bc
 app/models/link.rb 35901b92dc6a99b330aa6fd13676ff5eb3748c83
 app/models/user.rb b30a27292af45a95bf7b0c1404bc4165d04eb2e7
-app/models/click.rb 4417b421ed97598e48bc5370dc78aa0ef478fa89
+app/models/click.rb 977a1ee6963faf3210cde1fe06a89f52d45d81e9
 app/models/share.rb 21d73b5d9307d827a1c6bccbee285fe0bf14a605
 app/models/message.rb 6f4d9e96577de45d2af77a692ce98529aec3992f
 app/models/tag_type.rb 2bdbc5b49ffcdb04f79e20cae605adf99fe89f6a
