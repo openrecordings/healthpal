@@ -11,7 +11,6 @@ development:
   username: <%= Rails.application.credentials[:development][:db_user] %>
   password: <%= Rails.application.credentials[:development][:db_password] %>
   port: <%= Rails.application.credentials[:development][:db_port] %>
-
 hp1:
   <<: *default
   host: <%= Rails.application.credentials[:hp1][:db_host] %>
@@ -26,3 +25,10 @@ hp_r56:
   username: <%= Rails.application.credentials[:hp_r56][:db_user] %>
   password: <%= Rails.application.credentials[:hp_r56][:db_password] %>
   port: <%= Rails.application.credentials[:hp_r56][:db_port] %>
+hp_va:
+  <<: *default
+  host: <%= Rails.application.credentials[:hp_va][:db_host] %>
+  database: <%= Rails.application.credentials[:hp_va][:db_name] %>
+  username: <%= Rails.application.credentials[:hp_va][:db_user] %>
+  password: <%= Rails.application.credentials[:hp_va][:db_password] %>
+  port: <%= Rails.application.credentials[:hp_va][:db_port] %>
