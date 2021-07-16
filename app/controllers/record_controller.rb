@@ -1,4 +1,5 @@
 class RecordController < ApplicationController
+  before_action :verify_privileged, only: [:file_upload, :upload_file]
 
   def new
     redirect_to :root unless current_user.can_record

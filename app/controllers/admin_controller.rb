@@ -134,6 +134,15 @@ class AdminController < ApplicationController
     redirect_to :root
   end
 
+  def send_invite_email
+    user = User.find_by(id: params[:id])
+    if user
+      user.invite!
+      flash.notice = "Invitation email sent to #{user.email}"
+    end
+    redirect_to :root
+  end
+
   private
 
   def user_params

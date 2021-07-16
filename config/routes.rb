@@ -36,6 +36,7 @@ Rails.application.routes.draw do
   get 'new_org',                       to: 'admin#new_org',                      as: 'new_org'
   post 'create_org',                   to: 'admin#create_org',                   as: 'create_org'
   post 'update_contact_email_address', to: 'admin#update_contact_email_address', as: 'update_contact_email_addres'
+  get 'send_invite_email/:id',                    to: 'admin#send_invite_email',            as: 'send_invite_email'
 
   # Reports (Admin)
   get 'dashboard',                     to: 'reports#dashboard',                  as: 'dashboard'
