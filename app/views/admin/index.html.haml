@@ -45,7 +45,7 @@
             %td
               ="#{user.sign_in_count}#{last_login_string}" 
               %br
-              %span.italic-note= link_to 'Send invite email', send_invite_email_path(id: user.id), class: 'smaller'
+              %span.italic-note= link_to 'Send invite email', send_invite_email_path(id: user.id), class: 'form-link smaller'
             %td
               - if user.recordings.any?
                 - user.recordings.order(created_at: :desc).each do |recording|
