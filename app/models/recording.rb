@@ -1,3 +1,8 @@
+# Represents a single recording 
+#
+# TODO: This version of this class is way out of date. The version in the hp_r01 branch contains
+#       the code that automatically transcribes and annotates recordings. In order to migrate that
+#       functionality to this version, which has a newer UI, data model changes also need to be made.
 class Recording < ApplicationRecord
   belongs_to :user
   has_many :utterances, -> { order 'index asc' }, dependent: :destroy

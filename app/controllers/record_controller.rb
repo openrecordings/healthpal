@@ -35,9 +35,10 @@ class RecordController < ApplicationController
 
   private
 
+  # Create a [Recording] record from the passed-in blob
   def handle_blob(blob, user, is_file_upload=false)
     sha1 = Digest::SHA1.hexdigest(blob)
-    filepath =  "#{Rails.root}/tmp/#{sha1}.ogg"
+    filepath = "#{Rails.root}/tmp/#{sha1}.ogg"
     File.open(filepath, 'wb') do |disk_file|
       disk_file.write(blob)
     end

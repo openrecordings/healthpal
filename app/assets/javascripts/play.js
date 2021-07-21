@@ -1,4 +1,5 @@
 if (document.querySelector('#play-view')) {
+  // TODO: These shouldn't be globals
   var recordingId = null;
   var playVolume = 1.0;
   var playerPadding = null;
@@ -7,10 +8,9 @@ if (document.querySelector('#play-view')) {
   var animationDuration = 300;
   var currentNote = null;
 
-  // TODO: rewrite the entire application with a declaritive UI
-
   // Selection/playback pane visibility
   /////////////////////////////////////////////////////////////////////////////////////////////////
+  // Shows the index view of recordings. Hides the playback view.
   function showSelectOnly() {
     $('#left').css({ 'transform': 'scaleX(1)' });
     $('#left').css({ 'min-width': '100%' });
@@ -18,6 +18,7 @@ if (document.querySelector('#play-view')) {
     $('#right').css({ 'min-width': '0' });
   }
 
+  // Shows the playback view of recordings. Hides the index view.
   function showPlaybackOnly() {
     $('#left').css({ 'transform': 'scaleX(0)' });
     $('#left').css({ 'min-width': '0' });
@@ -25,6 +26,8 @@ if (document.querySelector('#play-view')) {
     $('#right').css({ 'min-width': '100%' });
   }
 
+  // Clears the recording metadata fields. This is needed to ensure that we never display the wrong
+  // metadata for the currently chosen recording
   function clearMetadataFields() {
     $('#recording-title').text('');
     $('#edit-recording-title').val('');
@@ -32,11 +35,13 @@ if (document.querySelector('#play-view')) {
     $('#edit-recording-provider').val('');
   }
 
+  // Shows the playback interface itself. Called when `recording.is_processed` is true
   function showPlayer() {
     $('#recording-is-not-processed').hide();
     $('#player-container').show();
   }
 
+  // Hides the playback interface. Called when `recording.is_processed` is falsy
   function hidePlayer() {
     $('#player-container').hide();
     $('#recording-is-not-processed').show();
@@ -44,6 +49,7 @@ if (document.querySelector('#play-view')) {
 
   // Replace/create the video element and load from src URL
   /////////////////////////////////////////////////////////////////////////////////////////////////
+  // Load the video with the ID stored in `recordingID` from the backend into the player
   function loadVideo() {
     if (recordingId == null) {
       console.log('Called loadVideo() but recordingId is null!');
@@ -61,6 +67,8 @@ if (document.querySelector('#play-view')) {
               <source src=${data.url} type="audio/mp3">
             </audio>`
           );
+
+          // Load metadata for recording into UI
           $('#recording-title').text(data.title);
           $('#edit-recording-title').val(data.title);
           if (data.provider && data.provider.length > 0) {
@@ -70,13 +78,18 @@ if (document.querySelector('#play-view')) {
           $('#recording-date').text(data.date);
           $('#recording-days-ago').text(data.days_ago);
           let videoElement = document.getElementById('video-element');
+
+          // Load the video using it's new `src` attribute
           videoElement.load();
           videoElement.volume = playVolume;
+          // Actions that fire after the new video is loaded (can still be receiving chunks)
           videoElement.ondurationchange = function () {
             $('#duration').text(toMmSs(videoElement.duration));
             loadNotes();
             skipToTime(0);
           };
+          // Fires every time the `audio` (or `video`) element emits a new current time value
+          // The key line is the call to `setUiToTime`
           videoElement.ontimeupdate = function () {
             let currentTime = videoElement.currentTime;
             let displayTime = toMmSs(currentTime);
@@ -86,7 +99,7 @@ if (document.querySelector('#play-view')) {
             if (currentTime == 0) { currentNote = null };
             updateAutoScroll();
           };
-          // Can't simply togglePlayPause() because we may have been playing or not when
+          // Can't simply call `togglePlayPause` because we may have been playing or not when
           // onended was triggered (can fast-forward to end while paused)
           videoElement.onended = function () {
             $('#pause-glyph, #pause-label').addClass('hidden');
@@ -100,6 +113,9 @@ if (document.querySelector('#play-view')) {
     });
   }
 
+  // Load the `Note` records for a `Recording` into the UI
+  // NOTE: This is the one place in the app where Spanish translations of strings are hard-coded.
+  //       That could be obviated using the .erb.js method. 
   function loadNotes() {
     let notesHeader = $('#notes-header');
     let notesContainer = $('#notes-container');
@@ -145,6 +161,8 @@ if (document.querySelector('#play-view')) {
       }[locale][string]
     }
 
+    // Generate the HTML for a note. This template code could be elsewhere, but this is convenient
+    // since we have to create this HTML an unknown number of times per page visit.
     function noteHtml(note) {
       var locale = document.documentElement.lang;
       return `
@@ -207,15 +225,20 @@ if (document.querySelector('#play-view')) {
     togglePlayPauseButton();
   }
 
+  // Toggles which icon is shown in the play/pause button
   function togglePlayPauseButton() {
     $('#play-glyph, #pause-glyph, #play-label, #pause-label').toggleClass('hidden');
   }
 
+  // Skip to the passed-in time in the recording. setting `videoElement.currentTime` triggers
+  // the `videoElement.ontimeupdate` callback defined above, which in turn calles `setUiToTime`
   function skipToTime(newTime) {
     let videoElement = document.getElementById('video-element');
     videoElement.currentTime = newTime.toString();
   }
 
+  // Skip to the point in the recording that corresponds to the passed-in even position
+  // After determining the appropriate `newTime`, this acts like a any other call to `skipToTime`
   function skipToEventPosition(event) {
     let playhead = $('#playhead');
     let videoElement = document.getElementById('video-element');
@@ -229,6 +252,7 @@ if (document.querySelector('#play-view')) {
     setUiToTime(newTime);
   }
 
+  // Draws the playhead circle and the progress bar based on the passed-in time
   function setUiToTime(newTime) {
     let videoElement = document.getElementById('video-element');
     let duration = $(videoElement).prop('duration');
@@ -260,12 +284,14 @@ if (document.querySelector('#play-view')) {
     });
   }
 
+  // Converts a number seconds into mm:ss format
   function toMmSs(seconds) {
     let mm = Math.floor(seconds / 60);
     let ss = parseInt(seconds - mm * 60);
     return `${mm.toString().padStart(2, '0')}:${ss.toString().padStart(2, '0')}`
   }
 
+  // Sets the player and UI to the passed-in time in the recording.
   function playAt(seconds) {
     let videoElement = document.getElementById('video-element');
     skipToTime(seconds);
@@ -274,6 +300,8 @@ if (document.querySelector('#play-view')) {
     }
   }
 
+  // Keeps the note display portion of the UI, which has hidden overflow, appropriately scrolled so
+  // that notes for the current time in the recording are visible by the user.
   function updateAutoScroll() {
     let currentTime = document.getElementById('video-element').currentTime;
     let notesBeforeNow = sortedNotes().filter(function () { return $(this).data('note-at') <= currentTime });
