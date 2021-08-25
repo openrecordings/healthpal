@@ -34,7 +34,7 @@ if (document.querySelector('#play-view')) {
 
   function showPlayer() {
     $('#recording-is-not-processed').hide();
-    $('#player-container').show();
+    $('#player-container').show();  
   }
 
   function hidePlayer() {
@@ -193,6 +193,20 @@ if (document.querySelector('#play-view')) {
   $(document).ready(function () {
     // Initialization
     /////////////////////////////////////////////////////////////////////////////////////////////////
+    $(".recording-month-item").hide();
+    $(".recording-list-item").hide();
+
+    $(document).on("click", ".recording-date-item", function(){
+      var testing2 = $(this).data('recording-year');
+      $(`.recording-month-item[data-recording-year=${testing2}]`).toggle();
+    });
+
+    $(document).on("click", ".recording-month-item", function(){
+      var testing2 = $(this).data('recording-year');
+      var testing3 = $(this).data('recording-month');
+      $(`.recording-list-item[data-recording-year=${testing2}][data-recording-month=${testing3}]`).toggle();
+    });
+
     recordingId = $('#play-view').data('initial-recording-id');
     if (recordingId != null) {
       loadVideo();

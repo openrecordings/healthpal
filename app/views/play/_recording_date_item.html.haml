@@ -1,0 +1,9 @@
+.recording-date-item.log(data-recording-year="#{r_array[0][0].created_at.year}")
+    .year-title= r_array[0][0].created_at.strftime("%Y Appointments")
+
+- r_array.each do |r_month|
+    .recording-month-item.log(data-recording-year="#{r_month[0].created_at.year}" data-recording-month="#{r_month[0].created_at.month}" ) 
+        .month-title= r_month[0].created_at.strftime("%Y %m Appointments")
+
+    - r_month.each do |recording|
+        = render 'recording_list_item', recording: recording

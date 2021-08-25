@@ -26,28 +26,63 @@
           font-size: 18px;
           font-weight: bold;
         }
-        .recording-list-item {
-          z-index: 100;
-          display: flex;
-          flex-flow: row wrap;
-          justify-content: space-between;
-          box-sizing: border-box;
-          padding-top: 15px;
-          padding-bottom: 10px;
-          border-bottom: 1px solid #bbb;
-          &:hover {
-            cursor: pointer;
+        #testing {
+          .recording-date-item {
+            z-index: 100;
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: space-between;
+            box-sizing: border-box;
+            padding-top: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #bbb;
+            &:hover {
+              cursor: pointer;
+            }
+            .date-title {
+              padding-bottom: 5px;
+            }
           }
-          .recording-title {
-            padding-bottom: 5px;
+          .recording-month-item {
+            z-index: 100;
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: space-between;
+            box-sizing: border-box;
+            padding-top: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #bbb;
+            &:hover {
+              cursor: pointer;
+            }
+            .month-title {
+              padding-bottom: 5px;
+            }
           }
-          .recording-date {
-            text-align: right;
-            padding-bottom: 5px;
+          .recording-list-item {
+            z-index: 100;
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: space-between;
+            box-sizing: border-box;
+            padding-top: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #bbb;
+            &:hover {
+              cursor: pointer;
+            }
+            .recording-title {
+              padding-bottom: 5px;
+            }
+            .recording-date {
+              text-align: right;
+              padding-bottom: 5px;
+            }
+            .recording-days-ago {
+              text-align: right;
+            }
           }
-          .recording-days-ago {
-            text-align: right;
-          }
+          
         }
       }
     }
