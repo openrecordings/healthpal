@@ -199,6 +199,7 @@ if (document.querySelector('#play-view')) {
     $(document).on("click", ".recording-date-item", function(){
       var testing2 = $(this).data('recording-year');
       $(`.recording-month-item[data-recording-year=${testing2}]`).toggle();
+      $(`.recording-list-item[data-recording-year=${testing2}]`).hide();
     });
 
     $(document).on("click", ".recording-month-item", function(){
