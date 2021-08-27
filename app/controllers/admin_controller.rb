@@ -66,7 +66,6 @@ class AdminController < ApplicationController
   end
 
   def switch_to_user
-    puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
     user = User.find_by(id: params[:user_id])
     if user
       reset_session

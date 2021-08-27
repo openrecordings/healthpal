@@ -36,6 +36,11 @@ class User < ApplicationRecord
     end
   end
 
+  def send_reset_password_instructions
+    super 
+    Honeybadger.notify("password reset!")
+  end
+
 	# https://github.com/plataformatec/devise#activejob-integration
   def send_devise_notification(notification, *args)
     devise_mailer.send(notification, self, *args).deliver_later

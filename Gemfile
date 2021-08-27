@@ -44,6 +44,7 @@ gem 'rspec'
 gem 'browserstack-local'
 gem 'websocket-extensions', '>= 0.1.5'
 gem 'httparty'
+gem 'honeybadger', '~> 4.0'
 group :development do
   gem 'interactive_editor'
   gem 'listen', '~> 3.0.5'

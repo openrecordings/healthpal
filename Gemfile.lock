@@ -159,6 +159,7 @@ GEM
     haml (5.1.1)
       temple (>= 0.8.0)
       tilt
+    honeybadger (4.9.0)
     httparty (0.18.1)
       mime-types (~> 3.0)
       multi_xml (>= 0.5.2)
@@ -350,6 +351,7 @@ DEPENDENCIES
   gem-licenses
   geocoder (>= 1.6.1)
   haml
+  honeybadger (~> 4.0)
   httparty
   inline_svg
   interactive_editor

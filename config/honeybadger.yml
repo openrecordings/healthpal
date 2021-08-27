@@ -1,0 +1,6 @@
+---
+api_key: 'hbp_gJvIIVOosNUGMUejWdtM0UsfXo14CU4hFIuO'
+# development:
+#   report_data: true
+exceptions:
+  ignore: []
