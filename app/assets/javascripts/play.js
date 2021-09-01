@@ -198,14 +198,16 @@ if (document.querySelector('#play-view')) {
 
     $(document).on("click", ".recording-date-item", function(){
       var testing2 = $(this).data('recording-year');
-      $(`.recording-month-item[data-recording-year=${testing2}]`).toggle();
-      $(`.recording-list-item[data-recording-year=${testing2}]`).hide();
+      var testing3 = $(this).data('user-id');
+      $(`.recording-month-item[data-user-id=${testing3}][data-recording-year=${testing2}]`).toggle();
+      $(`.recording-list-item[data-user-id=${testing3}][data-recording-year=${testing2}]`).hide();
     });
 
     $(document).on("click", ".recording-month-item", function(){
       var testing2 = $(this).data('recording-year');
       var testing3 = $(this).data('recording-month');
-      $(`.recording-list-item[data-recording-year=${testing2}][data-recording-month=${testing3}]`).toggle();
+      var testing4 = $(this).data('user-id');
+      $(`.recording-list-item[data-user-id=${testing4}][data-recording-year=${testing2}][data-recording-month=${testing3}]`).toggle();
     });
 
     recordingId = $('#play-view').data('initial-recording-id');

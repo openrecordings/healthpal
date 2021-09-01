@@ -1,4 +1,4 @@
-.recording-list-item.log(id="select-recording-#{recording.id}" data-recording-id="#{recording.id}" data-recording-year="#{recording.created_at.year}" data-recording-month="#{recording.created_at.month}")
+.recording-list-item.log(id="select-recording-#{recording.id}" data-recording-id="#{recording.id}" data-user-id="#{recording.user_id}" data-recording-year="#{recording.created_at.year}" data-recording-month="#{recording.created_at.month}")
   .recording-description
     .recording-title= recording.title
     - if recording.provider

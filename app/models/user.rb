@@ -85,11 +85,12 @@ class User < ApplicationRecord
     end
     users.each do |user|
       recordings_by_year = []
+      user_recordings = recordings.select{|r| r.user == user}
 
       years.each do |year|
         recordings_by_month = []
         
-        year_recordings = recordings.select{|r| r.created_at.year == year}        
+        year_recordings = user_recordings.select{|r| r.created_at.year == year}        
         months = year_recordings.map{|r| r.created_at.month}.uniq
 
         months.each do |month| 
