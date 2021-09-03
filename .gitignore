@@ -15,4 +15,5 @@
 /dev-assets
 /app/.DS_Store
 /app/assets/.DS_Store
+.DS_Store
 /.vscode

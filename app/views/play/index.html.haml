@@ -39,7 +39,7 @@
               .recording-owner= user_name
             #testing 
               - user_and_recordings[:recordings_by_date].each do |r_array|
-                = render 'recording_date_item', r_array: r_array
+                = render 'recording_date_item', user_id:user.id, r_array: r_array, recording:r_array[0][0], count:0
     -else
       #no-recordings
         .pad-30= t(:recordings_appear_here)

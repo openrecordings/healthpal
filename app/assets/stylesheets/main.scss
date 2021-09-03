@@ -311,6 +311,18 @@ textarea {
   background-color: white;
 }
 
+.test-even-row {
+  background-color: rgba(236, 236, 236, 0.308);
+}
+
+.test-odd-row {
+  background-color: rgba(196, 206, 216, 0.5);
+}
+
+.rotate-z-90 {
+  transform: rotateZ(90deg);
+}
+
 .svg {
   height: 30px;
   width: 30px;

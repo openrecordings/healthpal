@@ -79,13 +79,13 @@ class User < ApplicationRecord
     return [] unless recordings.any?
     recordings_by_user = []
     users = recordings.map{|r| r.user}.uniq
-    years = recordings.map{|r| r.created_at.year}.uniq
     if users.select{|u| !u.last_name.nil?}.length == users.length
       users = users.sort_by{|u| u.last_name.downcase}
     end
     users.each do |user|
       recordings_by_year = []
       user_recordings = recordings.select{|r| r.user == user}
+      years = user_recordings.map{|r| r.created_at.year}.uniq
 
       years.each do |year|
         recordings_by_month = []
