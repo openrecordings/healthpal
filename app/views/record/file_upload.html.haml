@@ -1,9 +1,19 @@
-.row
-  .col-xs-4
-  .col-xs-4
-    %h3= 'Upload audio recording'
-    = form_for @recording, url: upload_file_path do |f|
-      %p= f.select :user, @users, label: 'Upload recording for', include_blank: true
-      %p= f.file_field :file, label: 'Currently only .flac files are supported'
-      %p= f.submit 'Upload Now', class: 'btn btn-primary'
-  .col-xs-4
+.pad-30.horizontal-center
+  .centered-form-container
+    .row
+      .col-xs-4
+      .col-xs-4
+        %h3= 'Upload audio recording'
+        = form_for @recording, url: upload_file_path do |f|
+          .form-label.margin-bottom-10 Please select a user to upload a recording for
+          = f.select :user, @users, {include_blank: false}, {:class => "select-css"}
+          %p
+          #file-upload
+            .no-file.form-label.margin-bottom-10 No file chosen
+            .chose-file.form-label.margin-bottom-10.file-name.hidden Testing
+            %label.file-button
+              Choose file
+              = f.file_field :file, {:class => "no-display"}
+          %p  
+          = f.submit 'Upload Now', class: 'button'
+      .col-xs-4

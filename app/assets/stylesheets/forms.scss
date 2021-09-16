@@ -107,6 +107,23 @@ form{
   font-size: 18px;
 }
 
+.file-button {
+  @include button;
+  height: 45px;
+  line-height: 45px;
+  width: 100%;
+  max-width: $form-input-max-width;
+  font-size: 18px;
+}
+
+.file-name {
+  word-break: break-all;
+}
+
+.no-display{
+  display: none;
+}
+
 .admin-button{
   @include button;
   padding: 12px 16px 12px 16px;
