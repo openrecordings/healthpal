@@ -17,6 +17,10 @@ class RecordController < ApplicationController
 
   # Admin-uploaded recordings
   def upload_file
+    if (recording_params[:file] == nil) 
+      flash.notice = 'Please select a recording'
+      redirect_to file_upload_path and return
+    end
     handle_blob(recording_params[:file].read, User.find_by(id: recording_params[:user]), true)
     flash.notice = 'Recording uploaded'
   end

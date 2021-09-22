@@ -10,6 +10,8 @@ class User < ApplicationRecord
   has_many :visits, class_name: 'Ahoy::Visit'
   has_many :clicks
 
+  attr_reader :raw_invitation_token
+
   scope :regular, -> { where role: 'user' }
 
   before_validation :set_defaults
@@ -118,6 +120,12 @@ class User < ApplicationRecord
     rescue StandardError => e
       logger.error ([e.message] + e.backtrace).join($/)
     end
+  end
+
+  def send_sms_test(invite_url)
+    puts("SEND SMS TEXT!!!!!: #{invite_url}")
+    sms_text = "#{I18n.t(:share_invite_sms)} #{invite_url}"
+    send_sms(sms_text)
   end
 
   def send_sms_token

@@ -1,0 +1,35 @@
+.pad-30.horizontal-center
+  .centered-form-container
+    .form-title.margin-bottom-40 Invite New User
+    = form_for resource, as: resource_name, url: post_test_invitation_path(resource_name), html: {method: :post} do |f|
+      - resource.class.invite_key_fields.each do |field|
+        .form-label= t(:email_address)
+        = f.text_field field,
+          class: 'form-input',
+          autofocus: true,
+          class: 'form-input',
+          placeholder: t(:email_address),
+          data: {placeholder: t(:email_address)}
+        .input-underscore-tight
+      .form-label= t(:phone_number)
+      = f.text_field :phone_number,
+        class: 'form-input phone-number',
+        autofocus: true,
+        placeholder: t(:phone_number),
+        data: {placeholder: t(:phone_number)}
+      .input-underscore-tight
+      .form-label.margin-bottom-10 Select invitation method
+      = select_tag "invitation_method", options_for_select([['Email' ,'Email'], ['Text', 'Text']]), {class: 'select-css'}
+      %p
+      %p
+        .form-label.margin-bottom-10 Role for new user. CAUTION: Admins can manage users and access all of your institution's recordings
+        = f.select :role, {'User': 'user', 'Admin': 'admin'}, {}, {class: 'select-css'}
+      - if current_user.root?
+        %p
+          .form-label Organization for new user
+          = f.collection_select(:org_id, Org.all, :id, :name, {}, {class: 'form-input select-css'})
+      - else
+        = f.hidden_field :org_id, value: current_user.org_id
+      %p.margin-top-20
+        = f.submit 'Send Invitation', class: 'button'
+    = button_to 'Cancel', admin_path, class: 'button', method: :get

@@ -125,6 +125,27 @@ class AdminController < ApplicationController
     end
   end
 
+  # Create new user
+  def create_registration2
+    @user = User.new(
+      first_name: user_params[:first_name],
+      last_name: user_params[:last_name],
+      email: user_params[:email],
+      # Only root can choose an org for a new account
+      org_id: current_user.root? ? user_params[:org_id] : current_user.org.id,
+      phone_number: user_params[:phone_number],
+      password: user_params[:password],
+      timezone: user_params[:timezone],
+      role: 'user'
+    )
+    if @user.save
+      redirect_to :root and return
+    else
+      flash.alert = @user.errors.full_messages
+      redirect_to new_registration_path(email: @user.email)
+    end
+  end
+
   # Select an existing user to switch to
   def switch_user_select
     @users = current_user.viewable_users.select { |u| u != current_user }

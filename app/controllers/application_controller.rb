@@ -74,6 +74,7 @@ class ApplicationController < ActionController::Base
   # Allow devise_invitable to handle the added parameters when creating users
   def configure_permitted_parameters
     keys = %i[
+      phone_number
       org_id
       role
       timezone_offset
@@ -83,6 +84,7 @@ class ApplicationController < ActionController::Base
     ]
     devise_parameter_sanitizer.permit(:invite, keys: keys)
     devise_parameter_sanitizer.permit(:register, keys: keys)
+    # devise_parameter_sanitizer.permit(:test_invitation, keys: keys)
   end
 
   def set_cache_buster

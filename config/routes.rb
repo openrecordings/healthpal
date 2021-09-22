@@ -2,7 +2,11 @@ Rails.application.routes.draw do
 
   # TODO Clean this file up. Make it resourceful.
 
-  devise_for :users, controllers: {invitations: 'invitations'}
+  devise_for :users, controllers: {invitations: 'invitations'} 
+  devise_scope :user do
+    get 'test_invitation', to: 'invitations#test_invitation'
+    post 'post_test_invitation', to: 'invitations#post_test_invitation'
+  end
 
   root 'home#index'
 
@@ -29,6 +33,7 @@ Rails.application.routes.draw do
   get 'new_registration',              to: 'admin#new_registration'
   post 'set_password',                 to: 'admin#set_password'
   post 'create_registration',          to: 'admin#create_registration'
+  post 'create_registration2',          to: 'admin#create_registration2'
   get 'switch_user_select',            to: 'admin#switch_user_select'
   post 'switch_to_user',               to: 'admin#switch_to_user'
   get 'new_caregiver',                 to: 'admin#new_caregiver'
