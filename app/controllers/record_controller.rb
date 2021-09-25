@@ -10,13 +10,21 @@ class RecordController < ApplicationController
   end
 
   # View for manually uploading an existing file
-  def file_upload
+  def file_upload()
     @recording = Recording.new
     @users = User.regular.map {|u| [u.email, u.id]}
+    @selected_user = params[:sel]
   end
 
   # Admin-uploaded recordings
   def upload_file
+    if (recording_params[:file] == nil) 
+      selected = recording_params[:user]
+      flash.notice = 'Please select a recording'
+      redirect_to file_upload_path(sel: selected)
+      return
+    end
+    
     handle_blob(recording_params[:file].read, User.find_by(id: recording_params[:user]), true)
     flash.notice = 'Recording uploaded'
   end

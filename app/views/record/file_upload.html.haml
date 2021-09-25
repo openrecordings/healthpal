@@ -6,7 +6,10 @@
         %h3= 'Upload audio recording'
         = form_for @recording, url: upload_file_path do |f|
           .form-label.margin-bottom-10 Please select a user to upload a recording for
-          = f.select :user, @users, {include_blank: false}, {:class => "select-css"}
+          - if @selected_user.present?
+            = f.select :user, @users, {include_blank: false, selected: @selected_user}, {:class => "select-css"}
+          - else
+            = f.select :user, @users, {include_blank: false}, {:class => "select-css"}
           %p
           #file-upload
             .no-file.form-label.margin-bottom-10 No file chosen
