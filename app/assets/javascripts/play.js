@@ -191,7 +191,13 @@ if (document.querySelector('#play-view')) {
   }
 
   function stripeTable(currentTab) {
-    currentTab.find('.list-item.vis').removeClass('test-odd-row test-even-row');
+    currentTab.find('.list-item').removeClass('test-odd-row test-even-row');
+
+    currentTab.find('.year.list-item.open').next().find('.month.list-item').addClass('vis');
+    currentTab.find('.year.list-item').not('.open').next().find('.month.list-item').removeClass('vis');
+    currentTab.find('.month.list-item.open').next().find('.rec.list-item').addClass('vis');
+    currentTab.find('.month.list-item').not('.open').next().find('.rec.list-item').removeClass('vis');
+    
     currentTab.find('.list-item.vis:odd').addClass('test-odd-row');
     currentTab.find('.list-item.vis:even').addClass('test-even-row')
   }
@@ -201,36 +207,18 @@ if (document.querySelector('#play-view')) {
     /////////////////////////////////////////////////////////////////////////////////////////////////
     
     $('.recording-table-container').each(function() {
-      $(this).find('.recording-year:odd').closest('.list-item').addClass('vis test-odd-row');
-      $(this).find('.recording-year:even').closest('.list-item').addClass('vis test-even-row');;
+      $(this).find('.list-item.vis:odd').addClass('test-odd-row');
+      $(this).find('.list-item.vis:even').addClass('test-even-row');
     });
 
     $(document).on("click", "div#select tr.list-item", function(){
       let parentTable = $(this).closest('.recording-table-container');
       let subTable = $(this).next();
 
-      if ($(this).find($('.recording-year')).length > 0) {
-        $(this).toggleClass('open');
-
-        parentTable.find('.open').next().find('.recording-month').closest('.list-item').addClass('vis');
-        parentTable.find('.list-item').not('.open').next().find('.recording-month').closest('.list-item').removeClass('vis');
-        parentTable.find('.open').next().find('.recording-list-item').closest('.list-item').addClass('vis');
-        parentTable.find('.list-item').not(".open").next().find('.recording-list-item').closest('.list-item').removeClass('vis');
-        
-        stripeTable(parentTable);
-        $(this).find('.expand-svg').toggleClass('rotate-z-90');  
-        subTable.find('.table-wrapper').first().slideToggle(50);   
-      }
-
-      if ($(this).find($('.recording-month')).length > 0) {
-        $(this).toggleClass('open');
-        parentTable.find('.open').next().find('.recording-list-item').closest('.list-item').addClass('vis');
-        parentTable.find('.list-item').not(".open").next().find('.recording-list-item').closest('.list-item').removeClass('vis');
-
-        stripeTable(parentTable);
-        $(this).find('.expand-svg').toggleClass('rotate-z-90');  
-        subTable.find('.table-wrapper').first().slideToggle(50);   
-      }
+      $(this).toggleClass('open');
+      stripeTable(parentTable);
+      $(this).find('.expand-svg').toggleClass('rotate-z-90');  
+      subTable.find('.table-wrapper').first().slideToggle(50);   
     });
 
     recordingId = $('#play-view').data('initial-recording-id');

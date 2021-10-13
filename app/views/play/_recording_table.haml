@@ -2,7 +2,7 @@
   %table
     %tbody
       - testing_arr.each do |year_array|
-        %tr.table-row.list-item.vis 
+        %tr.table-row.year.list-item.vis 
           %td
             .recording-year
               = inline_svg('play.svg', class: 'expand-svg')
@@ -15,7 +15,7 @@
               %table
                 %tbody
                   - year_array.each do |month_array|
-                    %tr.table-row.list-item
+                    %tr.table-row.month.list-item
                       %td
                         .recording-month
                           = inline_svg('play.svg', class: 'expand-svg')
@@ -28,7 +28,7 @@
                           %table
                             %tbody
                               - month_array.each do |recording|
-                                %tr.table-row.list-item
+                                %tr.table-row.rec.list-item
                                   %td
                                     .recording-list-item.log(id="select-recording-#{recording.id}" data-recording-id="#{recording.id}")
                                       .recording-description
