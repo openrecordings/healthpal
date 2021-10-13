@@ -73,6 +73,48 @@ class User < ApplicationRecord
     return recordings_by_user
   end
 
+  def viewable_recordings_by_user_date
+    recordings = viewable_recordings
+    return [] unless recordings.any?
+    recordings_by_user = []
+    users = recordings.map{|r| r.user}.uniq
+    if users.select{|u| !u.last_name.nil?}.length == users.length
+      users = users.sort_by{|u| u.last_name.downcase}
+    end
+    users.each do |user|
+      recordings_by_year = []
+      user_recordings = recordings.select{|r| r.user == user}
+      years = user_recordings.map{|r| r.created_at.year}.uniq
+
+      years.each do |year|
+        recordings_by_month = []
+        
+        year_recordings = user_recordings.select{|r| r.created_at.year == year}        
+        months = year_recordings.map{|r| r.created_at.month}.uniq
+
+        months.each do |month| 
+          month_recordings = year_recordings.select{|r| r.created_at.month == month}
+          recordings_by_month << month_recordings
+        end
+
+        recordings_by_year << recordings_by_month
+      end
+
+      user_recordings = {
+          user: user,
+          recordings: recordings.select{|r| r.user == user},
+          recordings_by_date: recordings_by_year
+        }
+
+      if user == self
+        recordings_by_user.insert(0, user_recordings)
+      else
+        recordings_by_user << user_recordings
+      end
+    end
+    return recordings_by_user
+  end
+
   def viewable_users
     case role
     when 'user'

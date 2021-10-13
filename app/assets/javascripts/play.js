@@ -190,9 +190,37 @@ if (document.querySelector('#play-view')) {
     }
   }
 
+  function stripeTable(currentTab) {
+    currentTab.find('.list-item').removeClass('list-odd-row list-even-row');
+
+    currentTab.find('.year.list-item.vis.open').next().find('.month.list-item').addClass('vis');
+    currentTab.find('.year.list-item').not('.vis.open').next().find('.month.list-item').removeClass('vis');
+    currentTab.find('.month.list-item.vis.open').next().find('.rec.list-item').addClass('vis');
+    currentTab.find('.month.list-item').not('.vis.open').next().find('.rec.list-item').removeClass('vis');
+    
+    currentTab.find('.list-item.vis:odd').addClass('list-odd-row');
+    currentTab.find('.list-item.vis:even').addClass('list-even-row')
+  }
+
   $(document).ready(function () {
     // Initialization
     /////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    $('.recording-table-container').each(function() {
+      $(this).find('.list-item.vis:odd').addClass('list-odd-row');
+      $(this).find('.list-item.vis:even').addClass('list-even-row');
+    });
+
+    $(document).on("click", "div#select tr.list-item", function(){
+      let parentTable = $(this).closest('.recording-table-container');
+      let subTable = $(this).next();
+
+      $(this).toggleClass('open');
+      stripeTable(parentTable);
+      $(this).find('.expand-svg').toggleClass('rotate-z-90');  
+      subTable.find('.table-wrapper').first().slideToggle(50);   
+    });
+
     recordingId = $('#play-view').data('initial-recording-id');
     if (recordingId != null) {
       loadVideo();

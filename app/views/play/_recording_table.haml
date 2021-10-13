@@ -1,0 +1,33 @@
+.recording-table-container(data-user-id="#{rec_array[0][0][0].user_id}")
+  %table
+    %tbody
+      - rec_array.each do |year_array|
+        %tr.table-row.year.list-item.vis 
+          %td
+            .recording-year
+              = inline_svg('play.svg', class: 'expand-svg')
+              .svg-padding
+              = inline_svg('folder-fill.svg', class: 'icon-svg')
+              .year-title= year_array[0][0].created_at.strftime("%Y Appointments")
+        %tr.table-row
+          %td
+            .table-wrapper.hidden
+              %table
+                %tbody
+                  - year_array.each do |month_array|
+                    %tr.table-row.month.list-item
+                      %td
+                        .recording-month
+                          = inline_svg('play.svg', class: 'expand-svg')
+                          .svg-padding
+                          = inline_svg('folder-fill.svg', class: 'icon-svg')
+                          .month-title= month_array[0].created_at.strftime("%B Appointments")
+                    %tr.table-row
+                      %td
+                        .table-wrapper.hidden
+                          %table
+                            %tbody
+                              - month_array.each do |recording|
+                                %tr.table-row.rec.list-item
+                                  %td
+                                    = render 'recording_list_item', recording: recording

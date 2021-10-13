@@ -37,8 +37,7 @@
               - user_name = 'No user name found!'
             - unless user == current_user && @recordings_by_user.length == 1
               .recording-owner= user_name
-            - user_and_recordings[:recordings].each do |recording|
-              = render 'recording_list_item', recording: recording
+            = render 'recording_table', rec_array: user_and_recordings[:recordings_by_date]
     -else
       #no-recordings
         .pad-30= t(:recordings_appear_here)

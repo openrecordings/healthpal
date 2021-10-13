@@ -1,5 +1,7 @@
 .recording-list-item.log(id="select-recording-#{recording.id}" data-recording-id="#{recording.id}")
   .recording-description
+    .svg-padding
+    = inline_svg('file-earmark-play-fill.svg', class: 'icon-svg')
     .recording-title= recording.title
     - if recording.provider
       .recording-provider.italic-note= recording.provider
