@@ -83,7 +83,7 @@ class AdminController < ApplicationController
       role: 'user'
     )
     if @user.save
-      # sign_in @user
+      sign_in @user
       redirect_to :root and return
     else
       flash.alert = @user.errors.full_messages

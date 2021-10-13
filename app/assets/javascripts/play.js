@@ -34,7 +34,7 @@ if (document.querySelector('#play-view')) {
 
   function showPlayer() {
     $('#recording-is-not-processed').hide();
-    $('#player-container').show();  
+    $('#player-container').show();
   }
 
   function hidePlayer() {
@@ -191,15 +191,15 @@ if (document.querySelector('#play-view')) {
   }
 
   function stripeTable(currentTab) {
-    currentTab.find('.list-item').removeClass('test-odd-row test-even-row');
+    currentTab.find('.list-item').removeClass('list-odd-row list-even-row');
 
-    currentTab.find('.year.list-item.open').next().find('.month.list-item').addClass('vis');
-    currentTab.find('.year.list-item').not('.open').next().find('.month.list-item').removeClass('vis');
-    currentTab.find('.month.list-item.open').next().find('.rec.list-item').addClass('vis');
-    currentTab.find('.month.list-item').not('.open').next().find('.rec.list-item').removeClass('vis');
+    currentTab.find('.year.list-item.vis.open').next().find('.month.list-item').addClass('vis');
+    currentTab.find('.year.list-item').not('.vis.open').next().find('.month.list-item').removeClass('vis');
+    currentTab.find('.month.list-item.vis.open').next().find('.rec.list-item').addClass('vis');
+    currentTab.find('.month.list-item').not('.vis.open').next().find('.rec.list-item').removeClass('vis');
     
-    currentTab.find('.list-item.vis:odd').addClass('test-odd-row');
-    currentTab.find('.list-item.vis:even').addClass('test-even-row')
+    currentTab.find('.list-item.vis:odd').addClass('list-odd-row');
+    currentTab.find('.list-item.vis:even').addClass('list-even-row')
   }
 
   $(document).ready(function () {
@@ -207,8 +207,8 @@ if (document.querySelector('#play-view')) {
     /////////////////////////////////////////////////////////////////////////////////////////////////
     
     $('.recording-table-container').each(function() {
-      $(this).find('.list-item.vis:odd').addClass('test-odd-row');
-      $(this).find('.list-item.vis:even').addClass('test-even-row');
+      $(this).find('.list-item.vis:odd').addClass('list-odd-row');
+      $(this).find('.list-item.vis:even').addClass('list-even-row');
     });
 
     $(document).on("click", "div#select tr.list-item", function(){

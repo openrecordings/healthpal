@@ -1,0 +1,10 @@
+.recording-list-item.log(id="select-recording-#{recording.id}" data-recording-id="#{recording.id}")
+  .recording-description
+    .svg-padding
+    = inline_svg('file-earmark-play-fill.svg', class: 'icon-svg')
+    .recording-title= recording.title
+    - if recording.provider
+      .recording-provider.italic-note= recording.provider
+  .recording-date
+    .recording-date= minimal_date(recording.created_at)
+    .recoording-days-ago.italic-note= days_ago(recording.created_at)

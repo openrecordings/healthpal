@@ -51,7 +51,7 @@ class User < ApplicationRecord
     viewable.flatten.uniq.sort_by(&:created_at)
   end
 
-  def viewable_recordings_by_user_date
+  def viewable_recordings_by_user
     recordings = viewable_recordings
     return [] unless recordings.any?
     recordings_by_user = []
@@ -74,7 +74,7 @@ class User < ApplicationRecord
     return recordings_by_user
   end
 
-  def viewable_recordings_by_user
+  def viewable_recordings_by_user_date
     recordings = viewable_recordings
     return [] unless recordings.any?
     recordings_by_user = []
@@ -112,7 +112,6 @@ class User < ApplicationRecord
       else
         recordings_by_user << user_recordings
       end
-      
     end
     return recordings_by_user
   end
