@@ -1,7 +1,7 @@
-.recording-table-container(data-user-id="#{testing_arr[0][0][0].user_id}")
+.recording-table-container(data-user-id="#{rec_array[0][0][0].user_id}")
   %table
     %tbody
-      - testing_arr.each do |year_array|
+      - rec_array.each do |year_array|
         %tr.table-row.year.list-item.vis 
           %td
             .recording-year

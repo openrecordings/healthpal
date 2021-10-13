@@ -59,7 +59,6 @@ class User < ApplicationRecord
     if users.select{|u| !u.last_name.nil?}.length == users.length
       users = users.sort_by{|u| u.last_name.downcase}
     end
-
     users.each do |user|
       user_recordings = {
         user: user,
