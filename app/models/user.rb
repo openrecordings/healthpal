@@ -93,17 +93,15 @@ class User < ApplicationRecord
         months = year_recordings.map{|r| r.created_at.month}.uniq
 
         months.each do |month| 
-          month_recordings = year_recordings.select{|r| r.created_at.month == month}
+          month_recordings = year_recordings.select{|r| r.created_at.month == month}.sort_by{|r| r.created_at}.reverse
           recordings_by_month << month_recordings
         end
-
-        recordings_by_year << recordings_by_month
+        recordings_by_year << recordings_by_month.sort_by{|r_array| r_array[0].created_at}.reverse
       end
-
+      
       user_recordings = {
           user: user,
-          recordings: recordings.select{|r| r.user == user},
-          recordings_by_date: recordings_by_year
+          recordings_by_date: recordings_by_year.sort_by{|r_array| r_array[0][0].created_at}.reverse
         }
 
       if user == self
