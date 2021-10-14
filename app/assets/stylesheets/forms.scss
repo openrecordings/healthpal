@@ -113,6 +113,22 @@ form{
   font-size: 16px;
 }
 
+.file-button {
+  @include button;
+  height: 45px;
+  line-height: 45px;
+  width: 100%;
+  max-width: $form-input-max-width;
+  font-size: 18px;
+}
+.file-name {
+  word-break: break-all;
+  white-space: pre-line;
+}
+.no-display{
+  display: none;
+}
+
 @mixin small-button{
   @include button;
   width: 100px;

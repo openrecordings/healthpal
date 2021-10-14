@@ -14,15 +14,22 @@ class RecordController < ApplicationController
   def file_upload
     @recording = Recording.new
     @users = User.regular.map {|u| [u.email, u.id]}
+    @selected_user = params[:sel]
   end
 
   # Admin-uploaded recordings
   def upload_file
+    if (recording_params[:file] == nil) 
+      selected = recording_params[:user]
+      flash.notice = 'Please select a recording'
+      redirect_to file_upload_path(sel: selected)
+      return
+    end
+
     for rec in recording_params[:file] do
       handle_blob_no_redirect(rec.read, User.find_by(id: recording_params[:user]))
     end
-
-    # handle_blob(recording_params[:file].read, User.find_by(id: recording_params[:user]), true)
+    
     flash.notice = 'Recordings uploaded'
     redirect_to :admin
   end
