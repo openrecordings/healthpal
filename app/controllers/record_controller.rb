@@ -10,7 +10,7 @@ class RecordController < ApplicationController
   end
 
   # View for manually uploading an existing file
-  def file_upload()
+  def file_upload
     @recording = Recording.new
     @users = User.regular.map {|u| [u.email, u.id]}
     @selected_user = params[:sel]
