@@ -1,5 +1,16 @@
 if (document.querySelector('form')) {
   $(document).ready(function () {
+    $('#file-upload').change(function() {
+      let filename = ""
+      for (var i = 0, f; f = $(".no-display").prop('files')[i]; i++) {
+        filename += f.name + "\n";
+      }
+      
+      $(".no-file").hide();
+      $(".chose-file")[0].innerHTML = filename;
+      $(".chose-file").show();
+    })
+
     $('input[autofocus]').each(function () {
       $(this).attr('placeholder', '');
       $(this).prev().css('visibility', 'visible');
