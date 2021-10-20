@@ -116,7 +116,9 @@ class AdminController < ApplicationController
       role: 'user'
     )
     if @user.save
-      sign_in @user
+      if current_user.org_name != 'VA'
+        sign_in @user
+      end
       redirect_to :root and return
     else
       flash.alert = @user.errors.full_messages
@@ -143,7 +145,7 @@ class AdminController < ApplicationController
 
   # View for creating a new caregiver [User]
   def new_caregiver
-    @users = current_user.viewable_users.select { |u| u != current_user }
+    @users = current_user.viewable_users
   end
 
   # Creates a new caregive [User]
