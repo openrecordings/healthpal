@@ -1,5 +1,6 @@
 class ReportsController < ApplicationController
   before_action :verify_privileged
+  before_action :verify_not_va
 
   def dashboard
     @report = Report.new(Participant.all)

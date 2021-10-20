@@ -113,6 +113,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def verify_not_va
+    if current_user&.org_name == "VA"
+      flash[:error] = 'You are not authorized to view that page'
+      redirect_to :root
+    end
+  end
+
   # For specified routes, create a [Click] record for the incoming request
   def log_request
     route = LOGGED_ROUTES.find do |r|
