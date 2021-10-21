@@ -85,7 +85,8 @@ class User < ApplicationRecord
     when 'user'
       [self]
     when 'admin'
-      [self] + org.users
+      viewable = [self] + org.users
+      viewable.uniq
     when 'root'
       User.all.to_a
     end

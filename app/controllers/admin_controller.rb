@@ -103,7 +103,7 @@ class AdminController < ApplicationController
     @user = User.new(user_params)
   end
 
-  # Create and swtich to new user
+  # Create new user
   def create_registration
     @user = User.new(
       first_name: user_params[:first_name],
@@ -117,7 +117,7 @@ class AdminController < ApplicationController
       role: 'user'
     )
     if @user.save
-      sign_in @user
+      # sign_in @user #Don't sign in for VA bc won't be using recording software
       redirect_to :root and return
     else
       flash.alert = @user.errors.full_messages

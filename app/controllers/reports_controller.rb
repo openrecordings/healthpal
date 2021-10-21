@@ -1,4 +1,5 @@
 class ReportsController < ApplicationController
+  before_action :prevent_access # Closing access for VA
   before_action :verify_privileged
 
   def dashboard

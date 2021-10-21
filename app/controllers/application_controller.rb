@@ -105,6 +105,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def prevent_access
+    flash[:error] = 'You are not authorized to view that page'
+    redirect_to :root
+  end
+
   # For specified routes, create a Click record for the incoming request
   def log_request
     route = LOGGED_ROUTES.find{|r| r[:controller] == request.parameters['controller'] && r[:rails_action] == request.parameters['action']}
