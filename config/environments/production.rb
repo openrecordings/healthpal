@@ -10,7 +10,7 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :ses
   config.action_mailer.default_url_options = {host: Rails.application.credentials[Rails.env.to_sym][:host]}
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default_options = {from: 'no-reply@va.audiohealthpal.edu'}
+  config.action_mailer.default_options = {from: 'susan.m.tarczewski@dartmouth.edu'}
 
   # Start vanilla Rails 6.0.0.RC1 production config
   config.cache_classes = true
