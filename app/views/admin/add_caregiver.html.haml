@@ -1,0 +1,22 @@
+.pad-30.horizontal-center
+  #add-caregiver-to-existing-form.centered-form-container
+    %p.form-title
+      Add a caregiver to an existing user
+    = form_with(url: create_share_path, local: true) do |f|
+      .form-label.margin-bottom-10
+        Caregiver for
+      - select_options = options_from_collection_for_select(@users, 'id', 'name_and_email')
+      = f.select(:sharer_id, select_options, {include_blank: true}, {class: 'form-input select-css margin-bottom-10'})
+
+      .form-label.margin-bottom-10
+        Caregiver
+      - select_options = options_from_collection_for_select(@caregivers, 'id', 'name_and_email')
+      = f.select(:cg, select_options, {include_blank: true}, {class: 'form-input select-css margin-bottom-10'})
+
+      .margin-top-15
+        = f.submit 'Create caregiver', class: 'button'
+
+    .margin-top-15
+      = button_to 'Cancel', admin_path, class: 'button', method: :get
+
+    %div{style: 'height:200px'}

@@ -1,8 +1,8 @@
 if (document.querySelector('form')) {
   $(document).ready(function () {
     $('#file-upload').change(function() {
-      var filename = $(".no-display").val()
       $(".no-file").hide();
+      let filename = $(".no-display").prop('files')[0].name;
       $(".chose-file")[0].innerHTML = filename;
       $(".chose-file").show();
     })

@@ -95,12 +95,17 @@ class AdminController < ApplicationController
   def new_registration
     # Creating a new user to hold params, but we're only going to set the email now
     @user = User.new
+    @caregivers = current_user.viewable_users.select { |u| u != current_user && u.created_as_caregiver} 
     @orgs = Org.all
   end
 
   # Set password for in-clinic user registration
   def set_password
     @user = User.new(user_params)
+    @cg_id = params[:cg]
+    if @user.org_id != User.find_by(id: @cg_id).org_id
+      flash.alert = "Caregiver and patient are not in the same organization"
+    end
   end
 
   # Create new user
@@ -115,13 +120,26 @@ class AdminController < ApplicationController
       password: user_params[:password],
       timezone: user_params[:timezone],
       role: 'user'
-    )
+    ) 
     if @user.save
       # sign_in @user #Don't sign in for VA bc won't be using recording software
       redirect_to :root and return
     else
       flash.alert = @user.errors.full_messages
       redirect_to new_registration_path(email: @user.email)
+    end
+
+    if user_params[:cg].present?
+      if @user.save
+        Share.create(
+          user_id: @user.id,
+          shared_with_user_id: user_params[:cg]
+        ) 
+        redirect_to :root and return
+      else
+        flash.alert = @user.errors.full_messages
+        redirect_to new_registration_path(email: @user.email)
+      end
     end
   end
 
@@ -143,14 +161,48 @@ class AdminController < ApplicationController
 
   def new_caregiver
     @users = current_user.viewable_users.select { |u| u != current_user }
+    @orgs = Org.all
+  end
+
+  def add_caregiver
+    @users = current_user.viewable_users.select { |u| u != current_user }
+    @caregivers = current_user.viewable_users.select { |u| u != current_user && u.created_as_caregiver} 
+  end
+
+  def create_share
+    if User.find_by(id: params['sharer_id']).org_id != User.find_by(id: params['cg']).org_id
+      flash.alert = 'Caregiver and patient organizations don\'t match'
+      redirect_to add_caregiver_path and return
+    elsif User.find_by(id: params['sharer_id']).get_caregivers.include? User.find_by(id: params['cg'])
+      flash.alert = 'Already sharing with this caregiver'
+      redirect_to :root
+    else
+      Share.create(user_id: params['sharer_id'], shared_with_user_id: params['cg'])
+      flash.alert = 'Caregiver added'
+      redirect_to :root
+    end
   end
 
   def create_caregiver
+    if current_user.root?
+      if !params['sharer_id'].present? && !params['org_id'].present?
+        flash.alert = 'Please select \'Caregiver for\' or \'Organization\' fields'
+        redirect_to new_caregiver_path and return
+      elsif params['sharer_id'].present? && params['org_id'].present? && User.find_by(id: params['sharer_id']).org_id.to_i != params['org_id'].to_i    
+        flash.alert = 'Caregiver and patient organizations don\'t match'
+        redirect_to new_caregiver_path and return
+      else
+        form_org_id = params['org_id'].present? ? params['org_id'].to_i : User.find_by(id: params['sharer_id']).org_id.to_i
+      end
+    elsif current_user.admin?
+      form_org_id = current_user.org_id
+    end
+
     @user = User.new(
       email: params['email'],
       role: 'user',
       active: true,
-      org_id: User.find_by(id: params['sharer_id']).org.id,
+      org_id: form_org_id,
       first_name: params['first_name'],
       last_name: params['last_name'],
       phone_number: params['phone_number'],
@@ -160,10 +212,12 @@ class AdminController < ApplicationController
     )
     @user.save
     @user.invite!
-    Share.create(
+    if params['sharer_id'].present?
+      Share.create(
       user_id: params['sharer_id'],
       shared_with_user_id: @user.id
     )
+    end
     flash.alert = 'Caregiver account created'
     redirect_to :root
   end
@@ -180,7 +234,8 @@ class AdminController < ApplicationController
       :password_2,
       :sharer_id,
       :timezone,
-      :org_id
+      :org_id,
+      :cg,
     )
   end
 

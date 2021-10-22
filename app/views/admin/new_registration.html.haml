@@ -33,6 +33,10 @@
         placeholder: t(:phone_number)
       .input-underscore
 
+      .form-label Select a caregiver
+      - select_options = options_from_collection_for_select(@caregivers, 'id', 'name_and_email')
+      = select_tag "cg", select_options, include_blank: true, class: 'margin-bottom-20 select-css'
+
       - if current_user.root?
         .form-label Organization
         = f.collection_select(:org_id, @orgs, :id, :name, {include_blank: true}, {class: 'margin-bottom-20 select-css'})

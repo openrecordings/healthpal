@@ -6,12 +6,38 @@ class TranscribeAwsJob < ApplicationJob
     @credentials = Rails.application.credentials
     transcode
     set_is_processed
+    uploaded_alert
     reminder_1
     reminder_2
     reminder_3
   end
 
   private
+
+  def uploaded_alert
+    @recording.user.get_caregivers.each do |cg|
+      Message.create(
+        user: cg,
+        recording: @recording,
+        mailer_method: 'uploaded_alert_cg', 
+        deliver_at: DateTime.now.in_time_zone,
+        deliver: true,
+        to_email: true,
+        to_sms: true,
+        sms_text_function: 'cg_alert_text'
+      )
+    end
+
+    Message.create(
+      recording: @recording,
+      mailer_method: 'reminder_1', 
+      deliver_at: DateTime.now.in_time_zone,
+      deliver: true,
+      to_email: true,
+      to_sms: true,
+      sms_text_function: 'reminder_1_text'
+    )
+  end
 
   def reminder_1
     Message.create(

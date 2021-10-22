@@ -6,7 +6,7 @@ RSpec.describe 'Everything' do
       puts 'SKIPPING Edge recording test'
       true
     else
-      @driver.navigate.to 'https://audiohealthpal.com'
+      @driver.navigate.to 'https://va.audiohealthpal.com'
       # Log in
       email_field = @driver.find_element(:id, 'user_email')
       email_field.send_keys @test_user_email
@@ -17,11 +17,11 @@ RSpec.describe 'Everything' do
       sleep 2.0
       submit_field.click
       sleep 2.0
-      expect(@driver.current_url).to eql('https://audiohealthpal.com/my_recordings')
+      expect(@driver.current_url).to eql('https://va.audiohealthpal.com/my_recordings')
       # Navigate to recording page
       @driver.find_element(:id, 'nav-new-recording').click
       sleep 1.5
-      expect(@driver.current_url).to eql('https://audiohealthpal.com/record')
+      expect(@driver.current_url).to eql('https://va.audiohealthpal.com/record')
       # Record and upload
       @driver.find_element(:id, 'record-start-button').click
       sleep 1.5
@@ -32,13 +32,13 @@ RSpec.describe 'Everything' do
       # Check every second for 30 seconds to see if the recording uploaded successfully
       while Time.now - start_time < 30
         sleep 2.0
-        break if @driver.current_url.include?('https://audiohealthpal.com/my_recordings')
+        break if @driver.current_url.include?('https://va.audiohealthpal.com/my_recordings')
       end
-      expect(@driver.current_url).to include('https://audiohealthpal.com/my_recordings')
+      expect(@driver.current_url).to include('https://va.audiohealthpal.com/my_recordings')
       # Select a recording
       @driver.find_element(:link, 'Tue, Nov 26, 2019').click
       sleep 1.5
-      expect(@driver.current_url).to include('https://audiohealthpal.com/play')
+      expect(@driver.current_url).to include('https://va.audiohealthpal.com/play')
       # Play
       sleep 6.0
       @driver.find_element(:id, 'play').click

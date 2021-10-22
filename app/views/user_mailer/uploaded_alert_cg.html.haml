@@ -1,0 +1,28 @@
+%p
+  Hi
+  = @user&.first_name
+  ,
+%p
+  Thank you again for participating in the AUDIO Trial.
+%p
+  Please click on this link to review the recording for your patient (
+  = @recording.user&.first_name
+  ) now (you will have to enter your email address and password):
+%p
+  https://va.audiohealthpal.com (Click on the link)
+%p
+  Listening back to the recording is a key part of making the project a success.
+%p
+  Listening to the recording from the visit can:
+  %br
+  ● Remind you of changes to your patient's treatment
+  %br
+  ● Hear your advice and recommendations to your patient
+  %br
+  ● Realize things you forgot to mention 
+  %br
+%p
+  Please contact us with any questions at 
+  = @user&.org&.contact_email_address 
+%p
+  Thanks again for taking part in the project!

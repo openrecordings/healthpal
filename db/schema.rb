@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_03_131715) do
+ActiveRecord::Schema.define(version: 2021_10_21_204944) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -150,8 +150,10 @@ ActiveRecord::Schema.define(version: 2021_06_03_131715) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "mailer_method"
     t.string "sms_text_function"
+    t.bigint "user_id"
     t.index ["message_template_id"], name: "index_messages_on_message_template_id"
     t.index ["recording_id"], name: "index_messages_on_recording_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
   create_table "orgs", force: :cascade do |t|
@@ -306,5 +308,6 @@ ActiveRecord::Schema.define(version: 2021_06_03_131715) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "messages", "users"
   add_foreign_key "tags", "tag_types"
 end

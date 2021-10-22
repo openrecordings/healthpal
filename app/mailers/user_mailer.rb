@@ -1,4 +1,15 @@
 class UserMailer < ApplicationMailer
+ 
+  def uploaded_alert_cg
+    @recording = params[:message].recording
+    @user = params[:message].user.nil? ? @recording.user : params[:message].user
+    mail(
+      from: @user.org.contact_email_address,
+      to: @user.email,
+      subject: 'A reminder to check out your recording'
+    )    
+  end
+
   def reminder_1
     @recording = params[:message].recording
     mail(

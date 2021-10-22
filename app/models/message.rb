@@ -1,6 +1,7 @@
 class Message < ApplicationRecord
 
   belongs_to :recording
+  belongs_to :user, optional: true
 
   # Called by Cron once per minute
   def self.send_due_messages

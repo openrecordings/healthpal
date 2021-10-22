@@ -8,6 +8,11 @@
       - select_options = options_from_collection_for_select(@users, 'id', 'name_and_email')
       = f.select(:sharer_id, select_options, {include_blank: true}, {class: 'form-input select-css margin-bottom-10'})
 
+      - if current_user.root?
+        .form-label.margin-bottom-10 Organization
+        - select_options = options_from_collection_for_select(@orgs, 'id', 'name')
+        = f.select(:org_id, select_options, {include_blank: true}, {class: 'form-input select-css margin-bottom-10'})
+
       .form-label.invisible= t(:first_name)
       = f.text_field :first_name,
         class: 'form-input',

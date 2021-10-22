@@ -42,6 +42,10 @@ class User < ApplicationRecord
     created_as_caregiver ? sign_in_count : sign_in_count - 1
   end
 
+  def get_caregivers
+    Share.active.where(user_id: id).map { |s| s.shared_with }
+  end
+
   def viewable_visits
     viewable = visits
     viewable += org.regular_user_visits if admin?
@@ -127,6 +131,10 @@ class User < ApplicationRecord
     self.phone_token = phone_token
     update(phone_token: new_phone_token)
     send_sms(sms_text)
+  end
+
+  def cg_alert_text
+    "#{I18n.t(:hi)} #{first_name},\n\n#{I18n.t(:cg_sms_1a)} #{org&.contact_email_address}\n\n#{I18n.t(:cg_sms_1b)}"
   end
 
   def reminder_1_text

@@ -26,6 +26,8 @@ Rails.application.routes.draw do
   get 'toggle_active/:id',             to: 'admin#toggle_active',                as: 'toggle_active'
   get 'toggle_can_record/:id',         to: 'admin#toggle_can_record',            as: 'toggle_can_record'
   get 'toggle_otp/:id',                to: 'admin#toggle_otp',                   as: 'toggle_otp'
+  get 'add_caregiver',                 to: 'admin#add_caregiver'
+  post 'create_share',                 to: 'admin#create_share'
   get 'new_registration',              to: 'admin#new_registration'
   post 'set_password',                 to: 'admin#set_password'
   post 'create_registration',          to: 'admin#create_registration'

@@ -16,13 +16,14 @@ class MessageJob < ActiveJob::Base
     begin
       UserMailer.with(message:  message).send(message.mailer_method).deliver_now 
     rescue => exception
+      puts exception
       puts 'EMAIL DELIVERY FAILED'
     end
   end
 
 
   def send_sms(message)
-    user = message.recording.user
+    user = message.user.nil? ? message.recording.user : message.user
     sms_text = user.send(message.sms_text_function)
     begin
       user.send_sms(sms_text)

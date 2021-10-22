@@ -17,6 +17,7 @@
     .admin-link-container= link_to 'Create Caregiver Account', new_caregiver_path, class: 'form-link medium', method: :get
     .admin-link-container= link_to 'Switch to Existing User', switch_user_select_path, class: 'form-link medium', method: :get
     .admin-link-container= link_to 'Upload Recording', file_upload_path, class: 'form-link medium', method: :get
+    .admin-link-container= link_to 'Add Caregiver for Existing User', add_caregiver_path, class: 'form-link medium', method: :get
     - if current_user.root?
       .admin-link-container= button_to 'Create New Organization', new_org_path, class: 'form-link medium', method: :get
 

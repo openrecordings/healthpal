@@ -14,9 +14,9 @@ Rails.application.configure do
   config.cache_classes = false
 
   # send email in development. Configured for Letter Opener
-  # config.action_mailer.perform_deliveries = true
-  # config.action_mailer.delivery_method = :letter_opener
-  # config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.delivery_method = :letter_opener
+  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
 
   # Do not eager load code on boot.
   config.eager_load = false
