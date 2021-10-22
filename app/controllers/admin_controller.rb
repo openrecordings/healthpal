@@ -102,10 +102,13 @@ class AdminController < ApplicationController
   # Set password for in-clinic user registration
   def set_password
     @user = User.new(user_params)
+    org_id = current_user.root? ? user_params[:org_id].to_i : current_user.org.id.to_i
+    
     unless !params[:cg].present?
-      @cg_id = params[:cg]
-      if @user.org_id != User.find_by(id: @cg_id).org_id
+      @cg_id = params[:cg].to_i
+      if org_id.to_i != User.find_by(id: @cg_id).org_id.to_i
         flash.alert = "Caregiver and patient are not in the same organization"
+        redirect_to new_registration_path(email: @user.email)
       end
     end
   end
