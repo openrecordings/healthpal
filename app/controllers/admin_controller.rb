@@ -170,7 +170,7 @@ class AdminController < ApplicationController
   end
 
   def add_caregiver
-    @users = current_user.viewable_users.select { |u| u != current_user }
+    @users = current_user.viewable_users.select { |u| u != current_user && !u.created_as_caregiver}
     @caregivers = current_user.viewable_users.select { |u| u != current_user && u.created_as_caregiver} 
   end
 
