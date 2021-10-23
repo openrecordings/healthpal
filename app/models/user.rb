@@ -5,6 +5,7 @@ class User < ApplicationRecord
 
   belongs_to :org, optional: true
   has_one :participant
+  has_one :message, dependent: :destroy
   has_many :recordings
   has_many :shares
   has_many :visits, class_name: 'Ahoy::Visit'
