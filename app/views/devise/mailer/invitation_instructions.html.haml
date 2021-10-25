@@ -1,16 +1,12 @@
 - if @resource.created_as_caregiver
   %p
-    Hello! A family member or friend would like to share with you
-    a recording of their recent doctor’s visit.
+    Hello! You have been invited to create an account for the HealthPAL application.
   %p
-    By listening to your loved one’s recording
-    you can stay up to date on their health and add comments on their recording (words of
-    encouragement or questions you might have).
+    By listening to your patient’s recordings
+    you can stay up to date on their health and add comments on their recordings.
   %p
     = link_to 'Click here', accept_invitation_url(@resource, invitation_token: @token)
-    to set up your account and begin using HealthPAL. You will receive a text message on your
-    mobile phone that contains a security code for HealthPAL. When you set up your account,
-    enter the security code to confirm your identity.
+    to set up your account and begin using HealthPAL.
 
 - else
   %p

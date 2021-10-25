@@ -128,23 +128,16 @@ class AdminController < ApplicationController
     ) 
     if @user.save
       # sign_in @user #Don't sign in for VA bc won't be using recording software
-      redirect_to :root and return
-    else
-      flash.alert = @user.errors.full_messages
-      redirect_to new_registration_path(email: @user.email)
-    end
-
-    if user_params[:cg].present?
-      if @user.save
+      if user_params[:cg].present?
         Share.create(
           user_id: @user.id,
           shared_with_user_id: user_params[:cg]
         ) 
-        redirect_to :root and return
-      else
-        flash.alert = @user.errors.full_messages
-        redirect_to new_registration_path(email: @user.email)
       end
+      redirect_to :root and return
+    else
+      flash.alert = @user.errors.full_messages
+      redirect_to new_registration_path(email: @user.email)
     end
   end
 
