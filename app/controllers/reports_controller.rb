@@ -1,6 +1,5 @@
 class ReportsController < ApplicationController
   before_action :verify_privileged
-  before_action :verify_not_va
 
   def dashboard
     @report = Report.new(Participant.all)
@@ -22,7 +21,7 @@ class Report
       body: {
         token: Rails.application.config.redcap_api_key,
         content: 'report',
-        report_id: '4717',
+        report_id: '4085',
         format: 'csv',
         raw_or_label: 'raw',
         raw_or_label_headers: 'raw',

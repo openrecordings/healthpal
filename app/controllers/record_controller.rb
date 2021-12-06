@@ -12,21 +12,12 @@ class RecordController < ApplicationController
   # View for manually uploading an existing file
   def file_upload
     @recording = Recording.new
-    @users = current_user.viewable_users.map {|u| [u.email, u.id]}
-    @selected_user = params[:sel]
+    @users = User.regular.map {|u| [u.email, u.id]}
   end
 
   # Admin-uploaded recordings
   def upload_file
-    if (recording_params[:file] == nil) 
-      selected = recording_params[:user]
-      flash.notice = 'Please select a recording'
-      redirect_to file_upload_path(sel: selected)
-      return
-    end
-
     handle_blob(recording_params[:file].read, User.find_by(id: recording_params[:user]), true)
-    flash.notice = 'Recording uploaded'
   end
 
   # For manually uploading a transcription from a file. Currently supports Acusis format
@@ -47,7 +38,7 @@ class RecordController < ApplicationController
   # Create a [Recording] record from the passed-in blob
   def handle_blob(blob, user, is_file_upload=false)
     sha1 = Digest::SHA1.hexdigest(blob)
-    filepath =  "#{Rails.root}/tmp/#{sha1}.ogg"
+    filepath = "#{Rails.root}/tmp/#{sha1}.ogg"
     File.open(filepath, 'wb') do |disk_file|
       disk_file.write(blob)
     end
@@ -68,7 +59,7 @@ class RecordController < ApplicationController
     end
     flash.keep(:alert)
     if is_file_upload
-      redirect_to :admin
+      redirect_to :recordings
     else
       render js: "window.location = 'play'"
     end

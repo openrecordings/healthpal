@@ -35,12 +35,6 @@ class User < ApplicationRecord
   def caregiver?
     created_as_caregiver
   end
-  
-  def org_name
-    unless org.nil?
-      org.name
-    end
-  end
 
   def corrected_sign_ins
     return 0 if sign_in_count.zero?
@@ -87,17 +81,14 @@ class User < ApplicationRecord
   end
 
   def viewable_users
-    viewable_users_a = []
     case role
     when 'user'
-      viewable_users_a = [self]
+      [self]
     when 'admin'
-      viewable_users_a = [self] + org.users
+      [self] + org.users
     when 'root'
-      viewable_users_a = User.all.to_a
+      User.all.to_a
     end
-
-    viewable_users_a.uniq
   end
 
   def total_clicks_on_play

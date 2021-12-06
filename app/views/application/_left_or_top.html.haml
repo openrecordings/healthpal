@@ -7,11 +7,10 @@
   id: 'nav-user-management',
   class: "responsive-font-size menu-item-#{position} #{current_path_in?(admin_path) ? menu_class_selected : menu_class}"
 
-  - if current_user.org_name != 'VA'
-    =link_to 'Reports',
-    dashboard_path,
-    id: 'nav-user-management',
-    class: "responsive-font-size menu-item-#{position} #{current_path_in?(dashboard_path) ? menu_class_selected : menu_class}"
+  =link_to 'Reports',
+  dashboard_path,
+  id: 'nav-user-management',
+  class: "responsive-font-size menu-item-#{position} #{current_path_in?(dashboard_path) ? menu_class_selected : menu_class}"
 
 =link_to "#{current_user.privileged? ? 'Recordings' : t(:recordings)}",
   play_path,
