@@ -15,7 +15,7 @@ docker run -d \
   -p 5432:5432 \
   -e POSTGRES_PASSWORD=not_so_secret \
   --mount type=volume,source=orals-dev-db,target=/var/lib/postgresql/data \
-  --name orals-dev-db postgres:13
+  --name orals-dev-db postgres:latest
 
 echo "---------- Building then running orals-dev-app container"
 docker build -t orals-dev-app -f Dockerfile-dev-app --build-arg rails_env=development .
