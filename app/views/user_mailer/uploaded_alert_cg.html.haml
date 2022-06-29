@@ -1,30 +1,23 @@
 %p
-  Hello
-  = @user&.first_name
+  Hello Dr. 
+  = @user&.last_name
   ,
 %p
-  Thank you again for participating in the Open Access Audio Research Study.
+  Thank you again for participating in the Open Access Audio Research Study. 
 %p
-  Please click on this link to review the recording for your patient 
+  As you are aware, one of your patients, 
   = @recording.user&.full_name
-  now. You will have to enter your email address and password:
+  , recently received access to a recording of a visit with you that they can listen to (stream) and may share with a caregiver. We are studying whether this improves their ability to manage their care. 
+%p
+  If you would like to hear the recording you may do so via the following link: 
 %p
   = link_to 'Click here', 'https://va.audiohealthpal.com'
 %p
-  If you are unable to open the link, please navigate to va.audiohealthpal.com in your browser of choice.
+  Your username is your VA email address. If you can't recall your password or never set one up, select "forgot password" and follow the instructions.
 %p
-  Listening back to the recording is a key part of making the project a success.
-%p
-  Listening to the recording from the visit can:
-  %br
-  ● Remind you of changes to your patient's treatment
-  %br
-  ● Hear your advice and recommendations to your patient
-  %br
-  ● Realize things you forgot to mention 
-  %br
+  If you are unable to open the link, please navigate to https://va.audiohealthpal.com in your browser of choice.
 %p
   Please contact us with any questions at 
   = @user&.org&.contact_email_address 
 %p
-  Thanks again for taking part in the project!
+  Thanks again for taking part in the study!
