@@ -13,4 +13,5 @@
     #content
       = render 'flash'
       = yield
+      %script{:src => "//js.honeybadger.io/v3.2/honeybadger.min.js", :type => "text/javascript"}
       = javascript_include_tag 'application'

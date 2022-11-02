@@ -6,11 +6,12 @@ echo "---------- Creating orals-net unless exists"
 docker network create --driver bridge orals-net > /dev/null  2>&1
 
 echo "---------- Building base image"
-docker build --pull -t orals-dev -f Dockerfile-base --build-arg rails_env=development .
+docker build --platform=linux/amd64 --pull -t orals-dev -f Dockerfile-base --build-arg rails_env=development .
 
 echo "---------- Building then running orals-dev-db container"
 docker pull postgres
 docker run -d \
+  --platform=linux/amd64 \
   --network orals-net \
   -p 5432:5432 \
   -e POSTGRES_PASSWORD=not_so_secret \
@@ -18,9 +19,10 @@ docker run -d \
   --name orals-dev-db postgres:13
 
 echo "---------- Building then running orals-dev-app container"
-docker build -t orals-dev-app -f Dockerfile-dev-app --build-arg rails_env=development .
+docker build --platform=linux/amd64 -t orals-dev-app -f Dockerfile-dev-app --build-arg rails_env=development .
 rm -f tmp/pids/server.pid
 docker run -d \
+  --platform=linux/amd64 \
   --network orals-net \
   -p 3000:3000 \
   -e RAILS_ENV=development \
@@ -30,8 +32,9 @@ docker run -d \
 
 
 echo "---------- Building then running orals-dev-jobs container"
-docker build -t orals-dev-jobs -f Dockerfile-dev-jobs --build-arg rails_env=development .
+docker build --platform=linux/amd64 -t orals-dev-jobs -f Dockerfile-dev-jobs --build-arg rails_env=development .
 docker run -d \
+  --platform=linux/amd64 \
   --network orals-net \
   -e RAILS_ENV=development \
   --mount type=bind,source="$(pwd)",target=/app \
